@@ -1730,13 +1730,18 @@ TypedArray<Node> Node::recursively_get_all_children() const {
 	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion:%lu usec\n", end - start);
 
 	start = OS::get_singleton()->get_ticks_usec();
-	auto d = this->find_children_w_data_cache_no_recursion_no_order("*", "", true, false);
+	auto d = this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
 	end = OS::get_singleton()->get_ticks_usec();
-	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_no_order:%lu usec\n", end - start);
+	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector:%lu usec\n", end - start);
+
+	start = OS::get_singleton()->get_ticks_usec();
+	auto e = this->find_children_w_data_cache_no_recursion_vector_no_order("*", "", true, false);
+	end = OS::get_singleton()->get_ticks_usec();
+	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector_no_order:%lu usec\n", end - start);
 
 	fflush(stderr);
 
-	return d;
+	return e;
 //*/
 	//return this->find_children_w_data_cache_no_recursion("*", "", true, false);
 }
@@ -1977,10 +1982,11 @@ TypedArray<Node> Node::find_children_w_data_cache(const String &p_pattern, const
 	TypedArray<Node> ret;
 	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), ret);
 
+	// Save basic pattern and type info for faster lookup
 	bool is_pattern_empty = p_pattern.is_empty();
 	bool is_type_empty = p_type.is_empty();
 	bool is_type_global_class = !is_type_empty && ScriptServer::is_global_class(p_type);
-	String type_global_path = (!is_type_empty) ? ScriptServer::get_global_class_path(p_type) : "";
+	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	_update_children_cache();
 	Node *const *cptr = data.children_cache.ptr();
@@ -2077,7 +2083,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion(const String &p_p
 	return matches;
 }
 
-TypedArray<Node> Node::find_children_w_data_cache_no_recursion_no_order(const String &p_pattern, const String &p_type, bool p_recursive, bool p_owned) const {
+TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const String &p_pattern, const String &p_type, bool p_recursive, bool p_owned) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 	TypedArray<Node> matches;
 	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), matches);
@@ -2095,6 +2101,72 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_no_order(const St
 		// Pop the next entry off the search stack
 		Node *entry = Object::cast_to<Node>(to_search[0]);
 		to_search.remove_at(0);
+
+		// Add all the children to the list to search
+		entry->_update_children_cache();
+		if (is_adding_children) {
+			Node *const *cptr = entry->data.children_cache.ptr();
+			int ccount = entry->data.children_cache.size();
+			for (int i = 0; i < ccount; i++) {
+				if (p_owned && !cptr[i]->data.owner) {
+					continue;
+				}
+
+				to_search.push_back(cptr[i]);
+			}
+
+			// Stop further child adding if we don't want recursive
+			if (!p_recursive) {
+				is_adding_children = false;
+			}
+		}
+
+		// Check if the entry matches
+		bool is_pattern_match = is_pattern_empty || entry->data.name.operator String().match(p_pattern);
+		bool is_type_match = is_type_empty || entry->is_class(p_type);
+		bool is_script_type_match = false;
+		if (!is_type_match) {
+			if (ScriptInstance *script_inst = entry->get_script_instance()) {
+				Ref<Script> scr = script_inst->get_script();
+				while (scr.is_valid()) {
+					if ((is_type_global_class && type_global_path == scr->get_path()) || p_type == scr->get_path()) {
+						is_script_type_match = true;
+						break;
+					}
+
+					scr = scr->get_base_script();
+				}
+			}
+		}
+
+		// Save it if it matches the pattern and at least one type
+		if (is_pattern_match && (is_type_match || is_script_type_match)) {
+			matches.append(entry);
+		}
+	}
+
+	return matches;
+}
+
+TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector_no_order(const String &p_pattern, const String &p_type, bool p_recursive, bool p_owned) const {
+	ERR_THREAD_GUARD_V(TypedArray<Node>());
+	TypedArray<Node> matches;
+	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), matches);
+
+	// Save basic pattern and type info for faster lookup
+	bool is_pattern_empty = p_pattern.is_empty();
+	bool is_type_empty = p_type.is_empty();
+	bool is_type_global_class = !is_type_empty && ScriptServer::is_global_class(p_type);
+	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
+
+	LocalVector<Node *> to_search;
+	to_search.push_back((Node *) this);
+	bool is_adding_children = true;
+	while (!to_search.is_empty()) {
+		// Pop the next entry off the search stack
+		int to_search_size = to_search.size();
+		Node *entry = Object::cast_to<Node>(to_search[to_search_size - 1]);
+		to_search.remove_at(to_search_size - 1);
 
 		// Add all the children to the list to search
 		entry->_update_children_cache();
@@ -3792,6 +3864,8 @@ void Node::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("find_children", "pattern", "type", "recursive", "owned"), &Node::find_children, DEFVAL(""), DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_method(D_METHOD("find_children_w_data_cache", "pattern", "type", "recursive", "owned"), &Node::find_children_w_data_cache, DEFVAL(""), DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_method(D_METHOD("find_children_w_data_cache_no_recursion", "pattern", "type", "recursive", "owned"), &Node::find_children_w_data_cache_no_recursion, DEFVAL(""), DEFVAL(true), DEFVAL(true));
+	ClassDB::bind_method(D_METHOD("find_children_w_data_cache_no_recursion_vector", "pattern", "type", "recursive", "owned"), &Node::find_children_w_data_cache_no_recursion_vector, DEFVAL(""), DEFVAL(true), DEFVAL(true));
+	ClassDB::bind_method(D_METHOD("find_children_w_data_cache_no_recursion_vector_no_order", "pattern", "type", "recursive", "owned"), &Node::find_children_w_data_cache_no_recursion_vector_no_order, DEFVAL(""), DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_method(D_METHOD("find_parent", "pattern"), &Node::find_parent);
 	ClassDB::bind_method(D_METHOD("has_node_and_resource", "path"), &Node::has_node_and_resource);
 	ClassDB::bind_method(D_METHOD("get_node_and_resource", "path"), &Node::_get_node_and_resource);
