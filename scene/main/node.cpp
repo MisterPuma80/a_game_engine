@@ -1977,7 +1977,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 	while (!to_search.is_empty()) {
 		// Pop the next entry off the search stack
 		Node *entry = Object::cast_to<Node>(to_search[0]);
-		to_search.remove_at(0);
+		to_search.remove_at_unordered(0);
 
 		// Add all the children to the list to search
 		entry->_update_children_cache();
