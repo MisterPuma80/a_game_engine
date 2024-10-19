@@ -1710,7 +1710,7 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 }
 
 TypedArray<Node> Node::recursively_get_all_children() const {
-///*
+/*
 	uint64_t start, end;
 	fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
 
@@ -1727,12 +1727,12 @@ TypedArray<Node> Node::recursively_get_all_children() const {
 	fflush(stderr);
 
 	return b;
-//*/
-	//return this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
+*/
+	return this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
 }
 
 TypedArray<Node> Node::recursively_get_all_children_of_type(const StringName &p_type) const {
-///*
+/*
 	uint64_t start, end;
 	fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
 
@@ -1749,8 +1749,8 @@ TypedArray<Node> Node::recursively_get_all_children_of_type(const StringName &p_
 	fflush(stderr);
 
 	return b;
-//*/
-	//return this->find_children_w_data_cache_no_recursion_vector("*", p_type, true, false);
+*/
+	return this->find_children_w_data_cache_no_recursion_vector("*", p_type, true, false);
 }
 
 TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p_group_name) const {
