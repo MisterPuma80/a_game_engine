@@ -1710,46 +1710,46 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 }
 
 TypedArray<Node> Node::recursively_get_all_children() const {
-/*
-	uint64_t start, end;
-	fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
+	/*
+		uint64_t start, end;
+		fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
 
-	start = OS::get_singleton()->get_ticks_usec();
-	auto a = this->find_children("*", "", true, false);
-	end = OS::get_singleton()->get_ticks_usec();
-	fprintf(stderr, "!!!!: find_children:%lu usec\n", end - start);
+		start = OS::get_singleton()->get_ticks_usec();
+		auto a = this->find_children("*", "", true, false);
+		end = OS::get_singleton()->get_ticks_usec();
+		fprintf(stderr, "!!!!: find_children:%lu usec\n", end - start);
 
-	start = OS::get_singleton()->get_ticks_usec();
-	auto b = this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
-	end = OS::get_singleton()->get_ticks_usec();
-	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector:%lu usec\n", end - start);
+		start = OS::get_singleton()->get_ticks_usec();
+		auto b = this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
+		end = OS::get_singleton()->get_ticks_usec();
+		fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector:%lu usec\n", end - start);
 
-	fflush(stderr);
+		fflush(stderr);
 
-	return b;
-*/
+		return b;
+	*/
 	return this->find_children_w_data_cache_no_recursion_vector("*", "", true, false);
 }
 
 TypedArray<Node> Node::recursively_get_all_children_of_type(const StringName &p_type) const {
-/*
-	uint64_t start, end;
-	fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
+	/*
+		uint64_t start, end;
+		fprintf(stderr, "------------------------------Called find_children-----------------------------\n");
 
-	start = OS::get_singleton()->get_ticks_usec();
-	auto a = this->find_children("*", p_type, true, false);
-	end = OS::get_singleton()->get_ticks_usec();
-	fprintf(stderr, "!!!!: find_children:%lu usec\n", end - start);
+		start = OS::get_singleton()->get_ticks_usec();
+		auto a = this->find_children("*", p_type, true, false);
+		end = OS::get_singleton()->get_ticks_usec();
+		fprintf(stderr, "!!!!: find_children:%lu usec\n", end - start);
 
-	start = OS::get_singleton()->get_ticks_usec();
-	auto b = this->find_children_w_data_cache_no_recursion_vector("*", p_type, true, false);
-	end = OS::get_singleton()->get_ticks_usec();
-	fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector:%lu usec\n", end - start);
+		start = OS::get_singleton()->get_ticks_usec();
+		auto b = this->find_children_w_data_cache_no_recursion_vector("*", p_type, true, false);
+		end = OS::get_singleton()->get_ticks_usec();
+		fprintf(stderr, "!!!!: find_children_w_data_cache_no_recursion_vector:%lu usec\n", end - start);
 
-	fflush(stderr);
+		fflush(stderr);
 
-	return b;
-*/
+		return b;
+	*/
 	return this->find_children_w_data_cache_no_recursion_vector("*", p_type, true, false);
 }
 
