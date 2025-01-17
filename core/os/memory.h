@@ -104,14 +104,9 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 	return p_obj;
 }
 
-#define memnewOld(m_class) _post_initialize(new ("") m_class)
-//#define memnewOldNoArgs(m_class) _post_initialize(new ("") m_class)
-#define memnewOldNoConstructor(m_class) _post_initialize(new ("") m_class)
-#define memnewOldWithArgs(m_class) _post_initialize(new ("") m_class)
-//#define memnew(m_class) _post_initialize(new ("") m_class)
-
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
+
 
 template <typename T>
 std::string get_type_name() {
@@ -124,14 +119,38 @@ std::string get_type_name() {
     return (status == 0) ? res.get() : name;
 }
 
+template <typename T>
+void print_type_info(const char* message) {
+	std::string type_name = get_type_name<T>();
+	std::cout << "!!!!! " << message << ": " << type_name << std::endl;
+	std::cout.flush();
+}
+
+#define memnewOldWithArgs2(T, m_class) \
+({ \
+	print_type_info<T>("memnewOldWithArgs2"); \
+	_post_initialize(new ("") m_class); \
+})
+
+#define memnewOldWithArgs3(name, m_class) \
+({ \
+	std::cout << "!!!!! memnewOldWithArgs3: " << name << std::endl; \
+	std::cout.flush(); \
+	_post_initialize(new ("") m_class); \
+})
+
+#define memnewOldNoConstructor(T) \
+({ \
+	T* result = new ("") T; \
+	print_type_info<T>("memnewOldNoConstructor"); \
+	_post_initialize(result); \
+	result; \
+})
+
 template <typename T, typename... Args>
 /*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
 	T* result = new ("") T(std::forward<Args>(args)...);
-/*
-	std::string type_name = get_type_name<T>();
-	std::cout << "!!!!! memnewWithArgs: " << type_name << std::endl;
-	std::cout.flush();
-*/
+	print_type_info<T>("memnewWithArgs");
 	postinitialize_handler(result);
 	return result;
 }
@@ -139,11 +158,7 @@ template <typename T, typename... Args>
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
 	T* result = new ("") T;
-/*
-	std::string type_name = get_type_name<T>();
-	std::cout << "!!!!! memnewNoArgs: " << type_name << std::endl;
-	std::cout.flush();
-*/
+	print_type_info<T>("memnewNoConstructor");
 	postinitialize_handler(result);
 	return result;
 }
@@ -151,15 +166,10 @@ template <typename T>
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
 	T* result = new ("") T;
-/*
-	std::string type_name = get_type_name<T>();
-	std::cout << "!!!!! memnewNoArgs: " << type_name << std::endl;
-	std::cout.flush();
-*/
+	print_type_info<T>("memnewNoArgs");
 	postinitialize_handler(result);
 	return result;
 }
-
 
 
 
@@ -278,7 +288,7 @@ template <typename T>
 class DefaultTypedAllocator {
 public:
 	template <typename... Args>
-	_FORCE_INLINE_ T *new_allocation(const Args &&...p_args) { return memnewOld(T(p_args...)); }
+	_FORCE_INLINE_ T *new_allocation(const Args &&...p_args) { return memnewWithArgs<T>(p_args...); }
 	_FORCE_INLINE_ void delete_allocation(T *p_allocation) { memdelete(p_allocation); }
 };
 

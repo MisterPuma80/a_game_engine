@@ -54,7 +54,7 @@ using namespace NavigationUtilities;
 		}                                                             \
 	};                                                                \
 	void GodotNavigationServer3D::F_NAME(T_0 D_0) {                   \
-		auto cmd = memnewOldWithArgs(MERGE(F_NAME, _command)(                    \
+		auto cmd = memnewOldWithArgs3("MERGE", MERGE(F_NAME, _command)(                    \
 				D_0));                                                \
 		add_command(cmd);                                             \
 	}                                                                 \
@@ -75,7 +75,7 @@ using namespace NavigationUtilities;
 		}                                                             \
 	};                                                                \
 	void GodotNavigationServer3D::F_NAME(T_0 D_0, T_1 D_1) {          \
-		auto cmd = memnewOldWithArgs(MERGE(F_NAME, _command)(                    \
+		auto cmd = memnewOldWithArgs3("MERGE", MERGE(F_NAME, _command)(                    \
 				D_0,                                                  \
 				D_1));                                                \
 		add_command(cmd);                                             \
