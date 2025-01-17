@@ -325,7 +325,7 @@ DefaultThemeEditorPreview::DefaultThemeEditorPreview() {
 
 	first_vb->add_child(memnewWithArgs<Label>("Label"));
 
-	first_vb->add_child(memnewOldWithArgs(Button("Button")));
+	first_vb->add_child(memnewWithArgs<Button>("Button"));
 	Button *bt = memnewNoConstructor<Button>();
 	bt->set_text(TTR("Toggle Button"));
 	bt->set_toggle_mode(true);

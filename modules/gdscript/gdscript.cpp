@@ -422,7 +422,7 @@ ScriptInstance *GDScript::instance_create(Object *p_this) {
 
 PlaceHolderScriptInstance *GDScript::placeholder_instance_create(Object *p_this) {
 #ifdef TOOLS_ENABLED
-	PlaceHolderScriptInstance *si = memnewOldWithArgs(PlaceHolderScriptInstance(GDScriptLanguage::get_singleton(), Ref<Script>(this), p_this));
+	PlaceHolderScriptInstance *si = memnewWithArgs<PlaceHolderScriptInstance>(GDScriptLanguage::get_singleton(), Ref<Script>(this), p_this);
 	placeholders.insert(si);
 	_update_exports(nullptr, false, si);
 	return si;
@@ -964,7 +964,7 @@ bool GDScript::_get(const StringName &p_name, Variant &r_ret) const {
 			HashMap<StringName, GDScriptFunction *>::ConstIterator E = top->member_functions.find(p_name);
 			if (E && E->value->is_static()) {
 				if (top->rpc_config.has(p_name)) {
-					r_ret = Callable(memnewOldWithArgs(GDScriptRPCCallable(const_cast<GDScript *>(top), E->key)));
+					r_ret = Callable(memnewWithArgs<GDScriptRPCCallable>(const_cast<GDScript *>(top), E->key));
 				} else {
 					r_ret = Callable(const_cast<GDScript *>(top), E->key);
 				}
@@ -1770,7 +1770,7 @@ bool GDScriptInstance::get(const StringName &p_name, Variant &r_ret) const {
 			HashMap<StringName, GDScriptFunction *>::ConstIterator E = sptr->member_functions.find(p_name);
 			if (E) {
 				if (sptr->rpc_config.has(p_name)) {
-					r_ret = Callable(memnewOldWithArgs(GDScriptRPCCallable(owner, E->key)));
+					r_ret = Callable(memnewWithArgs<GDScriptRPCCallable>(owner, E->key));
 				} else {
 					r_ret = Callable(owner, E->key);
 				}

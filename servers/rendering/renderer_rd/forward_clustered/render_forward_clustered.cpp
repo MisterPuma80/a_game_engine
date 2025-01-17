@@ -4324,7 +4324,7 @@ RenderForwardClustered::RenderForwardClustered() {
 
 	_update_shader_quality_settings();
 
-	resolve_effects = memnewOldNoArgs(RendererRD::Resolve());
+	resolve_effects = memnewNoArgs<RendererRD::Resolve>();
 	taa = memnewNoConstructor<RendererRD::TAA>();
 	fsr2_effect = memnewNoConstructor<RendererRD::FSR2Effect>();
 	ss_effects = memnewNoConstructor<RendererRD::SSEffects>();

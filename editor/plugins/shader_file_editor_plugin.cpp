@@ -282,7 +282,7 @@ ShaderFileEditor::ShaderFileEditor() {
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 	for (int i = 0; i < RD::SHADER_STAGE_MAX; i++) {
-		Button *button = memnewOldWithArgs(Button(stage_str[i]));
+		Button *button = memnewWithArgs<Button>(stage_str[i]);
 		button->set_toggle_mode(true);
 		button->set_focus_mode(FOCUS_NONE);
 		stage_hb->add_child(button);

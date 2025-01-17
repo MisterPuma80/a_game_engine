@@ -273,7 +273,7 @@ struct GodotTestCaseListener : public doctest::IReporter {
 					break;
 				}
 			}
-			memnewOldNoArgs(RenderingServerDefault());
+			memnewNoArgs<RenderingServerDefault>();
 			RenderingServerDefault::get_singleton()->init();
 			RenderingServerDefault::get_singleton()->set_render_loop_enabled(false);
 

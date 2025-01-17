@@ -128,7 +128,7 @@ Callable Callable::bindp(const Variant **p_arguments, int p_argcount) const {
 	for (int i = 0; i < p_argcount; i++) {
 		args.write[i] = *p_arguments[i];
 	}
-	return Callable(memnewOldWithArgs(CallableCustomBind(*this, args)));
+	return Callable(memnewWithArgs<CallableCustomBind>(*this, args));
 }
 
 Callable Callable::bindv(const Array &p_arguments) {
@@ -141,12 +141,12 @@ Callable Callable::bindv(const Array &p_arguments) {
 	for (int i = 0; i < p_arguments.size(); i++) {
 		args.write[i] = p_arguments[i];
 	}
-	return Callable(memnewOldWithArgs(CallableCustomBind(*this, args)));
+	return Callable(memnewWithArgs<CallableCustomBind>(*this, args));
 }
 
 Callable Callable::unbind(int p_argcount) const {
 	ERR_FAIL_COND_V_MSG(p_argcount <= 0, Callable(*this), "Amount of unbind() arguments must be 1 or greater.");
-	return Callable(memnewOldWithArgs(CallableCustomUnbind(*this, p_argcount)));
+	return Callable(memnewWithArgs<CallableCustomUnbind>(*this, p_argcount));
 }
 
 bool Callable::is_valid() const {

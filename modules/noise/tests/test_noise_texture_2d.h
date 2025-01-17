@@ -209,7 +209,7 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a basic noise texture with mip
 	noise_texture->set_height(16);
 	noise_texture->set_generate_mipmaps(true);
 
-	Ref<NoiseTextureTester> tester = memnewOldWithArgs(NoiseTextureTester(noise_texture.ptr()));
+	Ref<NoiseTextureTester> tester = memnewWithArgs<NoiseTextureTester>(noise_texture.ptr());
 	noise_texture->connect_changed(callable_mp(tester.ptr(), &NoiseTextureTester::check_mip_and_color_ramp));
 	MessageQueue::get_singleton()->flush();
 }
@@ -226,7 +226,7 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a normal map without mipmaps")
 	noise_texture->set_bump_strength(0.5);
 	noise_texture->set_generate_mipmaps(false);
 
-	Ref<NoiseTextureTester> tester = memnewOldWithArgs(NoiseTextureTester(noise_texture.ptr()));
+	Ref<NoiseTextureTester> tester = memnewWithArgs<NoiseTextureTester>(noise_texture.ptr());
 	noise_texture->connect_changed(callable_mp(tester.ptr(), &NoiseTextureTester::check_normal_map));
 	MessageQueue::get_singleton()->flush();
 }
@@ -241,7 +241,7 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a seamless noise texture") {
 	noise_texture->set_height(16);
 	noise_texture->set_seamless(true);
 
-	Ref<NoiseTextureTester> tester = memnewOldWithArgs(NoiseTextureTester(noise_texture.ptr()));
+	Ref<NoiseTextureTester> tester = memnewWithArgs<NoiseTextureTester>(noise_texture.ptr());
 
 	SUBCASE("Grayscale(L8) 16x16, with seamless blend skirt of 0.05") {
 		noise_texture->set_seamless_blend_skirt(0.05);

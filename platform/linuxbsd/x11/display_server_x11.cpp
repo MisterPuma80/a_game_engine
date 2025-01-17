@@ -5427,7 +5427,7 @@ Vector<String> DisplayServerX11::get_rendering_drivers_func() {
 }
 
 DisplayServer *DisplayServerX11::create_func(const String &p_rendering_driver, WindowMode p_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnewOldWithArgs(DisplayServerX11(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	DisplayServer *ds = memnewWithArgs<DisplayServerX11>(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error);
 	return ds;
 }
 
@@ -6230,7 +6230,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 		}
 	}
 	if (rendering_driver == "opengl3") {
-		gl_manager = memnewOldWithArgs(GLManager_X11(p_resolution, GLManager_X11::GLES_3_0_COMPATIBLE));
+		gl_manager = memnewWithArgs<GLManager_X11>(p_resolution, GLManager_X11::GLES_3_0_COMPATIBLE);
 		if (gl_manager->initialize(x11_display) != OK || gl_manager->open_display(x11_display) != OK) {
 			memdelete(gl_manager);
 			gl_manager = nullptr;

@@ -1293,7 +1293,7 @@ Error Thread::start(const Callable &p_callable, Priority p_priority) {
 	target_callable = p_callable;
 	running.set();
 
-	Ref<Thread> *ud = memnewOldWithArgs(Ref<Thread>(this));
+	Ref<Thread> *ud = memnewWithArgs<Ref<Thread>>(this);
 
 	::Thread::Settings s;
 	s.priority = (::Thread::Priority)p_priority;

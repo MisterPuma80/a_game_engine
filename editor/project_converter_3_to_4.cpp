@@ -189,62 +189,62 @@ public:
 		{
 			// Enum.
 			for (unsigned int current_index = 0; RenamesMap3To4::enum_renames[current_index][0]; current_index++) {
-				enum_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::enum_renames[current_index][0] + "\\b")));
+				enum_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::enum_renames[current_index][0] + "\\b"));
 			}
 			// GDScript functions.
 			for (unsigned int current_index = 0; RenamesMap3To4::gdscript_function_renames[current_index][0]; current_index++) {
-				gdscript_function_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::gdscript_function_renames[current_index][0] + "\\b")));
+				gdscript_function_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::gdscript_function_renames[current_index][0] + "\\b"));
 			}
 			// Project Settings in scripts.
 			for (unsigned int current_index = 0; RenamesMap3To4::project_settings_renames[current_index][0]; current_index++) {
-				project_settings_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::project_settings_renames[current_index][0] + "\\b")));
+				project_settings_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::project_settings_renames[current_index][0] + "\\b"));
 			}
 			// Project Settings in project.godot.
 			for (unsigned int current_index = 0; RenamesMap3To4::project_godot_renames[current_index][0]; current_index++) {
-				project_godot_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::project_godot_renames[current_index][0] + "\\b")));
+				project_godot_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::project_godot_renames[current_index][0] + "\\b"));
 			}
 			// Input Map.
 			for (unsigned int current_index = 0; RenamesMap3To4::input_map_renames[current_index][0]; current_index++) {
-				input_map_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::input_map_renames[current_index][0] + "\\b")));
+				input_map_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::input_map_renames[current_index][0] + "\\b"));
 			}
 			// GDScript properties.
 			for (unsigned int current_index = 0; RenamesMap3To4::gdscript_properties_renames[current_index][0]; current_index++) {
-				gdscript_properties_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::gdscript_properties_renames[current_index][0] + "\\b")));
+				gdscript_properties_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::gdscript_properties_renames[current_index][0] + "\\b"));
 			}
 			// GDScript Signals.
 			for (unsigned int current_index = 0; RenamesMap3To4::gdscript_signals_renames[current_index][0]; current_index++) {
-				gdscript_signals_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::gdscript_signals_renames[current_index][0] + "\\b")));
+				gdscript_signals_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::gdscript_signals_renames[current_index][0] + "\\b"));
 			}
 			// Shaders.
 			for (unsigned int current_index = 0; RenamesMap3To4::shaders_renames[current_index][0]; current_index++) {
-				shaders_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::shaders_renames[current_index][0] + "\\b")));
+				shaders_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::shaders_renames[current_index][0] + "\\b"));
 			}
 			// Builtin types.
 			for (unsigned int current_index = 0; RenamesMap3To4::builtin_types_renames[current_index][0]; current_index++) {
-				builtin_types_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::builtin_types_renames[current_index][0] + "\\b")));
+				builtin_types_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::builtin_types_renames[current_index][0] + "\\b"));
 			}
 			// Theme overrides.
 			for (unsigned int current_index = 0; RenamesMap3To4::theme_override_renames[current_index][0]; current_index++) {
-				theme_override_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::theme_override_renames[current_index][0] + "\\b")));
+				theme_override_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::theme_override_renames[current_index][0] + "\\b"));
 			}
 			// CSharp function renames.
 			for (unsigned int current_index = 0; RenamesMap3To4::csharp_function_renames[current_index][0]; current_index++) {
-				csharp_function_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::csharp_function_renames[current_index][0] + "\\b")));
+				csharp_function_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::csharp_function_renames[current_index][0] + "\\b"));
 			}
 			// CSharp properties renames.
 			for (unsigned int current_index = 0; RenamesMap3To4::csharp_properties_renames[current_index][0]; current_index++) {
-				csharp_properties_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::csharp_properties_renames[current_index][0] + "\\b")));
+				csharp_properties_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::csharp_properties_renames[current_index][0] + "\\b"));
 			}
 			// CSharp signals renames.
 			for (unsigned int current_index = 0; RenamesMap3To4::csharp_signals_renames[current_index][0]; current_index++) {
-				csharp_signal_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + RenamesMap3To4::csharp_signals_renames[current_index][0] + "\\b")));
+				csharp_signal_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + RenamesMap3To4::csharp_signals_renames[current_index][0] + "\\b"));
 			}
 		}
 
 		// Colors.
 		{
 			for (unsigned int current_index = 0; RenamesMap3To4::color_renames[current_index][0]; current_index++) {
-				color_regexes.push_back(memnewOldWithArgs(RegEx(String("\\bColor.") + RenamesMap3To4::color_renames[current_index][0] + "\\b")));
+				color_regexes.push_back(memnewWithArgs<RegEx>(String("\\bColor.") + RenamesMap3To4::color_renames[current_index][0] + "\\b"));
 				color_renamed.push_back(String("Color.") + RenamesMap3To4::color_renames[current_index][1]);
 			}
 		}
@@ -252,11 +252,11 @@ public:
 		{
 			for (unsigned int current_index = 0; RenamesMap3To4::class_renames[current_index][0]; current_index++) {
 				const String class_name = RenamesMap3To4::class_renames[current_index][0];
-				class_tscn_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + class_name + ".tscn\\b")));
-				class_gd_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + class_name + ".gd\\b")));
-				class_shader_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + class_name + ".shader\\b")));
+				class_tscn_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + class_name + ".tscn\\b"));
+				class_gd_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + class_name + ".gd\\b"));
+				class_shader_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + class_name + ".shader\\b"));
 
-				class_regexes.push_back(memnewOldWithArgs(RegEx(String("\\b") + class_name + "\\b")));
+				class_regexes.push_back(memnewWithArgs<RegEx>(String("\\b") + class_name + "\\b"));
 
 				class_temp_tscn_renames.push_back(class_name + ".tscn");
 				class_temp_gd_renames.push_back(class_name + ".gd");

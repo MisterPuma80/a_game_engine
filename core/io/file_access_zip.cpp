@@ -211,7 +211,7 @@ bool ZipArchive::file_exists(const String &p_name) const {
 }
 
 Ref<FileAccess> ZipArchive::get_file(const String &p_path, PackedData::PackedFile *p_file) {
-	return memnewOldWithArgs(FileAccessZip(p_path, *p_file));
+	return memnewWithArgs<FileAccessZip>(p_path, *p_file);
 }
 
 ZipArchive *ZipArchive::get_singleton() {

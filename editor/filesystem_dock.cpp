@@ -4032,7 +4032,7 @@ FileSystemDock::FileSystemDock() {
 	deps_editor = memnewNoConstructor<DependencyEditor>();
 	add_child(deps_editor);
 
-	owners_editor = memnewOldNoArgs(DependencyEditorOwners());
+	owners_editor = memnewNoArgs<DependencyEditorOwners>();
 	add_child(owners_editor);
 
 	remove_dialog = memnewNoConstructor<DependencyRemoveDialog>();

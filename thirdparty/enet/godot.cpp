@@ -450,7 +450,7 @@ int enet_host_dtls_server_setup(ENetHost *host, void *p_options) {
 	if (!sock->can_upgrade()) {
 		return -1;
 	}
-	host->socket = memnewOldWithArgs(ENetDTLSServer(static_cast<ENetUDP *>(sock), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
+	host->socket = memnewWithArgs<ENetDTLSServer>(static_cast<ENetUDP *>(sock), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options)));
 	memdelete(sock);
 	return 0;
 }
@@ -461,7 +461,7 @@ int enet_host_dtls_client_setup(ENetHost *host, const char *p_for_hostname, void
 	if (!sock->can_upgrade()) {
 		return -1;
 	}
-	host->socket = memnewOldWithArgs(ENetDTLSClient(static_cast<ENetUDP *>(sock), String::utf8(p_for_hostname), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
+	host->socket = memnewWithArgs<ENetDTLSClient>(static_cast<ENetUDP *>(sock), String::utf8(p_for_hostname), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options)));
 	memdelete(sock);
 	return 0;
 }

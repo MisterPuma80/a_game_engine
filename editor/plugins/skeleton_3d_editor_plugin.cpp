@@ -64,14 +64,14 @@ void BoneTransformEditor::create_editors() {
 	section->unfold();
 	add_child(section);
 
-	enabled_checkbox = memnewOldNoArgs(EditorPropertyCheck());
+	enabled_checkbox = memnewNoArgs<EditorPropertyCheck>();
 	enabled_checkbox->set_label("Pose Enabled");
 	enabled_checkbox->set_selectable(false);
 	enabled_checkbox->connect("property_changed", callable_mp(this, &BoneTransformEditor::_value_changed));
 	section->get_vbox()->add_child(enabled_checkbox);
 
 	// Position property.
-	position_property = memnewOldNoArgs(EditorPropertyVector3());
+	position_property = memnewNoArgs<EditorPropertyVector3>();
 	position_property->setup(-10000, 10000, 0.001f, true);
 	position_property->set_label("Position");
 	position_property->set_selectable(false);
@@ -80,7 +80,7 @@ void BoneTransformEditor::create_editors() {
 	section->get_vbox()->add_child(position_property);
 
 	// Rotation property.
-	rotation_property = memnewOldNoArgs(EditorPropertyQuaternion());
+	rotation_property = memnewNoArgs<EditorPropertyQuaternion>();
 	rotation_property->setup(-10000, 10000, 0.001f, true);
 	rotation_property->set_label("Rotation");
 	rotation_property->set_selectable(false);
@@ -89,7 +89,7 @@ void BoneTransformEditor::create_editors() {
 	section->get_vbox()->add_child(rotation_property);
 
 	// Scale property.
-	scale_property = memnewOldNoArgs(EditorPropertyVector3());
+	scale_property = memnewNoArgs<EditorPropertyVector3>();
 	scale_property->setup(-10000, 10000, 0.001f, true);
 	scale_property->set_label("Scale");
 	scale_property->set_selectable(false);
@@ -103,7 +103,7 @@ void BoneTransformEditor::create_editors() {
 	section->get_vbox()->add_child(rest_section);
 
 	// Transform/Matrix property.
-	rest_matrix = memnewOldNoArgs(EditorPropertyTransform3D());
+	rest_matrix = memnewNoArgs<EditorPropertyTransform3D>();
 	rest_matrix->setup(-10000, 10000, 0.001f, true);
 	rest_matrix->set_label("Transform");
 	rest_matrix->set_selectable(false);

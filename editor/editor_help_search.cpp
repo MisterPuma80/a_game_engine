@@ -147,7 +147,7 @@ void EditorHelpSearch::_update_results() {
 		search_flags |= SEARCH_SHOW_HIERARCHY;
 	}
 
-	search = Ref<Runner>(memnewOldWithArgs(Runner(results_tree, results_tree, &tree_cache, term, search_flags)));
+	search = Ref<Runner>(memnewWithArgs<Runner>(results_tree, results_tree, &tree_cache, term, search_flags));
 	set_process(true);
 }
 

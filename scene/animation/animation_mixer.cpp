@@ -2387,7 +2387,7 @@ AnimationMixer::TrackCache *AnimatedValuesBackup::get_cache_copy(AnimationMixer:
 		case Animation::TYPE_BEZIER:
 		case Animation::TYPE_VALUE: {
 			AnimationMixer::TrackCacheValue *src = static_cast<AnimationMixer::TrackCacheValue *>(p_cache);
-			AnimationMixer::TrackCacheValue *tc = memnewOldWithArgs(AnimationMixer::TrackCacheValue(*src));
+			AnimationMixer::TrackCacheValue *tc = memnewWithArgs<AnimationMixer::TrackCacheValue>(*src);
 			return tc;
 		}
 
@@ -2395,19 +2395,19 @@ AnimationMixer::TrackCache *AnimatedValuesBackup::get_cache_copy(AnimationMixer:
 		case Animation::TYPE_ROTATION_3D:
 		case Animation::TYPE_SCALE_3D: {
 			AnimationMixer::TrackCacheTransform *src = static_cast<AnimationMixer::TrackCacheTransform *>(p_cache);
-			AnimationMixer::TrackCacheTransform *tc = memnewOldWithArgs(AnimationMixer::TrackCacheTransform(*src));
+			AnimationMixer::TrackCacheTransform *tc = memnewWithArgs<AnimationMixer::TrackCacheTransform>(*src);
 			return tc;
 		}
 
 		case Animation::TYPE_BLEND_SHAPE: {
 			AnimationMixer::TrackCacheBlendShape *src = static_cast<AnimationMixer::TrackCacheBlendShape *>(p_cache);
-			AnimationMixer::TrackCacheBlendShape *tc = memnewOldWithArgs(AnimationMixer::TrackCacheBlendShape(*src));
+			AnimationMixer::TrackCacheBlendShape *tc = memnewWithArgs<AnimationMixer::TrackCacheBlendShape>(*src);
 			return tc;
 		}
 
 		case Animation::TYPE_AUDIO: {
 			AnimationMixer::TrackCacheAudio *src = static_cast<AnimationMixer::TrackCacheAudio *>(p_cache);
-			AnimationMixer::TrackCacheAudio *tc = memnewOldWithArgs(AnimationMixer::TrackCacheAudio(*src));
+			AnimationMixer::TrackCacheAudio *tc = memnewWithArgs<AnimationMixer::TrackCacheAudio>(*src);
 			return tc;
 		}
 

@@ -168,7 +168,7 @@ void OS_Unix::initialize_core() {
 
 	NetSocketPosix::make_default();
 	IPUnix::make_default();
-	process_map = memnewOldNoConstructor((HashMap<ProcessID, ProcessInfo>));
+	process_map = memnewNoConstructor<HashMap<ProcessID, ProcessInfo>>();
 
 	_setup_clock();
 }

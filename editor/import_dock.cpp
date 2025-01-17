@@ -849,7 +849,7 @@ ImportDock::ImportDock() {
 	content->add_child(reimport_confirm);
 	reimport_confirm->connect(SceneStringName(confirmed), callable_mp(this, &ImportDock::_reimport_and_cleanup));
 
-	VBoxContainer *vbc_confirm = memnewOldNoArgs(VBoxContainer());
+	VBoxContainer *vbc_confirm = memnewNoArgs<VBoxContainer>();
 	cleanup_warning = memnewWithArgs<Label>(TTR("The imported resource is currently loaded. All instances will be replaced and undo history will be cleared."));
 	vbc_confirm->add_child(cleanup_warning);
 	label_warning = memnewWithArgs<Label>(TTR("WARNING: Assets exist that use this resource. They may stop loading properly after changing type."));

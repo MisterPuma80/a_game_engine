@@ -105,7 +105,7 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 }
 
 #define memnewOld(m_class) _post_initialize(new ("") m_class)
-#define memnewOldNoArgs(m_class) _post_initialize(new ("") m_class)
+//#define memnewOldNoArgs(m_class) _post_initialize(new ("") m_class)
 #define memnewOldNoConstructor(m_class) _post_initialize(new ("") m_class)
 #define memnewOldWithArgs(m_class) _post_initialize(new ("") m_class)
 //#define memnew(m_class) _post_initialize(new ("") m_class)

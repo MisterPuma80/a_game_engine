@@ -139,7 +139,7 @@ void OS_MacOS::finalize() {
 }
 
 void OS_MacOS::initialize_joypads() {
-	joypad_macos = memnewOldNoArgs(JoypadMacOS());
+	joypad_macos = memnewNoArgs<JoypadMacOS>();
 }
 
 void OS_MacOS::set_main_loop(MainLoop *p_main_loop) {

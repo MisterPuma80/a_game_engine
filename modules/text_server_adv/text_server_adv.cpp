@@ -4568,7 +4568,7 @@ bool TextServerAdvanced::_shape_substr(ShapedTextDataAdvanced *p_new_sd, const S
 	if (p_length > 0) {
 		p_new_sd->text = p_sd->text.substr(p_start - p_sd->start, p_length);
 		p_new_sd->utf16 = p_new_sd->text.utf16();
-		p_new_sd->script_iter = memnewOldWithArgs(ScriptIterator(p_new_sd->text, 0, p_new_sd->text.length()));
+		p_new_sd->script_iter = memnewWithArgs<ScriptIterator>(p_new_sd->text, 0, p_new_sd->text.length());
 
 		int sd_size = p_sd->glyphs.size();
 		const Glyph *sd_glyphs = p_sd->glyphs.ptr();
@@ -6239,7 +6239,7 @@ bool TextServerAdvanced::_shaped_text_shape(const RID &p_shaped) {
 
 	// Create script iterator.
 	if (sd->script_iter == nullptr) {
-		sd->script_iter = memnewOldWithArgs(ScriptIterator(sd->text, 0, sd->text.length()));
+		sd->script_iter = memnewWithArgs<ScriptIterator>(sd->text, 0, sd->text.length());
 	}
 
 	sd->base_para_direction = UBIDI_DEFAULT_LTR;

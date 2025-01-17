@@ -7175,7 +7175,7 @@ EditorNode::EditorNode() {
 	editor_settings_dialog = memnewNoConstructor<EditorSettingsDialog>();
 	gui_base->add_child(editor_settings_dialog);
 
-	project_settings_editor = memnewOldWithArgs(ProjectSettingsEditor(&editor_data));
+	project_settings_editor = memnewWithArgs<ProjectSettingsEditor>(&editor_data);
 	gui_base->add_child(project_settings_editor);
 
 	scene_import_settings = memnewNoConstructor<SceneImportSettingsDialog>();

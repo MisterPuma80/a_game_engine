@@ -217,7 +217,7 @@ void OS_Windows::initialize() {
 		timeBeginPeriod(1);
 	}
 
-	process_map = memnewOldWithArgs((HashMap<ProcessID, ProcessInfo>));
+	process_map = memnewWithArgs<HashMap<ProcessID, ProcessInfo>>();
 
 	// Add current Godot PID to the list of known PIDs
 	ProcessInfo current_pi = {};

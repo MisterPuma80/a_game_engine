@@ -2470,7 +2470,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 					captures.write[i] = *arg;
 				}
 
-				GDScriptLambdaCallable *callable = memnewOldWithArgs(GDScriptLambdaCallable(Ref<GDScript>(script), lambda, captures));
+				GDScriptLambdaCallable *callable = memnewWithArgs<GDScriptLambdaCallable>(Ref<GDScript>(script), lambda, captures);
 
 				GET_INSTRUCTION_ARG(result, captures_count);
 				*result = Callable(callable);
@@ -2503,9 +2503,9 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 
 				GDScriptLambdaSelfCallable *callable;
 				if (Object::cast_to<RefCounted>(p_instance->owner)) {
-					callable = memnewOldWithArgs(GDScriptLambdaSelfCallable(Ref<RefCounted>(Object::cast_to<RefCounted>(p_instance->owner)), lambda, captures));
+					callable = memnewWithArgs<GDScriptLambdaSelfCallable>(Ref<RefCounted>(Object::cast_to<RefCounted>(p_instance->owner)), lambda, captures);
 				} else {
-					callable = memnewOldWithArgs(GDScriptLambdaSelfCallable(p_instance->owner, lambda, captures));
+					callable = memnewWithArgs<GDScriptLambdaSelfCallable>(p_instance->owner, lambda, captures);
 				}
 
 				GET_INSTRUCTION_ARG(result, captures_count);

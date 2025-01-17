@@ -1628,7 +1628,7 @@ SceneTreeEditor::SceneTreeEditor(bool p_label, bool p_can_rename, bool p_can_ope
 	update_node_tooltip_delay->set_one_shot(true);
 	add_child(update_node_tooltip_delay);
 
-	script_types = memnewOldNoConstructor(List<StringName>);
+	script_types = memnewNoConstructor<List<StringName>>();
 	ClassDB::get_inheriters_from_class("Script", script_types);
 }
 

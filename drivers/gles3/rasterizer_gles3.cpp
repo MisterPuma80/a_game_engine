@@ -366,8 +366,8 @@ RasterizerGLES3::RasterizerGLES3() {
 	post_effects = memnewNoConstructor<GLES3::PostEffects>();
 	gi = memnewNoConstructor<GLES3::GI>();
 	fog = memnewNoConstructor<GLES3::Fog>();
-	canvas = memnewOldNoArgs(RasterizerCanvasGLES3());
-	scene = memnewOldNoArgs(RasterizerSceneGLES3());
+	canvas = memnewNoArgs<RasterizerCanvasGLES3>();
+	scene = memnewNoArgs<RasterizerSceneGLES3>();
 }
 
 RasterizerGLES3::~RasterizerGLES3() {

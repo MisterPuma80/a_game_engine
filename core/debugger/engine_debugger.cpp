@@ -146,7 +146,7 @@ void EngineDebugger::initialize(const String &p_uri, bool p_skip_breakpoints, co
 		if (!peer) {
 			return;
 		}
-		singleton = memnewOldWithArgs(RemoteDebugger(Ref<RemoteDebuggerPeer>(peer)));
+		singleton = memnewWithArgs<RemoteDebugger>(Ref<RemoteDebuggerPeer>(peer));
 		script_debugger = memnewNoConstructor<ScriptDebugger>();
 		// Notify editor of our pid (to allow focus stealing).
 		Array msg;

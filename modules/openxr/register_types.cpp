@@ -92,7 +92,7 @@ static void _editor_init() {
 			ERR_FAIL_NULL(openxr_interaction_profile_metadata);
 		}
 
-		OpenXREditorPlugin *openxr_plugin = memnewOldNoArgs(OpenXREditorPlugin());
+		OpenXREditorPlugin *openxr_plugin = memnewNoArgs<OpenXREditorPlugin>();
 		EditorNode::get_singleton()->add_editor_plugin(openxr_plugin);
 	}
 }

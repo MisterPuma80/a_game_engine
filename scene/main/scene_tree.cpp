@@ -1736,7 +1736,7 @@ SceneTree::SceneTree() {
 
 	GLOBAL_DEF("debug/shapes/collision/draw_2d_outlines", true);
 
-	process_group_call_queue_allocator = memnewOldWithArgs(CallQueue::Allocator(64));
+	process_group_call_queue_allocator = memnewWithArgs<CallQueue::Allocator>(64);
 	Math::randomize();
 
 	// Create with mainloop.

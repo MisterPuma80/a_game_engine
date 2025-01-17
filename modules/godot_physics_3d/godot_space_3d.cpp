@@ -1059,10 +1059,10 @@ void *GodotSpace3D::_broadphase_pair(GodotCollisionObject3D *A, int p_subindex_A
 		}
 	} else if (type_A == GodotCollisionObject3D::TYPE_BODY) {
 		if (type_B == GodotCollisionObject3D::TYPE_SOFT_BODY) {
-			GodotBodySoftBodyPair3D *soft_pair = memnewOldWithArgs(GodotBodySoftBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotSoftBody3D *>(B)));
+			GodotBodySoftBodyPair3D *soft_pair = memnewWithArgs<GodotBodySoftBodyPair3D>(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotSoftBody3D *>(B));
 			return soft_pair;
 		} else {
-			GodotBodyPair3D *b = memnewOldWithArgs(GodotBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotBody3D *>(B), p_subindex_B));
+			GodotBodyPair3D *b = memnewWithArgs<GodotBodyPair3D>(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotBody3D *>(B), p_subindex_B);
 			return b;
 		}
 	} else {

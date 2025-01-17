@@ -527,7 +527,7 @@ TileSetScenesCollectionSourceEditor::TileSetScenesCollectionSourceEditor() {
 	scenes_collection_source_inspector_label->set_text(TTR("Scenes collection properties:"));
 	middle_vbox_container->add_child(scenes_collection_source_inspector_label);
 
-	scenes_collection_source_proxy_object = memnewOldNoArgs(TileSetScenesCollectionProxyObject());
+	scenes_collection_source_proxy_object = memnewNoArgs<TileSetScenesCollectionProxyObject>();
 	scenes_collection_source_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_scenes_collection_source_proxy_object_changed));
 
 	scenes_collection_source_inspector = memnewNoConstructor<EditorInspector>();

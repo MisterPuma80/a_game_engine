@@ -193,7 +193,7 @@ TEST_CASE("[NoiseTexture3D][SceneTree] Generating a basic noise texture with mip
 	noise_texture->set_height(16);
 	noise_texture->set_depth(16);
 
-	Ref<NoiseTexture3DTester> tester = memnewOldWithArgs(NoiseTexture3DTester(noise_texture.ptr()));
+	Ref<NoiseTexture3DTester> tester = memnewWithArgs<NoiseTexture3DTester>(noise_texture.ptr());
 	noise_texture->connect_changed(callable_mp(tester.ptr(), &NoiseTexture3DTester::check_mip_and_color_ramp));
 	MessageQueue::get_singleton()->flush();
 }
@@ -209,7 +209,7 @@ TEST_CASE("[NoiseTexture3D][SceneTree] Generating a seamless noise texture") {
 	noise_texture->set_depth(16);
 	noise_texture->set_seamless(true);
 
-	Ref<NoiseTexture3DTester> tester = memnewOldWithArgs(NoiseTexture3DTester(noise_texture.ptr()));
+	Ref<NoiseTexture3DTester> tester = memnewWithArgs<NoiseTexture3DTester>(noise_texture.ptr());
 
 	SUBCASE("Grayscale(L8) 16x16x16, with seamless blend skirt of 0.05") {
 		noise_texture->set_seamless_blend_skirt(0.05);

@@ -192,7 +192,7 @@ Variant JavaScriptObjectImpl::_js2variant(int p_type, godot_js_wrapper_ex *p_val
 			return out;
 		}
 		case Variant::OBJECT: {
-			return memnewOldWithArgs(JavaScriptObjectImpl(p_val->i));
+			return memnewWithArgs<JavaScriptObjectImpl>(p_val->i);
 		}
 		default:
 			return Variant();
@@ -219,7 +219,7 @@ int JavaScriptObjectImpl::_variant2js(const void **p_args, int p_pos, godot_js_w
 			r_val->r = v->operator real_t();
 			break;
 		case Variant::STRING: {
-			CharString *cs = memnewOldWithArgs(CharString(v->operator String().utf8()));
+			CharString *cs = memnewWithArgs<CharString>(v->operator String().utf8());
 			r_val->p = (void *)cs->get_data();
 			*p_lock = (void *)cs;
 		} break;

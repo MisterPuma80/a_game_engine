@@ -59,7 +59,7 @@ GDScriptParser *GDScriptParserRef::get_parser() {
 
 GDScriptAnalyzer *GDScriptParserRef::get_analyzer() {
 	if (analyzer == nullptr) {
-		analyzer = memnewOldWithArgs(GDScriptAnalyzer(get_parser()));
+		analyzer = memnewWithArgs<GDScriptAnalyzer>(get_parser());
 	}
 	return analyzer;
 }

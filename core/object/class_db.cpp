@@ -199,7 +199,7 @@ public:
 		// done in a different way to support placeholders) will also be done here.
 
 		obj->_extension = ClassDB::get_placeholder_extension(ti->name);
-		obj->_extension_instance = memnewOldWithArgs(PlaceholderExtensionInstance(ti->name));
+		obj->_extension_instance = memnewWithArgs<PlaceholderExtensionInstance>(ti->name);
 
 #ifdef TOOLS_ENABLED
 		if (obj->_extension->track_instance) {
@@ -212,7 +212,7 @@ public:
 
 	static GDExtensionObjectPtr placeholder_class_recreate_instance(void *p_class_userdata, GDExtensionObjectPtr p_object) {
 		ClassDB::ClassInfo *ti = (ClassDB::ClassInfo *)p_class_userdata;
-		return memnewOldWithArgs(PlaceholderExtensionInstance(ti->name));
+		return memnewWithArgs<PlaceholderExtensionInstance>(ti->name);
 	}
 
 	static void placeholder_class_free_instance(void *p_class_userdata, GDExtensionClassInstancePtr p_instance) {

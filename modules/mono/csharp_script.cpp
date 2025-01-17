@@ -1448,7 +1448,7 @@ void CSharpLanguage::tie_managed_to_unmanaged_with_pre_setup(GCHandleIntPtr p_gc
 }
 
 CSharpInstance *CSharpInstance::create_for_managed_type(Object *p_owner, CSharpScript *p_script, const MonoGCHandleData &p_gchandle) {
-	CSharpInstance *instance = memnewOldWithArgs(CSharpInstance(Ref<CSharpScript>(p_script)));
+	CSharpInstance *instance = memnewWithArgs<CSharpInstance>(Ref<CSharpScript>(p_script));
 
 	RefCounted *rc = Object::cast_to<RefCounted>(p_owner);
 
@@ -2375,7 +2375,7 @@ CSharpInstance *CSharpScript::_create_instance(const Variant **p_args, int p_arg
 		}
 	}
 
-	CSharpInstance *instance = memnewOldWithArgs(CSharpInstance(Ref<CSharpScript>(this)));
+	CSharpInstance *instance = memnewWithArgs<CSharpInstance>(Ref<CSharpScript>(this));
 	instance->base_ref_counted = p_is_ref_counted;
 	instance->owner = p_owner;
 	instance->owner->set_script_instance(instance);
@@ -2463,7 +2463,7 @@ ScriptInstance *CSharpScript::instance_create(Object *p_this) {
 
 PlaceHolderScriptInstance *CSharpScript::placeholder_instance_create(Object *p_this) {
 #ifdef TOOLS_ENABLED
-	PlaceHolderScriptInstance *si = memnewOldWithArgs(PlaceHolderScriptInstance(CSharpLanguage::get_singleton(), Ref<Script>(this), p_this));
+	PlaceHolderScriptInstance *si = memnewWithArgs<PlaceHolderScriptInstance>(CSharpLanguage::get_singleton(), Ref<Script>(this), p_this);
 	placeholders.insert(si);
 	_update_exports(si);
 	return si;

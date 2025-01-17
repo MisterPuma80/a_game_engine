@@ -823,7 +823,7 @@ Variant ColorPicker::_get_drag_data_fw(const Point2 &p_point, Control *p_from_co
 		return Variant();
 	}
 
-	ColorButton *drag_preview = memnewOldWithArgs(ColorButton(dragged_preset_button->get_color()));
+	ColorButton *drag_preview = memnewWithArgs<ColorButton>(dragged_preset_button->get_color());
 	drag_preview->set_custom_minimum_size(Size2(30, 30) * theme_cache.base_scale);
 	set_drag_preview(drag_preview);
 

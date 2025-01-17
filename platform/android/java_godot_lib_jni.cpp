@@ -209,7 +209,7 @@ JNIEXPORT jboolean JNICALL Java_app_blazium_godot_GodotLib_setup(JNIEnv *env, jc
 
 	TTS_Android::setup(p_godot_tts);
 
-	java_class_wrapper = memnewOldWithArgs(JavaClassWrapper(godot_java->get_activity()));
+	java_class_wrapper = memnewWithArgs<JavaClassWrapper>(godot_java->get_activity());
 	GDREGISTER_CLASS(JNISingleton);
 	return true;
 }

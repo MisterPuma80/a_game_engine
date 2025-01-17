@@ -118,7 +118,7 @@ bool EditorDebuggerServerTCP::is_connection_available() const {
 
 Ref<RemoteDebuggerPeer> EditorDebuggerServerTCP::take_connection() {
 	ERR_FAIL_COND_V(!is_connection_available(), Ref<RemoteDebuggerPeer>());
-	return memnewOldWithArgs(RemoteDebuggerPeerTCP(server->take_connection()));
+	return memnewWithArgs<RemoteDebuggerPeerTCP>(server->take_connection());
 }
 
 /// EditorDebuggerServer

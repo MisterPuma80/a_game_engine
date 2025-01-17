@@ -266,7 +266,7 @@ bool PackedSourcePCK::try_open_pack(const String &p_path, bool p_replace_files, 
 }
 
 Ref<FileAccess> PackedSourcePCK::get_file(const String &p_path, PackedData::PackedFile *p_file) {
-	return memnewOldWithArgs(FileAccessPack(p_path, *p_file));
+	return memnewWithArgs<FileAccessPack>(p_path, *p_file);
 }
 
 //////////////////////////////////////////////////////////////////
