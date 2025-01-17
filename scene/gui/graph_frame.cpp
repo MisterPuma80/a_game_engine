@@ -343,11 +343,11 @@ Size2 GraphFrame::get_minimum_size() const {
 }
 
 GraphFrame::GraphFrame() {
-	titlebar_hbox = memnewOld(HBoxContainer);
+	titlebar_hbox = memnewOldNoConstructor(HBoxContainer);
 	titlebar_hbox->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_child(titlebar_hbox, false, INTERNAL_MODE_FRONT);
 
-	title_label = memnewOld(Label);
+	title_label = memnewOldNoConstructor(Label);
 	title_label->set_theme_type_variation("GraphFrameTitleLabel");
 	title_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	title_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);

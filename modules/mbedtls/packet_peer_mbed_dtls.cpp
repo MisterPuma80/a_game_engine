@@ -271,7 +271,7 @@ PacketPeerMbedDTLS::Status PacketPeerMbedDTLS::get_status() const {
 }
 
 PacketPeerDTLS *PacketPeerMbedDTLS::_create_func() {
-	return memnewOld(PacketPeerMbedDTLS);
+	return memnewOldNoConstructor(PacketPeerMbedDTLS);
 }
 
 void PacketPeerMbedDTLS::initialize_dtls() {

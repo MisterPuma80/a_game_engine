@@ -73,9 +73,9 @@ void increment_property_action(UndoRedo *undo_redo, const String &name, _TestUnd
 
 TEST_CASE("[UndoRedo] Simple Property UndoRedo") {
 	GDREGISTER_CLASS(_TestUndoRedoObject);
-	UndoRedo *undo_redo = memnewOld(UndoRedo());
+	UndoRedo *undo_redo = memnewOldNoArgs(UndoRedo());
 
-	_TestUndoRedoObject *test_object = memnewOld(_TestUndoRedoObject());
+	_TestUndoRedoObject *test_object = memnewOldNoArgs(_TestUndoRedoObject());
 
 	CHECK(test_object->get_property() == 0);
 	CHECK(undo_redo->get_version() == 1);
@@ -123,9 +123,9 @@ TEST_CASE("[UndoRedo] Simple Property UndoRedo") {
 
 TEST_CASE("[UndoRedo] Merge Property UndoRedo") {
 	GDREGISTER_CLASS(_TestUndoRedoObject);
-	UndoRedo *undo_redo = memnewOld(UndoRedo());
+	UndoRedo *undo_redo = memnewOldNoArgs(UndoRedo());
 
-	_TestUndoRedoObject *test_object = memnewOld(_TestUndoRedoObject());
+	_TestUndoRedoObject *test_object = memnewOldNoArgs(_TestUndoRedoObject());
 
 	CHECK(test_object->get_property() == 0);
 	CHECK(undo_redo->get_version() == 1);
@@ -155,9 +155,9 @@ TEST_CASE("[UndoRedo] Merge Property UndoRedo") {
 
 TEST_CASE("[UndoRedo] Merge Method UndoRedo") {
 	GDREGISTER_CLASS(_TestUndoRedoObject);
-	UndoRedo *undo_redo = memnewOld(UndoRedo());
+	UndoRedo *undo_redo = memnewOldNoArgs(UndoRedo());
 
-	_TestUndoRedoObject *test_object = memnewOld(_TestUndoRedoObject());
+	_TestUndoRedoObject *test_object = memnewOldNoArgs(_TestUndoRedoObject());
 
 	CHECK(test_object->get_property() == 0);
 	CHECK(undo_redo->get_version() == 1);

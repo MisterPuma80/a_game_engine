@@ -57,7 +57,7 @@ void editor_configure_icons(bool p_dark_theme) {
 
 // See also `generate_icon()` in `scene/theme/default_theme.cpp`.
 Ref<ImageTexture> editor_generate_icon(int p_index, float p_scale, float p_saturation, const HashMap<Color, Color> &p_convert_colors = HashMap<Color, Color>()) {
-	Ref<Image> img = memnewOld(Image);
+	Ref<Image> img = memnewOldNoConstructor(Image);
 
 #ifdef MODULE_SVG_ENABLED
 	// Upsample icon generation only if the editor scale isn't an integer multiplier.

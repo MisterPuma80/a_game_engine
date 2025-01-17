@@ -546,13 +546,13 @@ void ShapeCast3D::_create_debug_shape() {
 	}
 
 	if (debug_mesh.is_null()) {
-		debug_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+		debug_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
 	}
 }
 
 void ShapeCast3D::_update_debug_shape_material(bool p_check_collision) {
 	if (!debug_material.is_valid()) {
-		Ref<StandardMaterial3D> material = memnewOld(StandardMaterial3D);
+		Ref<StandardMaterial3D> material = memnewOldNoConstructor(StandardMaterial3D);
 		debug_material = material;
 
 		material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);

@@ -259,8 +259,8 @@ void RendererCompositorRD::set_boot_image(const Ref<Image> &p_image, const Color
 RendererCompositorRD *RendererCompositorRD::singleton = nullptr;
 
 RendererCompositorRD::RendererCompositorRD() {
-	uniform_set_cache = memnewOld(UniformSetCacheRD);
-	framebuffer_cache = memnewOld(FramebufferCacheRD);
+	uniform_set_cache = memnewOldNoConstructor(UniformSetCacheRD);
+	framebuffer_cache = memnewOldNoConstructor(FramebufferCacheRD);
 
 	{
 		String shader_cache_dir = Engine::get_singleton()->get_shader_cache_path();
@@ -302,14 +302,14 @@ RendererCompositorRD::RendererCompositorRD() {
 	ERR_FAIL_COND_MSG(singleton != nullptr, "A RendererCompositorRD singleton already exists.");
 	singleton = this;
 
-	utilities = memnewOld(RendererRD::Utilities);
-	texture_storage = memnewOld(RendererRD::TextureStorage);
-	material_storage = memnewOld(RendererRD::MaterialStorage);
-	mesh_storage = memnewOld(RendererRD::MeshStorage);
-	light_storage = memnewOld(RendererRD::LightStorage);
-	particles_storage = memnewOld(RendererRD::ParticlesStorage);
-	fog = memnewOld(RendererRD::Fog);
-	canvas = memnewOld(RendererCanvasRenderRD());
+	utilities = memnewOldNoConstructor(RendererRD::Utilities);
+	texture_storage = memnewOldNoConstructor(RendererRD::TextureStorage);
+	material_storage = memnewOldNoConstructor(RendererRD::MaterialStorage);
+	mesh_storage = memnewOldNoConstructor(RendererRD::MeshStorage);
+	light_storage = memnewOldNoConstructor(RendererRD::LightStorage);
+	particles_storage = memnewOldNoConstructor(RendererRD::ParticlesStorage);
+	fog = memnewOldNoConstructor(RendererRD::Fog);
+	canvas = memnewOldNoArgs(RendererCanvasRenderRD());
 
 	String rendering_method = OS::get_singleton()->get_current_rendering_method();
 	uint64_t textures_per_stage = RD::get_singleton()->limit_get(RD::LIMIT_MAX_TEXTURES_PER_SHADER_STAGE);
@@ -318,13 +318,13 @@ RendererCompositorRD::RendererCompositorRD() {
 		if (rendering_method == "forward_plus") {
 			WARN_PRINT_ONCE("Platform supports less than 48 textures per stage which is less than required by the Clustered renderer. Defaulting to Mobile renderer.");
 		}
-		scene = memnewOld(RendererSceneRenderImplementation::RenderForwardMobile());
+		scene = memnewOldNoArgs(RendererSceneRenderImplementation::RenderForwardMobile());
 	} else if (rendering_method == "forward_plus") {
-		scene = memnewOld(RendererSceneRenderImplementation::RenderForwardClustered());
+		scene = memnewOldNoArgs(RendererSceneRenderImplementation::RenderForwardClustered());
 	} else {
 		// Fall back to our high end renderer.
 		ERR_PRINT(vformat("Cannot instantiate RenderingDevice-based renderer with renderer type '%s'. Defaulting to Forward+ renderer.", rendering_method));
-		scene = memnewOld(RendererSceneRenderImplementation::RenderForwardClustered());
+		scene = memnewOldNoArgs(RendererSceneRenderImplementation::RenderForwardClustered());
 	}
 
 	scene->init();

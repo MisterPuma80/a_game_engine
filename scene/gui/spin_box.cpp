@@ -581,7 +581,7 @@ void SpinBox::_bind_methods() {
 }
 
 SpinBox::SpinBox() {
-	line_edit = memnewOld(LineEdit);
+	line_edit = memnewOldNoConstructor(LineEdit);
 	add_child(line_edit, false, INTERNAL_MODE_FRONT);
 
 	line_edit->set_theme_type_variation("SpinBoxInnerLineEdit");
@@ -593,7 +593,7 @@ SpinBox::SpinBox() {
 	line_edit->connect("editing_toggled", callable_mp(this, &SpinBox::_line_edit_editing_toggled), CONNECT_DEFERRED);
 	line_edit->connect(SceneStringName(gui_input), callable_mp(this, &SpinBox::_line_edit_input));
 
-	range_click_timer = memnewOld(Timer);
+	range_click_timer = memnewOldNoConstructor(Timer);
 	range_click_timer->connect("timeout", callable_mp(this, &SpinBox::_range_click_timeout));
 	add_child(range_click_timer, false, INTERNAL_MODE_FRONT);
 }

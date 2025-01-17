@@ -114,7 +114,7 @@ void ProjectListItemControl::set_project_path(const String &p_path) {
 
 void ProjectListItemControl::set_tags(const PackedStringArray &p_tags, ProjectList *p_parent_list) {
 	for (const String &tag : p_tags) {
-		ProjectTag *tag_control = memnewOld(ProjectTag(tag));
+		ProjectTag *tag_control = memnewOldWithArgs(ProjectTag(tag));
 		tag_container->add_child(tag_control);
 		tag_control->connect_button_to(callable_mp(p_parent_list, &ProjectList::add_search_tag).bind(tag));
 	}
@@ -230,64 +230,64 @@ void ProjectListItemControl::_bind_methods() {
 ProjectListItemControl::ProjectListItemControl() {
 	set_focus_mode(FocusMode::FOCUS_ALL);
 
-	VBoxContainer *favorite_box = memnewOld(VBoxContainer);
+	VBoxContainer *favorite_box = memnewOldNoConstructor(VBoxContainer);
 	favorite_box->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	add_child(favorite_box);
 
-	favorite_button = memnewOld(TextureButton);
+	favorite_button = memnewOldNoConstructor(TextureButton);
 	favorite_button->set_name("FavoriteButton");
 	// This makes the project's "hover" style display correctly when hovering the favorite icon.
 	favorite_button->set_mouse_filter(MOUSE_FILTER_PASS);
 	favorite_box->add_child(favorite_button);
 	favorite_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectListItemControl::_favorite_button_pressed));
 
-	project_icon = memnewOld(TextureRect);
+	project_icon = memnewOldNoConstructor(TextureRect);
 	project_icon->set_name("ProjectIcon");
 	project_icon->set_v_size_flags(SIZE_SHRINK_CENTER);
 	add_child(project_icon);
 
-	main_vbox = memnewOld(VBoxContainer);
+	main_vbox = memnewOldNoConstructor(VBoxContainer);
 	main_vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(main_vbox);
 
-	Control *ec = memnewOld(Control);
+	Control *ec = memnewOldNoConstructor(Control);
 	ec->set_custom_minimum_size(Size2(0, 1));
 	ec->set_mouse_filter(MOUSE_FILTER_PASS);
 	main_vbox->add_child(ec);
 
 	// Top half, title, tags and unsupported features labels.
 	{
-		HBoxContainer *title_hb = memnewOld(HBoxContainer);
+		HBoxContainer *title_hb = memnewOldNoConstructor(HBoxContainer);
 		main_vbox->add_child(title_hb);
 
-		project_title = memnewOld(Label);
+		project_title = memnewOldNoConstructor(Label);
 		project_title->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 		project_title->set_name("ProjectName");
 		project_title->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		project_title->set_clip_text(true);
 		title_hb->add_child(project_title);
 
-		tag_container = memnewOld(HBoxContainer);
+		tag_container = memnewOldNoConstructor(HBoxContainer);
 		title_hb->add_child(tag_container);
 
-		Control *spacer = memnewOld(Control);
+		Control *spacer = memnewOldNoConstructor(Control);
 		spacer->set_custom_minimum_size(Size2(10, 10));
 		title_hb->add_child(spacer);
 	}
 
 	// Bottom half, containing the path and view folder button.
 	{
-		HBoxContainer *path_hb = memnewOld(HBoxContainer);
+		HBoxContainer *path_hb = memnewOldNoConstructor(HBoxContainer);
 		path_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		main_vbox->add_child(path_hb);
 
-		explore_button = memnewOld(Button);
+		explore_button = memnewOldNoConstructor(Button);
 		explore_button->set_name("ExploreButton");
 		explore_button->set_flat(true);
 		path_hb->add_child(explore_button);
 		explore_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectListItemControl::_explore_button_pressed));
 
-		project_path = memnewOld(Label);
+		project_path = memnewOldNoConstructor(Label);
 		project_path->set_name("ProjectPath");
 		project_path->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 		project_path->set_clip_text(true);
@@ -295,25 +295,25 @@ ProjectListItemControl::ProjectListItemControl() {
 		project_path->set_modulate(Color(1, 1, 1, 0.5));
 		path_hb->add_child(project_path);
 
-		project_unsupported_features = memnewOld(TextureRect);
+		project_unsupported_features = memnewOldNoConstructor(TextureRect);
 		project_unsupported_features->set_name("ProjectUnsupportedFeatures");
 		project_unsupported_features->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 		path_hb->add_child(project_unsupported_features);
 		project_unsupported_features->hide();
 
-		project_version = memnewOld(Label);
+		project_version = memnewOldNoConstructor(Label);
 		project_version->set_name("ProjectVersion");
 		project_version->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 		path_hb->add_child(project_version);
 
-		last_edited_info = memnewOld(Label);
+		last_edited_info = memnewOldNoConstructor(Label);
 		last_edited_info->set_name("LastEditedInfo");
 		last_edited_info->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 		last_edited_info->set_tooltip_text(TTR("Last edited timestamp"));
 		last_edited_info->set_modulate(Color(1, 1, 1, 0.5));
 		path_hb->add_child(last_edited_info);
 
-		Control *spacer = memnewOld(Control);
+		Control *spacer = memnewOldNoConstructor(Control);
 		spacer->set_custom_minimum_size(Size2(10, 10));
 		path_hb->add_child(spacer);
 	}
@@ -418,7 +418,7 @@ ProjectList::Item ProjectList::load_project_data(const String &p_path, bool p_fa
 	bool grayed = false;
 	bool missing = false;
 
-	Ref<ConfigFile> cf = memnewOld(ConfigFile);
+	Ref<ConfigFile> cf = memnewOldNoConstructor(ConfigFile);
 	Error cf_err = cf->load(conf);
 
 	int config_version = 0;
@@ -753,7 +753,7 @@ void ProjectList::_create_project_item_control(int p_index) {
 	Item &item = _projects.write[p_index];
 	ERR_FAIL_COND(item.control != nullptr); // Already created
 
-	ProjectListItemControl *hb = memnewOld(ProjectListItemControl);
+	ProjectListItemControl *hb = memnewOldNoConstructor(ProjectListItemControl);
 	hb->add_theme_constant_override("separation", 10 * EDSCALE);
 
 	hb->set_project_title(!item.missing ? item.project_name : TTR("Missing Project"));
@@ -1133,7 +1133,7 @@ void ProjectList::_bind_methods() {
 }
 
 ProjectList::ProjectList() {
-	project_list_vbox = memnewOld(VBoxContainer);
+	project_list_vbox = memnewOldNoConstructor(VBoxContainer);
 	project_list_vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(project_list_vbox);
 

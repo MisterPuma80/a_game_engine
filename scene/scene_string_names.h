@@ -40,7 +40,7 @@ class SceneStringNames {
 
 	static SceneStringNames *singleton;
 
-	static void create() { singleton = memnewOld(SceneStringNames); }
+	static void create() { singleton = memnewOldNoConstructor(SceneStringNames); }
 	static void free() {
 		memdelete(singleton);
 		singleton = nullptr;

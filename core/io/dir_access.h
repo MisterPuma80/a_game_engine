@@ -72,7 +72,7 @@ protected:
 
 	template <typename T>
 	static Ref<DirAccess> _create_builtin() {
-		return memnewOld(T);
+		return memnewOldNoConstructor(T);
 	}
 
 public:

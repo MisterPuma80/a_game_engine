@@ -623,7 +623,7 @@ Variant CreateDialog::get_drag_data_fw(const Point2 &p_point, Control *p_from) {
 		d["type"] = "create_favorite_drag";
 		d["class"] = ti->get_text(0);
 
-		Button *tb = memnewOld(Button);
+		Button *tb = memnewOldNoConstructor(Button);
 		tb->set_flat(true);
 		tb->set_icon(ti->get_icon(0));
 		tb->set_text(ti->get_text(0));
@@ -756,18 +756,18 @@ CreateDialog::CreateDialog() {
 	type_blacklist.insert("PluginScript"); // PluginScript must be initialized before use, which is not possible here.
 	type_blacklist.insert("ScriptCreateDialog"); // This is an exposed editor Node that doesn't have an Editor prefix.
 
-	HSplitContainer *hsc = memnewOld(HSplitContainer);
+	HSplitContainer *hsc = memnewOldNoConstructor(HSplitContainer);
 	add_child(hsc);
 
-	VSplitContainer *vsc = memnewOld(VSplitContainer);
+	VSplitContainer *vsc = memnewOldNoConstructor(VSplitContainer);
 	hsc->add_child(vsc);
 
-	VBoxContainer *fav_vb = memnewOld(VBoxContainer);
+	VBoxContainer *fav_vb = memnewOldNoConstructor(VBoxContainer);
 	fav_vb->set_custom_minimum_size(Size2(150, 100) * EDSCALE);
 	fav_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vsc->add_child(fav_vb);
 
-	favorites = memnewOld(Tree);
+	favorites = memnewOldNoConstructor(Tree);
 	favorites->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	favorites->set_hide_root(true);
 	favorites->set_hide_folding(true);
@@ -778,12 +778,12 @@ CreateDialog::CreateDialog() {
 	SET_DRAG_FORWARDING_GCD(favorites, CreateDialog);
 	fav_vb->add_margin_child(TTR("Favorites:"), favorites, true);
 
-	VBoxContainer *rec_vb = memnewOld(VBoxContainer);
+	VBoxContainer *rec_vb = memnewOldNoConstructor(VBoxContainer);
 	vsc->add_child(rec_vb);
 	rec_vb->set_custom_minimum_size(Size2(150, 100) * EDSCALE);
 	rec_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	recent = memnewOld(ItemList);
+	recent = memnewOldNoConstructor(ItemList);
 	recent->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	rec_vb->add_margin_child(TTR("Recent:"), recent, true);
 	recent->set_allow_reselect(true);
@@ -791,34 +791,34 @@ CreateDialog::CreateDialog() {
 	recent->connect("item_activated", callable_mp(this, &CreateDialog::_history_activated));
 	recent->add_theme_constant_override("draw_guides", 1);
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	vbc->set_custom_minimum_size(Size2(300, 0) * EDSCALE);
 	vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hsc->add_child(vbc);
 
-	search_box = memnewOld(LineEdit);
+	search_box = memnewOldNoConstructor(LineEdit);
 	search_box->set_clear_button_enabled(true);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &CreateDialog::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &CreateDialog::_sbox_input));
 
-	HBoxContainer *search_hb = memnewOld(HBoxContainer);
+	HBoxContainer *search_hb = memnewOldNoConstructor(HBoxContainer);
 	search_hb->add_child(search_box);
 
-	favorite = memnewOld(Button);
+	favorite = memnewOldNoConstructor(Button);
 	favorite->set_toggle_mode(true);
 	favorite->set_tooltip_text(TTR("(Un)favorite selected item."));
 	favorite->connect(SceneStringName(pressed), callable_mp(this, &CreateDialog::_favorite_toggled));
 	search_hb->add_child(favorite);
 	vbc->add_margin_child(TTR("Search:"), search_hb);
 
-	search_options = memnewOld(Tree);
+	search_options = memnewOldNoConstructor(Tree);
 	search_options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	search_options->connect("item_activated", callable_mp(this, &CreateDialog::_confirmed));
 	search_options->connect("cell_selected", callable_mp(this, &CreateDialog::_item_selected));
 	vbc->add_margin_child(TTR("Matches:"), search_options, true);
 
-	help_bit = memnewOld(EditorHelpBit);
+	help_bit = memnewOldNoConstructor(EditorHelpBit);
 	help_bit->set_content_height_limits(64 * EDSCALE, 64 * EDSCALE);
 	help_bit->connect("request_hide", callable_mp(this, &CreateDialog::_hide_requested));
 	vbc->add_margin_child(TTR("Description:"), help_bit);

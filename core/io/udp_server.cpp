@@ -78,7 +78,7 @@ Error UDPServer::poll() {
 			Peer peer;
 			peer.ip = ip;
 			peer.port = port;
-			peer.peer = memnewOld(PacketPeerUDP);
+			peer.peer = memnewOldNoConstructor(PacketPeerUDP);
 			peer.peer->connect_shared_socket(_sock, ip, port, this);
 			peer.peer->store_packet(ip, port, recv_buffer, read);
 			pending.push_back(peer);

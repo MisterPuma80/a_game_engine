@@ -66,7 +66,7 @@ using namespace godot;
 #include <stdlib.h>
 
 FT_Error tvg_svg_in_ot_init(FT_Pointer *p_state) {
-	*p_state = memnewOld(TVG_State);
+	*p_state = memnewOldNoConstructor(TVG_State);
 
 	return FT_Err_Ok;
 }

@@ -428,13 +428,13 @@ void ScriptEditorQuickOpen::_bind_methods() {
 }
 
 ScriptEditorQuickOpen::ScriptEditorQuickOpen() {
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc);
-	search_box = memnewOld(LineEdit);
+	search_box = memnewOldNoConstructor(LineEdit);
 	vbc->add_margin_child(TTR("Search:"), search_box);
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &ScriptEditorQuickOpen::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &ScriptEditorQuickOpen::_sbox_input));
-	search_options = memnewOld(Tree);
+	search_options = memnewOldNoConstructor(Tree);
 	vbc->add_margin_child(TTR("Matches:"), search_options, true);
 	set_ok_button_text(TTR("Open"));
 	get_ok_button()->set_disabled(true);
@@ -1502,7 +1502,7 @@ void ScriptEditor::_menu_option(int p_option) {
 					return;
 				}
 
-				Ref<EditorScript> es = memnewOld(EditorScript);
+				Ref<EditorScript> es = memnewOldNoConstructor(EditorScript);
 				es->set_script(scr);
 				es->run();
 			} break;
@@ -2325,7 +2325,7 @@ Ref<TextFile> ScriptEditor::_load_text_file(const String &p_path, Error *r_error
 	String local_path = ProjectSettings::get_singleton()->localize_path(p_path);
 	String path = ResourceLoader::path_remap(local_path);
 
-	TextFile *text_file = memnewOld(TextFile);
+	TextFile *text_file = memnewOldNoConstructor(TextFile);
 	Ref<TextFile> text_res(text_file);
 	Error err = text_file->load_text(path);
 
@@ -3033,7 +3033,7 @@ Variant ScriptEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from) {
 
 	Node *cur_node = tab_container->get_tab_control(tab_container->get_current_tab());
 
-	HBoxContainer *drag_preview = memnewOld(HBoxContainer);
+	HBoxContainer *drag_preview = memnewOldNoConstructor(HBoxContainer);
 	String preview_name = "";
 	Ref<Texture2D> preview_icon;
 
@@ -3049,12 +3049,12 @@ Variant ScriptEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from) {
 	}
 
 	if (!preview_icon.is_null()) {
-		TextureRect *tf = memnewOld(TextureRect);
+		TextureRect *tf = memnewOldNoConstructor(TextureRect);
 		tf->set_texture(preview_icon);
 		tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 		drag_preview->add_child(tf);
 	}
-	Label *label = memnewOld(Label(preview_name));
+	Label *label = memnewOldWithArgs(Label(preview_name));
 	drag_preview->add_child(label);
 	set_drag_preview(drag_preview);
 
@@ -3511,7 +3511,7 @@ void ScriptEditor::_help_class_open(const String &p_class) {
 		}
 	}
 
-	EditorHelp *eh = memnewOld(EditorHelp);
+	EditorHelp *eh = memnewOldNoConstructor(EditorHelp);
 
 	eh->set_name(p_class);
 	tab_container->add_child(eh);
@@ -3532,7 +3532,7 @@ void ScriptEditor::_help_class_goto(const String &p_desc) {
 		return;
 	}
 
-	EditorHelp *eh = memnewOld(EditorHelp);
+	EditorHelp *eh = memnewOldNoConstructor(EditorHelp);
 
 	eh->set_name(cname);
 	tab_container->add_child(eh);
@@ -4000,7 +4000,7 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	script_editor_cache.instantiate();
 	script_editor_cache->load(EditorPaths::get_singleton()->get_project_settings_dir().path_join("script_editor_cache.cfg"));
 
-	completion_cache = memnewOld(EditorScriptCodeCompletionCache);
+	completion_cache = memnewOldNoConstructor(EditorScriptCodeCompletionCache);
 	restoring_layout = false;
 	waiting_update_names = false;
 	pending_auto_reload = false;
@@ -4009,31 +4009,31 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	members_overview_enabled = EDITOR_GET("text_editor/script_list/show_members_overview");
 	help_overview_enabled = EDITOR_GET("text_editor/help/show_help_index");
 
-	VBoxContainer *main_container = memnewOld(VBoxContainer);
+	VBoxContainer *main_container = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_container);
 
-	menu_hb = memnewOld(HBoxContainer);
+	menu_hb = memnewOldNoConstructor(HBoxContainer);
 	main_container->add_child(menu_hb);
 
-	script_split = memnewOld(HSplitContainer);
+	script_split = memnewOldNoConstructor(HSplitContainer);
 	main_container->add_child(script_split);
 	script_split->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	list_split = memnewOld(VSplitContainer);
+	list_split = memnewOldNoConstructor(VSplitContainer);
 	script_split->add_child(list_split);
 	list_split->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	scripts_vbox = memnewOld(VBoxContainer);
+	scripts_vbox = memnewOldNoConstructor(VBoxContainer);
 	scripts_vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 	list_split->add_child(scripts_vbox);
 
-	filter_scripts = memnewOld(LineEdit);
+	filter_scripts = memnewOldNoConstructor(LineEdit);
 	filter_scripts->set_placeholder(TTR("Filter Scripts"));
 	filter_scripts->set_clear_button_enabled(true);
 	filter_scripts->connect(SceneStringName(text_changed), callable_mp(this, &ScriptEditor::_filter_scripts_text_changed));
 	scripts_vbox->add_child(filter_scripts);
 
-	script_list = memnewOld(ItemList);
+	script_list = memnewOldNoConstructor(ItemList);
 	script_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	scripts_vbox->add_child(script_list);
 	script_list->set_custom_minimum_size(Size2(150, 60) * EDSCALE); //need to give a bit of limit to avoid it from disappearing
@@ -4044,27 +4044,27 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	script_list->set_allow_rmb_select(true);
 	SET_DRAG_FORWARDING_GCD(script_list, ScriptEditor);
 
-	context_menu = memnewOld(PopupMenu);
+	context_menu = memnewOldNoConstructor(PopupMenu);
 	add_child(context_menu);
 	context_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptEditor::_menu_option));
 
-	overview_vbox = memnewOld(VBoxContainer);
+	overview_vbox = memnewOldNoConstructor(VBoxContainer);
 	overview_vbox->set_custom_minimum_size(Size2(0, 90));
 	overview_vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 
 	list_split->add_child(overview_vbox);
 	list_split->set_visible(EditorSettings::get_singleton()->get_project_metadata("scripts_panel", "show_scripts_panel", true));
-	buttons_hbox = memnewOld(HBoxContainer);
+	buttons_hbox = memnewOldNoConstructor(HBoxContainer);
 	overview_vbox->add_child(buttons_hbox);
 
-	filename = memnewOld(Label);
+	filename = memnewOldNoConstructor(Label);
 	filename->set_clip_text(true);
 	filename->set_h_size_flags(SIZE_EXPAND_FILL);
 	filename->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	filename->add_theme_style_override(CoreStringName(normal), EditorNode::get_singleton()->get_editor_theme()->get_stylebox(CoreStringName(normal), SNAME("LineEdit")));
 	buttons_hbox->add_child(filename);
 
-	members_overview_alphabeta_sort_button = memnewOld(Button);
+	members_overview_alphabeta_sort_button = memnewOldNoConstructor(Button);
 	members_overview_alphabeta_sort_button->set_flat(true);
 	members_overview_alphabeta_sort_button->set_tooltip_text(TTR("Toggle alphabetical sorting of the method list."));
 	members_overview_alphabeta_sort_button->set_toggle_mode(true);
@@ -4073,13 +4073,13 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	buttons_hbox->add_child(members_overview_alphabeta_sort_button);
 
-	filter_methods = memnewOld(LineEdit);
+	filter_methods = memnewOldNoConstructor(LineEdit);
 	filter_methods->set_placeholder(TTR("Filter Methods"));
 	filter_methods->set_clear_button_enabled(true);
 	filter_methods->connect(SceneStringName(text_changed), callable_mp(this, &ScriptEditor::_filter_methods_text_changed));
 	overview_vbox->add_child(filter_methods);
 
-	members_overview = memnewOld(ItemList);
+	members_overview = memnewOldNoConstructor(ItemList);
 	members_overview->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	overview_vbox->add_child(members_overview);
 
@@ -4088,24 +4088,24 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	members_overview->set_v_size_flags(SIZE_EXPAND_FILL);
 	members_overview->set_allow_rmb_select(true);
 
-	help_overview = memnewOld(ItemList);
+	help_overview = memnewOldNoConstructor(ItemList);
 	help_overview->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	overview_vbox->add_child(help_overview);
 	help_overview->set_allow_reselect(true);
 	help_overview->set_custom_minimum_size(Size2(0, 60) * EDSCALE); //need to give a bit of limit to avoid it from disappearing
 	help_overview->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	VBoxContainer *code_editor_container = memnewOld(VBoxContainer);
+	VBoxContainer *code_editor_container = memnewOldNoConstructor(VBoxContainer);
 	script_split->add_child(code_editor_container);
 
-	tab_container = memnewOld(TabContainer);
+	tab_container = memnewOldNoConstructor(TabContainer);
 	tab_container->set_tabs_visible(false);
 	tab_container->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	code_editor_container->add_child(tab_container);
 	tab_container->set_h_size_flags(SIZE_EXPAND_FILL);
 	tab_container->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	find_replace_bar = memnewOld(FindReplaceBar);
+	find_replace_bar = memnewOldNoConstructor(FindReplaceBar);
 	code_editor_container->add_child(find_replace_bar);
 	find_replace_bar->hide();
 
@@ -4118,7 +4118,7 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	set_process_input(true);
 	set_process_shortcut_input(true);
 
-	file_menu = memnewOld(MenuButton);
+	file_menu = memnewOldNoConstructor(MenuButton);
 	file_menu->set_text(TTR("File"));
 	file_menu->set_switch_on_hover(true);
 	file_menu->set_shortcut_context(this);
@@ -4129,7 +4129,7 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	file_menu->get_popup()->add_shortcut(ED_SHORTCUT("script_editor/open", TTR("Open...")), FILE_OPEN);
 	file_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_editor/reopen_closed_script"), FILE_REOPEN_CLOSED);
 
-	recent_scripts = memnewOld(PopupMenu);
+	recent_scripts = memnewOldNoConstructor(PopupMenu);
 	file_menu->get_popup()->add_submenu_node_item(TTR("Open Recent"), recent_scripts, FILE_OPEN_RECENT);
 	recent_scripts->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptEditor::_open_recent_script));
 
@@ -4153,7 +4153,7 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	file_menu->get_popup()->add_separator();
 
-	theme_submenu = memnewOld(PopupMenu);
+	theme_submenu = memnewOldNoConstructor(PopupMenu);
 	theme_submenu->add_shortcut(ED_SHORTCUT("script_editor/import_theme", TTR("Import Theme...")), THEME_IMPORT);
 	theme_submenu->add_shortcut(ED_SHORTCUT("script_editor/reload_theme", TTR("Reload Theme")), THEME_RELOAD);
 	file_menu->get_popup()->add_submenu_node_item(TTR("Theme"), theme_submenu, FILE_THEME);
@@ -4178,14 +4178,14 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	file_menu->get_popup()->connect("about_to_popup", callable_mp(this, &ScriptEditor::_prepare_file_menu));
 	file_menu->get_popup()->connect("popup_hide", callable_mp(this, &ScriptEditor::_file_menu_closed));
 
-	script_search_menu = memnewOld(MenuButton);
+	script_search_menu = memnewOldNoConstructor(MenuButton);
 	script_search_menu->set_text(TTR("Search"));
 	script_search_menu->set_switch_on_hover(true);
 	script_search_menu->set_shortcut_context(this);
 	script_search_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptEditor::_menu_option));
 	menu_hb->add_child(script_search_menu);
 
-	MenuButton *debug_menu_btn = memnewOld(MenuButton);
+	MenuButton *debug_menu_btn = memnewOldNoConstructor(MenuButton);
 	menu_hb->add_child(debug_menu_btn);
 	debug_menu_btn->hide(); // Handled by EditorDebuggerNode below.
 
@@ -4200,9 +4200,9 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	menu_hb->add_spacer();
 
-	script_icon = memnewOld(TextureRect);
+	script_icon = memnewOldNoConstructor(TextureRect);
 	menu_hb->add_child(script_icon);
-	script_name_label = memnewOld(Label);
+	script_name_label = memnewOldNoConstructor(Label);
 	menu_hb->add_child(script_name_label);
 
 	script_icon->hide();
@@ -4210,37 +4210,37 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	menu_hb->add_spacer();
 
-	site_search = memnewOld(Button);
+	site_search = memnewOldNoConstructor(Button);
 	site_search->set_flat(true);
 	site_search->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditor::_menu_option).bind(SEARCH_WEBSITE));
 	menu_hb->add_child(site_search);
 
-	help_search = memnewOld(Button);
+	help_search = memnewOldNoConstructor(Button);
 	help_search->set_flat(true);
 	help_search->set_text(TTR("Search Help"));
 	help_search->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditor::_menu_option).bind(SEARCH_HELP));
 	menu_hb->add_child(help_search);
 	help_search->set_tooltip_text(TTR("Search the reference documentation."));
 
-	menu_hb->add_child(memnewOld(VSeparator));
+	menu_hb->add_child(memnewOldNoConstructor(VSeparator));
 
-	script_back = memnewOld(Button);
+	script_back = memnewOldNoConstructor(Button);
 	script_back->set_flat(true);
 	script_back->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditor::_history_back));
 	menu_hb->add_child(script_back);
 	script_back->set_disabled(true);
 	script_back->set_tooltip_text(TTR("Go to previous edited document."));
 
-	script_forward = memnewOld(Button);
+	script_forward = memnewOldNoConstructor(Button);
 	script_forward->set_flat(true);
 	script_forward->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditor::_history_forward));
 	menu_hb->add_child(script_forward);
 	script_forward->set_disabled(true);
 	script_forward->set_tooltip_text(TTR("Go to next edited document."));
 
-	menu_hb->add_child(memnewOld(VSeparator));
+	menu_hb->add_child(memnewOldNoConstructor(VSeparator));
 
-	make_floating = memnewOld(ScreenSelect);
+	make_floating = memnewOldNoConstructor(ScreenSelect);
 	make_floating->set_flat(true);
 	make_floating->connect("request_open_in_screen", callable_mp(window_wrapper, &WindowWrapper::enable_window_on_screen).bind(true));
 	if (!make_floating->is_disabled()) {
@@ -4253,42 +4253,42 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	tab_container->connect("tab_changed", callable_mp(this, &ScriptEditor::_tab_changed));
 
-	erase_tab_confirm = memnewOld(ConfirmationDialog);
+	erase_tab_confirm = memnewOldNoConstructor(ConfirmationDialog);
 	erase_tab_confirm->set_ok_button_text(TTR("Save"));
 	erase_tab_confirm->add_button(TTR("Discard"), DisplayServer::get_singleton()->get_swap_cancel_ok(), "discard");
 	erase_tab_confirm->connect(SceneStringName(confirmed), callable_mp(this, &ScriptEditor::_close_current_tab).bind(true, true));
 	erase_tab_confirm->connect("custom_action", callable_mp(this, &ScriptEditor::_close_discard_current_tab));
 	add_child(erase_tab_confirm);
 
-	script_create_dialog = memnewOld(ScriptCreateDialog);
+	script_create_dialog = memnewOldNoConstructor(ScriptCreateDialog);
 	script_create_dialog->set_title(TTR("Create Script"));
 	add_child(script_create_dialog);
 	script_create_dialog->connect("script_created", callable_mp(this, &ScriptEditor::_script_created));
 
 	file_dialog_option = -1;
-	file_dialog = memnewOld(EditorFileDialog);
+	file_dialog = memnewOldNoConstructor(EditorFileDialog);
 	add_child(file_dialog);
 	file_dialog->connect("file_selected", callable_mp(this, &ScriptEditor::_file_dialog_action));
 
-	error_dialog = memnewOld(AcceptDialog);
+	error_dialog = memnewOldNoConstructor(AcceptDialog);
 	add_child(error_dialog);
 
-	disk_changed = memnewOld(ConfirmationDialog);
+	disk_changed = memnewOldNoConstructor(ConfirmationDialog);
 	{
 		disk_changed->set_title(TTR("Files have been modified on disk"));
 
-		VBoxContainer *vbc = memnewOld(VBoxContainer);
+		VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 		disk_changed->add_child(vbc);
 
-		Label *files_are_newer_label = memnewOld(Label);
+		Label *files_are_newer_label = memnewOldNoConstructor(Label);
 		files_are_newer_label->set_text(TTR("The following files are newer on disk."));
 		vbc->add_child(files_are_newer_label);
 
-		Label *what_action_label = memnewOld(Label);
+		Label *what_action_label = memnewOldNoConstructor(Label);
 		what_action_label->set_text(TTR("What action should be taken?:"));
 		vbc->add_child(what_action_label);
 
-		disk_changed_list = memnewOld(Tree);
+		disk_changed_list = memnewOldNoConstructor(Tree);
 		vbc->add_child(disk_changed_list);
 		disk_changed_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 		disk_changed_list->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -4304,7 +4304,7 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	script_editor = this;
 
-	autosave_timer = memnewOld(Timer);
+	autosave_timer = memnewOldNoConstructor(Timer);
 	autosave_timer->set_one_shot(false);
 	autosave_timer->connect(SceneStringName(tree_entered), callable_mp(this, &ScriptEditor::_update_autosave_timer));
 	autosave_timer->connect("timeout", callable_mp(this, &ScriptEditor::_autosave_scripts));
@@ -4312,15 +4312,15 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 
 	grab_focus_block = false;
 
-	help_search_dialog = memnewOld(EditorHelpSearch);
+	help_search_dialog = memnewOldNoConstructor(EditorHelpSearch);
 	add_child(help_search_dialog);
 	help_search_dialog->connect("go_to_help", callable_mp(this, &ScriptEditor::_help_class_goto));
 
-	find_in_files_dialog = memnewOld(FindInFilesDialog);
+	find_in_files_dialog = memnewOldNoConstructor(FindInFilesDialog);
 	find_in_files_dialog->connect(FindInFilesDialog::SIGNAL_FIND_REQUESTED, callable_mp(this, &ScriptEditor::_start_find_in_files).bind(false));
 	find_in_files_dialog->connect(FindInFilesDialog::SIGNAL_REPLACE_REQUESTED, callable_mp(this, &ScriptEditor::_start_find_in_files).bind(true));
 	add_child(find_in_files_dialog);
-	find_in_files = memnewOld(FindInFilesPanel);
+	find_in_files = memnewOldNoConstructor(FindInFilesPanel);
 	find_in_files_button = EditorNode::get_bottom_panel()->add_item(TTR("Search Results"), find_in_files, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_search_results_bottom_panel", TTR("Toggle Search Results Bottom Panel")));
 	find_in_files->set_custom_minimum_size(Size2(0, 200) * EDSCALE);
 	find_in_files->connect(FindInFilesPanel::SIGNAL_RESULT_SELECTED, callable_mp(this, &ScriptEditor::_on_find_in_files_result_selected));
@@ -4544,11 +4544,11 @@ ScriptEditorPlugin::ScriptEditorPlugin() {
 	ED_SHORTCUT("script_text_editor/convert_to_lowercase", TTR("Lowercase"), KeyModifierMask::SHIFT | Key::F5);
 	ED_SHORTCUT("script_text_editor/capitalize", TTR("Capitalize"), KeyModifierMask::SHIFT | Key::F6);
 
-	window_wrapper = memnewOld(WindowWrapper);
+	window_wrapper = memnewOldNoConstructor(WindowWrapper);
 	window_wrapper->set_window_title(vformat(TTR("%s - Blazium Engine"), TTR("Script Editor")));
 	window_wrapper->set_margins_enabled(true);
 
-	script_editor = memnewOld(ScriptEditor(window_wrapper));
+	script_editor = memnewOldWithArgs(ScriptEditor(window_wrapper));
 	Ref<Shortcut> make_floating_shortcut = ED_SHORTCUT_AND_COMMAND("script_editor/make_floating", TTR("Make Floating"));
 	window_wrapper->set_wrapped_control(script_editor, make_floating_shortcut);
 

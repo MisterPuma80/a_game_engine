@@ -39,7 +39,7 @@ class EditorStringNames {
 	EditorStringNames();
 
 public:
-	static void create() { singleton = memnewOld(EditorStringNames); }
+	static void create() { singleton = memnewOldNoConstructor(EditorStringNames); }
 	static void free() {
 		memdelete(singleton);
 		singleton = nullptr;

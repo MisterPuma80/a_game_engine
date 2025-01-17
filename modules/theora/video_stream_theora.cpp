@@ -114,7 +114,7 @@ void VideoStreamPlaybackTheora::video_write() {
 		format = Image::FORMAT_RGBA8;
 	}
 
-	Ref<Image> img = memnewOld(Image(size.x, size.y, 0, Image::FORMAT_RGBA8, frame_data)); //zero copy image creation
+	Ref<Image> img = memnewOldWithArgs(Image(size.x, size.y, 0, Image::FORMAT_RGBA8, frame_data)); //zero copy image creation
 
 	texture->update(img); //zero copy send to rendering server
 
@@ -628,7 +628,7 @@ void VideoStreamPlaybackTheora::_streaming_thread(void *ud) {
 #endif
 
 VideoStreamPlaybackTheora::VideoStreamPlaybackTheora() {
-	texture = Ref<ImageTexture>(memnewOld(ImageTexture));
+	texture = Ref<ImageTexture>(memnewOldNoConstructor(ImageTexture));
 
 #ifdef THEORA_USE_THREAD_STREAMING
 	int rb_power = nearest_shift(RB_SIZE_KB * 1024);
@@ -657,7 +657,7 @@ Ref<Resource> ResourceFormatLoaderTheora::load(const String &p_path, const Strin
 		return Ref<Resource>();
 	}
 
-	VideoStreamTheora *stream = memnewOld(VideoStreamTheora);
+	VideoStreamTheora *stream = memnewOldNoConstructor(VideoStreamTheora);
 	stream->set_file(p_path);
 
 	Ref<VideoStreamTheora> ogv_stream = Ref<VideoStreamTheora>(stream);

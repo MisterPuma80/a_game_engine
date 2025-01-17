@@ -1295,17 +1295,17 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 
 	// Root layout
 
-	VBoxContainer *root_vb = memnewOld(VBoxContainer);
+	VBoxContainer *root_vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(root_vb);
 
-	main_pages = memnewOld(TabContainer);
+	main_pages = memnewOldNoConstructor(TabContainer);
 	main_pages->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	main_pages->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	main_pages->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_pages->set_theme_type_variation("TabContainerOdd");
 	root_vb->add_child(main_pages);
 
-	label_warn = memnewOld(Label);
+	label_warn = memnewOldNoConstructor(Label);
 	label_warn->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	label_warn->set_text("");
 	root_vb->add_child(label_warn);
@@ -1313,32 +1313,32 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 
 	// Page 1 layout: Rendering Options
 
-	VBoxContainer *page1_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page1_vb = memnewOldNoConstructor(VBoxContainer);
 	page1_vb->set_name(TTR("Rendering Options"));
 	main_pages->add_child(page1_vb);
 
-	page1_description = memnewOld(Label);
+	page1_description = memnewOldNoConstructor(Label);
 	page1_description->set_text(TTR("Select font rendering options, fallback font, and metadata override:"));
 	page1_description->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_vb->add_child(page1_description);
 
-	HSplitContainer *page1_hb = memnewOld(HSplitContainer);
+	HSplitContainer *page1_hb = memnewOldNoConstructor(HSplitContainer);
 	page1_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_vb->add_child(page1_hb);
 
-	VBoxContainer *page1_lbl_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page1_lbl_vb = memnewOldNoConstructor(VBoxContainer);
 	page1_lbl_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_lbl_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_hb->add_child(page1_lbl_vb);
 
-	font_name_label = memnewOld(Label);
+	font_name_label = memnewOldNoConstructor(Label);
 	font_name_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	font_name_label->set_clip_text(true);
 	font_name_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_lbl_vb->add_child(font_name_label);
 
-	font_preview_label = memnewOld(Label);
+	font_preview_label = memnewOldNoConstructor(Label);
 	font_preview_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	font_preview_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	font_preview_label->set_autowrap_mode(TextServer::AUTOWRAP_ARBITRARY);
@@ -1347,47 +1347,47 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	font_preview_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page1_lbl_vb->add_child(font_preview_label);
 
-	inspector_general = memnewOld(EditorInspector);
+	inspector_general = memnewOldNoConstructor(EditorInspector);
 	inspector_general->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	inspector_general->set_custom_minimum_size(Size2(300 * EDSCALE, 250 * EDSCALE));
 	page1_hb->add_child(inspector_general);
 	inspector_general->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_main_prop_changed));
 
 	// Page 2 layout: Configurations
-	VBoxContainer *page2_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page2_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_vb->set_name(TTR("Pre-render Configurations"));
 	main_pages->add_child(page2_vb);
 
-	page2_description = memnewOld(Label);
+	page2_description = memnewOldNoConstructor(Label);
 	page2_description->set_text(TTR("Add font size, and variation coordinates, and select glyphs to pre-render:"));
 	page2_description->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_description->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	page2_description->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 	page2_vb->add_child(page2_description);
 
-	HSplitContainer *page2_hb = memnewOld(HSplitContainer);
+	HSplitContainer *page2_hb = memnewOldNoConstructor(HSplitContainer);
 	page2_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_vb->add_child(page2_hb);
 
-	VBoxContainer *page2_side_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page2_side_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_hb->add_child(page2_side_vb);
 
-	HBoxContainer *page2_hb_vars = memnewOld(HBoxContainer);
+	HBoxContainer *page2_hb_vars = memnewOldNoConstructor(HBoxContainer);
 	page2_side_vb->add_child(page2_hb_vars);
 
-	label_vars = memnewOld(Label);
+	label_vars = memnewOldNoConstructor(Label);
 	label_vars->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	label_vars->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	label_vars->set_text(TTR("Configuration:"));
 	page2_hb_vars->add_child(label_vars);
 
-	add_var = memnewOld(Button);
+	add_var = memnewOldNoConstructor(Button);
 	add_var->set_tooltip_text(TTR("Add configuration"));
 	page2_hb_vars->add_child(add_var);
 	add_var->connect(SceneStringName(pressed), callable_mp(this, &DynamicFontImportSettingsDialog::_variation_add));
 
-	vars_list = memnewOld(Tree);
+	vars_list = memnewOldNoConstructor(Tree);
 	vars_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	vars_list->set_custom_minimum_size(Size2(300 * EDSCALE, 0));
 	vars_list->set_hide_root(true);
@@ -1401,46 +1401,46 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	vars_list->connect(SceneStringName(item_selected), callable_mp(this, &DynamicFontImportSettingsDialog::_variation_selected));
 	vars_list->connect("button_clicked", callable_mp(this, &DynamicFontImportSettingsDialog::_variation_remove));
 
-	inspector_vars = memnewOld(EditorInspector);
+	inspector_vars = memnewOldNoConstructor(EditorInspector);
 	inspector_vars->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_side_vb->add_child(inspector_vars);
 	inspector_vars->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_variation_changed));
 
-	VBoxContainer *preload_pages_vb = memnewOld(VBoxContainer);
+	VBoxContainer *preload_pages_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_hb->add_child(preload_pages_vb);
 
-	preload_pages = memnewOld(TabContainer);
+	preload_pages = memnewOldNoConstructor(TabContainer);
 	preload_pages->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	preload_pages->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	preload_pages->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	preload_pages_vb->add_child(preload_pages);
 
-	HBoxContainer *gl_hb = memnewOld(HBoxContainer);
+	HBoxContainer *gl_hb = memnewOldNoConstructor(HBoxContainer);
 	gl_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	preload_pages_vb->add_child(gl_hb);
 
-	label_glyphs = memnewOld(Label);
+	label_glyphs = memnewOldNoConstructor(Label);
 	label_glyphs->set_text(vformat(TTR("Preloaded glyphs: %d"), 0));
 	label_glyphs->set_custom_minimum_size(Size2(50 * EDSCALE, 0));
 	gl_hb->add_child(label_glyphs);
 
-	Button *btn_clear = memnewOld(Button);
+	Button *btn_clear = memnewOldNoConstructor(Button);
 	btn_clear->set_text(TTR("Clear Glyph List"));
 	gl_hb->add_child(btn_clear);
 	btn_clear->connect(SceneStringName(pressed), callable_mp(this, &DynamicFontImportSettingsDialog::_glyph_clear));
 
-	VBoxContainer *page2_0_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page2_0_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_0_vb->set_name(TTR("Glyphs from the Translations"));
 	preload_pages->add_child(page2_0_vb);
 
-	page2_0_description = memnewOld(Label);
+	page2_0_description = memnewOldNoConstructor(Label);
 	page2_0_description->set_text(TTR("Select translations to add all required glyphs to pre-render list:"));
 	page2_0_description->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_0_description->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	page2_0_description->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 	page2_0_vb->add_child(page2_0_description);
 
-	locale_tree = memnewOld(Tree);
+	locale_tree = memnewOldNoConstructor(Tree);
 	locale_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	locale_tree->set_columns(1);
 	locale_tree->set_hide_root(true);
@@ -1452,71 +1452,71 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 
 	locale_root = locale_tree->create_item();
 
-	HBoxContainer *locale_hb = memnewOld(HBoxContainer);
+	HBoxContainer *locale_hb = memnewOldNoConstructor(HBoxContainer);
 	locale_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_0_vb->add_child(locale_hb);
 
-	btn_fill_locales = memnewOld(Button);
+	btn_fill_locales = memnewOldNoConstructor(Button);
 	btn_fill_locales->set_text(TTR("Shape all Strings in the Translations and Add Glyphs"));
 	locale_hb->add_child(btn_fill_locales);
 	btn_fill_locales->connect(SceneStringName(pressed), callable_mp(this, &DynamicFontImportSettingsDialog::_process_locales));
 
 	// Page 2.1 layout: Text to select glyphs
-	VBoxContainer *page2_1_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page2_1_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_1_vb->set_name(TTR("Glyphs from the Text"));
 	preload_pages->add_child(page2_1_vb);
 
-	page2_1_description = memnewOld(Label);
+	page2_1_description = memnewOldNoConstructor(Label);
 	page2_1_description->set_text(TTR("Enter a text and select OpenType features to shape and add all required glyphs to pre-render list:"));
 	page2_1_description->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_1_description->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	page2_1_description->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 	page2_1_vb->add_child(page2_1_description);
 
-	HSplitContainer *page2_1_hb = memnewOld(HSplitContainer);
+	HSplitContainer *page2_1_hb = memnewOldNoConstructor(HSplitContainer);
 	page2_1_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_1_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_1_vb->add_child(page2_1_hb);
 
-	inspector_text = memnewOld(EditorInspector);
+	inspector_text = memnewOldNoConstructor(EditorInspector);
 
 	inspector_text->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	inspector_text->set_custom_minimum_size(Size2(300 * EDSCALE, 250 * EDSCALE));
 	page2_1_hb->add_child(inspector_text);
 	inspector_text->connect("property_edited", callable_mp(this, &DynamicFontImportSettingsDialog::_change_text_opts));
 
-	text_edit = memnewOld(TextEdit);
+	text_edit = memnewOldNoConstructor(TextEdit);
 	text_edit->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	text_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_1_hb->add_child(text_edit);
 
-	HBoxContainer *text_hb = memnewOld(HBoxContainer);
+	HBoxContainer *text_hb = memnewOldNoConstructor(HBoxContainer);
 	text_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_1_vb->add_child(text_hb);
 
-	btn_fill = memnewOld(Button);
+	btn_fill = memnewOldNoConstructor(Button);
 	btn_fill->set_text(TTR("Shape Text and Add Glyphs"));
 	text_hb->add_child(btn_fill);
 	btn_fill->connect(SceneStringName(pressed), callable_mp(this, &DynamicFontImportSettingsDialog::_glyph_text_selected));
 
 	// Page 2.2 layout: Character map
-	VBoxContainer *page2_2_vb = memnewOld(VBoxContainer);
+	VBoxContainer *page2_2_vb = memnewOldNoConstructor(VBoxContainer);
 	page2_2_vb->set_name(TTR("Glyphs from the Character Map"));
 	preload_pages->add_child(page2_2_vb);
 
-	page2_2_description = memnewOld(Label);
+	page2_2_description = memnewOldNoConstructor(Label);
 	page2_2_description->set_text(TTR("Add or remove glyphs from the character map to pre-render list:\nNote: Some stylistic alternatives and glyph variants do not have one-to-one correspondence to character, and not shown in this map, use \"Glyphs from the text\" tab to add these."));
 	page2_2_description->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_2_description->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	page2_2_description->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 	page2_2_vb->add_child(page2_2_description);
 
-	HSplitContainer *glyphs_split = memnewOld(HSplitContainer);
+	HSplitContainer *glyphs_split = memnewOldNoConstructor(HSplitContainer);
 	glyphs_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	glyphs_split->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	page2_2_vb->add_child(glyphs_split);
 
-	glyph_table = memnewOld(Tree);
+	glyph_table = memnewOldNoConstructor(Tree);
 	glyph_table->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	glyph_table->set_custom_minimum_size(Size2((30 * 16 + 100) * EDSCALE, 0));
 	glyph_table->set_columns(17);
@@ -1536,7 +1536,7 @@ DynamicFontImportSettingsDialog::DynamicFontImportSettingsDialog() {
 	glyphs_split->add_child(glyph_table);
 	glyph_table->connect("item_activated", callable_mp(this, &DynamicFontImportSettingsDialog::_glyph_selected));
 
-	glyph_tree = memnewOld(Tree);
+	glyph_tree = memnewOldNoConstructor(Tree);
 	glyph_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	glyph_tree->set_custom_minimum_size(Size2(300 * EDSCALE, 0));
 	glyph_tree->set_columns(2);

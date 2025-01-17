@@ -88,11 +88,11 @@ static void _editor_init() {
 
 		if (openxr_interaction_profile_metadata == nullptr) {
 			// If we didn't initialize our actionmap metadata at startup, we initialize it now.
-			openxr_interaction_profile_metadata = memnewOld(OpenXRInteractionProfileMetadata);
+			openxr_interaction_profile_metadata = memnewOldNoConstructor(OpenXRInteractionProfileMetadata);
 			ERR_FAIL_NULL(openxr_interaction_profile_metadata);
 		}
 
-		OpenXREditorPlugin *openxr_plugin = memnewOld(OpenXREditorPlugin());
+		OpenXREditorPlugin *openxr_plugin = memnewOldNoArgs(OpenXREditorPlugin());
 		EditorNode::get_singleton()->add_editor_plugin(openxr_plugin);
 	}
 }
@@ -109,36 +109,36 @@ void initialize_openxr_module(ModuleInitializationLevel p_level) {
 			// Always register our extension wrappers even if we don't initialize OpenXR.
 			// Some of these wrappers will add functionality to our editor.
 #ifdef ANDROID_ENABLED
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRAndroidExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRAndroidExtension));
 #endif
 
 			// register our other extensions
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRPalmPoseExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRLocalFloorExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRPicoControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRCompositionLayerDepthExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRCompositionLayerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHTCControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHTCViveTrackerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHuaweiControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRDisplayRefreshRateExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRWMRControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRML2ControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRMetaControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXREyeGazeInteractionExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHandInteractionExtension));
-			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRMxInkExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRPalmPoseExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRLocalFloorExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRPicoControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRCompositionLayerDepthExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRCompositionLayerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRHTCControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRHTCViveTrackerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRHuaweiControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRDisplayRefreshRateExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRWMRControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRML2ControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRMetaControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXREyeGazeInteractionExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRHandInteractionExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRMxInkExtension));
 
 			// register gated extensions
 			if (GLOBAL_GET("xr/openxr/extensions/hand_tracking")) {
-				OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHandTrackingExtension));
+				OpenXRAPI::register_extension_wrapper(memnewOldNoConstructor(OpenXRHandTrackingExtension));
 			}
 		}
 
 		if (OpenXRAPI::openxr_is_enabled()) {
-			openxr_interaction_profile_metadata = memnewOld(OpenXRInteractionProfileMetadata);
+			openxr_interaction_profile_metadata = memnewOldNoConstructor(OpenXRInteractionProfileMetadata);
 			ERR_FAIL_NULL(openxr_interaction_profile_metadata);
-			openxr_api = memnewOld(OpenXRAPI);
+			openxr_api = memnewOldNoConstructor(OpenXRAPI);
 			ERR_FAIL_NULL(openxr_api);
 
 			if (!openxr_api->initialize(Main::get_rendering_driver_name())) {

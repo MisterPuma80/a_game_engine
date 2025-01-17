@@ -215,7 +215,7 @@ ThemeContext *ThemeDB::create_theme_context(Node *p_node, Vector<Ref<Theme>> &p_
 	ERR_FAIL_COND_V(theme_contexts.has(p_node), nullptr);
 	ERR_FAIL_COND_V(p_themes.is_empty(), nullptr);
 
-	ThemeContext *context = memnewOld(ThemeContext);
+	ThemeContext *context = memnewOldNoConstructor(ThemeContext);
 	context->node = p_node;
 	context->parent = get_nearest_theme_context(p_node);
 	context->set_themes(p_themes);
@@ -266,7 +266,7 @@ void ThemeDB::_propagate_theme_context(Node *p_from_node, ThemeContext *p_contex
 }
 
 void ThemeDB::_init_default_theme_context() {
-	default_theme_context = memnewOld(ThemeContext);
+	default_theme_context = memnewOldNoConstructor(ThemeContext);
 
 	Vector<Ref<Theme>> themes;
 

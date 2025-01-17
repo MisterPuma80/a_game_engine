@@ -53,7 +53,7 @@ RenderingContextDriver::SurfaceID RenderingContextDriverVulkanMacOS::surface_cre
 	VkResult err = vkCreateMetalSurfaceEXT(instance_get(), &create_info, nullptr, &vk_surface);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SurfaceID());
 
-	Surface *surface = memnewOld(Surface);
+	Surface *surface = memnewOldNoConstructor(Surface);
 	surface->vk_surface = vk_surface;
 	return SurfaceID(surface);
 }

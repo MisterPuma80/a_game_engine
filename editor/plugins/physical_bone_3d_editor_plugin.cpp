@@ -52,12 +52,12 @@ void PhysicalBone3DEditor::_set_move_joint() {
 }
 
 PhysicalBone3DEditor::PhysicalBone3DEditor() {
-	spatial_editor_hb = memnewOld(HBoxContainer);
+	spatial_editor_hb = memnewOldNoConstructor(HBoxContainer);
 	spatial_editor_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	spatial_editor_hb->set_alignment(BoxContainer::ALIGNMENT_BEGIN);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(spatial_editor_hb);
 
-	button_transform_joint = memnewOld(Button);
+	button_transform_joint = memnewOldNoConstructor(Button);
 	button_transform_joint->set_theme_type_variation("FlatButton");
 	spatial_editor_hb->add_child(button_transform_joint);
 

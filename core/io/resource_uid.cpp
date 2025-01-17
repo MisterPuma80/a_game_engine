@@ -262,7 +262,7 @@ ResourceUID *ResourceUID::singleton = nullptr;
 ResourceUID::ResourceUID() {
 	ERR_FAIL_COND(singleton != nullptr);
 	singleton = this;
-	crypto = memnewOld(CryptoCore::RandomGenerator);
+	crypto = memnewOldNoConstructor(CryptoCore::RandomGenerator);
 	((CryptoCore::RandomGenerator *)crypto)->init();
 }
 ResourceUID::~ResourceUID() {

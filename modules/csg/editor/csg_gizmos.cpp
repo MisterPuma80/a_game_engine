@@ -337,7 +337,7 @@ void CSGShape3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 
 	if (p_gizmo->is_selected()) {
 		// Draw a translucent representation of the CSG node
-		Ref<ArrayMesh> mesh = memnewOld(ArrayMesh);
+		Ref<ArrayMesh> mesh = memnewOldNoConstructor(ArrayMesh);
 		Array array;
 		array.resize(Mesh::ARRAY_MAX);
 		array[Mesh::ARRAY_VERTEX] = faces;
@@ -394,7 +394,7 @@ void CSGShape3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 }
 
 EditorPluginCSG::EditorPluginCSG() {
-	Ref<CSGShape3DGizmoPlugin> gizmo_plugin = Ref<CSGShape3DGizmoPlugin>(memnewOld(CSGShape3DGizmoPlugin));
+	Ref<CSGShape3DGizmoPlugin> gizmo_plugin = Ref<CSGShape3DGizmoPlugin>(memnewOldNoConstructor(CSGShape3DGizmoPlugin));
 	Node3DEditor::get_singleton()->add_gizmo_plugin(gizmo_plugin);
 }
 

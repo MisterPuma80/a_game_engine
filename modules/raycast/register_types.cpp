@@ -45,7 +45,7 @@ void initialize_raycast_module(ModuleInitializationLevel p_level) {
 	LightmapRaycasterEmbree::make_default_raycaster();
 	StaticRaycasterEmbree::make_default_raycaster();
 #endif
-	raycast_occlusion_cull = memnewOld(RaycastOcclusionCull);
+	raycast_occlusion_cull = memnewOldNoConstructor(RaycastOcclusionCull);
 }
 
 void uninitialize_raycast_module(ModuleInitializationLevel p_level) {

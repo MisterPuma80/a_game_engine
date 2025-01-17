@@ -111,10 +111,10 @@ void EditorLayoutsDialog::_post_popup() {
 }
 
 EditorLayoutsDialog::EditorLayoutsDialog() {
-	makevb = memnewOld(VBoxContainer);
+	makevb = memnewOldNoConstructor(VBoxContainer);
 	add_child(makevb);
 
-	layout_names = memnewOld(ItemList);
+	layout_names = memnewOldNoConstructor(ItemList);
 	layout_names->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	layout_names->set_auto_height(true);
 	layout_names->set_custom_minimum_size(Size2(300 * EDSCALE, 50 * EDSCALE));
@@ -127,7 +127,7 @@ EditorLayoutsDialog::EditorLayoutsDialog() {
 	MarginContainer *mc = makevb->add_margin_child(TTR("Select existing layout:"), layout_names);
 	mc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	name = memnewOld(LineEdit);
+	name = memnewOldNoConstructor(LineEdit);
 	makevb->add_child(name);
 	name->set_placeholder(TTR("Or enter new layout name"));
 	name->set_offset(SIDE_TOP, 5);

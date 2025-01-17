@@ -209,7 +209,7 @@ void AnimationLibraryEditor::_file_popup_selected(int p_id) {
 			StringName lib_name = file_dialog_library;
 			List<StringName> animation_list;
 
-			Ref<AnimationLibrary> ald = memnewOld(AnimationLibrary);
+			Ref<AnimationLibrary> ald = memnewOldNoConstructor(AnimationLibrary);
 			al->get_animation_list(&animation_list);
 			for (const StringName &animation_name : animation_list) {
 				Ref<Animation> animation = al->get_animation(animation_name);
@@ -818,37 +818,37 @@ AnimationLibraryEditor::AnimationLibraryEditor() {
 	set_title(TTR("Edit Animation Libraries"));
 	set_process_shortcut_input(true);
 
-	file_dialog = memnewOld(EditorFileDialog);
+	file_dialog = memnewOldNoConstructor(EditorFileDialog);
 	add_child(file_dialog);
 	file_dialog->connect("file_selected", callable_mp(this, &AnimationLibraryEditor::_load_file));
 	file_dialog->connect("files_selected", callable_mp(this, &AnimationLibraryEditor::_load_files));
 
-	add_library_dialog = memnewOld(ConfirmationDialog);
-	VBoxContainer *dialog_vb = memnewOld(VBoxContainer);
-	add_library_name = memnewOld(LineEdit);
+	add_library_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	VBoxContainer *dialog_vb = memnewOldNoConstructor(VBoxContainer);
+	add_library_name = memnewOldNoConstructor(LineEdit);
 	dialog_vb->add_child(add_library_name);
 	add_library_name->connect(SceneStringName(text_changed), callable_mp(this, &AnimationLibraryEditor::_add_library_validate));
 	add_child(add_library_dialog);
 
-	add_library_validate = memnewOld(Label);
+	add_library_validate = memnewOldNoConstructor(Label);
 	dialog_vb->add_child(add_library_validate);
 	add_library_dialog->add_child(dialog_vb);
 	add_library_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationLibraryEditor::_add_library_confirm));
 	add_library_dialog->register_text_enter(add_library_name);
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
-	HBoxContainer *hb = memnewOld(HBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	hb->add_spacer(true);
-	new_library_button = memnewOld(Button(TTR("New Library")));
+	new_library_button = memnewOldWithArgs(Button(TTR("New Library")));
 	new_library_button->set_tooltip_text(TTR("Create new empty animation library."));
 	new_library_button->connect(SceneStringName(pressed), callable_mp(this, &AnimationLibraryEditor::_add_library));
 	hb->add_child(new_library_button);
-	load_library_button = memnewOld(Button(TTR("Load Library")));
+	load_library_button = memnewOldWithArgs(Button(TTR("Load Library")));
 	load_library_button->set_tooltip_text(TTR("Load animation library from disk."));
 	load_library_button->connect(SceneStringName(pressed), callable_mp(this, &AnimationLibraryEditor::_load_library));
 	hb->add_child(load_library_button);
 	vb->add_child(hb);
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	vb->add_child(tree);
 
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -866,13 +866,13 @@ AnimationLibraryEditor::AnimationLibraryEditor() {
 	tree->connect("item_edited", callable_mp(this, &AnimationLibraryEditor::_item_renamed));
 	tree->connect("button_clicked", callable_mp(this, &AnimationLibraryEditor::_button_pressed));
 
-	file_popup = memnewOld(PopupMenu);
+	file_popup = memnewOldNoConstructor(PopupMenu);
 	add_child(file_popup);
 	file_popup->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationLibraryEditor::_file_popup_selected));
 
 	add_child(vb);
 
-	error_dialog = memnewOld(AcceptDialog);
+	error_dialog = memnewOldNoConstructor(AcceptDialog);
 	error_dialog->set_title(TTR("Error:"));
 	add_child(error_dialog);
 }

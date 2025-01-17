@@ -38,7 +38,7 @@
 namespace TestVisualArray {
 
 TEST_CASE("[SceneTree][VisualShader] Object creation and parameter") {
-	Ref<VisualShader> vs = memnewOld(VisualShader);
+	Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 	CHECK(vs.is_valid());
 
 	CHECK(vs->get_mode() == Shader::MODE_SPATIAL);
@@ -51,11 +51,11 @@ TEST_CASE("[SceneTree][VisualShader] Object creation and parameter") {
 
 TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 	SUBCASE("Testing Node Creation") {
-		Ref<VisualShader> vs = memnewOld(VisualShader);
+		Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 		CHECK(vs.is_valid());
 
 		for (int i = 0; i < VisualShader::TYPE_MAX; i++) {
-			Ref<VisualShaderNode> vsn = memnewOld(VisualShaderNodeInput);
+			Ref<VisualShaderNode> vsn = memnewOldNoConstructor(VisualShaderNodeInput);
 			CHECK(vsn.is_valid());
 			vs->add_node(VisualShader::Type(i), vsn, Vector2(1, 10), i + 2);
 			CHECK(vs->get_node(VisualShader::Type(i), i + 2) == vsn);
@@ -64,8 +64,8 @@ TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 		ERR_PRINT_OFF;
 
 		// Testing for Invalid entries.
-		Ref<VisualShaderNode> vsn5 = memnewOld(VisualShaderNodeInput);
-		Ref<VisualShaderNode> vsn6 = memnewOld(VisualShaderNodeInput);
+		Ref<VisualShaderNode> vsn5 = memnewOldNoConstructor(VisualShaderNodeInput);
+		Ref<VisualShaderNode> vsn6 = memnewOldNoConstructor(VisualShaderNodeInput);
 		CHECK(vsn6.is_valid());
 		CHECK(vsn5.is_valid());
 
@@ -78,17 +78,17 @@ TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 	}
 
 	SUBCASE("Testing VisualShaderNode position getter and setter") {
-		Ref<VisualShader> vs = memnewOld(VisualShader);
+		Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 		CHECK(vs.is_valid());
 
-		Ref<VisualShaderNode> vsn1 = memnewOld(VisualShaderNodeInput);
+		Ref<VisualShaderNode> vsn1 = memnewOldNoConstructor(VisualShaderNodeInput);
 		CHECK(vsn1.is_valid());
 		vs->add_node(VisualShader::TYPE_COLLIDE, vsn1, Vector2(0, 0), 3);
 		CHECK(vs->get_node_position(VisualShader::TYPE_COLLIDE, 3) == Vector2(0, 0));
 		vs->set_node_position(VisualShader::TYPE_COLLIDE, 3, Vector2(1, 1));
 		CHECK(vs->get_node_position(VisualShader::TYPE_COLLIDE, 3) == Vector2(1, 1));
 
-		Ref<VisualShaderNode> vsn2 = memnewOld(VisualShaderNodeInput);
+		Ref<VisualShaderNode> vsn2 = memnewOldNoConstructor(VisualShaderNodeInput);
 		CHECK(vsn2.is_valid());
 		vs->add_node(VisualShader::TYPE_FOG, vsn2, Vector2(1, 2), 4);
 		CHECK(vs->get_node_position(VisualShader::TYPE_FOG, 4) == Vector2(1, 2));
@@ -97,11 +97,11 @@ TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 	}
 
 	SUBCASE("Testing VisualShaderNode ID") {
-		Ref<VisualShader> vs = memnewOld(VisualShader);
+		Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 		CHECK(vs.is_valid());
 
 		for (int i = 0; i < VisualShader::TYPE_MAX; i++) {
-			Ref<VisualShaderNode> vsn = memnewOld(VisualShaderNodeInput);
+			Ref<VisualShaderNode> vsn = memnewOldNoConstructor(VisualShaderNodeInput);
 			CHECK(vsn.is_valid());
 			vs->add_node(VisualShader::Type(i), vsn, Vector2(1, 10), i + 2);
 			CHECK(vs->get_valid_node_id(VisualShader::Type(i)) - 1 == i + 2);
@@ -109,13 +109,13 @@ TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 	}
 
 	SUBCASE("Testing remove and replace VisualShaderNode") {
-		Ref<VisualShader> vs = memnewOld(VisualShader);
+		Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 		CHECK(vs.is_valid());
 
 		ERR_PRINT_OFF;
 
 		for (int i = 0; i < VisualShader::TYPE_MAX; i++) {
-			Ref<VisualShaderNode> vsn = memnewOld(VisualShaderNodeInput);
+			Ref<VisualShaderNode> vsn = memnewOldNoConstructor(VisualShaderNodeInput);
 			CHECK(vsn.is_valid());
 			vs->add_node(VisualShader::Type(i), vsn, Vector2(1, 10), i + 2);
 			CHECK(vs->get_node(VisualShader::Type(i), i + 2) == vsn);
@@ -128,7 +128,7 @@ TEST_CASE("[SceneTree][VisualShader] Testing VisualShaderNodes") {
 }
 
 TEST_CASE("[SceneTree][VisualShader] Testing Varyings") {
-	Ref<VisualShader> vs = memnewOld(VisualShader);
+	Ref<VisualShader> vs = memnewOldNoConstructor(VisualShader);
 
 	vs->add_varying("Test1", VisualShader::VARYING_MODE_FRAG_TO_LIGHT, VisualShader::VARYING_TYPE_TRANSFORM);
 	CHECK(vs->has_varying("Test1") == true);

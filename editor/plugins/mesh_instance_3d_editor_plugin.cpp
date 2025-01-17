@@ -171,14 +171,14 @@ void MeshInstance3DEditor::_create_collision_shape() {
 
 		Node *owner = get_tree()->get_edited_scene_root();
 		if (placement_option == SHAPE_PLACEMENT_STATIC_BODY_CHILD) {
-			StaticBody3D *body = memnewOld(StaticBody3D);
+			StaticBody3D *body = memnewOldNoConstructor(StaticBody3D);
 
 			ur->add_do_method(instance, "add_child", body, true);
 			ur->add_do_method(body, "set_owner", owner);
 			ur->add_do_method(Node3DEditor::get_singleton(), SceneStringName(_request_gizmo), body);
 
 			for (Ref<Shape3D> shape : shapes) {
-				CollisionShape3D *cshape = memnewOld(CollisionShape3D);
+				CollisionShape3D *cshape = memnewOldNoConstructor(CollisionShape3D);
 				cshape->set_shape(shape);
 				body->add_child(cshape, true);
 				ur->add_do_method(cshape, "set_owner", owner);
@@ -188,7 +188,7 @@ void MeshInstance3DEditor::_create_collision_shape() {
 			ur->add_undo_method(instance, "remove_child", body);
 		} else {
 			for (Ref<Shape3D> shape : shapes) {
-				CollisionShape3D *cshape = memnewOld(CollisionShape3D);
+				CollisionShape3D *cshape = memnewOldNoConstructor(CollisionShape3D);
 				cshape->set_shape(shape);
 				cshape->set_name("CollisionShape3D");
 				cshape->set_transform(node->get_transform());
@@ -218,14 +218,14 @@ void MeshInstance3DEditor::_menu_option(int p_option) {
 		} break;
 
 		case MENU_OPTION_CREATE_NAVMESH: {
-			Ref<NavigationMesh> nmesh = memnewOld(NavigationMesh);
+			Ref<NavigationMesh> nmesh = memnewOldNoConstructor(NavigationMesh);
 
 			if (nmesh.is_null()) {
 				return;
 			}
 
 			nmesh->create_from_mesh(mesh);
-			NavigationRegion3D *nmi = memnewOld(NavigationRegion3D);
+			NavigationRegion3D *nmi = memnewOldNoConstructor(NavigationRegion3D);
 			nmi->set_navigation_mesh(nmesh);
 
 			Node *owner = get_tree()->get_edited_scene_root();
@@ -502,7 +502,7 @@ void MeshInstance3DEditor::_create_outline_mesh() {
 		return;
 	}
 
-	MeshInstance3D *mi = memnewOld(MeshInstance3D);
+	MeshInstance3D *mi = memnewOldNoConstructor(MeshInstance3D);
 	mi->set_mesh(mesho);
 	Node *owner = get_tree()->get_edited_scene_root();
 
@@ -528,7 +528,7 @@ void MeshInstance3DEditor::_notification(int p_what) {
 }
 
 MeshInstance3DEditor::MeshInstance3DEditor() {
-	options = memnewOld(MenuButton);
+	options = memnewOldNoConstructor(MenuButton);
 	options->set_text(TTR("Mesh"));
 	options->set_switch_on_hover(true);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(options);
@@ -546,15 +546,15 @@ MeshInstance3DEditor::MeshInstance3DEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &MeshInstance3DEditor::_menu_option));
 
-	outline_dialog = memnewOld(ConfirmationDialog);
+	outline_dialog = memnewOldNoConstructor(ConfirmationDialog);
 	outline_dialog->set_title(TTR("Create Outline Mesh"));
 	outline_dialog->set_ok_button_text(TTR("Create"));
 
-	VBoxContainer *outline_dialog_vbc = memnewOld(VBoxContainer);
+	VBoxContainer *outline_dialog_vbc = memnewOldNoConstructor(VBoxContainer);
 	outline_dialog->add_child(outline_dialog_vbc);
 	//outline_dialog->set_child_rect(outline_dialog_vbc);
 
-	outline_size = memnewOld(SpinBox);
+	outline_size = memnewOldNoConstructor(SpinBox);
 	outline_size->set_min(0.001);
 	outline_size->set_max(1024);
 	outline_size->set_step(0.001);
@@ -564,18 +564,18 @@ MeshInstance3DEditor::MeshInstance3DEditor() {
 	add_child(outline_dialog);
 	outline_dialog->connect(SceneStringName(confirmed), callable_mp(this, &MeshInstance3DEditor::_create_outline_mesh));
 
-	shape_dialog = memnewOld(ConfirmationDialog);
+	shape_dialog = memnewOldNoConstructor(ConfirmationDialog);
 	shape_dialog->set_title(TTR("Create Collision Shape"));
 	shape_dialog->set_ok_button_text(TTR("Create"));
 
-	VBoxContainer *shape_dialog_vbc = memnewOld(VBoxContainer);
+	VBoxContainer *shape_dialog_vbc = memnewOldNoConstructor(VBoxContainer);
 	shape_dialog->add_child(shape_dialog_vbc);
 
-	Label *l = memnewOld(Label);
+	Label *l = memnewOldNoConstructor(Label);
 	l->set_text(TTR("Collision Shape placement"));
 	shape_dialog_vbc->add_child(l);
 
-	shape_placement = memnewOld(OptionButton);
+	shape_placement = memnewOldNoConstructor(OptionButton);
 	shape_placement->set_h_size_flags(SIZE_EXPAND_FILL);
 	shape_placement->add_item(TTR("Sibling"), SHAPE_PLACEMENT_SIBLING);
 	shape_placement->set_item_tooltip(-1, TTR("Creates collision shapes as Sibling."));
@@ -583,11 +583,11 @@ MeshInstance3DEditor::MeshInstance3DEditor() {
 	shape_placement->set_item_tooltip(-1, TTR("Creates a StaticBody3D as child and assigns collision shapes to it."));
 	shape_dialog_vbc->add_child(shape_placement);
 
-	l = memnewOld(Label);
+	l = memnewOldNoConstructor(Label);
 	l->set_text(TTR("Collision Shape Type"));
 	shape_dialog_vbc->add_child(l);
 
-	shape_type = memnewOld(OptionButton);
+	shape_type = memnewOldNoConstructor(OptionButton);
 	shape_type->set_h_size_flags(SIZE_EXPAND_FILL);
 	shape_type->add_item(TTR("Trimesh"), SHAPE_TYPE_TRIMESH);
 	shape_type->set_item_tooltip(-1, TTR("Creates a polygon-based collision shape.\nThis is the most accurate (but slowest) option for collision detection."));
@@ -602,13 +602,13 @@ MeshInstance3DEditor::MeshInstance3DEditor() {
 	add_child(shape_dialog);
 	shape_dialog->connect(SceneStringName(confirmed), callable_mp(this, &MeshInstance3DEditor::_create_collision_shape));
 
-	err_dialog = memnewOld(AcceptDialog);
+	err_dialog = memnewOldNoConstructor(AcceptDialog);
 	add_child(err_dialog);
 
-	debug_uv_dialog = memnewOld(AcceptDialog);
+	debug_uv_dialog = memnewOldNoConstructor(AcceptDialog);
 	debug_uv_dialog->set_title(TTR("UV Channel Debug"));
 	add_child(debug_uv_dialog);
-	debug_uv = memnewOld(Control);
+	debug_uv = memnewOldNoConstructor(Control);
 	debug_uv->set_custom_minimum_size(Size2(600, 600) * EDSCALE);
 	debug_uv->connect(SceneStringName(draw), callable_mp(this, &MeshInstance3DEditor::_debug_uv_draw));
 	debug_uv_dialog->add_child(debug_uv);
@@ -669,7 +669,7 @@ void MeshInstance3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 MeshInstance3DEditorPlugin::MeshInstance3DEditorPlugin() {
-	mesh_editor = memnewOld(MeshInstance3DEditor);
+	mesh_editor = memnewOldNoConstructor(MeshInstance3DEditor);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(mesh_editor);
 
 	mesh_editor->options->hide();

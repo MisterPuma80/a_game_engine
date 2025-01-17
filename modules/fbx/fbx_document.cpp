@@ -1477,7 +1477,7 @@ void FBXDocument::_assign_node_names(Ref<FBXState> p_state) {
 BoneAttachment3D *FBXDocument::_generate_bone_attachment(Ref<FBXState> p_state, Skeleton3D *p_skeleton, const GLTFNodeIndex p_node_index, const GLTFNodeIndex p_bone_index) {
 	Ref<GLTFNode> fbx_node = p_state->nodes[p_node_index];
 	Ref<GLTFNode> bone_node = p_state->nodes[p_bone_index];
-	BoneAttachment3D *bone_attachment = memnewOld(BoneAttachment3D);
+	BoneAttachment3D *bone_attachment = memnewOldNoConstructor(BoneAttachment3D);
 	print_verbose("FBX: Creating bone attachment for: " + fbx_node->get_name());
 
 	ERR_FAIL_COND_V(!bone_node->joint, nullptr);
@@ -1492,7 +1492,7 @@ ImporterMeshInstance3D *FBXDocument::_generate_mesh_instance(Ref<FBXState> p_sta
 
 	ERR_FAIL_INDEX_V(fbx_node->mesh, p_state->meshes.size(), nullptr);
 
-	ImporterMeshInstance3D *mi = memnewOld(ImporterMeshInstance3D);
+	ImporterMeshInstance3D *mi = memnewOldNoConstructor(ImporterMeshInstance3D);
 	print_verbose("FBX: Creating mesh for: " + fbx_node->get_name());
 
 	p_state->scene_mesh_instances.insert(p_node_index, mi);
@@ -1530,11 +1530,11 @@ Light3D *FBXDocument::_generate_light(Ref<FBXState> p_state, const GLTFNodeIndex
 	Light3D *light = nullptr;
 
 	if (l->get_light_type() == "point") {
-		light = memnewOld(OmniLight3D);
+		light = memnewOldNoConstructor(OmniLight3D);
 	} else if (l->get_light_type() == "directional") {
-		light = memnewOld(DirectionalLight3D);
+		light = memnewOldNoConstructor(DirectionalLight3D);
 	} else if (l->get_light_type() == "spot") {
-		light = memnewOld(SpotLight3D);
+		light = memnewOldNoConstructor(SpotLight3D);
 	} else {
 		ERR_FAIL_NULL_V(light, nullptr);
 	}
@@ -1601,7 +1601,7 @@ Light3D *FBXDocument::_generate_light(Ref<FBXState> p_state, const GLTFNodeIndex
 Node3D *FBXDocument::_generate_spatial(Ref<FBXState> p_state, const GLTFNodeIndex p_node_index) {
 	Ref<GLTFNode> fbx_node = p_state->nodes[p_node_index];
 
-	Node3D *spatial = memnewOld(Node3D);
+	Node3D *spatial = memnewOldNoConstructor(Node3D);
 	print_verbose("FBX: Converting spatial: " + fbx_node->get_name());
 
 	return spatial;
@@ -2132,7 +2132,7 @@ Node *FBXDocument::generate_scene(Ref<GLTFState> p_state, float p_bake_fps, bool
 	ERR_FAIL_NULL_V(root, nullptr);
 	_process_mesh_instances(state, root);
 	if (state->get_create_animations() && state->animations.size()) {
-		AnimationPlayer *ap = memnewOld(AnimationPlayer);
+		AnimationPlayer *ap = memnewOldNoConstructor(AnimationPlayer);
 		root->add_child(ap, true);
 		ap->set_owner(root);
 		for (int i = 0; i < state->animations.size(); i++) {
@@ -2227,7 +2227,7 @@ Error FBXDocument::_parse_fbx_state(Ref<FBXState> p_state, const String &p_searc
 	/* ASSIGN SCENE NAMES */
 	_assign_node_names(p_state);
 
-	Node3D *root = memnewOld(Node3D);
+	Node3D *root = memnewOldNoConstructor(Node3D);
 	for (int32_t root_i = 0; root_i < p_state->root_nodes.size(); root_i++) {
 		_generate_scene_node(p_state, p_state->root_nodes[root_i], root, root);
 	}

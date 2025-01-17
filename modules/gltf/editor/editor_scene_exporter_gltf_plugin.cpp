@@ -53,7 +53,7 @@ bool SceneExporterGLTFPlugin::has_main_screen() const {
 SceneExporterGLTFPlugin::SceneExporterGLTFPlugin() {
 	_gltf_document.instantiate();
 	// Set up the file dialog.
-	_file_dialog = memnewOld(EditorFileDialog);
+	_file_dialog = memnewOldNoConstructor(EditorFileDialog);
 	_file_dialog->connect("file_selected", callable_mp(this, &SceneExporterGLTFPlugin::_export_scene_as_gltf));
 	_file_dialog->set_title(TTR("Export Library"));
 	_file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
@@ -66,7 +66,7 @@ SceneExporterGLTFPlugin::SceneExporterGLTFPlugin() {
 	// Set up the export settings menu.
 	_export_settings.instantiate();
 	_export_settings->generate_property_list(_gltf_document);
-	_settings_inspector = memnewOld(EditorInspector);
+	_settings_inspector = memnewOldNoConstructor(EditorInspector);
 	_settings_inspector->set_custom_minimum_size(Size2(350, 300) * EDSCALE);
 	_file_dialog->add_side_menu(_settings_inspector, TTR("Export Settings:"));
 	// Add a button to the Scene -> Export menu to pop up the settings dialog.

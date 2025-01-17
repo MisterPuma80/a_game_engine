@@ -409,7 +409,7 @@ void WaylandThread::_wl_registry_on_global(void *data, struct wl_registry *wl_re
 
 		registry->wl_outputs.push_back(wl_output);
 
-		ScreenState *ss = memnewOld(ScreenState);
+		ScreenState *ss = memnewOldNoConstructor(ScreenState);
 		ss->wl_output_name = name;
 		ss->wayland_thread = registry->wayland_thread;
 
@@ -422,7 +422,7 @@ void WaylandThread::_wl_registry_on_global(void *data, struct wl_registry *wl_re
 		struct wl_seat *wl_seat = (struct wl_seat *)wl_registry_bind(wl_registry, name, &wl_seat_interface, CLAMP((int)version, 1, 9));
 		wl_proxy_tag_godot((struct wl_proxy *)wl_seat);
 
-		SeatState *ss = memnewOld(SeatState);
+		SeatState *ss = memnewOldNoConstructor(SeatState);
 		ss->wl_seat = wl_seat;
 		ss->wl_seat_name = name;
 
@@ -1890,7 +1890,7 @@ void WaylandThread::_wl_keyboard_on_repeat_info(void *data, struct wl_keyboard *
 // NOTE: Don't forget to `memfree` the offer's state.
 void WaylandThread::_wl_data_device_on_data_offer(void *data, struct wl_data_device *wl_data_device, struct wl_data_offer *id) {
 	wl_proxy_tag_godot((struct wl_proxy *)id);
-	wl_data_offer_add_listener(id, &wl_data_offer_listener, memnewOld(OfferState));
+	wl_data_offer_add_listener(id, &wl_data_offer_listener, memnewOldNoConstructor(OfferState));
 }
 
 void WaylandThread::_wl_data_device_on_enter(void *data, struct wl_data_device *wl_data_device, uint32_t serial, struct wl_surface *surface, wl_fixed_t x, wl_fixed_t y, struct wl_data_offer *id) {
@@ -2152,7 +2152,7 @@ void WaylandThread::_wp_pointer_gesture_pinch_on_end(void *data, struct zwp_poin
 // NOTE: Don't forget to `memfree` the offer's state.
 void WaylandThread::_wp_primary_selection_device_on_data_offer(void *data, struct zwp_primary_selection_device_v1 *wp_primary_selection_device_v1, struct zwp_primary_selection_offer_v1 *offer) {
 	wl_proxy_tag_godot((struct wl_proxy *)offer);
-	zwp_primary_selection_offer_v1_add_listener(offer, &wp_primary_selection_offer_listener, memnewOld(OfferState));
+	zwp_primary_selection_offer_v1_add_listener(offer, &wp_primary_selection_offer_listener, memnewOldNoConstructor(OfferState));
 }
 
 void WaylandThread::_wp_primary_selection_device_on_selection(void *data, struct zwp_primary_selection_device_v1 *wp_primary_selection_device_v1, struct zwp_primary_selection_offer_v1 *id) {
@@ -2228,7 +2228,7 @@ void WaylandThread::_wp_tablet_seat_on_tool_added(void *data, struct zwp_tablet_
 	SeatState *ss = (SeatState *)data;
 	ERR_FAIL_NULL(ss);
 
-	TabletToolState *state = memnewOld(TabletToolState);
+	TabletToolState *state = memnewOldNoConstructor(TabletToolState);
 	state->wl_seat = ss->wl_seat;
 
 	wl_proxy_tag_godot((struct wl_proxy *)id);

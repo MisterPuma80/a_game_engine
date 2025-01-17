@@ -324,9 +324,9 @@ void AudioStreamInteractiveTransitionEditor::edit(Object *p_obj) {
 
 AudioStreamInteractiveTransitionEditor::AudioStreamInteractiveTransitionEditor() {
 	set_title(TTR("AudioStreamInteractive Transition Editor"));
-	split = memnewOld(HSplitContainer);
+	split = memnewOldNoConstructor(HSplitContainer);
 	add_child(split);
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_hide_root(true);
 	tree->add_theme_constant_override("draw_guides", 1);
@@ -336,15 +336,15 @@ AudioStreamInteractiveTransitionEditor::AudioStreamInteractiveTransitionEditor()
 
 	tree->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tree->connect("multi_selected", callable_mp(this, &AudioStreamInteractiveTransitionEditor::_cell_selected));
-	VBoxContainer *edit_vb = memnewOld(VBoxContainer);
+	VBoxContainer *edit_vb = memnewOldNoConstructor(VBoxContainer);
 	split->add_child(edit_vb);
 
-	transition_enabled = memnewOld(CheckBox);
+	transition_enabled = memnewOldNoConstructor(CheckBox);
 	transition_enabled->set_text(TTR("Enabled"));
 	edit_vb->add_margin_child(TTR("Use Transition:"), transition_enabled);
 	transition_enabled->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited));
 
-	transition_from = memnewOld(OptionButton);
+	transition_from = memnewOldNoConstructor(OptionButton);
 	edit_vb->add_margin_child(TTR("Transition From:"), transition_from);
 	transition_from->add_item(TTR("Immediate"), AudioStreamInteractive::TRANSITION_FROM_TIME_IMMEDIATE);
 	transition_from->add_item(TTR("Next Beat"), AudioStreamInteractive::TRANSITION_FROM_TIME_NEXT_BEAT);
@@ -353,29 +353,29 @@ AudioStreamInteractiveTransitionEditor::AudioStreamInteractiveTransitionEditor()
 
 	transition_from->connect(SceneStringName(item_selected), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited).unbind(1));
 
-	transition_to = memnewOld(OptionButton);
+	transition_to = memnewOldNoConstructor(OptionButton);
 	edit_vb->add_margin_child(TTR("Transition To:"), transition_to);
 	transition_to->add_item(TTR("Same Position"), AudioStreamInteractive::TRANSITION_TO_TIME_SAME_POSITION);
 	transition_to->add_item(TTR("Clip Start"), AudioStreamInteractive::TRANSITION_TO_TIME_START);
 	transition_to->add_item(TTR("Prev Position"), AudioStreamInteractive::TRANSITION_TO_TIME_PREVIOUS_POSITION);
 	transition_to->connect(SceneStringName(item_selected), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited).unbind(1));
 
-	fade_mode = memnewOld(OptionButton);
+	fade_mode = memnewOldNoConstructor(OptionButton);
 	edit_vb->add_margin_child(TTR("Fade Mode:"), fade_mode);
 	fade_mode->connect(SceneStringName(item_selected), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited).unbind(1));
 
-	fade_beats = memnewOld(SpinBox);
+	fade_beats = memnewOldNoConstructor(SpinBox);
 	edit_vb->add_margin_child(TTR("Fade Beats:"), fade_beats);
 	fade_beats->set_max(16);
 	fade_beats->set_step(0.1);
 	fade_beats->connect(SceneStringName(value_changed), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited).unbind(1));
 
-	filler_clip = memnewOld(OptionButton);
+	filler_clip = memnewOldNoConstructor(OptionButton);
 	edit_vb->add_margin_child(TTR("Filler Clip:"), filler_clip);
 	filler_clip->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	filler_clip->connect(SceneStringName(item_selected), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited).unbind(1));
 
-	hold_previous = memnewOld(CheckBox);
+	hold_previous = memnewOldNoConstructor(CheckBox);
 	hold_previous->set_text(TTR("Enabled"));
 	hold_previous->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamInteractiveTransitionEditor::_edited));
 	edit_vb->add_margin_child(TTR("Hold Previous:"), hold_previous);
@@ -403,7 +403,7 @@ void EditorInspectorPluginAudioStreamInteractive::parse_end(Object *p_object) {
 }
 
 EditorInspectorPluginAudioStreamInteractive::EditorInspectorPluginAudioStreamInteractive() {
-	audio_stream_interactive_transition_editor = memnewOld(AudioStreamInteractiveTransitionEditor);
+	audio_stream_interactive_transition_editor = memnewOldNoConstructor(AudioStreamInteractiveTransitionEditor);
 	EditorNode::get_singleton()->get_gui_base()->add_child(audio_stream_interactive_transition_editor);
 }
 

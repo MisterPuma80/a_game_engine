@@ -43,5 +43,5 @@ void CollisionPolygon2DEditor::_set_node(Node *p_polygon) {
 CollisionPolygon2DEditor::CollisionPolygon2DEditor() {}
 
 CollisionPolygon2DEditorPlugin::CollisionPolygon2DEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnewOld(CollisionPolygon2DEditor), "CollisionPolygon2D") {
+		AbstractPolygon2DEditorPlugin(memnewOldNoConstructor(CollisionPolygon2DEditor), "CollisionPolygon2D") {
 }

@@ -155,22 +155,22 @@ void MaterialEditor::_on_box_switch_pressed() {
 MaterialEditor::MaterialEditor() {
 	// Canvas item
 
-	vc_2d = memnewOld(SubViewportContainer);
+	vc_2d = memnewOldNoConstructor(SubViewportContainer);
 	vc_2d->set_stretch(true);
 	add_child(vc_2d);
 	vc_2d->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 
-	viewport_2d = memnewOld(SubViewport);
+	viewport_2d = memnewOldNoConstructor(SubViewport);
 	vc_2d->add_child(viewport_2d);
 	viewport_2d->set_disable_input(true);
 	viewport_2d->set_transparent_background(true);
 
-	layout_2d = memnewOld(HBoxContainer);
+	layout_2d = memnewOldNoConstructor(HBoxContainer);
 	layout_2d->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	viewport_2d->add_child(layout_2d);
 	layout_2d->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 
-	rect_instance = memnewOld(ColorRect);
+	rect_instance = memnewOldNoConstructor(ColorRect);
 	layout_2d->add_child(rect_instance);
 	rect_instance->set_custom_minimum_size(Size2(150, 150) * EDSCALE);
 
@@ -178,11 +178,11 @@ MaterialEditor::MaterialEditor() {
 
 	// Spatial
 
-	vc = memnewOld(SubViewportContainer);
+	vc = memnewOldNoConstructor(SubViewportContainer);
 	vc->set_stretch(true);
 	add_child(vc);
 	vc->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
-	viewport = memnewOld(SubViewport);
+	viewport = memnewOldNoConstructor(SubViewport);
 	Ref<World3D> world_3d;
 	world_3d.instantiate();
 	viewport->set_world_3d(world_3d); //use own world
@@ -191,7 +191,7 @@ MaterialEditor::MaterialEditor() {
 	viewport->set_transparent_background(true);
 	viewport->set_msaa_3d(Viewport::MSAA_4X);
 
-	camera = memnewOld(Camera3D);
+	camera = memnewOldNoConstructor(Camera3D);
 	camera->set_transform(Transform3D(Basis(), Vector3(0, 0, 1.1)));
 	// Use low field of view so the sphere/box is fully encompassed within the preview,
 	// without much distortion.
@@ -203,22 +203,22 @@ MaterialEditor::MaterialEditor() {
 	}
 	viewport->add_child(camera);
 
-	light1 = memnewOld(DirectionalLight3D);
+	light1 = memnewOldNoConstructor(DirectionalLight3D);
 	light1->set_transform(Transform3D().looking_at(Vector3(-1, -1, -1), Vector3(0, 1, 0)));
 	viewport->add_child(light1);
 
-	light2 = memnewOld(DirectionalLight3D);
+	light2 = memnewOldNoConstructor(DirectionalLight3D);
 	light2->set_transform(Transform3D().looking_at(Vector3(0, 1, 0), Vector3(0, 0, 1)));
 	light2->set_color(Color(0.7, 0.7, 0.7));
 	viewport->add_child(light2);
 
-	rotation = memnewOld(Node3D);
+	rotation = memnewOldNoConstructor(Node3D);
 	viewport->add_child(rotation);
 
-	sphere_instance = memnewOld(MeshInstance3D);
+	sphere_instance = memnewOldNoConstructor(MeshInstance3D);
 	rotation->add_child(sphere_instance);
 
-	box_instance = memnewOld(MeshInstance3D);
+	box_instance = memnewOldNoConstructor(MeshInstance3D);
 	rotation->add_child(box_instance);
 
 	box_instance->set_transform(Transform3D() * 0.25);
@@ -231,21 +231,21 @@ MaterialEditor::MaterialEditor() {
 
 	set_custom_minimum_size(Size2(1, 150) * EDSCALE);
 
-	layout_3d = memnewOld(HBoxContainer);
+	layout_3d = memnewOldNoConstructor(HBoxContainer);
 	add_child(layout_3d);
 	layout_3d->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, 2);
 
-	VBoxContainer *vb_shape = memnewOld(VBoxContainer);
+	VBoxContainer *vb_shape = memnewOldNoConstructor(VBoxContainer);
 	layout_3d->add_child(vb_shape);
 
-	sphere_switch = memnewOld(Button);
+	sphere_switch = memnewOldNoConstructor(Button);
 	sphere_switch->set_theme_type_variation("PreviewLightButton");
 	sphere_switch->set_toggle_mode(true);
 	sphere_switch->set_pressed(true);
 	vb_shape->add_child(sphere_switch);
 	sphere_switch->connect(SceneStringName(pressed), callable_mp(this, &MaterialEditor::_on_sphere_switch_pressed));
 
-	box_switch = memnewOld(Button);
+	box_switch = memnewOldNoConstructor(Button);
 	box_switch->set_theme_type_variation("PreviewLightButton");
 	box_switch->set_toggle_mode(true);
 	box_switch->set_pressed(false);
@@ -254,17 +254,17 @@ MaterialEditor::MaterialEditor() {
 
 	layout_3d->add_spacer();
 
-	VBoxContainer *vb_light = memnewOld(VBoxContainer);
+	VBoxContainer *vb_light = memnewOldNoConstructor(VBoxContainer);
 	layout_3d->add_child(vb_light);
 
-	light_1_switch = memnewOld(Button);
+	light_1_switch = memnewOldNoConstructor(Button);
 	light_1_switch->set_theme_type_variation("PreviewLightButton");
 	light_1_switch->set_toggle_mode(true);
 	light_1_switch->set_pressed(true);
 	vb_light->add_child(light_1_switch);
 	light_1_switch->connect(SceneStringName(pressed), callable_mp(this, &MaterialEditor::_on_light_1_switch_pressed));
 
-	light_2_switch = memnewOld(Button);
+	light_2_switch = memnewOldNoConstructor(Button);
 	light_2_switch->set_theme_type_variation("PreviewLightButton");
 	light_2_switch->set_toggle_mode(true);
 	light_2_switch->set_pressed(true);
@@ -299,7 +299,7 @@ void EditorInspectorPluginMaterial::parse_begin(Object *p_object) {
 	}
 	Ref<Material> m(material);
 
-	MaterialEditor *editor = memnewOld(MaterialEditor);
+	MaterialEditor *editor = memnewOldNoConstructor(MaterialEditor);
 	editor->edit(m, env);
 	add_custom_control(editor);
 }
@@ -341,7 +341,7 @@ void EditorInspectorPluginMaterial::_undo_redo_inspector_callback(Object *p_undo
 
 EditorInspectorPluginMaterial::EditorInspectorPluginMaterial() {
 	env.instantiate();
-	Ref<Sky> sky = memnewOld(Sky());
+	Ref<Sky> sky = memnewOldNoArgs(Sky());
 	env->set_sky(sky);
 	env->set_background(Environment::BG_COLOR);
 	env->set_ambient_source(Environment::AMBIENT_SOURCE_SKY);

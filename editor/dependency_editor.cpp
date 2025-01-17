@@ -247,11 +247,11 @@ void DependencyEditor::_bind_methods() {
 }
 
 DependencyEditor::DependencyEditor() {
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	vb->set_name(TTR("Dependencies"));
 	add_child(vb);
 
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_columns(2);
 	tree->set_column_titles_visible(true);
@@ -264,26 +264,26 @@ DependencyEditor::DependencyEditor() {
 	tree->set_hide_root(true);
 	tree->connect("button_clicked", callable_mp(this, &DependencyEditor::_load_pressed));
 
-	HBoxContainer *hbc = memnewOld(HBoxContainer);
-	Label *label = memnewOld(Label(TTR("Dependencies:")));
+	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	Label *label = memnewOldWithArgs(Label(TTR("Dependencies:")));
 	label->set_theme_type_variation("HeaderSmall");
 
 	hbc->add_child(label);
 	hbc->add_spacer();
-	fixdeps = memnewOld(Button(TTR("Fix Broken")));
+	fixdeps = memnewOldWithArgs(Button(TTR("Fix Broken")));
 	hbc->add_child(fixdeps);
 	fixdeps->connect(SceneStringName(pressed), callable_mp(this, &DependencyEditor::_fix_all));
 
 	vb->add_child(hbc);
 
-	MarginContainer *mc = memnewOld(MarginContainer);
+	MarginContainer *mc = memnewOldNoConstructor(MarginContainer);
 	mc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
 	mc->add_child(tree);
 	vb->add_child(mc);
 
 	set_title(TTR("Dependency Editor"));
-	search = memnewOld(EditorFileDialog);
+	search = memnewOldNoConstructor(EditorFileDialog);
 	search->connect("file_selected", callable_mp(this, &DependencyEditor::_searched));
 	search->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	search->set_title(TTR("Search Replacement Resource:"));
@@ -400,11 +400,11 @@ void DependencyEditorOwners::show(const String &p_path) {
 }
 
 DependencyEditorOwners::DependencyEditorOwners() {
-	file_options = memnewOld(PopupMenu);
+	file_options = memnewOldNoConstructor(PopupMenu);
 	add_child(file_options);
 	file_options->connect(SceneStringName(id_pressed), callable_mp(this, &DependencyEditorOwners::_file_option));
 
-	owners = memnewOld(ItemList);
+	owners = memnewOldNoConstructor(ItemList);
 	owners->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	owners->set_select_mode(ItemList::SELECT_MULTI);
 	owners->connect("item_clicked", callable_mp(this, &DependencyEditorOwners::_list_rmb_clicked));
@@ -677,13 +677,13 @@ void DependencyRemoveDialog::_bind_methods() {
 DependencyRemoveDialog::DependencyRemoveDialog() {
 	set_ok_button_text(TTR("Remove"));
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(vb);
 
-	text = memnewOld(Label);
+	text = memnewOldNoConstructor(Label);
 	vb->add_child(text);
 
-	owners = memnewOld(Tree);
+	owners = memnewOldNoConstructor(Tree);
 	owners->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	owners->set_hide_root(true);
 	vb->add_child(owners);
@@ -733,10 +733,10 @@ void DependencyErrorDialog::custom_action(const String &) {
 }
 
 DependencyErrorDialog::DependencyErrorDialog() {
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(vb);
 
-	files = memnewOld(Tree);
+	files = memnewOldNoConstructor(Tree);
 	files->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	files->set_hide_root(true);
 	vb->add_margin_child(TTR("Load failed due to missing dependencies:"), files, true);
@@ -746,7 +746,7 @@ DependencyErrorDialog::DependencyErrorDialog() {
 	set_ok_button_text(TTR("Open Anyway"));
 	set_cancel_button_text(TTR("Close"));
 
-	text = memnewOld(Label);
+	text = memnewOldNoConstructor(Label);
 	vb->add_child(text);
 	text->set_text(TTR("Which action should be taken?"));
 
@@ -881,18 +881,18 @@ void OrphanResourcesDialog::_bind_methods() {
 
 OrphanResourcesDialog::OrphanResourcesDialog() {
 	set_title(TTR("Orphan Resource Explorer"));
-	delete_confirm = memnewOld(ConfirmationDialog);
+	delete_confirm = memnewOldNoConstructor(ConfirmationDialog);
 	set_ok_button_text(TTR("Delete"));
 	add_child(delete_confirm);
-	dep_edit = memnewOld(DependencyEditor);
+	dep_edit = memnewOldNoConstructor(DependencyEditor);
 	add_child(dep_edit);
 	delete_confirm->connect(SceneStringName(confirmed), callable_mp(this, &OrphanResourcesDialog::_delete_confirm));
 	set_hide_on_ok(false);
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc);
 
-	files = memnewOld(Tree);
+	files = memnewOldNoConstructor(Tree);
 	files->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	files->set_columns(2);
 	files->set_column_titles_visible(true);

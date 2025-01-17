@@ -1046,23 +1046,23 @@ void *GodotSpace3D::_broadphase_pair(GodotCollisionObject3D *A, int p_subindex_A
 		GodotArea3D *area = static_cast<GodotArea3D *>(A);
 		if (type_B == GodotCollisionObject3D::TYPE_AREA) {
 			GodotArea3D *area_b = static_cast<GodotArea3D *>(B);
-			GodotArea2Pair3D *area2_pair = memnewOld(GodotArea2Pair3D(area_b, p_subindex_B, area, p_subindex_A));
+			GodotArea2Pair3D *area2_pair = memnewOldWithArgs(GodotArea2Pair3D(area_b, p_subindex_B, area, p_subindex_A));
 			return area2_pair;
 		} else if (type_B == GodotCollisionObject3D::TYPE_SOFT_BODY) {
 			GodotSoftBody3D *softbody = static_cast<GodotSoftBody3D *>(B);
-			GodotAreaSoftBodyPair3D *soft_area_pair = memnewOld(GodotAreaSoftBodyPair3D(softbody, p_subindex_B, area, p_subindex_A));
+			GodotAreaSoftBodyPair3D *soft_area_pair = memnewOldWithArgs(GodotAreaSoftBodyPair3D(softbody, p_subindex_B, area, p_subindex_A));
 			return soft_area_pair;
 		} else {
 			GodotBody3D *body = static_cast<GodotBody3D *>(B);
-			GodotAreaPair3D *area_pair = memnewOld(GodotAreaPair3D(body, p_subindex_B, area, p_subindex_A));
+			GodotAreaPair3D *area_pair = memnewOldWithArgs(GodotAreaPair3D(body, p_subindex_B, area, p_subindex_A));
 			return area_pair;
 		}
 	} else if (type_A == GodotCollisionObject3D::TYPE_BODY) {
 		if (type_B == GodotCollisionObject3D::TYPE_SOFT_BODY) {
-			GodotBodySoftBodyPair3D *soft_pair = memnewOld(GodotBodySoftBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotSoftBody3D *>(B)));
+			GodotBodySoftBodyPair3D *soft_pair = memnewOldWithArgs(GodotBodySoftBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotSoftBody3D *>(B)));
 			return soft_pair;
 		} else {
-			GodotBodyPair3D *b = memnewOld(GodotBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotBody3D *>(B), p_subindex_B));
+			GodotBodyPair3D *b = memnewOldWithArgs(GodotBodyPair3D(static_cast<GodotBody3D *>(A), p_subindex_A, static_cast<GodotBody3D *>(B), p_subindex_B));
 			return b;
 		}
 	} else {
@@ -1268,7 +1268,7 @@ GodotSpace3D::GodotSpace3D() {
 	broadphase->set_pair_callback(_broadphase_pair, this);
 	broadphase->set_unpair_callback(_broadphase_unpair, this);
 
-	direct_access = memnewOld(GodotPhysicsDirectSpaceState3D);
+	direct_access = memnewOldNoConstructor(GodotPhysicsDirectSpaceState3D);
 	direct_access->space = this;
 }
 

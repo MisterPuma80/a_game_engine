@@ -184,6 +184,6 @@ void NavigationLink2DEditorPlugin::make_visible(bool p_visible) {
 }
 
 NavigationLink2DEditorPlugin::NavigationLink2DEditorPlugin() {
-	editor = memnewOld(NavigationLink2DEditor);
+	editor = memnewOldNoConstructor(NavigationLink2DEditor);
 	EditorNode::get_singleton()->get_gui_base()->add_child(editor);
 }

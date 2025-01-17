@@ -206,20 +206,20 @@ void EditorDirDialog::_bind_methods() {
 EditorDirDialog::EditorDirDialog() {
 	set_hide_on_ok(false);
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(vb);
 
-	HBoxContainer *hb = memnewOld(HBoxContainer);
+	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	vb->add_child(hb);
 
-	hb->add_child(memnewOld(Label(TTR("Choose target directory:"))));
+	hb->add_child(memnewOldWithArgs(Label(TTR("Choose target directory:"))));
 	hb->add_spacer();
 
-	makedir = memnewOld(Button(TTR("Create Folder")));
+	makedir = memnewOldWithArgs(Button(TTR("Create Folder")));
 	hb->add_child(makedir);
 	makedir->connect(SceneStringName(pressed), callable_mp(this, &EditorDirDialog::_make_dir));
 
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vb->add_child(tree);
@@ -231,6 +231,6 @@ EditorDirDialog::EditorDirDialog() {
 	copy = add_button(TTR("Copy"), !DisplayServer::get_singleton()->get_swap_cancel_ok());
 	copy->connect(SceneStringName(pressed), callable_mp(this, &EditorDirDialog::_copy_pressed));
 
-	makedialog = memnewOld(DirectoryCreateDialog);
+	makedialog = memnewOldNoConstructor(DirectoryCreateDialog);
 	add_child(makedialog);
 }

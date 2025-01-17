@@ -51,7 +51,7 @@ RenderGeometryInstance *RasterizerSceneGLES3::geometry_instance_create(RID p_bas
 	ERR_FAIL_COND_V(!((1 << type) & RS::INSTANCE_GEOMETRY_MASK), nullptr);
 
 	GeometryInstanceGLES3 *ginstance = geometry_instance_alloc.alloc();
-	ginstance->data = memnewOld(GeometryInstanceGLES3::Data);
+	ginstance->data = memnewOldNoConstructor(GeometryInstanceGLES3::Data);
 
 	ginstance->data->base = p_base;
 	ginstance->data->base_type = type;
@@ -148,7 +148,7 @@ void RasterizerSceneGLES3::GeometryInstanceGLES3::set_use_lightmap(RID p_lightma
 void RasterizerSceneGLES3::GeometryInstanceGLES3::set_lightmap_capture(const Color *p_sh9) {
 	if (p_sh9) {
 		if (lightmap_sh == nullptr) {
-			lightmap_sh = memnewOld(GeometryInstanceLightmapSH);
+			lightmap_sh = memnewOldNoConstructor(GeometryInstanceLightmapSH);
 		}
 
 		memcpy(lightmap_sh->sh, p_sh9, sizeof(Color) * 9);

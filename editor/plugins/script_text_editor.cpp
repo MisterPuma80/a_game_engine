@@ -93,18 +93,18 @@ void ConnectionInfoDialog::popup_connections(const String &p_method, const Vecto
 ConnectionInfoDialog::ConnectionInfoDialog() {
 	set_title(TTR("Connections to method:"));
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	vbc->set_anchor_and_offset(SIDE_LEFT, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_TOP, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_RIGHT, Control::ANCHOR_END, -8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_BOTTOM, Control::ANCHOR_END, -8 * EDSCALE);
 	add_child(vbc);
 
-	method = memnewOld(Label);
+	method = memnewOldNoConstructor(Label);
 	method->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	vbc->add_child(method);
 
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_columns(3);
 	tree->set_hide_root(true);
@@ -2234,7 +2234,7 @@ void ScriptTextEditor::_make_context_menu(bool p_selection, bool p_color, bool p
 void ScriptTextEditor::_enable_code_editor() {
 	ERR_FAIL_COND(code_editor->get_parent());
 
-	VSplitContainer *editor_box = memnewOld(VSplitContainer);
+	VSplitContainer *editor_box = memnewOldNoConstructor(VSplitContainer);
 	add_child(editor_box);
 	editor_box->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	editor_box->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -2272,18 +2272,18 @@ void ScriptTextEditor::_enable_code_editor() {
 
 	add_child(color_panel);
 
-	color_picker = memnewOld(ColorPicker);
+	color_picker = memnewOldNoConstructor(ColorPicker);
 	color_picker->set_deferred_mode(true);
 	color_picker->connect("color_changed", callable_mp(this, &ScriptTextEditor::_color_changed));
 	color_panel->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(color_picker));
 
 	color_panel->add_child(color_picker);
 
-	quick_open = memnewOld(ScriptEditorQuickOpen);
+	quick_open = memnewOldNoConstructor(ScriptEditorQuickOpen);
 	quick_open->connect("goto_line", callable_mp(this, &ScriptTextEditor::_goto_line));
 	add_child(quick_open);
 
-	goto_line_dialog = memnewOld(GotoLineDialog);
+	goto_line_dialog = memnewOldNoConstructor(GotoLineDialog);
 	add_child(goto_line_dialog);
 
 	add_child(connection_info_dialog);
@@ -2304,7 +2304,7 @@ void ScriptTextEditor::_enable_code_editor() {
 	edit_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/toggle_word_wrap"), EDIT_TOGGLE_WORD_WRAP);
 	edit_menu->get_popup()->add_separator();
 	{
-		PopupMenu *sub_menu = memnewOld(PopupMenu);
+		PopupMenu *sub_menu = memnewOldNoConstructor(PopupMenu);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/move_up"), EDIT_MOVE_LINE_UP);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/move_down"), EDIT_MOVE_LINE_DOWN);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/indent"), EDIT_INDENT);
@@ -2315,7 +2315,7 @@ void ScriptTextEditor::_enable_code_editor() {
 		edit_menu->get_popup()->add_submenu_node_item(TTR("Line"), sub_menu);
 	}
 	{
-		PopupMenu *sub_menu = memnewOld(PopupMenu);
+		PopupMenu *sub_menu = memnewOldNoConstructor(PopupMenu);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/toggle_fold_line"), EDIT_TOGGLE_FOLD_LINE);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/fold_all_lines"), EDIT_FOLD_ALL_LINES);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/unfold_all_lines"), EDIT_UNFOLD_ALL_LINES);
@@ -2328,7 +2328,7 @@ void ScriptTextEditor::_enable_code_editor() {
 	edit_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/trim_trailing_whitespace"), EDIT_TRIM_TRAILING_WHITESAPCE);
 	edit_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/trim_final_newlines"), EDIT_TRIM_FINAL_NEWLINES);
 	{
-		PopupMenu *sub_menu = memnewOld(PopupMenu);
+		PopupMenu *sub_menu = memnewOldNoConstructor(PopupMenu);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_indent_to_spaces"), EDIT_CONVERT_INDENT_TO_SPACES);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_indent_to_tabs"), EDIT_CONVERT_INDENT_TO_TABS);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/auto_indent"), EDIT_AUTO_INDENT);
@@ -2338,7 +2338,7 @@ void ScriptTextEditor::_enable_code_editor() {
 	edit_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptTextEditor::_edit_option));
 	edit_menu->get_popup()->add_separator();
 	{
-		PopupMenu *sub_menu = memnewOld(PopupMenu);
+		PopupMenu *sub_menu = memnewOldNoConstructor(PopupMenu);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_to_uppercase"), EDIT_TO_UPPERCASE);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_to_lowercase"), EDIT_TO_LOWERCASE);
 		sub_menu->add_shortcut(ED_GET_SHORTCUT("script_text_editor/capitalize"), EDIT_CAPITALIZE);
@@ -2381,7 +2381,7 @@ void ScriptTextEditor::_enable_code_editor() {
 }
 
 ScriptTextEditor::ScriptTextEditor() {
-	code_editor = memnewOld(CodeTextEditor);
+	code_editor = memnewOldNoConstructor(CodeTextEditor);
 	code_editor->add_theme_constant_override("separation", 2);
 	code_editor->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	code_editor->set_code_complete_func(_code_complete_scripts, this);
@@ -2399,7 +2399,7 @@ ScriptTextEditor::ScriptTextEditor() {
 	code_editor->get_text_editor()->set_gutter_overwritable(connection_gutter, true);
 	code_editor->get_text_editor()->set_gutter_type(connection_gutter, TextEdit::GUTTER_TYPE_ICON);
 
-	warnings_panel = memnewOld(RichTextLabel);
+	warnings_panel = memnewOldNoConstructor(RichTextLabel);
 	warnings_panel->set_custom_minimum_size(Size2(0, 100 * EDSCALE));
 	warnings_panel->set_h_size_flags(SIZE_EXPAND_FILL);
 	warnings_panel->set_meta_underline(true);
@@ -2408,7 +2408,7 @@ ScriptTextEditor::ScriptTextEditor() {
 	warnings_panel->set_focus_mode(FOCUS_CLICK);
 	warnings_panel->hide();
 
-	errors_panel = memnewOld(RichTextLabel);
+	errors_panel = memnewOldNoConstructor(RichTextLabel);
 	errors_panel->set_custom_minimum_size(Size2(0, 100 * EDSCALE));
 	errors_panel->set_h_size_flags(SIZE_EXPAND_FILL);
 	errors_panel->set_meta_underline(true);
@@ -2422,18 +2422,18 @@ ScriptTextEditor::ScriptTextEditor() {
 	code_editor->get_text_editor()->set_symbol_lookup_on_click_enabled(true);
 	code_editor->get_text_editor()->set_context_menu_enabled(false);
 
-	context_menu = memnewOld(PopupMenu);
+	context_menu = memnewOldNoConstructor(PopupMenu);
 
-	color_panel = memnewOld(PopupPanel);
+	color_panel = memnewOldNoConstructor(PopupPanel);
 
-	edit_hb = memnewOld(HBoxContainer);
+	edit_hb = memnewOldNoConstructor(HBoxContainer);
 
-	edit_menu = memnewOld(MenuButton);
+	edit_menu = memnewOldNoConstructor(MenuButton);
 	edit_menu->set_text(TTR("Edit"));
 	edit_menu->set_switch_on_hover(true);
 	edit_menu->set_shortcut_context(this);
 
-	highlighter_menu = memnewOld(PopupMenu);
+	highlighter_menu = memnewOldNoConstructor(PopupMenu);
 
 	Ref<EditorPlainTextSyntaxHighlighter> plain_highlighter;
 	plain_highlighter.instantiate();
@@ -2444,20 +2444,20 @@ ScriptTextEditor::ScriptTextEditor() {
 	add_syntax_highlighter(highlighter);
 	set_syntax_highlighter(highlighter);
 
-	search_menu = memnewOld(MenuButton);
+	search_menu = memnewOldNoConstructor(MenuButton);
 	search_menu->set_text(TTR("Search"));
 	search_menu->set_switch_on_hover(true);
 	search_menu->set_shortcut_context(this);
 
-	goto_menu = memnewOld(MenuButton);
+	goto_menu = memnewOldNoConstructor(MenuButton);
 	goto_menu->set_text(TTR("Go To"));
 	goto_menu->set_switch_on_hover(true);
 	goto_menu->set_shortcut_context(this);
 
-	bookmarks_menu = memnewOld(PopupMenu);
-	breakpoints_menu = memnewOld(PopupMenu);
+	bookmarks_menu = memnewOldNoConstructor(PopupMenu);
+	breakpoints_menu = memnewOldNoConstructor(PopupMenu);
 
-	connection_info_dialog = memnewOld(ConnectionInfoDialog);
+	connection_info_dialog = memnewOldNoConstructor(ConnectionInfoDialog);
 
 	SET_DRAG_FORWARDING_GCD(code_editor->get_text_editor(), ScriptTextEditor);
 }
@@ -2484,7 +2484,7 @@ ScriptTextEditor::~ScriptTextEditor() {
 
 static ScriptEditorBase *create_editor(const Ref<Resource> &p_resource) {
 	if (Object::cast_to<Script>(*p_resource)) {
-		return memnewOld(ScriptTextEditor);
+		return memnewOldNoConstructor(ScriptTextEditor);
 	}
 	return nullptr;
 }

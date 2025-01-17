@@ -1324,22 +1324,22 @@ Variant SceneTreeEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from
 		return Variant();
 	}
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	Array objs;
 	int list_max = 10;
 	float opacity_step = 1.0f / list_max;
 	float opacity_item = 1.0f;
 	for (int i = 0; i < selected_nodes.size(); i++) {
 		if (i < list_max) {
-			HBoxContainer *hb = memnewOld(HBoxContainer);
-			TextureRect *tf = memnewOld(TextureRect);
+			HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+			TextureRect *tf = memnewOldNoConstructor(TextureRect);
 			int icon_size = get_theme_constant(SNAME("class_icon_size"), EditorStringName(Editor));
 			tf->set_custom_minimum_size(Size2(icon_size, icon_size));
 			tf->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 			tf->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 			tf->set_texture(icons[i]);
 			hb->add_child(tf);
-			Label *label = memnewOld(Label(selected_nodes[i]->get_name()));
+			Label *label = memnewOldWithArgs(Label(selected_nodes[i]->get_name()));
 			hb->add_child(label);
 			vb->add_child(hb);
 			hb->set_modulate(Color(1, 1, 1, opacity_item));
@@ -1574,7 +1574,7 @@ SceneTreeEditor::SceneTreeEditor(bool p_label, bool p_can_rename, bool p_can_ope
 	editor_selection = nullptr;
 
 	if (p_label) {
-		Label *label = memnewOld(Label);
+		Label *label = memnewOldNoConstructor(Label);
 		label->set_theme_type_variation("HeaderSmall");
 		label->set_position(Point2(10, 0));
 		label->set_text(TTR("Scene Tree (Nodes):"));
@@ -1582,7 +1582,7 @@ SceneTreeEditor::SceneTreeEditor(bool p_label, bool p_can_rename, bool p_can_ope
 		add_child(label);
 	}
 
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_anchor(SIDE_RIGHT, ANCHOR_END);
 	tree->set_anchor(SIDE_BOTTOM, ANCHOR_END);
@@ -1606,10 +1606,10 @@ SceneTreeEditor::SceneTreeEditor(bool p_label, bool p_can_rename, bool p_can_ope
 	tree->connect("button_clicked", callable_mp(this, &SceneTreeEditor::_cell_button_pressed));
 	tree->connect("nothing_selected", callable_mp(this, &SceneTreeEditor::_deselect_items));
 
-	error = memnewOld(AcceptDialog);
+	error = memnewOldNoConstructor(AcceptDialog);
 	add_child(error);
 
-	warning = memnewOld(AcceptDialog);
+	warning = memnewOldNoConstructor(AcceptDialog);
 	add_child(warning);
 	warning->set_title(TTR("Node Configuration Warning!"));
 	warning->set_flag(Window::FLAG_POPUP, true);
@@ -1617,18 +1617,18 @@ SceneTreeEditor::SceneTreeEditor(bool p_label, bool p_can_rename, bool p_can_ope
 	last_hash = 0;
 	blocked = 0;
 
-	update_timer = memnewOld(Timer);
+	update_timer = memnewOldNoConstructor(Timer);
 	update_timer->connect("timeout", callable_mp(this, &SceneTreeEditor::_update_tree).bind(false));
 	update_timer->set_one_shot(true);
 	update_timer->set_wait_time(0.5);
 	add_child(update_timer);
 
-	update_node_tooltip_delay = memnewOld(Timer);
+	update_node_tooltip_delay = memnewOldNoConstructor(Timer);
 	update_node_tooltip_delay->set_wait_time(0.5);
 	update_node_tooltip_delay->set_one_shot(true);
 	add_child(update_node_tooltip_delay);
 
-	script_types = memnewOld(List<StringName>);
+	script_types = memnewOldNoConstructor(List<StringName>);
 	ClassDB::get_inheriters_from_class("Script", script_types);
 }
 
@@ -1656,22 +1656,22 @@ void SceneTreeDialog::set_valid_types(const Vector<StringName> &p_valid) {
 
 	tree->set_valid_types(p_valid);
 
-	HBoxContainer *hbox = memnewOld(HBoxContainer);
+	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 	content->add_child(hbox);
 	content->move_child(hbox, 0);
 
 	{
-		Label *label = memnewOld(Label);
+		Label *label = memnewOldNoConstructor(Label);
 		hbox->add_child(label);
 		label->set_text(TTR("Allowed:"));
 	}
 
-	HFlowContainer *hflow = memnewOld(HFlowContainer);
+	HFlowContainer *hflow = memnewOldNoConstructor(HFlowContainer);
 	hbox->add_child(hflow);
 	hflow->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
 	for (const StringName &type : p_valid) {
-		HBoxContainer *hb = memnewOld(HBoxContainer);
+		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 		hflow->add_child(hb);
 
 		// Attempt to get the correct name and icon for script path types.
@@ -1687,14 +1687,14 @@ void SceneTreeDialog::set_valid_types(const Vector<StringName> &p_valid) {
 			}
 		}
 
-		TextureRect *trect = memnewOld(TextureRect);
+		TextureRect *trect = memnewOldNoConstructor(TextureRect);
 		hb->add_child(trect);
 		trect->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 		trect->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 		trect->set_meta("icon", icon);
 		valid_type_icons.push_back(trect);
 
-		Label *label = memnewOld(Label);
+		Label *label = memnewOldNoConstructor(Label);
 		hb->add_child(label);
 		label->set_text(name);
 		label->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -1760,13 +1760,13 @@ void SceneTreeDialog::_bind_methods() {
 
 SceneTreeDialog::SceneTreeDialog() {
 	set_title(TTR("Select a Node"));
-	content = memnewOld(VBoxContainer);
+	content = memnewOldNoConstructor(VBoxContainer);
 	add_child(content);
 
-	HBoxContainer *filter_hbc = memnewOld(HBoxContainer);
+	HBoxContainer *filter_hbc = memnewOldNoConstructor(HBoxContainer);
 	content->add_child(filter_hbc);
 
-	filter = memnewOld(LineEdit);
+	filter = memnewOldNoConstructor(LineEdit);
 	filter->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	filter->set_placeholder(TTR("Filter Nodes"));
 	filter->set_clear_button_enabled(true);
@@ -1775,14 +1775,14 @@ SceneTreeDialog::SceneTreeDialog() {
 	filter_hbc->add_child(filter);
 
 	// Add 'Show All' button to HBoxContainer next to the filter, visible only when valid_types is defined.
-	show_all_nodes = memnewOld(CheckButton);
+	show_all_nodes = memnewOldNoConstructor(CheckButton);
 	show_all_nodes->set_text(TTR("Show All"));
 	show_all_nodes->connect("toggled", callable_mp(this, &SceneTreeDialog::_show_all_nodes_changed));
 	show_all_nodes->set_h_size_flags(Control::SIZE_SHRINK_BEGIN);
 	show_all_nodes->hide();
 	filter_hbc->add_child(show_all_nodes);
 
-	tree = memnewOld(SceneTreeEditor(false, false, true));
+	tree = memnewOldWithArgs(SceneTreeEditor(false, false, true));
 	tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tree->get_scene_tree()->connect("item_activated", callable_mp(this, &SceneTreeDialog::_select));
 	// Initialize button state, must be done after the tree has been created to update its 'show_all_nodes' flag.

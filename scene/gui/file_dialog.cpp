@@ -1142,17 +1142,17 @@ void FileDialog::_update_option_controls() {
 	selected_options.clear();
 
 	for (const FileDialog::Option &opt : options) {
-		Label *lbl = memnewOld(Label);
+		Label *lbl = memnewOldNoConstructor(Label);
 		lbl->set_text(opt.name);
 		grid_options->add_child(lbl);
 		if (opt.values.is_empty()) {
-			CheckBox *cb = memnewOld(CheckBox);
+			CheckBox *cb = memnewOldNoConstructor(CheckBox);
 			cb->set_pressed(opt.default_idx);
 			grid_options->add_child(cb);
 			cb->connect("toggled", callable_mp(this, &FileDialog::_option_changed_checkbox_toggled).bind(opt.name));
 			selected_options[opt.name] = (bool)opt.default_idx;
 		} else {
-			OptionButton *ob = memnewOld(OptionButton);
+			OptionButton *ob = memnewOldNoConstructor(OptionButton);
 			for (const String &val : opt.values) {
 				ob->add_item(val);
 			}
@@ -1398,21 +1398,21 @@ bool FileDialog::get_use_native_dialog() const {
 FileDialog::FileDialog() {
 	show_hidden_files = default_show_hidden_files;
 
-	vbox = memnewOld(VBoxContainer);
+	vbox = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbox, false, INTERNAL_MODE_FRONT);
 
 	mode = FILE_MODE_SAVE_FILE;
 	set_title(TTRC("Save a File"));
 
-	HBoxContainer *hbc = memnewOld(HBoxContainer);
+	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
 
-	dir_prev = memnewOld(Button);
+	dir_prev = memnewOldNoConstructor(Button);
 	dir_prev->set_theme_type_variation("FlatButton");
 	dir_prev->set_tooltip_text(ETR("Go to previous folder."));
-	dir_next = memnewOld(Button);
+	dir_next = memnewOldNoConstructor(Button);
 	dir_next->set_theme_type_variation("FlatButton");
 	dir_next->set_tooltip_text(ETR("Go to next folder."));
-	dir_up = memnewOld(Button);
+	dir_up = memnewOldNoConstructor(Button);
 	dir_up->set_theme_type_variation("FlatButton");
 	dir_up->set_tooltip_text(ETR("Go to parent folder."));
 	hbc->add_child(dir_prev);
@@ -1422,27 +1422,27 @@ FileDialog::FileDialog() {
 	dir_next->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::_go_forward));
 	dir_up->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::_go_up));
 
-	hbc->add_child(memnewOld(Label(ETR("Path:"))));
+	hbc->add_child(memnewOldWithArgs(Label(ETR("Path:"))));
 
-	drives_container = memnewOld(HBoxContainer);
+	drives_container = memnewOldNoConstructor(HBoxContainer);
 	hbc->add_child(drives_container);
 
-	drives = memnewOld(OptionButton);
+	drives = memnewOldNoConstructor(OptionButton);
 	drives->connect(SceneStringName(item_selected), callable_mp(this, &FileDialog::_select_drive));
 	hbc->add_child(drives);
 
-	dir = memnewOld(LineEdit);
+	dir = memnewOldNoConstructor(LineEdit);
 	dir->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	hbc->add_child(dir);
 	dir->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	refresh = memnewOld(Button);
+	refresh = memnewOldNoConstructor(Button);
 	refresh->set_theme_type_variation("FlatButton");
 	refresh->set_tooltip_text(ETR("Refresh files."));
 	refresh->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::update_file_list));
 	hbc->add_child(refresh);
 
-	show_hidden = memnewOld(Button);
+	show_hidden = memnewOldNoConstructor(Button);
 	show_hidden->set_theme_type_variation("FlatButton");
 	show_hidden->set_toggle_mode(true);
 	show_hidden->set_pressed(is_showing_hidden_files());
@@ -1450,42 +1450,42 @@ FileDialog::FileDialog() {
 	show_hidden->connect("toggled", callable_mp(this, &FileDialog::set_show_hidden_files));
 	hbc->add_child(show_hidden);
 
-	shortcuts_container = memnewOld(HBoxContainer);
+	shortcuts_container = memnewOldNoConstructor(HBoxContainer);
 	hbc->add_child(shortcuts_container);
 
-	makedir = memnewOld(Button);
+	makedir = memnewOldNoConstructor(Button);
 	makedir->set_theme_type_variation("FlatButton");
 	makedir->set_tooltip_text(ETR("Create a new folder."));
 	makedir->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::_make_dir));
 	hbc->add_child(makedir);
 	vbox->add_child(hbc);
 
-	tree = memnewOld(Tree);
+	tree = memnewOldNoConstructor(Tree);
 	tree->set_hide_root(true);
 	vbox->add_margin_child(ETR("Directories & Files:"), tree, true);
 
-	message = memnewOld(Label);
+	message = memnewOldNoConstructor(Label);
 	message->hide();
 	message->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	message->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	tree->add_child(message);
 
-	file_box = memnewOld(HBoxContainer);
-	file_box->add_child(memnewOld(Label(ETR("File:"))));
-	file = memnewOld(LineEdit);
+	file_box = memnewOldNoConstructor(HBoxContainer);
+	file_box->add_child(memnewOldWithArgs(Label(ETR("File:"))));
+	file = memnewOldNoConstructor(LineEdit);
 	file->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	file->set_stretch_ratio(4);
 	file->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	file_box->add_child(file);
-	filter = memnewOld(OptionButton);
+	filter = memnewOldNoConstructor(OptionButton);
 	filter->set_stretch_ratio(3);
 	filter->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	filter->set_clip_text(true); // too many extensions overflows it
 	file_box->add_child(filter);
 	vbox->add_child(file_box);
 
-	grid_options = memnewOld(GridContainer);
+	grid_options = memnewOldNoConstructor(GridContainer);
 	grid_options->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 	grid_options->set_columns(2);
 	vbox->add_child(grid_options);
@@ -1502,27 +1502,27 @@ FileDialog::FileDialog() {
 	file->connect("text_submitted", callable_mp(this, &FileDialog::_file_submitted));
 	filter->connect(SceneStringName(item_selected), callable_mp(this, &FileDialog::_filter_selected));
 
-	confirm_save = memnewOld(ConfirmationDialog);
+	confirm_save = memnewOldNoConstructor(ConfirmationDialog);
 	add_child(confirm_save, false, INTERNAL_MODE_FRONT);
 
 	confirm_save->connect(SceneStringName(confirmed), callable_mp(this, &FileDialog::_save_confirm_pressed));
 
-	makedialog = memnewOld(ConfirmationDialog);
+	makedialog = memnewOldNoConstructor(ConfirmationDialog);
 	makedialog->set_title(ETR("Create Folder"));
-	VBoxContainer *makevb = memnewOld(VBoxContainer);
+	VBoxContainer *makevb = memnewOldNoConstructor(VBoxContainer);
 	makedialog->add_child(makevb);
 
-	makedirname = memnewOld(LineEdit);
+	makedirname = memnewOldNoConstructor(LineEdit);
 	makedirname->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	makevb->add_margin_child(ETR("Name:"), makedirname);
 	add_child(makedialog, false, INTERNAL_MODE_FRONT);
 	makedialog->register_text_enter(makedirname);
 	makedialog->connect(SceneStringName(confirmed), callable_mp(this, &FileDialog::_make_dir_confirm));
-	mkdirerr = memnewOld(AcceptDialog);
+	mkdirerr = memnewOldNoConstructor(AcceptDialog);
 	mkdirerr->set_text(ETR("Could not create folder."));
 	add_child(mkdirerr, false, INTERNAL_MODE_FRONT);
 
-	exterr = memnewOld(AcceptDialog);
+	exterr = memnewOldNoConstructor(AcceptDialog);
 	exterr->set_text(ETR("Invalid extension, or empty filename."));
 	add_child(exterr, false, INTERNAL_MODE_FRONT);
 

@@ -36,7 +36,7 @@
 #include "core/version.h"
 
 HTTPClient *HTTPClientTCP::_create_func() {
-	return memnewOld(HTTPClientTCP);
+	return memnewOldNoConstructor(HTTPClientTCP);
 }
 
 Error HTTPClientTCP::connect_to_host(const String &p_host, int p_port, Ref<TLSOptions> p_options) {

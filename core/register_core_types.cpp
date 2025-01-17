@@ -128,7 +128,7 @@ void register_core_types() {
 	ObjectDB::setup();
 
 	StringName::setup();
-	_time = memnewOld(Time);
+	_time = memnewOldNoConstructor(Time);
 	ResourceLoader::initialize();
 
 	register_global_constants();
@@ -272,31 +272,31 @@ void register_core_types() {
 
 	GDREGISTER_CLASS(EngineProfiler);
 
-	resource_uid = memnewOld(ResourceUID);
+	resource_uid = memnewOldNoConstructor(ResourceUID);
 
-	gdextension_manager = memnewOld(GDExtensionManager);
+	gdextension_manager = memnewOldNoConstructor(GDExtensionManager);
 
 	resource_loader_gdextension.instantiate();
 	ResourceLoader::add_resource_format_loader(resource_loader_gdextension);
 
 	ip = IP::create();
 
-	_geometry_2d = memnewOld(core_bind::Geometry2D);
-	_geometry_3d = memnewOld(core_bind::Geometry3D);
+	_geometry_2d = memnewOldNoConstructor(core_bind::Geometry2D);
+	_geometry_3d = memnewOldNoConstructor(core_bind::Geometry3D);
 
-	_resource_loader = memnewOld(core_bind::ResourceLoader);
-	_resource_saver = memnewOld(core_bind::ResourceSaver);
-	_os = memnewOld(core_bind::OS);
-	_engine = memnewOld(core_bind::Engine);
-	_classdb = memnewOld(core_bind::special::ClassDB);
-	_marshalls = memnewOld(core_bind::Marshalls);
-	_engine_debugger = memnewOld(core_bind::EngineDebugger);
+	_resource_loader = memnewOldNoConstructor(core_bind::ResourceLoader);
+	_resource_saver = memnewOldNoConstructor(core_bind::ResourceSaver);
+	_os = memnewOldNoConstructor(core_bind::OS);
+	_engine = memnewOldNoConstructor(core_bind::Engine);
+	_classdb = memnewOldNoConstructor(core_bind::special::ClassDB);
+	_marshalls = memnewOldNoConstructor(core_bind::Marshalls);
+	_engine_debugger = memnewOldNoConstructor(core_bind::EngineDebugger);
 
 	GDREGISTER_NATIVE_STRUCT(ObjectID, "uint64_t id = 0");
 	GDREGISTER_NATIVE_STRUCT(AudioFrame, "float left;float right");
 	GDREGISTER_NATIVE_STRUCT(ScriptLanguageExtensionProfilingInfo, "StringName signature;uint64_t call_count;uint64_t total_time;uint64_t self_time");
 
-	worker_thread_pool = memnewOld(WorkerThreadPool);
+	worker_thread_pool = memnewOldNoConstructor(WorkerThreadPool);
 
 	OS::get_singleton()->benchmark_end_measure("Core", "Register Types");
 }

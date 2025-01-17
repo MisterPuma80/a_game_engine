@@ -126,7 +126,7 @@ EditorProgress *GPUParticlesCollisionSDF3DEditorPlugin::tmp_progress = nullptr;
 void GPUParticlesCollisionSDF3DEditorPlugin::bake_func_begin(int p_steps) {
 	ERR_FAIL_COND(tmp_progress != nullptr);
 
-	tmp_progress = memnewOld(EditorProgress("bake_sdf", TTR("Bake SDF"), p_steps));
+	tmp_progress = memnewOldWithArgs(EditorProgress("bake_sdf", TTR("Bake SDF"), p_steps));
 }
 
 void GPUParticlesCollisionSDF3DEditorPlugin::bake_func_step(int p_step, const String &p_description) {
@@ -182,10 +182,10 @@ void GPUParticlesCollisionSDF3DEditorPlugin::_bind_methods() {
 }
 
 GPUParticlesCollisionSDF3DEditorPlugin::GPUParticlesCollisionSDF3DEditorPlugin() {
-	bake_hb = memnewOld(HBoxContainer);
+	bake_hb = memnewOldNoConstructor(HBoxContainer);
 	bake_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	bake_hb->hide();
-	bake = memnewOld(Button);
+	bake = memnewOldNoConstructor(Button);
 	bake->set_theme_type_variation("FlatButton");
 	bake->set_icon(EditorNode::get_singleton()->get_editor_theme()->get_icon(SNAME("Bake"), EditorStringName(EditorIcons)));
 	bake->set_text(TTR("Bake SDF"));
@@ -194,7 +194,7 @@ GPUParticlesCollisionSDF3DEditorPlugin::GPUParticlesCollisionSDF3DEditorPlugin()
 
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, bake_hb);
 	col_sdf = nullptr;
-	probe_file = memnewOld(EditorFileDialog);
+	probe_file = memnewOldNoConstructor(EditorFileDialog);
 	probe_file->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	probe_file->add_filter("*.exr");
 	probe_file->connect("file_selected", callable_mp(this, &GPUParticlesCollisionSDF3DEditorPlugin::_sdf_save_path_and_bake));

@@ -54,7 +54,7 @@ void CollisionPolygon3D::_build_polygon() {
 	//decompose concave into multiple convex polygons and add them
 
 	for (int i = 0; i < decomp.size(); i++) {
-		Ref<ConvexPolygonShape3D> convex = memnewOld(ConvexPolygonShape3D);
+		Ref<ConvexPolygonShape3D> convex = memnewOldNoConstructor(ConvexPolygonShape3D);
 		Vector<Vector3> cp;
 		int cs = decomp[i].size();
 		cp.resize(cs * 2);

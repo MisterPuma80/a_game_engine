@@ -149,7 +149,7 @@ void NetSocketPosix::_set_ip_port(struct sockaddr_storage *p_addr, IPAddress *r_
 }
 
 NetSocket *NetSocketPosix::_create_func() {
-	return memnewOld(NetSocketPosix);
+	return memnewOldNoConstructor(NetSocketPosix);
 }
 
 void NetSocketPosix::make_default() {
@@ -781,7 +781,7 @@ Ref<NetSocket> NetSocketPosix::accept(IPAddress &r_ip, uint16_t &r_port) {
 
 	_set_ip_port(&their_addr, &r_ip, &r_port);
 
-	NetSocketPosix *ns = memnewOld(NetSocketPosix);
+	NetSocketPosix *ns = memnewOldNoConstructor(NetSocketPosix);
 	ns->_set_socket(fd, _ip_type, _is_stream);
 	ns->set_blocking_enabled(false);
 	return Ref<NetSocket>(ns);

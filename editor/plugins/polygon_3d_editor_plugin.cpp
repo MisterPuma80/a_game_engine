@@ -538,13 +538,13 @@ void Polygon3DEditor::_bind_methods() {
 Polygon3DEditor::Polygon3DEditor() {
 	node = nullptr;
 
-	button_create = memnewOld(Button);
+	button_create = memnewOldNoConstructor(Button);
 	button_create->set_theme_type_variation("FlatButton");
 	add_child(button_create);
 	button_create->connect(SceneStringName(pressed), callable_mp(this, &Polygon3DEditor::_menu_option).bind(MODE_CREATE));
 	button_create->set_toggle_mode(true);
 
-	button_edit = memnewOld(Button);
+	button_edit = memnewOldNoConstructor(Button);
 	button_edit->set_theme_type_variation("FlatButton");
 	add_child(button_edit);
 	button_edit->connect(SceneStringName(pressed), callable_mp(this, &Polygon3DEditor::_menu_option).bind(MODE_EDIT));
@@ -552,12 +552,12 @@ Polygon3DEditor::Polygon3DEditor() {
 
 	mode = MODE_EDIT;
 	wip_active = false;
-	imgeom = memnewOld(MeshInstance3D);
+	imgeom = memnewOldNoConstructor(MeshInstance3D);
 	imesh.instantiate();
 	imgeom->set_mesh(imesh);
 	imgeom->set_transform(Transform3D(Basis(), Vector3(0, 0, 0.00001)));
 
-	line_material = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+	line_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 	line_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	line_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	line_material->set_flag(StandardMaterial3D::FLAG_ALBEDO_FROM_VERTEX_COLOR, true);
@@ -565,7 +565,7 @@ Polygon3DEditor::Polygon3DEditor() {
 	line_material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	line_material->set_albedo(Color(1, 1, 1));
 
-	handle_material = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+	handle_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 	handle_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	handle_material->set_flag(StandardMaterial3D::FLAG_USE_POINT_SIZE, true);
 	handle_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -576,7 +576,7 @@ Polygon3DEditor::Polygon3DEditor() {
 	handle_material->set_point_size(handle->get_width());
 	handle_material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, handle);
 
-	pointsm = memnewOld(MeshInstance3D);
+	pointsm = memnewOldNoConstructor(MeshInstance3D);
 	imgeom->add_child(pointsm);
 	m.instantiate();
 	pointsm->set_mesh(m);
@@ -607,7 +607,7 @@ void Polygon3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 Polygon3DEditorPlugin::Polygon3DEditorPlugin() {
-	polygon_editor = memnewOld(Polygon3DEditor);
+	polygon_editor = memnewOldNoConstructor(Polygon3DEditor);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(polygon_editor);
 
 	polygon_editor->hide();

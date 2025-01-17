@@ -103,7 +103,7 @@ void MultiplayerEditorDebugger::_profiler_activate(bool p_enable, int p_session_
 void MultiplayerEditorDebugger::setup_session(int p_session_id) {
 	Ref<EditorDebuggerSession> session = get_session(p_session_id);
 	ERR_FAIL_COND(session.is_null());
-	EditorNetworkProfiler *profiler = memnewOld(EditorNetworkProfiler);
+	EditorNetworkProfiler *profiler = memnewOldNoConstructor(EditorNetworkProfiler);
 	profiler->connect("enable_profiling", callable_mp(this, &MultiplayerEditorDebugger::_profiler_activate).bind(p_session_id));
 	profiler->connect("open_request", callable_mp(this, &MultiplayerEditorDebugger::_open_request));
 	profiler->set_name(TTR("Network Profiler"));
@@ -114,7 +114,7 @@ void MultiplayerEditorDebugger::setup_session(int p_session_id) {
 /// MultiplayerEditorPlugin
 
 MultiplayerEditorPlugin::MultiplayerEditorPlugin() {
-	repl_editor = memnewOld(ReplicationEditor);
+	repl_editor = memnewOldNoConstructor(ReplicationEditor);
 	button = EditorNode::get_bottom_panel()->add_item(TTR("Replication"), repl_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_replication_bottom_panel", TTR("Toggle Replication Bottom Panel")));
 	button->hide();
 	repl_editor->get_pin()->connect(SceneStringName(pressed), callable_mp(this, &MultiplayerEditorPlugin::_pinned));

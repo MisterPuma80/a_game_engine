@@ -864,39 +864,39 @@ int Animation::add_track(TrackType p_type, int p_at_pos) {
 
 	switch (p_type) {
 		case TYPE_POSITION_3D: {
-			PositionTrack *tt = memnewOld(PositionTrack);
+			PositionTrack *tt = memnewOldNoConstructor(PositionTrack);
 			tracks.insert(p_at_pos, tt);
 		} break;
 		case TYPE_ROTATION_3D: {
-			RotationTrack *rt = memnewOld(RotationTrack);
+			RotationTrack *rt = memnewOldNoConstructor(RotationTrack);
 			tracks.insert(p_at_pos, rt);
 		} break;
 		case TYPE_SCALE_3D: {
-			ScaleTrack *st = memnewOld(ScaleTrack);
+			ScaleTrack *st = memnewOldNoConstructor(ScaleTrack);
 			tracks.insert(p_at_pos, st);
 		} break;
 		case TYPE_BLEND_SHAPE: {
-			BlendShapeTrack *bst = memnewOld(BlendShapeTrack);
+			BlendShapeTrack *bst = memnewOldNoConstructor(BlendShapeTrack);
 			tracks.insert(p_at_pos, bst);
 		} break;
 		case TYPE_VALUE: {
-			tracks.insert(p_at_pos, memnewOld(ValueTrack));
+			tracks.insert(p_at_pos, memnewOldNoConstructor(ValueTrack));
 
 		} break;
 		case TYPE_METHOD: {
-			tracks.insert(p_at_pos, memnewOld(MethodTrack));
+			tracks.insert(p_at_pos, memnewOldNoConstructor(MethodTrack));
 
 		} break;
 		case TYPE_BEZIER: {
-			tracks.insert(p_at_pos, memnewOld(BezierTrack));
+			tracks.insert(p_at_pos, memnewOldNoConstructor(BezierTrack));
 
 		} break;
 		case TYPE_AUDIO: {
-			tracks.insert(p_at_pos, memnewOld(AudioTrack));
+			tracks.insert(p_at_pos, memnewOldNoConstructor(AudioTrack));
 
 		} break;
 		case TYPE_ANIMATION: {
-			tracks.insert(p_at_pos, memnewOld(AnimationTrack));
+			tracks.insert(p_at_pos, memnewOldNoConstructor(AnimationTrack));
 
 		} break;
 		default: {

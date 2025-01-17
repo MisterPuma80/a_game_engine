@@ -239,7 +239,7 @@ EditorFileSystem::ScannedDirectory::~ScannedDirectory() {
 void EditorFileSystem::_first_scan_filesystem() {
 	EditorProgress ep = EditorProgress("first_scan_filesystem", TTR("Project initialization"), 5);
 	Ref<DirAccess> d = DirAccess::create(DirAccess::ACCESS_RESOURCES);
-	first_scan_root_dir = memnewOld(ScannedDirectory);
+	first_scan_root_dir = memnewOldNoConstructor(ScannedDirectory);
 	first_scan_root_dir->full_path = "res://";
 	HashSet<String> existing_class_names;
 
@@ -416,7 +416,7 @@ void EditorFileSystem::_scan_filesystem() {
 	sp.hi = nb_files_total;
 	sp.progress = &scan_progress;
 
-	new_filesystem = memnewOld(EditorFileSystemDirectory);
+	new_filesystem = memnewOldNoConstructor(EditorFileSystemDirectory);
 	new_filesystem->parent = nullptr;
 
 	ScannedDirectory *sd;
@@ -426,10 +426,10 @@ void EditorFileSystem::_scan_filesystem() {
 		sd = first_scan_root_dir;
 		// Will be updated on scan.
 		ResourceUID::get_singleton()->clear();
-		processed_files = memnewOld(HashSet<String>());
+		processed_files = memnewOldNoArgs(HashSet<String>());
 	} else {
 		Ref<DirAccess> d = DirAccess::create(DirAccess::ACCESS_RESOURCES);
-		sd = memnewOld(ScannedDirectory);
+		sd = memnewOldNoConstructor(ScannedDirectory);
 		sd->full_path = "res://";
 		nb_files_total = _scan_new_dir(sd, d);
 	}
@@ -775,7 +775,7 @@ bool EditorFileSystem::_update_scan_actions() {
 
 	EditorProgress *ep = nullptr;
 	if (scan_actions.size() > 1) {
-		ep = memnewOld(EditorProgress("_update_scan_actions", TTR("Scanning actions..."), scan_actions.size()));
+		ep = memnewOldWithArgs(EditorProgress("_update_scan_actions", TTR("Scanning actions..."), scan_actions.size()));
 	}
 
 	int step_count = 0;
@@ -1060,7 +1060,7 @@ int EditorFileSystem::_scan_new_dir(ScannedDirectory *p_dir, Ref<DirAccess> &da)
 			if (d == cd || !d.begins_with(cd)) {
 				da->change_dir(cd); //avoid recursion
 			} else {
-				ScannedDirectory *sd = memnewOld(ScannedDirectory);
+				ScannedDirectory *sd = memnewOldNoConstructor(ScannedDirectory);
 				sd->name = E->get();
 				sd->full_path = p_dir->full_path.path_join(sd->name);
 
@@ -1085,7 +1085,7 @@ void EditorFileSystem::_process_file_system(const ScannedDirectory *p_scan_dir, 
 	p_dir->modified_time = FileAccess::get_modified_time(p_scan_dir->full_path);
 
 	for (ScannedDirectory *scan_sub_dir : p_scan_dir->subdirs) {
-		EditorFileSystemDirectory *sub_dir = memnewOld(EditorFileSystemDirectory);
+		EditorFileSystemDirectory *sub_dir = memnewOldNoConstructor(EditorFileSystemDirectory);
 		sub_dir->parent = p_dir;
 		sub_dir->name = scan_sub_dir->name;
 		p_dir->subdirs.push_back(sub_dir);
@@ -1101,7 +1101,7 @@ void EditorFileSystem::_process_file_system(const ScannedDirectory *p_scan_dir, 
 
 		String path = p_scan_dir->full_path.path_join(scan_file);
 
-		EditorFileSystemDirectory::FileInfo *fi = memnewOld(EditorFileSystemDirectory::FileInfo);
+		EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
 		fi->file = scan_file;
 		p_dir->files.push_back(fi);
 
@@ -1325,7 +1325,7 @@ void EditorFileSystem::_scan_fs_changes(EditorFileSystemDirectory *p_dir, ScanPr
 					sd.name = f;
 					sd.full_path = dir_path;
 
-					EditorFileSystemDirectory *efd = memnewOld(EditorFileSystemDirectory);
+					EditorFileSystemDirectory *efd = memnewOldNoConstructor(EditorFileSystemDirectory);
 					efd->parent = p_dir;
 					efd->name = f;
 
@@ -1356,7 +1356,7 @@ void EditorFileSystem::_scan_fs_changes(EditorFileSystemDirectory *p_dir, ScanPr
 
 				if (idx == -1) {
 					//never seen this file, add actition to add it
-					EditorFileSystemDirectory::FileInfo *fi = memnewOld(EditorFileSystemDirectory::FileInfo);
+					EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
 					fi->file = f;
 
 					String path = cd.path_join(fi->file);
@@ -1775,7 +1775,7 @@ bool EditorFileSystem::_find_file(const String &p_file, EditorFileSystemDirector
 			if (!dir->dir_exists(fs->get_path().path_join(path[i]))) {
 				return false;
 			}
-			EditorFileSystemDirectory *efsd = memnewOld(EditorFileSystemDirectory);
+			EditorFileSystemDirectory *efsd = memnewOldNoConstructor(EditorFileSystemDirectory);
 
 			efsd->name = path[i];
 			efsd->parent = fs;
@@ -2003,9 +2003,9 @@ void EditorFileSystem::_update_script_classes() {
 		if (update_script_paths.size() > 1) {
 			if (MessageQueue::get_singleton()->is_flushing()) {
 				// Use background progress when message queue is flushing.
-				ep = memnewOld(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size(), false, true));
+				ep = memnewOldWithArgs(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size(), false, true));
 			} else {
-				ep = memnewOld(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size()));
+				ep = memnewOldWithArgs(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size()));
 			}
 		}
 
@@ -2047,9 +2047,9 @@ void EditorFileSystem::_update_script_documentation() {
 	if (update_script_paths_documentation.size() > 1) {
 		if (MessageQueue::get_singleton()->is_flushing()) {
 			// Use background progress when message queue is flushing.
-			ep = memnewOld(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size(), false, true));
+			ep = memnewOldWithArgs(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size(), false, true));
 		} else {
-			ep = memnewOld(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size()));
+			ep = memnewOldWithArgs(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size()));
 		}
 	}
 
@@ -2115,7 +2115,7 @@ void EditorFileSystem::_update_scene_groups() {
 
 	EditorProgress *ep = nullptr;
 	if (update_scene_paths.size() > 20) {
-		ep = memnewOld(EditorProgress("update_scene_groups", TTR("Updating Scene Groups"), update_scene_paths.size()));
+		ep = memnewOldWithArgs(EditorProgress("update_scene_groups", TTR("Updating Scene Groups"), update_scene_paths.size()));
 	}
 	int step_count = 0;
 
@@ -2242,7 +2242,7 @@ void EditorFileSystem::update_files(const Vector<String> &p_script_paths) {
 					idx++;
 				}
 
-				EditorFileSystemDirectory::FileInfo *fi = memnewOld(EditorFileSystemDirectory::FileInfo);
+				EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
 				fi->file = file_name;
 				fi->import_modified_time = 0;
 				fi->import_valid = (type == "TextFile" || type == "OtherFile") ? true : ResourceLoader::is_import_valid(file);
@@ -2971,7 +2971,7 @@ void EditorFileSystem::reimport_files(const Vector<String> &p_files) {
 
 	Vector<String> reloads;
 
-	EditorProgress *ep = memnewOld(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
+	EditorProgress *ep = memnewOldWithArgs(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
 
 	// The method reimport_files runs on the main thread, and if VSync is enabled
 	// or Update Continuously is disabled, Main::Iteration takes longer each frame.
@@ -3128,7 +3128,7 @@ void EditorFileSystem::reimport_files(const Vector<String> &p_files) {
 
 	importing = false;
 
-	ep = memnewOld(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
+	ep = memnewOldWithArgs(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
 	ep->step(TTR("Executing post-reimport operations..."), 0, true);
 	if (!is_scanning()) {
 		emit_signal(SNAME("filesystem_changed"));
@@ -3292,7 +3292,7 @@ Error EditorFileSystem::make_dir_recursive(const String &p_path, const String &p
 			continue;
 		}
 
-		EditorFileSystemDirectory *efd = memnewOld(EditorFileSystemDirectory);
+		EditorFileSystemDirectory *efd = memnewOldNoConstructor(EditorFileSystemDirectory);
 		efd->parent = parent;
 		efd->name = folder;
 		parent->subdirs.push_back(efd);
@@ -3322,7 +3322,7 @@ Error EditorFileSystem::copy_directory(const String &p_from, const String &p_to)
 
 	EditorProgress *ep = nullptr;
 	if (files.size() > 10) {
-		ep = memnewOld(EditorProgress("_copy_files", TTR("Copying files..."), files.size()));
+		ep = memnewOldWithArgs(EditorProgress("_copy_files", TTR("Copying files..."), files.size()));
 	}
 
 	int i = 0;
@@ -3518,7 +3518,7 @@ EditorFileSystem::EditorFileSystem() {
 	ResourceLoader::import = _resource_import;
 	reimport_on_missing_imported_files = GLOBAL_GET("editor/import/reimport_missing_imported_files");
 	singleton = this;
-	filesystem = memnewOld(EditorFileSystemDirectory); //like, empty
+	filesystem = memnewOldNoConstructor(EditorFileSystemDirectory); //like, empty
 	filesystem->parent = nullptr;
 
 	new_filesystem = nullptr;

@@ -195,7 +195,7 @@ class Noise : public Resource {
 					wr(x, y) = _alpha_blend<T>(bottom_blend, top_blend, ypos);
 				}
 			}
-			Ref<Image> image = memnewOld(Image(p_width, p_height, false, format, dest));
+			Ref<Image> image = memnewOldWithArgs(Image(p_width, p_height, false, format, dest));
 			p_src.write[d].unref();
 			images.write[d] = image;
 		}
@@ -240,7 +240,7 @@ class Noise : public Resource {
 					dest.write[i] = out;
 				}
 
-				Ref<Image> new_image = memnewOld(Image(images[0]->get_width(), images[0]->get_height(), false, images[0]->get_format(), dest));
+				Ref<Image> new_image = memnewOldWithArgs(Image(images[0]->get_width(), images[0]->get_height(), false, images[0]->get_format(), dest));
 				new_images.write[z % p_depth] = new_image;
 			}
 			return new_images;

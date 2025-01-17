@@ -42,13 +42,13 @@ void BitMapEditor::setup(const Ref<BitMap> &p_bitmap) {
 }
 
 BitMapEditor::BitMapEditor() {
-	texture_rect = memnewOld(TextureRect);
+	texture_rect = memnewOldNoConstructor(TextureRect);
 	texture_rect->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	texture_rect->set_texture_filter(TEXTURE_FILTER_NEAREST);
 	texture_rect->set_custom_minimum_size(Size2(0, 250) * EDSCALE);
 	add_child(texture_rect);
 
-	size_label = memnewOld(Label);
+	size_label = memnewOldNoConstructor(Label);
 	size_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	add_child(size_label);
 
@@ -72,7 +72,7 @@ void EditorInspectorPluginBitMap::parse_begin(Object *p_object) {
 	}
 	Ref<BitMap> bm(bitmap);
 
-	BitMapEditor *editor = memnewOld(BitMapEditor);
+	BitMapEditor *editor = memnewOldNoConstructor(BitMapEditor);
 	editor->setup(bm);
 	add_custom_control(editor);
 }

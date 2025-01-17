@@ -536,19 +536,19 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	get_ok_button()->set_text(TTR("Reimport"));
 	get_cancel_button()->set_text(TTR("Close"));
 
-	VBoxContainer *main_vbox = memnewOld(VBoxContainer);
+	VBoxContainer *main_vbox = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vbox);
 
-	HBoxContainer *loop_hb = memnewOld(HBoxContainer);
+	HBoxContainer *loop_hb = memnewOldNoConstructor(HBoxContainer);
 	loop_hb->add_theme_constant_override("separation", 4 * EDSCALE);
-	loop = memnewOld(CheckBox);
+	loop = memnewOldNoConstructor(CheckBox);
 	loop->set_text(TTR("Enable"));
 	loop->set_tooltip_text(TTR("Enable looping."));
 	loop->connect("toggled", callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	loop_hb->add_child(loop);
 	loop_hb->add_spacer();
-	loop_hb->add_child(memnewOld(Label(TTR("Offset:"))));
-	loop_offset = memnewOld(SpinBox);
+	loop_hb->add_child(memnewOldWithArgs(Label(TTR("Offset:"))));
+	loop_offset = memnewOldNoConstructor(SpinBox);
 	loop_offset->set_max(10000);
 	loop_offset->set_step(0.001);
 	loop_offset->set_suffix("sec");
@@ -557,31 +557,31 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	loop_hb->add_child(loop_offset);
 	main_vbox->add_margin_child(TTR("Loop:"), loop_hb);
 
-	HBoxContainer *interactive_hb = memnewOld(HBoxContainer);
+	HBoxContainer *interactive_hb = memnewOldNoConstructor(HBoxContainer);
 	interactive_hb->add_theme_constant_override("separation", 4 * EDSCALE);
-	bpm_enabled = memnewOld(CheckBox);
+	bpm_enabled = memnewOldNoConstructor(CheckBox);
 	bpm_enabled->set_text((TTR("BPM:")));
 	bpm_enabled->connect("toggled", callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	interactive_hb->add_child(bpm_enabled);
-	bpm_edit = memnewOld(SpinBox);
+	bpm_edit = memnewOldNoConstructor(SpinBox);
 	bpm_edit->set_max(400);
 	bpm_edit->set_step(0.01);
 	bpm_edit->set_tooltip_text(TTR("Configure the Beats Per Measure (tempo) used for the interactive streams.\nThis is required in order to configure beat information."));
 	bpm_edit->connect(SceneStringName(value_changed), callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	interactive_hb->add_child(bpm_edit);
 	interactive_hb->add_spacer();
-	beats_enabled = memnewOld(CheckBox);
+	beats_enabled = memnewOldNoConstructor(CheckBox);
 	beats_enabled->set_text(TTR("Beat Count:"));
 	beats_enabled->connect("toggled", callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	interactive_hb->add_child(beats_enabled);
-	beats_edit = memnewOld(SpinBox);
+	beats_edit = memnewOldNoConstructor(SpinBox);
 	beats_edit->set_tooltip_text(TTR("Configure the amount of Beats used for music-aware looping. If zero, it will be autodetected from the length.\nIt is recommended to set this value (either manually or by clicking on a beat number in the preview) to ensure looping works properly."));
 	beats_edit->set_max(99999);
 	beats_edit->connect(SceneStringName(value_changed), callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	interactive_hb->add_child(beats_edit);
-	bar_beats_label = memnewOld(Label(TTR("Bar Beats:")));
+	bar_beats_label = memnewOldWithArgs(Label(TTR("Bar Beats:")));
 	interactive_hb->add_child(bar_beats_label);
-	bar_beats_edit = memnewOld(SpinBox);
+	bar_beats_edit = memnewOldNoConstructor(SpinBox);
 	bar_beats_edit->set_tooltip_text(TTR("Configure the Beats Per Bar. This used for music-aware transitions between AudioStreams."));
 	bar_beats_edit->set_min(2);
 	bar_beats_edit->set_max(32);
@@ -590,34 +590,34 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	interactive_hb->add_spacer();
 	main_vbox->add_margin_child(TTR("Music Playback:"), interactive_hb);
 
-	color_rect = memnewOld(ColorRect);
+	color_rect = memnewOldNoConstructor(ColorRect);
 	main_vbox->add_margin_child(TTR("Preview:"), color_rect);
 
 	color_rect->set_custom_minimum_size(Size2(600, 200) * EDSCALE);
 	color_rect->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	_player = memnewOld(AudioStreamPlayer);
+	_player = memnewOldNoConstructor(AudioStreamPlayer);
 	_player->connect(SceneStringName(finished), callable_mp(this, &AudioStreamImportSettingsDialog::_on_finished));
 	color_rect->add_child(_player);
 
-	VBoxContainer *vbox = memnewOld(VBoxContainer);
+	VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 	vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, 0);
 	color_rect->add_child(vbox);
 	vbox->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	_preview = memnewOld(ColorRect);
+	_preview = memnewOldNoConstructor(ColorRect);
 	_preview->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	_preview->connect(SceneStringName(draw), callable_mp(this, &AudioStreamImportSettingsDialog::_draw_preview));
 	_preview->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vbox->add_child(_preview);
 
-	HBoxContainer *zoom_hbox = memnewOld(HBoxContainer);
-	zoom_bar = memnewOld(HScrollBar);
-	zoom_in = memnewOld(Button);
+	HBoxContainer *zoom_hbox = memnewOldNoConstructor(HBoxContainer);
+	zoom_bar = memnewOldNoConstructor(HScrollBar);
+	zoom_in = memnewOldNoConstructor(Button);
 	zoom_in->set_flat(true);
-	zoom_reset = memnewOld(Button);
+	zoom_reset = memnewOldNoConstructor(Button);
 	zoom_reset->set_flat(true);
-	zoom_out = memnewOld(Button);
+	zoom_out = memnewOldNoConstructor(Button);
 	zoom_out->set_flat(true);
 	zoom_hbox->add_child(zoom_bar);
 	zoom_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -631,36 +631,36 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	zoom_bar->connect(SceneStringName(value_changed), callable_mp(this, &AudioStreamImportSettingsDialog::_preview_zoom_offset_changed));
 	vbox->add_child(zoom_hbox);
 
-	_indicator = memnewOld(Control);
+	_indicator = memnewOldNoConstructor(Control);
 	_indicator->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	_indicator->connect(SceneStringName(draw), callable_mp(this, &AudioStreamImportSettingsDialog::_draw_indicator));
 	_indicator->connect(SceneStringName(gui_input), callable_mp(this, &AudioStreamImportSettingsDialog::_on_input_indicator));
 	_indicator->connect(SceneStringName(mouse_exited), callable_mp(this, &AudioStreamImportSettingsDialog::_on_indicator_mouse_exited));
 	_preview->add_child(_indicator);
 
-	HBoxContainer *hbox = memnewOld(HBoxContainer);
+	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 	hbox->add_theme_constant_override("separation", 0);
 	vbox->add_child(hbox);
 
-	_play_button = memnewOld(Button);
+	_play_button = memnewOldNoConstructor(Button);
 	_play_button->set_flat(true);
 	hbox->add_child(_play_button);
 	_play_button->set_focus_mode(Control::FOCUS_NONE);
 	_play_button->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamImportSettingsDialog::_play));
 
-	_stop_button = memnewOld(Button);
+	_stop_button = memnewOldNoConstructor(Button);
 	_stop_button->set_flat(true);
 	hbox->add_child(_stop_button);
 	_stop_button->set_focus_mode(Control::FOCUS_NONE);
 	_stop_button->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamImportSettingsDialog::_stop));
 
-	_current_label = memnewOld(Label);
+	_current_label = memnewOldNoConstructor(Label);
 	_current_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	_current_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	_current_label->set_modulate(Color(1, 1, 1, 0.5));
 	hbox->add_child(_current_label);
 
-	_duration_label = memnewOld(Label);
+	_duration_label = memnewOldNoConstructor(Label);
 	hbox->add_child(_duration_label);
 
 	singleton = this;

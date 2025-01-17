@@ -296,7 +296,7 @@ void Skeleton3D::setup_simulator() {
 		remove_child(simulator);
 		simulator->queue_free();
 	}
-	PhysicalBoneSimulator3D *sim = memnewOld(PhysicalBoneSimulator3D);
+	PhysicalBoneSimulator3D *sim = memnewOldNoConstructor(PhysicalBoneSimulator3D);
 	simulator = sim;
 	sim->is_compat = true;
 	sim->set_active(false); // Don't run unneeded process.

@@ -80,7 +80,7 @@ Error MIDIDriverCoreMidi::open() {
 	for (int i = 0; i < source_count; i++) {
 		MIDIEndpointRef source = MIDIGetSource(i);
 		if (source) {
-			InputConnection *conn = memnewOld(InputConnection(connection_index, source));
+			InputConnection *conn = memnewOldWithArgs(InputConnection(connection_index, source));
 			const OSStatus res = MIDIPortConnectSource(port_in, source, static_cast<void *>(conn));
 			if (res != noErr) {
 				memdelete(conn);

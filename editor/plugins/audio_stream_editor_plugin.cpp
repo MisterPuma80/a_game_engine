@@ -220,49 +220,49 @@ void AudioStreamEditor::set_stream(const Ref<AudioStream> &p_stream) {
 AudioStreamEditor::AudioStreamEditor() {
 	set_custom_minimum_size(Size2(1, 100) * EDSCALE);
 
-	_player = memnewOld(AudioStreamPlayer);
+	_player = memnewOldNoConstructor(AudioStreamPlayer);
 	_player->connect(SceneStringName(finished), callable_mp(this, &AudioStreamEditor::_on_finished));
 	add_child(_player);
 
-	VBoxContainer *vbox = memnewOld(VBoxContainer);
+	VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 	vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	add_child(vbox);
 
-	_preview = memnewOld(ColorRect);
+	_preview = memnewOldNoConstructor(ColorRect);
 	_preview->set_v_size_flags(SIZE_EXPAND_FILL);
 	_preview->connect(SceneStringName(draw), callable_mp(this, &AudioStreamEditor::_draw_preview));
 	vbox->add_child(_preview);
 
-	_indicator = memnewOld(Control);
+	_indicator = memnewOldNoConstructor(Control);
 	_indicator->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	_indicator->connect(SceneStringName(draw), callable_mp(this, &AudioStreamEditor::_draw_indicator));
 	_indicator->connect(SceneStringName(gui_input), callable_mp(this, &AudioStreamEditor::_on_input_indicator));
 	_preview->add_child(_indicator);
 
-	HBoxContainer *hbox = memnewOld(HBoxContainer);
+	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 	hbox->add_theme_constant_override("separation", 0);
 	vbox->add_child(hbox);
 
-	_play_button = memnewOld(Button);
+	_play_button = memnewOldNoConstructor(Button);
 	hbox->add_child(_play_button);
 	_play_button->set_flat(true);
 	_play_button->set_focus_mode(Control::FOCUS_NONE);
 	_play_button->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamEditor::_play));
 	_play_button->set_shortcut(ED_SHORTCUT("audio_stream_editor/audio_preview_play_pause", TTR("Audio Preview Play/Pause"), Key::SPACE));
 
-	_stop_button = memnewOld(Button);
+	_stop_button = memnewOldNoConstructor(Button);
 	hbox->add_child(_stop_button);
 	_stop_button->set_flat(true);
 	_stop_button->set_focus_mode(Control::FOCUS_NONE);
 	_stop_button->connect(SceneStringName(pressed), callable_mp(this, &AudioStreamEditor::_stop));
 
-	_current_label = memnewOld(Label);
+	_current_label = memnewOldNoConstructor(Label);
 	_current_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	_current_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	_current_label->set_modulate(Color(1, 1, 1, 0.5));
 	hbox->add_child(_current_label);
 
-	_duration_label = memnewOld(Label);
+	_duration_label = memnewOldNoConstructor(Label);
 	hbox->add_child(_duration_label);
 }
 
@@ -275,7 +275,7 @@ bool EditorInspectorPluginAudioStream::can_handle(Object *p_object) {
 void EditorInspectorPluginAudioStream::parse_begin(Object *p_object) {
 	AudioStream *stream = Object::cast_to<AudioStream>(p_object);
 
-	editor = memnewOld(AudioStreamEditor);
+	editor = memnewOldNoConstructor(AudioStreamEditor);
 	editor->set_stream(Ref<AudioStream>(stream));
 
 	add_custom_control(editor);

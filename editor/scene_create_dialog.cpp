@@ -158,13 +158,13 @@ Node *SceneCreateDialog::create_scene_root() {
 	Node *root = nullptr;
 	switch (type) {
 		case ROOT_2D_SCENE:
-			root = memnewOld(Node2D);
+			root = memnewOldNoConstructor(Node2D);
 			break;
 		case ROOT_3D_SCENE:
-			root = memnewOld(Node3D);
+			root = memnewOldNoConstructor(Node3D);
 			break;
 		case ROOT_USER_INTERFACE: {
-			Control *gui_ctl = memnewOld(Control);
+			Control *gui_ctl = memnewOldNoConstructor(Control);
 			// Making the root control full rect by default is more useful for resizable UIs.
 			gui_ctl->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 			gui_ctl->set_grow_direction_preset(Control::PRESET_FULL_RECT);
@@ -181,87 +181,87 @@ Node *SceneCreateDialog::create_scene_root() {
 }
 
 SceneCreateDialog::SceneCreateDialog() {
-	select_node_dialog = memnewOld(CreateDialog);
+	select_node_dialog = memnewOldNoConstructor(CreateDialog);
 	add_child(select_node_dialog);
 	select_node_dialog->set_base_type("Node");
 	select_node_dialog->connect("create", callable_mp(this, &SceneCreateDialog::on_type_picked));
 
-	VBoxContainer *main_vb = memnewOld(VBoxContainer);
+	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vb);
 
-	GridContainer *gc = memnewOld(GridContainer);
+	GridContainer *gc = memnewOldNoConstructor(GridContainer);
 	main_vb->add_child(gc);
 	gc->set_columns(2);
 
 	{
-		Label *label = memnewOld(Label(TTR("Root Type:")));
+		Label *label = memnewOldWithArgs(Label(TTR("Root Type:")));
 		gc->add_child(label);
 		label->set_v_size_flags(Control::SIZE_SHRINK_BEGIN);
 
-		VBoxContainer *vb = memnewOld(VBoxContainer);
+		VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 		gc->add_child(vb);
 
 		node_type_group.instantiate();
 
-		node_type_2d = memnewOld(CheckBox);
+		node_type_2d = memnewOldNoConstructor(CheckBox);
 		vb->add_child(node_type_2d);
 		node_type_2d->set_text(TTR("2D Scene"));
 		node_type_2d->set_button_group(node_type_group);
 		node_type_2d->set_meta(type_meta, ROOT_2D_SCENE);
 		node_type_2d->set_pressed(true);
 
-		node_type_3d = memnewOld(CheckBox);
+		node_type_3d = memnewOldNoConstructor(CheckBox);
 		vb->add_child(node_type_3d);
 		node_type_3d->set_text(TTR("3D Scene"));
 		node_type_3d->set_button_group(node_type_group);
 		node_type_3d->set_meta(type_meta, ROOT_3D_SCENE);
 
-		node_type_gui = memnewOld(CheckBox);
+		node_type_gui = memnewOldNoConstructor(CheckBox);
 		vb->add_child(node_type_gui);
 		node_type_gui->set_text(TTR("User Interface"));
 		node_type_gui->set_button_group(node_type_group);
 		node_type_gui->set_meta(type_meta, ROOT_USER_INTERFACE);
 
-		HBoxContainer *hb = memnewOld(HBoxContainer);
+		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 		vb->add_child(hb);
 
-		node_type_other = memnewOld(CheckBox);
+		node_type_other = memnewOldNoConstructor(CheckBox);
 		hb->add_child(node_type_other);
 		node_type_other->set_button_group(node_type_group);
 		node_type_other->set_meta(type_meta, ROOT_OTHER);
 
-		Control *spacing = memnewOld(Control);
+		Control *spacing = memnewOldNoConstructor(Control);
 		hb->add_child(spacing);
 		spacing->set_custom_minimum_size(Size2(4 * EDSCALE, 0));
 
-		other_type_display = memnewOld(LineEdit);
+		other_type_display = memnewOldNoConstructor(LineEdit);
 		hb->add_child(other_type_display);
 		other_type_display->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		other_type_display->set_editable(false);
 		other_type_display->set_text("Node");
 
-		select_node_button = memnewOld(Button);
+		select_node_button = memnewOldNoConstructor(Button);
 		hb->add_child(select_node_button);
 		select_node_button->connect(SceneStringName(pressed), callable_mp(this, &SceneCreateDialog::browse_types));
 	}
 
 	{
-		Label *label = memnewOld(Label(TTR("Scene Name:")));
+		Label *label = memnewOldWithArgs(Label(TTR("Scene Name:")));
 		gc->add_child(label);
 
-		HBoxContainer *hb = memnewOld(HBoxContainer);
+		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 		gc->add_child(hb);
 
-		scene_name_edit = memnewOld(LineEdit);
+		scene_name_edit = memnewOldNoConstructor(LineEdit);
 		hb->add_child(scene_name_edit);
 		scene_name_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		scene_name_edit->connect("text_submitted", callable_mp(this, &SceneCreateDialog::accept_create).unbind(1));
 
 		List<String> extensions;
-		Ref<PackedScene> sd = memnewOld(PackedScene);
+		Ref<PackedScene> sd = memnewOldNoConstructor(PackedScene);
 		ResourceSaver::get_recognized_extensions(sd, &extensions);
 
-		scene_extension_picker = memnewOld(OptionButton);
+		scene_extension_picker = memnewOldNoConstructor(OptionButton);
 		hb->add_child(scene_extension_picker);
 		for (const String &E : extensions) {
 			scene_extension_picker->add_item("." + E);
@@ -270,10 +270,10 @@ SceneCreateDialog::SceneCreateDialog() {
 	}
 
 	{
-		Label *label = memnewOld(Label(TTR("Root Name:")));
+		Label *label = memnewOldWithArgs(Label(TTR("Root Name:")));
 		gc->add_child(label);
 
-		root_name_edit = memnewOld(LineEdit);
+		root_name_edit = memnewOldNoConstructor(LineEdit);
 		gc->add_child(root_name_edit);
 		root_name_edit->set_tooltip_text(TTR("When empty, the root node name is derived from the scene name based on the \"editor/naming/node_name_casing\" project setting."));
 		root_name_edit->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -281,11 +281,11 @@ SceneCreateDialog::SceneCreateDialog() {
 		root_name_edit->connect("text_submitted", callable_mp(this, &SceneCreateDialog::accept_create).unbind(1));
 	}
 
-	Control *spacing = memnewOld(Control);
+	Control *spacing = memnewOldNoConstructor(Control);
 	main_vb->add_child(spacing);
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
-	validation_panel = memnewOld(EditorValidationPanel);
+	validation_panel = memnewOldNoConstructor(EditorValidationPanel);
 	main_vb->add_child(validation_panel);
 	validation_panel->add_line(MSG_ID_PATH, TTR("Scene name is valid."));
 	validation_panel->add_line(MSG_ID_ROOT, TTR("Root node valid."));

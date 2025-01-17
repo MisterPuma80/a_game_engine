@@ -146,10 +146,10 @@ void QuickSettingsDialog::_update_current_values() {
 }
 
 void QuickSettingsDialog::_add_setting_control(const String &p_text, Control *p_control) {
-	HBoxContainer *container = memnewOld(HBoxContainer);
+	HBoxContainer *container = memnewOldNoConstructor(HBoxContainer);
 	settings_list->add_child(container);
 
-	Label *label = memnewOld(Label(p_text));
+	Label *label = memnewOldWithArgs(Label(p_text));
 	label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	container->add_child(label);
 
@@ -234,7 +234,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 	set_title(TTR("Quick Settings"));
 	set_ok_button_text(TTR("Close"));
 
-	VBoxContainer *main_vbox = memnewOld(VBoxContainer);
+	VBoxContainer *main_vbox = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vbox);
 	main_vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 
@@ -242,16 +242,16 @@ QuickSettingsDialog::QuickSettingsDialog() {
 	{
 		_fetch_setting_values();
 
-		settings_list_panel = memnewOld(PanelContainer);
+		settings_list_panel = memnewOldNoConstructor(PanelContainer);
 		main_vbox->add_child(settings_list_panel);
 
-		settings_list = memnewOld(VBoxContainer);
+		settings_list = memnewOldNoConstructor(VBoxContainer);
 		settings_list_panel->add_child(settings_list);
 
 #ifndef ANDROID_ENABLED
 		// Language options.
 		{
-			language_option_button = memnewOld(OptionButton);
+			language_option_button = memnewOldNoConstructor(OptionButton);
 			language_option_button->set_fit_to_longest_item(false);
 			language_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_language_selected));
 
@@ -268,7 +268,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Theme options.
 		{
-			theme_option_button = memnewOld(OptionButton);
+			theme_option_button = memnewOldNoConstructor(OptionButton);
 			theme_option_button->set_fit_to_longest_item(false);
 			theme_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_theme_selected));
 
@@ -279,7 +279,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 			_add_setting_control(TTR("Interface Theme"), theme_option_button);
 
-			custom_theme_label = memnewOld(Label(TTR("Custom preset can be further configured in the editor.")));
+			custom_theme_label = memnewOldWithArgs(Label(TTR("Custom preset can be further configured in the editor.")));
 			custom_theme_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 			custom_theme_label->set_custom_minimum_size(Size2(220, 0) * EDSCALE);
 			custom_theme_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
@@ -291,7 +291,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Scale options.
 		{
-			scale_option_button = memnewOld(OptionButton);
+			scale_option_button = memnewOldNoConstructor(OptionButton);
 			scale_option_button->set_fit_to_longest_item(false);
 			scale_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_scale_selected));
 
@@ -305,7 +305,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Network mode options.
 		{
-			network_mode_option_button = memnewOld(OptionButton);
+			network_mode_option_button = memnewOldNoConstructor(OptionButton);
 			network_mode_option_button->set_fit_to_longest_item(false);
 			network_mode_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_network_mode_selected));
 
@@ -319,7 +319,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Project directory naming options.
 		{
-			directory_naming_convention_button = memnewOld(OptionButton);
+			directory_naming_convention_button = memnewOldNoConstructor(OptionButton);
 			directory_naming_convention_button->set_fit_to_longest_item(false);
 			directory_naming_convention_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_directory_naming_convention_selected));
 
@@ -336,7 +336,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 	// Restart required panel.
 	{
-		restart_required_label = memnewOld(Label(TTR("Settings changed! The project manager must be restarted for changes to take effect.")));
+		restart_required_label = memnewOldWithArgs(Label(TTR("Settings changed! The project manager must be restarted for changes to take effect.")));
 		restart_required_label->set_custom_minimum_size(Size2(560, 0) * EDSCALE);
 		restart_required_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 		restart_required_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);

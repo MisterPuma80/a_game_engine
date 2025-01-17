@@ -45,7 +45,7 @@
 namespace TestTranslation {
 
 TEST_CASE("[Translation] Messages") {
-	Ref<Translation> translation = memnewOld(Translation);
+	Ref<Translation> translation = memnewOldNoConstructor(Translation);
 	translation->set_locale("fr");
 	translation->add_message("Hello", "Bonjour");
 	CHECK(translation->get_message("Hello") == "Bonjour");
@@ -71,7 +71,7 @@ TEST_CASE("[Translation] Messages") {
 }
 
 TEST_CASE("[TranslationPO] Messages with context") {
-	Ref<TranslationPO> translation = memnewOld(TranslationPO);
+	Ref<TranslationPO> translation = memnewOldNoConstructor(TranslationPO);
 	translation->set_locale("fr");
 	translation->add_message("Hello", "Bonjour");
 	translation->add_message("Hello", "Salut", "friendly");
@@ -111,7 +111,7 @@ TEST_CASE("[TranslationPO] Messages with context") {
 }
 
 TEST_CASE("[TranslationPO] Plural messages") {
-	Ref<TranslationPO> translation = memnewOld(TranslationPO);
+	Ref<TranslationPO> translation = memnewOldNoConstructor(TranslationPO);
 	translation->set_locale("fr");
 	translation->set_plural_rule("Plural-Forms: nplurals=2; plural=(n >= 2);");
 	CHECK(translation->get_plural_forms() == 2);
@@ -131,13 +131,13 @@ TEST_CASE("[TranslationPO] Plural messages") {
 
 #ifdef TOOLS_ENABLED
 TEST_CASE("[OptimizedTranslation] Generate from Translation and read messages") {
-	Ref<Translation> translation = memnewOld(Translation);
+	Ref<Translation> translation = memnewOldNoConstructor(Translation);
 	translation->set_locale("fr");
 	translation->add_message("Hello", "Bonjour");
 	translation->add_message("Hello2", "Bonjour2");
 	translation->add_message("Hello3", "Bonjour3");
 
-	Ref<OptimizedTranslation> optimized_translation = memnewOld(OptimizedTranslation);
+	Ref<OptimizedTranslation> optimized_translation = memnewOldNoConstructor(OptimizedTranslation);
 	optimized_translation->generate(translation);
 	CHECK(optimized_translation->get_message("Hello") == "Bonjour");
 	CHECK(optimized_translation->get_message("Hello2") == "Bonjour2");
@@ -152,7 +152,7 @@ TEST_CASE("[OptimizedTranslation] Generate from Translation and read messages") 
 }
 
 TEST_CASE("[TranslationCSV] CSV import") {
-	Ref<ResourceImporterCSVTranslation> import_csv_translation = memnewOld(ResourceImporterCSVTranslation);
+	Ref<ResourceImporterCSVTranslation> import_csv_translation = memnewOldNoConstructor(ResourceImporterCSVTranslation);
 
 	HashMap<StringName, Variant> options;
 	options["compress"] = false;

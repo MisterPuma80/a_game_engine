@@ -71,5 +71,5 @@ void NavigationObstacle2DEditor::_action_set_polygon(int p_idx, const Variant &p
 NavigationObstacle2DEditor::NavigationObstacle2DEditor() {}
 
 NavigationObstacle2DEditorPlugin::NavigationObstacle2DEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnewOld(NavigationObstacle2DEditor), "NavigationObstacle2D") {
+		AbstractPolygon2DEditorPlugin(memnewOldNoConstructor(NavigationObstacle2DEditor), "NavigationObstacle2D") {
 }

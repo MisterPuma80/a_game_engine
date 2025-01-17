@@ -125,7 +125,7 @@ void CSharpLanguage::init() {
 	EditorNode::add_init_callback(&_editor_init_callback);
 #endif
 
-	gdmono = memnewOld(GDMono);
+	gdmono = memnewOldNoConstructor(GDMono);
 
 	// Initialize only if the project uses C#.
 	if (gdmono->should_initialize()) {
@@ -402,7 +402,7 @@ String CSharpLanguage::validate_path(const String &p_path) const {
 }
 
 Script *CSharpLanguage::create_script() const {
-	return memnewOld(CSharpScript);
+	return memnewOldNoConstructor(CSharpScript);
 }
 
 bool CSharpLanguage::supports_builtin_mode() const {
@@ -1448,7 +1448,7 @@ void CSharpLanguage::tie_managed_to_unmanaged_with_pre_setup(GCHandleIntPtr p_gc
 }
 
 CSharpInstance *CSharpInstance::create_for_managed_type(Object *p_owner, CSharpScript *p_script, const MonoGCHandleData &p_gchandle) {
-	CSharpInstance *instance = memnewOld(CSharpInstance(Ref<CSharpScript>(p_script)));
+	CSharpInstance *instance = memnewOldWithArgs(CSharpInstance(Ref<CSharpScript>(p_script)));
 
 	RefCounted *rc = Object::cast_to<RefCounted>(p_owner);
 
@@ -1807,7 +1807,7 @@ void CSharpInstance::connect_event_signals() {
 			String signal_name = signal.name;
 
 			// TODO: Use pooling for ManagedCallable instances.
-			EventSignalCallable *event_signal_callable = memnewOld(EventSignalCallable(owner, signal_name));
+			EventSignalCallable *event_signal_callable = memnewOldWithArgs(EventSignalCallable(owner, signal_name));
 
 			Callable callable(event_signal_callable);
 			connected_event_signals.push_back(callable);
@@ -2375,7 +2375,7 @@ CSharpInstance *CSharpScript::_create_instance(const Variant **p_args, int p_arg
 		}
 	}
 
-	CSharpInstance *instance = memnewOld(CSharpInstance(Ref<CSharpScript>(this)));
+	CSharpInstance *instance = memnewOldWithArgs(CSharpInstance(Ref<CSharpScript>(this)));
 	instance->base_ref_counted = p_is_ref_counted;
 	instance->owner = p_owner;
 	instance->owner->set_script_instance(instance);
@@ -2463,7 +2463,7 @@ ScriptInstance *CSharpScript::instance_create(Object *p_this) {
 
 PlaceHolderScriptInstance *CSharpScript::placeholder_instance_create(Object *p_this) {
 #ifdef TOOLS_ENABLED
-	PlaceHolderScriptInstance *si = memnewOld(PlaceHolderScriptInstance(CSharpLanguage::get_singleton(), Ref<Script>(this), p_this));
+	PlaceHolderScriptInstance *si = memnewOldWithArgs(PlaceHolderScriptInstance(CSharpLanguage::get_singleton(), Ref<Script>(this), p_this));
 	placeholders.insert(si);
 	_update_exports(si);
 	return si;
@@ -2826,7 +2826,7 @@ Ref<Resource> ResourceFormatLoaderCSharpScript::load(const String &p_path, const
 		GDMonoCache::managed_callbacks.ScriptManagerBridge_GetOrCreateScriptBridgeForPath(&p_path, &scr);
 		ERR_FAIL_NULL_V_MSG(scr, Ref<Resource>(), "Could not create C# script '" + real_path + "'.");
 	} else {
-		scr = Ref<CSharpScript>(memnewOld(CSharpScript));
+		scr = Ref<CSharpScript>(memnewOldNoConstructor(CSharpScript));
 	}
 
 #if defined(DEBUG_ENABLED) || defined(TOOLS_ENABLED)

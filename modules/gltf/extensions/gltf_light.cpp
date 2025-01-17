@@ -141,20 +141,20 @@ Ref<GLTFLight> GLTFLight::from_node(const Light3D *p_light) {
 
 Light3D *GLTFLight::to_node() const {
 	if (light_type == "directional") {
-		DirectionalLight3D *light = memnewOld(DirectionalLight3D);
+		DirectionalLight3D *light = memnewOldNoConstructor(DirectionalLight3D);
 		light->set_param(Light3D::PARAM_ENERGY, intensity);
 		light->set_color(color);
 		return light;
 	}
 	if (light_type == "point") {
-		OmniLight3D *light = memnewOld(OmniLight3D);
+		OmniLight3D *light = memnewOldNoConstructor(OmniLight3D);
 		light->set_param(OmniLight3D::PARAM_ENERGY, intensity);
 		light->set_param(OmniLight3D::PARAM_RANGE, CLAMP(range, 0, 4096));
 		light->set_color(color);
 		return light;
 	}
 	if (light_type == "spot") {
-		SpotLight3D *light = memnewOld(SpotLight3D);
+		SpotLight3D *light = memnewOldNoConstructor(SpotLight3D);
 		light->set_param(SpotLight3D::PARAM_ENERGY, intensity);
 		light->set_param(SpotLight3D::PARAM_RANGE, CLAMP(range, 0, 4096));
 		light->set_param(SpotLight3D::PARAM_SPOT_ANGLE, Math::rad_to_deg(outer_cone_angle));
@@ -166,7 +166,7 @@ Light3D *GLTFLight::to_node() const {
 		light->set_param(SpotLight3D::PARAM_SPOT_ATTENUATION, angle_attenuation);
 		return light;
 	}
-	return memnewOld(Light3D);
+	return memnewOldNoConstructor(Light3D);
 }
 
 Ref<GLTFLight> GLTFLight::from_dictionary(const Dictionary p_dictionary) {

@@ -119,7 +119,7 @@ bool EditorDebuggerServerWebSocket::is_connection_available() const {
 
 Ref<RemoteDebuggerPeer> EditorDebuggerServerWebSocket::take_connection() {
 	ERR_FAIL_COND_V(!is_connection_available(), Ref<RemoteDebuggerPeer>());
-	RemoteDebuggerPeer *peer = memnewOld(RemoteDebuggerPeerWebSocket(pending_peer));
+	RemoteDebuggerPeer *peer = memnewOldWithArgs(RemoteDebuggerPeerWebSocket(pending_peer));
 	pending_peer.unref();
 	return peer;
 }
@@ -134,7 +134,7 @@ EditorDebuggerServerWebSocket::~EditorDebuggerServerWebSocket() {
 
 EditorDebuggerServer *EditorDebuggerServerWebSocket::create(const String &p_protocol) {
 	ERR_FAIL_COND_V(p_protocol != "ws://", nullptr);
-	return memnewOld(EditorDebuggerServerWebSocket);
+	return memnewOldNoConstructor(EditorDebuggerServerWebSocket);
 }
 
 #endif // TOOLS_ENABLED

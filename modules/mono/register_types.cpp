@@ -47,9 +47,9 @@ void initialize_mono_module(ModuleInitializationLevel p_level) {
 
 	GDREGISTER_CLASS(CSharpScript);
 
-	_godotsharp = memnewOld(mono_bind::GodotSharp);
+	_godotsharp = memnewOldNoConstructor(mono_bind::GodotSharp);
 
-	script_language_cs = memnewOld(CSharpLanguage);
+	script_language_cs = memnewOldNoConstructor(CSharpLanguage);
 	script_language_cs->set_language_index(ScriptServer::get_language_count());
 	ScriptServer::register_language(script_language_cs);
 

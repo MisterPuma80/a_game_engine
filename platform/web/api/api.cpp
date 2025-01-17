@@ -41,7 +41,7 @@ void register_web_api() {
 	WebToolsEditorPlugin::initialize();
 	GDREGISTER_ABSTRACT_CLASS(JavaScriptObject);
 	GDREGISTER_ABSTRACT_CLASS(JavaScriptBridge);
-	javascript_bridge_singleton = memnewOld(JavaScriptBridge);
+	javascript_bridge_singleton = memnewOldNoConstructor(JavaScriptBridge);
 	Engine::get_singleton()->add_singleton(Engine::Singleton("JavaScriptBridge", javascript_bridge_singleton));
 }
 

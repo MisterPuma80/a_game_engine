@@ -88,13 +88,13 @@ void TilesEditorUtils::_thread() {
 
 			if (item.pattern.is_valid() && !item.pattern->is_empty()) {
 				// Generate the pattern preview
-				SubViewport *viewport = memnewOld(SubViewport);
+				SubViewport *viewport = memnewOldNoConstructor(SubViewport);
 				viewport->set_size(thumbnail_size2);
 				viewport->set_disable_input(true);
 				viewport->set_transparent_background(true);
 				viewport->set_update_mode(SubViewport::UPDATE_ONCE);
 
-				TileMap *tile_map = memnewOld(TileMap);
+				TileMap *tile_map = memnewOldNoConstructor(TileMap);
 				tile_map->set_tileset(item.tile_set);
 				tile_map->set_pattern(0, Vector2(), item.pattern);
 				viewport->add_child(tile_map);
@@ -488,11 +488,11 @@ bool TileMapEditorPlugin::is_editor_visible() const {
 
 TileMapEditorPlugin::TileMapEditorPlugin() {
 	if (!TilesEditorUtils::get_singleton()) {
-		memnewOld(TilesEditorUtils);
+		memnewOldNoConstructor(TilesEditorUtils);
 	}
 	tile_map_plugin_singleton = this;
 
-	editor = memnewOld(TileMapLayerEditor);
+	editor = memnewOldNoConstructor(TileMapLayerEditor);
 	editor->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	editor->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	editor->set_custom_minimum_size(Size2(0, 200) * EDSCALE);
@@ -539,11 +539,11 @@ ObjectID TileSetEditorPlugin::get_edited_tileset() const {
 
 TileSetEditorPlugin::TileSetEditorPlugin() {
 	if (!TilesEditorUtils::get_singleton()) {
-		memnewOld(TilesEditorUtils);
+		memnewOldNoConstructor(TilesEditorUtils);
 	}
 	tile_set_plugin_singleton = this;
 
-	editor = memnewOld(TileSetEditor);
+	editor = memnewOldNoConstructor(TileSetEditor);
 	editor->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	editor->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	editor->set_custom_minimum_size(Size2(0, 200) * EDSCALE);

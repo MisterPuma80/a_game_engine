@@ -73,7 +73,7 @@ protected:
 
 	template <typename T>
 	static CameraServer *_create_builtin() {
-		return memnewOld(T);
+		return memnewOldNoConstructor(T);
 	}
 
 public:
@@ -85,7 +85,7 @@ public:
 	}
 
 	static CameraServer *create() {
-		CameraServer *server = create_func ? create_func() : memnewOld(CameraServer);
+		CameraServer *server = create_func ? create_func() : memnewOldNoConstructor(CameraServer);
 		return server;
 	};
 

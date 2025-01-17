@@ -887,7 +887,7 @@ void AudioStreamPlayer3D::_bind_methods() {
 }
 
 AudioStreamPlayer3D::AudioStreamPlayer3D() {
-	internal = memnewOld(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer3D::play), callable_mp(this, &AudioStreamPlayer3D::stop), true));
+	internal = memnewOldWithArgs(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer3D::play), callable_mp(this, &AudioStreamPlayer3D::stop), true));
 	velocity_tracker.instantiate();
 	set_disable_scale(true);
 	cached_global_panning_strength = GLOBAL_GET("audio/general/3d_panning_strength");

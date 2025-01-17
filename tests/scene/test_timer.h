@@ -38,7 +38,7 @@
 namespace TestTimer {
 
 TEST_CASE("[SceneTree][Timer] Check Timer Setters and Getters") {
-	Timer *test_timer = memnewOld(Timer);
+	Timer *test_timer = memnewOldNoConstructor(Timer);
 
 	SUBCASE("[Timer] Timer set and get wait time") {
 		// check default
@@ -103,7 +103,7 @@ TEST_CASE("[SceneTree][Timer] Check Timer Setters and Getters") {
 }
 
 TEST_CASE("[SceneTree][Timer] Check Timer Start and Stop") {
-	Timer *test_timer = memnewOld(Timer);
+	Timer *test_timer = memnewOldNoConstructor(Timer);
 
 	SUBCASE("[Timer] Timer start and stop") {
 		SceneTree::get_singleton()->get_root()->add_child(test_timer);
@@ -128,7 +128,7 @@ TEST_CASE("[SceneTree][Timer] Check Timer Start and Stop") {
 }
 
 TEST_CASE("[SceneTree][Timer] Check Timer process callback") {
-	Timer *test_timer = memnewOld(Timer);
+	Timer *test_timer = memnewOldNoConstructor(Timer);
 
 	SUBCASE("[Timer] Timer process callback") {
 		// check default
@@ -145,7 +145,7 @@ TEST_CASE("[SceneTree][Timer] Check Timer process callback") {
 }
 
 TEST_CASE("[SceneTree][Timer] Check Timer timeout signal") {
-	Timer *test_timer = memnewOld(Timer);
+	Timer *test_timer = memnewOldNoConstructor(Timer);
 	SceneTree::get_singleton()->get_root()->add_child(test_timer);
 
 	test_timer->set_process(true);

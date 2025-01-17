@@ -89,7 +89,7 @@ static void _editor_init() {
 		blend_import_query.instantiate();
 		EditorFileSystem::get_singleton()->add_import_format_support_query(blend_import_query);
 	}
-	memnewOld(EditorImportBlendRunner);
+	memnewOldNoConstructor(EditorImportBlendRunner);
 	EditorNode::get_singleton()->add_child(EditorImportBlendRunner::get_singleton());
 }
 #endif // TOOLS_ENABLED

@@ -470,7 +470,7 @@ Ref<TriangleMesh> SpriteBase3D::generate_triangle_mesh() const {
 		facesw[j] = vtx;
 	}
 
-	triangle_mesh = Ref<TriangleMesh>(memnewOld(TriangleMesh));
+	triangle_mesh = Ref<TriangleMesh>(memnewOldNoConstructor(TriangleMesh));
 	triangle_mesh->create(faces);
 
 	return triangle_mesh;

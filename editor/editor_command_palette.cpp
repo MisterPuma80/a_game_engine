@@ -336,7 +336,7 @@ void EditorCommandPalette::_save_history() const {
 
 EditorCommandPalette *EditorCommandPalette::get_singleton() {
 	if (singleton == nullptr) {
-		singleton = memnewOld(EditorCommandPalette);
+		singleton = memnewOldNoConstructor(EditorCommandPalette);
 	}
 	return singleton;
 }
@@ -345,21 +345,21 @@ EditorCommandPalette::EditorCommandPalette() {
 	set_hide_on_ok(false);
 	connect(SceneStringName(confirmed), callable_mp(this, &EditorCommandPalette::_confirmed));
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc);
 
-	command_search_box = memnewOld(LineEdit);
+	command_search_box = memnewOldNoConstructor(LineEdit);
 	command_search_box->set_placeholder(TTR("Filter Commands"));
 	command_search_box->connect(SceneStringName(gui_input), callable_mp(this, &EditorCommandPalette::_sbox_input));
 	command_search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorCommandPalette::_update_command_search));
 	command_search_box->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	command_search_box->set_clear_button_enabled(true);
-	MarginContainer *margin_container_csb = memnewOld(MarginContainer);
+	MarginContainer *margin_container_csb = memnewOldNoConstructor(MarginContainer);
 	margin_container_csb->add_child(command_search_box);
 	vbc->add_child(margin_container_csb);
 	register_text_enter(command_search_box);
 
-	search_options = memnewOld(Tree);
+	search_options = memnewOldNoConstructor(Tree);
 	search_options->connect("item_activated", callable_mp(this, &EditorCommandPalette::_confirmed));
 	search_options->connect(SceneStringName(item_selected), callable_mp((BaseButton *)get_ok_button(), &BaseButton::set_disabled).bind(false));
 	search_options->connect("nothing_selected", callable_mp((BaseButton *)get_ok_button(), &BaseButton::set_disabled).bind(true));

@@ -1381,14 +1381,14 @@ Error CodeSign::_codesign_file(bool p_use_hardened_runtime, bool p_force, const 
 			r_error_msg = TTR("Invalid entitlements file.");
 			ERR_FAIL_V_MSG(FAILED, "CodeSign: Invalid entitlements file.");
 		}
-		cet = Ref<CodeSignEntitlementsText>(memnewOld(CodeSignEntitlementsText(entitlements)));
-		ceb = Ref<CodeSignEntitlementsBinary>(memnewOld(CodeSignEntitlementsBinary(entitlements)));
+		cet = Ref<CodeSignEntitlementsText>(memnewOldWithArgs(CodeSignEntitlementsText(entitlements)));
+		ceb = Ref<CodeSignEntitlementsBinary>(memnewOldWithArgs(CodeSignEntitlementsBinary(entitlements)));
 	}
 
 	print_verbose("CodeSign: Generating requirements...");
 	Ref<CodeSignRequirements> rq;
 	String team_id = "";
-	rq = Ref<CodeSignRequirements>(memnewOld(CodeSignRequirements()));
+	rq = Ref<CodeSignRequirements>(memnewOldNoArgs(CodeSignRequirements()));
 
 	// Sign executables.
 	for (int i = 0; i < files_to_sign.size(); i++) {
@@ -1401,8 +1401,8 @@ Error CodeSign::_codesign_file(bool p_use_hardened_runtime, bool p_force, const 
 		print_verbose(vformat("CodeSign: Signing executable for cputype: %d ...", mh.get_cputype()));
 
 		print_verbose("CodeSign: Generating CodeDirectory...");
-		Ref<CodeSignCodeDirectory> cd1 = memnewOld(CodeSignCodeDirectory(0x14, 0x01, true, uuid_str, team_id.utf8(), 12, mh.get_exe_limit(), mh.get_code_limit()));
-		Ref<CodeSignCodeDirectory> cd2 = memnewOld(CodeSignCodeDirectory(0x20, 0x02, true, uuid_str, team_id.utf8(), 12, mh.get_exe_limit(), mh.get_code_limit()));
+		Ref<CodeSignCodeDirectory> cd1 = memnewOldWithArgs(CodeSignCodeDirectory(0x14, 0x01, true, uuid_str, team_id.utf8(), 12, mh.get_exe_limit(), mh.get_code_limit()));
+		Ref<CodeSignCodeDirectory> cd2 = memnewOldWithArgs(CodeSignCodeDirectory(0x20, 0x02, true, uuid_str, team_id.utf8(), 12, mh.get_exe_limit(), mh.get_code_limit()));
 		print_verbose("CodeSign: Calculating special slot hashes...");
 		if (info_hash2.size() == 0x20) {
 			cd2->set_hash_in_slot(info_hash2, CodeSignCodeDirectory::SLOT_INFO_PLIST);
@@ -1487,7 +1487,7 @@ Error CodeSign::_codesign_file(bool p_use_hardened_runtime, bool p_force, const 
 
 		print_verbose("CodeSign: Generating signature...");
 		Ref<CodeSignSignature> cs;
-		cs = Ref<CodeSignSignature>(memnewOld(CodeSignSignature()));
+		cs = Ref<CodeSignSignature>(memnewOldNoArgs(CodeSignSignature()));
 
 		print_verbose("CodeSign: Writing signature superblob...");
 		// Write signature data to the executable.

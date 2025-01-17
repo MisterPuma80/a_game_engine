@@ -592,7 +592,7 @@ OptionButton::OptionButton(const String &p_text) :
 	set_text_alignment(HORIZONTAL_ALIGNMENT_LEFT);
 	set_action_mode(ACTION_MODE_BUTTON_PRESS);
 
-	popup = memnewOld(PopupMenu);
+	popup = memnewOldNoConstructor(PopupMenu);
 	popup->hide();
 	add_child(popup, false, INTERNAL_MODE_FRONT);
 	popup->connect("index_pressed", callable_mp(this, &OptionButton::_selected));

@@ -37,7 +37,7 @@
 Ref<OccluderPolygon2D> LightOccluder2DEditor::_ensure_occluder() const {
 	Ref<OccluderPolygon2D> occluder = node->get_occluder_polygon();
 	if (!occluder.is_valid()) {
-		occluder = Ref<OccluderPolygon2D>(memnewOld(OccluderPolygon2D));
+		occluder = Ref<OccluderPolygon2D>(memnewOldNoConstructor(OccluderPolygon2D));
 		node->set_occluder_polygon(occluder);
 	}
 	return occluder;
@@ -101,7 +101,7 @@ void LightOccluder2DEditor::_create_resource() {
 
 	EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 	undo_redo->create_action(TTR("Create Occluder Polygon"));
-	undo_redo->add_do_method(node, "set_occluder_polygon", Ref<OccluderPolygon2D>(memnewOld(OccluderPolygon2D)));
+	undo_redo->add_do_method(node, "set_occluder_polygon", Ref<OccluderPolygon2D>(memnewOldNoConstructor(OccluderPolygon2D)));
 	undo_redo->add_undo_method(node, "set_occluder_polygon", Variant(Ref<RefCounted>()));
 	undo_redo->commit_action();
 
@@ -111,5 +111,5 @@ void LightOccluder2DEditor::_create_resource() {
 LightOccluder2DEditor::LightOccluder2DEditor() {}
 
 LightOccluder2DEditorPlugin::LightOccluder2DEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnewOld(LightOccluder2DEditor), "LightOccluder2D") {
+		AbstractPolygon2DEditorPlugin(memnewOldNoConstructor(LightOccluder2DEditor), "LightOccluder2D") {
 }

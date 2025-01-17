@@ -314,7 +314,7 @@ void AcceptDialog::_custom_button_visibility_changed(Button *button) {
 }
 
 Button *AcceptDialog::add_button(const String &p_text, bool p_right, const String &p_action) {
-	Button *button = memnewOld(Button);
+	Button *button = memnewOldNoConstructor(Button);
 	button->set_text(p_text);
 
 	Control *right_spacer;
@@ -435,12 +435,12 @@ AcceptDialog::AcceptDialog() {
 	set_clamp_to_embedder(true);
 	set_keep_title_visible(true);
 
-	bg_panel = memnewOld(Panel);
+	bg_panel = memnewOldNoConstructor(Panel);
 	add_child(bg_panel, false, INTERNAL_MODE_FRONT);
 
-	buttons_hbox = memnewOld(HBoxContainer);
+	buttons_hbox = memnewOldNoConstructor(HBoxContainer);
 
-	message_label = memnewOld(Label);
+	message_label = memnewOldNoConstructor(Label);
 	message_label->set_anchor(SIDE_RIGHT, Control::ANCHOR_END);
 	message_label->set_anchor(SIDE_BOTTOM, Control::ANCHOR_END);
 	add_child(message_label, false, INTERNAL_MODE_FRONT);
@@ -448,7 +448,7 @@ AcceptDialog::AcceptDialog() {
 	add_child(buttons_hbox, false, INTERNAL_MODE_FRONT);
 
 	buttons_hbox->add_spacer();
-	ok_button = memnewOld(Button);
+	ok_button = memnewOldNoConstructor(Button);
 	ok_button->set_text(ETR("OK"));
 	buttons_hbox->add_child(ok_button);
 	buttons_hbox->add_spacer();

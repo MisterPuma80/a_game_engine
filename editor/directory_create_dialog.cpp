@@ -154,27 +154,27 @@ void DirectoryCreateDialog::config(const String &p_base_dir, const Callable &p_a
 DirectoryCreateDialog::DirectoryCreateDialog() {
 	set_min_size(Size2i(480, 0) * EDSCALE);
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(vb);
 
-	base_path_label = memnewOld(Label);
+	base_path_label = memnewOldNoConstructor(Label);
 	base_path_label->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_WORD_ELLIPSIS);
 	vb->add_child(base_path_label);
 
-	Label *name_label = memnewOld(Label);
+	Label *name_label = memnewOldNoConstructor(Label);
 	name_label->set_text(TTR("Name:"));
 	name_label->set_theme_type_variation("HeaderSmall");
 	vb->add_child(name_label);
 
-	dir_path = memnewOld(LineEdit);
+	dir_path = memnewOldNoConstructor(LineEdit);
 	vb->add_child(dir_path);
 	register_text_enter(dir_path);
 
-	Control *spacing = memnewOld(Control);
+	Control *spacing = memnewOldNoConstructor(Control);
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 	vb->add_child(spacing);
 
-	validation_panel = memnewOld(EditorValidationPanel);
+	validation_panel = memnewOldNoConstructor(EditorValidationPanel);
 	vb->add_child(validation_panel);
 	validation_panel->add_line(EditorValidationPanel::MSG_ID_DEFAULT, TTR("Folder name is valid."));
 	validation_panel->set_update_callback(callable_mp(this, &DirectoryCreateDialog::_on_dir_path_changed));

@@ -38,7 +38,7 @@
 namespace TestColorPicker {
 
 TEST_CASE("[SceneTree][ColorPicker]") {
-	ColorPicker *cp = memnewOld(ColorPicker);
+	ColorPicker *cp = memnewOldNoConstructor(ColorPicker);
 	Window *root = SceneTree::get_singleton()->get_root();
 	root->add_child(cp);
 

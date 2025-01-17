@@ -199,7 +199,7 @@ class TileDataDefaultEditor : public TileDataEditor {
 
 private:
 	// Toolbar
-	HBoxContainer *toolbar = memnewOld(HBoxContainer);
+	HBoxContainer *toolbar = memnewOldNoConstructor(HBoxContainer);
 	Button *picker_button = nullptr;
 
 	// UI
@@ -224,7 +224,7 @@ private:
 	void _property_value_changed(const StringName &p_property, const Variant &p_value, const StringName &p_field);
 
 protected:
-	DummyObject *dummy_object = memnewOld(DummyObject);
+	DummyObject *dummy_object = memnewOldNoConstructor(DummyObject);
 
 	StringName type;
 	String property;
@@ -310,7 +310,7 @@ class TileDataCollisionEditor : public TileDataDefaultEditor {
 
 	// UI
 	GenericTilePolygonEditor *polygon_editor = nullptr;
-	DummyObject *dummy_object = memnewOld(DummyObject);
+	DummyObject *dummy_object = memnewOldNoConstructor(DummyObject);
 	HashMap<StringName, EditorProperty *> property_editors;
 
 	void _property_value_changed(const StringName &p_property, const Variant &p_value, const StringName &p_field);
@@ -342,7 +342,7 @@ class TileDataTerrainsEditor : public TileDataEditor {
 
 private:
 	// Toolbar
-	HBoxContainer *toolbar = memnewOld(HBoxContainer);
+	HBoxContainer *toolbar = memnewOldNoConstructor(HBoxContainer);
 	Button *picker_button = nullptr;
 
 	// Painting state.
@@ -361,7 +361,7 @@ private:
 
 	// UI
 	Label *label = nullptr;
-	DummyObject *dummy_object = memnewOld(DummyObject);
+	DummyObject *dummy_object = memnewOldNoConstructor(DummyObject);
 	EditorPropertyEnum *terrain_set_property_editor = nullptr;
 	EditorPropertyEnum *terrain_property_editor = nullptr;
 

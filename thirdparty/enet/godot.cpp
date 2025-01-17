@@ -439,7 +439,7 @@ int enet_address_get_host(const ENetAddress *address, char *name, size_t nameLen
 }
 
 ENetSocket enet_socket_create(ENetSocketType type) {
-	ENetUDP *socket = memnewOld(ENetUDP);
+	ENetUDP *socket = memnewOldNoConstructor(ENetUDP);
 
 	return socket;
 }
@@ -450,7 +450,7 @@ int enet_host_dtls_server_setup(ENetHost *host, void *p_options) {
 	if (!sock->can_upgrade()) {
 		return -1;
 	}
-	host->socket = memnewOld(ENetDTLSServer(static_cast<ENetUDP *>(sock), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
+	host->socket = memnewOldWithArgs(ENetDTLSServer(static_cast<ENetUDP *>(sock), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
 	memdelete(sock);
 	return 0;
 }
@@ -461,7 +461,7 @@ int enet_host_dtls_client_setup(ENetHost *host, const char *p_for_hostname, void
 	if (!sock->can_upgrade()) {
 		return -1;
 	}
-	host->socket = memnewOld(ENetDTLSClient(static_cast<ENetUDP *>(sock), String::utf8(p_for_hostname), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
+	host->socket = memnewOldWithArgs(ENetDTLSClient(static_cast<ENetUDP *>(sock), String::utf8(p_for_hostname), Ref<TLSOptions>(static_cast<TLSOptions *>(p_options))));
 	memdelete(sock);
 	return 0;
 }

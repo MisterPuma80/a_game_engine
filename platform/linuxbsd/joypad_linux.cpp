@@ -322,7 +322,7 @@ void JoypadLinux::setup_joypad_properties(Joypad &p_joypad) {
 		}
 		if (test_bit(i, absbit)) {
 			p_joypad.abs_map[i] = num_axes++;
-			p_joypad.abs_info[i] = memnewOld(input_absinfo);
+			p_joypad.abs_info[i] = memnewOldNoConstructor(input_absinfo);
 			if (ioctl(p_joypad.fd, EVIOCGABS(i), p_joypad.abs_info[i]) < 0) {
 				memdelete(p_joypad.abs_info[i]);
 				p_joypad.abs_info[i] = nullptr;

@@ -136,7 +136,7 @@ Error ResourceImporterCSVTranslation::import(const String &p_source_file, const 
 		Ref<Translation> xlt = translations[i];
 
 		if (compress) {
-			Ref<OptimizedTranslation> cxl = memnewOld(OptimizedTranslation);
+			Ref<OptimizedTranslation> cxl = memnewOldNoConstructor(OptimizedTranslation);
 			cxl->generate(xlt);
 			xlt = cxl;
 		}

@@ -619,7 +619,7 @@ void RigidBody3D::set_contact_monitor(bool p_enabled) {
 		memdelete(contact_monitor);
 		contact_monitor = nullptr;
 	} else {
-		contact_monitor = memnewOld(ContactMonitor);
+		contact_monitor = memnewOldNoConstructor(ContactMonitor);
 		contact_monitor->locked = false;
 	}
 

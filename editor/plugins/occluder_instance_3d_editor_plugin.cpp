@@ -105,7 +105,7 @@ void OccluderInstance3DEditorPlugin::_bind_methods() {
 }
 
 OccluderInstance3DEditorPlugin::OccluderInstance3DEditorPlugin() {
-	bake = memnewOld(Button);
+	bake = memnewOldNoConstructor(Button);
 	bake->set_theme_type_variation("FlatButton");
 	bake->set_icon(EditorNode::get_singleton()->get_editor_theme()->get_icon(SNAME("Bake"), EditorStringName(EditorIcons)));
 	bake->set_text(TTR("Bake Occluders"));
@@ -114,7 +114,7 @@ OccluderInstance3DEditorPlugin::OccluderInstance3DEditorPlugin() {
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, bake);
 	occluder_instance = nullptr;
 
-	file_dialog = memnewOld(EditorFileDialog);
+	file_dialog = memnewOldNoConstructor(EditorFileDialog);
 	file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	file_dialog->add_filter("*.occ", "Occluder3D");
 	file_dialog->set_title(TTR("Select occluder bake file:"));

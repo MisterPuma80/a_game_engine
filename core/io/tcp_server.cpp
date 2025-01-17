@@ -112,7 +112,7 @@ Ref<StreamPeerTCP> TCPServer::take_connection() {
 		return conn;
 	}
 
-	conn = Ref<StreamPeerTCP>(memnewOld(StreamPeerTCP));
+	conn = Ref<StreamPeerTCP>(memnewOldNoConstructor(StreamPeerTCP));
 	conn->accept_socket(ns, ip, port);
 	return conn;
 }

@@ -649,7 +649,7 @@ void RendererSceneCull::instance_set_base(RID p_instance, RID p_base) {
 				return;
 			}
 			case RS::INSTANCE_LIGHT: {
-				InstanceLightData *light = memnewOld(InstanceLightData);
+				InstanceLightData *light = memnewOldNoConstructor(InstanceLightData);
 
 				if (scenario && RSG::light_storage->light_get_type(p_base) == RS::LIGHT_DIRECTIONAL) {
 					light->D = scenario->directional_lights.push_back(instance);
@@ -662,7 +662,7 @@ void RendererSceneCull::instance_set_base(RID p_instance, RID p_base) {
 			case RS::INSTANCE_MESH:
 			case RS::INSTANCE_MULTIMESH:
 			case RS::INSTANCE_PARTICLES: {
-				InstanceGeometryData *geom = memnewOld(InstanceGeometryData);
+				InstanceGeometryData *geom = memnewOldNoConstructor(InstanceGeometryData);
 				instance->base_data = geom;
 				geom->geometry_instance = scene_render->geometry_instance_create(p_base);
 
@@ -694,31 +694,31 @@ void RendererSceneCull::instance_set_base(RID p_instance, RID p_base) {
 				}
 			} break;
 			case RS::INSTANCE_PARTICLES_COLLISION: {
-				InstanceParticlesCollisionData *collision = memnewOld(InstanceParticlesCollisionData);
+				InstanceParticlesCollisionData *collision = memnewOldNoConstructor(InstanceParticlesCollisionData);
 				collision->instance = RSG::particles_storage->particles_collision_instance_create(p_base);
 				RSG::particles_storage->particles_collision_instance_set_active(collision->instance, instance->visible);
 				instance->base_data = collision;
 			} break;
 			case RS::INSTANCE_FOG_VOLUME: {
-				InstanceFogVolumeData *volume = memnewOld(InstanceFogVolumeData);
+				InstanceFogVolumeData *volume = memnewOldNoConstructor(InstanceFogVolumeData);
 				volume->instance = scene_render->fog_volume_instance_create(p_base);
 				scene_render->fog_volume_instance_set_active(volume->instance, instance->visible);
 				instance->base_data = volume;
 			} break;
 			case RS::INSTANCE_VISIBLITY_NOTIFIER: {
-				InstanceVisibilityNotifierData *vnd = memnewOld(InstanceVisibilityNotifierData);
+				InstanceVisibilityNotifierData *vnd = memnewOldNoConstructor(InstanceVisibilityNotifierData);
 				vnd->base = p_base;
 				instance->base_data = vnd;
 			} break;
 			case RS::INSTANCE_REFLECTION_PROBE: {
-				InstanceReflectionProbeData *reflection_probe = memnewOld(InstanceReflectionProbeData);
+				InstanceReflectionProbeData *reflection_probe = memnewOldNoConstructor(InstanceReflectionProbeData);
 				reflection_probe->owner = instance;
 				instance->base_data = reflection_probe;
 
 				reflection_probe->instance = RSG::light_storage->reflection_probe_instance_create(p_base);
 			} break;
 			case RS::INSTANCE_DECAL: {
-				InstanceDecalData *decal = memnewOld(InstanceDecalData);
+				InstanceDecalData *decal = memnewOldNoConstructor(InstanceDecalData);
 				decal->owner = instance;
 				instance->base_data = decal;
 
@@ -726,12 +726,12 @@ void RendererSceneCull::instance_set_base(RID p_instance, RID p_base) {
 				RSG::texture_storage->decal_instance_set_sorting_offset(decal->instance, instance->sorting_offset);
 			} break;
 			case RS::INSTANCE_LIGHTMAP: {
-				InstanceLightmapData *lightmap_data = memnewOld(InstanceLightmapData);
+				InstanceLightmapData *lightmap_data = memnewOldNoConstructor(InstanceLightmapData);
 				instance->base_data = lightmap_data;
 				lightmap_data->instance = RSG::light_storage->lightmap_instance_create(p_base);
 			} break;
 			case RS::INSTANCE_VOXEL_GI: {
-				InstanceVoxelGIData *voxel_gi = memnewOld(InstanceVoxelGIData);
+				InstanceVoxelGIData *voxel_gi = memnewOldNoConstructor(InstanceVoxelGIData);
 				instance->base_data = voxel_gi;
 				voxel_gi->owner = instance;
 
@@ -1035,7 +1035,7 @@ void RendererSceneCull::instance_set_custom_aabb(RID p_instance, AABB p_aabb) {
 	if (p_aabb != AABB()) {
 		// Set custom AABB
 		if (instance->custom_aabb == nullptr) {
-			instance->custom_aabb = memnewOld(AABB);
+			instance->custom_aabb = memnewOldNoConstructor(AABB);
 		}
 		*instance->custom_aabb = p_aabb;
 
@@ -4267,9 +4267,9 @@ RendererSceneCull::RendererSceneCull() {
 	thread_cull_threshold = MAX(thread_cull_threshold, (uint32_t)WorkerThreadPool::get_singleton()->get_thread_count()); //make sure there is at least one thread per CPU
 	RendererSceneOcclusionCull::HZBuffer::occlusion_jitter_enabled = GLOBAL_GET("rendering/occlusion_culling/jitter_projection");
 
-	dummy_occlusion_culling = memnewOld(RendererSceneOcclusionCull);
+	dummy_occlusion_culling = memnewOldNoConstructor(RendererSceneOcclusionCull);
 
-	light_culler = memnewOld(RenderingLightCuller);
+	light_culler = memnewOldNoConstructor(RenderingLightCuller);
 
 	bool tighter_caster_culling = GLOBAL_DEF("rendering/lights_and_shadows/tighter_shadow_caster_culling", true);
 	light_culler->set_caster_culling_active(tighter_caster_culling);

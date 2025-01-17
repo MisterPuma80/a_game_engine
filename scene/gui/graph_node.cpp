@@ -904,11 +904,11 @@ void GraphNode::_bind_methods() {
 }
 
 GraphNode::GraphNode() {
-	titlebar_hbox = memnewOld(HBoxContainer);
+	titlebar_hbox = memnewOldNoConstructor(HBoxContainer);
 	titlebar_hbox->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_child(titlebar_hbox, false, INTERNAL_MODE_FRONT);
 
-	title_label = memnewOld(Label);
+	title_label = memnewOldNoConstructor(Label);
 	title_label->set_theme_type_variation("GraphNodeTitleLabel");
 	title_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	titlebar_hbox->add_child(title_label);

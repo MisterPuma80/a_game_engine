@@ -48,7 +48,7 @@ private:
 	static DisplayServer *create_func(const String &p_rendering_driver, DisplayServer::WindowMode p_mode, DisplayServer::VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
 		r_error = OK;
 		RasterizerDummy::make_current();
-		return memnewOld(DisplayServerHeadless());
+		return memnewOldNoArgs(DisplayServerHeadless());
 	}
 
 	static void _dispatch_input_events(const Ref<InputEvent> &p_event) {
@@ -195,7 +195,7 @@ public:
 	void delete_status_indicator(IndicatorID p_id) override {}
 
 	DisplayServerHeadless() {
-		native_menu = memnewOld(NativeMenu);
+		native_menu = memnewOldNoConstructor(NativeMenu);
 		Input::get_singleton()->set_event_dispatch_function(_dispatch_input_events);
 	}
 

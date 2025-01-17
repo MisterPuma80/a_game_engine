@@ -58,29 +58,29 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	set_title(TTR("Batch Rename"));
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc);
 
 	// -- Search/Replace Area
 
-	GridContainer *grd_main = memnewOld(GridContainer);
+	GridContainer *grd_main = memnewOldNoConstructor(GridContainer);
 	grd_main->set_columns(2);
 	grd_main->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc->add_child(grd_main);
 
 	// ---- 1st & 2nd row
 
-	Label *lbl_search = memnewOld(Label);
+	Label *lbl_search = memnewOldNoConstructor(Label);
 	lbl_search->set_text(TTR("Search:"));
 
-	lne_search = memnewOld(LineEdit);
+	lne_search = memnewOldNoConstructor(LineEdit);
 	lne_search->set_name("lne_search");
 	lne_search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	Label *lbl_replace = memnewOld(Label);
+	Label *lbl_replace = memnewOldNoConstructor(Label);
 	lbl_replace->set_text(TTR("Replace:"));
 
-	lne_replace = memnewOld(LineEdit);
+	lne_replace = memnewOldNoConstructor(LineEdit);
 	lne_replace->set_name("lne_replace");
 	lne_replace->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
@@ -91,17 +91,17 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// ---- 3rd & 4th row
 
-	Label *lbl_prefix = memnewOld(Label);
+	Label *lbl_prefix = memnewOldNoConstructor(Label);
 	lbl_prefix->set_text(TTR("Prefix:"));
 
-	lne_prefix = memnewOld(LineEdit);
+	lne_prefix = memnewOldNoConstructor(LineEdit);
 	lne_prefix->set_name("lne_prefix");
 	lne_prefix->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	Label *lbl_suffix = memnewOld(Label);
+	Label *lbl_suffix = memnewOldNoConstructor(Label);
 	lbl_suffix->set_text(TTR("Suffix:"));
 
-	lne_suffix = memnewOld(LineEdit);
+	lne_suffix = memnewOldNoConstructor(LineEdit);
 	lne_suffix->set_name("lne_suffix");
 	lne_suffix->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
@@ -112,37 +112,37 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// -- Feature Tabs
 
-	cbut_regex = memnewOld(CheckButton);
+	cbut_regex = memnewOldNoConstructor(CheckButton);
 	cbut_regex->set_text(TTR("Use Regular Expressions"));
 	vbc->add_child(cbut_regex);
 
-	CheckButton *cbut_collapse_features = memnewOld(CheckButton);
+	CheckButton *cbut_collapse_features = memnewOldNoConstructor(CheckButton);
 	cbut_collapse_features->set_text(TTR("Advanced Options"));
 	vbc->add_child(cbut_collapse_features);
 
-	tabc_features = memnewOld(TabContainer);
+	tabc_features = memnewOldNoConstructor(TabContainer);
 	tabc_features->set_use_hidden_tabs_for_min_size(true);
 	vbc->add_child(tabc_features);
 
 	// ---- Tab Substitute
 
-	VBoxContainer *vbc_substitute = memnewOld(VBoxContainer);
+	VBoxContainer *vbc_substitute = memnewOldNoConstructor(VBoxContainer);
 	vbc_substitute->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
 	vbc_substitute->set_name(TTR("Substitute"));
 	tabc_features->add_child(vbc_substitute);
 
-	cbut_substitute = memnewOld(CheckBox);
+	cbut_substitute = memnewOldNoConstructor(CheckBox);
 	cbut_substitute->set_text(TTR("Substitute"));
 	vbc_substitute->add_child(cbut_substitute);
 
-	GridContainer *grd_substitute = memnewOld(GridContainer);
+	GridContainer *grd_substitute = memnewOldNoConstructor(GridContainer);
 	grd_substitute->set_columns(3);
 	vbc_substitute->add_child(grd_substitute);
 
 	// Name
 
-	but_insert_name = memnewOld(Button);
+	but_insert_name = memnewOldNoConstructor(Button);
 	but_insert_name->set_text("NAME");
 	but_insert_name->set_tooltip_text(String("${NAME}\n") + TTR("Node name."));
 	but_insert_name->set_focus_mode(Control::FOCUS_NONE);
@@ -152,7 +152,7 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// Parent
 
-	but_insert_parent = memnewOld(Button);
+	but_insert_parent = memnewOldNoConstructor(Button);
 	but_insert_parent->set_text("PARENT");
 	but_insert_parent->set_tooltip_text(String("${PARENT}\n") + TTR("Node's parent name, if available."));
 	but_insert_parent->set_focus_mode(Control::FOCUS_NONE);
@@ -162,7 +162,7 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// Type
 
-	but_insert_type = memnewOld(Button);
+	but_insert_type = memnewOldNoConstructor(Button);
 	but_insert_type->set_text("TYPE");
 	but_insert_type->set_tooltip_text(String("${TYPE}\n") + TTR("Node type."));
 	but_insert_type->set_focus_mode(Control::FOCUS_NONE);
@@ -172,7 +172,7 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// Scene
 
-	but_insert_scene = memnewOld(Button);
+	but_insert_scene = memnewOldNoConstructor(Button);
 	but_insert_scene->set_text("SCENE");
 	but_insert_scene->set_tooltip_text(String("${SCENE}\n") + TTR("Current scene name."));
 	but_insert_scene->set_focus_mode(Control::FOCUS_NONE);
@@ -182,7 +182,7 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// Root
 
-	but_insert_root = memnewOld(Button);
+	but_insert_root = memnewOldNoConstructor(Button);
 	but_insert_root->set_text("ROOT");
 	but_insert_root->set_tooltip_text(String("${ROOT}\n") + TTR("Root node name."));
 	but_insert_root->set_focus_mode(Control::FOCUS_NONE);
@@ -192,7 +192,7 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// Count
 
-	but_insert_count = memnewOld(Button);
+	but_insert_count = memnewOldNoConstructor(Button);
 	but_insert_count->set_text("COUNTER");
 	but_insert_count->set_tooltip_text(String("${COUNTER}\n") + TTR("Sequential integer counter.\nCompare counter options."));
 	but_insert_count->set_focus_mode(Control::FOCUS_NONE);
@@ -200,66 +200,66 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 	but_insert_count->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	grd_substitute->add_child(but_insert_count);
 
-	chk_per_level_counter = memnewOld(CheckBox);
+	chk_per_level_counter = memnewOldNoConstructor(CheckBox);
 	chk_per_level_counter->set_text(TTR("Per-level Counter"));
 	chk_per_level_counter->set_tooltip_text(TTR("If set, the counter restarts for each group of child nodes."));
 	vbc_substitute->add_child(chk_per_level_counter);
 
-	HBoxContainer *hbc_count_options = memnewOld(HBoxContainer);
+	HBoxContainer *hbc_count_options = memnewOldNoConstructor(HBoxContainer);
 	vbc_substitute->add_child(hbc_count_options);
 
-	Label *lbl_count_start = memnewOld(Label);
+	Label *lbl_count_start = memnewOldNoConstructor(Label);
 	lbl_count_start->set_text(TTR("Start"));
 	lbl_count_start->set_tooltip_text(TTR("Initial value for the counter."));
 	hbc_count_options->add_child(lbl_count_start);
 
-	spn_count_start = memnewOld(SpinBox);
+	spn_count_start = memnewOldNoConstructor(SpinBox);
 	spn_count_start->set_tooltip_text(TTR("Initial value for the counter."));
 	spn_count_start->set_step(1);
 	spn_count_start->set_min(0);
 	hbc_count_options->add_child(spn_count_start);
 
-	Label *lbl_count_step = memnewOld(Label);
+	Label *lbl_count_step = memnewOldNoConstructor(Label);
 	lbl_count_step->set_text(TTR("Step"));
 	lbl_count_step->set_tooltip_text(TTR("Amount by which counter is incremented for each node."));
 	hbc_count_options->add_child(lbl_count_step);
 
-	spn_count_step = memnewOld(SpinBox);
+	spn_count_step = memnewOldNoConstructor(SpinBox);
 	spn_count_step->set_tooltip_text(TTR("Amount by which counter is incremented for each node."));
 	spn_count_step->set_step(1);
 	hbc_count_options->add_child(spn_count_step);
 
-	Label *lbl_count_padding = memnewOld(Label);
+	Label *lbl_count_padding = memnewOldNoConstructor(Label);
 	lbl_count_padding->set_text(TTR("Padding"));
 	lbl_count_padding->set_tooltip_text(TTR("Minimum number of digits for the counter.\nMissing digits are padded with leading zeros."));
 	hbc_count_options->add_child(lbl_count_padding);
 
-	spn_count_padding = memnewOld(SpinBox);
+	spn_count_padding = memnewOldNoConstructor(SpinBox);
 	spn_count_padding->set_tooltip_text(TTR("Minimum number of digits for the counter.\nMissing digits are padded with leading zeros."));
 	spn_count_padding->set_step(1);
 	hbc_count_options->add_child(spn_count_padding);
 
 	// ---- Tab Process
 
-	VBoxContainer *vbc_process = memnewOld(VBoxContainer);
+	VBoxContainer *vbc_process = memnewOldNoConstructor(VBoxContainer);
 	vbc_process->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc_process->set_name(TTR("Post-Process"));
 	tabc_features->add_child(vbc_process);
 
-	cbut_process = memnewOld(CheckBox);
+	cbut_process = memnewOldNoConstructor(CheckBox);
 	cbut_process->set_text(TTR("Post-Process"));
 	vbc_process->add_child(cbut_process);
 
 	// ------ Style
 
-	HBoxContainer *hbc_style = memnewOld(HBoxContainer);
+	HBoxContainer *hbc_style = memnewOldNoConstructor(HBoxContainer);
 	vbc_process->add_child(hbc_style);
 
-	Label *lbl_style = memnewOld(Label);
+	Label *lbl_style = memnewOldNoConstructor(Label);
 	lbl_style->set_text(TTR("Style"));
 	hbc_style->add_child(lbl_style);
 
-	opt_style = memnewOld(OptionButton);
+	opt_style = memnewOldNoConstructor(OptionButton);
 	opt_style->add_item(TTR("Keep"));
 	opt_style->add_item(TTR("PascalCase to snake_case"));
 	opt_style->add_item(TTR("snake_case to PascalCase"));
@@ -267,14 +267,14 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// ------ Case
 
-	HBoxContainer *hbc_case = memnewOld(HBoxContainer);
+	HBoxContainer *hbc_case = memnewOldNoConstructor(HBoxContainer);
 	vbc_process->add_child(hbc_case);
 
-	Label *lbl_case = memnewOld(Label);
+	Label *lbl_case = memnewOldNoConstructor(Label);
 	lbl_case->set_text(TTR("Case"));
 	hbc_case->add_child(lbl_case);
 
-	opt_case = memnewOld(OptionButton);
+	opt_case = memnewOldNoConstructor(OptionButton);
 	opt_case->add_item(TTR("Keep"));
 	opt_case->add_item(TTR("To Lowercase"));
 	opt_case->add_item(TTR("To Uppercase"));
@@ -282,14 +282,14 @@ RenameDialog::RenameDialog(SceneTreeEditor *p_scene_tree_editor) {
 
 	// -- Preview
 
-	HSeparator *sep_preview = memnewOld(HSeparator);
+	HSeparator *sep_preview = memnewOldNoConstructor(HSeparator);
 	sep_preview->set_custom_minimum_size(Size2(10, 20));
 	vbc->add_child(sep_preview);
 
-	lbl_preview_title = memnewOld(Label);
+	lbl_preview_title = memnewOldNoConstructor(Label);
 	vbc->add_child(lbl_preview_title);
 
-	lbl_preview = memnewOld(Label);
+	lbl_preview = memnewOldNoConstructor(Label);
 	lbl_preview->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	lbl_preview->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	vbc->add_child(lbl_preview);

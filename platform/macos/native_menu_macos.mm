@@ -38,7 +38,7 @@
 
 void NativeMenuMacOS::_register_system_menus(NSMenu *p_main_menu, NSMenu *p_application_menu, NSMenu *p_window_menu, NSMenu *p_help_menu, NSMenu *p_dock_menu) {
 	{
-		MenuData *md = memnewOld(MenuData);
+		MenuData *md = memnewOldNoConstructor(MenuData);
 		md->menu = p_main_menu;
 		md->is_system = true;
 		main_menu = menus.make_rid(md);
@@ -46,7 +46,7 @@ void NativeMenuMacOS::_register_system_menus(NSMenu *p_main_menu, NSMenu *p_appl
 		menu_lookup[md->menu] = main_menu;
 	}
 	{
-		MenuData *md = memnewOld(MenuData);
+		MenuData *md = memnewOldNoConstructor(MenuData);
 		md->menu = p_application_menu;
 		md->is_system = true;
 		application_menu = menus.make_rid(md);
@@ -54,7 +54,7 @@ void NativeMenuMacOS::_register_system_menus(NSMenu *p_main_menu, NSMenu *p_appl
 		menu_lookup[md->menu] = application_menu;
 	}
 	{
-		MenuData *md = memnewOld(MenuData);
+		MenuData *md = memnewOldNoConstructor(MenuData);
 		md->menu = p_window_menu;
 		md->is_system = true;
 		window_menu = menus.make_rid(md);
@@ -62,7 +62,7 @@ void NativeMenuMacOS::_register_system_menus(NSMenu *p_main_menu, NSMenu *p_appl
 		menu_lookup[md->menu] = window_menu;
 	}
 	{
-		MenuData *md = memnewOld(MenuData);
+		MenuData *md = memnewOldNoConstructor(MenuData);
 		md->menu = p_help_menu;
 		md->is_system = true;
 		help_menu = menus.make_rid(md);
@@ -70,7 +70,7 @@ void NativeMenuMacOS::_register_system_menus(NSMenu *p_main_menu, NSMenu *p_appl
 		menu_lookup[md->menu] = help_menu;
 	}
 	{
-		MenuData *md = memnewOld(MenuData);
+		MenuData *md = memnewOldNoConstructor(MenuData);
 		md->menu = p_dock_menu;
 		md->is_system = true;
 		dock_menu = menus.make_rid(md);
@@ -239,7 +239,7 @@ RID NativeMenuMacOS::get_system_menu(SystemMenus p_menu_id) const {
 }
 
 RID NativeMenuMacOS::create_menu() {
-	MenuData *md = memnewOld(MenuData);
+	MenuData *md = memnewOldNoConstructor(MenuData);
 	md->menu = [[NSMenu alloc] initWithTitle:@""];
 	[md->menu setAutoenablesItems:NO];
 	DisplayServerMacOS *ds = (DisplayServerMacOS *)DisplayServer::get_singleton();

@@ -380,7 +380,7 @@ void SceneImportSettingsDialog::_fill_scene(Node *p_node, TreeItem *p_parent_ite
 	ImporterMeshInstance3D *src_mesh_node = Object::cast_to<ImporterMeshInstance3D>(p_node);
 
 	if (src_mesh_node) {
-		MeshInstance3D *mesh_node = memnewOld(MeshInstance3D);
+		MeshInstance3D *mesh_node = memnewOldNoConstructor(MeshInstance3D);
 		mesh_node->set_name(src_mesh_node->get_name());
 		mesh_node->set_transform(src_mesh_node->get_transform());
 		mesh_node->set_skin(src_mesh_node->get_skin());
@@ -477,7 +477,7 @@ void SceneImportSettingsDialog::_fill_scene(Node *p_node, TreeItem *p_parent_ite
 		}
 
 		// Add the collider view.
-		MeshInstance3D *collider_view = memnewOld(MeshInstance3D);
+		MeshInstance3D *collider_view = memnewOldNoConstructor(MeshInstance3D);
 		collider_view->set_name("collider_view");
 		collider_view->set_visible(false);
 		mesh_node->add_child(collider_view, true);
@@ -1591,12 +1591,12 @@ void SceneImportSettingsDialog::_save_dir_confirm() {
 SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	singleton = this;
 
-	VBoxContainer *main_vb = memnewOld(VBoxContainer);
+	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vb);
-	HBoxContainer *menu_hb = memnewOld(HBoxContainer);
+	HBoxContainer *menu_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(menu_hb);
 
-	action_menu = memnewOld(MenuButton);
+	action_menu = memnewOldNoConstructor(MenuButton);
 	action_menu->set_text(TTR("Actions..."));
 	// Style the MenuButton like a regular Button to make it more noticeable.
 	action_menu->set_flat(false);
@@ -1610,33 +1610,33 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 
 	action_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &SceneImportSettingsDialog::_menu_callback));
 
-	tree_split = memnewOld(HSplitContainer);
+	tree_split = memnewOldNoConstructor(HSplitContainer);
 	main_vb->add_child(tree_split);
 	tree_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	data_mode = memnewOld(TabContainer);
+	data_mode = memnewOldNoConstructor(TabContainer);
 	tree_split->add_child(data_mode);
 	data_mode->set_custom_minimum_size(Size2(300 * EDSCALE, 0));
 	data_mode->set_theme_type_variation("TabContainerOdd");
 
-	property_split = memnewOld(HSplitContainer);
+	property_split = memnewOldNoConstructor(HSplitContainer);
 	tree_split->add_child(property_split);
 	property_split->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	scene_tree = memnewOld(Tree);
+	scene_tree = memnewOldNoConstructor(Tree);
 	scene_tree->set_name(TTR("Scene"));
 	scene_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	data_mode->add_child(scene_tree);
 	scene_tree->connect("cell_selected", callable_mp(this, &SceneImportSettingsDialog::_scene_tree_selected));
 
-	mesh_tree = memnewOld(Tree);
+	mesh_tree = memnewOldNoConstructor(Tree);
 	mesh_tree->set_name(TTR("Meshes"));
 	mesh_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	data_mode->add_child(mesh_tree);
 	mesh_tree->set_hide_root(true);
 	mesh_tree->connect("cell_selected", callable_mp(this, &SceneImportSettingsDialog::_mesh_tree_selected));
 
-	material_tree = memnewOld(Tree);
+	material_tree = memnewOldNoConstructor(Tree);
 	material_tree->set_name(TTR("Materials"));
 	material_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	data_mode->add_child(material_tree);
@@ -1644,44 +1644,44 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 
 	material_tree->set_hide_root(true);
 
-	VBoxContainer *vp_vb = memnewOld(VBoxContainer);
+	VBoxContainer *vp_vb = memnewOldNoConstructor(VBoxContainer);
 	vp_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vp_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vp_vb->set_anchors_and_offsets_preset(Control::LayoutPreset::PRESET_FULL_RECT);
 	property_split->add_child(vp_vb);
 
-	SubViewportContainer *vp_container = memnewOld(SubViewportContainer);
+	SubViewportContainer *vp_container = memnewOldNoConstructor(SubViewportContainer);
 	vp_container->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vp_container->set_custom_minimum_size(Size2(10, 10));
 	vp_container->set_stretch(true);
 	vp_container->connect(SceneStringName(gui_input), callable_mp(this, &SceneImportSettingsDialog::_viewport_input));
 	vp_vb->add_child(vp_container);
 
-	base_viewport = memnewOld(SubViewport);
+	base_viewport = memnewOldNoConstructor(SubViewport);
 	vp_container->add_child(base_viewport);
 
-	animation_preview = memnewOld(PanelContainer);
+	animation_preview = memnewOldNoConstructor(PanelContainer);
 	animation_preview->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vp_vb->add_child(animation_preview);
 	animation_preview->hide();
 
-	HBoxContainer *animation_hbox = memnewOld(HBoxContainer);
+	HBoxContainer *animation_hbox = memnewOldNoConstructor(HBoxContainer);
 	animation_preview->add_child(animation_hbox);
 
-	animation_play_button = memnewOld(Button);
+	animation_play_button = memnewOldNoConstructor(Button);
 	animation_hbox->add_child(animation_play_button);
 	animation_play_button->set_flat(true);
 	animation_play_button->set_focus_mode(Control::FOCUS_NONE);
 	animation_play_button->set_shortcut(ED_SHORTCUT("scene_import_settings/play_selected_animation", TTR("Selected Animation Play/Pause"), Key::SPACE));
 	animation_play_button->connect(SceneStringName(pressed), callable_mp(this, &SceneImportSettingsDialog::_play_animation));
 
-	animation_stop_button = memnewOld(Button);
+	animation_stop_button = memnewOldNoConstructor(Button);
 	animation_hbox->add_child(animation_stop_button);
 	animation_stop_button->set_flat(true);
 	animation_stop_button->set_focus_mode(Control::FOCUS_NONE);
 	animation_stop_button->connect(SceneStringName(pressed), callable_mp(this, &SceneImportSettingsDialog::_stop_current_animation));
 
-	animation_slider = memnewOld(HSlider);
+	animation_slider = memnewOldNoConstructor(HSlider);
 	animation_hbox->add_child(animation_slider);
 	animation_slider->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	animation_slider->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -1693,17 +1693,17 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 
 	base_viewport->set_use_own_world_3d(true);
 
-	HBoxContainer *viewport_hbox = memnewOld(HBoxContainer);
+	HBoxContainer *viewport_hbox = memnewOldNoConstructor(HBoxContainer);
 	vp_container->add_child(viewport_hbox);
 	viewport_hbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, 2);
 
 	viewport_hbox->add_spacer();
 
-	VBoxContainer *vb_light = memnewOld(VBoxContainer);
+	VBoxContainer *vb_light = memnewOldNoConstructor(VBoxContainer);
 	vb_light->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	viewport_hbox->add_child(vb_light);
 
-	light_rotate_switch = memnewOld(Button);
+	light_rotate_switch = memnewOldNoConstructor(Button);
 	light_rotate_switch->set_theme_type_variation("PreviewLightButton");
 	light_rotate_switch->set_toggle_mode(true);
 	light_rotate_switch->set_pressed(true);
@@ -1711,7 +1711,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	light_rotate_switch->connect(SceneStringName(pressed), callable_mp(this, &SceneImportSettingsDialog::_on_light_rotate_switch_pressed));
 	vb_light->add_child(light_rotate_switch);
 
-	light_1_switch = memnewOld(Button);
+	light_1_switch = memnewOldNoConstructor(Button);
 	light_1_switch->set_theme_type_variation("PreviewLightButton");
 	light_1_switch->set_toggle_mode(true);
 	light_1_switch->set_pressed(true);
@@ -1719,7 +1719,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	light_1_switch->connect(SceneStringName(pressed), callable_mp(this, &SceneImportSettingsDialog::_on_light_1_switch_pressed));
 	vb_light->add_child(light_1_switch);
 
-	light_2_switch = memnewOld(Button);
+	light_2_switch = memnewOldNoConstructor(Button);
 	light_2_switch->set_theme_type_variation("PreviewLightButton");
 	light_2_switch->set_toggle_mode(true);
 	light_2_switch->set_pressed(true);
@@ -1727,7 +1727,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	light_2_switch->connect(SceneStringName(pressed), callable_mp(this, &SceneImportSettingsDialog::_on_light_2_switch_pressed));
 	vb_light->add_child(light_2_switch);
 
-	camera = memnewOld(Camera3D);
+	camera = memnewOldNoConstructor(Camera3D);
 	base_viewport->add_child(camera);
 	camera->make_current();
 
@@ -1758,12 +1758,12 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	environment->set_sky_custom_fov(50.0);
 	camera->set_environment(environment);
 
-	light1 = memnewOld(DirectionalLight3D);
+	light1 = memnewOldNoConstructor(DirectionalLight3D);
 	light1->set_transform(Transform3D(Basis::looking_at(Vector3(-1, -1, -1))));
 	light1->set_shadow(true);
 	camera->add_child(light1);
 
-	light2 = memnewOld(DirectionalLight3D);
+	light2 = memnewOldNoConstructor(DirectionalLight3D);
 	light2->set_transform(Transform3D(Basis::looking_at(Vector3(0, 1, 0), Vector3(0, 0, 1))));
 	light2->set_color(Color(0.5f, 0.5f, 0.5f));
 	camera->add_child(light2);
@@ -1796,7 +1796,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 		st->commit(selection_mesh);
 		selection_mesh->surface_set_material(0, selection_mat);
 
-		node_selected = memnewOld(MeshInstance3D);
+		node_selected = memnewOldNoConstructor(MeshInstance3D);
 		node_selected->set_mesh(selection_mesh);
 		node_selected->set_cast_shadows_setting(GeometryInstance3D::SHADOW_CASTING_SETTING_OFF);
 		base_viewport->add_child(node_selected);
@@ -1804,7 +1804,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	}
 
 	{
-		mesh_preview = memnewOld(MeshInstance3D);
+		mesh_preview = memnewOldNoConstructor(MeshInstance3D);
 		base_viewport->add_child(mesh_preview);
 		mesh_preview->hide();
 
@@ -1818,20 +1818,20 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 		collider_mat->set_albedo(Color(0.5, 0.5, 1.0));
 	}
 
-	inspector = memnewOld(EditorInspector);
+	inspector = memnewOldNoConstructor(EditorInspector);
 	inspector->set_custom_minimum_size(Size2(300 * EDSCALE, 0));
 	inspector->connect(SNAME("property_edited"), callable_mp(this, &SceneImportSettingsDialog::_inspector_property_edited));
 
 	property_split->add_child(inspector);
 
-	scene_import_settings_data = memnewOld(SceneImportSettingsData);
+	scene_import_settings_data = memnewOldNoConstructor(SceneImportSettingsData);
 
 	set_ok_button_text(TTR("Reimport"));
 	set_cancel_button_text(TTR("Close"));
 
-	external_paths = memnewOld(ConfirmationDialog);
+	external_paths = memnewOldNoConstructor(ConfirmationDialog);
 	add_child(external_paths);
-	external_path_tree = memnewOld(Tree);
+	external_path_tree = memnewOldNoConstructor(Tree);
 	external_paths->add_child(external_path_tree);
 	external_path_tree->connect("button_clicked", callable_mp(this, &SceneImportSettingsDialog::_browse_save_callback));
 	external_paths->connect(SceneStringName(confirmed), callable_mp(this, &SceneImportSettingsDialog::_save_dir_confirm));
@@ -1847,20 +1847,20 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	external_path_tree->set_column_expand(2, false);
 	external_path_tree->set_column_custom_minimum_width(2, 200 * EDSCALE);
 	external_path_tree->set_column_title(2, TTR("Status"));
-	save_path = memnewOld(EditorFileDialog);
+	save_path = memnewOldNoConstructor(EditorFileDialog);
 	save_path->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_DIR);
-	HBoxContainer *extension_hb = memnewOld(HBoxContainer);
+	HBoxContainer *extension_hb = memnewOldNoConstructor(HBoxContainer);
 	save_path->get_vbox()->add_child(extension_hb);
 	extension_hb->add_spacer();
-	extension_hb->add_child(memnewOld(Label(TTR("Save Extension:"))));
-	external_extension_type = memnewOld(OptionButton);
+	extension_hb->add_child(memnewOldWithArgs(Label(TTR("Save Extension:"))));
+	external_extension_type = memnewOldNoConstructor(OptionButton);
 	extension_hb->add_child(external_extension_type);
 	external_extension_type->add_item(TTR("Text: *.tres"));
 	external_extension_type->add_item(TTR("Binary: *.res"));
 	external_path_tree->set_hide_root(true);
 	add_child(save_path);
 
-	item_save_path = memnewOld(EditorFileDialog);
+	item_save_path = memnewOldNoConstructor(EditorFileDialog);
 	item_save_path->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	item_save_path->add_filter("*.tres", TTR("Text Resource"));
 	item_save_path->add_filter("*.res", TTR("Binary Resource"));
@@ -1869,7 +1869,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 
 	save_path->connect("dir_selected", callable_mp(this, &SceneImportSettingsDialog::_save_dir_callback));
 
-	update_view_timer = memnewOld(Timer);
+	update_view_timer = memnewOldNoConstructor(Timer);
 	update_view_timer->set_wait_time(0.2);
 	update_view_timer->connect("timeout", callable_mp(this, &SceneImportSettingsDialog::_update_view_gizmos));
 	add_child(update_view_timer);

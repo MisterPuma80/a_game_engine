@@ -146,7 +146,7 @@ void RenderForwardClustered::RenderBufferDataForwardClustered::configure(RenderS
 	ERR_FAIL_NULL(render_buffers);
 
 	if (cluster_builder == nullptr) {
-		cluster_builder = memnewOld(ClusterBuilderRD);
+		cluster_builder = memnewOldNoConstructor(ClusterBuilderRD);
 	}
 	cluster_builder->set_shared(RenderForwardClustered::get_singleton()->get_cluster_builder_shared());
 
@@ -4098,7 +4098,7 @@ RenderGeometryInstance *RenderForwardClustered::geometry_instance_create(RID p_b
 	ERR_FAIL_COND_V(!((1 << type) & RS::INSTANCE_GEOMETRY_MASK), nullptr);
 
 	GeometryInstanceForwardClustered *ginstance = geometry_instance_alloc.alloc();
-	ginstance->data = memnewOld(GeometryInstanceForwardClustered::Data);
+	ginstance->data = memnewOldNoConstructor(GeometryInstanceForwardClustered::Data);
 
 	ginstance->data->base = p_base;
 	ginstance->data->base_type = type;
@@ -4324,10 +4324,10 @@ RenderForwardClustered::RenderForwardClustered() {
 
 	_update_shader_quality_settings();
 
-	resolve_effects = memnewOld(RendererRD::Resolve());
-	taa = memnewOld(RendererRD::TAA);
-	fsr2_effect = memnewOld(RendererRD::FSR2Effect);
-	ss_effects = memnewOld(RendererRD::SSEffects);
+	resolve_effects = memnewOldNoArgs(RendererRD::Resolve());
+	taa = memnewOldNoConstructor(RendererRD::TAA);
+	fsr2_effect = memnewOldNoConstructor(RendererRD::FSR2Effect);
+	ss_effects = memnewOldNoConstructor(RendererRD::SSEffects);
 }
 
 RenderForwardClustered::~RenderForwardClustered() {

@@ -258,47 +258,47 @@ RunInstancesDialog::RunInstancesDialog() {
 	singleton = this;
 	set_title(TTR("Run Instances"));
 
-	main_apply_timer = memnewOld(Timer);
+	main_apply_timer = memnewOldNoConstructor(Timer);
 	main_apply_timer->set_wait_time(0.5);
 	main_apply_timer->set_one_shot(true);
 	add_child(main_apply_timer);
 	main_apply_timer->connect("timeout", callable_mp(this, &RunInstancesDialog::_save_main_args));
 
-	instance_apply_timer = memnewOld(Timer);
+	instance_apply_timer = memnewOldNoConstructor(Timer);
 	instance_apply_timer->set_wait_time(0.5);
 	instance_apply_timer->set_one_shot(true);
 	add_child(instance_apply_timer);
 	instance_apply_timer->connect("timeout", callable_mp(this, &RunInstancesDialog::_save_arguments));
 
-	VBoxContainer *main_vb = memnewOld(VBoxContainer);
+	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vb);
 
-	GridContainer *args_gc = memnewOld(GridContainer);
+	GridContainer *args_gc = memnewOldNoConstructor(GridContainer);
 	args_gc->set_columns(3);
 	args_gc->add_theme_constant_override("h_separation", 12 * EDSCALE);
 	main_vb->add_child(args_gc);
 
-	enable_multiple_instances_checkbox = memnewOld(CheckBox);
+	enable_multiple_instances_checkbox = memnewOldNoConstructor(CheckBox);
 	enable_multiple_instances_checkbox->set_text(TTR("Enable Multiple Instances"));
 	enable_multiple_instances_checkbox->set_pressed(EditorSettings::get_singleton()->get_project_metadata("debug_options", "multiple_instances_enabled", false));
 	args_gc->add_child(enable_multiple_instances_checkbox);
 	enable_multiple_instances_checkbox->connect(SceneStringName(pressed), callable_mp(this, &RunInstancesDialog::_start_main_timer));
 
 	{
-		Label *l = memnewOld(Label);
+		Label *l = memnewOldNoConstructor(Label);
 		l->set_text(TTR("Main Run Args:"));
 		args_gc->add_child(l);
 	}
 
 	{
-		Label *l = memnewOld(Label);
+		Label *l = memnewOldNoConstructor(Label);
 		l->set_text(TTR("Main Feature Tags:"));
 		args_gc->add_child(l);
 	}
 
 	stored_data = TypedArray<Dictionary>(EditorSettings::get_singleton()->get_project_metadata("debug_options", "run_instances_config", TypedArray<Dictionary>()));
 
-	instance_count = memnewOld(SpinBox);
+	instance_count = memnewOldNoConstructor(SpinBox);
 	instance_count->set_min(1);
 	instance_count->set_max(20);
 	instance_count->set_value(stored_data.size());
@@ -308,7 +308,7 @@ RunInstancesDialog::RunInstancesDialog() {
 	enable_multiple_instances_checkbox->connect("toggled", callable_mp(instance_count, &SpinBox::set_editable));
 	instance_count->set_editable(enable_multiple_instances_checkbox->is_pressed());
 
-	main_args_edit = memnewOld(LineEdit);
+	main_args_edit = memnewOldNoConstructor(LineEdit);
 	main_args_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_args_edit->set_placeholder(TTR("Space-separated arguments, example: host player1 blue"));
 	args_gc->add_child(main_args_edit);
@@ -316,7 +316,7 @@ RunInstancesDialog::RunInstancesDialog() {
 	ProjectSettings::get_singleton()->connect("settings_changed", callable_mp(this, &RunInstancesDialog::_fetch_main_args));
 	main_args_edit->connect(SceneStringName(text_changed), callable_mp(this, &RunInstancesDialog::_start_main_timer).unbind(1));
 
-	main_features_edit = memnewOld(LineEdit);
+	main_features_edit = memnewOldNoConstructor(LineEdit);
 	main_features_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_features_edit->set_placeholder(TTR("Comma-separated tags, example: demo, steam, event"));
 	main_features_edit->set_text(EditorSettings::get_singleton()->get_project_metadata("debug_options", "run_main_feature_tags", ""));
@@ -324,14 +324,14 @@ RunInstancesDialog::RunInstancesDialog() {
 	main_features_edit->connect(SceneStringName(text_changed), callable_mp(this, &RunInstancesDialog::_start_main_timer).unbind(1));
 
 	{
-		Label *l = memnewOld(Label);
+		Label *l = memnewOldNoConstructor(Label);
 		l->set_text(TTR("Instance Configuration"));
 		l->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 		l->set_theme_type_variation("HeaderSmall");
 		main_vb->add_child(l);
 	}
 
-	instance_tree = memnewOld(Tree);
+	instance_tree = memnewOldNoConstructor(Tree);
 	instance_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	instance_tree->set_h_scroll_enabled(false);
 	instance_tree->set_columns(4);

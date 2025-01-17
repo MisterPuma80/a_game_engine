@@ -282,9 +282,9 @@ void EditorPropertyArray::_object_id_selected(const StringName &p_property, Obje
 
 void EditorPropertyArray::_create_new_property_slot() {
 	int idx = slots.size();
-	HBoxContainer *hbox = memnewOld(HBoxContainer);
+	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 
-	Button *reorder_button = memnewOld(Button);
+	Button *reorder_button = memnewOldNoConstructor(Button);
 	reorder_button->set_icon(get_editor_theme_icon(SNAME("TripleBar")));
 	reorder_button->set_default_cursor_shape(Control::CURSOR_MOVE);
 	reorder_button->set_disabled(is_read_only());
@@ -293,19 +293,19 @@ void EditorPropertyArray::_create_new_property_slot() {
 	reorder_button->connect(SNAME("button_down"), callable_mp(this, &EditorPropertyArray::_reorder_button_down).bind(idx));
 
 	hbox->add_child(reorder_button);
-	EditorProperty *prop = memnewOld(EditorPropertyNil);
+	EditorProperty *prop = memnewOldNoConstructor(EditorPropertyNil);
 	hbox->add_child(prop);
 
 	bool is_untyped_array = object->get_array().get_type() == Variant::ARRAY && subtype == Variant::NIL;
 
 	if (is_untyped_array) {
-		Button *edit_btn = memnewOld(Button);
+		Button *edit_btn = memnewOldNoConstructor(Button);
 		edit_btn->set_icon(get_editor_theme_icon(SNAME("Edit")));
 		edit_btn->set_disabled(is_read_only());
 		edit_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyArray::_change_type).bind(edit_btn, idx));
 		hbox->add_child(edit_btn);
 	} else {
-		Button *remove_btn = memnewOld(Button);
+		Button *remove_btn = memnewOldNoConstructor(Button);
 		remove_btn->set_icon(get_editor_theme_icon(SNAME("Remove")));
 		remove_btn->set_disabled(is_read_only());
 		remove_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyArray::_remove_pressed).bind(idx));
@@ -369,22 +369,22 @@ void EditorPropertyArray::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnewOld(PanelContainer);
+			container = memnewOldNoConstructor(PanelContainer);
 			container->set_mouse_filter(MOUSE_FILTER_STOP);
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnewOld(VBoxContainer);
+			VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 			container->add_child(vbox);
 
-			HBoxContainer *hbox = memnewOld(HBoxContainer);
+			HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 			vbox->add_child(hbox);
 
-			Label *size_label = memnewOld(Label(TTR("Size:")));
+			Label *size_label = memnewOldWithArgs(Label(TTR("Size:")));
 			size_label->set_h_size_flags(SIZE_EXPAND_FILL);
 			hbox->add_child(size_label);
 
-			size_slider = memnewOld(EditorSpinSlider);
+			size_slider = memnewOldNoConstructor(EditorSpinSlider);
 			size_slider->set_step(1);
 			size_slider->set_max(INT32_MAX);
 			size_slider->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -392,7 +392,7 @@ void EditorPropertyArray::update_property() {
 			size_slider->connect(SceneStringName(value_changed), callable_mp(this, &EditorPropertyArray::_length_changed));
 			hbox->add_child(size_slider);
 
-			property_vbox = memnewOld(VBoxContainer);
+			property_vbox = memnewOldNoConstructor(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
@@ -402,7 +402,7 @@ void EditorPropertyArray::update_property() {
 			button_add_item->set_disabled(is_read_only());
 			vbox->add_child(button_add_item);
 
-			paginator = memnewOld(EditorPaginator);
+			paginator = memnewOldNoConstructor(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyArray::_page_changed));
 			vbox->add_child(paginator);
 
@@ -439,7 +439,7 @@ void EditorPropertyArray::update_property() {
 				slot.type = value_type;
 				EditorProperty *new_prop = nullptr;
 				if (value_type == Variant::OBJECT && value_as_id) {
-					EditorPropertyObjectID *editor = memnewOld(EditorPropertyObjectID);
+					EditorPropertyObjectID *editor = memnewOldNoConstructor(EditorPropertyObjectID);
 					editor->setup("Object");
 					new_prop = editor;
 				} else {
@@ -845,7 +845,7 @@ EditorPropertyArray::EditorPropertyArray() {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnewOld(Button);
+	edit = memnewOldNoConstructor(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyArray::_edit_pressed));
@@ -855,7 +855,7 @@ EditorPropertyArray::EditorPropertyArray() {
 	add_child(edit);
 	add_focusable(edit);
 
-	change_type = memnewOld(PopupMenu);
+	change_type = memnewOldNoConstructor(PopupMenu);
 	add_child(change_type);
 	change_type->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyArray::_change_type_menu));
 	changing_type_index = -1;
@@ -915,11 +915,11 @@ void EditorPropertyDictionary::_add_key_value() {
 }
 
 void EditorPropertyDictionary::_create_new_property_slot(int p_idx) {
-	HBoxContainer *hbox = memnewOld(HBoxContainer);
-	EditorProperty *prop = memnewOld(EditorPropertyNil);
+	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+	EditorProperty *prop = memnewOldNoConstructor(EditorPropertyNil);
 	hbox->add_child(prop);
 
-	Button *edit_btn = memnewOld(Button);
+	Button *edit_btn = memnewOldNoConstructor(Button);
 	edit_btn->set_icon(get_editor_theme_icon(SNAME("Edit")));
 	edit_btn->set_disabled(is_read_only());
 	edit_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyDictionary::_change_type).bind(edit_btn, slots.size()));
@@ -1009,19 +1009,19 @@ void EditorPropertyDictionary::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnewOld(PanelContainer);
+			container = memnewOldNoConstructor(PanelContainer);
 			container->set_mouse_filter(MOUSE_FILTER_STOP);
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnewOld(VBoxContainer);
+			VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 			container->add_child(vbox);
 
-			property_vbox = memnewOld(VBoxContainer);
+			property_vbox = memnewOldNoConstructor(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
-			paginator = memnewOld(EditorPaginator);
+			paginator = memnewOldNoConstructor(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyDictionary::_page_changed));
 			vbox->add_child(paginator);
 
@@ -1029,10 +1029,10 @@ void EditorPropertyDictionary::update_property() {
 				_create_new_property_slot(slots.size());
 			}
 
-			add_panel = memnewOld(PanelContainer);
+			add_panel = memnewOldNoConstructor(PanelContainer);
 			property_vbox->add_child(add_panel);
 			add_panel->add_theme_style_override(SceneStringName(panel), get_theme_stylebox(SNAME("DictionaryAddItem")));
-			VBoxContainer *add_vbox = memnewOld(VBoxContainer);
+			VBoxContainer *add_vbox = memnewOldNoConstructor(VBoxContainer);
 			add_panel->add_child(add_vbox);
 
 			_create_new_property_slot(EditorPropertyDictionaryObject::NEW_KEY_INDEX);
@@ -1075,7 +1075,7 @@ void EditorPropertyDictionary::update_property() {
 				slot.type = value_type;
 				EditorProperty *new_prop = nullptr;
 				if (value_type == Variant::OBJECT && value_as_id) {
-					EditorPropertyObjectID *editor = memnewOld(EditorPropertyObjectID);
+					EditorPropertyObjectID *editor = memnewOldNoConstructor(EditorPropertyObjectID);
 					editor->setup("Object");
 					new_prop = editor;
 				} else {
@@ -1179,7 +1179,7 @@ EditorPropertyDictionary::EditorPropertyDictionary() {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnewOld(Button);
+	edit = memnewOldNoConstructor(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyDictionary::_edit_pressed));
@@ -1190,7 +1190,7 @@ EditorPropertyDictionary::EditorPropertyDictionary() {
 	container = nullptr;
 	button_add_item = nullptr;
 	paginator = nullptr;
-	change_type = memnewOld(PopupMenu);
+	change_type = memnewOldNoConstructor(PopupMenu);
 	add_child(change_type);
 	change_type->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyDictionary::_change_type_menu));
 	changing_type_index = -1;
@@ -1265,19 +1265,19 @@ void EditorPropertyLocalizableString::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnewOld(MarginContainer);
+			container = memnewOldNoConstructor(MarginContainer);
 			container->set_theme_type_variation("MarginContainer4px");
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnewOld(VBoxContainer);
+			VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 			container->add_child(vbox);
 
-			property_vbox = memnewOld(VBoxContainer);
+			property_vbox = memnewOldNoConstructor(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
-			paginator = memnewOld(EditorPaginator);
+			paginator = memnewOldNoConstructor(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyLocalizableString::_page_changed));
 			vbox->add_child(paginator);
 		} else {
@@ -1308,7 +1308,7 @@ void EditorPropertyLocalizableString::update_property() {
 			key = dict.get_key_at_index(i + offset);
 			value = dict.get_value_at_index(i + offset);
 
-			EditorProperty *prop = memnewOld(EditorPropertyText);
+			EditorProperty *prop = memnewOldNoConstructor(EditorPropertyText);
 
 			prop->set_object_and_property(object.ptr(), prop_name);
 			int remove_index = 0;
@@ -1322,11 +1322,11 @@ void EditorPropertyLocalizableString::update_property() {
 			prop->connect("property_changed", callable_mp(this, &EditorPropertyLocalizableString::_property_changed));
 			prop->connect("object_id_selected", callable_mp(this, &EditorPropertyLocalizableString::_object_id_selected));
 
-			HBoxContainer *hbox = memnewOld(HBoxContainer);
+			HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 			property_vbox->add_child(hbox);
 			hbox->add_child(prop);
 			prop->set_h_size_flags(SIZE_EXPAND_FILL);
-			Button *edit_btn = memnewOld(Button);
+			Button *edit_btn = memnewOldNoConstructor(Button);
 			edit_btn->set_icon(get_editor_theme_icon(SNAME("Remove")));
 			hbox->add_child(edit_btn);
 			edit_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyLocalizableString::_remove_item).bind(edit_btn, remove_index));
@@ -1394,7 +1394,7 @@ EditorPropertyLocalizableString::EditorPropertyLocalizableString() {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnewOld(Button);
+	edit = memnewOldNoConstructor(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyLocalizableString::_edit_pressed));
@@ -1407,7 +1407,7 @@ EditorPropertyLocalizableString::EditorPropertyLocalizableString() {
 	paginator = nullptr;
 	updating = false;
 
-	locale_select = memnewOld(EditorLocaleDialog);
+	locale_select = memnewOldNoConstructor(EditorLocaleDialog);
 	locale_select->connect("locale_selected", callable_mp(this, &EditorPropertyLocalizableString::_add_locale));
 	add_child(locale_select);
 }

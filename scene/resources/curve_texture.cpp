@@ -64,7 +64,7 @@ int CurveTexture::get_width() const {
 
 void CurveTexture::ensure_default_setup(float p_min, float p_max) {
 	if (_curve.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOld(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -122,7 +122,7 @@ void CurveTexture::_update() {
 		}
 	}
 
-	Ref<Image> image = memnewOld(Image(_width, 1, false, texture_mode == TEXTURE_MODE_RGB ? Image::FORMAT_RGBF : Image::FORMAT_RF, data));
+	Ref<Image> image = memnewOldWithArgs(Image(_width, 1, false, texture_mode == TEXTURE_MODE_RGB ? Image::FORMAT_RGBF : Image::FORMAT_RF, data));
 
 	if (_texture.is_valid()) {
 		if (_current_texture_mode != texture_mode || _current_width != _width) {
@@ -209,7 +209,7 @@ int CurveXYZTexture::get_width() const {
 
 void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	if (_curve_x.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOld(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -218,7 +218,7 @@ void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	}
 
 	if (_curve_y.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOld(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -227,7 +227,7 @@ void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	}
 
 	if (_curve_z.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOld(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -324,7 +324,7 @@ void CurveXYZTexture::_update() {
 		}
 	}
 
-	Ref<Image> image = memnewOld(Image(_width, 1, false, Image::FORMAT_RGBF, data));
+	Ref<Image> image = memnewOldWithArgs(Image(_width, 1, false, Image::FORMAT_RGBF, data));
 
 	if (_texture.is_valid()) {
 		if (_current_width != _width) {

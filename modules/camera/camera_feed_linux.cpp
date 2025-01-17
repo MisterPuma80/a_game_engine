@@ -223,7 +223,7 @@ void CameraFeedLinux::_unmap_buffers(unsigned int p_count) {
 
 void CameraFeedLinux::_start_thread() {
 	exit_flag.clear();
-	thread = memnewOld(Thread);
+	thread = memnewOldNoConstructor(Thread);
 	thread->start(CameraFeedLinux::update_buffer_thread_func, this);
 }
 
@@ -246,7 +246,7 @@ BufferDecoder *CameraFeedLinux::_create_buffer_decoder() {
 	switch (formats[selected_format].pixel_format) {
 		case V4L2_PIX_FMT_MJPEG:
 		case V4L2_PIX_FMT_JPEG:
-			return memnewOld(JpegBufferDecoder(this));
+			return memnewOldWithArgs(JpegBufferDecoder(this));
 		case V4L2_PIX_FMT_YUYV:
 		case V4L2_PIX_FMT_YYUV:
 		case V4L2_PIX_FMT_YVYU:
@@ -254,18 +254,18 @@ BufferDecoder *CameraFeedLinux::_create_buffer_decoder() {
 		case V4L2_PIX_FMT_VYUY: {
 			String output = parameters["output"];
 			if (output == "separate") {
-				return memnewOld(SeparateYuyvBufferDecoder(this));
+				return memnewOldWithArgs(SeparateYuyvBufferDecoder(this));
 			}
 			if (output == "grayscale") {
-				return memnewOld(YuyvToGrayscaleBufferDecoder(this));
+				return memnewOldWithArgs(YuyvToGrayscaleBufferDecoder(this));
 			}
 			if (output == "copy") {
-				return memnewOld(CopyBufferDecoder(this, false));
+				return memnewOldWithArgs(CopyBufferDecoder(this, false));
 			}
-			return memnewOld(YuyvToRgbBufferDecoder(this));
+			return memnewOldWithArgs(YuyvToRgbBufferDecoder(this));
 		}
 		default:
-			return memnewOld(CopyBufferDecoder(this, true));
+			return memnewOldWithArgs(CopyBufferDecoder(this, true));
 	}
 }
 

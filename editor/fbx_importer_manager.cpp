@@ -143,19 +143,19 @@ FBXImporterManager::FBXImporterManager() {
 
 	set_title(TTR("Configure FBX Importer"));
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
-	vb->add_child(memnewOld(Label(TTR("FBX2glTF is required for importing FBX files if using FBX2glTF.\nAlternatively, you can use ufbx by disabling FBX2glTF.\nPlease download the necessary tool and provide a valid path to the binary:"))));
-	LinkButton *lb = memnewOld(LinkButton);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	vb->add_child(memnewOldWithArgs(Label(TTR("FBX2glTF is required for importing FBX files if using FBX2glTF.\nAlternatively, you can use ufbx by disabling FBX2glTF.\nPlease download the necessary tool and provide a valid path to the binary:"))));
+	LinkButton *lb = memnewOldNoConstructor(LinkButton);
 	lb->set_text(TTR("Click this link to download FBX2glTF"));
 	lb->set_uri("https://godotengine.org/fbx-import");
 	vb->add_child(lb);
 
-	HBoxContainer *hb = memnewOld(HBoxContainer);
+	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 
-	fbx_path = memnewOld(LineEdit);
+	fbx_path = memnewOldNoConstructor(LineEdit);
 	fbx_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->add_child(fbx_path);
-	fbx_path_browse = memnewOld(Button);
+	fbx_path_browse = memnewOldNoConstructor(Button);
 	fbx_path_browse->set_text(TTR("Browse"));
 	fbx_path_browse->connect(SceneStringName(pressed), callable_mp(this, &FBXImporterManager::_browse_install));
 	hb->add_child(fbx_path_browse);
@@ -164,7 +164,7 @@ FBXImporterManager::FBXImporterManager() {
 
 	vb->add_child(hb);
 
-	path_status = memnewOld(Label);
+	path_status = memnewOldNoConstructor(Label);
 	vb->add_child(path_status);
 
 	add_child(vb);
@@ -174,7 +174,7 @@ FBXImporterManager::FBXImporterManager() {
 	get_ok_button()->set_text(TTR("Confirm Path"));
 	get_cancel_button()->connect(SceneStringName(pressed), callable_mp(this, &FBXImporterManager::_cancel_setup));
 
-	browse_dialog = memnewOld(EditorFileDialog);
+	browse_dialog = memnewOldNoConstructor(EditorFileDialog);
 	browse_dialog->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 	browse_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 #ifdef WINDOWS_ENABLED

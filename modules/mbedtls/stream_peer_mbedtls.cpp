@@ -296,7 +296,7 @@ Ref<StreamPeer> StreamPeerMbedTLS::get_stream() const {
 }
 
 StreamPeerTLS *StreamPeerMbedTLS::_create_func() {
-	return memnewOld(StreamPeerMbedTLS);
+	return memnewOldNoConstructor(StreamPeerMbedTLS);
 }
 
 void StreamPeerMbedTLS::initialize_tls() {

@@ -95,7 +95,7 @@ static Ref<ImporterMesh> _mesh_to_importer_mesh(Ref<Mesh> p_mesh) {
 			mat_name = mat->get_name();
 		} else {
 			// Assign default material when no material is assigned.
-			mat = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+			mat = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 		}
 		importer_mesh->add_surface(p_mesh->surface_get_primitive_type(surface_i),
 				array, p_mesh->surface_get_blend_shape_arrays(surface_i), p_mesh->surface_get_lods(surface_i), mat,
@@ -5106,7 +5106,7 @@ void GLTFDocument::_assign_node_names(Ref<GLTFState> p_state) {
 BoneAttachment3D *GLTFDocument::_generate_bone_attachment(Ref<GLTFState> p_state, Skeleton3D *p_skeleton, const GLTFNodeIndex p_node_index, const GLTFNodeIndex p_bone_index) {
 	Ref<GLTFNode> gltf_node = p_state->nodes[p_node_index];
 	Ref<GLTFNode> bone_node = p_state->nodes[p_bone_index];
-	BoneAttachment3D *bone_attachment = memnewOld(BoneAttachment3D);
+	BoneAttachment3D *bone_attachment = memnewOldNoConstructor(BoneAttachment3D);
 	print_verbose("glTF: Creating bone attachment for: " + gltf_node->get_name());
 
 	ERR_FAIL_COND_V(!bone_node->joint, nullptr);
@@ -5149,7 +5149,7 @@ ImporterMeshInstance3D *GLTFDocument::_generate_mesh_instance(Ref<GLTFState> p_s
 
 	ERR_FAIL_INDEX_V(gltf_node->mesh, p_state->meshes.size(), nullptr);
 
-	ImporterMeshInstance3D *mi = memnewOld(ImporterMeshInstance3D);
+	ImporterMeshInstance3D *mi = memnewOldNoConstructor(ImporterMeshInstance3D);
 	print_verbose("glTF: Creating mesh for: " + gltf_node->get_name());
 
 	p_state->scene_mesh_instances.insert(p_node_index, mi);
@@ -5213,7 +5213,7 @@ void GLTFDocument::_convert_spatial(Ref<GLTFState> p_state, Node3D *p_spatial, R
 Node3D *GLTFDocument::_generate_spatial(Ref<GLTFState> p_state, const GLTFNodeIndex p_node_index) {
 	Ref<GLTFNode> gltf_node = p_state->nodes[p_node_index];
 
-	Node3D *spatial = memnewOld(Node3D);
+	Node3D *spatial = memnewOldNoConstructor(Node3D);
 	print_verbose("glTF: Converting spatial: " + gltf_node->get_name());
 
 	return spatial;
@@ -5325,7 +5325,7 @@ void GLTFDocument::_convert_csg_shape_to_gltf(CSGShape3D *p_current, GLTFNodeInd
 				mat_name = mat->get_name();
 			} else {
 				// Assign default material when no material is assigned.
-				mat = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+				mat = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 			}
 
 			mesh->add_surface(csg_mesh->surface_get_primitive_type(surface_i),
@@ -5398,7 +5398,7 @@ void GLTFDocument::_convert_light_to_gltf(Light3D *light, Ref<GLTFState> p_state
 void GLTFDocument::_convert_grid_map_to_gltf(GridMap *p_grid_map, GLTFNodeIndex p_parent_node_index, GLTFNodeIndex p_root_node_index, Ref<GLTFNode> p_gltf_node, Ref<GLTFState> p_state) {
 	Array cells = p_grid_map->get_used_cells();
 	for (int32_t k = 0; k < cells.size(); k++) {
-		GLTFNode *new_gltf_node = memnewOld(GLTFNode);
+		GLTFNode *new_gltf_node = memnewOldNoConstructor(GLTFNode);
 		p_gltf_node->children.push_back(p_state->nodes.size());
 		p_state->nodes.push_back(new_gltf_node);
 		Vector3 cell_location = cells[k];
@@ -7160,7 +7160,7 @@ Node *GLTFDocument::_generate_scene_node_tree(Ref<GLTFState> p_state) {
 			single_root = single_root->get_owner();
 		}
 	} else {
-		single_root = memnewOld(Node3D);
+		single_root = memnewOldNoConstructor(Node3D);
 		for (int32_t root_i = 0; root_i < p_state->root_nodes.size(); root_i++) {
 			_generate_scene_node(p_state, p_state->root_nodes[root_i], single_root, single_root);
 		}
@@ -7317,7 +7317,7 @@ Node *GLTFDocument::generate_scene(Ref<GLTFState> p_state, float p_bake_fps, boo
 	ERR_FAIL_NULL_V(root, nullptr);
 	_process_mesh_instances(state, root);
 	if (state->get_create_animations() && state->animations.size()) {
-		AnimationPlayer *ap = memnewOld(AnimationPlayer);
+		AnimationPlayer *ap = memnewOldNoConstructor(AnimationPlayer);
 		root->add_child(ap, true);
 		ap->set_owner(root);
 		for (int i = 0; i < state->animations.size(); i++) {

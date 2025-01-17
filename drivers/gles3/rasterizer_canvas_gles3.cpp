@@ -2290,7 +2290,7 @@ void RasterizerCanvasGLES3::_prepare_canvas_texture(RID p_texture, RS::CanvasIte
 	if (t) {
 		//regular texture
 		if (!t->canvas_texture) {
-			t->canvas_texture = memnewOld(GLES3::CanvasTexture);
+			t->canvas_texture = memnewOldNoConstructor(GLES3::CanvasTexture);
 			t->canvas_texture->diffuse = p_texture;
 		}
 

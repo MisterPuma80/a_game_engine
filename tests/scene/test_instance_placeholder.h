@@ -100,18 +100,18 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with no
 	GDREGISTER_CLASS(_TestInstancePlaceholderNode);
 
 	SUBCASE("with non-node values") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
 		ip->set_name("TestScene");
-		Node *root = memnewOld(Node);
+		Node *root = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
 		root->add_child(ip);
 		// Create a scene to instance.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
 		scene->set_int_property(12);
 
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		const Error err = packed_scene->pack(scene);
 		REQUIRE(err == OK);
 
@@ -126,20 +126,20 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with no
 	}
 
 	SUBCASE("with node value") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
 		ip->set_name("TestScene");
-		Node *root = memnewOld(Node);
+		Node *root = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
 		root->add_child(ip);
 		// Create a scene to instance.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
-		Node *referenced = memnewOld(Node);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
+		Node *referenced = memnewOldNoConstructor(Node);
 		scene->add_child(referenced);
 		referenced->set_owner(scene);
 		scene->set_reference_property(referenced);
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		const Error err = packed_scene->pack(scene);
 		REQUIRE(err == OK);
 
@@ -156,16 +156,16 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with no
 	}
 
 	SUBCASE("with node-array value") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
 		ip->set_name("TestScene");
-		Node *root = memnewOld(Node);
+		Node *root = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
 		root->add_child(ip);
 		// Create a scene to instance.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
-		Node *referenced1 = memnewOld(Node);
-		Node *referenced2 = memnewOld(Node);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
+		Node *referenced1 = memnewOldNoConstructor(Node);
+		Node *referenced2 = memnewOldNoConstructor(Node);
 		scene->add_child(referenced1);
 		scene->add_child(referenced2);
 		referenced1->set_owner(scene);
@@ -176,7 +176,7 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with no
 		node_array.push_back(referenced2);
 		scene->set_reference_array_property(node_array);
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		const Error err = packed_scene->pack(scene);
 		REQUIRE(err == OK);
 
@@ -208,19 +208,19 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with ov
 	GDREGISTER_CLASS(_TestInstancePlaceholderNode);
 
 	SUBCASE("with non-node values") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
-		Node *root = memnewOld(Node);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
+		Node *root = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
 		root->add_child(ip);
 		ip->set_name("TestScene");
 		ip->set("int_property", 45);
 		// Create a scene to pack.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
 		scene->set_int_property(12);
 
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		packed_scene->pack(scene);
 
 		// Instantiate the scene.
@@ -233,23 +233,23 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with ov
 	}
 
 	SUBCASE("with node values") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
 		ip->set_name("TestScene");
-		Node *root = memnewOld(Node);
-		Node *overriding = memnewOld(Node);
+		Node *root = memnewOldNoConstructor(Node);
+		Node *overriding = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
 		root->add_child(ip);
 		root->add_child(overriding);
 		ip->set("reference_property", overriding);
 		// Create a scene to instance.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
-		Node *referenced = memnewOld(Node);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
+		Node *referenced = memnewOldNoConstructor(Node);
 		scene->add_child(referenced);
 		referenced->set_owner(scene);
 		scene->set_reference_property(referenced);
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		const Error err = packed_scene->pack(scene);
 		REQUIRE(err == OK);
 
@@ -266,14 +266,14 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with ov
 	}
 
 	SUBCASE("with node-array value") {
-		InstancePlaceholder *ip = memnewOld(InstancePlaceholder);
+		InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
 		ip->set_name("TestScene");
-		Node *root = memnewOld(Node);
+		Node *root = memnewOldNoConstructor(Node);
 		SceneTree::get_singleton()->get_root()->add_child(root);
 
-		Node *override1 = memnewOld(Node);
-		Node *override2 = memnewOld(Node);
-		Node *override3 = memnewOld(Node);
+		Node *override1 = memnewOldNoConstructor(Node);
+		Node *override2 = memnewOldNoConstructor(Node);
+		Node *override3 = memnewOldNoConstructor(Node);
 		root->add_child(ip);
 		root->add_child(override1);
 		root->add_child(override2);
@@ -288,9 +288,9 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with ov
 		ip->set("reference_array_property", override_node_array);
 
 		// Create a scene to instance.
-		_TestInstancePlaceholderNode *scene = memnewOld(_TestInstancePlaceholderNode);
-		Node *referenced1 = memnewOld(Node);
-		Node *referenced2 = memnewOld(Node);
+		_TestInstancePlaceholderNode *scene = memnewOldNoConstructor(_TestInstancePlaceholderNode);
+		Node *referenced1 = memnewOldNoConstructor(Node);
+		Node *referenced2 = memnewOldNoConstructor(Node);
 
 		scene->add_child(referenced1);
 		scene->add_child(referenced2);
@@ -304,7 +304,7 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instantiate from placeholder with ov
 
 		scene->set_reference_array_property(referenced_array);
 		// Pack the scene.
-		PackedScene *packed_scene = memnewOld(PackedScene);
+		PackedScene *packed_scene = memnewOldNoConstructor(PackedScene);
 		const Error err = packed_scene->pack(scene);
 		REQUIRE(err == OK);
 
@@ -338,16 +338,16 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	GDREGISTER_CLASS(_TestInstancePlaceholderNode);
 
 	// Create the internal scene.
-	_TestInstancePlaceholderNode *internal = memnewOld(_TestInstancePlaceholderNode);
+	_TestInstancePlaceholderNode *internal = memnewOldNoConstructor(_TestInstancePlaceholderNode);
 	internal->set_name("InternalNode");
-	Node *referenced = memnewOld(Node);
+	Node *referenced = memnewOldNoConstructor(Node);
 	referenced->set_name("OriginalReference");
 	internal->add_child(referenced);
 	referenced->set_owner(internal);
 	internal->set_reference_property(referenced);
 
 	// Pack the internal scene.
-	PackedScene *internal_scene = memnewOld(PackedScene);
+	PackedScene *internal_scene = memnewOldNoConstructor(PackedScene);
 	Error err = internal_scene->pack(internal);
 	REQUIRE(err == OK);
 
@@ -359,9 +359,9 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	REQUIRE(err == OK);
 
 	// Create the main scene.
-	Node *root = memnewOld(Node);
+	Node *root = memnewOldNoConstructor(Node);
 	root->set_name("MainNode");
-	Node *overriding = memnewOld(Node);
+	Node *overriding = memnewOldNoConstructor(Node);
 	overriding->set_name("OverridingReference");
 
 	_TestInstancePlaceholderNode *internal_created = Object::cast_to<_TestInstancePlaceholderNode>(internal_scene_loaded->instantiate(PackedScene::GEN_EDIT_STATE_MAIN_INHERITED));
@@ -376,7 +376,7 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	internal_created->set("reference_property", NodePath("OriginalReference"));
 
 	// Pack the main scene.
-	PackedScene *main_scene = memnewOld(PackedScene);
+	PackedScene *main_scene = memnewOldNoConstructor(PackedScene);
 	err = main_scene->pack(root);
 	REQUIRE(err == OK);
 
@@ -413,19 +413,19 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	GDREGISTER_CLASS(_TestInstancePlaceholderNode);
 
 	// Create the internal scene.
-	_TestInstancePlaceholderNode *internal = memnewOld(_TestInstancePlaceholderNode);
+	_TestInstancePlaceholderNode *internal = memnewOldNoConstructor(_TestInstancePlaceholderNode);
 	internal->set_name("InternalNode");
-	Node *referenced = memnewOld(Node);
+	Node *referenced = memnewOldNoConstructor(Node);
 	referenced->set_name("OriginalReference");
 	internal->add_child(referenced);
 	referenced->set_owner(internal);
 	internal->set_reference_property(referenced);
 
-	Node *array_ref1 = memnewOld(Node);
+	Node *array_ref1 = memnewOldNoConstructor(Node);
 	array_ref1->set_name("ArrayRef1");
 	internal->add_child(array_ref1);
 	array_ref1->set_owner(internal);
-	Node *array_ref2 = memnewOld(Node);
+	Node *array_ref2 = memnewOldNoConstructor(Node);
 	array_ref2->set_name("ArrayRef2");
 	internal->add_child(array_ref2);
 	array_ref2->set_owner(internal);
@@ -436,7 +436,7 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	internal->set_reference_array_property(referenced_array);
 
 	// Pack the internal scene.
-	PackedScene *internal_scene = memnewOld(PackedScene);
+	PackedScene *internal_scene = memnewOldNoConstructor(PackedScene);
 	Error err = internal_scene->pack(internal);
 	REQUIRE(err == OK);
 
@@ -448,11 +448,11 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	REQUIRE(err == OK);
 
 	// Create the main scene.
-	Node *root = memnewOld(Node);
+	Node *root = memnewOldNoConstructor(Node);
 	root->set_name("MainNode");
-	Node *overriding = memnewOld(Node);
+	Node *overriding = memnewOldNoConstructor(Node);
 	overriding->set_name("OverridingReference");
-	Node *array_ext = memnewOld(Node);
+	Node *array_ext = memnewOldNoConstructor(Node);
 	array_ext->set_name("ExternalArrayMember");
 
 	_TestInstancePlaceholderNode *internal_created = Object::cast_to<_TestInstancePlaceholderNode>(internal_scene_loaded->instantiate(PackedScene::GEN_EDIT_STATE_MAIN_INHERITED));
@@ -477,7 +477,7 @@ TEST_CASE("[SceneTree][InstancePlaceholder] Instance a PackedScene containing an
 	internal_created->set_reference_array_property(override_array);
 
 	// Pack the main scene.
-	PackedScene *main_scene = memnewOld(PackedScene);
+	PackedScene *main_scene = memnewOldNoConstructor(PackedScene);
 	err = main_scene->pack(root);
 	REQUIRE(err == OK);
 

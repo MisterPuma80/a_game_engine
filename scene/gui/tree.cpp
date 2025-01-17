@@ -793,7 +793,7 @@ int TreeItem::get_custom_minimum_height() const {
 /* Item manipulation */
 
 TreeItem *TreeItem::create_child(int p_index) {
-	TreeItem *ti = memnewOld(TreeItem(tree));
+	TreeItem *ti = memnewOldWithArgs(TreeItem(tree));
 	if (tree) {
 		ti->cells.resize(tree->columns.size());
 		tree->queue_redraw();
@@ -4478,7 +4478,7 @@ TreeItem *Tree::create_item(TreeItem *p_parent, int p_index) {
 	} else {
 		if (!root) {
 			// No root exists, make the given item the new root.
-			ti = memnewOld(TreeItem(this));
+			ti = memnewOldWithArgs(TreeItem(this));
 			ERR_FAIL_NULL_V(ti, nullptr);
 			ti->cells.resize(columns.size());
 			ti->is_root = true;
@@ -5835,40 +5835,40 @@ Tree::Tree() {
 
 	set_focus_mode(FOCUS_ALL);
 
-	popup_menu = memnewOld(PopupMenu);
+	popup_menu = memnewOldNoConstructor(PopupMenu);
 	popup_menu->hide();
 	add_child(popup_menu, false, INTERNAL_MODE_FRONT);
 
-	popup_editor = memnewOld(Popup);
+	popup_editor = memnewOldNoConstructor(Popup);
 	add_child(popup_editor, false, INTERNAL_MODE_FRONT);
 
-	popup_editor_vb = memnewOld(VBoxContainer);
+	popup_editor_vb = memnewOldNoConstructor(VBoxContainer);
 	popup_editor_vb->add_theme_constant_override("separation", 0);
 	popup_editor_vb->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	popup_editor->add_child(popup_editor_vb);
 
-	line_editor = memnewOld(LineEdit);
+	line_editor = memnewOldNoConstructor(LineEdit);
 	line_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	line_editor->hide();
 	popup_editor_vb->add_child(line_editor);
 
-	text_editor = memnewOld(TextEdit);
+	text_editor = memnewOldNoConstructor(TextEdit);
 	text_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	text_editor->hide();
 	popup_editor_vb->add_child(text_editor);
 
-	value_editor = memnewOld(HSlider);
+	value_editor = memnewOldNoConstructor(HSlider);
 	value_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	value_editor->hide();
 	popup_editor_vb->add_child(value_editor);
 
-	h_scroll = memnewOld(HScrollBar);
-	v_scroll = memnewOld(VScrollBar);
+	h_scroll = memnewOldNoConstructor(HScrollBar);
+	v_scroll = memnewOldNoConstructor(VScrollBar);
 
 	add_child(h_scroll, false, INTERNAL_MODE_FRONT);
 	add_child(v_scroll, false, INTERNAL_MODE_FRONT);
 
-	range_click_timer = memnewOld(Timer);
+	range_click_timer = memnewOldNoConstructor(Timer);
 	range_click_timer->connect("timeout", callable_mp(this, &Tree::_range_click_timeout));
 	add_child(range_click_timer, false, INTERNAL_MODE_FRONT);
 

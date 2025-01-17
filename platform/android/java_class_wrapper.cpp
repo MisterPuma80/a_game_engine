@@ -980,7 +980,7 @@ Ref<JavaClass> JavaClassWrapper::wrap(const String &p_class) {
 
 	ERR_FAIL_NULL_V(methods, Ref<JavaClass>());
 
-	Ref<JavaClass> java_class = memnewOld(JavaClass);
+	Ref<JavaClass> java_class = memnewOldNoConstructor(JavaClass);
 
 	int count = env->GetArrayLength(methods);
 

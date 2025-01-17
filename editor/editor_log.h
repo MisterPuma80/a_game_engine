@@ -89,7 +89,7 @@ private:
 		Button *toggle_button = nullptr;
 
 		void initialize_button(const String &p_tooltip, Callable p_toggled_callback) {
-			toggle_button = memnewOld(Button);
+			toggle_button = memnewOldNoConstructor(Button);
 			toggle_button->set_toggle_mode(true);
 			toggle_button->set_pressed(true);
 			toggle_button->set_text(itos(message_count));

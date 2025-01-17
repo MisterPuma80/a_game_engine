@@ -1435,7 +1435,7 @@ private:
 
 	template <typename T>
 	T *alloc_node() {
-		T *node = memnewOld(T);
+		T *node = memnewOldNoConstructor(T);
 
 		node->next = list;
 		list = node;

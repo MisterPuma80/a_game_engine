@@ -2878,13 +2878,13 @@ void PopupMenu::set_visible(bool p_visible) {
 
 PopupMenu::PopupMenu() {
 	// Scroll Container
-	scroll_container = memnewOld(ScrollContainer);
+	scroll_container = memnewOldNoConstructor(ScrollContainer);
 	scroll_container->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	scroll_container->set_clip_contents(true);
 	add_child(scroll_container, false, INTERNAL_MODE_FRONT);
 
 	// The control which will display the items
-	control = memnewOld(Control);
+	control = memnewOldNoConstructor(Control);
 	control->set_clip_contents(false);
 	control->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	control->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -2892,13 +2892,13 @@ PopupMenu::PopupMenu() {
 	scroll_container->add_child(control, false, INTERNAL_MODE_FRONT);
 	control->connect(SceneStringName(draw), callable_mp(this, &PopupMenu::_draw_items));
 
-	submenu_timer = memnewOld(Timer);
+	submenu_timer = memnewOldNoConstructor(Timer);
 	submenu_timer->set_wait_time(0.3);
 	submenu_timer->set_one_shot(true);
 	submenu_timer->connect("timeout", callable_mp(this, &PopupMenu::_submenu_timeout));
 	add_child(submenu_timer, false, INTERNAL_MODE_FRONT);
 
-	minimum_lifetime_timer = memnewOld(Timer);
+	minimum_lifetime_timer = memnewOldNoConstructor(Timer);
 	minimum_lifetime_timer->set_wait_time(0.3);
 	minimum_lifetime_timer->set_one_shot(true);
 	minimum_lifetime_timer->connect("timeout", callable_mp(this, &PopupMenu::_minimum_lifetime_timeout));

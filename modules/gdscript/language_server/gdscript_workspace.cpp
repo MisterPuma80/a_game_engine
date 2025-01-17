@@ -421,7 +421,7 @@ Error GDScriptWorkspace::initialize() {
 }
 
 Error GDScriptWorkspace::parse_script(const String &p_path, const String &p_content) {
-	ExtendGDScriptParser *parser = memnewOld(ExtendGDScriptParser);
+	ExtendGDScriptParser *parser = memnewOldNoConstructor(ExtendGDScriptParser);
 	Error err = parser->parse(p_content, p_path);
 	HashMap<String, ExtendGDScriptParser *>::Iterator last_parser = parse_results.find(p_path);
 	HashMap<String, ExtendGDScriptParser *>::Iterator last_script = scripts.find(p_path);

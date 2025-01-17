@@ -1825,7 +1825,7 @@ void RendererCanvasCull::canvas_item_set_copy_to_backbuffer(RID p_item, bool p_e
 	Item *canvas_item = canvas_item_owner.get_or_null(p_item);
 	ERR_FAIL_NULL(canvas_item);
 	if (p_enable && (canvas_item->copy_back_buffer == nullptr)) {
-		canvas_item->copy_back_buffer = memnewOld(RendererCanvasRender::Item::CopyBackBuffer);
+		canvas_item->copy_back_buffer = memnewOldNoConstructor(RendererCanvasRender::Item::CopyBackBuffer);
 	}
 	if (!p_enable && (canvas_item->copy_back_buffer != nullptr)) {
 		memdelete(canvas_item->copy_back_buffer);
@@ -1943,7 +1943,7 @@ void RendererCanvasCull::canvas_item_set_canvas_group_mode(RID p_item, RS::Canva
 		}
 	} else {
 		if (canvas_item->canvas_group == nullptr) {
-			canvas_item->canvas_group = memnewOld(RendererCanvasRender::Item::CanvasGroup);
+			canvas_item->canvas_group = memnewOldNoConstructor(RendererCanvasRender::Item::CanvasGroup);
 		}
 		canvas_item->canvas_group->mode = p_mode;
 		canvas_item->canvas_group->fit_empty = p_fit_empty;

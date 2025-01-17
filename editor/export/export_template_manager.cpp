@@ -133,7 +133,7 @@ void ExportTemplateManager::_download_override_changed(bool p_toggled_on) {
 
 void ExportTemplateManager::_download_edit_changed(String p_new_text) {
 	String url = download_override_edit->get_text();
-	HTTPRequest *client = memnewOld(HTTPRequest);
+	HTTPRequest *client = memnewOldNoConstructor(HTTPRequest);
 	add_child(client);
 	client->connect("request_completed", callable_mp(this, &ExportTemplateManager::_refresh_mirrors_completed));
 	client->request(url);
@@ -489,7 +489,7 @@ bool ExportTemplateManager::_install_file_selected(const String &p_file, bool p_
 
 	EditorProgress *p = nullptr;
 	if (!p_skip_progress) {
-		p = memnewOld(EditorProgress("ltask", TTR("Extracting Export Templates"), fc));
+		p = memnewOldWithArgs(EditorProgress("ltask", TTR("Extracting Export Templates"), fc));
 	}
 
 	fc = 0;
@@ -908,24 +908,24 @@ ExportTemplateManager::ExportTemplateManager() {
 			String(VERSION_STATUS) != String("beta") &&
 			String(VERSION_STATUS) != String("rc");
 
-	VBoxContainer *main_vb = memnewOld(VBoxContainer);
+	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
 	add_child(main_vb);
 
 	// Current version controls.
-	HBoxContainer *current_hb = memnewOld(HBoxContainer);
+	HBoxContainer *current_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(current_hb);
 
-	Label *current_label = memnewOld(Label);
+	Label *current_label = memnewOldNoConstructor(Label);
 	current_label->set_theme_type_variation("HeaderSmall");
 	current_label->set_text(TTR("Current Version:"));
 	current_hb->add_child(current_label);
 
-	current_value = memnewOld(Label);
+	current_value = memnewOldNoConstructor(Label);
 	current_hb->add_child(current_value);
 
 	// Current version statuses.
 	// Status: Current version is missing.
-	current_missing_label = memnewOld(Label);
+	current_missing_label = memnewOldNoConstructor(Label);
 	current_missing_label->set_theme_type_variation("HeaderSmall");
 
 	current_missing_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -938,7 +938,7 @@ ExportTemplateManager::ExportTemplateManager() {
 	current_hb->add_child(current_missing_label);
 
 	// Status: Current version is installed.
-	current_installed_label = memnewOld(Label);
+	current_installed_label = memnewOldNoConstructor(Label);
 	current_installed_label->set_theme_type_variation("HeaderSmall");
 	current_installed_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	current_installed_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -947,47 +947,47 @@ ExportTemplateManager::ExportTemplateManager() {
 	current_installed_label->hide();
 
 	// Currently installed template.
-	current_installed_hb = memnewOld(HBoxContainer);
+	current_installed_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(current_installed_hb);
 
-	current_installed_path = memnewOld(LineEdit);
+	current_installed_path = memnewOldNoConstructor(LineEdit);
 	current_installed_path->set_editable(false);
 	current_installed_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	current_installed_hb->add_child(current_installed_path);
 
 #ifndef ANDROID_ENABLED
-	Button *current_open_button = memnewOld(Button);
+	Button *current_open_button = memnewOldNoConstructor(Button);
 	current_open_button->set_text(TTR("Open Folder"));
 	current_open_button->set_tooltip_text(TTR("Open the folder containing installed templates for the current version."));
 	current_installed_hb->add_child(current_open_button);
 	current_open_button->connect(SceneStringName(pressed), callable_mp(this, &ExportTemplateManager::_open_template_folder).bind(EXTERNAL_VERSION_FULL_CONFIG));
 #endif
 
-	current_uninstall_button = memnewOld(Button);
+	current_uninstall_button = memnewOldNoConstructor(Button);
 	current_uninstall_button->set_text(TTR("Uninstall"));
 	current_uninstall_button->set_tooltip_text(TTR("Uninstall templates for the current version."));
 	current_installed_hb->add_child(current_uninstall_button);
 	current_uninstall_button->connect(SceneStringName(pressed), callable_mp(this, &ExportTemplateManager::_uninstall_template).bind(EXTERNAL_VERSION_FULL_CONFIG));
 
-	main_vb->add_child(memnewOld(HSeparator));
+	main_vb->add_child(memnewOldNoConstructor(HSeparator));
 
 	// Download and install section.
-	HBoxContainer *install_templates_hb = memnewOld(HBoxContainer);
+	HBoxContainer *install_templates_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(install_templates_hb);
 
 	// Download and install buttons are available.
-	install_options_vb = memnewOld(VBoxContainer);
+	install_options_vb = memnewOldNoConstructor(VBoxContainer);
 	install_options_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	install_templates_hb->add_child(install_options_vb);
 
-	HBoxContainer *download_install_hb = memnewOld(HBoxContainer);
+	HBoxContainer *download_install_hb = memnewOldNoConstructor(HBoxContainer);
 	install_options_vb->add_child(download_install_hb);
 
-	Label *mirrors_label = memnewOld(Label);
+	Label *mirrors_label = memnewOldNoConstructor(Label);
 	mirrors_label->set_text(TTR("Download from:"));
 	download_install_hb->add_child(mirrors_label);
 
-	mirrors_list = memnewOld(OptionButton);
+	mirrors_list = memnewOldNoConstructor(OptionButton);
 	mirrors_list->set_custom_minimum_size(Size2(280, 0) * EDSCALE);
 	if (downloads_available) {
 		mirrors_list->add_item(TTR("Best available mirror"), 0);
@@ -997,11 +997,11 @@ ExportTemplateManager::ExportTemplateManager() {
 	}
 	download_install_hb->add_child(mirrors_list);
 
-	request_mirrors = memnewOld(HTTPRequest);
+	request_mirrors = memnewOldNoConstructor(HTTPRequest);
 	mirrors_list->add_child(request_mirrors);
 	request_mirrors->connect("request_completed", callable_mp(this, &ExportTemplateManager::_refresh_mirrors_completed));
 
-	mirror_options_button = memnewOld(MenuButton);
+	mirror_options_button = memnewOldNoConstructor(MenuButton);
 	mirror_options_button->get_popup()->add_item(TTR("Open in Web Browser"), VISIT_WEB_MIRROR);
 	mirror_options_button->get_popup()->add_item(TTR("Copy Mirror URL"), COPY_MIRROR_URL);
 	mirror_options_button->set_disabled(!downloads_available);
@@ -1010,7 +1010,7 @@ ExportTemplateManager::ExportTemplateManager() {
 
 	download_install_hb->add_spacer();
 
-	Button *download_current_button = memnewOld(Button);
+	Button *download_current_button = memnewOldNoConstructor(Button);
 	download_current_button->set_text(TTR("Download and Install"));
 	download_current_button->set_tooltip_text(TTR("Download and install templates for the current version from the best possible mirror."));
 	download_install_hb->add_child(download_current_button);
@@ -1022,16 +1022,16 @@ ExportTemplateManager::ExportTemplateManager() {
 		download_current_button->set_tooltip_text(TTR("Official export templates aren't available for development builds."));
 	}
 
-	HBoxContainer *install_file_hb = memnewOld(HBoxContainer);
+	HBoxContainer *install_file_hb = memnewOldNoConstructor(HBoxContainer);
 	install_file_hb->set_alignment(BoxContainer::ALIGNMENT_END);
 	install_options_vb->add_child(install_file_hb);
 
-	CheckButton *download_override_checkbox = memnewOld(CheckButton);
+	CheckButton *download_override_checkbox = memnewOldNoConstructor(CheckButton);
 	download_override_checkbox->set_text(TTR("Download from URL:"));
 	download_override_checkbox->connect("toggled", callable_mp(this, &ExportTemplateManager::_download_override_changed));
 	install_file_hb->add_child(download_override_checkbox);
 
-	download_override_edit = memnewOld(LineEdit);
+	download_override_edit = memnewOldNoConstructor(LineEdit);
 	download_override_edit->set_placeholder("http://");
 	download_override_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	download_override_edit->connect("text_changed", callable_mp(this, &ExportTemplateManager::_download_edit_changed));
@@ -1040,19 +1040,19 @@ ExportTemplateManager::ExportTemplateManager() {
 
 	install_file_hb->add_spacer();
 
-	install_file_button = memnewOld(Button);
+	install_file_button = memnewOldNoConstructor(Button);
 	install_file_button->set_text(TTR("Install from File"));
 	install_file_button->set_tooltip_text(TTR("Install templates from a local file."));
 	install_file_hb->add_child(install_file_button);
 	install_file_button->connect(SceneStringName(pressed), callable_mp(this, &ExportTemplateManager::_install_file));
 
 	// Templates are being downloaded; buttons unavailable.
-	download_progress_hb = memnewOld(HBoxContainer);
+	download_progress_hb = memnewOldNoConstructor(HBoxContainer);
 	download_progress_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	install_templates_hb->add_child(download_progress_hb);
 	download_progress_hb->hide();
 
-	download_progress_bar = memnewOld(ProgressBar);
+	download_progress_bar = memnewOldNoConstructor(ProgressBar);
 	download_progress_bar->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	download_progress_bar->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	download_progress_bar->set_min(0);
@@ -1062,31 +1062,31 @@ ExportTemplateManager::ExportTemplateManager() {
 	download_progress_bar->set_editor_preview_indeterminate(true);
 	download_progress_hb->add_child(download_progress_bar);
 
-	download_progress_label = memnewOld(Label);
+	download_progress_label = memnewOldNoConstructor(Label);
 	download_progress_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	download_progress_hb->add_child(download_progress_label);
 
-	Button *download_cancel_button = memnewOld(Button);
+	Button *download_cancel_button = memnewOldNoConstructor(Button);
 	download_cancel_button->set_text(TTR("Cancel"));
 	download_cancel_button->set_tooltip_text(TTR("Cancel the download of the templates."));
 	download_progress_hb->add_child(download_cancel_button);
 	download_cancel_button->connect(SceneStringName(pressed), callable_mp(this, &ExportTemplateManager::_cancel_template_download));
 
-	download_templates = memnewOld(HTTPRequest);
+	download_templates = memnewOldNoConstructor(HTTPRequest);
 	install_templates_hb->add_child(download_templates);
 	download_templates->connect("request_completed", callable_mp(this, &ExportTemplateManager::_download_template_completed));
 
-	main_vb->add_child(memnewOld(HSeparator));
+	main_vb->add_child(memnewOldNoConstructor(HSeparator));
 
 	// Other installed templates table.
-	HBoxContainer *installed_versions_hb = memnewOld(HBoxContainer);
+	HBoxContainer *installed_versions_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(installed_versions_hb);
-	Label *installed_label = memnewOld(Label);
+	Label *installed_label = memnewOldNoConstructor(Label);
 	installed_label->set_theme_type_variation("HeaderSmall");
 	installed_label->set_text(TTR("Other Installed Versions:"));
 	installed_versions_hb->add_child(installed_label);
 
-	installed_table = memnewOld(Tree);
+	installed_table = memnewOldNoConstructor(Tree);
 	installed_table->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	installed_table->set_hide_root(true);
 	installed_table->set_custom_minimum_size(Size2(0, 100) * EDSCALE);
@@ -1095,12 +1095,12 @@ ExportTemplateManager::ExportTemplateManager() {
 	installed_table->connect("button_clicked", callable_mp(this, &ExportTemplateManager::_installed_table_button_cbk));
 
 	// Dialogs.
-	uninstall_confirm = memnewOld(ConfirmationDialog);
+	uninstall_confirm = memnewOldNoConstructor(ConfirmationDialog);
 	uninstall_confirm->set_title(TTR("Uninstall Template"));
 	add_child(uninstall_confirm);
 	uninstall_confirm->connect(SceneStringName(confirmed), callable_mp(this, &ExportTemplateManager::_uninstall_template_confirmed));
 
-	install_file_dialog = memnewOld(FileDialog);
+	install_file_dialog = memnewOldNoConstructor(FileDialog);
 	install_file_dialog->set_title(TTR("Select Template File"));
 	install_file_dialog->set_access(FileDialog::ACCESS_FILESYSTEM);
 	install_file_dialog->set_file_mode(FileDialog::FILE_MODE_OPEN_FILE);
@@ -1109,7 +1109,7 @@ ExportTemplateManager::ExportTemplateManager() {
 	install_file_dialog->connect("file_selected", callable_mp(this, &ExportTemplateManager::_install_file_selected).bind(false));
 	add_child(install_file_dialog);
 
-	hide_dialog_accept = memnewOld(AcceptDialog);
+	hide_dialog_accept = memnewOldNoConstructor(AcceptDialog);
 	hide_dialog_accept->set_text(TTR("The templates will continue to download.\nYou may experience a short editor freeze when they finish."));
 	add_child(hide_dialog_accept);
 	hide_dialog_accept->connect(SceneStringName(confirmed), callable_mp(this, &ExportTemplateManager::_hide_dialog));

@@ -322,7 +322,7 @@ void ResourceImporterScene::_pre_fix_global(Node *p_scene, const HashMap<StringN
 	if (p_options.has("animation/import_rest_as_RESET") && (bool)p_options["animation/import_rest_as_RESET"]) {
 		TypedArray<Node> anim_players = p_scene->find_children("*", "AnimationPlayer");
 		if (anim_players.is_empty()) {
-			AnimationPlayer *anim_player = memnewOld(AnimationPlayer);
+			AnimationPlayer *anim_player = memnewOldNoConstructor(AnimationPlayer);
 			anim_player->set_name("AnimationPlayer");
 			p_scene->add_child(anim_player);
 			anim_player->set_owner(p_scene);
@@ -764,7 +764,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 				}
 
 				if (shapes.size()) {
-					StaticBody3D *col = memnewOld(StaticBody3D);
+					StaticBody3D *col = memnewOldNoConstructor(StaticBody3D);
 					col->set_transform(mi->get_transform());
 					col->set_name(fixed_name);
 					_copy_meta(p_node, col);
@@ -779,7 +779,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 
 		} else if (p_node->has_meta("empty_draw_type")) {
 			String empty_draw_type = String(p_node->get_meta("empty_draw_type"));
-			StaticBody3D *sb = memnewOld(StaticBody3D);
+			StaticBody3D *sb = memnewOldNoConstructor(StaticBody3D);
 			sb->set_name(fixed_name);
 			Object::cast_to<Node3D>(sb)->set_transform(Object::cast_to<Node3D>(p_node)->get_transform());
 			_copy_meta(p_node, sb);
@@ -787,21 +787,21 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 			p_node->set_owner(nullptr);
 			memdelete(p_node);
 			p_node = sb;
-			CollisionShape3D *colshape = memnewOld(CollisionShape3D);
+			CollisionShape3D *colshape = memnewOldNoConstructor(CollisionShape3D);
 			if (empty_draw_type == "CUBE") {
-				BoxShape3D *boxShape = memnewOld(BoxShape3D);
+				BoxShape3D *boxShape = memnewOldNoConstructor(BoxShape3D);
 				boxShape->set_size(Vector3(2, 2, 2));
 				colshape->set_shape(boxShape);
 			} else if (empty_draw_type == "SINGLE_ARROW") {
-				SeparationRayShape3D *rayShape = memnewOld(SeparationRayShape3D);
+				SeparationRayShape3D *rayShape = memnewOldNoConstructor(SeparationRayShape3D);
 				rayShape->set_length(1);
 				colshape->set_shape(rayShape);
 				Object::cast_to<Node3D>(sb)->rotate_x(Math_PI / 2);
 			} else if (empty_draw_type == "IMAGE") {
-				WorldBoundaryShape3D *world_boundary_shape = memnewOld(WorldBoundaryShape3D);
+				WorldBoundaryShape3D *world_boundary_shape = memnewOldNoConstructor(WorldBoundaryShape3D);
 				colshape->set_shape(world_boundary_shape);
 			} else {
-				SphereShape3D *sphereShape = memnewOld(SphereShape3D);
+				SphereShape3D *sphereShape = memnewOldNoConstructor(SphereShape3D);
 				sphereShape->set_radius(1);
 				colshape->set_shape(sphereShape);
 			}
@@ -825,7 +825,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 				_pre_gen_shape_list(mesh, shapes, true);
 			}
 
-			RigidBody3D *rigid_body = memnewOld(RigidBody3D);
+			RigidBody3D *rigid_body = memnewOldNoConstructor(RigidBody3D);
 			rigid_body->set_name(_fixstr(name, "rigid_body"));
 			_copy_meta(p_node, rigid_body);
 			p_node->replace_by(rigid_body);
@@ -869,7 +869,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 			}
 
 			if (shapes.size()) {
-				StaticBody3D *col = memnewOld(StaticBody3D);
+				StaticBody3D *col = memnewOldNoConstructor(StaticBody3D);
 				mi->add_child(col, true);
 				col->set_owner(mi->get_owner());
 
@@ -886,7 +886,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 
 		Ref<ImporterMesh> mesh = mi->get_mesh();
 		ERR_FAIL_COND_V(mesh.is_null(), nullptr);
-		NavigationRegion3D *nmi = memnewOld(NavigationRegion3D);
+		NavigationRegion3D *nmi = memnewOldNoConstructor(NavigationRegion3D);
 
 		nmi->set_name(_fixstr(name, "navmesh"));
 		Ref<NavigationMesh> nmesh = mesh->create_navigation_mesh();
@@ -930,7 +930,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 
 		Node *owner = p_node->get_owner();
 		Node3D *s = Object::cast_to<Node3D>(p_node);
-		VehicleBody3D *bv = memnewOld(VehicleBody3D);
+		VehicleBody3D *bv = memnewOldNoConstructor(VehicleBody3D);
 		String n = _fixstr(p_node->get_name(), "vehicle");
 		bv->set_name(n);
 		_copy_meta(p_node, bv);
@@ -950,7 +950,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 
 		Node *owner = p_node->get_owner();
 		Node3D *s = Object::cast_to<Node3D>(p_node);
-		VehicleWheel3D *bv = memnewOld(VehicleWheel3D);
+		VehicleWheel3D *bv = memnewOldNoConstructor(VehicleWheel3D);
 		String n = _fixstr(p_node->get_name(), "wheel");
 		bv->set_name(n);
 		_copy_meta(p_node, bv);
@@ -989,7 +989,7 @@ Node *ResourceImporterScene::_pre_fix_node(Node *p_node, Node *p_root, HashMap<R
 			}
 
 			if (shapes.size()) {
-				StaticBody3D *col = memnewOld(StaticBody3D);
+				StaticBody3D *col = memnewOldNoConstructor(StaticBody3D);
 				p_node->add_child(col, true);
 				col->set_owner(p_node->get_owner());
 
@@ -1552,7 +1552,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 						CollisionObject3D *base = nullptr;
 						switch (mesh_physics_mode) {
 							case MESH_PHYSICS_MESH_AND_STATIC_COLLIDER: {
-								StaticBody3D *col = memnewOld(StaticBody3D);
+								StaticBody3D *col = memnewOldNoConstructor(StaticBody3D);
 								p_node->add_child(col, true);
 								col->set_owner(p_node->get_owner());
 								col->set_transform(get_collision_shapes_transform(node_settings));
@@ -1564,7 +1564,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 								base = col;
 							} break;
 							case MESH_PHYSICS_RIGID_BODY_AND_MESH: {
-								RigidBody3D *rigid_body = memnewOld(RigidBody3D);
+								RigidBody3D *rigid_body = memnewOldNoConstructor(RigidBody3D);
 								rigid_body->set_name(p_node->get_name());
 								_copy_meta(p_node, rigid_body);
 								p_node->replace_by(rigid_body);
@@ -1581,7 +1581,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 								base = rigid_body;
 							} break;
 							case MESH_PHYSICS_STATIC_COLLIDER_ONLY: {
-								StaticBody3D *col = memnewOld(StaticBody3D);
+								StaticBody3D *col = memnewOldNoConstructor(StaticBody3D);
 								col->set_transform(mi->get_transform() * get_collision_shapes_transform(node_settings));
 								col->set_position(p_applied_root_scale * col->get_position());
 								col->set_name(p_node->get_name());
@@ -1597,7 +1597,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 								base = col;
 							} break;
 							case MESH_PHYSICS_AREA_ONLY: {
-								Area3D *area = memnewOld(Area3D);
+								Area3D *area = memnewOldNoConstructor(Area3D);
 								area->set_transform(mi->get_transform() * get_collision_shapes_transform(node_settings));
 								area->set_position(p_applied_root_scale * area->get_position());
 								area->set_name(p_node->get_name());
@@ -1615,7 +1615,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 						base->set_collision_mask(node_settings["physics/mask"]);
 
 						for (const Ref<Shape3D> &E : shapes) {
-							CollisionShape3D *cshape = memnewOld(CollisionShape3D);
+							CollisionShape3D *cshape = memnewOldNoConstructor(CollisionShape3D);
 							cshape->set_shape(E);
 							base->add_child(cshape, true);
 
@@ -1638,7 +1638,7 @@ Node *ResourceImporterScene::_post_fix_node(Node *p_node, Node *p_root, HashMap<
 				int navmesh_mode = node_settings["generate/navmesh"];
 
 				if (navmesh_mode != NAVMESH_DISABLED) {
-					NavigationRegion3D *nmi = memnewOld(NavigationRegion3D);
+					NavigationRegion3D *nmi = memnewOldNoConstructor(NavigationRegion3D);
 
 					Ref<NavigationMesh> nmesh = m->create_navigation_mesh();
 					nmi->set_navigation_mesh(nmesh);
@@ -1802,7 +1802,7 @@ void ResourceImporterScene::_create_slices(AnimationPlayer *ap, Ref<Animation> a
 			continue;
 		}
 
-		Ref<Animation> new_anim = memnewOld(Animation);
+		Ref<Animation> new_anim = memnewOldNoConstructor(Animation);
 
 		for (int j = 0; j < anim->get_track_count(); j++) {
 			List<float> keys;
@@ -2434,7 +2434,7 @@ Node *ResourceImporterScene::_generate_meshes(Node *p_node, const Dictionary &p_
 	ImporterMeshInstance3D *src_mesh_node = Object::cast_to<ImporterMeshInstance3D>(p_node);
 	if (src_mesh_node) {
 		//is mesh
-		MeshInstance3D *mesh_node = memnewOld(MeshInstance3D);
+		MeshInstance3D *mesh_node = memnewOldNoConstructor(MeshInstance3D);
 		mesh_node->set_name(src_mesh_node->get_name());
 		mesh_node->set_transform(src_mesh_node->get_transform());
 		mesh_node->set_skin(src_mesh_node->get_skin());
@@ -2628,7 +2628,7 @@ Node *ResourceImporterScene::_generate_meshes(Node *p_node, const Dictionary &p_
 
 void ResourceImporterScene::_add_shapes(Node *p_node, const Vector<Ref<Shape3D>> &p_shapes) {
 	for (const Ref<Shape3D> &E : p_shapes) {
-		CollisionShape3D *cshape = memnewOld(CollisionShape3D);
+		CollisionShape3D *cshape = memnewOldNoConstructor(CollisionShape3D);
 		cshape->set_shape(E);
 		p_node->add_child(cshape, true);
 
@@ -3024,9 +3024,9 @@ Error ResourceImporterScene::import(const String &p_source_file, const String &p
 	}
 
 	if (!occluder_arrays.first.is_empty() && !occluder_arrays.second.is_empty()) {
-		Ref<ArrayOccluder3D> occ = memnewOld(ArrayOccluder3D);
+		Ref<ArrayOccluder3D> occ = memnewOldNoConstructor(ArrayOccluder3D);
 		occ->set_arrays(occluder_arrays.first, occluder_arrays.second);
-		OccluderInstance3D *occluder_instance = memnewOld(OccluderInstance3D);
+		OccluderInstance3D *occluder_instance = memnewOldNoConstructor(OccluderInstance3D);
 		occluder_instance->set_occluder(occ);
 		scene->add_child(occluder_instance, true);
 		occluder_instance->set_owner(scene);
@@ -3072,7 +3072,7 @@ Error ResourceImporterScene::import(const String &p_source_file, const String &p
 		if (!scr.is_valid()) {
 			EditorNode::add_io_error(TTR("Couldn't load post-import script:") + " " + post_import_script_path);
 		} else {
-			post_import_script = Ref<EditorScenePostImport>(memnewOld(EditorScenePostImport));
+			post_import_script = Ref<EditorScenePostImport>(memnewOldNoConstructor(EditorScenePostImport));
 			post_import_script->set_script(scr);
 			if (!post_import_script->get_script_instance()) {
 				EditorNode::add_io_error(TTR("Invalid/broken script for post-import (check console):") + " " + post_import_script_path);
@@ -3127,7 +3127,7 @@ Error ResourceImporterScene::import(const String &p_source_file, const String &p
 		ERR_FAIL_COND_V_MSG(err != OK, err, "Cannot save animation to file '" + p_save_path + ".res'.");
 
 	} else {
-		Ref<PackedScene> packer = memnewOld(PackedScene);
+		Ref<PackedScene> packer = memnewOldNoConstructor(PackedScene);
 		packer->pack(scene);
 		print_verbose("Saving scene to: " + p_save_path + ".scn");
 		err = ResourceSaver::save(packer, p_save_path + ".scn", flags); //do not take over, let the changed files reload themselves
@@ -3236,7 +3236,7 @@ Node *EditorSceneFormatImporterESCN::import_scene(const String &p_path, uint32_t
 		Ref<ImporterMesh> mesh;
 		mesh.instantiate();
 		// Ignore the aabb, it will be recomputed.
-		ImporterMeshInstance3D *importer_mesh_3d = memnewOld(ImporterMeshInstance3D);
+		ImporterMeshInstance3D *importer_mesh_3d = memnewOldNoConstructor(ImporterMeshInstance3D);
 		importer_mesh_3d->set_name(mesh_3d->get_name());
 		importer_mesh_3d->set_transform(mesh_3d->get_relative_transform(mesh_3d->get_parent()));
 		importer_mesh_3d->set_skin(mesh_3d->get_skin());

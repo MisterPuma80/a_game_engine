@@ -895,7 +895,7 @@ Variant EditorProperty::get_drag_data(const Point2 &p_point) {
 	dp["property"] = property;
 	dp["value"] = object->get(property);
 
-	Label *drag_label = memnewOld(Label);
+	Label *drag_label = memnewOldNoConstructor(Label);
 	drag_label->set_text(property);
 	set_drag_preview(drag_label);
 	return dp;
@@ -997,7 +997,7 @@ Control *EditorProperty::make_custom_tooltip(const String &p_text) const {
 	}
 
 	if (has_doc_tooltip || !custom_warning.is_empty()) {
-		EditorHelpBit *help_bit = memnewOld(EditorHelpBit);
+		EditorHelpBit *help_bit = memnewOldNoConstructor(EditorHelpBit);
 
 		if (has_doc_tooltip) {
 			help_bit->parse_symbol(p_text);
@@ -1020,7 +1020,7 @@ Control *EditorProperty::make_custom_tooltip(const String &p_text) const {
 		}
 
 		EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<EditorProperty *>(this));
-		return memnewOld(Control); // Make the standard tooltip invisible.
+		return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
 	}
 
 	return nullptr;
@@ -1122,7 +1122,7 @@ void EditorProperty::_update_popup() {
 	if (menu) {
 		menu->clear();
 	} else {
-		menu = memnewOld(PopupMenu);
+		menu = memnewOldNoConstructor(PopupMenu);
 		add_child(menu);
 		menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorProperty::menu_option));
 	}
@@ -1276,9 +1276,9 @@ Control *EditorInspectorCategory::make_custom_tooltip(const String &p_text) cons
 		return nullptr;
 	}
 
-	EditorHelpBit *help_bit = memnewOld(EditorHelpBit(p_text));
+	EditorHelpBit *help_bit = memnewOldWithArgs(EditorHelpBit(p_text));
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<EditorInspectorCategory *>(this));
-	return memnewOld(Control); // Make the standard tooltip invisible.
+	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
 }
 
 Size2 EditorInspectorCategory::get_minimum_size() const {
@@ -1326,7 +1326,7 @@ void EditorInspectorCategory::gui_input(const Ref<InputEvent> &p_event) {
 }
 
 EditorInspectorCategory::EditorInspectorCategory() {
-	menu = memnewOld(PopupMenu);
+	menu = memnewOldNoConstructor(PopupMenu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorInspectorCategory::_handle_menu_option));
 	menu->add_item(TTR("Open Documentation"), MENU_OPEN_DOCS);
 	add_child(menu);
@@ -1690,9 +1690,9 @@ void EditorInspectorSection::_bind_methods() {
 }
 
 EditorInspectorSection::EditorInspectorSection() {
-	vbox = memnewOld(VBoxContainer);
+	vbox = memnewOldNoConstructor(VBoxContainer);
 
-	dropping_unfold_timer = memnewOld(Timer);
+	dropping_unfold_timer = memnewOldNoConstructor(Timer);
 	dropping_unfold_timer->set_wait_time(0.6);
 	dropping_unfold_timer->set_one_shot(true);
 	add_child(dropping_unfold_timer);
@@ -2201,7 +2201,7 @@ void EditorInspectorArray::_setup() {
 		ArrayElement &ae = array_elements[i];
 
 		// Panel and its hbox.
-		ae.panel = memnewOld(PanelContainer);
+		ae.panel = memnewOldNoConstructor(PanelContainer);
 		ae.panel->set_focus_mode(FOCUS_ALL);
 		ae.panel->set_mouse_filter(MOUSE_FILTER_PASS);
 		SET_DRAG_FORWARDING_GCD(ae.panel, EditorInspectorArray);
@@ -2216,7 +2216,7 @@ void EditorInspectorArray::_setup() {
 		ae.panel->add_theme_style_override(SceneStringName(panel), i % 2 ? odd_style : even_style);
 		elements_vbox->add_child(ae.panel);
 
-		ae.margin = memnewOld(MarginContainer);
+		ae.margin = memnewOldNoConstructor(MarginContainer);
 		ae.margin->set_mouse_filter(MOUSE_FILTER_PASS);
 		if (is_inside_tree()) {
 			Size2 min_size = get_theme_stylebox(SNAME("Focus"), EditorStringName(EditorStyles))->get_minimum_size();
@@ -2229,26 +2229,26 @@ void EditorInspectorArray::_setup() {
 		}
 		ae.panel->add_child(ae.margin);
 
-		ae.hbox = memnewOld(HBoxContainer);
+		ae.hbox = memnewOldNoConstructor(HBoxContainer);
 		ae.hbox->set_h_size_flags(SIZE_EXPAND_FILL);
 		ae.hbox->set_v_size_flags(SIZE_EXPAND_FILL);
 		ae.margin->add_child(ae.hbox);
 
 		// Move button.
 		if (movable) {
-			VBoxContainer *move_vbox = memnewOld(VBoxContainer);
+			VBoxContainer *move_vbox = memnewOldNoConstructor(VBoxContainer);
 			move_vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 			move_vbox->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 			ae.hbox->add_child(move_vbox);
 
 			if (element_position > 0) {
-				ae.move_up = memnewOld(Button);
+				ae.move_up = memnewOldNoConstructor(Button);
 				ae.move_up->set_icon(get_editor_theme_icon(SNAME("MoveUp")));
 				ae.move_up->connect(SceneStringName(pressed), callable_mp(this, &EditorInspectorArray::_move_element).bind(element_position, element_position - 1));
 				move_vbox->add_child(ae.move_up);
 			}
 
-			ae.move_texture_rect = memnewOld(TextureRect);
+			ae.move_texture_rect = memnewOldNoConstructor(TextureRect);
 			ae.move_texture_rect->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 			ae.move_texture_rect->set_default_cursor_shape(Control::CURSOR_MOVE);
 
@@ -2258,7 +2258,7 @@ void EditorInspectorArray::_setup() {
 			move_vbox->add_child(ae.move_texture_rect);
 
 			if (element_position < _get_array_count() - 1) {
-				ae.move_down = memnewOld(Button);
+				ae.move_down = memnewOldNoConstructor(Button);
 				ae.move_down->set_icon(get_editor_theme_icon(SNAME("MoveDown")));
 				ae.move_down->connect(SceneStringName(pressed), callable_mp(this, &EditorInspectorArray::_move_element).bind(element_position, element_position + 2));
 				move_vbox->add_child(ae.move_down);
@@ -2266,7 +2266,7 @@ void EditorInspectorArray::_setup() {
 		}
 
 		if (numbered) {
-			ae.number = memnewOld(Label);
+			ae.number = memnewOldNoConstructor(Label);
 			ae.number->add_theme_font_override(SceneStringName(font), numbers_font);
 			ae.number->set_custom_minimum_size(Size2(numbers_min_w, 0));
 			ae.number->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -2276,12 +2276,12 @@ void EditorInspectorArray::_setup() {
 		}
 
 		// Right vbox.
-		ae.vbox = memnewOld(VBoxContainer);
+		ae.vbox = memnewOldNoConstructor(VBoxContainer);
 		ae.vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 		ae.vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 		ae.hbox->add_child(ae.vbox);
 
-		ae.erase = memnewOld(Button);
+		ae.erase = memnewOldNoConstructor(Button);
 		ae.erase->set_icon(get_editor_theme_icon(SNAME("Remove")));
 		ae.erase->set_v_size_flags(SIZE_SHRINK_CENTER);
 		ae.erase->connect(SceneStringName(pressed), callable_mp(this, &EditorInspectorArray::_remove_item).bind(element_position));
@@ -2293,7 +2293,7 @@ void EditorInspectorArray::_setup() {
 
 	// Add paginator if there's more than 1 page.
 	if (max_page > 0) {
-		EditorPaginator *paginator = memnewOld(EditorPaginator);
+		EditorPaginator *paginator = memnewOldNoConstructor(EditorPaginator);
 		paginator->update(page, max_page);
 		paginator->connect("page_changed", callable_mp(this, &EditorInspectorArray::_paginator_page_changed));
 		vbox->add_child(paginator);
@@ -2455,7 +2455,7 @@ EditorInspectorArray::EditorInspectorArray(bool p_read_only) {
 	odd_style.instantiate();
 	even_style.instantiate();
 
-	rmb_popup = memnewOld(PopupMenu);
+	rmb_popup = memnewOldNoConstructor(PopupMenu);
 	rmb_popup->add_item(TTR("Move Up"), OPTION_MOVE_UP);
 	rmb_popup->add_item(TTR("Move Down"), OPTION_MOVE_DOWN);
 	rmb_popup->add_separator();
@@ -2469,7 +2469,7 @@ EditorInspectorArray::EditorInspectorArray(bool p_read_only) {
 	rmb_popup->connect(SceneStringName(id_pressed), callable_mp(this, &EditorInspectorArray::_rmb_popup_id_pressed));
 	add_child(rmb_popup);
 
-	elements_vbox = memnewOld(VBoxContainer);
+	elements_vbox = memnewOldNoConstructor(VBoxContainer);
 	elements_vbox->add_theme_constant_override("separation", 0);
 	vbox->add_child(elements_vbox);
 
@@ -2478,21 +2478,21 @@ EditorInspectorArray::EditorInspectorArray(bool p_read_only) {
 	add_button->set_disabled(read_only);
 	vbox->add_child(add_button);
 
-	control_dropping = memnewOld(Control);
+	control_dropping = memnewOldNoConstructor(Control);
 	control_dropping->connect(SceneStringName(draw), callable_mp(this, &EditorInspectorArray::_control_dropping_draw));
 	control_dropping->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	add_child(control_dropping);
 
-	resize_dialog = memnewOld(AcceptDialog);
+	resize_dialog = memnewOldNoConstructor(AcceptDialog);
 	resize_dialog->set_title(TTRC("Resize Array"));
 	resize_dialog->add_cancel_button();
 	resize_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorInspectorArray::_resize_dialog_confirmed));
 	add_child(resize_dialog);
 
-	VBoxContainer *resize_dialog_vbox = memnewOld(VBoxContainer);
+	VBoxContainer *resize_dialog_vbox = memnewOldNoConstructor(VBoxContainer);
 	resize_dialog->add_child(resize_dialog_vbox);
 
-	new_size_spin_box = memnewOld(SpinBox);
+	new_size_spin_box = memnewOldNoConstructor(SpinBox);
 	new_size_spin_box->set_max(16384);
 	new_size_spin_box->connect(SceneStringName(value_changed), callable_mp(this, &EditorInspectorArray::_new_size_spin_box_value_changed));
 	new_size_spin_box->get_line_edit()->connect("text_submitted", callable_mp(this, &EditorInspectorArray::_new_size_spin_box_text_submitted));
@@ -2567,30 +2567,30 @@ EditorPaginator::EditorPaginator() {
 	set_h_size_flags(SIZE_EXPAND_FILL);
 	set_alignment(ALIGNMENT_CENTER);
 
-	first_page_button = memnewOld(Button);
+	first_page_button = memnewOldNoConstructor(Button);
 	first_page_button->set_flat(true);
 	first_page_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPaginator::_first_page_button_pressed));
 	add_child(first_page_button);
 
-	prev_page_button = memnewOld(Button);
+	prev_page_button = memnewOldNoConstructor(Button);
 	prev_page_button->set_flat(true);
 	prev_page_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPaginator::_prev_page_button_pressed));
 	add_child(prev_page_button);
 
-	page_line_edit = memnewOld(LineEdit);
+	page_line_edit = memnewOldNoConstructor(LineEdit);
 	page_line_edit->connect("text_submitted", callable_mp(this, &EditorPaginator::_page_line_edit_text_submitted));
 	page_line_edit->add_theme_constant_override("minimum_character_width", 2);
 	add_child(page_line_edit);
 
-	page_count_label = memnewOld(Label);
+	page_count_label = memnewOldNoConstructor(Label);
 	add_child(page_count_label);
 
-	next_page_button = memnewOld(Button);
+	next_page_button = memnewOldNoConstructor(Button);
 	next_page_button->set_flat(true);
 	next_page_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPaginator::_next_page_button_pressed));
 	add_child(next_page_button);
 
-	last_page_button = memnewOld(Button);
+	last_page_button = memnewOldNoConstructor(Button);
 	last_page_button->set_flat(true);
 	last_page_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPaginator::_last_page_button_pressed));
 	add_child(last_page_button);
@@ -2666,7 +2666,7 @@ void EditorInspector::cleanup_plugins() {
 }
 
 Button *EditorInspector::create_inspector_action_button(const String &p_text) {
-	Button *button = memnewOld(Button);
+	Button *button = memnewOldNoConstructor(Button);
 	button->set_text(p_text);
 	button->set_theme_type_variation(SNAME("InspectorActionButton"));
 	button->set_h_size_flags(SIZE_SHRINK_CENTER);
@@ -2990,7 +2990,7 @@ void EditorInspector::update_tree() {
 			}
 
 			// Create an EditorInspectorCategory and add it to the inspector.
-			EditorInspectorCategory *category = memnewOld(EditorInspectorCategory);
+			EditorInspectorCategory *category = memnewOldNoConstructor(EditorInspectorCategory);
 			main_vbox->add_child(category);
 			category_vbox = nullptr; // Reset.
 
@@ -3142,7 +3142,7 @@ void EditorInspector::update_tree() {
 
 		// Recreate the category vbox if it was reset.
 		if (category_vbox == nullptr) {
-			category_vbox = memnewOld(VBoxContainer);
+			category_vbox = memnewOldNoConstructor(VBoxContainer);
 			category_vbox->hide();
 			main_vbox->add_child(category_vbox);
 		}
@@ -3169,7 +3169,7 @@ void EditorInspector::update_tree() {
 
 			if (!vbox_per_path[root_vbox].has(acc_path)) {
 				// If the section does not exists, create it.
-				EditorInspectorSection *section = memnewOld(EditorInspectorSection);
+				EditorInspectorSection *section = memnewOldNoConstructor(EditorInspectorSection);
 				current_vbox->add_child(section);
 				sections.push_back(section);
 
@@ -3254,7 +3254,7 @@ void EditorInspector::update_tree() {
 			if (p.type == Variant::NIL) {
 				// Setup the array to use a method to create/move/delete elements.
 				array_element_prefix = class_name_components[0];
-				editor_inspector_array = memnewOld(EditorInspectorArray(all_read_only));
+				editor_inspector_array = memnewOldWithArgs(EditorInspectorArray(all_read_only));
 
 				String array_label = path.contains("/") ? path.substr(path.rfind("/") + 1) : path;
 				array_label = EditorPropertyNameProcessor::get_singleton()->process_name(property_label_string, property_name_style, p.name, doc_name);
@@ -3265,7 +3265,7 @@ void EditorInspector::update_tree() {
 				// Setup the array to use the count property and built-in functions to create/move/delete elements.
 				if (class_name_components.size() >= 2) {
 					array_element_prefix = class_name_components[1];
-					editor_inspector_array = memnewOld(EditorInspectorArray(all_read_only));
+					editor_inspector_array = memnewOldWithArgs(EditorInspectorArray(all_read_only));
 					int page = per_array_page.has(array_element_prefix) ? per_array_page[array_element_prefix] : 0;
 
 					editor_inspector_array->setup_with_count_property(object, class_name_components[0], p.name, array_element_prefix, page, c, foldable, movable, numbered, page_size, add_button_text, swap_method);
@@ -3515,7 +3515,7 @@ void EditorInspector::update_tree() {
 
 	if (!hide_metadata && !object->call("_hide_metadata_from_inspector")) {
 		// Add 4px of spacing between the "Add Metadata" button and the content above it.
-		Control *spacer = memnewOld(Control);
+		Control *spacer = memnewOldNoConstructor(Control);
 		spacer->set_custom_minimum_size(Size2(0, 4) * EDSCALE);
 		main_vbox->add_child(spacer);
 
@@ -4287,21 +4287,21 @@ void EditorInspector::_check_meta_name() {
 
 void EditorInspector::_show_add_meta_dialog() {
 	if (!add_meta_dialog) {
-		add_meta_dialog = memnewOld(ConfirmationDialog);
+		add_meta_dialog = memnewOldNoConstructor(ConfirmationDialog);
 
-		VBoxContainer *vbc = memnewOld(VBoxContainer);
+		VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 		add_meta_dialog->add_child(vbc);
 
-		HBoxContainer *hbc = memnewOld(HBoxContainer);
+		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
 		vbc->add_child(hbc);
-		hbc->add_child(memnewOld(Label(TTR("Name:"))));
+		hbc->add_child(memnewOldWithArgs(Label(TTR("Name:"))));
 
-		add_meta_name = memnewOld(LineEdit);
+		add_meta_name = memnewOldNoConstructor(LineEdit);
 		add_meta_name->set_custom_minimum_size(Size2(200 * EDSCALE, 1));
 		hbc->add_child(add_meta_name);
-		hbc->add_child(memnewOld(Label(TTR("Type:"))));
+		hbc->add_child(memnewOldWithArgs(Label(TTR("Type:"))));
 
-		add_meta_type = memnewOld(OptionButton);
+		add_meta_type = memnewOldNoConstructor(OptionButton);
 		for (int i = 0; i < Variant::VARIANT_MAX; i++) {
 			if (i == Variant::NIL || i == Variant::RID || i == Variant::CALLABLE || i == Variant::SIGNAL) {
 				continue; //not editable by inspector.
@@ -4312,7 +4312,7 @@ void EditorInspector::_show_add_meta_dialog() {
 		}
 		hbc->add_child(add_meta_type);
 
-		Control *spacing = memnewOld(Control);
+		Control *spacing = memnewOldNoConstructor(Control);
 		vbc->add_child(spacing);
 		spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
@@ -4321,7 +4321,7 @@ void EditorInspector::_show_add_meta_dialog() {
 		add_meta_dialog->register_text_enter(add_meta_name);
 		add_meta_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorInspector::_add_meta_confirm));
 
-		validation_panel = memnewOld(EditorValidationPanel);
+		validation_panel = memnewOldNoConstructor(EditorValidationPanel);
 		vbc->add_child(validation_panel);
 		validation_panel->add_line(EditorValidationPanel::MSG_ID_DEFAULT, TTR("Metadata name is valid."));
 		validation_panel->set_update_callback(callable_mp(this, &EditorInspector::_check_meta_name));
@@ -4362,7 +4362,7 @@ void EditorInspector::_bind_methods() {
 
 EditorInspector::EditorInspector() {
 	object = nullptr;
-	main_vbox = memnewOld(VBoxContainer);
+	main_vbox = memnewOldNoConstructor(VBoxContainer);
 	main_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_child(main_vbox);
 	set_horizontal_scroll_mode(SCROLL_MODE_DISABLED);

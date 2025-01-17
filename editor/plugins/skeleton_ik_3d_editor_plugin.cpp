@@ -77,7 +77,7 @@ void SkeletonIK3DEditorPlugin::_bind_methods() {
 }
 
 SkeletonIK3DEditorPlugin::SkeletonIK3DEditorPlugin() {
-	play_btn = memnewOld(Button);
+	play_btn = memnewOldNoConstructor(Button);
 	play_btn->set_icon(EditorNode::get_singleton()->get_editor_theme()->get_icon(SNAME("Play"), EditorStringName(EditorIcons)));
 	play_btn->set_text(TTR("Play IK"));
 	play_btn->set_toggle_mode(true);

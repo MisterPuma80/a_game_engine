@@ -609,7 +609,7 @@ Variant EditorSettingsDialog::get_drag_data_fw(const Point2 &p_point, Control *p
 	}
 
 	String label_text = "Event " + itos(selected->get_meta("event_index"));
-	Label *label = memnewOld(Label(label_text));
+	Label *label = memnewOldWithArgs(Label(label_text));
 	label->set_modulate(Color(1, 1, 1, 1.0f));
 	shortcuts->set_drag_preview(label);
 
@@ -703,27 +703,27 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	set_title(TTR("Editor Settings"));
 	set_clamp_to_embedder(true);
 
-	tabs = memnewOld(TabContainer);
+	tabs = memnewOldNoConstructor(TabContainer);
 	tabs->set_theme_type_variation("TabContainerOdd");
 	tabs->connect("tab_changed", callable_mp(this, &EditorSettingsDialog::_tabs_tab_changed));
 	add_child(tabs);
 
 	// General Tab
 
-	tab_general = memnewOld(VBoxContainer);
+	tab_general = memnewOldNoConstructor(VBoxContainer);
 	tabs->add_child(tab_general);
 	tab_general->set_name(TTR("General"));
 
-	HBoxContainer *hbc = memnewOld(HBoxContainer);
+	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
 	hbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tab_general->add_child(hbc);
 
-	search_box = memnewOld(LineEdit);
+	search_box = memnewOldNoConstructor(LineEdit);
 	search_box->set_placeholder(TTR("Filter Settings"));
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hbc->add_child(search_box);
 
-	inspector = memnewOld(SectionedInspector);
+	inspector = memnewOldNoConstructor(SectionedInspector);
 	inspector->get_inspector()->set_use_filter(true);
 	inspector->register_search_box(search_box);
 	inspector->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -731,22 +731,22 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	inspector->get_inspector()->connect("property_edited", callable_mp(this, &EditorSettingsDialog::_settings_property_edited));
 	inspector->get_inspector()->connect("restart_requested", callable_mp(this, &EditorSettingsDialog::_editor_restart_request));
 
-	restart_container = memnewOld(PanelContainer);
+	restart_container = memnewOldNoConstructor(PanelContainer);
 	tab_general->add_child(restart_container);
-	HBoxContainer *restart_hb = memnewOld(HBoxContainer);
+	HBoxContainer *restart_hb = memnewOldNoConstructor(HBoxContainer);
 	restart_container->add_child(restart_hb);
-	restart_icon = memnewOld(TextureRect);
+	restart_icon = memnewOldNoConstructor(TextureRect);
 	restart_icon->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	restart_hb->add_child(restart_icon);
-	restart_label = memnewOld(Label);
+	restart_label = memnewOldNoConstructor(Label);
 	restart_label->set_text(TTR("The editor must be restarted for changes to take effect."));
 	restart_hb->add_child(restart_label);
 	restart_hb->add_spacer();
-	Button *restart_button = memnewOld(Button);
+	Button *restart_button = memnewOldNoConstructor(Button);
 	restart_button->connect(SceneStringName(pressed), callable_mp(this, &EditorSettingsDialog::_editor_restart));
 	restart_hb->add_child(restart_button);
 	restart_button->set_text(TTR("Save & Restart"));
-	restart_close_button = memnewOld(Button);
+	restart_close_button = memnewOldNoConstructor(Button);
 	restart_close_button->set_flat(true);
 	restart_close_button->connect(SceneStringName(pressed), callable_mp(this, &EditorSettingsDialog::_editor_restart_close));
 	restart_hb->add_child(restart_close_button);
@@ -754,22 +754,22 @@ EditorSettingsDialog::EditorSettingsDialog() {
 
 	// Shortcuts Tab
 
-	tab_shortcuts = memnewOld(VBoxContainer);
+	tab_shortcuts = memnewOldNoConstructor(VBoxContainer);
 
 	tabs->add_child(tab_shortcuts);
 	tab_shortcuts->set_name(TTR("Shortcuts"));
 
-	HBoxContainer *top_hbox = memnewOld(HBoxContainer);
+	HBoxContainer *top_hbox = memnewOldNoConstructor(HBoxContainer);
 	top_hbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tab_shortcuts->add_child(top_hbox);
 
-	shortcut_search_box = memnewOld(LineEdit);
+	shortcut_search_box = memnewOldNoConstructor(LineEdit);
 	shortcut_search_box->set_placeholder(TTR("Filter by Name"));
 	shortcut_search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	top_hbox->add_child(shortcut_search_box);
 	shortcut_search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorSettingsDialog::_filter_shortcuts));
 
-	shortcut_search_by_event = memnewOld(EventListenerLineEdit);
+	shortcut_search_by_event = memnewOldNoConstructor(EventListenerLineEdit);
 	shortcut_search_by_event->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	shortcut_search_by_event->set_stretch_ratio(0.75);
 	shortcut_search_by_event->set_allowed_input_types(INPUT_KEY);
@@ -778,14 +778,14 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	shortcut_search_by_event->connect(SceneStringName(focus_exited), callable_mp((AcceptDialog *)this, &AcceptDialog::set_close_on_escape).bind(true));
 	top_hbox->add_child(shortcut_search_by_event);
 
-	clear_all_search = memnewOld(Button);
+	clear_all_search = memnewOldNoConstructor(Button);
 	clear_all_search->set_text(TTR("Clear All"));
 	clear_all_search->set_tooltip_text(TTR("Clear all search filters."));
 	clear_all_search->connect(SceneStringName(pressed), callable_mp(shortcut_search_box, &LineEdit::clear));
 	clear_all_search->connect(SceneStringName(pressed), callable_mp(shortcut_search_by_event, &EventListenerLineEdit::clear_event));
 	top_hbox->add_child(clear_all_search);
 
-	shortcuts = memnewOld(Tree);
+	shortcuts = memnewOldNoConstructor(Tree);
 	shortcuts->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	shortcuts->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	shortcuts->set_columns(2);
@@ -800,14 +800,14 @@ EditorSettingsDialog::EditorSettingsDialog() {
 	SET_DRAG_FORWARDING_GCD(shortcuts, EditorSettingsDialog);
 
 	// Adding event dialog
-	shortcut_editor = memnewOld(InputEventConfigurationDialog);
+	shortcut_editor = memnewOldNoConstructor(InputEventConfigurationDialog);
 	shortcut_editor->connect(SceneStringName(confirmed), callable_mp(this, &EditorSettingsDialog::_event_config_confirmed));
 	shortcut_editor->set_allowed_input_types(INPUT_KEY);
 	add_child(shortcut_editor);
 
 	set_hide_on_ok(true);
 
-	timer = memnewOld(Timer);
+	timer = memnewOldNoConstructor(Timer);
 	timer->set_wait_time(1.5);
 	timer->connect("timeout", callable_mp(this, &EditorSettingsDialog::_settings_save));
 	timer->set_one_shot(true);

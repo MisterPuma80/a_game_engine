@@ -126,7 +126,7 @@ Error GDScriptLanguageProtocol::LSPeer::send_data() {
 Error GDScriptLanguageProtocol::on_client_connected() {
 	Ref<StreamPeerTCP> tcp_peer = server->take_connection();
 	ERR_FAIL_COND_V_MSG(clients.size() >= LSP_MAX_CLIENTS, FAILED, "Max client limits reached");
-	Ref<LSPeer> peer = memnewOld(LSPeer);
+	Ref<LSPeer> peer = memnewOldNoConstructor(LSPeer);
 	peer->connection = tcp_peer;
 	clients.insert(next_client_id, peer);
 	next_client_id++;

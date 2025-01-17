@@ -437,7 +437,7 @@ void EditorLog::_reset_message_counts() {
 }
 
 EditorLog::EditorLog() {
-	save_state_timer = memnewOld(Timer);
+	save_state_timer = memnewOldNoConstructor(Timer);
 	save_state_timer->set_wait_time(2);
 	save_state_timer->set_one_shot(true);
 	save_state_timer->connect("timeout", callable_mp(this, &EditorLog::_save_state));
@@ -448,14 +448,14 @@ EditorLog::EditorLog() {
 
 	HBoxContainer *hb = this;
 
-	VBoxContainer *vb_left = memnewOld(VBoxContainer);
+	VBoxContainer *vb_left = memnewOldNoConstructor(VBoxContainer);
 	vb_left->set_custom_minimum_size(Size2(0, 180) * EDSCALE);
 	vb_left->set_v_size_flags(SIZE_EXPAND_FILL);
 	vb_left->set_h_size_flags(SIZE_EXPAND_FILL);
 	hb->add_child(vb_left);
 
 	// Log - Rich Text Label.
-	log = memnewOld(RichTextLabel);
+	log = memnewOldNoConstructor(RichTextLabel);
 	log->set_threaded(true);
 	log->set_use_bbcode(true);
 	log->set_scroll_follow(true);
@@ -469,7 +469,7 @@ EditorLog::EditorLog() {
 	vb_left->add_child(log);
 
 	// Search box
-	search_box = memnewOld(LineEdit);
+	search_box = memnewOldNoConstructor(LineEdit);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->set_placeholder(TTR("Filter Messages"));
 	search_box->set_clear_button_enabled(true);
@@ -477,16 +477,16 @@ EditorLog::EditorLog() {
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorLog::_search_changed));
 	vb_left->add_child(search_box);
 
-	VBoxContainer *vb_right = memnewOld(VBoxContainer);
+	VBoxContainer *vb_right = memnewOldNoConstructor(VBoxContainer);
 	hb->add_child(vb_right);
 
 	// Tools grid
-	HBoxContainer *hb_tools = memnewOld(HBoxContainer);
+	HBoxContainer *hb_tools = memnewOldNoConstructor(HBoxContainer);
 	hb_tools->set_h_size_flags(SIZE_SHRINK_CENTER);
 	vb_right->add_child(hb_tools);
 
 	// Clear.
-	clear_button = memnewOld(Button);
+	clear_button = memnewOldNoConstructor(Button);
 	clear_button->set_theme_type_variation("FlatButton");
 	clear_button->set_focus_mode(FOCUS_NONE);
 	clear_button->set_shortcut(ED_SHORTCUT("editor/clear_output", TTR("Clear Output"), KeyModifierMask::CMD_OR_CTRL | KeyModifierMask::ALT | Key::K));
@@ -494,7 +494,7 @@ EditorLog::EditorLog() {
 	hb_tools->add_child(clear_button);
 
 	// Copy.
-	copy_button = memnewOld(Button);
+	copy_button = memnewOldNoConstructor(Button);
 	copy_button->set_theme_type_variation("FlatButton");
 	copy_button->set_focus_mode(FOCUS_NONE);
 	copy_button->set_shortcut(ED_SHORTCUT("editor/copy_output", TTR("Copy Selection"), KeyModifierMask::CMD_OR_CTRL | Key::C));
@@ -503,15 +503,15 @@ EditorLog::EditorLog() {
 	hb_tools->add_child(copy_button);
 
 	// Separate toggle buttons from normal buttons.
-	vb_right->add_child(memnewOld(HSeparator));
+	vb_right->add_child(memnewOldNoConstructor(HSeparator));
 
 	// A second hbox to make a 2x2 grid of buttons.
-	HBoxContainer *hb_tools2 = memnewOld(HBoxContainer);
+	HBoxContainer *hb_tools2 = memnewOldNoConstructor(HBoxContainer);
 	hb_tools2->set_h_size_flags(SIZE_SHRINK_CENTER);
 	vb_right->add_child(hb_tools2);
 
 	// Collapse.
-	collapse_button = memnewOld(Button);
+	collapse_button = memnewOldNoConstructor(Button);
 	collapse_button->set_theme_type_variation("FlatButton");
 	collapse_button->set_focus_mode(FOCUS_NONE);
 	collapse_button->set_tooltip_text(TTR("Collapse duplicate messages into one log entry. Shows number of occurrences."));
@@ -521,7 +521,7 @@ EditorLog::EditorLog() {
 	hb_tools2->add_child(collapse_button);
 
 	// Show Search.
-	show_search_button = memnewOld(Button);
+	show_search_button = memnewOldNoConstructor(Button);
 	show_search_button->set_theme_type_variation("FlatButton");
 	show_search_button->set_focus_mode(FOCUS_NONE);
 	show_search_button->set_toggle_mode(true);
@@ -532,25 +532,25 @@ EditorLog::EditorLog() {
 	hb_tools2->add_child(show_search_button);
 
 	// Message Type Filters.
-	vb_right->add_child(memnewOld(HSeparator));
+	vb_right->add_child(memnewOldNoConstructor(HSeparator));
 
-	LogFilter *std_filter = memnewOld(LogFilter(MSG_TYPE_STD));
+	LogFilter *std_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_STD));
 	std_filter->initialize_button(TTR("Toggle visibility of standard output messages."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(std_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_STD, std_filter);
 	type_filter_map.insert(MSG_TYPE_STD_RICH, std_filter);
 
-	LogFilter *error_filter = memnewOld(LogFilter(MSG_TYPE_ERROR));
+	LogFilter *error_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_ERROR));
 	error_filter->initialize_button(TTR("Toggle visibility of errors."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(error_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_ERROR, error_filter);
 
-	LogFilter *warning_filter = memnewOld(LogFilter(MSG_TYPE_WARNING));
+	LogFilter *warning_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_WARNING));
 	warning_filter->initialize_button(TTR("Toggle visibility of warnings."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(warning_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_WARNING, warning_filter);
 
-	LogFilter *editor_filter = memnewOld(LogFilter(MSG_TYPE_EDITOR));
+	LogFilter *editor_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_EDITOR));
 	editor_filter->initialize_button(TTR("Toggle visibility of editor messages."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(editor_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_EDITOR, editor_filter);

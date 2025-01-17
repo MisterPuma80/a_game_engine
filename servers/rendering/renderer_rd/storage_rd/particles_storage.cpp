@@ -49,7 +49,7 @@ ParticlesStorage::ParticlesStorage() {
 
 	/* Effects */
 
-	sort_effects = memnewOld(SortEffects);
+	sort_effects = memnewOldNoConstructor(SortEffects);
 
 	/* Particles */
 
@@ -1729,7 +1729,7 @@ ParticlesStorage::ParticlesShaderData::~ParticlesShaderData() {
 }
 
 MaterialStorage::ShaderData *ParticlesStorage::_create_particles_shader_func() {
-	ParticlesShaderData *shader_data = memnewOld(ParticlesShaderData);
+	ParticlesShaderData *shader_data = memnewOldNoConstructor(ParticlesShaderData);
 	return shader_data;
 }
 
@@ -1742,7 +1742,7 @@ ParticlesStorage::ParticleProcessMaterialData::~ParticleProcessMaterialData() {
 }
 
 MaterialStorage::MaterialData *ParticlesStorage::_create_particles_material_func(ParticlesShaderData *p_shader) {
-	ParticleProcessMaterialData *material_data = memnewOld(ParticleProcessMaterialData);
+	ParticleProcessMaterialData *material_data = memnewOldNoConstructor(ParticleProcessMaterialData);
 	material_data->shader_data = p_shader;
 	//update will happen later anyway so do nothing.
 	return material_data;

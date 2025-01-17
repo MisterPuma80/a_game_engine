@@ -56,22 +56,22 @@ void EditorResourceTooltipPlugin::_bind_methods() {
 }
 
 VBoxContainer *EditorResourceTooltipPlugin::make_default_tooltip(const String &p_resource_path) {
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	vb->add_theme_constant_override("separation", -4 * EDSCALE);
 	{
-		Label *label = memnewOld(Label(p_resource_path.get_file()));
+		Label *label = memnewOldWithArgs(Label(p_resource_path.get_file()));
 		vb->add_child(label);
 	}
 
 	{
 		Ref<FileAccess> f = FileAccess::open(p_resource_path, FileAccess::READ);
-		Label *label = memnewOld(Label(vformat(TTR("Size: %s"), String::humanize_size(f->get_length()))));
+		Label *label = memnewOldWithArgs(Label(vformat(TTR("Size: %s"), String::humanize_size(f->get_length()))));
 		vb->add_child(label);
 	}
 
 	if (ResourceLoader::exists(p_resource_path)) {
 		String type = ResourceLoader::get_resource_type(p_resource_path);
-		Label *label = memnewOld(Label(vformat(TTR("Type: %s"), type)));
+		Label *label = memnewOldWithArgs(Label(vformat(TTR("Type: %s"), type)));
 		vb->add_child(label);
 	}
 	return vb;
@@ -101,16 +101,16 @@ bool EditorTextureTooltipPlugin::handles(const String &p_resource_type) const {
 }
 
 Control *EditorTextureTooltipPlugin::make_tooltip_for_path(const String &p_resource_path, const Dictionary &p_metadata, Control *p_base) const {
-	HBoxContainer *hb = memnewOld(HBoxContainer);
+	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	VBoxContainer *vb = Object::cast_to<VBoxContainer>(p_base);
 	DEV_ASSERT(vb);
 	vb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 
 	Vector2 dimensions = p_metadata.get("dimensions", Vector2());
-	Label *label = memnewOld(Label(vformat(TTR(U"Dimensions: %d × %d"), dimensions.x, dimensions.y)));
+	Label *label = memnewOldWithArgs(Label(vformat(TTR(U"Dimensions: %d × %d"), dimensions.x, dimensions.y)));
 	vb->add_child(label);
 
-	TextureRect *tr = memnewOld(TextureRect);
+	TextureRect *tr = memnewOldNoConstructor(TextureRect);
 	tr->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	hb->add_child(tr);
 	request_thumbnail(p_resource_path, tr);
@@ -131,14 +131,14 @@ Control *EditorAudioStreamTooltipPlugin::make_tooltip_for_path(const String &p_r
 
 	double length = p_metadata.get("length", 0.0);
 	if (length >= 60.0) {
-		vb->add_child(memnewOld(Label(vformat(TTR("Length: %0dm %0ds"), int(length / 60.0), int(fmod(length, 60))))));
+		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0dm %0ds"), int(length / 60.0), int(fmod(length, 60))))));
 	} else if (length >= 1.0) {
-		vb->add_child(memnewOld(Label(vformat(TTR("Length: %0.1fs"), length))));
+		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0.1fs"), length))));
 	} else {
-		vb->add_child(memnewOld(Label(vformat(TTR("Length: %0.3fs"), length))));
+		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0.3fs"), length))));
 	}
 
-	TextureRect *tr = memnewOld(TextureRect);
+	TextureRect *tr = memnewOldNoConstructor(TextureRect);
 	vb->add_child(tr);
 	request_thumbnail(p_resource_path, tr);
 

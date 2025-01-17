@@ -37,7 +37,7 @@
 
 namespace TestTranslationServer {
 TEST_CASE("[TranslationServer] Translation operations") {
-	Ref<Translation> t = memnewOld(Translation);
+	Ref<Translation> t = memnewOldNoConstructor(Translation);
 	t->set_locale("uk");
 	t->add_message("Good Morning", String::utf8("Добрий ранок"));
 

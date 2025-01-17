@@ -139,7 +139,7 @@ void OS_MacOS::finalize() {
 }
 
 void OS_MacOS::initialize_joypads() {
-	joypad_macos = memnewOld(JoypadMacOS());
+	joypad_macos = memnewOldNoArgs(JoypadMacOS());
 }
 
 void OS_MacOS::set_main_loop(MainLoop *p_main_loop) {
@@ -817,8 +817,8 @@ OS_MacOS::OS_MacOS() {
 	main_loop = nullptr;
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnewOld(MacOSTerminalLogger));
-	_set_logger(memnewOld(CompositeLogger(loggers)));
+	loggers.push_back(memnewOldNoConstructor(MacOSTerminalLogger));
+	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
 
 #ifdef COREAUDIO_ENABLED
 	AudioDriverManager::add_driver(&audio_driver);

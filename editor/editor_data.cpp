@@ -1185,7 +1185,7 @@ void EditorData::clear_script_icon_cache() {
 }
 
 EditorData::EditorData() {
-	undo_redo_manager = memnewOld(EditorUndoRedoManager);
+	undo_redo_manager = memnewOldNoConstructor(EditorUndoRedoManager);
 	script_class_load_icon_paths();
 }
 

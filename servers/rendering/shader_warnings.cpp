@@ -115,7 +115,7 @@ ShaderWarning::Code ShaderWarning::get_code_from_name(const String &p_name) {
 static HashMap<int, uint32_t> *code_to_flags_map = nullptr;
 
 static void init_code_to_flags_map() {
-	code_to_flags_map = memnewOld((HashMap<int, uint32_t>));
+	code_to_flags_map = memnewOldNoConstructor((HashMap<int, uint32_t>));
 	code_to_flags_map->insert(ShaderWarning::FLOAT_COMPARISON, ShaderWarning::FLOAT_COMPARISON_FLAG);
 	code_to_flags_map->insert(ShaderWarning::UNUSED_CONSTANT, ShaderWarning::UNUSED_CONSTANT_FLAG);
 	code_to_flags_map->insert(ShaderWarning::UNUSED_FUNCTION, ShaderWarning::UNUSED_FUNCTION_FLAG);

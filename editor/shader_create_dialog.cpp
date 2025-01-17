@@ -551,12 +551,12 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Main Controls.
 
-	gc = memnewOld(GridContainer);
+	gc = memnewOldNoConstructor(GridContainer);
 	gc->set_columns(2);
 
 	// Error Fields.
 
-	validation_panel = memnewOld(EditorValidationPanel);
+	validation_panel = memnewOldNoConstructor(EditorValidationPanel);
 	validation_panel->add_line(MSG_ID_SHADER, TTR("Shader path/name is valid."));
 	validation_panel->add_line(MSG_ID_PATH, TTR("Will create a new shader file."));
 	validation_panel->add_line(MSG_ID_BUILT_IN);
@@ -565,10 +565,10 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Spacing.
 
-	Control *spacing = memnewOld(Control);
+	Control *spacing = memnewOldNoConstructor(Control);
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
-	VBoxContainer *vb = memnewOld(VBoxContainer);
+	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	vb->add_child(gc);
 	vb->add_child(spacing);
 	vb->add_child(validation_panel);
@@ -576,10 +576,10 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Type.
 
-	type_menu = memnewOld(OptionButton);
+	type_menu = memnewOldNoConstructor(OptionButton);
 	type_menu->set_custom_minimum_size(Size2(250, 0) * EDSCALE);
 	type_menu->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	gc->add_child(memnewOld(Label(TTR("Type:"))));
+	gc->add_child(memnewOldWithArgs(Label(TTR("Type:"))));
 	gc->add_child(type_menu);
 
 	for (int i = 0; i < SHADER_TYPE_MAX; i++) {
@@ -616,53 +616,53 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Modes.
 
-	mode_menu = memnewOld(OptionButton);
+	mode_menu = memnewOldNoConstructor(OptionButton);
 	for (const String &type_name : ShaderTypes::get_singleton()->get_types_list()) {
 		mode_menu->add_item(type_name.capitalize());
 	}
-	gc->add_child(memnewOld(Label(TTR("Mode:"))));
+	gc->add_child(memnewOldWithArgs(Label(TTR("Mode:"))));
 	gc->add_child(mode_menu);
 	mode_menu->connect(SceneStringName(item_selected), callable_mp(this, &ShaderCreateDialog::_mode_changed));
 
 	// Templates.
 
-	template_menu = memnewOld(OptionButton);
-	gc->add_child(memnewOld(Label(TTR("Template:"))));
+	template_menu = memnewOldNoConstructor(OptionButton);
+	gc->add_child(memnewOldWithArgs(Label(TTR("Template:"))));
 	gc->add_child(template_menu);
 	template_menu->connect(SceneStringName(item_selected), callable_mp(this, &ShaderCreateDialog::_template_changed));
 
 	// Built-in Shader.
 
-	internal = memnewOld(CheckBox);
+	internal = memnewOldNoConstructor(CheckBox);
 	internal->set_text(TTR("On"));
 	internal->connect("toggled", callable_mp(this, &ShaderCreateDialog::_built_in_toggled));
-	gc->add_child(memnewOld(Label(TTR("Built-in Shader:"))));
+	gc->add_child(memnewOldWithArgs(Label(TTR("Built-in Shader:"))));
 	gc->add_child(internal);
 
 	// Path.
 
-	HBoxContainer *hb = memnewOld(HBoxContainer);
+	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->connect(SceneStringName(sort_children), callable_mp(this, &ShaderCreateDialog::_path_hbox_sorted));
-	file_path = memnewOld(LineEdit);
+	file_path = memnewOldNoConstructor(LineEdit);
 	file_path->connect(SceneStringName(text_changed), callable_mp(this, &ShaderCreateDialog::_path_changed));
 	file_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->add_child(file_path);
 	register_text_enter(file_path);
-	path_button = memnewOld(Button);
+	path_button = memnewOldNoConstructor(Button);
 	path_button->connect(SceneStringName(pressed), callable_mp(this, &ShaderCreateDialog::_browse_path));
 	hb->add_child(path_button);
-	gc->add_child(memnewOld(Label(TTR("Path:"))));
+	gc->add_child(memnewOldWithArgs(Label(TTR("Path:"))));
 	gc->add_child(hb);
 
 	// Dialog Setup.
 
-	file_browse = memnewOld(EditorFileDialog);
+	file_browse = memnewOldNoConstructor(EditorFileDialog);
 	file_browse->connect("file_selected", callable_mp(this, &ShaderCreateDialog::_file_selected));
 	file_browse->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	add_child(file_browse);
 
-	alert = memnewOld(AcceptDialog);
+	alert = memnewOldNoConstructor(AcceptDialog);
 	alert->get_label()->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	alert->get_label()->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	alert->get_label()->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);

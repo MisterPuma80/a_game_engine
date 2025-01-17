@@ -382,7 +382,7 @@ void NavigationObstacle3D::_update_fake_agent_radius_debug() {
 		fake_agent_radius_debug_instance = RenderingServer::get_singleton()->instance_create();
 	}
 	if (!fake_agent_radius_debug_mesh.is_valid()) {
-		fake_agent_radius_debug_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+		fake_agent_radius_debug_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
 	}
 	fake_agent_radius_debug_mesh->clear_surfaces();
 
@@ -480,7 +480,7 @@ void NavigationObstacle3D::_update_static_obstacle_debug() {
 		static_obstacle_debug_instance = RenderingServer::get_singleton()->instance_create();
 	}
 	if (!static_obstacle_debug_mesh.is_valid()) {
-		static_obstacle_debug_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+		static_obstacle_debug_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
 	}
 	static_obstacle_debug_mesh->clear_surfaces();
 

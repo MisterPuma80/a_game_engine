@@ -2236,7 +2236,7 @@ RenderGeometryInstance *RenderForwardMobile::geometry_instance_create(RID p_base
 	ERR_FAIL_COND_V(!((1 << type) & RS::INSTANCE_GEOMETRY_MASK), nullptr);
 
 	GeometryInstanceForwardMobile *ginstance = geometry_instance_alloc.alloc();
-	ginstance->data = memnewOld(GeometryInstanceForwardMobile::Data);
+	ginstance->data = memnewOldNoConstructor(GeometryInstanceForwardMobile::Data);
 
 	ginstance->data->base = p_base;
 	ginstance->data->base_type = type;

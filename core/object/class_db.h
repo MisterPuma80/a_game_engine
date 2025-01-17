@@ -142,7 +142,7 @@ public:
 
 	template <typename T>
 	static Object *creator() {
-		return memnewOld(T);
+		return memnewOldNoConstructor(T);
 	}
 
 	static RWLock lock;

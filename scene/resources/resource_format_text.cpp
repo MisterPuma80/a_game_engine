@@ -547,7 +547,7 @@ Error ResourceLoaderText::load() {
 				Object *obj = ClassDB::instantiate(type);
 				if (!obj) {
 					if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
-						missing_resource = memnewOld(MissingResource);
+						missing_resource = memnewOldNoConstructor(MissingResource);
 						missing_resource->set_original_class(type);
 						missing_resource->set_recording_properties(true);
 						obj = missing_resource;
@@ -680,7 +680,7 @@ Error ResourceLoaderText::load() {
 				Object *obj = ClassDB::instantiate(res_type);
 				if (!obj) {
 					if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
-						missing_resource = memnewOld(MissingResource);
+						missing_resource = memnewOldNoConstructor(MissingResource);
 						missing_resource->set_original_class(res_type);
 						missing_resource->set_recording_properties(true);
 						obj = missing_resource;

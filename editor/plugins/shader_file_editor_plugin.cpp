@@ -254,17 +254,17 @@ ShaderFileEditor *ShaderFileEditor::singleton = nullptr;
 
 ShaderFileEditor::ShaderFileEditor() {
 	singleton = this;
-	HSplitContainer *main_hs = memnewOld(HSplitContainer);
+	HSplitContainer *main_hs = memnewOldNoConstructor(HSplitContainer);
 
 	add_child(main_hs);
 
-	versions = memnewOld(ItemList);
+	versions = memnewOldNoConstructor(ItemList);
 	versions->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	versions->connect(SceneStringName(item_selected), callable_mp(this, &ShaderFileEditor::_version_selected));
 	versions->set_custom_minimum_size(Size2i(200 * EDSCALE, 0));
 	main_hs->add_child(versions);
 
-	VBoxContainer *main_vb = memnewOld(VBoxContainer);
+	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
 	main_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	main_hs->add_child(main_vb);
 
@@ -276,13 +276,13 @@ ShaderFileEditor::ShaderFileEditor() {
 		"Compute"
 	};
 
-	stage_hb = memnewOld(HBoxContainer);
+	stage_hb = memnewOldNoConstructor(HBoxContainer);
 	main_vb->add_child(stage_hb);
 
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 	for (int i = 0; i < RD::SHADER_STAGE_MAX; i++) {
-		Button *button = memnewOld(Button(stage_str[i]));
+		Button *button = memnewOldWithArgs(Button(stage_str[i]));
 		button->set_toggle_mode(true);
 		button->set_focus_mode(FOCUS_NONE);
 		stage_hb->add_child(button);
@@ -291,7 +291,7 @@ ShaderFileEditor::ShaderFileEditor() {
 		button->connect(SceneStringName(pressed), callable_mp(this, &ShaderFileEditor::_version_selected).bind(i));
 	}
 
-	error_text = memnewOld(RichTextLabel);
+	error_text = memnewOldNoConstructor(RichTextLabel);
 	error_text->set_v_size_flags(SIZE_EXPAND_FILL);
 	error_text->set_selection_enabled(true);
 	error_text->set_context_menu_enabled(true);
@@ -322,7 +322,7 @@ void ShaderFileEditorPlugin::make_visible(bool p_visible) {
 }
 
 ShaderFileEditorPlugin::ShaderFileEditorPlugin() {
-	shader_editor = memnewOld(ShaderFileEditor);
+	shader_editor = memnewOldNoConstructor(ShaderFileEditor);
 
 	shader_editor->set_custom_minimum_size(Size2(0, 300) * EDSCALE);
 	button = EditorNode::get_bottom_panel()->add_item(TTR("ShaderFile"), shader_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_shader_file_bottom_panel", TTR("Toggle ShaderFile Bottom Panel")));

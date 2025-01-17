@@ -268,7 +268,7 @@ class EditorPlugins {
 
 	template <typename T>
 	static EditorPlugin *creator() {
-		return memnewOld(T);
+		return memnewOldNoConstructor(T);
 	}
 
 public:

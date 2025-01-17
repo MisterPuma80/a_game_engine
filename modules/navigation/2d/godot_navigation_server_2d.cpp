@@ -166,7 +166,7 @@ static Ref<NavigationMesh> poly_to_mesh(Ref<NavigationPolygon> d) {
 
 void GodotNavigationServer2D::init() {
 #ifdef CLIPPER2_ENABLED
-	navmesh_generator_2d = memnewOld(NavMeshGenerator2D);
+	navmesh_generator_2d = memnewOldNoConstructor(NavMeshGenerator2D);
 	ERR_FAIL_NULL_MSG(navmesh_generator_2d, "Failed to init NavMeshGenerator2D.");
 #endif // CLIPPER2_ENABLED
 }

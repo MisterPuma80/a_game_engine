@@ -200,7 +200,7 @@ void EditorBottomPanel::load_layout_from_config(Ref<ConfigFile> p_config_file, c
 }
 
 Button *EditorBottomPanel::add_item(String p_text, Control *p_item, const Ref<Shortcut> &p_shortcut, bool p_at_front) {
-	Button *tb = memnewOld(Button);
+	Button *tb = memnewOldNoConstructor(Button);
 	tb->set_theme_type_variation("BottomPanelButton");
 	tb->connect("toggled", callable_mp(this, &EditorBottomPanel::_switch_by_control).bind(p_item));
 	tb->set_drag_forwarding(Callable(), callable_mp(this, &EditorBottomPanel::_button_drag_hover).bind(tb, p_item), Callable());
@@ -292,14 +292,14 @@ void EditorBottomPanel::toggle_last_opened_bottom_panel() {
 }
 
 EditorBottomPanel::EditorBottomPanel() {
-	item_vbox = memnewOld(VBoxContainer);
+	item_vbox = memnewOldNoConstructor(VBoxContainer);
 	add_child(item_vbox);
 
-	bottom_hbox = memnewOld(HBoxContainer);
+	bottom_hbox = memnewOldNoConstructor(HBoxContainer);
 	bottom_hbox->set_custom_minimum_size(Size2(0, 24 * EDSCALE)); // Adjust for the height of the "Expand Bottom Dock" icon.
 	item_vbox->add_child(bottom_hbox);
 
-	left_button = memnewOld(Button);
+	left_button = memnewOldNoConstructor(Button);
 	left_button->set_tooltip_text(TTR("Scroll Left\nHold Ctrl to scroll to the beginning.\nHold Shift to scroll one page."));
 	left_button->set_theme_type_variation("BottomPanelButton");
 	left_button->set_focus_mode(Control::FOCUS_NONE);
@@ -307,7 +307,7 @@ EditorBottomPanel::EditorBottomPanel() {
 	bottom_hbox->add_child(left_button);
 	left_button->hide();
 
-	button_scroll = memnewOld(ScrollContainer);
+	button_scroll = memnewOldNoConstructor(ScrollContainer);
 	button_scroll->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	button_scroll->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_SHOW_NEVER);
 	button_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
@@ -315,7 +315,7 @@ EditorBottomPanel::EditorBottomPanel() {
 	button_scroll->get_h_scroll_bar()->connect(SceneStringName(value_changed), callable_mp(this, &EditorBottomPanel::_update_disabled_buttons).unbind(1), CONNECT_DEFERRED);
 	bottom_hbox->add_child(button_scroll);
 
-	right_button = memnewOld(Button);
+	right_button = memnewOldNoConstructor(Button);
 	right_button->set_tooltip_text(TTR("Scroll Right\nHold Ctrl to scroll to the end.\nHold Shift to scroll one page."));
 	right_button->set_theme_type_variation("BottomPanelButton");
 	right_button->set_focus_mode(Control::FOCUS_NONE);
@@ -325,14 +325,14 @@ EditorBottomPanel::EditorBottomPanel() {
 
 	callable_mp(this, &EditorBottomPanel::_update_scroll_buttons).call_deferred();
 
-	button_hbox = memnewOld(HBoxContainer);
+	button_hbox = memnewOldNoConstructor(HBoxContainer);
 	button_hbox->set_h_size_flags(Control::SIZE_EXPAND | Control::SIZE_SHRINK_BEGIN);
 	button_scroll->add_child(button_hbox);
 
-	editor_toaster = memnewOld(EditorToaster);
+	editor_toaster = memnewOldNoConstructor(EditorToaster);
 	bottom_hbox->add_child(editor_toaster);
 
-	version_btn = memnewOld(LinkButton);
+	version_btn = memnewOldNoConstructor(LinkButton);
 	version_btn->set_text(EXTERNAL_VERSION_FULL_CONFIG);
 	String hash = String(VERSION_HASH);
 	if (hash.length() != 0) {
@@ -355,10 +355,10 @@ EditorBottomPanel::EditorBottomPanel() {
 	bottom_hbox->add_child(version_btn);
 
 	// Add a dummy control node for horizontal spacing.
-	Control *h_spacer = memnewOld(Control);
+	Control *h_spacer = memnewOldNoConstructor(Control);
 	bottom_hbox->add_child(h_spacer);
 
-	expand_button = memnewOld(Button);
+	expand_button = memnewOldNoConstructor(Button);
 	bottom_hbox->add_child(expand_button);
 	expand_button->hide();
 	expand_button->set_flat(false);

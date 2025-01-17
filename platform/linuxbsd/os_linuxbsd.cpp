@@ -142,7 +142,7 @@ void OS_LinuxBSD::initialize() {
 
 void OS_LinuxBSD::initialize_joypads() {
 #ifdef JOYDEV_ENABLED
-	joypad = memnewOld(JoypadLinux(Input::get_singleton()));
+	joypad = memnewOldWithArgs(JoypadLinux(Input::get_singleton()));
 #endif
 }
 

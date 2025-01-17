@@ -354,7 +354,7 @@ Error GDScriptParser::parse(const String &p_source_code, const String &p_script_
 		source = source.replace_first(String::chr(0xFFFF), String());
 	}
 
-	GDScriptTokenizerText *text_tokenizer = memnewOld(GDScriptTokenizerText);
+	GDScriptTokenizerText *text_tokenizer = memnewOldNoConstructor(GDScriptTokenizerText);
 	text_tokenizer->set_source_code(source);
 
 	tokenizer = text_tokenizer;
@@ -406,7 +406,7 @@ Error GDScriptParser::parse(const String &p_source_code, const String &p_script_
 }
 
 Error GDScriptParser::parse_binary(const Vector<uint8_t> &p_binary, const String &p_script_path) {
-	GDScriptTokenizerBuffer *buffer_tokenizer = memnewOld(GDScriptTokenizerBuffer);
+	GDScriptTokenizerBuffer *buffer_tokenizer = memnewOldNoConstructor(GDScriptTokenizerBuffer);
 	Error err = buffer_tokenizer->set_code_buffer(p_binary);
 
 	if (err) {

@@ -119,7 +119,7 @@ void GodotBroadPhase3DBVH::update() {
 }
 
 GodotBroadPhase3D *GodotBroadPhase3DBVH::_create() {
-	return memnewOld(GodotBroadPhase3DBVH);
+	return memnewOldNoConstructor(GodotBroadPhase3DBVH);
 }
 
 GodotBroadPhase3DBVH::GodotBroadPhase3DBVH() {

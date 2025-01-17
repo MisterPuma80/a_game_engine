@@ -560,14 +560,14 @@ void PropertySelector::_bind_methods() {
 }
 
 PropertySelector::PropertySelector() {
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc);
 	//set_child_rect(vbc);
-	search_box = memnewOld(LineEdit);
+	search_box = memnewOldNoConstructor(LineEdit);
 	vbc->add_margin_child(TTR("Search:"), search_box);
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &PropertySelector::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &PropertySelector::_sbox_input));
-	search_options = memnewOld(Tree);
+	search_options = memnewOldNoConstructor(Tree);
 	search_options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	vbc->add_margin_child(TTR("Matches:"), search_options, true);
 	set_ok_button_text(TTR("Open"));
@@ -579,7 +579,7 @@ PropertySelector::PropertySelector() {
 	search_options->set_hide_root(true);
 	search_options->set_hide_folding(true);
 
-	help_bit = memnewOld(EditorHelpBit);
+	help_bit = memnewOldNoConstructor(EditorHelpBit);
 	help_bit->set_content_height_limits(80 * EDSCALE, 80 * EDSCALE);
 	help_bit->connect("request_hide", callable_mp(this, &PropertySelector::_hide_requested));
 	vbc->add_margin_child(TTR("Description:"), help_bit);

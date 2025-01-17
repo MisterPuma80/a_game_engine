@@ -61,7 +61,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 	if (tts_enabled) {
 		tts = [[TTS_IOS alloc] init];
 	}
-	native_menu = memnewOld(NativeMenu);
+	native_menu = memnewOldNoConstructor(NativeMenu);
 
 #if defined(RD_ENABLED)
 	rendering_context = nullptr;
@@ -82,7 +82,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 			ERR_FAIL_MSG("Failed to create iOS Vulkan rendering layer.");
 		}
 		wpd.vulkan.layer_ptr = (CAMetalLayer *const *)&layer;
-		rendering_context = memnewOld(RenderingContextDriverVulkanIOS);
+		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanIOS);
 	}
 #endif
 
@@ -120,7 +120,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 		rendering_context->window_set_size(MAIN_WINDOW_ID, size.width, size.height);
 		rendering_context->window_set_vsync_mode(MAIN_WINDOW_ID, p_vsync_mode);
 
-		rendering_device = memnewOld(RenderingDevice);
+		rendering_device = memnewOldNoConstructor(RenderingDevice);
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			rendering_device = nullptr;
 			memdelete(rendering_context);
@@ -176,7 +176,7 @@ DisplayServerIOS::~DisplayServerIOS() {
 }
 
 DisplayServer *DisplayServerIOS::create_func(const String &p_rendering_driver, WindowMode p_mode, DisplayServer::VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	return memnewOld(DisplayServerIOS(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	return memnewOldWithArgs(DisplayServerIOS(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 }
 
 Vector<String> DisplayServerIOS::get_rendering_drivers_func() {

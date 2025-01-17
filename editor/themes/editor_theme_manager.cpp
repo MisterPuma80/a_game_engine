@@ -123,7 +123,7 @@ String EditorThemeManager::get_benchmark_key() {
 // Generation helper methods.
 
 Ref<StyleBoxTexture> make_stylebox(Ref<Texture2D> p_texture, float p_left, float p_top, float p_right, float p_bottom, float p_margin_left = -1, float p_margin_top = -1, float p_margin_right = -1, float p_margin_bottom = -1, bool p_draw_center = true) {
-	Ref<StyleBoxTexture> style(memnewOld(StyleBoxTexture));
+	Ref<StyleBoxTexture> style(memnewOldNoConstructor(StyleBoxTexture));
 	style->set_texture(p_texture);
 	style->set_texture_margin_individual(p_left * EDSCALE, p_top * EDSCALE, p_right * EDSCALE, p_bottom * EDSCALE);
 	style->set_content_margin_individual((p_left + p_margin_left) * EDSCALE, (p_top + p_margin_top) * EDSCALE, (p_right + p_margin_right) * EDSCALE, (p_bottom + p_margin_bottom) * EDSCALE);
@@ -132,13 +132,13 @@ Ref<StyleBoxTexture> make_stylebox(Ref<Texture2D> p_texture, float p_left, float
 }
 
 Ref<StyleBoxEmpty> make_empty_stylebox(float p_margin_left = -1, float p_margin_top = -1, float p_margin_right = -1, float p_margin_bottom = -1) {
-	Ref<StyleBoxEmpty> style(memnewOld(StyleBoxEmpty));
+	Ref<StyleBoxEmpty> style(memnewOldNoConstructor(StyleBoxEmpty));
 	style->set_content_margin_individual(p_margin_left * EDSCALE, p_margin_top * EDSCALE, p_margin_right * EDSCALE, p_margin_bottom * EDSCALE);
 	return style;
 }
 
 Ref<StyleBoxFlat> make_flat_stylebox(Color p_color, float p_margin_left = -1, float p_margin_top = -1, float p_margin_right = -1, float p_margin_bottom = -1, int p_corner_width = 0) {
-	Ref<StyleBoxFlat> style(memnewOld(StyleBoxFlat));
+	Ref<StyleBoxFlat> style(memnewOldNoConstructor(StyleBoxFlat));
 	style->set_bg_color(p_color);
 	// Adjust level of detail based on the corners' effective sizes.
 	style->set_corner_detail(Math::ceil(0.8 * p_corner_width * EDSCALE));
@@ -150,7 +150,7 @@ Ref<StyleBoxFlat> make_flat_stylebox(Color p_color, float p_margin_left = -1, fl
 }
 
 Ref<StyleBoxLine> make_line_stylebox(Color p_color, int p_thickness = 1, float p_grow_begin = 1, float p_grow_end = 1, bool p_vertical = false) {
-	Ref<StyleBoxLine> style(memnewOld(StyleBoxLine));
+	Ref<StyleBoxLine> style(memnewOldNoConstructor(StyleBoxLine));
 	style->set_color(p_color);
 	style->set_grow_begin(p_grow_begin);
 	style->set_grow_end(p_grow_end);
@@ -164,7 +164,7 @@ Ref<StyleBoxLine> make_line_stylebox(Color p_color, int p_thickness = 1, float p
 Ref<EditorTheme> EditorThemeManager::_create_base_theme(const Ref<EditorTheme> &p_old_theme) {
 	OS::get_singleton()->benchmark_begin_measure(get_benchmark_key(), "Create Base Theme");
 
-	Ref<EditorTheme> theme = memnewOld(EditorTheme);
+	Ref<EditorTheme> theme = memnewOldNoConstructor(EditorTheme);
 	ThemeConfiguration config = _create_theme_config(theme);
 	theme->set_generated_hash(config.hash());
 	theme->set_generated_fonts_hash(config.hash_fonts());
@@ -1379,18 +1379,18 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 			style_menu_hover->set_corner_radius_all(0);
 			p_theme->set_stylebox("hover", "PopupMenu", style_menu_hover);
 
-			Ref<StyleBoxLine> style_popup_separator(memnewOld(StyleBoxLine));
+			Ref<StyleBoxLine> style_popup_separator(memnewOldNoConstructor(StyleBoxLine));
 			style_popup_separator->set_color(p_config.separator_color);
 			style_popup_separator->set_grow_begin(p_config.popup_margin - MAX(Math::round(EDSCALE), p_config.border_width));
 			style_popup_separator->set_grow_end(p_config.popup_margin - MAX(Math::round(EDSCALE), p_config.border_width));
 			style_popup_separator->set_thickness(MAX(Math::round(EDSCALE), p_config.border_width));
 
-			Ref<StyleBoxLine> style_popup_labeled_separator_left(memnewOld(StyleBoxLine));
+			Ref<StyleBoxLine> style_popup_labeled_separator_left(memnewOldNoConstructor(StyleBoxLine));
 			style_popup_labeled_separator_left->set_grow_begin(p_config.popup_margin - MAX(Math::round(EDSCALE), p_config.border_width));
 			style_popup_labeled_separator_left->set_color(p_config.separator_color);
 			style_popup_labeled_separator_left->set_thickness(MAX(Math::round(EDSCALE), p_config.border_width));
 
-			Ref<StyleBoxLine> style_popup_labeled_separator_right(memnewOld(StyleBoxLine));
+			Ref<StyleBoxLine> style_popup_labeled_separator_right(memnewOldNoConstructor(StyleBoxLine));
 			style_popup_labeled_separator_right->set_grow_end(p_config.popup_margin - MAX(Math::round(EDSCALE), p_config.border_width));
 			style_popup_labeled_separator_right->set_color(p_config.separator_color);
 			style_popup_labeled_separator_right->set_thickness(MAX(Math::round(EDSCALE), p_config.border_width));
@@ -1429,7 +1429,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 	// Sliders and scrollbars.
 	{
-		Ref<Texture2D> empty_icon = memnewOld(ImageTexture);
+		Ref<Texture2D> empty_icon = memnewOldNoConstructor(ImageTexture);
 
 		// HScrollBar.
 
@@ -1525,7 +1525,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 	// SpinBox.
 	{
-		Ref<Texture2D> empty_icon = memnewOld(ImageTexture);
+		Ref<Texture2D> empty_icon = memnewOldNoConstructor(ImageTexture);
 		p_theme->set_icon("updown", "SpinBox", empty_icon);
 		p_theme->set_icon("up", "SpinBox", p_theme->get_icon(SNAME("GuiSpinboxUp"), EditorStringName(EditorIcons)));
 		p_theme->set_icon("up_hover", "SpinBox", p_theme->get_icon(SNAME("GuiSpinboxUp"), EditorStringName(EditorIcons)));
@@ -1753,7 +1753,7 @@ void EditorThemeManager::_populate_standard_styles(const Ref<EditorTheme> &p_the
 
 			// GraphFrame's title Label.
 			p_theme->set_type_variation("GraphFrameTitleLabel", "Label");
-			p_theme->set_stylebox(CoreStringName(normal), "GraphFrameTitleLabel", memnewOld(StyleBoxEmpty));
+			p_theme->set_stylebox(CoreStringName(normal), "GraphFrameTitleLabel", memnewOldNoConstructor(StyleBoxEmpty));
 			p_theme->set_font_size(SceneStringName(font_size), "GraphFrameTitleLabel", 22 * EDSCALE);
 			p_theme->set_color(SceneStringName(font_color), "GraphFrameTitleLabel", Color(1, 1, 1));
 			p_theme->set_color("font_shadow_color", "GraphFrameTitleLabel", Color(0, 0, 0, 0));
@@ -1906,7 +1906,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		// Use a custom stylebox to make contextual menu items stand out from the rest.
 		// This helps with editor usability as contextual menu items change when selecting nodes,
 		// even though it may not be immediately obvious at first.
-		Ref<StyleBoxFlat> toolbar_stylebox = memnewOld(StyleBoxFlat);
+		Ref<StyleBoxFlat> toolbar_stylebox = memnewOldNoConstructor(StyleBoxFlat);
 		toolbar_stylebox->set_bg_color(p_config.accent_color * Color(1, 1, 1, 0.1));
 		toolbar_stylebox->set_anti_aliased(false);
 		// Add an underline to the StyleBox, but prevent its minimum vertical size from changing.
@@ -2222,7 +2222,7 @@ void EditorThemeManager::_populate_editor_styles(const Ref<EditorTheme> &p_theme
 		style_property_child_bg->set_bg_color(p_config.dark_color_2);
 		style_property_child_bg->set_border_width_all(0);
 
-		p_theme->set_stylebox("bg", "EditorProperty", memnewOld(StyleBoxEmpty));
+		p_theme->set_stylebox("bg", "EditorProperty", memnewOldNoConstructor(StyleBoxEmpty));
 		p_theme->set_stylebox("bg_selected", "EditorProperty", style_property_bg);
 		p_theme->set_stylebox("child_bg", "EditorProperty", style_property_child_bg);
 		p_theme->set_constant("font_offset", "EditorProperty", 8 * EDSCALE);
@@ -2648,7 +2648,7 @@ void EditorThemeManager::_populate_text_editor_styles(const Ref<EditorTheme> &p_
 	Ref<StyleBoxFlat> code_edit_stylebox = make_flat_stylebox(background_color, p_config.widget_margin.x, p_config.widget_margin.y, p_config.widget_margin.x, p_config.widget_margin.y, p_config.corner_radius);
 	p_theme->set_stylebox(CoreStringName(normal), "CodeEdit", code_edit_stylebox);
 	p_theme->set_stylebox("read_only", "CodeEdit", code_edit_stylebox);
-	p_theme->set_stylebox("focus", "CodeEdit", memnewOld(StyleBoxEmpty));
+	p_theme->set_stylebox("focus", "CodeEdit", memnewOldNoConstructor(StyleBoxEmpty));
 
 	p_theme->set_color("background_color", "CodeEdit", Color(0, 0, 0, 0)); // Unset any color, we use a stylebox.
 

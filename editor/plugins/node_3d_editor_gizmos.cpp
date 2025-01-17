@@ -285,7 +285,7 @@ void EditorNode3DGizmo::add_vertices(const Vector<Vector3> &p_vertices, const Re
 	ERR_FAIL_NULL(spatial_node);
 	Instance ins;
 
-	Ref<ArrayMesh> mesh = memnewOld(ArrayMesh);
+	Ref<ArrayMesh> mesh = memnewOldNoConstructor(ArrayMesh);
 	Array a;
 	a.resize(Mesh::ARRAY_MAX);
 
@@ -355,7 +355,7 @@ void EditorNode3DGizmo::add_unscaled_billboard(const Ref<Material> &p_material, 
 
 	Vector<int> indices = { 0, 1, 2, 0, 2, 3 };
 
-	Ref<ArrayMesh> mesh = memnewOld(ArrayMesh);
+	Ref<ArrayMesh> mesh = memnewOldNoConstructor(ArrayMesh);
 	Array a;
 	a.resize(Mesh::ARRAY_MAX);
 	a[Mesh::ARRAY_VERTEX] = vs;
@@ -422,7 +422,7 @@ void EditorNode3DGizmo::add_handles(const Vector<Vector3> &p_handles, const Ref<
 	int current_hover_handle = Node3DEditor::get_singleton()->get_current_hover_gizmo_handle(current_hover_handle_secondary);
 
 	Instance ins;
-	Ref<ArrayMesh> mesh = memnewOld(ArrayMesh);
+	Ref<ArrayMesh> mesh = memnewOldNoConstructor(ArrayMesh);
 
 	Array a;
 	a.resize(RS::ARRAY_MAX);
@@ -499,7 +499,7 @@ void EditorNode3DGizmo::add_solid_box(const Ref<Material> &p_material, Vector3 p
 
 	arrays[RS::ARRAY_VERTEX] = vertex;
 
-	Ref<ArrayMesh> m = memnewOld(ArrayMesh);
+	Ref<ArrayMesh> m = memnewOldNoConstructor(ArrayMesh);
 	m->add_surface_from_arrays(box_mesh.surface_get_primitive_type(0), arrays);
 	add_mesh(m, p_material, p_xform);
 }
@@ -903,7 +903,7 @@ void EditorNode3DGizmoPlugin::create_material(const String &p_name, const Color 
 		bool selected = i % 2 == 1;
 		bool instantiated = i < 2;
 
-		Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+		Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 
 		Color color = instantiated ? instantiated_color : p_color;
 
@@ -946,7 +946,7 @@ void EditorNode3DGizmoPlugin::create_icon_material(const String &p_name, const R
 		bool selected = i % 2 == 1;
 		bool instantiated = i < 2;
 
-		Ref<StandardMaterial3D> icon = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+		Ref<StandardMaterial3D> icon = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 
 		Color color = instantiated ? instantiated_color : p_albedo;
 
@@ -980,7 +980,7 @@ void EditorNode3DGizmoPlugin::create_icon_material(const String &p_name, const R
 }
 
 void EditorNode3DGizmoPlugin::create_handle_material(const String &p_name, bool p_billboard, const Ref<Texture2D> &p_icon) {
-	Ref<StandardMaterial3D> handle_material = Ref<StandardMaterial3D>(memnewOld(StandardMaterial3D));
+	Ref<StandardMaterial3D> handle_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
 
 	handle_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	handle_material->set_flag(StandardMaterial3D::FLAG_USE_POINT_SIZE, true);

@@ -52,14 +52,14 @@ uint32_t GDScriptParserRef::get_source_hash() const {
 
 GDScriptParser *GDScriptParserRef::get_parser() {
 	if (parser == nullptr) {
-		parser = memnewOld(GDScriptParser);
+		parser = memnewOldNoConstructor(GDScriptParser);
 	}
 	return parser;
 }
 
 GDScriptAnalyzer *GDScriptParserRef::get_analyzer() {
 	if (analyzer == nullptr) {
-		analyzer = memnewOld(GDScriptAnalyzer(get_parser()));
+		analyzer = memnewOldWithArgs(GDScriptAnalyzer(get_parser()));
 	}
 	return analyzer;
 }

@@ -80,18 +80,18 @@ void GotoLineDialog::ok_pressed() {
 GotoLineDialog::GotoLineDialog() {
 	set_title(TTR("Go to Line"));
 
-	VBoxContainer *vbc = memnewOld(VBoxContainer);
+	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
 	vbc->set_anchor_and_offset(SIDE_LEFT, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_TOP, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_RIGHT, Control::ANCHOR_END, -8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_BOTTOM, Control::ANCHOR_END, -8 * EDSCALE);
 	add_child(vbc);
 
-	Label *l = memnewOld(Label);
+	Label *l = memnewOldNoConstructor(Label);
 	l->set_text(TTR("Line Number:"));
 	vbc->add_child(l);
 
-	line = memnewOld(LineEdit);
+	line = memnewOldNoConstructor(LineEdit);
 	vbc->add_child(line);
 	register_text_enter(line);
 	text_editor = nullptr;
@@ -710,29 +710,29 @@ void FindReplaceBar::_bind_methods() {
 }
 
 FindReplaceBar::FindReplaceBar() {
-	vbc_lineedit = memnewOld(VBoxContainer);
+	vbc_lineedit = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc_lineedit);
 	vbc_lineedit->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	vbc_lineedit->set_h_size_flags(SIZE_EXPAND_FILL);
-	VBoxContainer *vbc_button = memnewOld(VBoxContainer);
+	VBoxContainer *vbc_button = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc_button);
-	VBoxContainer *vbc_option = memnewOld(VBoxContainer);
+	VBoxContainer *vbc_option = memnewOldNoConstructor(VBoxContainer);
 	add_child(vbc_option);
 
-	HBoxContainer *hbc_button_search = memnewOld(HBoxContainer);
+	HBoxContainer *hbc_button_search = memnewOldNoConstructor(HBoxContainer);
 	vbc_button->add_child(hbc_button_search);
 	hbc_button_search->set_alignment(BoxContainer::ALIGNMENT_END);
-	hbc_button_replace = memnewOld(HBoxContainer);
+	hbc_button_replace = memnewOldNoConstructor(HBoxContainer);
 	vbc_button->add_child(hbc_button_replace);
 	hbc_button_replace->set_alignment(BoxContainer::ALIGNMENT_END);
 
-	HBoxContainer *hbc_option_search = memnewOld(HBoxContainer);
+	HBoxContainer *hbc_option_search = memnewOldNoConstructor(HBoxContainer);
 	vbc_option->add_child(hbc_option_search);
-	hbc_option_replace = memnewOld(HBoxContainer);
+	hbc_option_replace = memnewOldNoConstructor(HBoxContainer);
 	vbc_option->add_child(hbc_option_replace);
 
 	// Search toolbar
-	search_text = memnewOld(LineEdit);
+	search_text = memnewOldNoConstructor(LineEdit);
 	vbc_lineedit->add_child(search_text);
 	search_text->set_placeholder(TTR("Find"));
 	search_text->set_tooltip_text(TTR("Find"));
@@ -741,38 +741,38 @@ FindReplaceBar::FindReplaceBar() {
 	search_text->connect("text_submitted", callable_mp(this, &FindReplaceBar::_search_text_submitted));
 	search_text->connect(SceneStringName(focus_exited), callable_mp(this, &FindReplaceBar::_focus_lost));
 
-	matches_label = memnewOld(Label);
+	matches_label = memnewOldNoConstructor(Label);
 	hbc_button_search->add_child(matches_label);
 	matches_label->hide();
 
-	find_prev = memnewOld(Button);
+	find_prev = memnewOldNoConstructor(Button);
 	find_prev->set_flat(true);
 	find_prev->set_tooltip_text(TTR("Previous Match"));
 	hbc_button_search->add_child(find_prev);
 	find_prev->set_focus_mode(FOCUS_NONE);
 	find_prev->connect(SceneStringName(pressed), callable_mp(this, &FindReplaceBar::search_prev));
 
-	find_next = memnewOld(Button);
+	find_next = memnewOldNoConstructor(Button);
 	find_next->set_flat(true);
 	find_next->set_tooltip_text(TTR("Next Match"));
 	hbc_button_search->add_child(find_next);
 	find_next->set_focus_mode(FOCUS_NONE);
 	find_next->connect(SceneStringName(pressed), callable_mp(this, &FindReplaceBar::search_next));
 
-	case_sensitive = memnewOld(CheckBox);
+	case_sensitive = memnewOldNoConstructor(CheckBox);
 	hbc_option_search->add_child(case_sensitive);
 	case_sensitive->set_text(TTR("Match Case"));
 	case_sensitive->set_focus_mode(FOCUS_NONE);
 	case_sensitive->connect("toggled", callable_mp(this, &FindReplaceBar::_search_options_changed));
 
-	whole_words = memnewOld(CheckBox);
+	whole_words = memnewOldNoConstructor(CheckBox);
 	hbc_option_search->add_child(whole_words);
 	whole_words->set_text(TTR("Whole Words"));
 	whole_words->set_focus_mode(FOCUS_NONE);
 	whole_words->connect("toggled", callable_mp(this, &FindReplaceBar::_search_options_changed));
 
 	// Replace toolbar
-	replace_text = memnewOld(LineEdit);
+	replace_text = memnewOldNoConstructor(LineEdit);
 	vbc_lineedit->add_child(replace_text);
 	replace_text->set_placeholder(TTR("Replace"));
 	replace_text->set_tooltip_text(TTR("Replace"));
@@ -780,23 +780,23 @@ FindReplaceBar::FindReplaceBar() {
 	replace_text->connect("text_submitted", callable_mp(this, &FindReplaceBar::_replace_text_submitted));
 	replace_text->connect(SceneStringName(focus_exited), callable_mp(this, &FindReplaceBar::_focus_lost));
 
-	replace = memnewOld(Button);
+	replace = memnewOldNoConstructor(Button);
 	hbc_button_replace->add_child(replace);
 	replace->set_text(TTR("Replace"));
 	replace->connect(SceneStringName(pressed), callable_mp(this, &FindReplaceBar::_replace));
 
-	replace_all = memnewOld(Button);
+	replace_all = memnewOldNoConstructor(Button);
 	hbc_button_replace->add_child(replace_all);
 	replace_all->set_text(TTR("Replace All"));
 	replace_all->connect(SceneStringName(pressed), callable_mp(this, &FindReplaceBar::_replace_all));
 
-	selection_only = memnewOld(CheckBox);
+	selection_only = memnewOldNoConstructor(CheckBox);
 	hbc_option_replace->add_child(selection_only);
 	selection_only->set_text(TTR("Selection Only"));
 	selection_only->set_focus_mode(FOCUS_NONE);
 	selection_only->connect("toggled", callable_mp(this, &FindReplaceBar::_search_options_changed));
 
-	hide_button = memnewOld(TextureButton);
+	hide_button = memnewOldNoConstructor(TextureButton);
 	add_child(hide_button);
 	hide_button->set_tooltip_text(TTR("Hide"));
 	hide_button->set_focus_mode(FOCUS_NONE);
@@ -1751,7 +1751,7 @@ CodeTextEditor::CodeTextEditor() {
 	ED_SHORTCUT_ARRAY("script_editor/reset_zoom", TTR("Reset Zoom"),
 			{ int32_t(KeyModifierMask::CMD_OR_CTRL | Key::KEY_0), int32_t(KeyModifierMask::CMD_OR_CTRL | Key::KP_0) });
 
-	text_editor = memnewOld(CodeEdit);
+	text_editor = memnewOldNoConstructor(CodeEdit);
 	add_child(text_editor);
 	text_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	text_editor->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_GDSCRIPT);
@@ -1762,24 +1762,24 @@ CodeTextEditor::CodeTextEditor() {
 	text_editor->set_auto_indent_enabled(true);
 	text_editor->set_deselect_on_focus_loss_enabled(false);
 
-	status_bar = memnewOld(HBoxContainer);
+	status_bar = memnewOldNoConstructor(HBoxContainer);
 	add_child(status_bar);
 	status_bar->set_h_size_flags(SIZE_EXPAND_FILL);
 	status_bar->set_custom_minimum_size(Size2(0, 24 * EDSCALE)); // Adjust for the height of the warning icon.
 
-	idle = memnewOld(Timer);
+	idle = memnewOldNoConstructor(Timer);
 	add_child(idle);
 	idle->set_one_shot(true);
 
 	code_complete_enabled = EDITOR_GET("text_editor/completion/code_complete_enabled");
-	code_complete_timer = memnewOld(Timer);
+	code_complete_timer = memnewOldNoConstructor(Timer);
 	add_child(code_complete_timer);
 	code_complete_timer->set_one_shot(true);
 
 	error_line = 0;
 	error_column = 0;
 
-	toggle_scripts_button = memnewOld(Button);
+	toggle_scripts_button = memnewOldNoConstructor(Button);
 	toggle_scripts_button->set_flat(true);
 	toggle_scripts_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
 	toggle_scripts_button->connect(SceneStringName(pressed), callable_mp(this, &CodeTextEditor::_toggle_scripts_pressed));
@@ -1787,20 +1787,20 @@ CodeTextEditor::CodeTextEditor() {
 	toggle_scripts_button->hide();
 
 	// Error
-	ScrollContainer *scroll = memnewOld(ScrollContainer);
+	ScrollContainer *scroll = memnewOldNoConstructor(ScrollContainer);
 	scroll->set_h_size_flags(SIZE_EXPAND_FILL);
 	scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	status_bar->add_child(scroll);
 
-	error = memnewOld(Label);
+	error = memnewOldNoConstructor(Label);
 	scroll->add_child(error);
 	error->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
 	error->set_mouse_filter(MOUSE_FILTER_STOP);
 	error->connect(SceneStringName(gui_input), callable_mp(this, &CodeTextEditor::_error_pressed));
 
 	// Errors
-	error_button = memnewOld(Button);
+	error_button = memnewOldNoConstructor(Button);
 	error_button->set_flat(true);
 	status_bar->add_child(error_button);
 	error_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
@@ -1810,7 +1810,7 @@ CodeTextEditor::CodeTextEditor() {
 	set_error_count(0);
 
 	// Warnings
-	warning_button = memnewOld(Button);
+	warning_button = memnewOldNoConstructor(Button);
 	warning_button->set_flat(true);
 	status_bar->add_child(warning_button);
 	warning_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
@@ -1819,10 +1819,10 @@ CodeTextEditor::CodeTextEditor() {
 	warning_button->set_tooltip_text(TTR("Warnings"));
 	set_warning_count(0);
 
-	status_bar->add_child(memnewOld(VSeparator));
+	status_bar->add_child(memnewOldNoConstructor(VSeparator));
 
 	// Zoom
-	zoom_button = memnewOld(MenuButton);
+	zoom_button = memnewOldNoConstructor(MenuButton);
 	status_bar->add_child(zoom_button);
 	zoom_button->set_flat(true);
 	zoom_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
@@ -1840,19 +1840,19 @@ CodeTextEditor::CodeTextEditor() {
 
 	zoom_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CodeTextEditor::_zoom_popup_id_pressed));
 
-	status_bar->add_child(memnewOld(VSeparator));
+	status_bar->add_child(memnewOldNoConstructor(VSeparator));
 
 	// Line and column
-	line_and_col_txt = memnewOld(Label);
+	line_and_col_txt = memnewOldNoConstructor(Label);
 	status_bar->add_child(line_and_col_txt);
 	line_and_col_txt->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
 	line_and_col_txt->set_tooltip_text(TTR("Line and column numbers."));
 	line_and_col_txt->set_mouse_filter(MOUSE_FILTER_STOP);
 
-	status_bar->add_child(memnewOld(VSeparator));
+	status_bar->add_child(memnewOldNoConstructor(VSeparator));
 
 	// Indentation
-	indentation_txt = memnewOld(Label);
+	indentation_txt = memnewOldNoConstructor(Label);
 	status_bar->add_child(indentation_txt);
 	indentation_txt->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
 	indentation_txt->set_tooltip_text(TTR("Indentation"));

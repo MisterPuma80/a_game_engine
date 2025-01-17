@@ -41,7 +41,7 @@
 #define SQRT3 (1.7320508f)
 
 TEST_CASE("[SceneTree][Camera3D] Getters and setters") {
-	Camera3D *test_camera = memnewOld(Camera3D);
+	Camera3D *test_camera = memnewOldNoConstructor(Camera3D);
 
 	SUBCASE("Cull mask") {
 		constexpr int cull_mask = (1 << 5) | (1 << 7) | (1 << 9);
@@ -56,10 +56,10 @@ TEST_CASE("[SceneTree][Camera3D] Getters and setters") {
 	}
 
 	SUBCASE("Attributes") {
-		Ref<CameraAttributes> attributes = memnewOld(CameraAttributes);
+		Ref<CameraAttributes> attributes = memnewOldNoConstructor(CameraAttributes);
 		test_camera->set_attributes(attributes);
 		CHECK(test_camera->get_attributes() == attributes);
-		Ref<CameraAttributesPhysical> physical_attributes = memnewOld(CameraAttributesPhysical);
+		Ref<CameraAttributesPhysical> physical_attributes = memnewOldNoConstructor(CameraAttributesPhysical);
 		test_camera->set_attributes(physical_attributes);
 		CHECK(test_camera->get_attributes() == physical_attributes);
 	}
@@ -129,8 +129,8 @@ TEST_CASE("[SceneTree][Camera3D] Getters and setters") {
 
 TEST_CASE("[SceneTree][Camera3D] Position queries") {
 	// Cameras need a viewport to know how to compute their frustums, so we make a fake one here.
-	Camera3D *test_camera = memnewOld(Camera3D);
-	SubViewport *mock_viewport = memnewOld(SubViewport);
+	Camera3D *test_camera = memnewOldNoConstructor(Camera3D);
+	SubViewport *mock_viewport = memnewOldNoConstructor(SubViewport);
 	// 4:2.
 	mock_viewport->set_size(Vector2(400, 200));
 	SceneTree::get_singleton()->get_root()->add_child(mock_viewport);
@@ -216,8 +216,8 @@ TEST_CASE("[SceneTree][Camera3D] Position queries") {
 
 TEST_CASE("[SceneTree][Camera3D] Project/Unproject position") {
 	// Cameras need a viewport to know how to compute their frustums, so we make a fake one here.
-	Camera3D *test_camera = memnewOld(Camera3D);
-	SubViewport *mock_viewport = memnewOld(SubViewport);
+	Camera3D *test_camera = memnewOldNoConstructor(Camera3D);
+	SubViewport *mock_viewport = memnewOldNoConstructor(SubViewport);
 	// 4:2.
 	mock_viewport->set_size(Vector2(400, 200));
 	SceneTree::get_singleton()->get_root()->add_child(mock_viewport);
@@ -283,8 +283,8 @@ TEST_CASE("[SceneTree][Camera3D] Project/Unproject position") {
 
 TEST_CASE("[SceneTree][Camera3D] Project ray") {
 	// Cameras need a viewport to know how to compute their frustums, so we make a fake one here.
-	Camera3D *test_camera = memnewOld(Camera3D);
-	SubViewport *mock_viewport = memnewOld(SubViewport);
+	Camera3D *test_camera = memnewOldNoConstructor(Camera3D);
+	SubViewport *mock_viewport = memnewOldNoConstructor(SubViewport);
 	// 4:2.
 	mock_viewport->set_size(Vector2(400, 200));
 	SceneTree::get_singleton()->get_root()->add_child(mock_viewport);

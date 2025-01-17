@@ -259,7 +259,7 @@ public:
 };
 
 Ref<DirAccess> PackedData::try_open_directory(const String &p_path) {
-	Ref<DirAccess> da = memnewOld(DirAccessPack());
+	Ref<DirAccess> da = memnewOldNoArgs(DirAccessPack());
 	if (da->change_dir(p_path) != OK) {
 		da = Ref<DirAccess>();
 	}

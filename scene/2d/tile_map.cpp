@@ -265,7 +265,7 @@ void TileMap::add_layer(int p_to_pos) {
 	ERR_FAIL_INDEX(p_to_pos, (int)layers.size() + 1);
 
 	// Must clear before adding the layer.
-	TileMapLayer *new_layer = memnewOld(TileMapLayer);
+	TileMapLayer *new_layer = memnewOldNoConstructor(TileMapLayer);
 	layers.insert(p_to_pos, new_layer);
 	add_child(new_layer, false, INTERNAL_MODE_FRONT);
 	new_layer->set_name(vformat("Layer%d", p_to_pos));
@@ -677,7 +677,7 @@ bool TileMap::_set(const StringName &p_name, const Variant &p_value) {
 	else if (property_helper.is_property_valid(sname, &index)) {
 		if (index >= (int)layers.size()) {
 			while (index >= (int)layers.size()) {
-				TileMapLayer *new_layer = memnewOld(TileMapLayer);
+				TileMapLayer *new_layer = memnewOldNoConstructor(TileMapLayer);
 				add_child(new_layer, false, INTERNAL_MODE_FRONT);
 				new_layer->set_as_tile_map_internal_node(index);
 				new_layer->set_name(vformat("Layer%d", index));
@@ -975,7 +975,7 @@ void TileMap::_bind_methods() {
 }
 
 TileMap::TileMap() {
-	TileMapLayer *new_layer = memnewOld(TileMapLayer);
+	TileMapLayer *new_layer = memnewOldNoConstructor(TileMapLayer);
 	add_child(new_layer, false, INTERNAL_MODE_FRONT);
 	new_layer->set_as_tile_map_internal_node(0);
 	new_layer->set_name("Layer0");
@@ -986,7 +986,7 @@ TileMap::TileMap() {
 	if (!base_property_helper.is_initialized()) {
 		// Initialize static PropertyListHelper if it wasn't yet. This has to be done here,
 		// because creating TileMapLayer in a static context is not always safe.
-		TileMapLayer *defaults = memnewOld(TileMapLayer);
+		TileMapLayer *defaults = memnewOldNoConstructor(TileMapLayer);
 
 		base_property_helper.set_prefix("layer_");
 		base_property_helper.set_array_length_getter(&TileMap::get_layers_count);

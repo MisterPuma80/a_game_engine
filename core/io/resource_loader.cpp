@@ -348,7 +348,7 @@ void ResourceLoader::_run_load_task(void *p_userdata) {
 		if (!Thread::is_main_thread()) {
 			// Let the caller thread use its own, for added flexibility. Provide one otherwise.
 			if (MessageQueue::get_singleton() == MessageQueue::get_main_singleton()) {
-				own_mq_override = memnewOld(CallQueue);
+				own_mq_override = memnewOldNoConstructor(CallQueue);
 				MessageQueue::set_thread_singleton_override(own_mq_override);
 			}
 			set_current_thread_safe_for_nodes(true);
@@ -601,7 +601,7 @@ Ref<ResourceLoader::LoadToken> ResourceLoader::_load_start(const String &p_path,
 			// If we want to ignore cache, but there's another task loading it, we can't add this one to the map.
 			must_not_register = ignoring_cache && thread_load_tasks.has(local_path);
 			if (must_not_register) {
-				load_token->task_if_unregistered = memnewOld(ThreadLoadTask(load_task));
+				load_token->task_if_unregistered = memnewOldWithArgs(ThreadLoadTask(load_task));
 				load_task_ptr = load_token->task_if_unregistered;
 			} else {
 				DEV_ASSERT(!thread_load_tasks.has(local_path));
@@ -810,7 +810,7 @@ Ref<Resource> ResourceLoader::_load_complete_inner(LoadToken &p_load_token, Erro
 			} else if (load_task.need_wait) {
 				// Loading thread is main or user thread.
 				if (!load_task.cond_var) {
-					load_task.cond_var = memnewOld(ConditionVariable);
+					load_task.cond_var = memnewOldNoConstructor(ConditionVariable);
 				}
 				load_task.awaiters_count++;
 				do {

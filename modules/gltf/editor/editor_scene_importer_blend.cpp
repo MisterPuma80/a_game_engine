@@ -498,7 +498,7 @@ void EditorFileSystemImportFormatSupportQueryBlend::_update_icons() {
 
 bool EditorFileSystemImportFormatSupportQueryBlend::query() {
 	if (!configure_blender_dialog) {
-		configure_blender_dialog = memnewOld(ConfirmationDialog);
+		configure_blender_dialog = memnewOldNoConstructor(ConfirmationDialog);
 		configure_blender_dialog->set_title(TTR("Configure Blender Importer"));
 		configure_blender_dialog->set_flag(Window::FLAG_BORDERLESS, true); // Avoid closing accidentally.
 		configure_blender_dialog->set_close_on_escape(false);
@@ -507,16 +507,16 @@ bool EditorFileSystemImportFormatSupportQueryBlend::query() {
 #ifdef MACOS_ENABLED
 		select_exec_label += "\n" + TTR("On macOS, this should be the `Contents/MacOS/blender` file within the Blender `.app` folder.");
 #endif
-		VBoxContainer *vb = memnewOld(VBoxContainer);
-		vb->add_child(memnewOld(Label(select_exec_label)));
+		VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+		vb->add_child(memnewOldWithArgs(Label(select_exec_label)));
 
-		HBoxContainer *hb = memnewOld(HBoxContainer);
+		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 
-		blender_path = memnewOld(LineEdit);
+		blender_path = memnewOldNoConstructor(LineEdit);
 		blender_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hb->add_child(blender_path);
 
-		blender_path_browse = memnewOld(Button);
+		blender_path_browse = memnewOldNoConstructor(Button);
 		blender_path_browse->set_text(TTR("Browse"));
 		blender_path_browse->connect(SceneStringName(pressed), callable_mp(this, &EditorFileSystemImportFormatSupportQueryBlend::_browse_install));
 		hb->add_child(blender_path_browse);
@@ -526,7 +526,7 @@ bool EditorFileSystemImportFormatSupportQueryBlend::query() {
 
 		vb->add_child(hb);
 
-		path_status = memnewOld(Label);
+		path_status = memnewOldNoConstructor(Label);
 		vb->add_child(path_status);
 
 		configure_blender_dialog->add_child(vb);
@@ -540,7 +540,7 @@ bool EditorFileSystemImportFormatSupportQueryBlend::query() {
 		configure_blender_dialog->get_cancel_button()->set_tooltip_text(TTR("Disables Blender '.blend' files import for this project. Can be re-enabled in Project Settings."));
 		configure_blender_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorFileSystemImportFormatSupportQueryBlend::_path_confirmed));
 
-		browse_dialog = memnewOld(EditorFileDialog);
+		browse_dialog = memnewOldNoConstructor(EditorFileDialog);
 		browse_dialog->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 		browse_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 		browse_dialog->connect("file_selected", callable_mp(this, &EditorFileSystemImportFormatSupportQueryBlend::_select_install));
