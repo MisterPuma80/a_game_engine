@@ -599,7 +599,7 @@ EditorAssetLibraryItemDownload::EditorAssetLibraryItemDownload() {
 
 	vb->add_spacer();
 
-	status = memnewOldWithArgs(Label(TTR("Idle")));
+	status = memnewWithArgs<Label>(TTR("Idle"));
 	vb->add_child(status);
 	progress = memnewOldNoConstructor(ProgressBar);
 	progress->set_editor_preview_indeterminate(true);
@@ -1403,7 +1403,7 @@ void EditorAssetLibrary::_http_request_completed(int p_status, int p_code, const
 				ERR_FAIL_COND(!category_map.has(r["category_id"]));
 				ERR_CONTINUE(!r.has("cost"));
 
-				EditorAssetLibraryItem *item = memnewOldWithArgs(EditorAssetLibraryItem(true));
+				EditorAssetLibraryItem *item = memnewWithArgs<EditorAssetLibraryItem>(true);
 				asset_items->add_child(item);
 				item->configure(r["title"], r["asset_id"], category_map[r["category_id"]], r["category_id"], r["author"], r["author_id"], r["cost"]);
 				item->clamp_width(asset_items_column_width);
@@ -1649,7 +1649,7 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	HBoxContainer *search_hb2 = memnewOldNoConstructor(HBoxContainer);
 	library_main->add_child(search_hb2);
 
-	search_hb2->add_child(memnewOldWithArgs(Label(TTR("Sort:") + " ")));
+	search_hb2->add_child(memnewWithArgs<Label>(TTR("Sort:") + " "));
 	sort = memnewOldNoConstructor(OptionButton);
 	for (int i = 0; i < SORT_MAX; i++) {
 		sort->add_item(TTRGET(sort_text[i]));
@@ -1663,7 +1663,7 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 
 	search_hb2->add_child(memnewOldNoConstructor(VSeparator));
 
-	search_hb2->add_child(memnewOldWithArgs(Label(TTR("Category:") + " ")));
+	search_hb2->add_child(memnewWithArgs<Label>(TTR("Category:") + " "));
 	categories = memnewOldNoConstructor(OptionButton);
 	categories->add_item(TTR("All"));
 	search_hb2->add_child(categories);
@@ -1673,7 +1673,7 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 
 	search_hb2->add_child(memnewOldNoConstructor(VSeparator));
 
-	search_hb2->add_child(memnewOldWithArgs(Label(TTR("Site:") + " ")));
+	search_hb2->add_child(memnewWithArgs<Label>(TTR("Site:") + " "));
 	repository = memnewOldNoConstructor(OptionButton);
 
 	_update_repository_options();

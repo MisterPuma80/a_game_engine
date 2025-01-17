@@ -276,7 +276,7 @@ BonePicker::~BonePicker() {
 
 void BoneMapper::create_editor() {
 	// Create Bone picker.
-	picker = memnewOldWithArgs(BonePicker(skeleton));
+	picker = memnewWithArgs<BonePicker>(skeleton);
 	picker->connect(SceneStringName(confirmed), callable_mp(this, &BoneMapper::_apply_picker_selection));
 	add_child(picker, false, INTERNAL_MODE_FRONT);
 
@@ -461,7 +461,7 @@ void BoneMapper::recreate_items() {
 		int len = profile->get_bone_size();
 		for (int i = 0; i < len; i++) {
 			StringName bn = profile->get_bone_name(i);
-			bone_mapper_items.append(memnewOldWithArgs(BoneMapperItem(bone_map, bn)));
+			bone_mapper_items.append(memnewWithArgs<BoneMapperItem>(bone_map, bn));
 			bone_mapper_items[i]->connect("pick", callable_mp(this, &BoneMapper::_pick_bone), CONNECT_DEFERRED);
 			mapper_item_vbox->add_child(bone_mapper_items[i]);
 		}
@@ -1421,7 +1421,7 @@ void BoneMapEditor::create_editors() {
 	if (!skeleton) {
 		return;
 	}
-	bone_mapper = memnewOldWithArgs(BoneMapper(skeleton, bone_map));
+	bone_mapper = memnewWithArgs<BoneMapper>(skeleton, bone_map);
 	add_child(bone_mapper);
 }
 
@@ -1477,7 +1477,7 @@ void EditorInspectorPluginBoneMap::parse_begin(Object *p_object) {
 		return;
 	}
 	Ref<BoneMap> r(bm);
-	editor = memnewOldWithArgs(BoneMapEditor(r));
+	editor = memnewWithArgs<BoneMapEditor>(r);
 	add_custom_control(editor);
 }
 

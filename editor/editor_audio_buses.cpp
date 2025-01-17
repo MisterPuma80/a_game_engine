@@ -1067,7 +1067,7 @@ void EditorAudioBuses::_rebuild_buses() {
 
 	for (int i = 0; i < AudioServer::get_singleton()->get_bus_count(); i++) {
 		bool is_master = (i == 0);
-		EditorAudioBus *audio_bus = memnewOldWithArgs(EditorAudioBus(this, is_master));
+		EditorAudioBus *audio_bus = memnewWithArgs<EditorAudioBus>(this, is_master);
 		bus_hb->add_child(audio_bus);
 		audio_bus->connect("delete_request", callable_mp(this, &EditorAudioBuses::_delete_bus).bind(audio_bus), CONNECT_DEFERRED);
 		audio_bus->connect("duplicate_request", callable_mp(this, &EditorAudioBuses::_duplicate_bus), CONNECT_DEFERRED);

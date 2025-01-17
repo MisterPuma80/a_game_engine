@@ -253,7 +253,7 @@ Variant ActionMapEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from
 	}
 
 	String name = selected->get_text(0);
-	Label *label = memnewOldWithArgs(Label(name));
+	Label *label = memnewWithArgs<Label>(name);
 	label->set_theme_type_variation("HeaderSmall");
 	label->set_modulate(Color(1, 1, 1, 1.0f));
 	action_tree->set_drag_preview(label);

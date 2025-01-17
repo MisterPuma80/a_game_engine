@@ -3107,7 +3107,7 @@ Window::Window() {
 		max_size_used = max_size; // Update max_size_used.
 	}
 
-	theme_owner = memnewOldWithArgs(ThemeOwner(this));
+	theme_owner = memnewWithArgs<ThemeOwner>(this);
 	RS::get_singleton()->viewport_set_update_mode(get_viewport_rid(), RS::VIEWPORT_UPDATE_DISABLED);
 }
 

@@ -489,7 +489,7 @@ bool ExportTemplateManager::_install_file_selected(const String &p_file, bool p_
 
 	EditorProgress *p = nullptr;
 	if (!p_skip_progress) {
-		p = memnewOldWithArgs(EditorProgress("ltask", TTR("Extracting Export Templates"), fc));
+		p = memnewWithArgs<EditorProgress>("ltask", TTR("Extracting Export Templates"), fc);
 	}
 
 	fc = 0;

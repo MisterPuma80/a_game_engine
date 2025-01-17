@@ -1852,7 +1852,7 @@ SceneImportSettingsDialog::SceneImportSettingsDialog() {
 	HBoxContainer *extension_hb = memnewOldNoConstructor(HBoxContainer);
 	save_path->get_vbox()->add_child(extension_hb);
 	extension_hb->add_spacer();
-	extension_hb->add_child(memnewOldWithArgs(Label(TTR("Save Extension:"))));
+	extension_hb->add_child(memnewWithArgs<Label>(TTR("Save Extension:")));
 	external_extension_type = memnewOldNoConstructor(OptionButton);
 	extension_hb->add_child(external_extension_type);
 	external_extension_type->add_item(TTR("Text: *.tres"));

@@ -440,7 +440,7 @@ void GroupSettingsEditor::_show_rename_dialog() {
 		rename_group_dialog->add_child(vbc);
 
 		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
-		hbc->add_child(memnewOldWithArgs(Label(TTR("Name:"))));
+		hbc->add_child(memnewWithArgs<Label>(TTR("Name:")));
 
 		rename_group = memnewOldNoConstructor(LineEdit);
 		rename_group->set_custom_minimum_size(Size2(300 * EDSCALE, 1));

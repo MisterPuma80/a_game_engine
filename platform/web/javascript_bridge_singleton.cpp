@@ -295,7 +295,7 @@ Ref<JavaScriptObject> JavaScriptBridge::create_callback(const Callable &p_callab
 Ref<JavaScriptObject> JavaScriptBridge::get_interface(const String &p_interface) {
 	int js_id = godot_js_wrapper_interface_get(p_interface.utf8().get_data());
 	ERR_FAIL_COND_V_MSG(!js_id, Ref<JavaScriptObject>(), "No interface '" + p_interface + "' registered.");
-	return Ref<JavaScriptObject>(memnewOldWithArgs(JavaScriptObjectImpl(js_id)));
+	return Ref<JavaScriptObject>(memnewWithArgs<JavaScriptObjectImpl>(js_id));
 }
 
 Variant JavaScriptBridge::_create_object_bind(const Variant **p_args, int p_argcount, Callable::CallError &r_error) {

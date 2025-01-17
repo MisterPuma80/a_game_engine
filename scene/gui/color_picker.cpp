@@ -789,7 +789,7 @@ ColorPicker::PickerShapeType ColorPicker::get_picker_shape() const {
 }
 
 void ColorPicker::_add_preset_button(const Color &p_color) {
-	ColorButton *btn_preset_new = memnewOldWithArgs(ColorButton(p_color));
+	ColorButton *btn_preset_new = memnewWithArgs<ColorButton>(p_color);
 	btn_preset_new->set_toggle_mode(true);
 	btn_preset_new->set_size_mode(BaseButton::SIZE_MODE_FIT_HEIGHT);
 	btn_preset_new->set_tooltip_text(vformat(atr(ETR("Color: #%s\nLMB: Apply color\nRMB: Remove preset")), p_color.to_html(p_color.a < 1)));
@@ -805,7 +805,7 @@ void ColorPicker::_add_recent_preset_button(const Color &p_color) {
 	if (recent_preset_group->get_pressed_button()) {
 		recent_preset_group->get_pressed_button()->set_pressed_no_signal(false);
 	}
-	ColorButton *btn_preset_new = memnewOldWithArgs(ColorButton(p_color));
+	ColorButton *btn_preset_new = memnewWithArgs<ColorButton>(p_color);
 	btn_preset_new->set_toggle_mode(true);
 	btn_preset_new->set_size_mode(BaseButton::SIZE_MODE_FIT_HEIGHT);
 	btn_preset_new->set_tooltip_text(vformat(atr(ETR("Color: #%s\nLMB: Apply color")), p_color.to_html(p_color.a < 1)));

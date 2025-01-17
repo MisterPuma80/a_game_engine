@@ -41,9 +41,9 @@ static PhysicsServer2D *_createGodotPhysics2DCallback() {
 	bool using_threads = false;
 #endif
 
-	PhysicsServer2D *physics_server_2d = memnewOldWithArgs(GodotPhysicsServer2D(using_threads));
+	PhysicsServer2D *physics_server_2d = memnewWithArgs<GodotPhysicsServer2D>(using_threads);
 
-	return memnewOldWithArgs(PhysicsServer2DWrapMT(physics_server_2d, using_threads));
+	return memnewWithArgs<PhysicsServer2DWrapMT>(physics_server_2d, using_threads);
 }
 
 void initialize_godot_physics_2d_module(ModuleInitializationLevel p_level) {

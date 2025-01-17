@@ -601,7 +601,7 @@ Ref<ResourceLoader::LoadToken> ResourceLoader::_load_start(const String &p_path,
 			// If we want to ignore cache, but there's another task loading it, we can't add this one to the map.
 			must_not_register = ignoring_cache && thread_load_tasks.has(local_path);
 			if (must_not_register) {
-				load_token->task_if_unregistered = memnewOldWithArgs(ThreadLoadTask(load_task));
+				load_token->task_if_unregistered = memnewWithArgs<ThreadLoadTask>(load_task);
 				load_task_ptr = load_token->task_if_unregistered;
 			} else {
 				DEV_ASSERT(!thread_load_tasks.has(local_path));

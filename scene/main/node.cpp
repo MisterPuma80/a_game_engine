@@ -2302,7 +2302,7 @@ NodePath Node::get_path() const {
 
 	path.reverse();
 
-	data.path_cache = memnewOldWithArgs(NodePath(path, true));
+	data.path_cache = memnewWithArgs<NodePath>(path, true);
 
 	return *data.path_cache;
 }

@@ -284,7 +284,7 @@ OS_Web::OS_Web() {
 
 	Vector<Logger *> loggers;
 	loggers.push_back(memnewOldNoConstructor(StdLogger));
-	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
+	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 
 	FileAccessUnix::close_notification_func = file_access_close_callback;
 }

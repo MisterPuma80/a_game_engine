@@ -3054,7 +3054,7 @@ Variant ScriptEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from) {
 		tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 		drag_preview->add_child(tf);
 	}
-	Label *label = memnewOldWithArgs(Label(preview_name));
+	Label *label = memnewWithArgs<Label>(preview_name);
 	drag_preview->add_child(label);
 	set_drag_preview(drag_preview);
 
@@ -4548,7 +4548,7 @@ ScriptEditorPlugin::ScriptEditorPlugin() {
 	window_wrapper->set_window_title(vformat(TTR("%s - Blazium Engine"), TTR("Script Editor")));
 	window_wrapper->set_margins_enabled(true);
 
-	script_editor = memnewOldWithArgs(ScriptEditor(window_wrapper));
+	script_editor = memnewWithArgs<ScriptEditor>(window_wrapper);
 	Ref<Shortcut> make_floating_shortcut = ED_SHORTCUT_AND_COMMAND("script_editor/make_floating", TTR("Make Floating"));
 	window_wrapper->set_wrapped_control(script_editor, make_floating_shortcut);
 

@@ -1421,7 +1421,7 @@ static GDExtensionScriptInstancePtr gdextension_placeholder_script_instance_crea
 	script.reference_ptr((Script *)p_script);
 	Object *owner = (Object *)p_owner;
 
-	PlaceHolderScriptInstance *placeholder = memnewOldWithArgs(PlaceHolderScriptInstance(language, script, owner));
+	PlaceHolderScriptInstance *placeholder = memnewWithArgs<PlaceHolderScriptInstance>(language, script, owner);
 	return reinterpret_cast<GDExtensionScriptInstancePtr>(placeholder);
 }
 
@@ -1471,12 +1471,12 @@ static GDExtensionScriptInstancePtr gdextension_object_get_script_instance(GDExt
 
 #ifndef DISABLE_DEPRECATED
 static void gdextension_callable_custom_create(GDExtensionUninitializedTypePtr r_callable, GDExtensionCallableCustomInfo *p_custom_callable_info) {
-	memnew_placement(r_callable, Callable(memnewOldWithArgs(CallableCustomExtension(p_custom_callable_info))));
+	memnew_placement(r_callable, Callable(memnewWithArgs<CallableCustomExtension>(p_custom_callable_info)));
 }
 #endif
 
 static void gdextension_callable_custom_create2(GDExtensionUninitializedTypePtr r_callable, GDExtensionCallableCustomInfo2 *p_custom_callable_info) {
-	memnew_placement(r_callable, Callable(memnewOldWithArgs(CallableCustomExtension(p_custom_callable_info))));
+	memnew_placement(r_callable, Callable(memnewWithArgs<CallableCustomExtension>(p_custom_callable_info)));
 }
 
 static void *gdextension_callable_custom_get_userdata(GDExtensionTypePtr p_callable, void *p_token) {

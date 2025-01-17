@@ -473,7 +473,7 @@ ScreenSelect::ScreenSelect() {
 	vb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	popup_root->add_child(vb);
 
-	Label *description = memnewOldWithArgs(Label(TTR("Select Screen")));
+	Label *description = memnewWithArgs<Label>(TTR("Select Screen"));
 	description->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	vb->add_child(description);
 

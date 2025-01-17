@@ -114,7 +114,7 @@ void ProjectListItemControl::set_project_path(const String &p_path) {
 
 void ProjectListItemControl::set_tags(const PackedStringArray &p_tags, ProjectList *p_parent_list) {
 	for (const String &tag : p_tags) {
-		ProjectTag *tag_control = memnewOldWithArgs(ProjectTag(tag));
+		ProjectTag *tag_control = memnewWithArgs<ProjectTag>(tag);
 		tag_container->add_child(tag_control);
 		tag_control->connect_button_to(callable_mp(p_parent_list, &ProjectList::add_search_tag).bind(tag));
 	}

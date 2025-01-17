@@ -389,7 +389,7 @@ void EditorResourcePicker::_edit_menu_cbk(int p_which) {
 				VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 				duplicate_resources_dialog->add_child(vb);
 
-				Label *label = memnewOldWithArgs(Label(TTR("Select resources to make unique:")));
+				Label *label = memnewWithArgs<Label>(TTR("Select resources to make unique:"));
 				vb->add_child(label);
 
 				duplicate_resources_tree = memnewOldNoConstructor(Tree);

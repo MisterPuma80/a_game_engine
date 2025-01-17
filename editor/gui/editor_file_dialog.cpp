@@ -2049,7 +2049,7 @@ void EditorFileDialog::add_side_menu(Control *p_menu, const String &p_title) {
 	body_hsplit->add_child(side_vbox);
 	// Add a Label to the VBoxContainer.
 	if (!p_title.is_empty()) {
-		Label *title_label = memnewOldWithArgs(Label(p_title));
+		Label *title_label = memnewWithArgs<Label>(p_title);
 		title_label->set_theme_type_variation("HeaderSmall");
 		side_vbox->add_child(title_label);
 	}
@@ -2120,7 +2120,7 @@ EditorFileDialog::EditorFileDialog() {
 	dir_next->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_go_forward));
 	dir_up->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_go_up));
 
-	Label *l = memnewOldWithArgs(Label(TTR("Path:")));
+	Label *l = memnewWithArgs<Label>(TTR("Path:"));
 	l->set_theme_type_variation("HeaderSmall");
 	pathhb->add_child(l);
 
@@ -2214,7 +2214,7 @@ EditorFileDialog::EditorFileDialog() {
 	HBoxContainer *fav_hb = memnewOldNoConstructor(HBoxContainer);
 	fav_vb->add_child(fav_hb);
 
-	l = memnewOldWithArgs(Label(TTR("Favorites:")));
+	l = memnewWithArgs<Label>(TTR("Favorites:"));
 	l->set_theme_type_variation("HeaderSmall");
 	fav_hb->add_child(l);
 
@@ -2255,7 +2255,7 @@ EditorFileDialog::EditorFileDialog() {
 	VBoxContainer *list_vb = memnewOldNoConstructor(VBoxContainer);
 	list_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	l = memnewOldWithArgs(Label(TTR("Directories & Files:")));
+	l = memnewWithArgs<Label>(TTR("Directories & Files:"));
 	l->set_theme_type_variation("HeaderSmall");
 	list_vb->add_child(l);
 	preview_hb->add_child(list_vb);
@@ -2287,7 +2287,7 @@ EditorFileDialog::EditorFileDialog() {
 
 	file_box = memnewOldNoConstructor(HBoxContainer);
 
-	l = memnewOldWithArgs(Label(TTR("File:")));
+	l = memnewWithArgs<Label>(TTR("File:"));
 	l->set_theme_type_variation("HeaderSmall");
 	file_box->add_child(l);
 

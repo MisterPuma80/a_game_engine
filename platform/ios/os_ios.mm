@@ -107,7 +107,7 @@ OS_IOS::OS_IOS() {
 
 	Vector<Logger *> loggers;
 	loggers.push_back(memnewOldNoConstructor(IOSTerminalLogger));
-	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
+	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 
 	AudioDriverManager::add_driver(&audio_driver);
 

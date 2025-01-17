@@ -980,7 +980,7 @@ void TileSourceInspectorPlugin::_show_id_edit_dialog(Object *p_for_source) {
 		VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
 		id_edit_dialog->add_child(vbox);
 
-		Label *label = memnewOldWithArgs(Label(TTR("Warning: Modifying a source ID will result in all TileMaps using that source to reference an invalid source instead. This may result in unexpected data loss. Change this ID carefully.")));
+		Label *label = memnewWithArgs<Label>(TTR("Warning: Modifying a source ID will result in all TileMaps using that source to reference an invalid source instead. This may result in unexpected data loss. Change this ID carefully."));
 		label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 		vbox->add_child(label);
 
@@ -1017,11 +1017,11 @@ bool TileSourceInspectorPlugin::parse_property(Object *p_object, const Variant::
 		HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 		hbox->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 
-		id_label = memnewOldWithArgs(Label(itos(value)));
+		id_label = memnewWithArgs<Label>(itos(value));
 		id_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hbox->add_child(id_label);
 
-		Button *button = memnewOldWithArgs(Button(TTR("Edit")));
+		Button *button = memnewWithArgs<Button>(TTR("Edit"));
 		button->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hbox->add_child(button);
 		button->connect(SceneStringName(pressed), callable_mp(this, &TileSourceInspectorPlugin::_show_id_edit_dialog).bind(p_object));

@@ -71,7 +71,7 @@ TEST_CASE("[SceneTree][ImageTexture3D] get_depth") {
 }
 
 TEST_CASE("[SceneTree][ImageTexture3D] has_mipmaps") {
-	const Vector<Ref<Image>> images = { memnewOldWithArgs(Image(8, 8, false, Image::FORMAT_RGBA8)), memnewOldWithArgs(Image(8, 8, false, Image::FORMAT_RGBA8)) };
+	const Vector<Ref<Image>> images = { memnewWithArgs<Image>(8, 8, false, Image::FORMAT_RGBA8), memnewWithArgs<Image>(8, 8, false, Image::FORMAT_RGBA8) };
 	Ref<ImageTexture3D> image_texture_3d = memnewOldNoConstructor(ImageTexture3D);
 	CHECK(image_texture_3d->has_mipmaps() == false); // No mipmaps.
 	image_texture_3d->create(Image::FORMAT_RGBA8, 2, 2, 2, true, images);
@@ -79,7 +79,7 @@ TEST_CASE("[SceneTree][ImageTexture3D] has_mipmaps") {
 }
 
 TEST_CASE("[SceneTree][ImageTexture3D] create") {
-	const Vector<Ref<Image>> images = { memnewOldWithArgs(Image(8, 8, false, Image::FORMAT_RGBA8)), memnewOldWithArgs(Image(8, 8, false, Image::FORMAT_RGBA8)) };
+	const Vector<Ref<Image>> images = { memnewWithArgs<Image>(8, 8, false, Image::FORMAT_RGBA8), memnewWithArgs<Image>(8, 8, false, Image::FORMAT_RGBA8) };
 	Ref<ImageTexture3D> image_texture_3d = memnewOldNoConstructor(ImageTexture3D);
 	CHECK(image_texture_3d->create(Image::FORMAT_RGBA8, 2, 2, 2, true, images) == OK); // Run create and check return value simultaneously.
 	CHECK(image_texture_3d->get_format() == Image::FORMAT_RGBA8);

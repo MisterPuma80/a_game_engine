@@ -212,11 +212,11 @@ EditorPluginSettings::EditorPluginSettings() {
 	add_child(plugin_config_dialog);
 
 	HBoxContainer *title_hb = memnewOldNoConstructor(HBoxContainer);
-	Label *label = memnewOldWithArgs(Label(TTR("Installed Plugins:")));
+	Label *label = memnewWithArgs<Label>(TTR("Installed Plugins:"));
 	label->set_theme_type_variation("HeaderSmall");
 	title_hb->add_child(label);
 	title_hb->add_spacer();
-	Button *create_plugin_button = memnewOldWithArgs(Button(TTR("Create New Plugin")));
+	Button *create_plugin_button = memnewWithArgs<Button>(TTR("Create New Plugin"));
 	create_plugin_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPluginSettings::_create_clicked));
 	title_hb->add_child(create_plugin_button);
 	add_child(title_hb);

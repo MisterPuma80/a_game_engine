@@ -121,7 +121,7 @@ void EditorPropertyText::update_property() {
 void EditorPropertyText::set_string_name(bool p_enabled) {
 	string_name = p_enabled;
 	if (p_enabled) {
-		Label *prefix = memnewOldWithArgs(Label("&"));
+		Label *prefix = memnewWithArgs<Label>("&");
 		prefix->set_tooltip_text("StringName");
 		prefix->set_mouse_filter(MOUSE_FILTER_STOP);
 		text->get_parent()->add_child(prefix);
@@ -3642,7 +3642,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 				EditorPropertyMultilineText *editor = memnewOldNoConstructor(EditorPropertyMultilineText);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_EXPRESSION) {
-				EditorPropertyMultilineText *editor = memnewOldWithArgs(EditorPropertyMultilineText(true));
+				EditorPropertyMultilineText *editor = memnewWithArgs<EditorPropertyMultilineText>(true);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_TYPE_STRING) {
 				EditorPropertyClassName *editor = memnewOldNoConstructor(EditorPropertyClassName);
@@ -3678,7 +3678,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 			// math types
 
 		case Variant::VECTOR2: {
-			EditorPropertyVector2 *editor = memnewOldWithArgs(EditorPropertyVector2(p_wide));
+			EditorPropertyVector2 *editor = memnewWithArgs<EditorPropertyVector2>(p_wide);
 
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, p_hint == PROPERTY_HINT_LINK, hint.suffix);
@@ -3686,34 +3686,34 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 
 		} break;
 		case Variant::VECTOR2I: {
-			EditorPropertyVector2i *editor = memnewOldWithArgs(EditorPropertyVector2i(p_wide));
+			EditorPropertyVector2i *editor = memnewWithArgs<EditorPropertyVector2i>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, 1, false, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::RECT2: {
-			EditorPropertyRect2 *editor = memnewOldWithArgs(EditorPropertyRect2(p_wide));
+			EditorPropertyRect2 *editor = memnewWithArgs<EditorPropertyRect2>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::RECT2I: {
-			EditorPropertyRect2i *editor = memnewOldWithArgs(EditorPropertyRect2i(p_wide));
+			EditorPropertyRect2i *editor = memnewWithArgs<EditorPropertyRect2i>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, hint.suffix);
 
 			return editor;
 		} break;
 		case Variant::VECTOR3: {
-			EditorPropertyVector3 *editor = memnewOldWithArgs(EditorPropertyVector3(p_wide));
+			EditorPropertyVector3 *editor = memnewWithArgs<EditorPropertyVector3>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, p_hint == PROPERTY_HINT_LINK, hint.suffix, hint.radians_as_degrees);
 			return editor;
 
 		} break;
 		case Variant::VECTOR3I: {
-			EditorPropertyVector3i *editor = memnewOldWithArgs(EditorPropertyVector3i(p_wide));
+			EditorPropertyVector3i *editor = memnewWithArgs<EditorPropertyVector3i>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, 1, false, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
@@ -3740,7 +3740,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 			return editor;
 		} break;
 		case Variant::PLANE: {
-			EditorPropertyPlane *editor = memnewOldWithArgs(EditorPropertyPlane(p_wide));
+			EditorPropertyPlane *editor = memnewWithArgs<EditorPropertyPlane>(p_wide);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;

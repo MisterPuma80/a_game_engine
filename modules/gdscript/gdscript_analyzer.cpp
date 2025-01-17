@@ -4385,7 +4385,7 @@ void GDScriptAnalyzer::reduce_identifier(GDScriptParser::IdentifierNode *p_ident
 
 	if (Variant::has_utility_function(name) || GDScriptUtilityFunctions::function_exists(name)) {
 		p_identifier->is_constant = true;
-		p_identifier->reduced_value = Callable(memnewOldWithArgs(GDScriptUtilityCallable(name)));
+		p_identifier->reduced_value = Callable(memnewWithArgs<GDScriptUtilityCallable>(name));
 		MethodInfo method_info;
 		if (GDScriptUtilityFunctions::function_exists(name)) {
 			method_info = GDScriptUtilityFunctions::get_function_info(name);

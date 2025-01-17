@@ -1339,7 +1339,7 @@ Variant SceneTreeEditor::get_drag_data_fw(const Point2 &p_point, Control *p_from
 			tf->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 			tf->set_texture(icons[i]);
 			hb->add_child(tf);
-			Label *label = memnewOldWithArgs(Label(selected_nodes[i]->get_name()));
+			Label *label = memnewWithArgs<Label>(selected_nodes[i]->get_name());
 			hb->add_child(label);
 			vb->add_child(hb);
 			hb->set_modulate(Color(1, 1, 1, opacity_item));
@@ -1782,7 +1782,7 @@ SceneTreeDialog::SceneTreeDialog() {
 	show_all_nodes->hide();
 	filter_hbc->add_child(show_all_nodes);
 
-	tree = memnewOldWithArgs(SceneTreeEditor(false, false, true));
+	tree = memnewWithArgs<SceneTreeEditor>(false, false, true);
 	tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tree->get_scene_tree()->connect("item_activated", callable_mp(this, &SceneTreeDialog::_select));
 	// Initialize button state, must be done after the tree has been created to update its 'show_all_nodes' flag.

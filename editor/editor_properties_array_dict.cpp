@@ -380,7 +380,7 @@ void EditorPropertyArray::update_property() {
 			HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
 			vbox->add_child(hbox);
 
-			Label *size_label = memnewOldWithArgs(Label(TTR("Size:")));
+			Label *size_label = memnewWithArgs<Label>(TTR("Size:"));
 			size_label->set_h_size_flags(SIZE_EXPAND_FILL);
 			hbox->add_child(size_label);
 

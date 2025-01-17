@@ -212,10 +212,10 @@ EditorDirDialog::EditorDirDialog() {
 	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	vb->add_child(hb);
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Choose target directory:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Choose target directory:")));
 	hb->add_spacer();
 
-	makedir = memnewOldWithArgs(Button(TTR("Create Folder")));
+	makedir = memnewWithArgs<Button>(TTR("Create Folder"));
 	hb->add_child(makedir);
 	makedir->connect(SceneStringName(pressed), callable_mp(this, &EditorDirDialog::_make_dir));
 

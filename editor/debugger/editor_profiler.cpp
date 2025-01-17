@@ -634,7 +634,7 @@ EditorProfiler::EditorProfiler() {
 	clear_button->set_disabled(true);
 	hb->add_child(clear_button);
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Measure:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Measure:")));
 
 	display_mode = memnewOldNoConstructor(OptionButton);
 	display_mode->add_item(TTR("Frame Time (ms)"));
@@ -645,7 +645,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_child(display_mode);
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Time:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Time:")));
 
 	display_time = memnewOldNoConstructor(OptionButton);
 	// TRANSLATORS: This is an option in the profiler to display the time spent in a function, including the time spent in other functions called by that function.
@@ -657,7 +657,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_child(display_time);
 
-	display_internal_profiles = memnewOldWithArgs(CheckButton(TTR("Display internal functions")));
+	display_internal_profiles = memnewWithArgs<CheckButton>(TTR("Display internal functions"));
 	display_internal_profiles->set_visible(EDITOR_GET("debugger/profile_native_calls"));
 	display_internal_profiles->set_pressed(false);
 	display_internal_profiles->connect(SceneStringName(pressed), callable_mp(this, &EditorProfiler::_internal_profiles_pressed));
@@ -665,7 +665,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_spacer();
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Frame #:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Frame #:")));
 
 	cursor_metric_edit = memnewOldNoConstructor(SpinBox);
 	cursor_metric_edit->set_h_size_flags(SIZE_FILL);

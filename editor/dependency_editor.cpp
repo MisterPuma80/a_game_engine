@@ -265,12 +265,12 @@ DependencyEditor::DependencyEditor() {
 	tree->connect("button_clicked", callable_mp(this, &DependencyEditor::_load_pressed));
 
 	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
-	Label *label = memnewOldWithArgs(Label(TTR("Dependencies:")));
+	Label *label = memnewWithArgs<Label>(TTR("Dependencies:"));
 	label->set_theme_type_variation("HeaderSmall");
 
 	hbc->add_child(label);
 	hbc->add_spacer();
-	fixdeps = memnewOldWithArgs(Button(TTR("Fix Broken")));
+	fixdeps = memnewWithArgs<Button>(TTR("Fix Broken"));
 	hbc->add_child(fixdeps);
 	fixdeps->connect(SceneStringName(pressed), callable_mp(this, &DependencyEditor::_fix_all));
 

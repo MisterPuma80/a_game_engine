@@ -556,7 +556,7 @@ Variant Skeleton3DEditor::get_drag_data_fw(const Point2 &p_point, Control *p_fro
 	tf->set_texture(icon);
 	tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	hb->add_child(tf);
-	Label *label = memnewOldWithArgs(Label(selected->get_text(0)));
+	Label *label = memnewWithArgs<Label>(selected->get_text(0));
 	hb->add_child(label);
 	vb->add_child(hb);
 	hb->set_modulate(Color(1, 1, 1, 1));
@@ -832,7 +832,7 @@ void Skeleton3DEditor::create_editors() {
 	SET_DRAG_FORWARDING_GCD(joint_tree, Skeleton3DEditor);
 	s_con->add_child(joint_tree);
 
-	pose_editor = memnewOldWithArgs(BoneTransformEditor(skeleton));
+	pose_editor = memnewWithArgs<BoneTransformEditor>(skeleton);
 	pose_editor->set_label(TTR("Bone Transform"));
 	pose_editor->set_visible(false);
 	add_child(pose_editor);
@@ -1118,7 +1118,7 @@ void EditorInspectorPluginSkeleton::parse_begin(Object *p_object) {
 	Skeleton3D *skeleton = Object::cast_to<Skeleton3D>(p_object);
 	ERR_FAIL_NULL(skeleton);
 
-	skel_editor = memnewOldWithArgs(Skeleton3DEditor(this, skeleton));
+	skel_editor = memnewWithArgs<Skeleton3DEditor>(this, skeleton);
 	add_custom_control(skel_editor);
 }
 

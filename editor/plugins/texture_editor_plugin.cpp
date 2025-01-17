@@ -171,7 +171,7 @@ void EditorInspectorPluginTexture::parse_begin(Object *p_object) {
 		ERR_FAIL_NULL_MSG(texture, "Failed to create the texture from an invalid image.");
 	}
 
-	add_custom_control(memnewOldWithArgs(TexturePreview(texture, true)));
+	add_custom_control(memnewWithArgs<TexturePreview>(texture, true));
 }
 
 TextureEditorPlugin::TextureEditorPlugin() {

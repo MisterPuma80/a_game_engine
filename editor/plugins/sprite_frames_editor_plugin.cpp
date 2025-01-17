@@ -2095,7 +2095,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 
 	HBoxContainer *split_sheet_menu_hb = memnewOldNoConstructor(HBoxContainer);
 
-	split_sheet_menu_hb->add_child(memnewOldWithArgs(Label(TTR("Frame Order"))));
+	split_sheet_menu_hb->add_child(memnewWithArgs<Label>(TTR("Frame Order")));
 
 	split_sheet_order = memnewOldNoConstructor(OptionButton);
 	split_sheet_order->add_item(TTR("As Selected"), FRAME_ORDER_SELECTION);
@@ -2190,7 +2190,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	HBoxContainer *split_sheet_h_hb = memnewOldNoConstructor(HBoxContainer);
 	split_sheet_h_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	Label *split_sheet_h_label = memnewOldWithArgs(Label(TTR("Horizontal")));
+	Label *split_sheet_h_label = memnewWithArgs<Label>(TTR("Horizontal"));
 	split_sheet_h_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_sheet_h_hb->add_child(split_sheet_h_label);
 
@@ -2207,7 +2207,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	HBoxContainer *split_sheet_v_hb = memnewOldNoConstructor(HBoxContainer);
 	split_sheet_v_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	Label *split_sheet_v_label = memnewOldWithArgs(Label(TTR("Vertical")));
+	Label *split_sheet_v_label = memnewWithArgs<Label>(TTR("Vertical"));
 	split_sheet_v_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_sheet_v_hb->add_child(split_sheet_v_label);
 
@@ -2224,7 +2224,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	HBoxContainer *split_sheet_size_hb = memnewOldNoConstructor(HBoxContainer);
 	split_sheet_size_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	Label *split_sheet_size_label = memnewOldWithArgs(Label(TTR("Size")));
+	Label *split_sheet_size_label = memnewWithArgs<Label>(TTR("Size"));
 	split_sheet_size_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_sheet_size_label->set_v_size_flags(SIZE_SHRINK_BEGIN);
 	split_sheet_size_hb->add_child(split_sheet_size_label);
@@ -2253,7 +2253,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	HBoxContainer *split_sheet_sep_hb = memnewOldNoConstructor(HBoxContainer);
 	split_sheet_sep_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	Label *split_sheet_sep_label = memnewOldWithArgs(Label(TTR("Separation")));
+	Label *split_sheet_sep_label = memnewWithArgs<Label>(TTR("Separation"));
 	split_sheet_sep_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_sheet_sep_label->set_v_size_flags(SIZE_SHRINK_BEGIN);
 	split_sheet_sep_hb->add_child(split_sheet_sep_label);
@@ -2280,7 +2280,7 @@ SpriteFramesEditor::SpriteFramesEditor() {
 	HBoxContainer *split_sheet_offset_hb = memnewOldNoConstructor(HBoxContainer);
 	split_sheet_offset_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	Label *split_sheet_offset_label = memnewOldWithArgs(Label(TTR("Offset")));
+	Label *split_sheet_offset_label = memnewWithArgs<Label>(TTR("Offset"));
 	split_sheet_offset_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_sheet_offset_label->set_v_size_flags(SIZE_SHRINK_BEGIN);
 	split_sheet_offset_hb->add_child(split_sheet_offset_label);

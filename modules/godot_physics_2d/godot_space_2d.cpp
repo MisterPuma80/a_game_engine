@@ -1025,11 +1025,11 @@ void *GodotSpace2D::_broadphase_pair(GodotCollisionObject2D *A, int p_subindex_A
 		GodotArea2D *area = static_cast<GodotArea2D *>(A);
 		if (type_B == GodotCollisionObject2D::TYPE_AREA) {
 			GodotArea2D *area_b = static_cast<GodotArea2D *>(B);
-			GodotArea2Pair2D *area2_pair = memnewOldWithArgs(GodotArea2Pair2D(area_b, p_subindex_B, area, p_subindex_A));
+			GodotArea2Pair2D *area2_pair = memnewWithArgs<GodotArea2Pair2D>(area_b, p_subindex_B, area, p_subindex_A);
 			return area2_pair;
 		} else {
 			GodotBody2D *body = static_cast<GodotBody2D *>(B);
-			GodotAreaPair2D *area_pair = memnewOldWithArgs(GodotAreaPair2D(body, p_subindex_B, area, p_subindex_A));
+			GodotAreaPair2D *area_pair = memnewWithArgs<GodotAreaPair2D>(body, p_subindex_B, area, p_subindex_A);
 			return area_pair;
 		}
 

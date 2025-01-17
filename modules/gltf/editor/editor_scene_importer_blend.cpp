@@ -508,7 +508,7 @@ bool EditorFileSystemImportFormatSupportQueryBlend::query() {
 		select_exec_label += "\n" + TTR("On macOS, this should be the `Contents/MacOS/blender` file within the Blender `.app` folder.");
 #endif
 		VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
-		vb->add_child(memnewOldWithArgs(Label(select_exec_label)));
+		vb->add_child(memnewWithArgs<Label>(select_exec_label));
 
 		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 

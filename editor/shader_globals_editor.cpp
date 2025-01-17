@@ -456,7 +456,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	HBoxContainer *add_menu_hb = memnewOldNoConstructor(HBoxContainer);
 	add_child(add_menu_hb);
 
-	add_menu_hb->add_child(memnewOldWithArgs(Label(TTR("Name:"))));
+	add_menu_hb->add_child(memnewWithArgs<Label>(TTR("Name:")));
 	variable_name = memnewOldNoConstructor(LineEdit);
 	variable_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	variable_name->set_clear_button_enabled(true);
@@ -465,7 +465,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 
 	add_menu_hb->add_child(variable_name);
 
-	add_menu_hb->add_child(memnewOldWithArgs(Label(TTR("Type:"))));
+	add_menu_hb->add_child(memnewWithArgs<Label>(TTR("Type:")));
 	variable_type = memnewOldNoConstructor(OptionButton);
 	variable_type->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_menu_hb->add_child(variable_type);
@@ -474,7 +474,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 		variable_type->add_item(global_var_type_names[i]);
 	}
 
-	variable_add = memnewOldWithArgs(Button(TTR("Add")));
+	variable_add = memnewWithArgs<Button>(TTR("Add"));
 	variable_add->set_disabled(true);
 	add_menu_hb->add_child(variable_add);
 	variable_add->connect(SceneStringName(pressed), callable_mp(this, &ShaderGlobalsEditor::_variable_added));

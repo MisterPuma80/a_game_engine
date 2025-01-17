@@ -206,7 +206,7 @@ ImportDefaultsEditor::ImportDefaultsEditor() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("importer_defaults/");
 
 	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
-	hb->add_child(memnewOldWithArgs(Label(TTR("Importer:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Importer:")));
 	importers = memnewOldNoConstructor(OptionButton);
 	hb->add_child(importers);
 	hb->add_spacer();

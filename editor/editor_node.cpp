@@ -1715,7 +1715,7 @@ void EditorNode::_find_node_types(Node *p_node, int &count_2d, int &count_3d) {
 }
 
 void EditorNode::_save_scene_with_preview(String p_file, int p_idx) {
-	save_scene_progress = memnewOldWithArgs(EditorProgress("save", TTR("Saving Scene"), 4));
+	save_scene_progress = memnewWithArgs<EditorProgress>("save", TTR("Saving Scene"), 4);
 
 	if (editor_data.get_edited_scene_root() != nullptr) {
 		save_scene_progress->step(TTR("Analyzing"), 0);
@@ -6828,7 +6828,7 @@ EditorNode::EditorNode() {
 
 	{
 		// Register importers at the beginning, so dialogs are created with the right extensions.
-		Ref<ResourceImporterTexture> import_texture = memnewOldWithArgs(ResourceImporterTexture(true));
+		Ref<ResourceImporterTexture> import_texture = memnewWithArgs<ResourceImporterTexture>(true);
 		ResourceFormatImporter::get_singleton()->add_importer(import_texture);
 
 		Ref<ResourceImporterLayeredTexture> import_cubemap;
@@ -6846,7 +6846,7 @@ EditorNode::EditorNode() {
 		import_cubemap_array->set_mode(ResourceImporterLayeredTexture::MODE_CUBEMAP_ARRAY);
 		ResourceFormatImporter::get_singleton()->add_importer(import_cubemap_array);
 
-		Ref<ResourceImporterLayeredTexture> import_3d = memnewOldWithArgs(ResourceImporterLayeredTexture(true));
+		Ref<ResourceImporterLayeredTexture> import_3d = memnewWithArgs<ResourceImporterLayeredTexture>(true);
 		import_3d->set_mode(ResourceImporterLayeredTexture::MODE_3D);
 		ResourceFormatImporter::get_singleton()->add_importer(import_3d);
 
@@ -6886,10 +6886,10 @@ EditorNode::EditorNode() {
 		import_shader_file.instantiate();
 		ResourceFormatImporter::get_singleton()->add_importer(import_shader_file);
 
-		Ref<ResourceImporterScene> import_scene = memnewOldWithArgs(ResourceImporterScene(false, true));
+		Ref<ResourceImporterScene> import_scene = memnewWithArgs<ResourceImporterScene>(false, true);
 		ResourceFormatImporter::get_singleton()->add_importer(import_scene);
 
-		Ref<ResourceImporterScene> import_animation = memnewOldWithArgs(ResourceImporterScene(true, true));
+		Ref<ResourceImporterScene> import_animation = memnewWithArgs<ResourceImporterScene>(true, true);
 		ResourceFormatImporter::get_singleton()->add_importer(import_animation);
 
 		{
@@ -7499,8 +7499,8 @@ EditorNode::EditorNode() {
 
 	// Instantiate and place editor docks.
 
-	memnewOldWithArgs(SceneTreeDock(scene_root, editor_selection, editor_data));
-	memnewOldWithArgs(InspectorDock(editor_data));
+	memnewWithArgs<SceneTreeDock>(scene_root, editor_selection, editor_data);
+	memnewWithArgs<InspectorDock>(editor_data);
 	memnewOldNoConstructor(ImportDock);
 	memnewOldNoConstructor(NodeDock);
 
@@ -7672,7 +7672,7 @@ EditorNode::EditorNode() {
 	audio_preview_gen = memnewOldNoConstructor(AudioStreamPreviewGenerator);
 	add_child(audio_preview_gen);
 
-	add_editor_plugin(memnewOldWithArgs(DebuggerEditorPlugin(debug_menu)));
+	add_editor_plugin(memnewWithArgs<DebuggerEditorPlugin>(debug_menu));
 
 	disk_changed = memnewOldNoConstructor(ConfirmationDialog);
 	{
@@ -7727,7 +7727,7 @@ EditorNode::EditorNode() {
 	vcs_actions_menu->add_item(TTR("Version Control Settings..."), RUN_VCS_SETTINGS);
 	project_menu->set_item_submenu_node(project_menu->get_item_index(VCS_MENU), vcs_actions_menu);
 
-	add_editor_plugin(memnewOldWithArgs(AudioBusesEditorPlugin(audio_bus_editor)));
+	add_editor_plugin(memnewWithArgs<AudioBusesEditorPlugin>(audio_bus_editor));
 
 	for (int i = 0; i < EditorPlugins::get_plugin_count(); i++) {
 		add_editor_plugin(EditorPlugins::create(i));

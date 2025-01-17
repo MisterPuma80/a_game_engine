@@ -149,7 +149,7 @@ void QuickSettingsDialog::_add_setting_control(const String &p_text, Control *p_
 	HBoxContainer *container = memnewOldNoConstructor(HBoxContainer);
 	settings_list->add_child(container);
 
-	Label *label = memnewOldWithArgs(Label(p_text));
+	Label *label = memnewWithArgs<Label>(p_text);
 	label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	container->add_child(label);
 
@@ -279,7 +279,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 			_add_setting_control(TTR("Interface Theme"), theme_option_button);
 
-			custom_theme_label = memnewOldWithArgs(Label(TTR("Custom preset can be further configured in the editor.")));
+			custom_theme_label = memnewWithArgs<Label>(TTR("Custom preset can be further configured in the editor."));
 			custom_theme_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 			custom_theme_label->set_custom_minimum_size(Size2(220, 0) * EDSCALE);
 			custom_theme_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
@@ -336,7 +336,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 	// Restart required panel.
 	{
-		restart_required_label = memnewOldWithArgs(Label(TTR("Settings changed! The project manager must be restarted for changes to take effect.")));
+		restart_required_label = memnewWithArgs<Label>(TTR("Settings changed! The project manager must be restarted for changes to take effect."));
 		restart_required_label->set_custom_minimum_size(Size2(560, 0) * EDSCALE);
 		restart_required_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 		restart_required_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);

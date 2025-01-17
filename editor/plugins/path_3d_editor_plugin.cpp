@@ -825,7 +825,7 @@ Path3DEditorPlugin::Path3DEditorPlugin() {
 
 	disk_size = EDITOR_DEF_RST("editors/3d_gizmos/gizmo_settings/path3d_tilt_disk_size", 0.8);
 
-	Ref<Path3DGizmoPlugin> gizmo_plugin = memnewOldWithArgs(Path3DGizmoPlugin(disk_size));
+	Ref<Path3DGizmoPlugin> gizmo_plugin = memnewWithArgs<Path3DGizmoPlugin>(disk_size);
 	Node3DEditor::get_singleton()->add_gizmo_plugin(gizmo_plugin);
 	path_3d_gizmo_plugin = gizmo_plugin;
 
@@ -912,7 +912,7 @@ Ref<EditorNode3DGizmo> Path3DGizmoPlugin::create_gizmo(Node3D *p_spatial) {
 
 	Path3D *path = Object::cast_to<Path3D>(p_spatial);
 	if (path) {
-		ref = Ref<Path3DGizmo>(memnewOldWithArgs(Path3DGizmo(path, disk_size)));
+		ref = Ref<Path3DGizmo>(memnewWithArgs<Path3DGizmo>(path, disk_size));
 	}
 
 	return ref;

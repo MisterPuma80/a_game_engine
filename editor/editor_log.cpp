@@ -534,23 +534,23 @@ EditorLog::EditorLog() {
 	// Message Type Filters.
 	vb_right->add_child(memnewOldNoConstructor(HSeparator));
 
-	LogFilter *std_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_STD));
+	LogFilter *std_filter = memnewWithArgs<LogFilter>(MSG_TYPE_STD);
 	std_filter->initialize_button(TTR("Toggle visibility of standard output messages."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(std_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_STD, std_filter);
 	type_filter_map.insert(MSG_TYPE_STD_RICH, std_filter);
 
-	LogFilter *error_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_ERROR));
+	LogFilter *error_filter = memnewWithArgs<LogFilter>(MSG_TYPE_ERROR);
 	error_filter->initialize_button(TTR("Toggle visibility of errors."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(error_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_ERROR, error_filter);
 
-	LogFilter *warning_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_WARNING));
+	LogFilter *warning_filter = memnewWithArgs<LogFilter>(MSG_TYPE_WARNING);
 	warning_filter->initialize_button(TTR("Toggle visibility of warnings."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(warning_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_WARNING, warning_filter);
 
-	LogFilter *editor_filter = memnewOldWithArgs(LogFilter(MSG_TYPE_EDITOR));
+	LogFilter *editor_filter = memnewWithArgs<LogFilter>(MSG_TYPE_EDITOR);
 	editor_filter->initialize_button(TTR("Toggle visibility of editor messages."), callable_mp(this, &EditorLog::_set_filter_active));
 	vb_right->add_child(editor_filter->toggle_button);
 	type_filter_map.insert(MSG_TYPE_EDITOR, editor_filter);

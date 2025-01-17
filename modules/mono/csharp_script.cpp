@@ -1807,7 +1807,7 @@ void CSharpInstance::connect_event_signals() {
 			String signal_name = signal.name;
 
 			// TODO: Use pooling for ManagedCallable instances.
-			EventSignalCallable *event_signal_callable = memnewOldWithArgs(EventSignalCallable(owner, signal_name));
+			EventSignalCallable *event_signal_callable = memnewWithArgs<EventSignalCallable>(owner, signal_name);
 
 			Callable callable(event_signal_callable);
 			connected_event_signals.push_back(callable);

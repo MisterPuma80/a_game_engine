@@ -542,7 +542,7 @@ TileSetScenesCollectionSourceEditor::TileSetScenesCollectionSourceEditor() {
 	tile_inspector_label->hide();
 	middle_vbox_container->add_child(tile_inspector_label);
 
-	tile_proxy_object = memnewOldWithArgs(SceneTileProxyObject(this));
+	tile_proxy_object = memnewWithArgs<SceneTileProxyObject>(this);
 	tile_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_update_scenes_list).unbind(1));
 	tile_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_update_action_buttons).unbind(1));
 

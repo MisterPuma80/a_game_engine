@@ -75,7 +75,7 @@ void OS::add_logger(Logger *p_logger) {
 	if (!_logger) {
 		Vector<Logger *> loggers;
 		loggers.push_back(p_logger);
-		_logger = memnewOldWithArgs(CompositeLogger(loggers));
+		_logger = memnewWithArgs<CompositeLogger>(loggers);
 	} else {
 		_logger->add_logger(p_logger);
 	}
@@ -705,7 +705,7 @@ OS::OS() {
 
 	Vector<Logger *> loggers;
 	loggers.push_back(memnewOldNoConstructor(StdLogger));
-	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
+	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 }
 
 OS::~OS() {

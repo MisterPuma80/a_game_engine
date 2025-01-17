@@ -1606,8 +1606,8 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 	}
 
 	// Also register our rendering extensions
-	register_extension_wrapper(memnewOldWithArgs(OpenXRFBUpdateSwapchainExtension(p_rendering_driver)));
-	register_extension_wrapper(memnewOldWithArgs(OpenXRFBFoveationExtension(p_rendering_driver)));
+	register_extension_wrapper(memnewWithArgs<OpenXRFBUpdateSwapchainExtension>(p_rendering_driver));
+	register_extension_wrapper(memnewWithArgs<OpenXRFBFoveationExtension>(p_rendering_driver));
 
 	// initialize
 	for (OpenXRExtensionWrapper *wrapper : registered_extension_wrappers) {

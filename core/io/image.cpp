@@ -2853,7 +2853,7 @@ Rect2i Image::get_used_rect() const {
 }
 
 Ref<Image> Image::get_region(const Rect2i &p_region) const {
-	Ref<Image> img = memnewOldWithArgs(Image(p_region.size.x, p_region.size.y, mipmaps, format));
+	Ref<Image> img = memnewWithArgs<Image>(p_region.size.x, p_region.size.y, mipmaps, format);
 	img->blit_rect(Ref<Image>((Image *)this), p_region, Point2i(0, 0));
 	return img;
 }

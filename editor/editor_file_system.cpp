@@ -775,7 +775,7 @@ bool EditorFileSystem::_update_scan_actions() {
 
 	EditorProgress *ep = nullptr;
 	if (scan_actions.size() > 1) {
-		ep = memnewOldWithArgs(EditorProgress("_update_scan_actions", TTR("Scanning actions..."), scan_actions.size()));
+		ep = memnewWithArgs<EditorProgress>("_update_scan_actions", TTR("Scanning actions..."), scan_actions.size());
 	}
 
 	int step_count = 0;
@@ -2003,9 +2003,9 @@ void EditorFileSystem::_update_script_classes() {
 		if (update_script_paths.size() > 1) {
 			if (MessageQueue::get_singleton()->is_flushing()) {
 				// Use background progress when message queue is flushing.
-				ep = memnewOldWithArgs(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size(), false, true));
+				ep = memnewWithArgs<EditorProgress>("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size(), false, true);
 			} else {
-				ep = memnewOldWithArgs(EditorProgress("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size()));
+				ep = memnewWithArgs<EditorProgress>("update_scripts_classes", TTR("Registering global classes..."), update_script_paths.size());
 			}
 		}
 
@@ -2047,9 +2047,9 @@ void EditorFileSystem::_update_script_documentation() {
 	if (update_script_paths_documentation.size() > 1) {
 		if (MessageQueue::get_singleton()->is_flushing()) {
 			// Use background progress when message queue is flushing.
-			ep = memnewOldWithArgs(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size(), false, true));
+			ep = memnewWithArgs<EditorProgress>("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size(), false, true);
 		} else {
-			ep = memnewOldWithArgs(EditorProgress("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size()));
+			ep = memnewWithArgs<EditorProgress>("update_script_paths_documentation", TTR("Updating scripts documentation"), update_script_paths_documentation.size());
 		}
 	}
 
@@ -2115,7 +2115,7 @@ void EditorFileSystem::_update_scene_groups() {
 
 	EditorProgress *ep = nullptr;
 	if (update_scene_paths.size() > 20) {
-		ep = memnewOldWithArgs(EditorProgress("update_scene_groups", TTR("Updating Scene Groups"), update_scene_paths.size()));
+		ep = memnewWithArgs<EditorProgress>("update_scene_groups", TTR("Updating Scene Groups"), update_scene_paths.size());
 	}
 	int step_count = 0;
 
@@ -2971,7 +2971,7 @@ void EditorFileSystem::reimport_files(const Vector<String> &p_files) {
 
 	Vector<String> reloads;
 
-	EditorProgress *ep = memnewOldWithArgs(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
+	EditorProgress *ep = memnewWithArgs<EditorProgress>("reimport", TTR("(Re)Importing Assets"), p_files.size());
 
 	// The method reimport_files runs on the main thread, and if VSync is enabled
 	// or Update Continuously is disabled, Main::Iteration takes longer each frame.
@@ -3128,7 +3128,7 @@ void EditorFileSystem::reimport_files(const Vector<String> &p_files) {
 
 	importing = false;
 
-	ep = memnewOldWithArgs(EditorProgress("reimport", TTR("(Re)Importing Assets"), p_files.size()));
+	ep = memnewWithArgs<EditorProgress>("reimport", TTR("(Re)Importing Assets"), p_files.size());
 	ep->step(TTR("Executing post-reimport operations..."), 0, true);
 	if (!is_scanning()) {
 		emit_signal(SNAME("filesystem_changed"));
@@ -3322,7 +3322,7 @@ Error EditorFileSystem::copy_directory(const String &p_from, const String &p_to)
 
 	EditorProgress *ep = nullptr;
 	if (files.size() > 10) {
-		ep = memnewOldWithArgs(EditorProgress("_copy_files", TTR("Copying files..."), files.size()));
+		ep = memnewWithArgs<EditorProgress>("_copy_files", TTR("Copying files..."), files.size());
 	}
 
 	int i = 0;

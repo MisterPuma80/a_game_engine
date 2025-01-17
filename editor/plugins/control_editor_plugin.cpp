@@ -1100,7 +1100,7 @@ ControlEditorToolbar::ControlEditorToolbar() {
 	Label *container_h_label = memnewOldNoConstructor(Label);
 	container_h_label->set_text(TTR("Horizontal alignment"));
 	containers_button->get_popup_hbox()->add_child(container_h_label);
-	container_h_picker = memnewOldWithArgs(SizeFlagPresetPicker(false));
+	container_h_picker = memnewWithArgs<SizeFlagPresetPicker>(false);
 	containers_button->get_popup_hbox()->add_child(container_h_picker);
 	container_h_picker->connect("size_flags_selected", callable_mp(this, &ControlEditorToolbar::_container_flags_selected).bind(false));
 	container_h_picker->connect("expand_flag_toggled", callable_mp(this, &ControlEditorToolbar::_expand_flag_toggled).bind(false));
@@ -1110,7 +1110,7 @@ ControlEditorToolbar::ControlEditorToolbar() {
 	Label *container_v_label = memnewOldNoConstructor(Label);
 	container_v_label->set_text(TTR("Vertical alignment"));
 	containers_button->get_popup_hbox()->add_child(container_v_label);
-	container_v_picker = memnewOldWithArgs(SizeFlagPresetPicker(true));
+	container_v_picker = memnewWithArgs<SizeFlagPresetPicker>(true);
 	containers_button->get_popup_hbox()->add_child(container_v_picker);
 	container_v_picker->connect("size_flags_selected", callable_mp(this, &ControlEditorToolbar::_container_flags_selected).bind(true));
 	container_v_picker->connect("expand_flag_toggled", callable_mp(this, &ControlEditorToolbar::_expand_flag_toggled).bind(true));

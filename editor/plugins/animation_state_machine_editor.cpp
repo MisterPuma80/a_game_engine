@@ -1712,7 +1712,7 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 	top_hb->add_child(transition_tools_hb);
 	transition_tools_hb->add_child(memnewOldNoConstructor(VSeparator));
 
-	transition_tools_hb->add_child(memnewOldWithArgs(Label(TTR("Transition:"))));
+	transition_tools_hb->add_child(memnewWithArgs<Label>(TTR("Transition:")));
 	switch_mode = memnewOldNoConstructor(OptionButton);
 	transition_tools_hb->add_child(switch_mode);
 
@@ -1727,7 +1727,7 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 
 	top_hb->add_spacer();
 
-	top_hb->add_child(memnewOldWithArgs(Label(TTR("Play Mode:"))));
+	top_hb->add_child(memnewWithArgs<Label>(TTR("Play Mode:")));
 	play_mode = memnewOldNoConstructor(OptionButton);
 	top_hb->add_child(play_mode);
 

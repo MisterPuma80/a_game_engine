@@ -1132,7 +1132,7 @@ TextureRegionEditor::TextureRegionEditor() {
 
 	HBoxContainer *hb_tools = memnewOldNoConstructor(HBoxContainer);
 	vb->add_child(hb_tools);
-	hb_tools->add_child(memnewOldWithArgs(Label(TTR("Snap Mode:"))));
+	hb_tools->add_child(memnewWithArgs<Label>(TTR("Snap Mode:")));
 
 	snap_mode_button = memnewOldNoConstructor(OptionButton);
 	hb_tools->add_child(snap_mode_button);
@@ -1147,7 +1147,7 @@ TextureRegionEditor::TextureRegionEditor() {
 	hb_tools->add_child(hb_grid);
 
 	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
-	hb_grid->add_child(memnewOldWithArgs(Label(TTR("Offset:"))));
+	hb_grid->add_child(memnewWithArgs<Label>(TTR("Offset:")));
 
 	sb_off_x = memnewOldNoConstructor(SpinBox);
 	sb_off_x->set_step(1);
@@ -1162,7 +1162,7 @@ TextureRegionEditor::TextureRegionEditor() {
 	hb_grid->add_child(sb_off_y);
 
 	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
-	hb_grid->add_child(memnewOldWithArgs(Label(TTR("Step:"))));
+	hb_grid->add_child(memnewWithArgs<Label>(TTR("Step:")));
 
 	sb_step_x = memnewOldNoConstructor(SpinBox);
 	sb_step_x->set_min(0);
@@ -1179,7 +1179,7 @@ TextureRegionEditor::TextureRegionEditor() {
 	hb_grid->add_child(sb_step_y);
 
 	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
-	hb_grid->add_child(memnewOldWithArgs(Label(TTR("Separation:"))));
+	hb_grid->add_child(memnewWithArgs<Label>(TTR("Separation:")));
 
 	sb_sep_x = memnewOldNoConstructor(SpinBox);
 	sb_sep_x->set_min(0);

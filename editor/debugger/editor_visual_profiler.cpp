@@ -746,7 +746,7 @@ EditorVisualProfiler::EditorVisualProfiler() {
 	clear_button->connect(SceneStringName(pressed), callable_mp(this, &EditorVisualProfiler::_clear_pressed));
 	hb->add_child(clear_button);
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Measure:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Measure:")));
 
 	display_mode = memnewOldNoConstructor(OptionButton);
 	display_mode->add_item(TTR("Frame Time (ms)"));
@@ -755,18 +755,18 @@ EditorVisualProfiler::EditorVisualProfiler() {
 
 	hb->add_child(display_mode);
 
-	frame_relative = memnewOldWithArgs(CheckBox(TTR("Fit to Frame")));
+	frame_relative = memnewWithArgs<CheckBox>(TTR("Fit to Frame"));
 	frame_relative->set_pressed(true);
 	hb->add_child(frame_relative);
 	frame_relative->connect(SceneStringName(pressed), callable_mp(this, &EditorVisualProfiler::_update_plot));
-	linked = memnewOldWithArgs(CheckBox(TTR("Linked")));
+	linked = memnewWithArgs<CheckBox>(TTR("Linked"));
 	linked->set_pressed(true);
 	hb->add_child(linked);
 	linked->connect(SceneStringName(pressed), callable_mp(this, &EditorVisualProfiler::_update_plot));
 
 	hb->add_spacer();
 
-	hb->add_child(memnewOldWithArgs(Label(TTR("Frame #:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Frame #:")));
 
 	cursor_metric_edit = memnewOldNoConstructor(SpinBox);
 	cursor_metric_edit->set_h_size_flags(SIZE_FILL);

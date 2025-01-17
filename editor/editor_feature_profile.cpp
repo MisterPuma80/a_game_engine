@@ -929,7 +929,7 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	current_profile_name->set_text(TTR("(none)"));
 	current_profile_name->set_editable(false);
 	current_profile_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	profile_actions[PROFILE_CLEAR] = memnewOldWithArgs(Button(TTR("Reset to Default")));
+	profile_actions[PROFILE_CLEAR] = memnewWithArgs<Button>(TTR("Reset to Default"));
 	name_hbc->add_child(profile_actions[PROFILE_CLEAR]);
 	profile_actions[PROFILE_CLEAR]->set_disabled(true);
 	profile_actions[PROFILE_CLEAR]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_CLEAR));
@@ -945,11 +945,11 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	profiles_hbc->add_child(profile_list);
 	profile_list->connect(SceneStringName(item_selected), callable_mp(this, &EditorFeatureProfileManager::_profile_selected));
 
-	profile_actions[PROFILE_NEW] = memnewOldWithArgs(Button(TTR("Create Profile")));
+	profile_actions[PROFILE_NEW] = memnewWithArgs<Button>(TTR("Create Profile"));
 	profiles_hbc->add_child(profile_actions[PROFILE_NEW]);
 	profile_actions[PROFILE_NEW]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_NEW));
 
-	profile_actions[PROFILE_ERASE] = memnewOldWithArgs(Button(TTR("Remove Profile")));
+	profile_actions[PROFILE_ERASE] = memnewWithArgs<Button>(TTR("Remove Profile"));
 	profiles_hbc->add_child(profile_actions[PROFILE_ERASE]);
 	profile_actions[PROFILE_ERASE]->set_disabled(true);
 	profile_actions[PROFILE_ERASE]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_ERASE));
@@ -958,18 +958,18 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 
 	HBoxContainer *current_profile_hbc = memnewOldNoConstructor(HBoxContainer);
 
-	profile_actions[PROFILE_SET] = memnewOldWithArgs(Button(TTR("Make Current")));
+	profile_actions[PROFILE_SET] = memnewWithArgs<Button>(TTR("Make Current"));
 	current_profile_hbc->add_child(profile_actions[PROFILE_SET]);
 	profile_actions[PROFILE_SET]->set_disabled(true);
 	profile_actions[PROFILE_SET]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_SET));
 
 	current_profile_hbc->add_child(memnewOldNoConstructor(VSeparator));
 
-	profile_actions[PROFILE_IMPORT] = memnewOldWithArgs(Button(TTR("Import")));
+	profile_actions[PROFILE_IMPORT] = memnewWithArgs<Button>(TTR("Import"));
 	current_profile_hbc->add_child(profile_actions[PROFILE_IMPORT]);
 	profile_actions[PROFILE_IMPORT]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_IMPORT));
 
-	profile_actions[PROFILE_EXPORT] = memnewOldWithArgs(Button(TTR("Export")));
+	profile_actions[PROFILE_EXPORT] = memnewWithArgs<Button>(TTR("Export"));
 	current_profile_hbc->add_child(profile_actions[PROFILE_EXPORT]);
 	profile_actions[PROFILE_EXPORT]->set_disabled(true);
 	profile_actions[PROFILE_EXPORT]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_EXPORT));
@@ -1013,7 +1013,7 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	// It will be displayed once the user creates or chooses a profile.
 	property_list_vbc->hide();
 
-	no_profile_selected_help = memnewOldWithArgs(Label(TTR("Create or import a profile to edit available classes and properties.")));
+	no_profile_selected_help = memnewWithArgs<Label>(TTR("Create or import a profile to edit available classes and properties."));
 	// Add some spacing above the help label.
 	Ref<StyleBoxEmpty> sb = memnewOldNoConstructor(StyleBoxEmpty);
 	sb->set_content_margin(SIDE_TOP, 20 * EDSCALE);

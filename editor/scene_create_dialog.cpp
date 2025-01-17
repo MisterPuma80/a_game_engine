@@ -194,7 +194,7 @@ SceneCreateDialog::SceneCreateDialog() {
 	gc->set_columns(2);
 
 	{
-		Label *label = memnewOldWithArgs(Label(TTR("Root Type:")));
+		Label *label = memnewWithArgs<Label>(TTR("Root Type:"));
 		gc->add_child(label);
 		label->set_v_size_flags(Control::SIZE_SHRINK_BEGIN);
 
@@ -246,7 +246,7 @@ SceneCreateDialog::SceneCreateDialog() {
 	}
 
 	{
-		Label *label = memnewOldWithArgs(Label(TTR("Scene Name:")));
+		Label *label = memnewWithArgs<Label>(TTR("Scene Name:"));
 		gc->add_child(label);
 
 		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
@@ -270,7 +270,7 @@ SceneCreateDialog::SceneCreateDialog() {
 	}
 
 	{
-		Label *label = memnewOldWithArgs(Label(TTR("Root Name:")));
+		Label *label = memnewWithArgs<Label>(TTR("Root Name:"));
 		gc->add_child(label);
 
 		root_name_edit = memnewOldNoConstructor(LineEdit);

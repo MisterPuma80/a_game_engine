@@ -5314,7 +5314,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	panner.instantiate();
 	panner->set_callbacks(callable_mp(this, &CanvasItemEditor::_pan_callback), callable_mp(this, &CanvasItemEditor::_zoom_callback));
 
-	viewport = memnewOldWithArgs(CanvasItemEditorViewport(this));
+	viewport = memnewWithArgs<CanvasItemEditorViewport>(this);
 	viewport_scrollable->add_child(viewport);
 	viewport->set_mouse_filter(MOUSE_FILTER_PASS);
 	viewport->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);

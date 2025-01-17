@@ -1276,7 +1276,7 @@ Control *EditorInspectorCategory::make_custom_tooltip(const String &p_text) cons
 		return nullptr;
 	}
 
-	EditorHelpBit *help_bit = memnewOldWithArgs(EditorHelpBit(p_text));
+	EditorHelpBit *help_bit = memnewWithArgs<EditorHelpBit>(p_text);
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<EditorInspectorCategory *>(this));
 	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
 }
@@ -3254,7 +3254,7 @@ void EditorInspector::update_tree() {
 			if (p.type == Variant::NIL) {
 				// Setup the array to use a method to create/move/delete elements.
 				array_element_prefix = class_name_components[0];
-				editor_inspector_array = memnewOldWithArgs(EditorInspectorArray(all_read_only));
+				editor_inspector_array = memnewWithArgs<EditorInspectorArray>(all_read_only);
 
 				String array_label = path.contains("/") ? path.substr(path.rfind("/") + 1) : path;
 				array_label = EditorPropertyNameProcessor::get_singleton()->process_name(property_label_string, property_name_style, p.name, doc_name);
@@ -3265,7 +3265,7 @@ void EditorInspector::update_tree() {
 				// Setup the array to use the count property and built-in functions to create/move/delete elements.
 				if (class_name_components.size() >= 2) {
 					array_element_prefix = class_name_components[1];
-					editor_inspector_array = memnewOldWithArgs(EditorInspectorArray(all_read_only));
+					editor_inspector_array = memnewWithArgs<EditorInspectorArray>(all_read_only);
 					int page = per_array_page.has(array_element_prefix) ? per_array_page[array_element_prefix] : 0;
 
 					editor_inspector_array->setup_with_count_property(object, class_name_components[0], p.name, array_element_prefix, page, c, foldable, movable, numbered, page_size, add_button_text, swap_method);
@@ -4294,12 +4294,12 @@ void EditorInspector::_show_add_meta_dialog() {
 
 		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
 		vbc->add_child(hbc);
-		hbc->add_child(memnewOldWithArgs(Label(TTR("Name:"))));
+		hbc->add_child(memnewWithArgs<Label>(TTR("Name:")));
 
 		add_meta_name = memnewOldNoConstructor(LineEdit);
 		add_meta_name->set_custom_minimum_size(Size2(200 * EDSCALE, 1));
 		hbc->add_child(add_meta_name);
-		hbc->add_child(memnewOldWithArgs(Label(TTR("Type:"))));
+		hbc->add_child(memnewWithArgs<Label>(TTR("Type:")));
 
 		add_meta_type = memnewOldNoConstructor(OptionButton);
 		for (int i = 0; i < Variant::VARIANT_MAX; i++) {

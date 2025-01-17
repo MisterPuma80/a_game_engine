@@ -69,7 +69,7 @@ void OpenXRActionSetEditor::_notification(int p_what) {
 }
 
 OpenXRActionEditor *OpenXRActionSetEditor::_add_action_editor(Ref<OpenXRAction> p_action) {
-	OpenXRActionEditor *action_editor = memnewOldWithArgs(OpenXRActionEditor(p_action));
+	OpenXRActionEditor *action_editor = memnewWithArgs<OpenXRActionEditor>(p_action);
 	action_editor->connect("remove", callable_mp(this, &OpenXRActionSetEditor::_on_remove_action));
 	actions_vb->add_child(action_editor);
 

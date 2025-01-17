@@ -625,7 +625,7 @@ void GroupsEditor::_show_add_group_dialog() {
 		gc->set_columns(2);
 		vbc->add_child(gc);
 
-		Label *label_name = memnewOldWithArgs(Label(TTR("Name:")));
+		Label *label_name = memnewWithArgs<Label>(TTR("Name:"));
 		label_name->set_h_size_flags(SIZE_SHRINK_BEGIN);
 		gc->add_child(label_name);
 
@@ -642,7 +642,7 @@ void GroupsEditor::_show_add_group_dialog() {
 		global_group_button->set_text(TTR("Global"));
 		hbc->add_child(global_group_button);
 
-		Label *label_description = memnewOldWithArgs(Label(TTR("Description:")));
+		Label *label_description = memnewWithArgs<Label>(TTR("Description:"));
 		label_name->set_h_size_flags(SIZE_SHRINK_BEGIN);
 		gc->add_child(label_description);
 
@@ -688,7 +688,7 @@ void GroupsEditor::_show_rename_group_dialog() {
 		rename_group_dialog->add_child(vbc);
 
 		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
-		hbc->add_child(memnewOldWithArgs(Label(TTR("Name:"))));
+		hbc->add_child(memnewWithArgs<Label>(TTR("Name:")));
 
 		rename_group = memnewOldNoConstructor(LineEdit);
 		rename_group->set_custom_minimum_size(Size2(300 * EDSCALE, 1));

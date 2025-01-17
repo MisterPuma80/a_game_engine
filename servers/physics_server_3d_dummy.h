@@ -419,7 +419,7 @@ public:
 	virtual void set_active(bool p_active) override {}
 	virtual void init() override {
 		space_state_dummy = memnewOldNoConstructor(PhysicsDirectSpaceState3DDummy);
-		body_state_dummy = memnewOldWithArgs(PhysicsDirectBodyState3DDummy(space_state_dummy));
+		body_state_dummy = memnewWithArgs<PhysicsDirectBodyState3DDummy>(space_state_dummy);
 	}
 	virtual void step(real_t p_step) override {}
 	virtual void sync() override {}

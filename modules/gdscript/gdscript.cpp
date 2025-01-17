@@ -2224,7 +2224,7 @@ void GDScriptLanguage::init() {
 		if (globals.has(n)) {
 			continue;
 		}
-		Ref<GDScriptNativeClass> nc = memnewOldWithArgs(GDScriptNativeClass(n));
+		Ref<GDScriptNativeClass> nc = memnewWithArgs<GDScriptNativeClass>(n);
 		_add_global(n, nc);
 	}
 

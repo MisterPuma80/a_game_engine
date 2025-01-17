@@ -859,7 +859,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 	language_menu = memnewOldNoConstructor(OptionButton);
 	language_menu->set_custom_minimum_size(Size2(350, 0) * EDSCALE);
 	language_menu->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	gc->add_child(memnewOldWithArgs(Label(TTR("Language:"))));
+	gc->add_child(memnewWithArgs<Label>(TTR("Language:")));
 	gc->add_child(language_menu);
 
 	default_language = -1;
@@ -893,11 +893,11 @@ ScriptCreateDialog::ScriptCreateDialog() {
 	parent_browse_button = memnewOldNoConstructor(Button);
 	parent_browse_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_browse_path).bind(true, false));
 	hb->add_child(parent_browse_button);
-	gc->add_child(memnewOldWithArgs(Label(TTR("Inherits:"))));
+	gc->add_child(memnewWithArgs<Label>(TTR("Inherits:")));
 	gc->add_child(hb);
 
 	/* Templates */
-	gc->add_child(memnewOldWithArgs(Label(TTR("Template:"))));
+	gc->add_child(memnewWithArgs<Label>(TTR("Template:")));
 	HBoxContainer *template_hb = memnewOldNoConstructor(HBoxContainer);
 	template_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
@@ -920,7 +920,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 	built_in = memnewOldNoConstructor(CheckBox);
 	built_in->set_text(TTR("On"));
 	built_in->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_built_in_pressed));
-	gc->add_child(memnewOldWithArgs(Label(TTR("Built-in Script:"))));
+	gc->add_child(memnewWithArgs<Label>(TTR("Built-in Script:")));
 	gc->add_child(built_in);
 
 	/* Path */
@@ -935,7 +935,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 	path_button = memnewOldNoConstructor(Button);
 	path_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_browse_path).bind(false, true));
 	hb->add_child(path_button);
-	Label *label = memnewOldWithArgs(Label(TTR("Path:")));
+	Label *label = memnewWithArgs<Label>(TTR("Path:"));
 	gc->add_child(label);
 	gc->add_child(hb);
 	path_controls[0] = label;
@@ -946,7 +946,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 	built_in_name = memnewOldNoConstructor(LineEdit);
 	built_in_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	register_text_enter(built_in_name);
-	label = memnewOldWithArgs(Label(TTR("Name:")));
+	label = memnewWithArgs<Label>(TTR("Name:"));
 	gc->add_child(label);
 	gc->add_child(built_in_name);
 	name_controls[0] = label;

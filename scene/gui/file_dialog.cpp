@@ -1422,7 +1422,7 @@ FileDialog::FileDialog() {
 	dir_next->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::_go_forward));
 	dir_up->connect(SceneStringName(pressed), callable_mp(this, &FileDialog::_go_up));
 
-	hbc->add_child(memnewOldWithArgs(Label(ETR("Path:"))));
+	hbc->add_child(memnewWithArgs<Label>(ETR("Path:")));
 
 	drives_container = memnewOldNoConstructor(HBoxContainer);
 	hbc->add_child(drives_container);
@@ -1472,7 +1472,7 @@ FileDialog::FileDialog() {
 	tree->add_child(message);
 
 	file_box = memnewOldNoConstructor(HBoxContainer);
-	file_box->add_child(memnewOldWithArgs(Label(ETR("File:"))));
+	file_box->add_child(memnewWithArgs<Label>(ETR("File:")));
 	file = memnewOldNoConstructor(LineEdit);
 	file->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	file->set_stretch_ratio(4);

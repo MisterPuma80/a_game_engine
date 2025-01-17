@@ -74,7 +74,7 @@ void OpenXRActionMapEditor::_notification(int p_what) {
 OpenXRActionSetEditor *OpenXRActionMapEditor::_add_action_set_editor(Ref<OpenXRActionSet> p_action_set) {
 	ERR_FAIL_COND_V(p_action_set.is_null(), nullptr);
 
-	OpenXRActionSetEditor *action_set_editor = memnewOldWithArgs(OpenXRActionSetEditor(action_map, p_action_set));
+	OpenXRActionSetEditor *action_set_editor = memnewWithArgs<OpenXRActionSetEditor>(action_map, p_action_set);
 	action_set_editor->connect("remove", callable_mp(this, &OpenXRActionMapEditor::_on_remove_action_set));
 	action_set_editor->connect("action_removed", callable_mp(this, &OpenXRActionMapEditor::_on_action_removed));
 
@@ -104,7 +104,7 @@ OpenXRInteractionProfileEditorBase *OpenXRActionMapEditor::_add_interaction_prof
 		// instance specific editor for this type
 	} else {
 		// instance generic editor
-		new_profile_editor = memnewOldWithArgs(OpenXRInteractionProfileEditor(action_map, p_interaction_profile));
+		new_profile_editor = memnewWithArgs<OpenXRInteractionProfileEditor>(action_map, p_interaction_profile);
 	}
 
 	// now add it in..

@@ -627,7 +627,7 @@ Sprite2DEditor::Sprite2DEditor() {
 	debug_uv_dialog->connect(SceneStringName(confirmed), callable_mp(this, &Sprite2DEditor::_create_node));
 
 	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
-	hb->add_child(memnewOldWithArgs(Label(TTR("Simplification:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Simplification:")));
 	simplification = memnewOldNoConstructor(SpinBox);
 	simplification->set_min(0.01);
 	simplification->set_max(10.00);
@@ -635,7 +635,7 @@ Sprite2DEditor::Sprite2DEditor() {
 	simplification->set_value(2);
 	hb->add_child(simplification);
 	hb->add_spacer();
-	hb->add_child(memnewOldWithArgs(Label(TTR("Shrink (Pixels):"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Shrink (Pixels):")));
 	shrink_pixels = memnewOldNoConstructor(SpinBox);
 	shrink_pixels->set_min(0);
 	shrink_pixels->set_max(10);
@@ -643,7 +643,7 @@ Sprite2DEditor::Sprite2DEditor() {
 	shrink_pixels->set_value(0);
 	hb->add_child(shrink_pixels);
 	hb->add_spacer();
-	hb->add_child(memnewOldWithArgs(Label(TTR("Grow (Pixels):"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Grow (Pixels):")));
 	grow_pixels = memnewOldNoConstructor(SpinBox);
 	grow_pixels->set_min(0);
 	grow_pixels->set_max(10);

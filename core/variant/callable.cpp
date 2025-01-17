@@ -373,7 +373,7 @@ Callable Callable::create(const Variant &p_variant, const StringName &p_method) 
 		case Variant::OBJECT:
 			return Callable(p_variant.operator ObjectID(), p_method);
 		default:
-			return Callable(memnewOldWithArgs(VariantCallable(p_variant, p_method)));
+			return Callable(memnewWithArgs<VariantCallable>(p_variant, p_method));
 	}
 }
 

@@ -126,7 +126,7 @@ EditorProgress *GPUParticlesCollisionSDF3DEditorPlugin::tmp_progress = nullptr;
 void GPUParticlesCollisionSDF3DEditorPlugin::bake_func_begin(int p_steps) {
 	ERR_FAIL_COND(tmp_progress != nullptr);
 
-	tmp_progress = memnewOldWithArgs(EditorProgress("bake_sdf", TTR("Bake SDF"), p_steps));
+	tmp_progress = memnewWithArgs<EditorProgress>("bake_sdf", TTR("Bake SDF"), p_steps);
 }
 
 void GPUParticlesCollisionSDF3DEditorPlugin::bake_func_step(int p_step, const String &p_description) {

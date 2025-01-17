@@ -2550,7 +2550,7 @@ TileSetAtlasSourceEditor::TileSetAtlasSourceEditor() {
 	toolbox->add_child(tool_paint_button);
 
 	// Tile inspector.
-	tile_proxy_object = memnewOldWithArgs(AtlasTileProxyObject(this));
+	tile_proxy_object = memnewWithArgs<AtlasTileProxyObject>(this);
 	tile_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetAtlasSourceEditor::_tile_proxy_object_changed));
 
 	tile_inspector = memnewOldNoConstructor(EditorInspector);
@@ -2679,10 +2679,10 @@ TileSetAtlasSourceEditor::TileSetAtlasSourceEditor() {
 	tile_atlas_view->add_child(tile_create_help);
 	tile_create_help->set_mouse_filter(MOUSE_FILTER_IGNORE);
 
-	Label *help_label = memnewOldWithArgs(Label(TTR("Hold Ctrl to create multiple tiles.")));
+	Label *help_label = memnewWithArgs<Label>(TTR("Hold Ctrl to create multiple tiles."));
 	tile_create_help->add_child(help_label);
 
-	help_label = memnewOldWithArgs(Label(TTR("Hold Shift to create big tiles.")));
+	help_label = memnewWithArgs<Label>(TTR("Hold Shift to create big tiles."));
 	tile_create_help->add_child(help_label);
 
 	tile_create_help->set_anchors_and_offsets_preset(Control::PRESET_BOTTOM_LEFT, Control::PRESET_MODE_MINSIZE, 8);
@@ -2699,7 +2699,7 @@ TileSetAtlasSourceEditor::TileSetAtlasSourceEditor() {
 	empty_base_tile_popup_menu->connect(SceneStringName(id_pressed), callable_mp(this, &TileSetAtlasSourceEditor::_menu_option));
 	tile_atlas_view->add_child(empty_base_tile_popup_menu);
 
-	tile_atlas_control = memnewOldWithArgs(TileAtlasControl(this));
+	tile_atlas_control = memnewWithArgs<TileAtlasControl>(this);
 	tile_atlas_control->connect(SceneStringName(draw), callable_mp(this, &TileSetAtlasSourceEditor::_tile_atlas_control_draw));
 	tile_atlas_control->connect(SceneStringName(mouse_exited), callable_mp(this, &TileSetAtlasSourceEditor::_tile_atlas_control_mouse_exited));
 	tile_atlas_control->connect(SceneStringName(gui_input), callable_mp(this, &TileSetAtlasSourceEditor::_tile_atlas_control_gui_input));

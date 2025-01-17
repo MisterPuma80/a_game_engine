@@ -1275,7 +1275,7 @@ void GodotPhysicsServer3D::joint_make_pin(RID p_joint, RID p_body_A, const Vecto
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotPinJoint3D(body_A, p_local_A, body_B, p_local_B));
+	GodotJoint3D *joint = memnewWithArgs<GodotPinJoint3D>(body_A, p_local_A, body_B, p_local_B);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1347,7 +1347,7 @@ void GodotPhysicsServer3D::joint_make_hinge(RID p_joint, RID p_body_A, const Tra
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotHingeJoint3D(body_A, body_B, p_frame_A, p_frame_B));
+	GodotJoint3D *joint = memnewWithArgs<GodotHingeJoint3D>(body_A, body_B, p_frame_A, p_frame_B);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1371,7 +1371,7 @@ void GodotPhysicsServer3D::joint_make_hinge_simple(RID p_joint, RID p_body_A, co
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotHingeJoint3D(body_A, body_B, p_pivot_A, p_pivot_B, p_axis_A, p_axis_B));
+	GodotJoint3D *joint = memnewWithArgs<GodotHingeJoint3D>(body_A, body_B, p_pivot_A, p_pivot_B, p_axis_A, p_axis_B);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1472,7 +1472,7 @@ void GodotPhysicsServer3D::joint_make_slider(RID p_joint, RID p_body_A, const Tr
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotSliderJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
+	GodotJoint3D *joint = memnewWithArgs<GodotSliderJoint3D>(body_A, body_B, p_local_frame_A, p_local_frame_B);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1512,7 +1512,7 @@ void GodotPhysicsServer3D::joint_make_cone_twist(RID p_joint, RID p_body_A, cons
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotConeTwistJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
+	GodotJoint3D *joint = memnewWithArgs<GodotConeTwistJoint3D>(body_A, body_B, p_local_frame_A, p_local_frame_B);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1552,7 +1552,7 @@ void GodotPhysicsServer3D::joint_make_generic_6dof(RID p_joint, RID p_body_A, co
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnewOldWithArgs(GodotGeneric6DOFJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B, true));
+	GodotJoint3D *joint = memnewWithArgs<GodotGeneric6DOFJoint3D>(body_A, body_B, p_local_frame_A, p_local_frame_B, true);
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);

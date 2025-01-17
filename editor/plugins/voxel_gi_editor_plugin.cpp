@@ -151,7 +151,7 @@ EditorProgress *VoxelGIEditorPlugin::tmp_progress = nullptr;
 void VoxelGIEditorPlugin::bake_func_begin(int p_steps) {
 	ERR_FAIL_COND(tmp_progress != nullptr);
 
-	tmp_progress = memnewOldWithArgs(EditorProgress("bake_gi", TTR("Bake VoxelGI"), p_steps));
+	tmp_progress = memnewWithArgs<EditorProgress>("bake_gi", TTR("Bake VoxelGI"), p_steps);
 }
 
 void VoxelGIEditorPlugin::bake_func_step(int p_step, const String &p_description) {

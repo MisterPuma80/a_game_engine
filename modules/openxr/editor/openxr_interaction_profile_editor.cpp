@@ -320,7 +320,7 @@ OpenXRInteractionProfileEditor::OpenXRInteractionProfileEditor(Ref<OpenXRActionM
 	main_hb = memnewOldNoConstructor(HBoxContainer);
 	add_child(main_hb);
 
-	select_action_dialog = memnewOldWithArgs(OpenXRSelectActionDialog(p_action_map));
+	select_action_dialog = memnewWithArgs<OpenXRSelectActionDialog>(p_action_map);
 	select_action_dialog->connect("action_selected", callable_mp(this, &OpenXRInteractionProfileEditor::action_selected));
 	add_child(select_action_dialog);
 }

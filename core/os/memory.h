@@ -37,6 +37,12 @@
 #include <stddef.h>
 #include <new>
 #include <type_traits>
+#include <cxxabi.h>
+#include <memory>
+#include <string>
+#include <cstddef>
+#include <cstdint>
+#include <iostream>
 
 class Memory {
 #ifdef DEBUG_ENABLED
@@ -106,6 +112,57 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
+
+template <typename T>
+std::string get_type_name() {
+	const char* name = typeid(T).name();
+    int status = -4;
+    std::unique_ptr<char, void(*)(void*)> res {
+        abi::__cxa_demangle(name, NULL, NULL, &status),
+        std::free
+    };
+    return (status == 0) ? res.get() : name;
+}
+
+template <typename T, typename... Args>
+/*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
+	T* result = new ("") T(std::forward<Args>(args)...);
+/*
+	std::string type_name = get_type_name<T>();
+	std::cout << "!!!!! memnewWithArgs: " << type_name << std::endl;
+	std::cout.flush();
+*/
+	postinitialize_handler(result);
+	return result;
+}
+
+template <typename T>
+/*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
+	T* result = new ("") T;
+/*
+	std::string type_name = get_type_name<T>();
+	std::cout << "!!!!! memnewNoArgs: " << type_name << std::endl;
+	std::cout.flush();
+*/
+	postinitialize_handler(result);
+	return result;
+}
+
+template <typename T>
+/*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
+	T* result = new ("") T;
+/*
+	std::string type_name = get_type_name<T>();
+	std::cout << "!!!!! memnewNoArgs: " << type_name << std::endl;
+	std::cout.flush();
+*/
+	postinitialize_handler(result);
+	return result;
+}
+
+
+
+
 
 _ALWAYS_INLINE_ bool predelete_handler(void *) {
 	return true;

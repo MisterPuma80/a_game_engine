@@ -254,7 +254,7 @@ ReplicationEditor::ReplicationEditor() {
 	VSeparator *vs = memnewOldNoConstructor(VSeparator);
 	vs->set_custom_minimum_size(Size2(30 * EDSCALE, 0));
 	hb->add_child(vs);
-	hb->add_child(memnewOldWithArgs(Label(TTR("Path:"))));
+	hb->add_child(memnewWithArgs<Label>(TTR("Path:")));
 
 	np_line_edit = memnewOldNoConstructor(LineEdit);
 	np_line_edit->set_placeholder(":property");

@@ -1555,7 +1555,7 @@ void SceneTreeDock::_notification(int p_what) {
 			// create_root_dialog
 			HBoxContainer *top_row = memnewOldNoConstructor(HBoxContainer);
 			top_row->set_h_size_flags(SIZE_EXPAND_FILL);
-			Label *l = memnewOldWithArgs(Label(TTR("Create Root Node:")));
+			Label *l = memnewWithArgs<Label>(TTR("Create Root Node:"));
 			l->set_theme_type_variation("HeaderSmall");
 			top_row->add_child(l);
 			top_row->add_spacer();
@@ -4542,7 +4542,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	create_root_dialog->set_v_size_flags(SIZE_EXPAND_FILL);
 	create_root_dialog->hide();
 
-	scene_tree = memnewOldWithArgs(SceneTreeEditor(false, true, true));
+	scene_tree = memnewWithArgs<SceneTreeEditor>(false, true, true);
 
 	vbc->add_child(scene_tree);
 	scene_tree->set_v_size_flags(SIZE_EXPAND | SIZE_FILL);
@@ -4579,7 +4579,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	create_dialog->connect("favorites_updated", callable_mp(this, &SceneTreeDock::_update_create_root_dialog));
 
 #ifdef MODULE_REGEX_ENABLED
-	rename_dialog = memnewOldWithArgs(RenameDialog(scene_tree));
+	rename_dialog = memnewWithArgs<RenameDialog>(scene_tree);
 	add_child(rename_dialog);
 #endif // MODULE_REGEX_ENABLED
 
@@ -4613,7 +4613,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	delete_dialog_label = memnewOldNoConstructor(Label);
 	vb->add_child(delete_dialog_label);
 
-	delete_tracks_checkbox = memnewOldWithArgs(CheckBox(TTR("Delete Related Animation Tracks")));
+	delete_tracks_checkbox = memnewWithArgs<CheckBox>(TTR("Delete Related Animation Tracks"));
 	delete_tracks_checkbox->set_pressed(true);
 	vb->add_child(delete_tracks_checkbox);
 

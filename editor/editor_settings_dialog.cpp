@@ -609,7 +609,7 @@ Variant EditorSettingsDialog::get_drag_data_fw(const Point2 &p_point, Control *p
 	}
 
 	String label_text = "Event " + itos(selected->get_meta("event_index"));
-	Label *label = memnewOldWithArgs(Label(label_text));
+	Label *label = memnewWithArgs<Label>(label_text);
 	label->set_modulate(Color(1, 1, 1, 1.0f));
 	shortcuts->set_drag_preview(label);
 

@@ -547,7 +547,7 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	loop->connect("toggled", callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	loop_hb->add_child(loop);
 	loop_hb->add_spacer();
-	loop_hb->add_child(memnewOldWithArgs(Label(TTR("Offset:"))));
+	loop_hb->add_child(memnewWithArgs<Label>(TTR("Offset:")));
 	loop_offset = memnewOldNoConstructor(SpinBox);
 	loop_offset->set_max(10000);
 	loop_offset->set_step(0.001);
@@ -579,7 +579,7 @@ AudioStreamImportSettingsDialog::AudioStreamImportSettingsDialog() {
 	beats_edit->set_max(99999);
 	beats_edit->connect(SceneStringName(value_changed), callable_mp(this, &AudioStreamImportSettingsDialog::_settings_changed).unbind(1));
 	interactive_hb->add_child(beats_edit);
-	bar_beats_label = memnewOldWithArgs(Label(TTR("Bar Beats:")));
+	bar_beats_label = memnewWithArgs<Label>(TTR("Bar Beats:"));
 	interactive_hb->add_child(bar_beats_label);
 	bar_beats_edit = memnewOldNoConstructor(SpinBox);
 	bar_beats_edit->set_tooltip_text(TTR("Configure the Beats Per Bar. This used for music-aware transitions between AudioStreams."));

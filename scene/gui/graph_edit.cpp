@@ -2801,7 +2801,7 @@ GraphEdit::GraphEdit() {
 	connections_layer->set_disable_visibility_clip(true); // Necessary, so it can draw freely and be offset.
 	connections_layer->set_mouse_filter(MOUSE_FILTER_IGNORE);
 
-	top_connection_layer = memnewOldWithArgs(GraphEditFilter(this));
+	top_connection_layer = memnewWithArgs<GraphEditFilter>(this);
 	add_child(top_connection_layer, false, INTERNAL_MODE_BACK);
 
 	connections_shader = default_connections_shader;
@@ -2933,7 +2933,7 @@ GraphEdit::GraphEdit() {
 	const Vector2 minimap_size = Vector2(240, 160);
 	const float minimap_opacity = 0.65;
 
-	minimap = memnewOldWithArgs(GraphEditMinimap(this));
+	minimap = memnewWithArgs<GraphEditMinimap>(this);
 	top_layer->add_child(minimap);
 	minimap->set_name("_minimap");
 	minimap->set_modulate(Color(1, 1, 1, minimap_opacity));
@@ -2949,5 +2949,5 @@ GraphEdit::GraphEdit() {
 
 	set_clip_contents(true);
 
-	arranger = Ref<GraphEditArranger>(memnewOldWithArgs(GraphEditArranger(this)));
+	arranger = Ref<GraphEditArranger>(memnewWithArgs<GraphEditArranger>(this));
 }

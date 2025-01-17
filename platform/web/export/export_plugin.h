@@ -91,7 +91,7 @@ class EditorExportPlatformWeb : public EditorExportPlatform {
 		splash.instantiate();
 		const String splash_path = String(GLOBAL_GET("application/boot_splash/image")).strip_edges();
 		if (splash_path.is_empty() || ImageLoader::load_image(splash_path, splash) != OK) {
-			return Ref<Image>(memnewOldWithArgs(Image(boot_splash_png)));
+			return Ref<Image>(memnewWithArgs<Image>(boot_splash_png));
 		}
 		return splash;
 	}

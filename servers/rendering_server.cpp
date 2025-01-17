@@ -140,7 +140,7 @@ RID RenderingServer::get_test_texture() {
 		}
 	}
 
-	Ref<Image> data = memnewOldWithArgs(Image(TEST_TEXTURE_SIZE, TEST_TEXTURE_SIZE, false, Image::FORMAT_RGB8, test_data));
+	Ref<Image> data = memnewWithArgs<Image>(TEST_TEXTURE_SIZE, TEST_TEXTURE_SIZE, false, Image::FORMAT_RGB8, test_data);
 
 	test_texture = texture_2d_create(data);
 
@@ -309,7 +309,7 @@ RID RenderingServer::get_white_texture() {
 			w[i] = 255;
 		}
 	}
-	Ref<Image> white = memnewOldWithArgs(Image(4, 4, 0, Image::FORMAT_RGB8, wt));
+	Ref<Image> white = memnewWithArgs<Image>(4, 4, 0, Image::FORMAT_RGB8, wt);
 	white_texture = texture_2d_create(white);
 	return white_texture;
 }

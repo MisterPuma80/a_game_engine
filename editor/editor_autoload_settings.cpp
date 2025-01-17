@@ -645,7 +645,7 @@ Variant EditorAutoloadSettings::get_drag_data_fw(const Point2 &p_point, Control 
 	int max_size = MIN(PREVIEW_LIST_MAX_SIZE, autoloads.size());
 
 	for (int i = 0; i < max_size; i++) {
-		Label *label = memnewOldWithArgs(Label(autoloads[i]));
+		Label *label = memnewWithArgs<Label>(autoloads[i]);
 		label->set_self_modulate(Color(1, 1, 1, Math::lerp(1, 0, float(i) / PREVIEW_LIST_MAX_SIZE)));
 
 		preview->add_child(label);

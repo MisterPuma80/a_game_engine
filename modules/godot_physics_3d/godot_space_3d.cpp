@@ -1046,15 +1046,15 @@ void *GodotSpace3D::_broadphase_pair(GodotCollisionObject3D *A, int p_subindex_A
 		GodotArea3D *area = static_cast<GodotArea3D *>(A);
 		if (type_B == GodotCollisionObject3D::TYPE_AREA) {
 			GodotArea3D *area_b = static_cast<GodotArea3D *>(B);
-			GodotArea2Pair3D *area2_pair = memnewOldWithArgs(GodotArea2Pair3D(area_b, p_subindex_B, area, p_subindex_A));
+			GodotArea2Pair3D *area2_pair = memnewWithArgs<GodotArea2Pair3D>(area_b, p_subindex_B, area, p_subindex_A);
 			return area2_pair;
 		} else if (type_B == GodotCollisionObject3D::TYPE_SOFT_BODY) {
 			GodotSoftBody3D *softbody = static_cast<GodotSoftBody3D *>(B);
-			GodotAreaSoftBodyPair3D *soft_area_pair = memnewOldWithArgs(GodotAreaSoftBodyPair3D(softbody, p_subindex_B, area, p_subindex_A));
+			GodotAreaSoftBodyPair3D *soft_area_pair = memnewWithArgs<GodotAreaSoftBodyPair3D>(softbody, p_subindex_B, area, p_subindex_A);
 			return soft_area_pair;
 		} else {
 			GodotBody3D *body = static_cast<GodotBody3D *>(B);
-			GodotAreaPair3D *area_pair = memnewOldWithArgs(GodotAreaPair3D(body, p_subindex_B, area, p_subindex_A));
+			GodotAreaPair3D *area_pair = memnewWithArgs<GodotAreaPair3D>(body, p_subindex_B, area, p_subindex_A);
 			return area_pair;
 		}
 	} else if (type_A == GodotCollisionObject3D::TYPE_BODY) {

@@ -2271,7 +2271,7 @@ ThemeTypeDialog::ThemeTypeDialog() {
 ///////////////////////
 
 Control *ThemeItemLabel::make_custom_tooltip(const String &p_text) const {
-	EditorHelpBit *help_bit = memnewOldWithArgs(EditorHelpBit(p_text));
+	EditorHelpBit *help_bit = memnewWithArgs<EditorHelpBit>(p_text);
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<ThemeItemLabel *>(this));
 	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
 }
@@ -3721,7 +3721,7 @@ ThemeEditor::ThemeEditor() {
 
 	theme_type_editor = memnewOldNoConstructor(ThemeTypeEditor);
 
-	theme_edit_dialog = memnewOldWithArgs(ThemeItemEditorDialog(theme_type_editor));
+	theme_edit_dialog = memnewWithArgs<ThemeItemEditorDialog>(theme_type_editor);
 	theme_edit_dialog->hide();
 	top_menu->add_child(theme_edit_dialog);
 

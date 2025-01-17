@@ -538,7 +538,7 @@ Variant ShaderEditorPlugin::get_drag_data_fw(const Point2 &p_point, Control *p_f
 		tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 		drag_preview->add_child(tf);
 	}
-	Label *label = memnewOldWithArgs(Label(preview_name));
+	Label *label = memnewWithArgs<Label>(preview_name);
 	drag_preview->add_child(label);
 	main_split->set_drag_preview(drag_preview);
 

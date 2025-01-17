@@ -1486,7 +1486,7 @@ Ref<SceneTreeTimer> SceneTree::create_timer(double p_delay_sec, bool p_process_a
 
 Ref<Tween> SceneTree::create_tween() {
 	_THREAD_SAFE_METHOD_
-	Ref<Tween> tween = memnewOldWithArgs(Tween(true));
+	Ref<Tween> tween = memnewWithArgs<Tween>(true);
 	tweens.push_back(tween);
 	return tween;
 }

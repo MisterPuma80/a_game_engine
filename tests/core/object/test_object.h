@@ -550,7 +550,7 @@ TEST_CASE("[Object] Destruction at the end of the call chain is safe") {
 				self(p_self) {}
 	};
 
-	_SelfDestroyingScriptInstance *script_instance = memnewOldWithArgs(_SelfDestroyingScriptInstance(object));
+	_SelfDestroyingScriptInstance *script_instance = memnewWithArgs<_SelfDestroyingScriptInstance>(object);
 	object->set_script_instance(script_instance);
 
 	SUBCASE("Within callp()") {

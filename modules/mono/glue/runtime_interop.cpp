@@ -489,7 +489,7 @@ void godotsharp_callable_new_with_delegate(GCHandleIntPtr p_delegate_handle, voi
 		const Object *p_object, Callable *r_callable) {
 	// TODO: Use pooling for ManagedCallable instances.
 	ObjectID objid = p_object ? p_object->get_instance_id() : ObjectID();
-	CallableCustom *managed_callable = memnewOldWithArgs(ManagedCallable(p_delegate_handle, p_trampoline, objid));
+	CallableCustom *managed_callable = memnewWithArgs<ManagedCallable>(p_delegate_handle, p_trampoline, objid);
 	memnew_placement(r_callable, Callable(managed_callable));
 }
 

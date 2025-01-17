@@ -627,7 +627,7 @@ bool RenderingContextDriverVulkan::device_supports_present(uint32_t p_device_ind
 }
 
 RenderingDeviceDriver *RenderingContextDriverVulkan::driver_create() {
-	return memnewOldWithArgs(RenderingDeviceDriverVulkan(this));
+	return memnewWithArgs<RenderingDeviceDriverVulkan>(this);
 }
 
 void RenderingContextDriverVulkan::driver_free(RenderingDeviceDriver *p_driver) {

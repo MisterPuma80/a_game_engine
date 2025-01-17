@@ -7578,11 +7578,11 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	ease_fps->set_max(999);
 	ease_fps->set_step(FPS_DECIMAL);
 	ease_fps->set_value(30); // Default
-	ease_grid->add_child(memnewOldWithArgs(Label(TTR("Transition Type:"))));
+	ease_grid->add_child(memnewWithArgs<Label>(TTR("Transition Type:")));
 	ease_grid->add_child(transition_selection);
-	ease_grid->add_child(memnewOldWithArgs(Label(TTR("Ease Type:"))));
+	ease_grid->add_child(memnewWithArgs<Label>(TTR("Ease Type:")));
 	ease_grid->add_child(ease_selection);
-	ease_grid->add_child(memnewOldWithArgs(Label(TTR("FPS:"))));
+	ease_grid->add_child(memnewWithArgs<Label>(TTR("FPS:")));
 	ease_grid->add_child(ease_fps);
 
 	//
@@ -7604,13 +7604,13 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	bake_fps->set_max(999);
 	bake_fps->set_step(FPS_DECIMAL);
 	bake_fps->set_value(30); // Default
-	bake_grid->add_child(memnewOldWithArgs(Label(TTR("3D Pos/Rot/Scl Track:"))));
+	bake_grid->add_child(memnewWithArgs<Label>(TTR("3D Pos/Rot/Scl Track:")));
 	bake_grid->add_child(bake_trs);
-	bake_grid->add_child(memnewOldWithArgs(Label(TTR("Blendshape Track:"))));
+	bake_grid->add_child(memnewWithArgs<Label>(TTR("Blendshape Track:")));
 	bake_grid->add_child(bake_blendshape);
-	bake_grid->add_child(memnewOldWithArgs(Label(TTR("Value Track:"))));
+	bake_grid->add_child(memnewWithArgs<Label>(TTR("Value Track:")));
 	bake_grid->add_child(bake_value);
-	bake_grid->add_child(memnewOldWithArgs(Label(TTR("FPS:"))));
+	bake_grid->add_child(memnewWithArgs<Label>(TTR("FPS:")));
 	bake_grid->add_child(bake_fps);
 
 	//

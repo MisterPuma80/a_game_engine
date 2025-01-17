@@ -1883,7 +1883,7 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		sc->add_child(stack_vb);
 		HBoxContainer *thread_hb = memnewOldNoConstructor(HBoxContainer);
 		stack_vb->add_child(thread_hb);
-		thread_hb->add_child(memnewOldWithArgs(Label(TTR("Thread:"))));
+		thread_hb->add_child(memnewWithArgs<Label>(TTR("Thread:")));
 		threads = memnewOldNoConstructor(OptionButton);
 		thread_hb->add_child(threads);
 		threads->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -2026,12 +2026,12 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 	{ //vmem inspect
 		VBoxContainer *vmem_vb = memnewOldNoConstructor(VBoxContainer);
 		HBoxContainer *vmem_hb = memnewOldNoConstructor(HBoxContainer);
-		Label *vmlb = memnewOldWithArgs(Label(TTR("List of Video Memory Usage by Resource:") + " "));
+		Label *vmlb = memnewWithArgs<Label>(TTR("List of Video Memory Usage by Resource:") + " ");
 		vmlb->set_theme_type_variation("HeaderSmall");
 
 		vmlb->set_h_size_flags(SIZE_EXPAND_FILL);
 		vmem_hb->add_child(vmlb);
-		vmem_hb->add_child(memnewOldWithArgs(Label(TTR("Total:") + " ")));
+		vmem_hb->add_child(memnewWithArgs<Label>(TTR("Total:") + " "));
 		vmem_total = memnewOldNoConstructor(LineEdit);
 		vmem_total->set_editable(false);
 		vmem_total->set_custom_minimum_size(Size2(100, 0) * EDSCALE);
@@ -2085,11 +2085,11 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		clicked_ctrl = memnewOldNoConstructor(LineEdit);
 		clicked_ctrl->set_editable(false);
 		clicked_ctrl->set_h_size_flags(SIZE_EXPAND_FILL);
-		info_left->add_child(memnewOldWithArgs(Label(TTR("Clicked Control:"))));
+		info_left->add_child(memnewWithArgs<Label>(TTR("Clicked Control:")));
 		info_left->add_child(clicked_ctrl);
 		clicked_ctrl_type = memnewOldNoConstructor(LineEdit);
 		clicked_ctrl_type->set_editable(false);
-		info_left->add_child(memnewOldWithArgs(Label(TTR("Clicked Control Type:"))));
+		info_left->add_child(memnewWithArgs<Label>(TTR("Clicked Control Type:")));
 		info_left->add_child(clicked_ctrl_type);
 
 		scene_tree = memnewOldNoConstructor(SceneDebuggerTree);
@@ -2099,12 +2099,12 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 
 		{
 			HBoxContainer *lehb = memnewOldNoConstructor(HBoxContainer);
-			Label *l = memnewOldWithArgs(Label(TTR("Live Edit Root:")));
+			Label *l = memnewWithArgs<Label>(TTR("Live Edit Root:"));
 			info_left->add_child(l);
 			lehb->add_child(live_edit_root);
-			le_set = memnewOldWithArgs(Button(TTR("Set From Tree")));
+			le_set = memnewWithArgs<Button>(TTR("Set From Tree"));
 			lehb->add_child(le_set);
-			le_clear = memnewOldWithArgs(Button(TTR("Clear")));
+			le_clear = memnewWithArgs<Button>(TTR("Clear"));
 			lehb->add_child(le_clear);
 			info_left->add_child(lehb);
 		}
@@ -2113,7 +2113,7 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 
 		HBoxContainer *buttons = memnewOldNoConstructor(HBoxContainer);
 
-		export_csv = memnewOldWithArgs(Button(TTR("Export measures as CSV")));
+		export_csv = memnewWithArgs<Button>(TTR("Export measures as CSV"));
 		export_csv->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_export_csv));
 		buttons->add_child(export_csv);
 

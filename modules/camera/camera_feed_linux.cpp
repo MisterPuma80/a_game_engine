@@ -246,7 +246,7 @@ BufferDecoder *CameraFeedLinux::_create_buffer_decoder() {
 	switch (formats[selected_format].pixel_format) {
 		case V4L2_PIX_FMT_MJPEG:
 		case V4L2_PIX_FMT_JPEG:
-			return memnewOldWithArgs(JpegBufferDecoder(this));
+			return memnewWithArgs<JpegBufferDecoder>(this);
 		case V4L2_PIX_FMT_YUYV:
 		case V4L2_PIX_FMT_YYUV:
 		case V4L2_PIX_FMT_YVYU:
@@ -254,18 +254,18 @@ BufferDecoder *CameraFeedLinux::_create_buffer_decoder() {
 		case V4L2_PIX_FMT_VYUY: {
 			String output = parameters["output"];
 			if (output == "separate") {
-				return memnewOldWithArgs(SeparateYuyvBufferDecoder(this));
+				return memnewWithArgs<SeparateYuyvBufferDecoder>(this);
 			}
 			if (output == "grayscale") {
-				return memnewOldWithArgs(YuyvToGrayscaleBufferDecoder(this));
+				return memnewWithArgs<YuyvToGrayscaleBufferDecoder>(this);
 			}
 			if (output == "copy") {
-				return memnewOldWithArgs(CopyBufferDecoder(this, false));
+				return memnewWithArgs<CopyBufferDecoder>(this, false);
 			}
-			return memnewOldWithArgs(YuyvToRgbBufferDecoder(this));
+			return memnewWithArgs<YuyvToRgbBufferDecoder>(this);
 		}
 		default:
-			return memnewOldWithArgs(CopyBufferDecoder(this, true));
+			return memnewWithArgs<CopyBufferDecoder>(this, true);
 	}
 }
 

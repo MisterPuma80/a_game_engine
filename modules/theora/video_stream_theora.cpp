@@ -114,7 +114,7 @@ void VideoStreamPlaybackTheora::video_write() {
 		format = Image::FORMAT_RGBA8;
 	}
 
-	Ref<Image> img = memnewOldWithArgs(Image(size.x, size.y, 0, Image::FORMAT_RGBA8, frame_data)); //zero copy image creation
+	Ref<Image> img = memnewWithArgs<Image>(size.x, size.y, 0, Image::FORMAT_RGBA8, frame_data); //zero copy image creation
 
 	texture->update(img); //zero copy send to rendering server
 

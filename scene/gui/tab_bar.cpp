@@ -1249,7 +1249,7 @@ Variant TabBar::_handle_get_drag_data(const String &p_type, const Point2 &p_poin
 		drag_preview->add_child(tf);
 	}
 
-	Label *label = memnewOldWithArgs(Label(get_tab_title(tab_over)));
+	Label *label = memnewWithArgs<Label>(get_tab_title(tab_over));
 	drag_preview->add_child(label);
 
 	set_drag_preview(drag_preview);

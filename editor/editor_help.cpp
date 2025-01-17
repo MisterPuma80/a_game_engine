@@ -3824,7 +3824,7 @@ void EditorHelpBitTooltip::_input_from_window(const Ref<InputEvent> &p_event) {
 
 void EditorHelpBitTooltip::show_tooltip(EditorHelpBit *p_help_bit, Control *p_target) {
 	ERR_FAIL_NULL(p_help_bit);
-	EditorHelpBitTooltip *tooltip = memnewOldWithArgs(EditorHelpBitTooltip(p_target));
+	EditorHelpBitTooltip *tooltip = memnewWithArgs<EditorHelpBitTooltip>(p_target);
 	p_help_bit->connect("request_hide", callable_mp(tooltip, &EditorHelpBitTooltip::_safe_queue_free));
 	tooltip->add_child(p_help_bit);
 	p_target->get_viewport()->add_child(tooltip);

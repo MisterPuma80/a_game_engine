@@ -266,7 +266,7 @@ AnimationTreeEditor::AnimationTreeEditor() {
 	path_edit->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	path_hb = memnewOldNoConstructor(HBoxContainer);
 	path_edit->add_child(path_hb);
-	path_hb->add_child(memnewOldWithArgs(Label(TTR("Path:"))));
+	path_hb->add_child(memnewWithArgs<Label>(TTR("Path:")));
 
 	add_child(memnewOldNoConstructor(HSeparator));
 

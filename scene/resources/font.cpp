@@ -648,13 +648,13 @@ void FontFile::_convert_packed_8bit(Ref<Image> &p_source, int p_page, int p_sz) 
 			wa[ofs_dst + 1] = r[ofs_src + 3];
 		}
 	}
-	Ref<Image> img_r = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_r));
+	Ref<Image> img_r = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_r);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 0, img_r);
-	Ref<Image> img_g = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_g));
+	Ref<Image> img_g = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_g);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 1, img_g);
-	Ref<Image> img_b = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_b));
+	Ref<Image> img_b = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_b);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 2, img_b);
-	Ref<Image> img_a = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_a));
+	Ref<Image> img_a = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_a);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 3, img_a);
 }
 
@@ -739,22 +739,22 @@ void FontFile::_convert_packed_4bit(Ref<Image> &p_source, int p_page, int p_sz) 
 			}
 		}
 	}
-	Ref<Image> img_r = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_r));
+	Ref<Image> img_r = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_r);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 0, img_r);
-	Ref<Image> img_g = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_g));
+	Ref<Image> img_g = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_g);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 1, img_g);
-	Ref<Image> img_b = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_b));
+	Ref<Image> img_b = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_b);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 2, img_b);
-	Ref<Image> img_a = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_a));
+	Ref<Image> img_a = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_a);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page * 4 + 3, img_a);
 
-	Ref<Image> img_ro = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_ro));
+	Ref<Image> img_ro = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_ro);
 	set_texture_image(0, Vector2i(p_sz, 1), p_page * 4 + 0, img_ro);
-	Ref<Image> img_go = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_go));
+	Ref<Image> img_go = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_go);
 	set_texture_image(0, Vector2i(p_sz, 1), p_page * 4 + 1, img_go);
-	Ref<Image> img_bo = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_bo));
+	Ref<Image> img_bo = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_bo);
 	set_texture_image(0, Vector2i(p_sz, 1), p_page * 4 + 2, img_bo);
-	Ref<Image> img_ao = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_ao));
+	Ref<Image> img_ao = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_ao);
 	set_texture_image(0, Vector2i(p_sz, 1), p_page * 4 + 3, img_ao);
 }
 
@@ -807,10 +807,10 @@ void FontFile::_convert_rgba_4bit(Ref<Image> &p_source, int p_page, int p_sz) {
 			}
 		}
 	}
-	Ref<Image> img_g = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_RGBA8, imgdata_g));
+	Ref<Image> img_g = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_RGBA8, imgdata_g);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page, img_g);
 
-	Ref<Image> img_o = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_RGBA8, imgdata_o));
+	Ref<Image> img_o = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_RGBA8, imgdata_o);
 	set_texture_image(0, Vector2i(p_sz, 1), p_page, img_o);
 }
 
@@ -839,7 +839,7 @@ void FontFile::_convert_mono_8bit(Ref<Image> &p_source, int p_page, int p_ch, in
 			wg[ofs_dst + 1] = r[ofs_src + p_ch];
 		}
 	}
-	Ref<Image> img_g = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_g));
+	Ref<Image> img_g = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_g);
 	set_texture_image(0, Vector2i(p_sz, p_ol), p_page, img_g);
 }
 
@@ -879,10 +879,10 @@ void FontFile::_convert_mono_4bit(Ref<Image> &p_source, int p_page, int p_ch, in
 			}
 		}
 	}
-	Ref<Image> img_g = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_g));
+	Ref<Image> img_g = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_g);
 	set_texture_image(0, Vector2i(p_sz, 0), p_page, img_g);
 
-	Ref<Image> img_o = memnewOldWithArgs(Image(w, h, 0, Image::FORMAT_LA8, imgdata_o));
+	Ref<Image> img_o = memnewWithArgs<Image>(w, h, 0, Image::FORMAT_LA8, imgdata_o);
 	set_texture_image(0, Vector2i(p_sz, p_ol), p_page, img_o);
 }
 

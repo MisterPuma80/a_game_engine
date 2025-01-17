@@ -1155,7 +1155,7 @@ void GodotPhysicsServer2D::joint_make_pin(RID p_joint, const Vector2 &p_pos, RID
 	GodotJoint2D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint2D *joint = memnewOldWithArgs(GodotPinJoint2D(p_pos, A, B));
+	GodotJoint2D *joint = memnewWithArgs<GodotPinJoint2D>(p_pos, A, B);
 
 	joint_owner.replace(p_joint, joint);
 	joint->copy_settings_from(prev_joint);
@@ -1172,7 +1172,7 @@ void GodotPhysicsServer2D::joint_make_groove(RID p_joint, const Vector2 &p_a_gro
 	GodotJoint2D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint2D *joint = memnewOldWithArgs(GodotGrooveJoint2D(p_a_groove1, p_a_groove2, p_b_anchor, A, B));
+	GodotJoint2D *joint = memnewWithArgs<GodotGrooveJoint2D>(p_a_groove1, p_a_groove2, p_b_anchor, A, B);
 
 	joint_owner.replace(p_joint, joint);
 	joint->copy_settings_from(prev_joint);
@@ -1189,7 +1189,7 @@ void GodotPhysicsServer2D::joint_make_damped_spring(RID p_joint, const Vector2 &
 	GodotJoint2D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint2D *joint = memnewOldWithArgs(GodotDampedSpringJoint2D(p_anchor_a, p_anchor_b, A, B));
+	GodotJoint2D *joint = memnewWithArgs<GodotDampedSpringJoint2D>(p_anchor_a, p_anchor_b, A, B);
 
 	joint_owner.replace(p_joint, joint);
 	joint->copy_settings_from(prev_joint);

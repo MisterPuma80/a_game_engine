@@ -892,10 +892,10 @@ bool EditorInspectorPluginFontVariation::parse_property(Object *p_object, const 
 		add_property_editor(p_path, memnewOldNoConstructor(EditorPropertyOTFeatures));
 		return true;
 	} else if (p_path == "language_support") {
-		add_property_editor(p_path, memnewOldWithArgs(EditorPropertyFontMetaOverride(false)));
+		add_property_editor(p_path, memnewWithArgs<EditorPropertyFontMetaOverride>(false));
 		return true;
 	} else if (p_path == "script_support") {
-		add_property_editor(p_path, memnewOldWithArgs(EditorPropertyFontMetaOverride(true)));
+		add_property_editor(p_path, memnewWithArgs<EditorPropertyFontMetaOverride>(true));
 		return true;
 	}
 	return false;

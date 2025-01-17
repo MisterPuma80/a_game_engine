@@ -622,13 +622,13 @@ LocalizationEditor::LocalizationEditor() {
 		translations->add_child(tvb);
 
 		HBoxContainer *thb = memnewOldNoConstructor(HBoxContainer);
-		Label *l = memnewOldWithArgs(Label(TTR("Translations:")));
+		Label *l = memnewWithArgs<Label>(TTR("Translations:"));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnewOldWithArgs(Button(TTR("Add...")));
+		Button *addtr = memnewWithArgs<Button>(TTR("Add..."));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_file_open));
 		thb->add_child(addtr);
 
@@ -656,13 +656,13 @@ LocalizationEditor::LocalizationEditor() {
 		translations->add_child(tvb);
 
 		HBoxContainer *thb = memnewOldNoConstructor(HBoxContainer);
-		Label *l = memnewOldWithArgs(Label(TTR("Resources:")));
+		Label *l = memnewWithArgs<Label>(TTR("Resources:"));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnewOldWithArgs(Button(TTR("Add...")));
+		Button *addtr = memnewWithArgs<Button>(TTR("Add..."));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_res_file_open));
 		thb->add_child(addtr);
 
@@ -682,13 +682,13 @@ LocalizationEditor::LocalizationEditor() {
 		add_child(translation_res_file_open_dialog);
 
 		thb = memnewOldNoConstructor(HBoxContainer);
-		l = memnewOldWithArgs(Label(TTR("Remaps by Locale:")));
+		l = memnewWithArgs<Label>(TTR("Remaps by Locale:"));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		addtr = memnewOldWithArgs(Button(TTR("Add...")));
+		addtr = memnewWithArgs<Button>(TTR("Add..."));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_res_option_file_open));
 		translation_res_option_add_button = addtr;
 		thb->add_child(addtr);
@@ -725,17 +725,17 @@ LocalizationEditor::LocalizationEditor() {
 		translations->add_child(tvb);
 
 		HBoxContainer *thb = memnewOldNoConstructor(HBoxContainer);
-		Label *l = memnewOldWithArgs(Label(TTR("Files with translation strings:")));
+		Label *l = memnewWithArgs<Label>(TTR("Files with translation strings:"));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnewOldWithArgs(Button(TTR("Add...")));
+		Button *addtr = memnewWithArgs<Button>(TTR("Add..."));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_file_open));
 		thb->add_child(addtr);
 
-		pot_generate_button = memnewOldWithArgs(Button(TTR("Generate POT")));
+		pot_generate_button = memnewWithArgs<Button>(TTR("Generate POT"));
 		pot_generate_button->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_generate_open));
 		thb->add_child(pot_generate_button);
 
@@ -743,7 +743,7 @@ LocalizationEditor::LocalizationEditor() {
 		translation_pot_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tvb->add_child(translation_pot_list);
 
-		translation_pot_add_builtin = memnewOldWithArgs(CheckBox(TTR("Add Built-in Strings to POT")));
+		translation_pot_add_builtin = memnewWithArgs<CheckBox>(TTR("Add Built-in Strings to POT"));
 		translation_pot_add_builtin->set_tooltip_text(TTR("Add strings from built-in components such as certain Control nodes."));
 		translation_pot_add_builtin->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_add_builtin_toggled));
 		tvb->add_child(translation_pot_add_builtin);

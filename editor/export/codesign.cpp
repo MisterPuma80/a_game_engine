@@ -1381,8 +1381,8 @@ Error CodeSign::_codesign_file(bool p_use_hardened_runtime, bool p_force, const 
 			r_error_msg = TTR("Invalid entitlements file.");
 			ERR_FAIL_V_MSG(FAILED, "CodeSign: Invalid entitlements file.");
 		}
-		cet = Ref<CodeSignEntitlementsText>(memnewOldWithArgs(CodeSignEntitlementsText(entitlements)));
-		ceb = Ref<CodeSignEntitlementsBinary>(memnewOldWithArgs(CodeSignEntitlementsBinary(entitlements)));
+		cet = Ref<CodeSignEntitlementsText>(memnewWithArgs<CodeSignEntitlementsText>(entitlements));
+		ceb = Ref<CodeSignEntitlementsBinary>(memnewWithArgs<CodeSignEntitlementsBinary>(entitlements));
 	}
 
 	print_verbose("CodeSign: Generating requirements...");

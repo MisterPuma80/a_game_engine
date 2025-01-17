@@ -713,14 +713,14 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	snap_value->set_max(1000);
 
 	top_hb->add_child(memnewOldNoConstructor(VSeparator));
-	top_hb->add_child(memnewOldWithArgs(Label(TTR("Sync:"))));
+	top_hb->add_child(memnewWithArgs<Label>(TTR("Sync:")));
 	sync = memnewOldNoConstructor(CheckBox);
 	top_hb->add_child(sync);
 	sync->connect("toggled", callable_mp(this, &AnimationNodeBlendSpace1DEditor::_config_changed));
 
 	top_hb->add_child(memnewOldNoConstructor(VSeparator));
 
-	top_hb->add_child(memnewOldWithArgs(Label(TTR("Blend:"))));
+	top_hb->add_child(memnewWithArgs<Label>(TTR("Blend:")));
 	interpolation = memnewOldNoConstructor(OptionButton);
 	top_hb->add_child(interpolation);
 	interpolation->connect(SceneStringName(item_selected), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_config_changed));
@@ -728,7 +728,7 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	edit_hb = memnewOldNoConstructor(HBoxContainer);
 	top_hb->add_child(edit_hb);
 	edit_hb->add_child(memnewOldNoConstructor(VSeparator));
-	edit_hb->add_child(memnewOldWithArgs(Label(TTR("Point"))));
+	edit_hb->add_child(memnewWithArgs<Label>(TTR("Point")));
 
 	edit_value = memnewOldNoConstructor(SpinBox);
 	edit_hb->add_child(edit_value);

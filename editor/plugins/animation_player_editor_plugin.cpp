@@ -2062,7 +2062,7 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	name_dialog->add_child(vb);
 
-	name_title = memnewOldWithArgs(Label(TTR("Animation Name:")));
+	name_title = memnewWithArgs<Label>(TTR("Animation Name:"));
 	vb->add_child(name_title);
 
 	HBoxContainer *name_hb = memnewOldNoConstructor(HBoxContainer);
@@ -2312,7 +2312,7 @@ void AnimationPlayerEditorPlugin::make_visible(bool p_visible) {
 }
 
 AnimationPlayerEditorPlugin::AnimationPlayerEditorPlugin() {
-	anim_editor = memnewOldWithArgs(AnimationPlayerEditor(this));
+	anim_editor = memnewWithArgs<AnimationPlayerEditor>(this);
 	EditorNode::get_bottom_panel()->add_item(TTR("Animation"), anim_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_animation_bottom_panel", TTR("Toggle Animation Bottom Panel"), KeyModifierMask::ALT | Key::N));
 }
 

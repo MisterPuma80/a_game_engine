@@ -1035,7 +1035,7 @@ Error EditorExportPlatformIOS::_export_loading_screen_file(const Ref<EditorExpor
 		}
 
 		if (splash.is_null()) {
-			splash = Ref<Image>(memnewOldWithArgs(Image(boot_splash_png)));
+			splash = Ref<Image>(memnewWithArgs<Image>(boot_splash_png));
 		}
 
 		// Using same image for both @2x and @3x

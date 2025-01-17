@@ -684,7 +684,7 @@ void SceneMultiplayer::_bind_methods() {
 
 SceneMultiplayer::SceneMultiplayer() {
 	relay_buffer.instantiate();
-	cache = Ref<SceneCacheInterface>(memnewOldWithArgs(SceneCacheInterface(this)));
+	cache = Ref<SceneCacheInterface>(memnewWithArgs<SceneCacheInterface>(this));
 	replicator = Ref<SceneReplicationInterface>(memnewOldWithArgs(SceneReplicationInterface(this, cache.ptr())));
 	rpc = Ref<SceneRPCInterface>(memnewOldWithArgs(SceneRPCInterface(this, cache.ptr(), replicator.ptr())));
 	set_multiplayer_peer(Ref<OfflineMultiplayerPeer>(memnewOldNoConstructor(OfflineMultiplayerPeer)));

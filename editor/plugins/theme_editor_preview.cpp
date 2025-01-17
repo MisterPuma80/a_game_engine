@@ -323,7 +323,7 @@ DefaultThemeEditorPreview::DefaultThemeEditorPreview() {
 	first_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	first_vb->add_theme_constant_override("separation", 10 * EDSCALE);
 
-	first_vb->add_child(memnewOldWithArgs(Label("Label")));
+	first_vb->add_child(memnewWithArgs<Label>("Label"));
 
 	first_vb->add_child(memnewOldWithArgs(Button("Button")));
 	Button *bt = memnewOldNoConstructor(Button);

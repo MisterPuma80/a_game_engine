@@ -766,7 +766,7 @@ void ProjectManager::_manage_project_tags() {
 	const ProjectList::Item item = project_list->get_selected_projects()[0];
 	current_project_tags = item.tags;
 	for (const String &tag : current_project_tags) {
-		ProjectTag *tag_control = memnewOldWithArgs(ProjectTag(tag, true));
+		ProjectTag *tag_control = memnewWithArgs<ProjectTag>(tag, true);
 		project_tags->add_child(tag_control);
 		tag_control->connect_button_to(callable_mp(this, &ProjectManager::_delete_project_tag).bind(tag));
 	}
@@ -781,7 +781,7 @@ void ProjectManager::_add_project_tag(const String &p_tag) {
 	}
 	current_project_tags.append(p_tag);
 
-	ProjectTag *tag_control = memnewOldWithArgs(ProjectTag(p_tag, true));
+	ProjectTag *tag_control = memnewWithArgs<ProjectTag>(p_tag, true);
 	project_tags->add_child(tag_control);
 	tag_control->connect_button_to(callable_mp(this, &ProjectManager::_delete_project_tag).bind(p_tag));
 }
@@ -807,7 +807,7 @@ void ProjectManager::_apply_project_tags() {
 	}
 
 	const String project_godot = project_list->get_selected_projects()[0].path.path_join("project.godot");
-	ProjectSettings *cfg = memnewOldWithArgs(ProjectSettings(project_godot));
+	ProjectSettings *cfg = memnewWithArgs<ProjectSettings>(project_godot);
 	if (!cfg->is_project_loaded()) {
 		memdelete(cfg);
 		tag_edit_error->set_text(vformat(TTR("Couldn't load project at '%s'. It may be missing or corrupted."), project_godot));
@@ -871,7 +871,7 @@ void ProjectManager::_create_new_tag() {
 void ProjectManager::add_new_tag(const String &p_tag) {
 	if (!tag_set.has(p_tag)) {
 		tag_set.insert(p_tag);
-		ProjectTag *tag_control = memnewOldWithArgs(ProjectTag(p_tag));
+		ProjectTag *tag_control = memnewWithArgs<ProjectTag>(p_tag);
 		all_tags->add_child(tag_control);
 		all_tags->move_child(tag_control, -2);
 		tag_control->connect_button_to(callable_mp(this, &ProjectManager::_add_project_tag).bind(p_tag));
@@ -1243,7 +1243,7 @@ ProjectManager::ProjectManager() {
 			scan_btn->connect(SceneStringName(pressed), callable_mp(this, &ProjectManager::_scan_projects));
 			hb->add_child(scan_btn);
 
-			loading_label = memnewOldWithArgs(Label(TTR("Loading, please wait...")));
+			loading_label = memnewWithArgs<Label>(TTR("Loading, please wait..."));
 			loading_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			loading_label->hide();
 			hb->add_child(loading_label);
@@ -1396,7 +1396,7 @@ ProjectManager::ProjectManager() {
 
 	// Asset library view.
 	if (AssetLibraryEditorPlugin::is_available()) {
-		asset_library = memnewOldWithArgs(EditorAssetLibrary(true));
+		asset_library = memnewWithArgs<EditorAssetLibrary>(true);
 		asset_library->set_name("AssetLibraryTab");
 		_add_main_view(MAIN_VIEW_ASSETLIB, TTR("Asset Library"), Ref<Texture2D>(), asset_library);
 		asset_library->connect("install_asset", callable_mp(this, &ProjectManager::_install_project));
@@ -1525,12 +1525,12 @@ ProjectManager::ProjectManager() {
 		VBoxContainer *tag_vb = memnewOldNoConstructor(VBoxContainer);
 		tag_manage_dialog->add_child(tag_vb);
 
-		Label *label = memnewOldWithArgs(Label(TTR("Project Tags")));
+		Label *label = memnewWithArgs<Label>(TTR("Project Tags"));
 		tag_vb->add_child(label);
 		label->set_theme_type_variation("HeaderMedium");
 		label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
-		label = memnewOldWithArgs(Label(TTR("Click tag to remove it from the project.")));
+		label = memnewWithArgs<Label>(TTR("Click tag to remove it from the project."));
 		tag_vb->add_child(label);
 		label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
@@ -1540,12 +1540,12 @@ ProjectManager::ProjectManager() {
 
 		tag_vb->add_child(memnewOldNoConstructor(HSeparator));
 
-		label = memnewOldWithArgs(Label(TTR("All Tags")));
+		label = memnewWithArgs<Label>(TTR("All Tags"));
 		tag_vb->add_child(label);
 		label->set_theme_type_variation("HeaderMedium");
 		label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
-		label = memnewOldWithArgs(Label(TTR("Click tag to add it to the project.")));
+		label = memnewWithArgs<Label>(TTR("Click tag to add it to the project."));
 		tag_vb->add_child(label);
 		label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
@@ -1565,7 +1565,7 @@ ProjectManager::ProjectManager() {
 		tag_vb = memnewOldNoConstructor(VBoxContainer);
 		create_tag_dialog->add_child(tag_vb);
 
-		Label *info = memnewOldWithArgs(Label(TTR("Tags are capitalized automatically when displayed.")));
+		Label *info = memnewWithArgs<Label>(TTR("Tags are capitalized automatically when displayed."));
 		tag_vb->add_child(info);
 
 		new_tag_name = memnewOldNoConstructor(LineEdit);

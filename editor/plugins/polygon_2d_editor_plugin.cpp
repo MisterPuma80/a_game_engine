@@ -1414,7 +1414,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	bone_paint_strength->set_step(0.01);
 	bone_paint_strength->set_value(0.5);
 
-	bone_paint_radius_label = memnewOldWithArgs(Label(TTR("Radius:")));
+	bone_paint_radius_label = memnewWithArgs<Label>(TTR("Radius:"));
 	uv_mode_hb->add_child(bone_paint_radius_label);
 	bone_paint_radius = memnewOldNoConstructor(SpinBox);
 	uv_mode_hb->add_child(bone_paint_radius);
@@ -1543,7 +1543,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	bone_scroll_main_vb = memnewOldNoConstructor(VBoxContainer);
 	bone_scroll_main_vb->hide();
 	bone_scroll_main_vb->set_custom_minimum_size(Size2(150 * EDSCALE, 0));
-	sync_bones = memnewOldWithArgs(Button(TTR("Sync Bones to Polygon")));
+	sync_bones = memnewWithArgs<Button>(TTR("Sync Bones to Polygon"));
 	bone_scroll_main_vb->add_child(sync_bones);
 	sync_bones->set_h_size_flags(0);
 	sync_bones->connect(SceneStringName(pressed), callable_mp(this, &Polygon2DEditor::_sync_bones));

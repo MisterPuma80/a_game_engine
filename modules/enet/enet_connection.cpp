@@ -113,7 +113,7 @@ Ref<ENetPacketPeer> ENetConnection::connect_to_host(const String &p_address, int
 	if (peer == nullptr) {
 		return nullptr;
 	}
-	out = Ref<ENetPacketPeer>(memnewOldWithArgs(ENetPacketPeer(peer)));
+	out = Ref<ENetPacketPeer>(memnewWithArgs<ENetPacketPeer>(peer));
 	peers.push_back(out);
 	return out;
 }

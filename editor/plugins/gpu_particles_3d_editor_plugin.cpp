@@ -371,7 +371,7 @@ void GPUParticles3DEditor::_generate_emission_points() {
 		}
 	}
 
-	Ref<Image> image = memnewOldWithArgs(Image(w, h, false, Image::FORMAT_RGBF, point_img));
+	Ref<Image> image = memnewWithArgs<Image>(w, h, false, Image::FORMAT_RGBF, point_img);
 	Ref<ImageTexture> tex = ImageTexture::create_from_image(image);
 
 	Ref<ParticleProcessMaterial> mat = node->get_process_material();
@@ -397,7 +397,7 @@ void GPUParticles3DEditor::_generate_emission_points() {
 			}
 		}
 
-		Ref<Image> image2 = memnewOldWithArgs(Image(w, h, false, Image::FORMAT_RGBF, point_img2));
+		Ref<Image> image2 = memnewWithArgs<Image>(w, h, false, Image::FORMAT_RGBF, point_img2);
 		mat->set_emission_normal_texture(ImageTexture::create_from_image(image2));
 	} else {
 		mat->set_emission_shape(ParticleProcessMaterial::EMISSION_SHAPE_POINTS);

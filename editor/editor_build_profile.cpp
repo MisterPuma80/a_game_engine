@@ -818,19 +818,19 @@ EditorBuildProfileManager::EditorBuildProfileManager() {
 	profile_path->set_editable(true);
 	profile_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	profile_actions[ACTION_NEW] = memnewOldWithArgs(Button(TTR("New")));
+	profile_actions[ACTION_NEW] = memnewWithArgs<Button>(TTR("New"));
 	path_hbc->add_child(profile_actions[ACTION_NEW]);
 	profile_actions[ACTION_NEW]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_NEW));
 
-	profile_actions[ACTION_LOAD] = memnewOldWithArgs(Button(TTR("Load")));
+	profile_actions[ACTION_LOAD] = memnewWithArgs<Button>(TTR("Load"));
 	path_hbc->add_child(profile_actions[ACTION_LOAD]);
 	profile_actions[ACTION_LOAD]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_LOAD));
 
-	profile_actions[ACTION_SAVE] = memnewOldWithArgs(Button(TTR("Save")));
+	profile_actions[ACTION_SAVE] = memnewWithArgs<Button>(TTR("Save"));
 	path_hbc->add_child(profile_actions[ACTION_SAVE]);
 	profile_actions[ACTION_SAVE]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_SAVE));
 
-	profile_actions[ACTION_SAVE_AS] = memnewOldWithArgs(Button(TTR("Save As")));
+	profile_actions[ACTION_SAVE_AS] = memnewWithArgs<Button>(TTR("Save As"));
 	path_hbc->add_child(profile_actions[ACTION_SAVE_AS]);
 	profile_actions[ACTION_SAVE_AS]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_SAVE_AS));
 
@@ -840,11 +840,11 @@ EditorBuildProfileManager::EditorBuildProfileManager() {
 
 	HBoxContainer *profiles_hbc = memnewOldNoConstructor(HBoxContainer);
 
-	profile_actions[ACTION_RESET] = memnewOldWithArgs(Button(TTR("Reset to Defaults")));
+	profile_actions[ACTION_RESET] = memnewWithArgs<Button>(TTR("Reset to Defaults"));
 	profiles_hbc->add_child(profile_actions[ACTION_RESET]);
 	profile_actions[ACTION_RESET]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_RESET));
 
-	profile_actions[ACTION_DETECT] = memnewOldWithArgs(Button(TTR("Detect from Project")));
+	profile_actions[ACTION_DETECT] = memnewWithArgs<Button>(TTR("Detect from Project"));
 	profiles_hbc->add_child(profile_actions[ACTION_DETECT]);
 	profile_actions[ACTION_DETECT]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_DETECT));
 

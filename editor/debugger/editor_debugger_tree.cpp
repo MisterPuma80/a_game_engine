@@ -284,7 +284,7 @@ Variant EditorDebuggerTree::get_drag_data(const Point2 &p_point) {
 	tf->set_texture(selected->get_icon(0));
 	tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	hb->add_child(tf);
-	Label *label = memnewOldWithArgs(Label(path));
+	Label *label = memnewWithArgs<Label>(path);
 	hb->add_child(label);
 	set_drag_preview(hb);
 

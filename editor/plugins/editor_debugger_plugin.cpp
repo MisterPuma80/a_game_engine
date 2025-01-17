@@ -153,7 +153,7 @@ void EditorDebuggerPlugin::clear() {
 }
 
 void EditorDebuggerPlugin::create_session(ScriptEditorDebugger *p_debugger) {
-	sessions.push_back(Ref<EditorDebuggerSession>(memnewOldWithArgs(EditorDebuggerSession(p_debugger))));
+	sessions.push_back(Ref<EditorDebuggerSession>(memnewWithArgs<EditorDebuggerSession>(p_debugger)));
 	setup_session(sessions.size() - 1);
 }
 

@@ -818,7 +818,7 @@ OS_MacOS::OS_MacOS() {
 
 	Vector<Logger *> loggers;
 	loggers.push_back(memnewOldNoConstructor(MacOSTerminalLogger));
-	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
+	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 
 #ifdef COREAUDIO_ENABLED
 	AudioDriverManager::add_driver(&audio_driver);

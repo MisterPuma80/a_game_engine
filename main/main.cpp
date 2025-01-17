@@ -1908,7 +1908,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			base_path = GLOBAL_GET("debug/file_logging/log_path");
 			max_files = GLOBAL_GET("debug/file_logging/max_log_files");
 		}
-		OS::get_singleton()->add_logger(memnewOldWithArgs(RotatedFileLogger(base_path, max_files)));
+		OS::get_singleton()->add_logger(memnewWithArgs<RotatedFileLogger>(base_path, max_files));
 	}
 
 	if (main_args.size() == 0 && String(GLOBAL_GET("application/run/main_scene")) == "") {
@@ -3261,9 +3261,9 @@ void Main::setup_boot_logo() {
 #ifndef NO_DEFAULT_BOOT_LOGO
 			MAIN_PRINT("Main: Create bootsplash");
 #if defined(TOOLS_ENABLED) && !defined(NO_EDITOR_SPLASH)
-			Ref<Image> splash = (editor || project_manager) ? memnewOldWithArgs(Image(boot_splash_editor_png)) : memnewOldWithArgs(Image(boot_splash_png));
+			Ref<Image> splash = (editor || project_manager) ? memnewWithArgs<Image>(boot_splash_editor_png) : memnewWithArgs<Image>(boot_splash_png);
 #else
-			Ref<Image> splash = memnewOldWithArgs(Image(boot_splash_png));
+			Ref<Image> splash = memnewWithArgs<Image>(boot_splash_png);
 #endif
 
 			MAIN_PRINT("Main: ClearColor");
@@ -3275,7 +3275,7 @@ void Main::setup_boot_logo() {
 
 #if defined(TOOLS_ENABLED) && defined(MACOS_ENABLED)
 		if (DisplayServer::get_singleton()->has_feature(DisplayServer::FEATURE_ICON) && OS::get_singleton()->get_bundle_icon_path().is_empty()) {
-			Ref<Image> icon = memnewOldWithArgs(Image(app_icon_png));
+			Ref<Image> icon = memnewWithArgs<Image>(app_icon_png);
 			DisplayServer::get_singleton()->set_icon(icon);
 		}
 #endif
@@ -4009,7 +4009,7 @@ int Main::start() {
 	}
 
 	if (DisplayServer::get_singleton()->has_feature(DisplayServer::FEATURE_ICON) && !has_icon && OS::get_singleton()->get_bundle_icon_path().is_empty()) {
-		Ref<Image> icon = memnewOldWithArgs(Image(app_icon_png));
+		Ref<Image> icon = memnewWithArgs<Image>(app_icon_png);
 		DisplayServer::get_singleton()->set_icon(icon);
 	}
 

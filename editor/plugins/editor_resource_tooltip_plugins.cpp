@@ -59,19 +59,19 @@ VBoxContainer *EditorResourceTooltipPlugin::make_default_tooltip(const String &p
 	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	vb->add_theme_constant_override("separation", -4 * EDSCALE);
 	{
-		Label *label = memnewOldWithArgs(Label(p_resource_path.get_file()));
+		Label *label = memnewWithArgs<Label>(p_resource_path.get_file());
 		vb->add_child(label);
 	}
 
 	{
 		Ref<FileAccess> f = FileAccess::open(p_resource_path, FileAccess::READ);
-		Label *label = memnewOldWithArgs(Label(vformat(TTR("Size: %s"), String::humanize_size(f->get_length()))));
+		Label *label = memnewWithArgs<Label>(vformat(TTR("Size: %s"), String::humanize_size(f->get_length())));
 		vb->add_child(label);
 	}
 
 	if (ResourceLoader::exists(p_resource_path)) {
 		String type = ResourceLoader::get_resource_type(p_resource_path);
-		Label *label = memnewOldWithArgs(Label(vformat(TTR("Type: %s"), type)));
+		Label *label = memnewWithArgs<Label>(vformat(TTR("Type: %s"), type));
 		vb->add_child(label);
 	}
 	return vb;
@@ -107,7 +107,7 @@ Control *EditorTextureTooltipPlugin::make_tooltip_for_path(const String &p_resou
 	vb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 
 	Vector2 dimensions = p_metadata.get("dimensions", Vector2());
-	Label *label = memnewOldWithArgs(Label(vformat(TTR(U"Dimensions: %d × %d"), dimensions.x, dimensions.y)));
+	Label *label = memnewWithArgs<Label>(vformat(TTR(U"Dimensions: %d × %d"), dimensions.x, dimensions.y));
 	vb->add_child(label);
 
 	TextureRect *tr = memnewOldNoConstructor(TextureRect);
@@ -131,11 +131,11 @@ Control *EditorAudioStreamTooltipPlugin::make_tooltip_for_path(const String &p_r
 
 	double length = p_metadata.get("length", 0.0);
 	if (length >= 60.0) {
-		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0dm %0ds"), int(length / 60.0), int(fmod(length, 60))))));
+		vb->add_child(memnewWithArgs<Label>(vformat(TTR("Length: %0dm %0ds"), int(length / 60.0), int(fmod(length, 60)))));
 	} else if (length >= 1.0) {
-		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0.1fs"), length))));
+		vb->add_child(memnewWithArgs<Label>(vformat(TTR("Length: %0.1fs"), length)));
 	} else {
-		vb->add_child(memnewOldWithArgs(Label(vformat(TTR("Length: %0.3fs"), length))));
+		vb->add_child(memnewWithArgs<Label>(vformat(TTR("Length: %0.3fs"), length)));
 	}
 
 	TextureRect *tr = memnewOldNoConstructor(TextureRect);

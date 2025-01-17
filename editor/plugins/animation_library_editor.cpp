@@ -839,11 +839,11 @@ AnimationLibraryEditor::AnimationLibraryEditor() {
 	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
 	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
 	hb->add_spacer(true);
-	new_library_button = memnewOldWithArgs(Button(TTR("New Library")));
+	new_library_button = memnewWithArgs<Button>(TTR("New Library"));
 	new_library_button->set_tooltip_text(TTR("Create new empty animation library."));
 	new_library_button->connect(SceneStringName(pressed), callable_mp(this, &AnimationLibraryEditor::_add_library));
 	hb->add_child(new_library_button);
-	load_library_button = memnewOldWithArgs(Button(TTR("Load Library")));
+	load_library_button = memnewWithArgs<Button>(TTR("Load Library"));
 	load_library_button->set_tooltip_text(TTR("Load animation library from disk."));
 	load_library_button->connect(SceneStringName(pressed), callable_mp(this, &AnimationLibraryEditor::_load_library));
 	hb->add_child(load_library_button);

@@ -723,7 +723,7 @@ ConnectDialog::ConnectDialog() {
 	vbc_left->add_margin_child(TTR("From Signal:"), from_signal);
 	from_signal->set_editable(false);
 
-	tree = memnewOldWithArgs(SceneTreeEditor(false));
+	tree = memnewWithArgs<SceneTreeEditor>(false);
 	tree->set_connecting_signal(true);
 	tree->set_show_enabled_subscene(true);
 	tree->set_v_size_flags(Control::SIZE_FILL | Control::SIZE_EXPAND);
@@ -780,19 +780,19 @@ ConnectDialog::ConnectDialog() {
 	method_tree->connect(SceneStringName(item_selected), callable_mp(this, &ConnectDialog::_method_selected));
 	method_tree->connect("item_activated", callable_mp((Window *)method_popup, &Window::hide));
 
-	empty_tree_label = memnewOldWithArgs(Label(TTR("No method found matching given filters.")));
+	empty_tree_label = memnewWithArgs<Label>(TTR("No method found matching given filters."));
 	method_popup->add_child(empty_tree_label);
 	empty_tree_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	empty_tree_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	empty_tree_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 
-	script_methods_only = memnewOldWithArgs(CheckButton(TTR("Script Methods Only")));
+	script_methods_only = memnewWithArgs<CheckButton>(TTR("Script Methods Only"));
 	method_vbc->add_child(script_methods_only);
 	script_methods_only->set_h_size_flags(Control::SIZE_SHRINK_END);
 	script_methods_only->set_pressed(EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "show_script_methods_only", true));
 	script_methods_only->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_method_check_button_pressed).bind(script_methods_only));
 
-	compatible_methods_only = memnewOldWithArgs(CheckButton(TTR("Compatible Methods Only")));
+	compatible_methods_only = memnewWithArgs<CheckButton>(TTR("Compatible Methods Only"));
 	method_vbc->add_child(compatible_methods_only);
 	compatible_methods_only->set_h_size_flags(Control::SIZE_SHRINK_END);
 	compatible_methods_only->set_pressed(EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "show_compatible_methods_only", true));
@@ -858,7 +858,7 @@ ConnectDialog::ConnectDialog() {
 	open_method_tree->set_text("Pick");
 	open_method_tree->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_open_method_popup));
 
-	advanced = memnewOldWithArgs(CheckButton(TTR("Advanced")));
+	advanced = memnewWithArgs<CheckButton>(TTR("Advanced"));
 	vbc_left->add_child(advanced);
 	advanced->set_h_size_flags(Control::SIZE_SHRINK_BEGIN | Control::SIZE_EXPAND);
 	advanced->set_pressed(EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "use_advanced_connections", false));
@@ -900,7 +900,7 @@ Control *ConnectionsDockTree::make_custom_tooltip(const String &p_text) const {
 		return nullptr;
 	}
 
-	EditorHelpBit *help_bit = memnewOldWithArgs(EditorHelpBit(p_text));
+	EditorHelpBit *help_bit = memnewWithArgs<EditorHelpBit>(p_text);
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<ConnectionsDockTree *>(this));
 	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
 }

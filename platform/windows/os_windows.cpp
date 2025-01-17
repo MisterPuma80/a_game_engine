@@ -2019,7 +2019,7 @@ OS_Windows::OS_Windows(HINSTANCE _hInstance) {
 
 	Vector<Logger *> loggers;
 	loggers.push_back(memnewOldNoConstructor(WindowsTerminalLogger));
-	_set_logger(memnewOldWithArgs(CompositeLogger(loggers)));
+	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 }
 
 OS_Windows::~OS_Windows() {
