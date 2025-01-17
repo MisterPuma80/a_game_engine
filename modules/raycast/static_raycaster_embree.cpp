@@ -39,7 +39,7 @@
 RTCDevice StaticRaycasterEmbree::embree_device;
 
 StaticRaycaster *StaticRaycasterEmbree::create_embree_raycaster() {
-	return memnewOldNoConstructor(StaticRaycasterEmbree);
+	return memnewNoConstructor<StaticRaycasterEmbree>();
 }
 
 void StaticRaycasterEmbree::make_default_raycaster() {

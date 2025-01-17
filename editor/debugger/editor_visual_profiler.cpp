@@ -731,16 +731,16 @@ Vector<Vector<String>> EditorVisualProfiler::get_data_as_csv() const {
 }
 
 EditorVisualProfiler::EditorVisualProfiler() {
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	add_child(hb);
-	activate = memnewOldNoConstructor(Button);
+	activate = memnewNoConstructor<Button>();
 	activate->set_toggle_mode(true);
 	activate->set_disabled(true);
 	activate->set_text(TTR("Start"));
 	activate->connect(SceneStringName(pressed), callable_mp(this, &EditorVisualProfiler::_activate_pressed));
 	hb->add_child(activate);
 
-	clear_button = memnewOldNoConstructor(Button);
+	clear_button = memnewNoConstructor<Button>();
 	clear_button->set_text(TTR("Clear"));
 	clear_button->set_disabled(true);
 	clear_button->connect(SceneStringName(pressed), callable_mp(this, &EditorVisualProfiler::_clear_pressed));
@@ -748,7 +748,7 @@ EditorVisualProfiler::EditorVisualProfiler() {
 
 	hb->add_child(memnewWithArgs<Label>(TTR("Measure:")));
 
-	display_mode = memnewOldNoConstructor(OptionButton);
+	display_mode = memnewNoConstructor<OptionButton>();
 	display_mode->add_item(TTR("Frame Time (ms)"));
 	display_mode->add_item(TTR("Frame %"));
 	display_mode->connect(SceneStringName(item_selected), callable_mp(this, &EditorVisualProfiler::_combo_changed));
@@ -768,18 +768,18 @@ EditorVisualProfiler::EditorVisualProfiler() {
 
 	hb->add_child(memnewWithArgs<Label>(TTR("Frame #:")));
 
-	cursor_metric_edit = memnewOldNoConstructor(SpinBox);
+	cursor_metric_edit = memnewNoConstructor<SpinBox>();
 	cursor_metric_edit->set_h_size_flags(SIZE_FILL);
 	hb->add_child(cursor_metric_edit);
 	cursor_metric_edit->connect(SceneStringName(value_changed), callable_mp(this, &EditorVisualProfiler::_cursor_metric_changed));
 
 	hb->add_theme_constant_override("separation", 8 * EDSCALE);
 
-	h_split = memnewOldNoConstructor(HSplitContainer);
+	h_split = memnewNoConstructor<HSplitContainer>();
 	add_child(h_split);
 	h_split->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	variables = memnewOldNoConstructor(Tree);
+	variables = memnewNoConstructor<Tree>();
 	variables->set_custom_minimum_size(Size2(300, 0) * EDSCALE);
 	variables->set_hide_folding(true);
 	h_split->add_child(variables);
@@ -800,7 +800,7 @@ EditorVisualProfiler::EditorVisualProfiler() {
 	variables->set_column_custom_minimum_width(2, 75 * EDSCALE);
 	variables->connect("cell_selected", callable_mp(this, &EditorVisualProfiler::_item_selected));
 
-	graph = memnewOldNoConstructor(TextureRect);
+	graph = memnewNoConstructor<TextureRect>();
 	graph->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	graph->set_mouse_filter(MOUSE_FILTER_STOP);
 	graph->connect(SceneStringName(draw), callable_mp(this, &EditorVisualProfiler::_graph_tex_draw));
@@ -813,13 +813,13 @@ EditorVisualProfiler::EditorVisualProfiler() {
 	int metric_size = CLAMP(int(EDITOR_GET("debugger/profiler_frame_history_size")), 60, 10000);
 	frame_metrics.resize(metric_size);
 
-	frame_delay = memnewOldNoConstructor(Timer);
+	frame_delay = memnewNoConstructor<Timer>();
 	frame_delay->set_wait_time(0.1);
 	frame_delay->set_one_shot(true);
 	add_child(frame_delay);
 	frame_delay->connect("timeout", callable_mp(this, &EditorVisualProfiler::_update_frame).bind(false));
 
-	plot_delay = memnewOldNoConstructor(Timer);
+	plot_delay = memnewNoConstructor<Timer>();
 	plot_delay->set_wait_time(0.1);
 	plot_delay->set_one_shot(true);
 	add_child(plot_delay);

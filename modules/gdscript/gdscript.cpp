@@ -146,7 +146,7 @@ void GDScript::_super_implicit_constructor(GDScript *p_script, GDScriptInstance 
 GDScriptInstance *GDScript::_create_instance(const Variant **p_args, int p_argcount, Object *p_owner, bool p_is_ref_counted, Callable::CallError &r_error) {
 	/* STEP 1, CREATE */
 
-	GDScriptInstance *instance = memnewOldNoConstructor(GDScriptInstance);
+	GDScriptInstance *instance = memnewNoConstructor<GDScriptInstance>();
 	instance->base_ref_counted = p_is_ref_counted;
 	instance->members.resize(member_indices.size());
 	instance->script = Ref<GDScript>(this);
@@ -221,7 +221,7 @@ Variant GDScript::_new(const Variant **p_args, int p_argcount, Callable::CallErr
 	if (_baseptr->native.ptr()) {
 		owner = _baseptr->native->instantiate();
 	} else {
-		owner = memnewOldNoConstructor(RefCounted); //by default, no base means use reference
+		owner = memnewNoConstructor<RefCounted>(); //by default, no base means use reference
 	}
 	ERR_FAIL_NULL_V_MSG(owner, Variant(), "Can't inherit from a virtual class.");
 

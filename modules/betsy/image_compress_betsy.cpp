@@ -67,8 +67,8 @@ Error _compress_betsy(BetsyFormat p_format, Image *r_img) {
 	if (rd == nullptr) {
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
-		rcd = memnewOldNoConstructor(RenderingContextDriverVulkan);
-		rd = memnewOldNoConstructor(RenderingDevice);
+		rcd = memnewNoConstructor<RenderingContextDriverVulkan>();
+		rd = memnewNoConstructor<RenderingDevice>();
 #endif
 #endif
 		if (rcd != nullptr && rd != nullptr) {

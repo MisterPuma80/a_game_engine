@@ -268,7 +268,7 @@ public:
 			Vector<String> plugins_filenames = list_plugin_config_files(plugins_dir, true);
 
 			if (!plugins_filenames.is_empty()) {
-				Ref<ConfigFile> config_file = memnewOldNoConstructor(ConfigFile);
+				Ref<ConfigFile> config_file = memnewNoConstructor<ConfigFile>();
 				for (int i = 0; i < plugins_filenames.size(); i++) {
 					PluginConfigIOS config = PluginConfigIOS::load_plugin_config(config_file, plugins_dir.path_join(plugins_filenames[i]));
 					if (config.valid_config) {

@@ -107,27 +107,27 @@ void EditorAbout::_item_list_resized(ItemList *p_il) {
 }
 
 ScrollContainer *EditorAbout::_populate_list(const String &p_name, const List<String> &p_sections, const char *const *const p_src[], const int p_single_column_flags, const bool p_allow_website) {
-	ScrollContainer *sc = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *sc = memnewNoConstructor<ScrollContainer>();
 	sc->set_name(p_name);
 	sc->set_v_size_flags(Control::SIZE_EXPAND);
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	sc->add_child(vbc);
 
-	Ref<StyleBoxEmpty> empty_stylebox = memnewOldNoConstructor(StyleBoxEmpty);
+	Ref<StyleBoxEmpty> empty_stylebox = memnewNoConstructor<StyleBoxEmpty>();
 
 	int i = 0;
 	for (List<String>::ConstIterator itr = p_sections.begin(); itr != p_sections.end(); ++itr, ++i) {
 		bool single_column = p_single_column_flags & (1 << i);
 		const char *const *names_ptr = p_src[i];
 		if (*names_ptr) {
-			Label *lbl = memnewOldNoConstructor(Label);
+			Label *lbl = memnewNoConstructor<Label>();
 			lbl->set_theme_type_variation("HeaderSmall");
 			lbl->set_text(*itr);
 			vbc->add_child(lbl);
 
-			ItemList *il = memnewOldNoConstructor(ItemList);
+			ItemList *il = memnewNoConstructor<ItemList>();
 			il->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 			il->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			il->set_same_column_width(true);
@@ -176,7 +176,7 @@ ScrollContainer *EditorAbout::_populate_list(const String &p_name, const List<St
 
 			vbc->add_child(il);
 
-			HSeparator *hs = memnewOldNoConstructor(HSeparator);
+			HSeparator *hs = memnewNoConstructor<HSeparator>();
 			hs->set_modulate(Color(0, 0, 0, 0));
 			vbc->add_child(hs);
 		}
@@ -189,26 +189,26 @@ EditorAbout::EditorAbout() {
 	set_title(TTR("Thanks from the Blazium community!"));
 	set_hide_on_ok(true);
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	add_child(vbc);
 
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 	hbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hbc->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	hbc->add_theme_constant_override("separation", 30 * EDSCALE);
 	vbc->add_child(hbc);
 
-	_logo = memnewOldNoConstructor(TextureRect);
+	_logo = memnewNoConstructor<TextureRect>();
 	_logo->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	hbc->add_child(_logo);
 
-	VBoxContainer *version_info_vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *version_info_vbc = memnewNoConstructor<VBoxContainer>();
 
 	// Add a dummy control node for spacing.
-	Control *v_spacer = memnewOldNoConstructor(Control);
+	Control *v_spacer = memnewNoConstructor<Control>();
 	version_info_vbc->add_child(v_spacer);
 
-	version_btn = memnewOldNoConstructor(LinkButton);
+	version_btn = memnewNoConstructor<LinkButton>();
 	String hash = String(VERSION_HASH);
 	if (hash.length() != 0) {
 		hash = " " + vformat("[%s]", hash.left(9));
@@ -228,7 +228,7 @@ EditorAbout::EditorAbout() {
 	version_btn->connect(SceneStringName(pressed), callable_mp(this, &EditorAbout::_version_button_pressed));
 	version_info_vbc->add_child(version_btn);
 
-	Label *about_text = memnewOldNoConstructor(Label);
+	Label *about_text = memnewNoConstructor<Label>();
 	about_text->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	about_text->set_text(
 			String::utf8("\xc2\xa9 2024-present ") + TTR("Blazium Engine contributors") + "." +
@@ -238,7 +238,7 @@ EditorAbout::EditorAbout() {
 
 	hbc->add_child(version_info_vbc);
 
-	TabContainer *tc = memnewOldNoConstructor(TabContainer);
+	TabContainer *tc = memnewNoConstructor<TabContainer>();
 	tc->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	tc->set_custom_minimum_size(Size2(400, 200) * EDSCALE);
 	tc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -286,7 +286,7 @@ EditorAbout::EditorAbout() {
 
 	// License.
 
-	license_text_label = memnewOldNoConstructor(RichTextLabel);
+	license_text_label = memnewNoConstructor<RichTextLabel>();
 	license_text_label->set_threaded(true);
 	license_text_label->set_name(TTR("License"));
 	license_text_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -296,25 +296,25 @@ EditorAbout::EditorAbout() {
 
 	// Thirdparty License.
 
-	VBoxContainer *license_thirdparty = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *license_thirdparty = memnewNoConstructor<VBoxContainer>();
 	license_thirdparty->set_name(TTR("Third-party Licenses"));
 	license_thirdparty->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tc->add_child(license_thirdparty);
 
-	Label *tpl_label = memnewOldNoConstructor(Label);
+	Label *tpl_label = memnewNoConstructor<Label>();
 	tpl_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tpl_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	tpl_label->set_text(TTR("Blazium Engine relies on a number of third-party free and open source libraries, all compatible with the terms of its MIT license. The following is an exhaustive list of all such third-party components with their respective copyright statements and license terms."));
 	tpl_label->set_size(Size2(630, 1) * EDSCALE);
 	license_thirdparty->add_child(tpl_label);
 
-	HSplitContainer *tpl_hbc = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *tpl_hbc = memnewNoConstructor<HSplitContainer>();
 	tpl_hbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tpl_hbc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tpl_hbc->set_split_offset(240 * EDSCALE);
 	license_thirdparty->add_child(tpl_hbc);
 
-	_tpl_tree = memnewOldNoConstructor(Tree);
+	_tpl_tree = memnewNoConstructor<Tree>();
 	_tpl_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	_tpl_tree->set_hide_root(true);
 	TreeItem *root = _tpl_tree->create_item();
@@ -364,7 +364,7 @@ EditorAbout::EditorAbout() {
 	tpl_ti_all->set_metadata(0, long_text);
 	tpl_hbc->add_child(_tpl_tree);
 
-	_tpl_text = memnewOldNoConstructor(RichTextLabel);
+	_tpl_text = memnewNoConstructor<RichTextLabel>();
 	_tpl_text->set_threaded(true);
 	_tpl_text->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	_tpl_text->set_v_size_flags(Control::SIZE_EXPAND_FILL);

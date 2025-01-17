@@ -42,16 +42,16 @@ namespace TestNavigationAgent2D {
 
 TEST_SUITE("[Navigation]") {
 	TEST_CASE("[SceneTree][NavigationAgent2D] New agent should have valid RID") {
-		NavigationAgent2D *agent_node = memnewOldNoConstructor(NavigationAgent2D);
+		NavigationAgent2D *agent_node = memnewNoConstructor<NavigationAgent2D>();
 		CHECK(agent_node->get_rid().is_valid());
 		memdelete(agent_node);
 	}
 
 	TEST_CASE("[SceneTree][NavigationAgent2D] New agent should attach to default map") {
-		Node2D *node_2d = memnewOldNoConstructor(Node2D);
+		Node2D *node_2d = memnewNoConstructor<Node2D>();
 		SceneTree::get_singleton()->get_root()->add_child(node_2d);
 
-		NavigationAgent2D *agent_node = memnewOldNoConstructor(NavigationAgent2D);
+		NavigationAgent2D *agent_node = memnewNoConstructor<NavigationAgent2D>();
 
 		// agent should not be attached to any map when outside of tree
 		CHECK_FALSE(agent_node->get_navigation_map().is_valid());

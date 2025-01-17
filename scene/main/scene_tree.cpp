@@ -793,7 +793,7 @@ Ref<Material> SceneTree::get_debug_paths_material() {
 		return debug_paths_material;
 	}
 
-	Ref<StandardMaterial3D> _debug_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> _debug_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	_debug_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	_debug_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	_debug_material->set_flag(StandardMaterial3D::FLAG_SRGB_VERTEX_COLOR, true);
@@ -813,7 +813,7 @@ Ref<Material> SceneTree::get_debug_collision_material() {
 		return collision_material;
 	}
 
-	Ref<StandardMaterial3D> line_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> line_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	line_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	line_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	line_material->set_flag(StandardMaterial3D::FLAG_SRGB_VERTEX_COLOR, true);
@@ -833,9 +833,9 @@ Ref<ArrayMesh> SceneTree::get_debug_contact_mesh() {
 		return debug_contact_mesh;
 	}
 
-	debug_contact_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+	debug_contact_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 
-	Ref<StandardMaterial3D> mat = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> mat = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	mat->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	mat->set_flag(StandardMaterial3D::FLAG_SRGB_VERTEX_COLOR, true);
@@ -1119,7 +1119,7 @@ void SceneTree::_add_process_group(Node *p_node) {
 	_THREAD_SAFE_METHOD_
 	ERR_FAIL_NULL(p_node);
 
-	ProcessGroup *pg = memnewOldNoConstructor(ProcessGroup);
+	ProcessGroup *pg = memnewNoConstructor<ProcessGroup>();
 
 	pg->owner = p_node;
 	p_node->data.process_group = pg;
@@ -1741,7 +1741,7 @@ SceneTree::SceneTree() {
 
 	// Create with mainloop.
 
-	root = memnewOldNoConstructor(Window);
+	root = memnewNoConstructor<Window>();
 	root->set_min_size(Size2i(64, 64)); // Define a very small minimum window size to prevent bugs such as GH-37242.
 	root->set_process_mode(Node::PROCESS_MODE_PAUSABLE);
 	root->set_auto_translate_mode(GLOBAL_GET("internationalization/rendering/root_node_auto_translate") ? Node::AUTO_TRANSLATE_MODE_ALWAYS : Node::AUTO_TRANSLATE_MODE_DISABLED);
@@ -1754,7 +1754,7 @@ SceneTree::SceneTree() {
 
 #ifndef _3D_DISABLED
 	if (!root->get_world_3d().is_valid()) {
-		root->set_world_3d(Ref<World3D>(memnewOldNoConstructor(World3D)));
+		root->set_world_3d(Ref<World3D>(memnewNoConstructor<World3D>()));
 	}
 	root->set_as_audio_listener_3d(true);
 #endif // _3D_DISABLED

@@ -718,11 +718,11 @@ void EditorSpinSlider::_ensure_input_popup() {
 		return;
 	}
 
-	value_input_popup = memnewOldNoConstructor(Control);
+	value_input_popup = memnewNoConstructor<Control>();
 	value_input_popup->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	add_child(value_input_popup);
 
-	value_input = memnewOldNoConstructor(LineEdit);
+	value_input = memnewNoConstructor<LineEdit>();
 	value_input->set_focus_mode(FOCUS_CLICK);
 	value_input_popup->add_child(value_input);
 	value_input->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
@@ -738,7 +738,7 @@ void EditorSpinSlider::_ensure_input_popup() {
 
 EditorSpinSlider::EditorSpinSlider() {
 	set_focus_mode(FOCUS_ALL);
-	grabber = memnewOldNoConstructor(TextureRect);
+	grabber = memnewNoConstructor<TextureRect>();
 	add_child(grabber);
 	grabber->hide();
 	grabber->set_z_index(1);

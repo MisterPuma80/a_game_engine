@@ -493,7 +493,7 @@ void NavigationRegion3D::_update_debug_mesh() {
 	}
 
 	if (!debug_mesh.is_valid()) {
-		debug_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+		debug_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 	}
 
 	debug_mesh->clear_surfaces();
@@ -670,7 +670,7 @@ void NavigationRegion3D::_update_debug_edge_connections_mesh() {
 	}
 
 	if (!debug_edge_connections_mesh.is_valid()) {
-		debug_edge_connections_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+		debug_edge_connections_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 	}
 
 	debug_edge_connections_mesh->clear_surfaces();

@@ -212,10 +212,10 @@ bool RenderingServerDefault::has_changed() const {
 void RenderingServerDefault::_init() {
 	RSG::threaded = create_thread;
 
-	RSG::canvas = memnewOldNoConstructor(RendererCanvasCull);
-	RSG::viewport = memnewOldNoConstructor(RendererViewport);
-	RendererSceneCull *sr = memnewOldNoConstructor(RendererSceneCull);
-	RSG::camera_attributes = memnewOldNoConstructor(RendererCameraAttributes);
+	RSG::canvas = memnewNoConstructor<RendererCanvasCull>();
+	RSG::viewport = memnewNoConstructor<RendererViewport>();
+	RendererSceneCull *sr = memnewNoConstructor<RendererSceneCull>();
+	RSG::camera_attributes = memnewNoConstructor<RendererCameraAttributes>();
 	RSG::scene = sr;
 	RSG::rasterizer = RendererCompositor::create();
 	RSG::utilities = RSG::rasterizer->get_utilities();

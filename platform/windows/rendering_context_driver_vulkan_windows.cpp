@@ -67,7 +67,7 @@ RenderingContextDriver::SurfaceID RenderingContextDriverVulkanWindows::surface_c
 	VkResult err = vkCreateWin32SurfaceKHR(instance_get(), &create_info, nullptr, &vk_surface);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SurfaceID());
 
-	Surface *surface = memnewOldNoConstructor(Surface);
+	Surface *surface = memnewNoConstructor<Surface>();
 	surface->vk_surface = vk_surface;
 	return SurfaceID(surface);
 }

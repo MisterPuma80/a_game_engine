@@ -286,7 +286,7 @@ void JavaScriptObjectImpl::_callback(const JavaScriptObjectImpl *obj, Variant ar
 }
 
 Ref<JavaScriptObject> JavaScriptBridge::create_callback(const Callable &p_callable) {
-	Ref<JavaScriptObjectImpl> out = memnewOldNoConstructor(JavaScriptObjectImpl);
+	Ref<JavaScriptObjectImpl> out = memnewNoConstructor<JavaScriptObjectImpl>();
 	out->_callable = p_callable;
 	out->_js_id = godot_js_wrapper_create_cb(out.ptr(), JavaScriptObjectImpl::callback);
 	return out;

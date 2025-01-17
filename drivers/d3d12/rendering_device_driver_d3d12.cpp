@@ -2217,7 +2217,7 @@ RDD::FenceID RenderingDeviceDriverD3D12::fence_create() {
 	HANDLE event_handle = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 	ERR_FAIL_NULL_V(event_handle, FenceID());
 
-	FenceInfo *fence = memnewOldNoConstructor(FenceInfo);
+	FenceInfo *fence = memnewNoConstructor<FenceInfo>();
 	fence->d3d_fence = d3d_fence;
 	fence->event_handle = event_handle;
 	return FenceID(fence);
@@ -2249,7 +2249,7 @@ RDD::SemaphoreID RenderingDeviceDriverD3D12::semaphore_create() {
 	HRESULT res = device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(d3d_fence.GetAddressOf()));
 	ERR_FAIL_COND_V(!SUCCEEDED(res), SemaphoreID());
 
-	SemaphoreInfo *semaphore = memnewOldNoConstructor(SemaphoreInfo);
+	SemaphoreInfo *semaphore = memnewNoConstructor<SemaphoreInfo>();
 	semaphore->d3d_fence = d3d_fence;
 	return SemaphoreID(semaphore);
 }
@@ -2288,7 +2288,7 @@ RDD::CommandQueueID RenderingDeviceDriverD3D12::command_queue_create(CommandQueu
 	HRESULT res = device->CreateCommandQueue(&queue_desc, IID_PPV_ARGS(d3d_queue.GetAddressOf()));
 	ERR_FAIL_COND_V(!SUCCEEDED(res), CommandQueueID());
 
-	CommandQueueInfo *command_queue = memnewOldNoConstructor(CommandQueueInfo);
+	CommandQueueInfo *command_queue = memnewNoConstructor<CommandQueueInfo>();
 	command_queue->d3d_queue = d3d_queue;
 	return CommandQueueID(command_queue);
 }
@@ -2345,7 +2345,7 @@ void RenderingDeviceDriverD3D12::command_queue_free(CommandQueueID p_cmd_queue) 
 // ----- POOL -----
 
 RDD::CommandPoolID RenderingDeviceDriverD3D12::command_pool_create(CommandQueueFamilyID p_cmd_queue_family, CommandBufferType p_cmd_buffer_type) {
-	CommandPoolInfo *command_pool = memnewOldNoConstructor(CommandPoolInfo);
+	CommandPoolInfo *command_pool = memnewNoConstructor<CommandPoolInfo>();
 	command_pool->queue_family = p_cmd_queue_family;
 	command_pool->buffer_type = p_cmd_buffer_type;
 	return CommandPoolID(command_pool);
@@ -2481,7 +2481,7 @@ RDD::SwapChainID RenderingDeviceDriverD3D12::swap_chain_create(RenderingContextD
 	ERR_FAIL_COND_V(!render_pass, SwapChainID());
 
 	// Create the empty swap chain until it is resized.
-	SwapChain *swap_chain = memnewOldNoConstructor(SwapChain);
+	SwapChain *swap_chain = memnewNoConstructor<SwapChain>();
 	swap_chain->surface = p_surface;
 	swap_chain->data_format = attachment.format;
 	swap_chain->render_pass = render_pass;

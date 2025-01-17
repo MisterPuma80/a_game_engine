@@ -56,7 +56,7 @@ PackedSceneEditor::PackedSceneEditor(Ref<PackedScene> &p_packed_scene) {
 	open_scene_button->set_disabled(!packed_scene->get_path().get_file().is_valid_filename());
 	add_child(open_scene_button);
 
-	add_child(memnewOldNoConstructor(Control)); // Add padding before the regular properties.
+	add_child(memnewNoConstructor<Control>()); // Add padding before the regular properties.
 }
 
 ///////////////////////

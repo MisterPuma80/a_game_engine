@@ -47,7 +47,7 @@ extern void godot_js_os_download_buffer(const uint8_t *p_buf, int p_buf_size, co
 }
 
 static void _web_editor_init_callback() {
-	EditorNode::get_singleton()->add_editor_plugin(memnewOldNoConstructor(WebToolsEditorPlugin));
+	EditorNode::get_singleton()->add_editor_plugin(memnewNoConstructor<WebToolsEditorPlugin>());
 }
 
 void WebToolsEditorPlugin::initialize() {

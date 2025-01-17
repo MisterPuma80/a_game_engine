@@ -37,7 +37,7 @@
 
 #ifndef _3D_DISABLED
 static Lightmapper *create_lightmapper_rd() {
-	return memnewOldNoConstructor(LightmapperRD);
+	return memnewNoConstructor<LightmapperRD>();
 }
 #endif
 

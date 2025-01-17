@@ -56,7 +56,7 @@ static const int default_margin = 4;
 static const int default_corner_radius = 3;
 
 static Ref<StyleBoxFlat> make_flat_stylebox(Color p_color, float p_margin_left = default_margin, float p_margin_top = default_margin, float p_margin_right = default_margin, float p_margin_bottom = default_margin, int p_corner_radius = default_corner_radius, bool p_draw_center = true, int p_border_width = 0) {
-	Ref<StyleBoxFlat> style(memnewOldNoConstructor(StyleBoxFlat));
+	Ref<StyleBoxFlat> style(memnewNoConstructor<StyleBoxFlat>());
 	style->set_bg_color(p_color);
 	style->set_content_margin_individual(Math::round(p_margin_left * scale), Math::round(p_margin_top * scale), Math::round(p_margin_right * scale), Math::round(p_margin_bottom * scale));
 
@@ -81,7 +81,7 @@ static Ref<StyleBoxFlat> sb_expand(Ref<StyleBoxFlat> p_sbox, float p_left, float
 
 // See also `editor_generate_icon()` in `editor/themes/editor_icons.cpp`.
 static Ref<ImageTexture> generate_icon(int p_index) {
-	Ref<Image> img = memnewOldNoConstructor(Image);
+	Ref<Image> img = memnewNoConstructor<Image>();
 
 #ifdef MODULE_SVG_ENABLED
 	// Upsample icon generation only if the scale isn't an integer multiplier.
@@ -101,7 +101,7 @@ static Ref<ImageTexture> generate_icon(int p_index) {
 }
 
 static Ref<StyleBox> make_empty_stylebox(float p_margin_left = -1, float p_margin_top = -1, float p_margin_right = -1, float p_margin_bottom = -1) {
-	Ref<StyleBox> style(memnewOldNoConstructor(StyleBoxEmpty));
+	Ref<StyleBox> style(memnewNoConstructor<StyleBoxEmpty>());
 	style->set_content_margin_individual(Math::round(p_margin_left * scale), Math::round(p_margin_top * scale), Math::round(p_margin_right * scale), Math::round(p_margin_bottom * scale));
 	return style;
 }
@@ -289,7 +289,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 
 	// CheckBox
 
-	Ref<StyleBox> cbx_empty = memnewOldNoConstructor(StyleBoxEmpty);
+	Ref<StyleBox> cbx_empty = memnewNoConstructor<StyleBoxEmpty>();
 	cbx_empty->set_content_margin_all(Math::round(4 * scale));
 	Ref<StyleBox> cbx_focus = focus;
 	cbx_focus->set_content_margin_all(Math::round(4 * scale));
@@ -327,7 +327,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 
 	// CheckButton
 
-	Ref<StyleBox> cb_empty = memnewOldNoConstructor(StyleBoxEmpty);
+	Ref<StyleBox> cb_empty = memnewNoConstructor<StyleBoxEmpty>();
 	cb_empty->set_content_margin_individual(Math::round(6 * scale), Math::round(4 * scale), Math::round(6 * scale), Math::round(4 * scale));
 
 	theme->set_stylebox(CoreStringName(normal), "CheckButton", cb_empty);
@@ -386,7 +386,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 
 	// Label
 
-	theme->set_stylebox(CoreStringName(normal), "Label", memnewOldNoConstructor(StyleBoxEmpty));
+	theme->set_stylebox(CoreStringName(normal), "Label", memnewNoConstructor<StyleBoxEmpty>());
 	theme->set_font(SceneStringName(font), "Label", Ref<Font>());
 	theme->set_font_size(SceneStringName(font_size), "Label", -1);
 
@@ -541,7 +541,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 	theme->set_constant("line_spacing", "CodeEdit", Math::round(4 * scale));
 	theme->set_constant("outline_size", "CodeEdit", 0);
 
-	Ref<Texture2D> empty_icon = memnewOldNoConstructor(ImageTexture);
+	Ref<Texture2D> empty_icon = memnewNoConstructor<ImageTexture>();
 
 	const Ref<StyleBoxFlat> style_h_scrollbar = make_flat_stylebox(style_normal_color, 0, 4, 0, 4, 10);
 	const Ref<StyleBoxFlat> style_v_scrollbar = make_flat_stylebox(style_normal_color, 4, 0, 4, 0, 10);
@@ -703,7 +703,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 
 	// PopupMenu
 
-	Ref<StyleBoxLine> separator_horizontal = memnewOldNoConstructor(StyleBoxLine);
+	Ref<StyleBoxLine> separator_horizontal = memnewNoConstructor<StyleBoxLine>();
 	separator_horizontal->set_thickness(Math::round(scale));
 	separator_horizontal->set_color(style_separator_color);
 	separator_horizontal->set_content_margin_individual(default_margin, 0, default_margin, 0);
@@ -813,7 +813,7 @@ void fill_default_theme(Ref<Theme> &theme, const Ref<Font> &default_font, const 
 
 	theme->set_type_variation("GraphFrameTitleLabel", "Label");
 
-	theme->set_stylebox(CoreStringName(normal), "GraphFrameTitleLabel", memnewOldNoConstructor(StyleBoxEmpty));
+	theme->set_stylebox(CoreStringName(normal), "GraphFrameTitleLabel", memnewNoConstructor<StyleBoxEmpty>());
 	theme->set_font_size(SceneStringName(font_size), "GraphFrameTitleLabel", 22);
 	theme->set_color(SceneStringName(font_color), "GraphFrameTitleLabel", Color(1, 1, 1));
 	theme->set_color("font_shadow_color", "GraphFrameTitleLabel", Color(0, 0, 0, 0));

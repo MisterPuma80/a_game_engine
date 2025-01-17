@@ -160,7 +160,7 @@ protected:
 
 public:
 	Ref<VideoStreamPlayback> instantiate_playback() override {
-		Ref<VideoStreamPlaybackTheora> pb = memnewOldNoConstructor(VideoStreamPlaybackTheora);
+		Ref<VideoStreamPlaybackTheora> pb = memnewNoConstructor<VideoStreamPlaybackTheora>();
 		pb->set_audio_track(audio_track);
 		pb->set_file(file);
 		return pb;

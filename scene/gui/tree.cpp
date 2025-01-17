@@ -5835,40 +5835,40 @@ Tree::Tree() {
 
 	set_focus_mode(FOCUS_ALL);
 
-	popup_menu = memnewOldNoConstructor(PopupMenu);
+	popup_menu = memnewNoConstructor<PopupMenu>();
 	popup_menu->hide();
 	add_child(popup_menu, false, INTERNAL_MODE_FRONT);
 
-	popup_editor = memnewOldNoConstructor(Popup);
+	popup_editor = memnewNoConstructor<Popup>();
 	add_child(popup_editor, false, INTERNAL_MODE_FRONT);
 
-	popup_editor_vb = memnewOldNoConstructor(VBoxContainer);
+	popup_editor_vb = memnewNoConstructor<VBoxContainer>();
 	popup_editor_vb->add_theme_constant_override("separation", 0);
 	popup_editor_vb->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	popup_editor->add_child(popup_editor_vb);
 
-	line_editor = memnewOldNoConstructor(LineEdit);
+	line_editor = memnewNoConstructor<LineEdit>();
 	line_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	line_editor->hide();
 	popup_editor_vb->add_child(line_editor);
 
-	text_editor = memnewOldNoConstructor(TextEdit);
+	text_editor = memnewNoConstructor<TextEdit>();
 	text_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	text_editor->hide();
 	popup_editor_vb->add_child(text_editor);
 
-	value_editor = memnewOldNoConstructor(HSlider);
+	value_editor = memnewNoConstructor<HSlider>();
 	value_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	value_editor->hide();
 	popup_editor_vb->add_child(value_editor);
 
-	h_scroll = memnewOldNoConstructor(HScrollBar);
-	v_scroll = memnewOldNoConstructor(VScrollBar);
+	h_scroll = memnewNoConstructor<HScrollBar>();
+	v_scroll = memnewNoConstructor<VScrollBar>();
 
 	add_child(h_scroll, false, INTERNAL_MODE_FRONT);
 	add_child(v_scroll, false, INTERNAL_MODE_FRONT);
 
-	range_click_timer = memnewOldNoConstructor(Timer);
+	range_click_timer = memnewNoConstructor<Timer>();
 	range_click_timer->connect("timeout", callable_mp(this, &Tree::_range_click_timeout));
 	add_child(range_click_timer, false, INTERNAL_MODE_FRONT);
 

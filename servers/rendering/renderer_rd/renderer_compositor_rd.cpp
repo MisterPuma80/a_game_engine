@@ -259,8 +259,8 @@ void RendererCompositorRD::set_boot_image(const Ref<Image> &p_image, const Color
 RendererCompositorRD *RendererCompositorRD::singleton = nullptr;
 
 RendererCompositorRD::RendererCompositorRD() {
-	uniform_set_cache = memnewOldNoConstructor(UniformSetCacheRD);
-	framebuffer_cache = memnewOldNoConstructor(FramebufferCacheRD);
+	uniform_set_cache = memnewNoConstructor<UniformSetCacheRD>();
+	framebuffer_cache = memnewNoConstructor<FramebufferCacheRD>();
 
 	{
 		String shader_cache_dir = Engine::get_singleton()->get_shader_cache_path();
@@ -302,13 +302,13 @@ RendererCompositorRD::RendererCompositorRD() {
 	ERR_FAIL_COND_MSG(singleton != nullptr, "A RendererCompositorRD singleton already exists.");
 	singleton = this;
 
-	utilities = memnewOldNoConstructor(RendererRD::Utilities);
-	texture_storage = memnewOldNoConstructor(RendererRD::TextureStorage);
-	material_storage = memnewOldNoConstructor(RendererRD::MaterialStorage);
-	mesh_storage = memnewOldNoConstructor(RendererRD::MeshStorage);
-	light_storage = memnewOldNoConstructor(RendererRD::LightStorage);
-	particles_storage = memnewOldNoConstructor(RendererRD::ParticlesStorage);
-	fog = memnewOldNoConstructor(RendererRD::Fog);
+	utilities = memnewNoConstructor<RendererRD::Utilities>();
+	texture_storage = memnewNoConstructor<RendererRD::TextureStorage>();
+	material_storage = memnewNoConstructor<RendererRD::MaterialStorage>();
+	mesh_storage = memnewNoConstructor<RendererRD::MeshStorage>();
+	light_storage = memnewNoConstructor<RendererRD::LightStorage>();
+	particles_storage = memnewNoConstructor<RendererRD::ParticlesStorage>();
+	fog = memnewNoConstructor<RendererRD::Fog>();
 	canvas = memnewOldNoArgs(RendererCanvasRenderRD());
 
 	String rendering_method = OS::get_singleton()->get_current_rendering_method();

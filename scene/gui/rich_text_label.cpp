@@ -3067,7 +3067,7 @@ void RichTextLabel::add_text(const String &p_text) {
 
 			} else {
 				//append item condition
-				ItemText *item = memnewOldNoConstructor(ItemText);
+				ItemText *item = memnewNoConstructor<ItemText>();
 				item->owner = get_instance_id();
 				item->rid = items.make_rid(item);
 				item->text = line;
@@ -3076,7 +3076,7 @@ void RichTextLabel::add_text(const String &p_text) {
 		}
 
 		if (eol) {
-			ItemNewline *item = memnewOldNoConstructor(ItemNewline);
+			ItemNewline *item = memnewNoConstructor<ItemNewline>();
 			item->owner = get_instance_id();
 			item->rid = items.make_rid(item);
 			item->line = current_frame->lines.size();
@@ -3186,12 +3186,12 @@ void RichTextLabel::add_image(const Ref<Texture2D> &p_image, int p_width, int p_
 	ERR_FAIL_COND(p_width < 0);
 	ERR_FAIL_COND(p_height < 0);
 
-	ItemImage *item = memnewOldNoConstructor(ItemImage);
+	ItemImage *item = memnewNoConstructor<ItemImage>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 
 	if (p_region.has_area()) {
-		Ref<AtlasTexture> atlas_tex = memnewOldNoConstructor(AtlasTexture);
+		Ref<AtlasTexture> atlas_tex = memnewNoConstructor<AtlasTexture>();
 		atlas_tex->set_atlas(p_image);
 		atlas_tex->set_region(p_region);
 		item->image = atlas_tex;
@@ -3242,7 +3242,7 @@ void RichTextLabel::update_image(const Variant &p_key, BitField<ImageUpdateMask>
 						item->image->disconnect_changed(callable_mp(this, &RichTextLabel::_texture_changed));
 					}
 					if (item->region.has_area()) {
-						Ref<AtlasTexture> atlas_tex = memnewOldNoConstructor(AtlasTexture);
+						Ref<AtlasTexture> atlas_tex = memnewNoConstructor<AtlasTexture>();
 						atlas_tex->set_atlas(p_image);
 						atlas_tex->set_region(item->region);
 						item->image = atlas_tex;
@@ -3308,7 +3308,7 @@ void RichTextLabel::add_newline() {
 	if (current->type == ITEM_TABLE) {
 		return;
 	}
-	ItemNewline *item = memnewOldNoConstructor(ItemNewline);
+	ItemNewline *item = memnewNoConstructor<ItemNewline>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->line = current_frame->lines.size();
@@ -3463,7 +3463,7 @@ void RichTextLabel::push_dropcap(const String &p_string, const Ref<Font> &p_font
 	ERR_FAIL_COND(p_font.is_null());
 	ERR_FAIL_COND(p_size <= 0);
 
-	ItemDropcap *item = memnewOldNoConstructor(ItemDropcap);
+	ItemDropcap *item = memnewNoConstructor<ItemDropcap>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->text = p_string;
@@ -3481,7 +3481,7 @@ void RichTextLabel::_push_def_font_var(DefaultFont p_def_font, const Ref<Font> &
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemFont *item = memnewOldNoConstructor(ItemFont);
+	ItemFont *item = memnewNoConstructor<ItemFont>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->def_font = p_def_font;
@@ -3497,7 +3497,7 @@ void RichTextLabel::_push_def_font(DefaultFont p_def_font) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemFont *item = memnewOldNoConstructor(ItemFont);
+	ItemFont *item = memnewNoConstructor<ItemFont>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->def_font = p_def_font;
@@ -3511,7 +3511,7 @@ void RichTextLabel::push_font(const Ref<Font> &p_font, int p_size) {
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
 	ERR_FAIL_COND(p_font.is_null());
-	ItemFont *item = memnewOldNoConstructor(ItemFont);
+	ItemFont *item = memnewNoConstructor<ItemFont>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->font = p_font;
@@ -3556,7 +3556,7 @@ void RichTextLabel::push_font_size(int p_font_size) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemFontSize *item = memnewOldNoConstructor(ItemFontSize);
+	ItemFontSize *item = memnewNoConstructor<ItemFontSize>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->font_size = p_font_size;
@@ -3568,7 +3568,7 @@ void RichTextLabel::push_outline_size(int p_ol_size) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemOutlineSize *item = memnewOldNoConstructor(ItemOutlineSize);
+	ItemOutlineSize *item = memnewNoConstructor<ItemOutlineSize>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->outline_size = p_ol_size;
@@ -3580,7 +3580,7 @@ void RichTextLabel::push_color(const Color &p_color) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemColor *item = memnewOldNoConstructor(ItemColor);
+	ItemColor *item = memnewNoConstructor<ItemColor>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->color = p_color;
@@ -3592,7 +3592,7 @@ void RichTextLabel::push_outline_color(const Color &p_color) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemOutlineColor *item = memnewOldNoConstructor(ItemOutlineColor);
+	ItemOutlineColor *item = memnewNoConstructor<ItemOutlineColor>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->color = p_color;
@@ -3604,7 +3604,7 @@ void RichTextLabel::push_underline() {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemUnderline *item = memnewOldNoConstructor(ItemUnderline);
+	ItemUnderline *item = memnewNoConstructor<ItemUnderline>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 
@@ -3616,7 +3616,7 @@ void RichTextLabel::push_strikethrough() {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemStrikethrough *item = memnewOldNoConstructor(ItemStrikethrough);
+	ItemStrikethrough *item = memnewNoConstructor<ItemStrikethrough>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 
@@ -3629,7 +3629,7 @@ void RichTextLabel::push_paragraph(HorizontalAlignment p_alignment, Control::Tex
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
 
-	ItemParagraph *item = memnewOldNoConstructor(ItemParagraph);
+	ItemParagraph *item = memnewNoConstructor<ItemParagraph>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->alignment = p_alignment;
@@ -3648,7 +3648,7 @@ void RichTextLabel::push_indent(int p_level) {
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
 	ERR_FAIL_COND(p_level < 0);
 
-	ItemIndent *item = memnewOldNoConstructor(ItemIndent);
+	ItemIndent *item = memnewNoConstructor<ItemIndent>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->level = p_level;
@@ -3662,7 +3662,7 @@ void RichTextLabel::push_list(int p_level, ListType p_list, bool p_capitalize, c
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
 	ERR_FAIL_COND(p_level < 0);
 
-	ItemList *item = memnewOldNoConstructor(ItemList);
+	ItemList *item = memnewNoConstructor<ItemList>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->list_type = p_list;
@@ -3677,7 +3677,7 @@ void RichTextLabel::push_meta(const Variant &p_meta, MetaUnderline p_underline_m
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemMeta *item = memnewOldNoConstructor(ItemMeta);
+	ItemMeta *item = memnewNoConstructor<ItemMeta>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->meta = p_meta;
@@ -3690,7 +3690,7 @@ void RichTextLabel::push_language(const String &p_language) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemLanguage *item = memnewOldNoConstructor(ItemLanguage);
+	ItemLanguage *item = memnewNoConstructor<ItemLanguage>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->language = p_language;
@@ -3702,7 +3702,7 @@ void RichTextLabel::push_hint(const String &p_string) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemHint *item = memnewOldNoConstructor(ItemHint);
+	ItemHint *item = memnewNoConstructor<ItemHint>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->description = p_string;
@@ -3715,7 +3715,7 @@ void RichTextLabel::push_table(int p_columns, InlineAlignment p_alignment, int p
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
 	ERR_FAIL_COND(p_columns < 1);
-	ItemTable *item = memnewOldNoConstructor(ItemTable);
+	ItemTable *item = memnewNoConstructor<ItemTable>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->columns.resize(p_columns);
@@ -3734,7 +3734,7 @@ void RichTextLabel::push_fade(int p_start_index, int p_length) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemFade *item = memnewOldNoConstructor(ItemFade);
+	ItemFade *item = memnewNoConstructor<ItemFade>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->starting_index = p_start_index;
@@ -3747,7 +3747,7 @@ void RichTextLabel::push_shake(int p_strength = 10, float p_rate = 24.0f, bool p
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemShake *item = memnewOldNoConstructor(ItemShake);
+	ItemShake *item = memnewNoConstructor<ItemShake>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->strength = p_strength;
@@ -3761,7 +3761,7 @@ void RichTextLabel::push_wave(float p_frequency = 1.0f, float p_amplitude = 10.0
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemWave *item = memnewOldNoConstructor(ItemWave);
+	ItemWave *item = memnewNoConstructor<ItemWave>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->frequency = p_frequency;
@@ -3775,7 +3775,7 @@ void RichTextLabel::push_tornado(float p_frequency = 1.0f, float p_radius = 10.0
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemTornado *item = memnewOldNoConstructor(ItemTornado);
+	ItemTornado *item = memnewNoConstructor<ItemTornado>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->frequency = p_frequency;
@@ -3789,7 +3789,7 @@ void RichTextLabel::push_rainbow(float p_saturation, float p_value, float p_freq
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemRainbow *item = memnewOldNoConstructor(ItemRainbow);
+	ItemRainbow *item = memnewNoConstructor<ItemRainbow>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->frequency = p_frequency;
@@ -3802,7 +3802,7 @@ void RichTextLabel::push_pulse(const Color &p_color, float p_frequency, float p_
 	_stop_thread();
 	MutexLock data_lock(data_mutex);
 
-	ItemPulse *item = memnewOldNoConstructor(ItemPulse);
+	ItemPulse *item = memnewNoConstructor<ItemPulse>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->color = p_color;
@@ -3816,7 +3816,7 @@ void RichTextLabel::push_bgcolor(const Color &p_color) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemBGColor *item = memnewOldNoConstructor(ItemBGColor);
+	ItemBGColor *item = memnewNoConstructor<ItemBGColor>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->color = p_color;
@@ -3828,7 +3828,7 @@ void RichTextLabel::push_fgcolor(const Color &p_color) {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemFGColor *item = memnewOldNoConstructor(ItemFGColor);
+	ItemFGColor *item = memnewNoConstructor<ItemFGColor>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->color = p_color;
@@ -3840,7 +3840,7 @@ void RichTextLabel::push_customfx(Ref<RichTextEffect> p_custom_effect, Dictionar
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemCustomFX *item = memnewOldNoConstructor(ItemCustomFX);
+	ItemCustomFX *item = memnewNoConstructor<ItemCustomFX>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->custom_effect = p_custom_effect;
@@ -3855,7 +3855,7 @@ void RichTextLabel::push_context() {
 	MutexLock data_lock(data_mutex);
 
 	ERR_FAIL_COND(current->type == ITEM_TABLE);
-	ItemContext *item = memnewOldNoConstructor(ItemContext);
+	ItemContext *item = memnewNoConstructor<ItemContext>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	_add_item(item, true);
@@ -3925,7 +3925,7 @@ void RichTextLabel::push_cell() {
 
 	ERR_FAIL_COND(current->type != ITEM_TABLE);
 
-	ItemFrame *item = memnewOldNoConstructor(ItemFrame);
+	ItemFrame *item = memnewNoConstructor<ItemFrame>();
 	item->owner = get_instance_id();
 	item->rid = items.make_rid(item);
 	item->parent_frame = current_frame;
@@ -5298,7 +5298,7 @@ Variant RichTextLabel::get_drag_data(const Point2 &p_point) {
 
 	if (selection.drag_attempt && selection.enabled) {
 		String t = get_selected_text();
-		Label *l = memnewOldNoConstructor(Label);
+		Label *l = memnewNoConstructor<Label>();
 		l->set_text(t);
 		set_drag_preview(l);
 		return t;
@@ -6299,7 +6299,7 @@ Size2 RichTextLabel::get_minimum_size() const {
 
 // Context menu.
 void RichTextLabel::_generate_context_menu() {
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	add_child(menu, false, INTERNAL_MODE_FRONT);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &RichTextLabel::menu_option));
 
@@ -6436,7 +6436,7 @@ Dictionary RichTextLabel::parse_expressions_for_values(Vector<String> p_expressi
 }
 
 RichTextLabel::RichTextLabel(const String &p_text) {
-	main = memnewOldNoConstructor(ItemFrame);
+	main = memnewNoConstructor<ItemFrame>();
 	main->owner = get_instance_id();
 	main->rid = items.make_rid(main);
 	main->index = 0;
@@ -6448,7 +6448,7 @@ RichTextLabel::RichTextLabel(const String &p_text) {
 	main->first_invalid_font_line.store(0);
 	current_frame = main;
 
-	vscroll = memnewOldNoConstructor(VScrollBar);
+	vscroll = memnewNoConstructor<VScrollBar>();
 	add_child(vscroll, false, INTERNAL_MODE_FRONT);
 	vscroll->set_drag_node(String(".."));
 	vscroll->set_step(1);

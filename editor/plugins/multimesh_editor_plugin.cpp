@@ -162,7 +162,7 @@ void MultiMeshEditor::_populate() {
 	ERR_FAIL_COND_MSG(triangle_area_map.is_empty(), "Couldn't map area.");
 	ERR_FAIL_COND_MSG(area_accum == 0, "Couldn't map area.");
 
-	Ref<MultiMesh> multimesh = memnewOldNoConstructor(MultiMesh);
+	Ref<MultiMesh> multimesh = memnewNoConstructor<MultiMesh>();
 	multimesh->set_mesh(mesh);
 
 	int instance_count = populate_amount->get_value();
@@ -275,7 +275,7 @@ void MultiMeshEditor::_bind_methods() {
 }
 
 MultiMeshEditor::MultiMeshEditor() {
-	options = memnewOldNoConstructor(MenuButton);
+	options = memnewNoConstructor<MenuButton>();
 	options->set_switch_on_hover(true);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(options);
 
@@ -285,54 +285,54 @@ MultiMeshEditor::MultiMeshEditor() {
 	options->get_popup()->add_item(TTR("Populate Surface"));
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &MultiMeshEditor::_menu_option));
 
-	populate_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	populate_dialog = memnewNoConstructor<ConfirmationDialog>();
 	populate_dialog->set_title(TTR("Populate MultiMesh"));
 	add_child(populate_dialog);
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	populate_dialog->add_child(vbc);
 	//populate_dialog->set_child_rect(vbc);
 
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
-	surface_source = memnewOldNoConstructor(LineEdit);
+	surface_source = memnewNoConstructor<LineEdit>();
 	hbc->add_child(surface_source);
 	surface_source->set_h_size_flags(SIZE_EXPAND_FILL);
-	Button *b = memnewOldNoConstructor(Button);
+	Button *b = memnewNoConstructor<Button>();
 	hbc->add_child(b);
 	b->set_text("..");
 	b->connect(SceneStringName(pressed), callable_mp(this, &MultiMeshEditor::_browse).bind(false));
 
 	vbc->add_margin_child(TTR("Target Surface:"), hbc);
 
-	hbc = memnewOldNoConstructor(HBoxContainer);
-	mesh_source = memnewOldNoConstructor(LineEdit);
+	hbc = memnewNoConstructor<HBoxContainer>();
+	mesh_source = memnewNoConstructor<LineEdit>();
 	hbc->add_child(mesh_source);
 	mesh_source->set_h_size_flags(SIZE_EXPAND_FILL);
-	b = memnewOldNoConstructor(Button);
+	b = memnewNoConstructor<Button>();
 	hbc->add_child(b);
 	b->set_text("..");
 	vbc->add_margin_child(TTR("Source Mesh:"), hbc);
 	b->connect(SceneStringName(pressed), callable_mp(this, &MultiMeshEditor::_browse).bind(true));
 
-	populate_axis = memnewOldNoConstructor(OptionButton);
+	populate_axis = memnewNoConstructor<OptionButton>();
 	populate_axis->add_item(TTR("X-Axis"));
 	populate_axis->add_item(TTR("Y-Axis"));
 	populate_axis->add_item(TTR("Z-Axis"));
 	populate_axis->select(2);
 	vbc->add_margin_child(TTR("Mesh Up Axis:"), populate_axis);
 
-	populate_rotate_random = memnewOldNoConstructor(HSlider);
+	populate_rotate_random = memnewNoConstructor<HSlider>();
 	populate_rotate_random->set_max(1);
 	populate_rotate_random->set_step(0.01);
 	vbc->add_margin_child(TTR("Random Rotation:"), populate_rotate_random);
 
-	populate_tilt_random = memnewOldNoConstructor(HSlider);
+	populate_tilt_random = memnewNoConstructor<HSlider>();
 	populate_tilt_random->set_max(1);
 	populate_tilt_random->set_step(0.01);
 	vbc->add_margin_child(TTR("Random Tilt:"), populate_tilt_random);
 
-	populate_scale_random = memnewOldNoConstructor(SpinBox);
+	populate_scale_random = memnewNoConstructor<SpinBox>();
 	populate_scale_random->set_min(0);
 	populate_scale_random->set_max(1);
 	populate_scale_random->set_value(0);
@@ -340,7 +340,7 @@ MultiMeshEditor::MultiMeshEditor() {
 
 	vbc->add_margin_child(TTR("Random Scale:"), populate_scale_random);
 
-	populate_scale = memnewOldNoConstructor(SpinBox);
+	populate_scale = memnewNoConstructor<SpinBox>();
 	populate_scale->set_min(0.001);
 	populate_scale->set_max(4096);
 	populate_scale->set_value(1);
@@ -348,7 +348,7 @@ MultiMeshEditor::MultiMeshEditor() {
 
 	vbc->add_margin_child(TTR("Scale:"), populate_scale);
 
-	populate_amount = memnewOldNoConstructor(SpinBox);
+	populate_amount = memnewNoConstructor<SpinBox>();
 	populate_amount->set_anchor(SIDE_RIGHT, ANCHOR_END);
 	populate_amount->set_begin(Point2(20, 232));
 	populate_amount->set_end(Point2(-5, 237));
@@ -360,7 +360,7 @@ MultiMeshEditor::MultiMeshEditor() {
 	populate_dialog->set_ok_button_text(TTR("Populate"));
 
 	populate_dialog->get_ok_button()->connect(SceneStringName(pressed), callable_mp(this, &MultiMeshEditor::_populate));
-	std = memnewOldNoConstructor(SceneTreeDialog);
+	std = memnewNoConstructor<SceneTreeDialog>();
 	Vector<StringName> valid_types;
 	valid_types.push_back("MeshInstance3D");
 	std->set_valid_types(valid_types);
@@ -369,7 +369,7 @@ MultiMeshEditor::MultiMeshEditor() {
 
 	_last_pp_node = nullptr;
 
-	err_dialog = memnewOldNoConstructor(AcceptDialog);
+	err_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(err_dialog);
 }
 
@@ -391,7 +391,7 @@ void MultiMeshEditorPlugin::make_visible(bool p_visible) {
 }
 
 MultiMeshEditorPlugin::MultiMeshEditorPlugin() {
-	multimesh_editor = memnewOldNoConstructor(MultiMeshEditor);
+	multimesh_editor = memnewNoConstructor<MultiMeshEditor>();
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(multimesh_editor);
 
 	multimesh_editor->options->hide();

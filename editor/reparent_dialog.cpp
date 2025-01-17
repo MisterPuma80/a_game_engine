@@ -73,7 +73,7 @@ void ReparentDialog::_bind_methods() {
 ReparentDialog::ReparentDialog() {
 	set_title(TTR("Reparent Node"));
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	add_child(vbc);
 
 	tree = memnewWithArgs<SceneTreeEditor>(false);
@@ -81,7 +81,7 @@ ReparentDialog::ReparentDialog() {
 	tree->get_scene_tree()->connect("item_activated", callable_mp(this, &ReparentDialog::_reparent));
 	vbc->add_margin_child(TTR("Select new parent:"), tree, true);
 
-	keep_transform = memnewOldNoConstructor(CheckBox);
+	keep_transform = memnewNoConstructor<CheckBox>();
 	keep_transform->set_text(TTR("Keep Global Transform"));
 	keep_transform->set_pressed(true);
 	vbc->add_child(keep_transform);

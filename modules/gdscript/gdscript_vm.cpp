@@ -2388,7 +2388,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 				}
 
 				if (is_signal) {
-					Ref<GDScriptFunctionState> gdfs = memnewOldNoConstructor(GDScriptFunctionState);
+					Ref<GDScriptFunctionState> gdfs = memnewNoConstructor<GDScriptFunctionState>();
 					gdfs->function = this;
 
 					gdfs->state.stack.resize(alloca_size);

@@ -207,7 +207,7 @@ Ref<AudioStreamPreview> AudioStreamPreviewGenerator::generate_preview(const Ref<
 	preview->preview->length = len_s;
 
 	if (preview->playback.is_valid()) {
-		preview->thread = memnewOldNoConstructor(Thread);
+		preview->thread = memnewNoConstructor<Thread>();
 		preview->thread->set_name("AudioStreamPreviewGenerator");
 		preview->thread->start(_preview_thread, preview);
 	}

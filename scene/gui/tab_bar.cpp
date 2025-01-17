@@ -1235,12 +1235,12 @@ Variant TabBar::_handle_get_drag_data(const String &p_type, const Point2 &p_poin
 		return Variant();
 	}
 
-	HBoxContainer *drag_preview = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *drag_preview = memnewNoConstructor<HBoxContainer>();
 
 	if (!tabs[tab_over].icon.is_null()) {
 		const Size2 icon_size = _get_tab_icon_size(tab_over);
 
-		TextureRect *tf = memnewOldNoConstructor(TextureRect);
+		TextureRect *tf = memnewNoConstructor<TextureRect>();
 		tf->set_texture(tabs[tab_over].icon);
 		tf->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 		tf->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);

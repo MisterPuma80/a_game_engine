@@ -124,7 +124,7 @@ void run_test(String file_name, AudioStreamWAV::Format data_format, bool stereo,
 		test_data = gen_pcm16_test(wav_rate, wav_count, stereo);
 	}
 
-	Ref<AudioStreamWAV> stream = memnewOldNoConstructor(AudioStreamWAV);
+	Ref<AudioStreamWAV> stream = memnewNoConstructor<AudioStreamWAV>();
 	stream->set_mix_rate(wav_rate);
 	CHECK(stream->get_mix_rate() == wav_rate);
 
@@ -150,7 +150,7 @@ void run_test(String file_name, AudioStreamWAV::Format data_format, bool stereo,
 
 #ifdef TOOLS_ENABLED
 		// The WAV importer can be used if enabled to check that the saved file is valid.
-		Ref<ResourceImporterWAV> wav_importer = memnewOldNoConstructor(ResourceImporterWAV);
+		Ref<ResourceImporterWAV> wav_importer = memnewNoConstructor<ResourceImporterWAV>();
 
 		List<ResourceImporter::ImportOption> options_list;
 		wav_importer->get_import_options("", &options_list);
@@ -202,7 +202,7 @@ TEST_CASE("[AudioStreamWAV] Alternate mix rate") {
 TEST_CASE("[AudioStreamWAV] save_to_wav() adds '.wav' file extension automatically") {
 	String save_path = TestUtils::get_temp_path("test_wav_extension");
 	Vector<uint8_t> test_data = gen_pcm8_test(WAV_RATE, WAV_COUNT, false);
-	Ref<AudioStreamWAV> stream = memnewOldNoConstructor(AudioStreamWAV);
+	Ref<AudioStreamWAV> stream = memnewNoConstructor<AudioStreamWAV>();
 	stream->set_data(test_data);
 
 	REQUIRE(stream->save_to_wav(save_path) == OK);
@@ -212,7 +212,7 @@ TEST_CASE("[AudioStreamWAV] save_to_wav() adds '.wav' file extension automatical
 }
 
 TEST_CASE("[AudioStreamWAV] Default values") {
-	Ref<AudioStreamWAV> stream = memnewOldNoConstructor(AudioStreamWAV);
+	Ref<AudioStreamWAV> stream = memnewNoConstructor<AudioStreamWAV>();
 	CHECK(stream->get_format() == AudioStreamWAV::FORMAT_8_BITS);
 	CHECK(stream->get_loop_mode() == AudioStreamWAV::LOOP_DISABLED);
 	CHECK(stream->get_loop_begin() == 0);
@@ -231,7 +231,7 @@ TEST_CASE("[AudioStreamWAV] Save empty file") {
 
 TEST_CASE("[AudioStreamWAV] Saving IMA ADPCM is not supported") {
 	String save_path = TestUtils::get_temp_path("test_adpcm.wav");
-	Ref<AudioStreamWAV> stream = memnewOldNoConstructor(AudioStreamWAV);
+	Ref<AudioStreamWAV> stream = memnewNoConstructor<AudioStreamWAV>();
 	stream->set_format(AudioStreamWAV::FORMAT_IMA_ADPCM);
 	ERR_PRINT_OFF;
 	CHECK(stream->save_to_wav(save_path) == ERR_UNAVAILABLE);

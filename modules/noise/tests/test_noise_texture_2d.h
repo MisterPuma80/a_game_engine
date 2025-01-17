@@ -129,9 +129,9 @@ public:
 };
 
 TEST_CASE("[NoiseTexture][SceneTree] Getter and setter") {
-	Ref<NoiseTexture2D> noise_texture = memnewOldNoConstructor(NoiseTexture2D);
+	Ref<NoiseTexture2D> noise_texture = memnewNoConstructor<NoiseTexture2D>();
 
-	Ref<FastNoiseLite> noise = memnewOldNoConstructor(FastNoiseLite);
+	Ref<FastNoiseLite> noise = memnewNoConstructor<FastNoiseLite>();
 	noise_texture->set_noise(noise);
 	CHECK(noise_texture->get_noise() == noise);
 	noise_texture->set_noise(nullptr);
@@ -186,7 +186,7 @@ TEST_CASE("[NoiseTexture][SceneTree] Getter and setter") {
 	noise_texture->set_bump_strength(0.168);
 	CHECK(noise_texture->get_bump_strength() == doctest::Approx(0.168));
 
-	Ref<Gradient> gradient = memnewOldNoConstructor(Gradient);
+	Ref<Gradient> gradient = memnewNoConstructor<Gradient>();
 	noise_texture->set_color_ramp(gradient);
 	CHECK(noise_texture->get_color_ramp() == gradient);
 	noise_texture->set_color_ramp(nullptr);
@@ -194,12 +194,12 @@ TEST_CASE("[NoiseTexture][SceneTree] Getter and setter") {
 }
 
 TEST_CASE("[NoiseTexture2D][SceneTree] Generating a basic noise texture with mipmaps and color ramp modulation") {
-	Ref<NoiseTexture2D> noise_texture = memnewOldNoConstructor(NoiseTexture2D);
+	Ref<NoiseTexture2D> noise_texture = memnewNoConstructor<NoiseTexture2D>();
 
-	Ref<FastNoiseLite> noise = memnewOldNoConstructor(FastNoiseLite);
+	Ref<FastNoiseLite> noise = memnewNoConstructor<FastNoiseLite>();
 	noise_texture->set_noise(noise);
 
-	Ref<Gradient> gradient = memnewOldNoConstructor(Gradient);
+	Ref<Gradient> gradient = memnewNoConstructor<Gradient>();
 	Vector<Gradient::Point> points;
 	points.push_back({ 0.0, Color(1, 0, 0) });
 	points.push_back({ 1.0, Color(0, 0, 1) });
@@ -215,9 +215,9 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a basic noise texture with mip
 }
 
 TEST_CASE("[NoiseTexture2D][SceneTree] Generating a normal map without mipmaps") {
-	Ref<NoiseTexture2D> noise_texture = memnewOldNoConstructor(NoiseTexture2D);
+	Ref<NoiseTexture2D> noise_texture = memnewNoConstructor<NoiseTexture2D>();
 
-	Ref<FastNoiseLite> noise = memnewOldNoConstructor(FastNoiseLite);
+	Ref<FastNoiseLite> noise = memnewNoConstructor<FastNoiseLite>();
 	noise->set_frequency(0.5);
 	noise_texture->set_noise(noise);
 	noise_texture->set_width(16);
@@ -232,9 +232,9 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a normal map without mipmaps")
 }
 
 TEST_CASE("[NoiseTexture2D][SceneTree] Generating a seamless noise texture") {
-	Ref<NoiseTexture2D> noise_texture = memnewOldNoConstructor(NoiseTexture2D);
+	Ref<NoiseTexture2D> noise_texture = memnewNoConstructor<NoiseTexture2D>();
 
-	Ref<FastNoiseLite> noise = memnewOldNoConstructor(FastNoiseLite);
+	Ref<FastNoiseLite> noise = memnewNoConstructor<FastNoiseLite>();
 	noise->set_frequency(0.5);
 	noise_texture->set_noise(noise);
 	noise_texture->set_width(16);
@@ -250,7 +250,7 @@ TEST_CASE("[NoiseTexture2D][SceneTree] Generating a seamless noise texture") {
 	}
 
 	SUBCASE("16x16 modulated with default (transparent)black and white gradient (RGBA8), with seamless blend skirt of 1.0") {
-		Ref<Gradient> gradient = memnewOldNoConstructor(Gradient);
+		Ref<Gradient> gradient = memnewNoConstructor<Gradient>();
 		Vector<Gradient::Point> points;
 		points.push_back({ 0.0, Color(0, 0, 0, 0) });
 		points.push_back({ 1.0, Color(1, 1, 1, 1) });

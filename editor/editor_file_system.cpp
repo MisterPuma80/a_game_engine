@@ -239,7 +239,7 @@ EditorFileSystem::ScannedDirectory::~ScannedDirectory() {
 void EditorFileSystem::_first_scan_filesystem() {
 	EditorProgress ep = EditorProgress("first_scan_filesystem", TTR("Project initialization"), 5);
 	Ref<DirAccess> d = DirAccess::create(DirAccess::ACCESS_RESOURCES);
-	first_scan_root_dir = memnewOldNoConstructor(ScannedDirectory);
+	first_scan_root_dir = memnewNoConstructor<ScannedDirectory>();
 	first_scan_root_dir->full_path = "res://";
 	HashSet<String> existing_class_names;
 
@@ -416,7 +416,7 @@ void EditorFileSystem::_scan_filesystem() {
 	sp.hi = nb_files_total;
 	sp.progress = &scan_progress;
 
-	new_filesystem = memnewOldNoConstructor(EditorFileSystemDirectory);
+	new_filesystem = memnewNoConstructor<EditorFileSystemDirectory>();
 	new_filesystem->parent = nullptr;
 
 	ScannedDirectory *sd;
@@ -429,7 +429,7 @@ void EditorFileSystem::_scan_filesystem() {
 		processed_files = memnewOldNoArgs(HashSet<String>());
 	} else {
 		Ref<DirAccess> d = DirAccess::create(DirAccess::ACCESS_RESOURCES);
-		sd = memnewOldNoConstructor(ScannedDirectory);
+		sd = memnewNoConstructor<ScannedDirectory>();
 		sd->full_path = "res://";
 		nb_files_total = _scan_new_dir(sd, d);
 	}
@@ -1060,7 +1060,7 @@ int EditorFileSystem::_scan_new_dir(ScannedDirectory *p_dir, Ref<DirAccess> &da)
 			if (d == cd || !d.begins_with(cd)) {
 				da->change_dir(cd); //avoid recursion
 			} else {
-				ScannedDirectory *sd = memnewOldNoConstructor(ScannedDirectory);
+				ScannedDirectory *sd = memnewNoConstructor<ScannedDirectory>();
 				sd->name = E->get();
 				sd->full_path = p_dir->full_path.path_join(sd->name);
 
@@ -1085,7 +1085,7 @@ void EditorFileSystem::_process_file_system(const ScannedDirectory *p_scan_dir, 
 	p_dir->modified_time = FileAccess::get_modified_time(p_scan_dir->full_path);
 
 	for (ScannedDirectory *scan_sub_dir : p_scan_dir->subdirs) {
-		EditorFileSystemDirectory *sub_dir = memnewOldNoConstructor(EditorFileSystemDirectory);
+		EditorFileSystemDirectory *sub_dir = memnewNoConstructor<EditorFileSystemDirectory>();
 		sub_dir->parent = p_dir;
 		sub_dir->name = scan_sub_dir->name;
 		p_dir->subdirs.push_back(sub_dir);
@@ -1101,7 +1101,7 @@ void EditorFileSystem::_process_file_system(const ScannedDirectory *p_scan_dir, 
 
 		String path = p_scan_dir->full_path.path_join(scan_file);
 
-		EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
+		EditorFileSystemDirectory::FileInfo *fi = memnewNoConstructor<EditorFileSystemDirectory::FileInfo>();
 		fi->file = scan_file;
 		p_dir->files.push_back(fi);
 
@@ -1325,7 +1325,7 @@ void EditorFileSystem::_scan_fs_changes(EditorFileSystemDirectory *p_dir, ScanPr
 					sd.name = f;
 					sd.full_path = dir_path;
 
-					EditorFileSystemDirectory *efd = memnewOldNoConstructor(EditorFileSystemDirectory);
+					EditorFileSystemDirectory *efd = memnewNoConstructor<EditorFileSystemDirectory>();
 					efd->parent = p_dir;
 					efd->name = f;
 
@@ -1356,7 +1356,7 @@ void EditorFileSystem::_scan_fs_changes(EditorFileSystemDirectory *p_dir, ScanPr
 
 				if (idx == -1) {
 					//never seen this file, add actition to add it
-					EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
+					EditorFileSystemDirectory::FileInfo *fi = memnewNoConstructor<EditorFileSystemDirectory::FileInfo>();
 					fi->file = f;
 
 					String path = cd.path_join(fi->file);
@@ -1775,7 +1775,7 @@ bool EditorFileSystem::_find_file(const String &p_file, EditorFileSystemDirector
 			if (!dir->dir_exists(fs->get_path().path_join(path[i]))) {
 				return false;
 			}
-			EditorFileSystemDirectory *efsd = memnewOldNoConstructor(EditorFileSystemDirectory);
+			EditorFileSystemDirectory *efsd = memnewNoConstructor<EditorFileSystemDirectory>();
 
 			efsd->name = path[i];
 			efsd->parent = fs;
@@ -2242,7 +2242,7 @@ void EditorFileSystem::update_files(const Vector<String> &p_script_paths) {
 					idx++;
 				}
 
-				EditorFileSystemDirectory::FileInfo *fi = memnewOldNoConstructor(EditorFileSystemDirectory::FileInfo);
+				EditorFileSystemDirectory::FileInfo *fi = memnewNoConstructor<EditorFileSystemDirectory::FileInfo>();
 				fi->file = file_name;
 				fi->import_modified_time = 0;
 				fi->import_valid = (type == "TextFile" || type == "OtherFile") ? true : ResourceLoader::is_import_valid(file);
@@ -3292,7 +3292,7 @@ Error EditorFileSystem::make_dir_recursive(const String &p_path, const String &p
 			continue;
 		}
 
-		EditorFileSystemDirectory *efd = memnewOldNoConstructor(EditorFileSystemDirectory);
+		EditorFileSystemDirectory *efd = memnewNoConstructor<EditorFileSystemDirectory>();
 		efd->parent = parent;
 		efd->name = folder;
 		parent->subdirs.push_back(efd);
@@ -3518,7 +3518,7 @@ EditorFileSystem::EditorFileSystem() {
 	ResourceLoader::import = _resource_import;
 	reimport_on_missing_imported_files = GLOBAL_GET("editor/import/reimport_missing_imported_files");
 	singleton = this;
-	filesystem = memnewOldNoConstructor(EditorFileSystemDirectory); //like, empty
+	filesystem = memnewNoConstructor<EditorFileSystemDirectory>(); //like, empty
 	filesystem->parent = nullptr;
 
 	new_filesystem = nullptr;

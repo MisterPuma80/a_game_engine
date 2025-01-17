@@ -195,7 +195,7 @@ public:
 	void delete_status_indicator(IndicatorID p_id) override {}
 
 	DisplayServerHeadless() {
-		native_menu = memnewOldNoConstructor(NativeMenu);
+		native_menu = memnewNoConstructor<NativeMenu>();
 		Input::get_singleton()->set_event_dispatch_function(_dispatch_input_events);
 	}
 

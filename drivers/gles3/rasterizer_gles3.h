@@ -105,7 +105,7 @@ public:
 	void finalize();
 
 	static RendererCompositor *_create_current() {
-		return memnewOldNoConstructor(RasterizerGLES3);
+		return memnewNoConstructor<RasterizerGLES3>();
 	}
 
 	static bool is_gles_over_gl() { return gles_over_gl; }

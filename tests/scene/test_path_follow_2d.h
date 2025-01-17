@@ -45,16 +45,16 @@ bool is_equal_approx(const Vector2 &p_a, const Vector2 &p_b) {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Sampling with progress ratio") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->set_bake_interval(1);
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
 	curve->add_point(Vector2(100, 100));
 	curve->add_point(Vector2(0, 100));
 	curve->add_point(Vector2(0, 0));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path_follow_2d->set_loop(false);
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
@@ -90,16 +90,16 @@ TEST_CASE("[SceneTree][PathFollow2D] Sampling with progress ratio") {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Sampling with progress") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->set_bake_interval(1);
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
 	curve->add_point(Vector2(100, 100));
 	curve->add_point(Vector2(0, 100));
 	curve->add_point(Vector2(0, 0));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path_follow_2d->set_loop(false);
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
@@ -135,13 +135,13 @@ TEST_CASE("[SceneTree][PathFollow2D] Sampling with progress") {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Removal of a point in curve") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
 	curve->add_point(Vector2(100, 100));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -159,12 +159,12 @@ TEST_CASE("[SceneTree][PathFollow2D] Removal of a point in curve") {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Setting h_offset and v_offset") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -181,12 +181,12 @@ TEST_CASE("[SceneTree][PathFollow2D] Setting h_offset and v_offset") {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Progress ratio out of range") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -218,12 +218,12 @@ TEST_CASE("[SceneTree][PathFollow2D] Progress ratio out of range") {
 }
 
 TEST_CASE("[SceneTree][PathFollow2D] Progress out of range") {
-	Ref<Curve2D> curve = memnewOldNoConstructor(Curve2D);
+	Ref<Curve2D> curve = memnewNoConstructor<Curve2D>();
 	curve->add_point(Vector2(0, 0));
 	curve->add_point(Vector2(100, 0));
-	Path2D *path = memnewOldNoConstructor(Path2D);
+	Path2D *path = memnewNoConstructor<Path2D>();
 	path->set_curve(curve);
-	PathFollow2D *path_follow_2d = memnewOldNoConstructor(PathFollow2D);
+	PathFollow2D *path_follow_2d = memnewNoConstructor<PathFollow2D>();
 	path->add_child(path_follow_2d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 

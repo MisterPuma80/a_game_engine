@@ -96,7 +96,7 @@ void Skeleton2DEditor::_bind_methods() {
 }
 
 Skeleton2DEditor::Skeleton2DEditor() {
-	options = memnewOldNoConstructor(MenuButton);
+	options = memnewNoConstructor<MenuButton>();
 
 	CanvasItemEditor::get_singleton()->add_control_to_menu_panel(options);
 
@@ -111,7 +111,7 @@ Skeleton2DEditor::Skeleton2DEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &Skeleton2DEditor::_menu_option));
 
-	err_dialog = memnewOldNoConstructor(AcceptDialog);
+	err_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(err_dialog);
 }
 
@@ -133,7 +133,7 @@ void Skeleton2DEditorPlugin::make_visible(bool p_visible) {
 }
 
 Skeleton2DEditorPlugin::Skeleton2DEditorPlugin() {
-	sprite_editor = memnewOldNoConstructor(Skeleton2DEditor);
+	sprite_editor = memnewNoConstructor<Skeleton2DEditor>();
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(sprite_editor);
 	make_visible(false);
 

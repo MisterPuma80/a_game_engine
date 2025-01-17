@@ -2054,7 +2054,7 @@ RDD::FenceID RenderingDeviceDriverVulkan::fence_create() {
 	VkResult err = vkCreateFence(vk_device, &create_info, nullptr, &vk_fence);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, FenceID());
 
-	Fence *fence = memnewOldNoConstructor(Fence);
+	Fence *fence = memnewNoConstructor<Fence>();
 	fence->vk_fence = vk_fence;
 	fence->queue_signaled_from = nullptr;
 	return FenceID(fence);
@@ -2170,7 +2170,7 @@ RDD::CommandQueueID RenderingDeviceDriverVulkan::command_queue_create(CommandQue
 	ERR_FAIL_COND_V_MSG(picked_queue_index >= queue_family.size(), CommandQueueID(), "A queue in the picked family could not be found.");
 
 	// Create the virtual queue.
-	CommandQueue *command_queue = memnewOldNoConstructor(CommandQueue);
+	CommandQueue *command_queue = memnewNoConstructor<CommandQueue>();
 	command_queue->queue_family = family_index;
 	command_queue->queue_index = picked_queue_index;
 	queue_family[picked_queue_index].virtual_count++;
@@ -2390,7 +2390,7 @@ RDD::CommandPoolID RenderingDeviceDriverVulkan::command_pool_create(CommandQueue
 	VkResult res = vkCreateCommandPool(vk_device, &cmd_pool_info, nullptr, &vk_command_pool);
 	ERR_FAIL_COND_V_MSG(res, CommandPoolID(), "vkCreateCommandPool failed with error " + itos(res) + ".");
 
-	CommandPool *command_pool = memnewOldNoConstructor(CommandPool);
+	CommandPool *command_pool = memnewNoConstructor<CommandPool>();
 	command_pool->vk_command_pool = vk_command_pool;
 	command_pool->buffer_type = p_cmd_buffer_type;
 	return CommandPoolID(command_pool);
@@ -2574,7 +2574,7 @@ RenderingDeviceDriver::SwapChainID RenderingDeviceDriverVulkan::swap_chain_creat
 	err = _create_render_pass(vk_device, &pass_info, nullptr, &render_pass);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SwapChainID());
 
-	SwapChain *swap_chain = memnewOldNoConstructor(SwapChain);
+	SwapChain *swap_chain = memnewNoConstructor<SwapChain>();
 	swap_chain->surface = p_surface;
 	swap_chain->format = format;
 	swap_chain->color_space = color_space;

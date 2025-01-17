@@ -226,33 +226,33 @@ void EditorObjectSelector::_bind_methods() {
 EditorObjectSelector::EditorObjectSelector(EditorSelectionHistory *p_history) {
 	history = p_history;
 
-	MarginContainer *main_mc = memnewOldNoConstructor(MarginContainer);
+	MarginContainer *main_mc = memnewNoConstructor<MarginContainer>();
 	main_mc->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	main_mc->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	main_mc->add_theme_constant_override("margin_right", 6 * EDSCALE);
 	add_child(main_mc);
 
-	HBoxContainer *main_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *main_hb = memnewNoConstructor<HBoxContainer>();
 	main_mc->add_child(main_hb);
 
-	current_object_icon = memnewOldNoConstructor(TextureRect);
+	current_object_icon = memnewNoConstructor<TextureRect>();
 	current_object_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	current_object_icon->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	main_hb->add_child(current_object_icon);
 
-	current_object_label = memnewOldNoConstructor(Label);
+	current_object_label = memnewNoConstructor<Label>();
 	current_object_label->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_ELLIPSIS);
 	current_object_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	current_object_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	current_object_label->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	main_hb->add_child(current_object_label);
 
-	sub_objects_icon = memnewOldNoConstructor(TextureRect);
+	sub_objects_icon = memnewNoConstructor<TextureRect>();
 	sub_objects_icon->hide();
 	sub_objects_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	main_hb->add_child(sub_objects_icon);
 
-	sub_objects_menu = memnewOldNoConstructor(PopupMenu);
+	sub_objects_menu = memnewNoConstructor<PopupMenu>();
 	sub_objects_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_child(sub_objects_menu);
 	sub_objects_menu->connect("about_to_popup", callable_mp(this, &EditorObjectSelector::_about_to_show));

@@ -537,7 +537,7 @@ protected:
 	void fill_push_constant_instance_indices(SceneState::InstanceData *p_instance_data, const GeometryInstanceForwardMobile *p_instance);
 
 	virtual RendererRD::ForwardIDStorage *create_forward_id_storage() override {
-		forward_id_storage_mobile = memnewOldNoConstructor(ForwardIDStorageMobile);
+		forward_id_storage_mobile = memnewNoConstructor<ForwardIDStorageMobile>();
 		return forward_id_storage_mobile;
 	}
 

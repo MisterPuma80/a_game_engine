@@ -180,7 +180,7 @@ def run(target, source, env):
 #ifdef TOOLS_ENABLED
 #define GDVIRTUAL_TRACK(m_virtual, m_initialized)\\
 	if (_get_extension()->reloadable) {\\
-		VirtualMethodTracker *tracker = memnewOldNoConstructor(VirtualMethodTracker);\\
+		VirtualMethodTracker *tracker = memnewNoConstructor<VirtualMethodTracker>();\\
 		tracker->method = (void **)&m_virtual;\\
 		tracker->initialized = &m_initialized;\\
 		tracker->next = virtual_method_list;\\

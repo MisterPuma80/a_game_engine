@@ -324,12 +324,12 @@ void SectionedInspector::set_restrict_to_basic_settings(bool p_restrict) {
 }
 
 SectionedInspector::SectionedInspector() :
-		sections(memnewOldNoConstructor(Tree)),
-		filter(memnewOldNoConstructor(SectionedInspectorFilter)),
-		inspector(memnewOldNoConstructor(EditorInspector)) {
+		sections(memnewNoConstructor<Tree>()),
+		filter(memnewNoConstructor<SectionedInspectorFilter>()),
+		inspector(memnewNoConstructor<EditorInspector>()) {
 	add_theme_constant_override("autohide", 1); // Fixes the dragger always showing up
 
-	VBoxContainer *left_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *left_vb = memnewNoConstructor<VBoxContainer>();
 	left_vb->set_custom_minimum_size(Size2(190, 0) * EDSCALE);
 	add_child(left_vb);
 
@@ -339,7 +339,7 @@ SectionedInspector::SectionedInspector() :
 
 	left_vb->add_child(sections, true);
 
-	VBoxContainer *right_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *right_vb = memnewNoConstructor<VBoxContainer>();
 	right_vb->set_custom_minimum_size(Size2(300, 0) * EDSCALE);
 	right_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_child(right_vb);

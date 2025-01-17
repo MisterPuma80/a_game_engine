@@ -91,7 +91,7 @@ GDScriptLanguageProtocol *initialize(const String &p_root) {
 	String absolute_root = dir->get_current_dir();
 	init_language(absolute_root);
 
-	GDScriptLanguageProtocol *proto = memnewOldNoConstructor(GDScriptLanguageProtocol);
+	GDScriptLanguageProtocol *proto = memnewNoConstructor<GDScriptLanguageProtocol>();
 
 	Ref<GDScriptWorkspace> workspace = GDScriptLanguageProtocol::get_singleton()->get_workspace();
 	workspace->root = absolute_root;

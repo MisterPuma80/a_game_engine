@@ -42,7 +42,7 @@
 Ref<NavigationPolygon> NavigationPolygonEditor::_ensure_navpoly() const {
 	Ref<NavigationPolygon> navpoly = node->get_navigation_polygon();
 	if (!navpoly.is_valid()) {
-		navpoly = Ref<NavigationPolygon>(memnewOldNoConstructor(NavigationPolygon));
+		navpoly = Ref<NavigationPolygon>(memnewNoConstructor<NavigationPolygon>());
 		node->set_navigation_polygon(navpoly);
 	}
 	return navpoly;
@@ -134,7 +134,7 @@ void NavigationPolygonEditor::_create_resource() {
 
 	EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
 	undo_redo->create_action(TTR("Create Navigation Polygon"));
-	undo_redo->add_do_method(node, "set_navigation_polygon", Ref<NavigationPolygon>(memnewOldNoConstructor(NavigationPolygon)));
+	undo_redo->add_do_method(node, "set_navigation_polygon", Ref<NavigationPolygon>(memnewNoConstructor<NavigationPolygon>()));
 	undo_redo->add_undo_method(node, "set_navigation_polygon", Variant(Ref<RefCounted>()));
 	undo_redo->commit_action();
 
@@ -142,10 +142,10 @@ void NavigationPolygonEditor::_create_resource() {
 }
 
 NavigationPolygonEditor::NavigationPolygonEditor() {
-	bake_hbox = memnewOldNoConstructor(HBoxContainer);
+	bake_hbox = memnewNoConstructor<HBoxContainer>();
 	add_child(bake_hbox);
 
-	button_bake = memnewOldNoConstructor(Button);
+	button_bake = memnewNoConstructor<Button>();
 	button_bake->set_flat(true);
 	bake_hbox->add_child(button_bake);
 	button_bake->set_toggle_mode(true);
@@ -153,17 +153,17 @@ NavigationPolygonEditor::NavigationPolygonEditor() {
 	button_bake->set_tooltip_text(TTR("Bakes the NavigationPolygon by first parsing the scene for source geometry and then creating the navigation polygon vertices and polygons."));
 	button_bake->connect(SceneStringName(pressed), callable_mp(this, &NavigationPolygonEditor::_bake_pressed));
 
-	button_reset = memnewOldNoConstructor(Button);
+	button_reset = memnewNoConstructor<Button>();
 	button_reset->set_flat(true);
 	bake_hbox->add_child(button_reset);
 	button_reset->set_text(TTR("Clear NavigationPolygon"));
 	button_reset->set_tooltip_text(TTR("Clears the internal NavigationPolygon outlines, vertices and polygons."));
 	button_reset->connect(SceneStringName(pressed), callable_mp(this, &NavigationPolygonEditor::_clear_pressed));
 
-	bake_info = memnewOldNoConstructor(Label);
+	bake_info = memnewNoConstructor<Label>();
 	bake_hbox->add_child(bake_info);
 
-	rebake_timer = memnewOldNoConstructor(Timer);
+	rebake_timer = memnewNoConstructor<Timer>();
 	add_child(rebake_timer);
 	rebake_timer->set_one_shot(true);
 	_rebake_timer_delay = EDITOR_GET("editors/polygon_editor/auto_bake_delay");
@@ -172,7 +172,7 @@ NavigationPolygonEditor::NavigationPolygonEditor() {
 	}
 	rebake_timer->connect("timeout", callable_mp(this, &NavigationPolygonEditor::_rebake_timer_timeout));
 
-	err_dialog = memnewOldNoConstructor(AcceptDialog);
+	err_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(err_dialog);
 	node = nullptr;
 }
@@ -259,5 +259,5 @@ void NavigationPolygonEditor::_rebake_timer_timeout() {
 }
 
 NavigationPolygonEditorPlugin::NavigationPolygonEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnewOldNoConstructor(NavigationPolygonEditor), "NavigationRegion2D") {
+		AbstractPolygon2DEditorPlugin(memnewNoConstructor<NavigationPolygonEditor>(), "NavigationRegion2D") {
 }

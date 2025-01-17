@@ -222,7 +222,7 @@ void GradientTexture2DEdit::_draw() {
 }
 
 GradientTexture2DEdit::GradientTexture2DEdit() {
-	checkerboard = memnewOldNoConstructor(TextureRect);
+	checkerboard = memnewNoConstructor<TextureRect>();
 	checkerboard->set_stretch_mode(TextureRect::STRETCH_TILE);
 	checkerboard->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	checkerboard->set_draw_behind_parent(true);
@@ -277,23 +277,23 @@ void GradientTexture2DEditor::_notification(int p_what) {
 }
 
 GradientTexture2DEditor::GradientTexture2DEditor() {
-	HFlowContainer *toolbar = memnewOldNoConstructor(HFlowContainer);
+	HFlowContainer *toolbar = memnewNoConstructor<HFlowContainer>();
 	add_child(toolbar);
 
-	reverse_button = memnewOldNoConstructor(Button);
+	reverse_button = memnewNoConstructor<Button>();
 	reverse_button->set_tooltip_text(TTR("Swap Gradient Fill Points"));
 	toolbar->add_child(reverse_button);
 	reverse_button->connect(SceneStringName(pressed), callable_mp(this, &GradientTexture2DEditor::_reverse_button_pressed));
 
-	toolbar->add_child(memnewOldNoConstructor(VSeparator));
+	toolbar->add_child(memnewNoConstructor<VSeparator>());
 
-	snap_button = memnewOldNoConstructor(Button);
+	snap_button = memnewNoConstructor<Button>();
 	snap_button->set_tooltip_text(TTR("Toggle Grid Snap"));
 	snap_button->set_toggle_mode(true);
 	toolbar->add_child(snap_button);
 	snap_button->connect("toggled", callable_mp(this, &GradientTexture2DEditor::_set_snap_enabled));
 
-	snap_count_edit = memnewOldNoConstructor(EditorSpinSlider);
+	snap_count_edit = memnewNoConstructor<EditorSpinSlider>();
 	snap_count_edit->set_min(2);
 	snap_count_edit->set_max(100);
 	snap_count_edit->set_value(DEFAULT_SNAP);
@@ -301,7 +301,7 @@ GradientTexture2DEditor::GradientTexture2DEditor() {
 	toolbar->add_child(snap_count_edit);
 	snap_count_edit->connect(SceneStringName(value_changed), callable_mp(this, &GradientTexture2DEditor::_set_snap_count));
 
-	texture_editor_rect = memnewOldNoConstructor(GradientTexture2DEdit);
+	texture_editor_rect = memnewNoConstructor<GradientTexture2DEdit>();
 	add_child(texture_editor_rect);
 
 	set_mouse_filter(MOUSE_FILTER_STOP);
@@ -322,7 +322,7 @@ void EditorInspectorPluginGradientTexture2D::parse_begin(Object *p_object) {
 	}
 	Ref<GradientTexture2D> t(texture);
 
-	GradientTexture2DEditor *editor = memnewOldNoConstructor(GradientTexture2DEditor);
+	GradientTexture2DEditor *editor = memnewNoConstructor<GradientTexture2DEditor>();
 	editor->set_texture(t);
 	add_custom_control(editor);
 }

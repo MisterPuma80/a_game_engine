@@ -416,7 +416,7 @@ class CSharpLanguage : public ScriptLanguage {
 	Mutex unsafe_object_references_lock;
 #endif
 
-	ManagedCallableMiddleman *managed_callable_middleman = memnewOldNoConstructor(ManagedCallableMiddleman);
+	ManagedCallableMiddleman *managed_callable_middleman = memnewNoConstructor<ManagedCallableMiddleman>();
 
 	int lang_idx = -1;
 

@@ -99,7 +99,7 @@ public:
 	void finalize() override {}
 
 	static RendererCompositor *_create_current() {
-		return memnewOldNoConstructor(RasterizerDummy);
+		return memnewNoConstructor<RasterizerDummy>();
 	}
 
 	static void make_current() {

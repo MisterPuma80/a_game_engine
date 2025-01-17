@@ -45,55 +45,55 @@
 	ERR_FAIL_COND_MSG(m_object->get_space() && flushing_queries, "Can't change this state while flushing queries. Use call_deferred() or set_deferred() to change monitoring state instead.");
 
 RID GodotPhysicsServer3D::world_boundary_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotWorldBoundaryShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotWorldBoundaryShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::separation_ray_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotSeparationRayShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotSeparationRayShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::sphere_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotSphereShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotSphereShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::box_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotBoxShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotBoxShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::capsule_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotCapsuleShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotCapsuleShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::cylinder_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotCylinderShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotCylinderShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::convex_polygon_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotConvexPolygonShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotConvexPolygonShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::concave_polygon_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotConcavePolygonShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotConcavePolygonShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::heightmap_shape_create() {
-	GodotShape3D *shape = memnewOldNoConstructor(GodotHeightMapShape3D);
+	GodotShape3D *shape = memnewNoConstructor<GodotHeightMapShape3D>();
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
@@ -141,7 +141,7 @@ real_t GodotPhysicsServer3D::shape_get_custom_solver_bias(RID p_shape) const {
 }
 
 RID GodotPhysicsServer3D::space_create() {
-	GodotSpace3D *space = memnewOldNoConstructor(GodotSpace3D);
+	GodotSpace3D *space = memnewNoConstructor<GodotSpace3D>();
 	RID id = space_owner.make_rid(space);
 	space->set_self(id);
 	RID area_id = area_create();
@@ -253,7 +253,7 @@ int GodotPhysicsServer3D::space_get_contact_count(RID p_space) const {
 }
 
 RID GodotPhysicsServer3D::area_create() {
-	GodotArea3D *area = memnewOldNoConstructor(GodotArea3D);
+	GodotArea3D *area = memnewNoConstructor<GodotArea3D>();
 	RID rid = area_owner.make_rid(area);
 	area->set_self(rid);
 	return rid;
@@ -478,7 +478,7 @@ void GodotPhysicsServer3D::area_set_area_monitor_callback(RID p_area, const Call
 /* BODY API */
 
 RID GodotPhysicsServer3D::body_create() {
-	GodotBody3D *body = memnewOldNoConstructor(GodotBody3D);
+	GodotBody3D *body = memnewNoConstructor<GodotBody3D>();
 	RID rid = body_owner.make_rid(body);
 	body->set_self(rid);
 	return rid;
@@ -980,7 +980,7 @@ PhysicsDirectBodyState3D *GodotPhysicsServer3D::body_get_direct_state(RID p_body
 /* SOFT BODY */
 
 RID GodotPhysicsServer3D::soft_body_create() {
-	GodotSoftBody3D *soft_body = memnewOldNoConstructor(GodotSoftBody3D);
+	GodotSoftBody3D *soft_body = memnewNoConstructor<GodotSoftBody3D>();
 	RID rid = soft_body_owner.make_rid(soft_body);
 	soft_body->set_self(rid);
 	return rid;
@@ -1240,7 +1240,7 @@ bool GodotPhysicsServer3D::soft_body_is_point_pinned(RID p_body, int p_point_ind
 /* JOINT API */
 
 RID GodotPhysicsServer3D::joint_create() {
-	GodotJoint3D *joint = memnewOldNoConstructor(GodotJoint3D);
+	GodotJoint3D *joint = memnewNoConstructor<GodotJoint3D>();
 	RID rid = joint_owner.make_rid(joint);
 	joint->set_self(rid);
 	return rid;
@@ -1250,7 +1250,7 @@ void GodotPhysicsServer3D::joint_clear(RID p_joint) {
 	GodotJoint3D *joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(joint);
 	if (joint->get_type() != JOINT_TYPE_MAX) {
-		GodotJoint3D *empty_joint = memnewOldNoConstructor(GodotJoint3D);
+		GodotJoint3D *empty_joint = memnewNoConstructor<GodotJoint3D>();
 		empty_joint->copy_settings_from(joint);
 
 		joint_owner.replace(p_joint, empty_joint);
@@ -1663,7 +1663,7 @@ void GodotPhysicsServer3D::set_active(bool p_active) {
 }
 
 void GodotPhysicsServer3D::init() {
-	stepper = memnewOldNoConstructor(GodotStep3D);
+	stepper = memnewNoConstructor<GodotStep3D>();
 }
 
 void GodotPhysicsServer3D::step(real_t p_step) {

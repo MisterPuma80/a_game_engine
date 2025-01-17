@@ -59,7 +59,7 @@ public:
 
 EditorDebuggerServer *EditorDebuggerServerTCP::create(const String &p_protocol) {
 	ERR_FAIL_COND_V(p_protocol != "tcp://", nullptr);
-	return memnewOldNoConstructor(EditorDebuggerServerTCP);
+	return memnewNoConstructor<EditorDebuggerServerTCP>();
 }
 
 EditorDebuggerServerTCP::EditorDebuggerServerTCP() {

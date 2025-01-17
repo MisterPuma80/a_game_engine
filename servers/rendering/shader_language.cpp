@@ -9558,7 +9558,7 @@ Error ShaderLanguage::_parse_shader(const HashMap<StringName, FunctionInfo> &p_f
 
 								array_size = constant.array_size;
 
-								ConstantNode *expr = memnewOldNoConstructor(ConstantNode);
+								ConstantNode *expr = memnewNoConstructor<ConstantNode>();
 
 								expr->datatype = constant.type;
 

@@ -88,7 +88,7 @@ using namespace godot;
 hb_font_funcs_t *TextServerAdvanced::funcs = nullptr;
 
 TextServerAdvanced::bmp_font_t *TextServerAdvanced::_bmp_font_create(TextServerAdvanced::FontForSizeAdvanced *p_face, bool p_unref) {
-	bmp_font_t *bm_font = memnewOldNoConstructor(bmp_font_t);
+	bmp_font_t *bm_font = memnewNoConstructor<bmp_font_t>();
 
 	if (!bm_font) {
 		return nullptr;
@@ -1349,7 +1349,7 @@ _FORCE_INLINE_ bool TextServerAdvanced::_ensure_cache_for_size(FontAdvanced *p_f
 		return true;
 	}
 
-	FontForSizeAdvanced *fd = memnewOldNoConstructor(FontForSizeAdvanced);
+	FontForSizeAdvanced *fd = memnewNoConstructor<FontForSizeAdvanced>();
 	fd->size = p_size;
 	if (p_font_data->data_ptr && (p_font_data->data_size > 0)) {
 		// Init dynamic font.
@@ -1868,7 +1868,7 @@ hb_font_t *TextServerAdvanced::_font_get_hb_handle(const RID &p_font_rid, int64_
 RID TextServerAdvanced::_create_font() {
 	_THREAD_SAFE_METHOD_
 
-	FontAdvanced *fd = memnewOldNoConstructor(FontAdvanced);
+	FontAdvanced *fd = memnewNoConstructor<FontAdvanced>();
 
 	return font_owner.make_rid(fd);
 }
@@ -1883,7 +1883,7 @@ RID TextServerAdvanced::_create_font_linked_variation(const RID &p_font_rid) {
 	}
 	ERR_FAIL_COND_V(!font_owner.owns(rid), RID());
 
-	FontAdvancedLinkedVariation *new_fdv = memnewOldNoConstructor(FontAdvancedLinkedVariation);
+	FontAdvancedLinkedVariation *new_fdv = memnewNoConstructor<FontAdvancedLinkedVariation>();
 	new_fdv->base_font = rid;
 
 	return font_var_owner.make_rid(new_fdv);
@@ -4081,7 +4081,7 @@ RID TextServerAdvanced::_create_shaped_text(TextServer::Direction p_direction, T
 	_THREAD_SAFE_METHOD_
 	ERR_FAIL_COND_V_MSG(p_direction == DIRECTION_INHERITED, RID(), "Invalid text direction.");
 
-	ShapedTextDataAdvanced *sd = memnewOldNoConstructor(ShapedTextDataAdvanced);
+	ShapedTextDataAdvanced *sd = memnewNoConstructor<ShapedTextDataAdvanced>();
 	sd->hb_buffer = hb_buffer_create();
 	sd->direction = p_direction;
 	sd->orientation = p_orientation;
@@ -4532,7 +4532,7 @@ RID TextServerAdvanced::_shaped_text_substr(const RID &p_shaped, int64_t p_start
 	ERR_FAIL_COND_V(sd->start > p_start || sd->end < p_start, RID());
 	ERR_FAIL_COND_V(sd->end < p_start + p_length, RID());
 
-	ShapedTextDataAdvanced *new_sd = memnewOldNoConstructor(ShapedTextDataAdvanced);
+	ShapedTextDataAdvanced *new_sd = memnewNoConstructor<ShapedTextDataAdvanced>();
 	new_sd->parent = p_shaped;
 	new_sd->start = p_start;
 	new_sd->end = p_start + p_length;

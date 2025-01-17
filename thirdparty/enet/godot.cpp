@@ -439,7 +439,7 @@ int enet_address_get_host(const ENetAddress *address, char *name, size_t nameLen
 }
 
 ENetSocket enet_socket_create(ENetSocketType type) {
-	ENetUDP *socket = memnewOldNoConstructor(ENetUDP);
+	ENetUDP *socket = memnewNoConstructor<ENetUDP>();
 
 	return socket;
 }

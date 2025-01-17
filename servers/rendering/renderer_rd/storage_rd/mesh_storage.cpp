@@ -365,7 +365,7 @@ void MeshStorage::mesh_add_surface(RID p_mesh, const RS::SurfaceData &p_surface)
 	}
 #endif
 
-	Mesh::Surface *s = memnewOldNoConstructor(Mesh::Surface);
+	Mesh::Surface *s = memnewNoConstructor<Mesh::Surface>();
 
 	s->format = new_surface.format;
 	s->primitive = new_surface.primitive;

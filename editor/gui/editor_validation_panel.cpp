@@ -63,7 +63,7 @@ void EditorValidationPanel::_notification(int p_what) {
 void EditorValidationPanel::add_line(int p_id, const String &p_valid_message) {
 	ERR_FAIL_COND(valid_messages.has(p_id));
 
-	Label *label = memnewOldNoConstructor(Label);
+	Label *label = memnewNoConstructor<Label>();
 	message_container->add_child(label);
 	label->set_custom_minimum_size(Size2(200 * EDSCALE, 0));
 	label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
@@ -131,6 +131,6 @@ bool EditorValidationPanel::is_valid() const {
 EditorValidationPanel::EditorValidationPanel() {
 	set_v_size_flags(SIZE_EXPAND_FILL);
 
-	message_container = memnewOldNoConstructor(VBoxContainer);
+	message_container = memnewNoConstructor<VBoxContainer>();
 	add_child(message_container);
 }

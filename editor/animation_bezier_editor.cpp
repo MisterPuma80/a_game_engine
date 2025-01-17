@@ -1996,7 +1996,7 @@ AnimationBezierTrackEdit::AnimationBezierTrackEdit() {
 	panner.instantiate();
 	panner->set_callbacks(callable_mp(this, &AnimationBezierTrackEdit::_pan_callback), callable_mp(this, &AnimationBezierTrackEdit::_zoom_callback));
 
-	play_position = memnewOldNoConstructor(Control);
+	play_position = memnewNoConstructor<Control>();
 	play_position->set_mouse_filter(MOUSE_FILTER_PASS);
 	add_child(play_position);
 	play_position->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
@@ -2009,7 +2009,7 @@ AnimationBezierTrackEdit::AnimationBezierTrackEdit() {
 	ED_SHORTCUT("animation_bezier_editor/select_all_keys", TTR("Select All Keys"), KeyModifierMask::CMD_OR_CTRL | Key::A);
 	ED_SHORTCUT("animation_bezier_editor/deselect_all_keys", TTR("Deselect All Keys"), KeyModifierMask::CMD_OR_CTRL | KeyModifierMask::SHIFT | Key::A);
 
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationBezierTrackEdit::_menu_selected));
 }

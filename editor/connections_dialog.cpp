@@ -711,15 +711,15 @@ void ConnectDialog::_advanced_pressed() {
 ConnectDialog::ConnectDialog() {
 	set_min_size(Size2(0, 500) * EDSCALE);
 
-	HBoxContainer *main_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *main_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(main_hb);
 
-	VBoxContainer *vbc_left = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc_left = memnewNoConstructor<VBoxContainer>();
 	main_hb->add_child(vbc_left);
 	vbc_left->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc_left->set_custom_minimum_size(Vector2(400 * EDSCALE, 0));
 
-	from_signal = memnewOldNoConstructor(LineEdit);
+	from_signal = memnewNoConstructor<LineEdit>();
 	vbc_left->add_margin_child(TTR("From Signal:"), from_signal);
 	from_signal->set_editable(false);
 
@@ -731,16 +731,16 @@ ConnectDialog::ConnectDialog() {
 	tree->connect("node_selected", callable_mp(this, &ConnectDialog::_tree_node_selected));
 	tree->set_connect_to_script_mode(true);
 
-	HBoxContainer *hbc_filter = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc_filter = memnewNoConstructor<HBoxContainer>();
 
-	filter_nodes = memnewOldNoConstructor(LineEdit);
+	filter_nodes = memnewNoConstructor<LineEdit>();
 	hbc_filter->add_child(filter_nodes);
 	filter_nodes->set_h_size_flags(Control::SIZE_FILL | Control::SIZE_EXPAND);
 	filter_nodes->set_placeholder(TTR("Filter Nodes"));
 	filter_nodes->set_clear_button_enabled(true);
 	filter_nodes->connect(SceneStringName(text_changed), callable_mp(tree, &SceneTreeEditor::set_filter));
 
-	Button *focus_current = memnewOldNoConstructor(Button);
+	Button *focus_current = memnewNoConstructor<Button>();
 	hbc_filter->add_child(focus_current);
 	focus_current->set_text(TTR("Go to Source"));
 	focus_current->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_focus_currently_connected));
@@ -749,30 +749,30 @@ ConnectDialog::ConnectDialog() {
 	connect_to_label = Object::cast_to<Label>(vbc_left->get_child(mc->get_index() - 1));
 	vbc_left->add_child(tree);
 
-	warning_label = memnewOldNoConstructor(Label);
+	warning_label = memnewNoConstructor<Label>();
 	vbc_left->add_child(warning_label);
 	warning_label->hide();
 
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_label->set_text(TTR("Scene does not contain any script."));
 	vbc_left->add_child(error_label);
 	error_label->hide();
 
-	method_popup = memnewOldNoConstructor(AcceptDialog);
+	method_popup = memnewNoConstructor<AcceptDialog>();
 	method_popup->set_title(TTR("Select Method"));
 	method_popup->set_min_size(Vector2(400, 600) * EDSCALE);
 	add_child(method_popup);
 
-	VBoxContainer *method_vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *method_vbc = memnewNoConstructor<VBoxContainer>();
 	method_popup->add_child(method_vbc);
 
-	method_search = memnewOldNoConstructor(LineEdit);
+	method_search = memnewNoConstructor<LineEdit>();
 	method_vbc->add_child(method_search);
 	method_search->set_placeholder(TTR("Filter Methods"));
 	method_search->set_clear_button_enabled(true);
 	method_search->connect(SceneStringName(text_changed), callable_mp(this, &ConnectDialog::_update_method_tree).unbind(1));
 
-	method_tree = memnewOldNoConstructor(Tree);
+	method_tree = memnewNoConstructor<Tree>();
 	method_vbc->add_child(method_tree);
 	method_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	method_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -798,15 +798,15 @@ ConnectDialog::ConnectDialog() {
 	compatible_methods_only->set_pressed(EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "show_compatible_methods_only", true));
 	compatible_methods_only->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_method_check_button_pressed).bind(compatible_methods_only));
 
-	vbc_right = memnewOldNoConstructor(VBoxContainer);
+	vbc_right = memnewNoConstructor<VBoxContainer>();
 	main_hb->add_child(vbc_right);
 	vbc_right->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc_right->set_custom_minimum_size(Vector2(150 * EDSCALE, 0));
 	vbc_right->hide();
 
-	HBoxContainer *add_bind_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *add_bind_hb = memnewNoConstructor<HBoxContainer>();
 
-	type_list = memnewOldNoConstructor(OptionButton);
+	type_list = memnewNoConstructor<OptionButton>();
 	type_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_bind_hb->add_child(type_list);
 	for (int i = 0; i < Variant::VARIANT_MAX; i++) {
@@ -819,13 +819,13 @@ ConnectDialog::ConnectDialog() {
 	}
 	bind_controls.push_back(type_list);
 
-	Button *add_bind = memnewOldNoConstructor(Button);
+	Button *add_bind = memnewNoConstructor<Button>();
 	add_bind->set_text(TTR("Add"));
 	add_bind_hb->add_child(add_bind);
 	add_bind->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_add_bind));
 	bind_controls.push_back(add_bind);
 
-	Button *del_bind = memnewOldNoConstructor(Button);
+	Button *del_bind = memnewNoConstructor<Button>();
 	del_bind->set_text(TTR("Remove"));
 	add_bind_hb->add_child(del_bind);
 	del_bind->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_remove_bind));
@@ -833,27 +833,27 @@ ConnectDialog::ConnectDialog() {
 
 	vbc_right->add_margin_child(TTR("Add Extra Call Argument:"), add_bind_hb);
 
-	bind_editor = memnewOldNoConstructor(EditorInspector);
+	bind_editor = memnewNoConstructor<EditorInspector>();
 	bind_controls.push_back(bind_editor);
 
 	vbc_right->add_margin_child(TTR("Extra Call Arguments:"), bind_editor, true);
 
-	unbind_count = memnewOldNoConstructor(SpinBox);
+	unbind_count = memnewNoConstructor<SpinBox>();
 	unbind_count->set_tooltip_text(TTR("Allows to drop arguments sent by signal emitter."));
 	unbind_count->connect(SceneStringName(value_changed), callable_mp(this, &ConnectDialog::_unbind_count_changed));
 
 	vbc_right->add_margin_child(TTR("Unbind Signal Arguments:"), unbind_count);
 
-	HBoxContainer *hbc_method = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc_method = memnewNoConstructor<HBoxContainer>();
 	vbc_left->add_margin_child(TTR("Receiver Method:"), hbc_method);
 
-	dst_method = memnewOldNoConstructor(LineEdit);
+	dst_method = memnewNoConstructor<LineEdit>();
 	dst_method->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	dst_method->connect(SceneStringName(text_changed), callable_mp(method_tree, &Tree::deselect_all).unbind(1));
 	hbc_method->add_child(dst_method);
 	register_text_enter(dst_method);
 
-	open_method_tree = memnewOldNoConstructor(Button);
+	open_method_tree = memnewNoConstructor<Button>();
 	hbc_method->add_child(open_method_tree);
 	open_method_tree->set_text("Pick");
 	open_method_tree->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_open_method_popup));
@@ -864,24 +864,24 @@ ConnectDialog::ConnectDialog() {
 	advanced->set_pressed(EditorSettings::get_singleton()->get_project_metadata("editor_metadata", "use_advanced_connections", false));
 	advanced->connect(SceneStringName(pressed), callable_mp(this, &ConnectDialog::_advanced_pressed));
 
-	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbox = memnewNoConstructor<HBoxContainer>();
 	vbc_right->add_child(hbox);
 
-	deferred = memnewOldNoConstructor(CheckBox);
+	deferred = memnewNoConstructor<CheckBox>();
 	deferred->set_h_size_flags(0);
 	deferred->set_text(TTR("Deferred"));
 	deferred->set_tooltip_text(TTR("Defers the signal, storing it in a queue and only firing it at idle time."));
 	hbox->add_child(deferred);
 
-	one_shot = memnewOldNoConstructor(CheckBox);
+	one_shot = memnewNoConstructor<CheckBox>();
 	one_shot->set_h_size_flags(0);
 	one_shot->set_text(TTR("One Shot"));
 	one_shot->set_tooltip_text(TTR("Disconnects the signal after its first emission."));
 	hbox->add_child(one_shot);
 
-	cdbinds = memnewOldNoConstructor(ConnectDialogBinds);
+	cdbinds = memnewNoConstructor<ConnectDialogBinds>();
 
-	error = memnewOldNoConstructor(AcceptDialog);
+	error = memnewNoConstructor<AcceptDialog>();
 	add_child(error);
 	error->set_title(TTR("Cannot connect signal"));
 	error->set_ok_button_text(TTR("Close"));
@@ -902,7 +902,7 @@ Control *ConnectionsDockTree::make_custom_tooltip(const String &p_text) const {
 
 	EditorHelpBit *help_bit = memnewWithArgs<EditorHelpBit>(p_text);
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<ConnectionsDockTree *>(this));
-	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
+	return memnewNoConstructor<Control>(); // Make the standard tooltip invisible.
 }
 
 struct _ConnectionsDockMethodInfoSort {
@@ -1584,14 +1584,14 @@ ConnectionsDock::ConnectionsDock() {
 
 	VBoxContainer *vbc = this;
 
-	search_box = memnewOldNoConstructor(LineEdit);
+	search_box = memnewNoConstructor<LineEdit>();
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->set_placeholder(TTR("Filter Signals"));
 	search_box->set_clear_button_enabled(true);
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &ConnectionsDock::_filter_changed));
 	vbc->add_child(search_box);
 
-	tree = memnewOldNoConstructor(ConnectionsDockTree);
+	tree = memnewNoConstructor<ConnectionsDockTree>();
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_columns(1);
 	tree->set_select_mode(Tree::SELECT_ROW);
@@ -1601,29 +1601,29 @@ ConnectionsDock::ConnectionsDock() {
 	tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tree->set_allow_rmb_select(true);
 
-	connect_button = memnewOldNoConstructor(Button);
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	connect_button = memnewNoConstructor<Button>();
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	vbc->add_child(hb);
 	hb->add_spacer();
 	hb->add_child(connect_button);
 	connect_button->connect(SceneStringName(pressed), callable_mp(this, &ConnectionsDock::_connect_pressed));
 
-	connect_dialog = memnewOldNoConstructor(ConnectDialog);
+	connect_dialog = memnewNoConstructor<ConnectDialog>();
 	connect_dialog->set_process_shortcut_input(true);
 	add_child(connect_dialog);
 
-	disconnect_all_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	disconnect_all_dialog = memnewNoConstructor<ConfirmationDialog>();
 	add_child(disconnect_all_dialog);
 	disconnect_all_dialog->connect(SceneStringName(confirmed), callable_mp(this, &ConnectionsDock::_disconnect_all));
 	disconnect_all_dialog->set_text(TTR("Are you sure you want to remove all connections from this signal?"));
 
-	class_menu = memnewOldNoConstructor(PopupMenu);
+	class_menu = memnewNoConstructor<PopupMenu>();
 	class_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ConnectionsDock::_handle_class_menu_option));
 	class_menu->connect("about_to_popup", callable_mp(this, &ConnectionsDock::_class_menu_about_to_popup));
 	class_menu->add_item(TTR("Open Documentation"), CLASS_MENU_OPEN_DOCS);
 	add_child(class_menu);
 
-	signal_menu = memnewOldNoConstructor(PopupMenu);
+	signal_menu = memnewNoConstructor<PopupMenu>();
 	signal_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ConnectionsDock::_handle_signal_menu_option));
 	signal_menu->connect("about_to_popup", callable_mp(this, &ConnectionsDock::_signal_menu_about_to_popup));
 	signal_menu->add_item(TTR("Connect..."), SIGNAL_MENU_CONNECT);
@@ -1633,7 +1633,7 @@ ConnectionsDock::ConnectionsDock() {
 	signal_menu->add_item(TTR("Open Documentation"), SIGNAL_MENU_OPEN_DOCS);
 	add_child(signal_menu);
 
-	slot_menu = memnewOldNoConstructor(PopupMenu);
+	slot_menu = memnewNoConstructor<PopupMenu>();
 	slot_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ConnectionsDock::_handle_slot_menu_option));
 	slot_menu->connect("about_to_popup", callable_mp(this, &ConnectionsDock::_slot_menu_about_to_popup));
 	slot_menu->add_item(TTR("Edit..."), SLOT_MENU_EDIT);

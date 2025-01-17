@@ -454,7 +454,7 @@ void ShaderPreprocessor::process_define(Tokenizer *p_tokenizer) {
 		return;
 	}
 
-	Define *define = memnewOldNoConstructor(Define);
+	Define *define = memnewNoConstructor<Define>();
 	if (!args.is_empty()) {
 		define->arguments = args;
 	}
@@ -1209,7 +1209,7 @@ void ShaderPreprocessor::set_error(const String &p_error, int p_line) {
 }
 
 ShaderPreprocessor::Define *ShaderPreprocessor::create_define(const String &p_body) {
-	ShaderPreprocessor::Define *define = memnewOldNoConstructor(Define);
+	ShaderPreprocessor::Define *define = memnewNoConstructor<Define>();
 	define->body = p_body;
 	return define;
 }

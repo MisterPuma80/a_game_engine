@@ -42,7 +42,7 @@ namespace TestImageTexture {
 // [SceneTree] in a test case name enables initializing a mock render server,
 // which ImageTexture is dependent on.
 TEST_CASE("[SceneTree][ImageTexture] constructor") {
-	Ref<ImageTexture> image_texture = memnewOldNoConstructor(ImageTexture);
+	Ref<ImageTexture> image_texture = memnewNoConstructor<ImageTexture>();
 	CHECK(image_texture->get_width() == 0);
 	CHECK(image_texture->get_height() == 0);
 	CHECK(image_texture->get_format() == 0);
@@ -61,7 +61,7 @@ TEST_CASE("[SceneTree][ImageTexture] create_from_image") {
 }
 
 TEST_CASE("[SceneTree][ImageTexture] set_image") {
-	Ref<ImageTexture> image_texture = memnewOldNoConstructor(ImageTexture);
+	Ref<ImageTexture> image_texture = memnewNoConstructor<ImageTexture>();
 	Ref<Image> image = memnewWithArgs<Image>(8, 4, false, Image::FORMAT_RGB8);
 	image_texture->set_image(image);
 	CHECK(image_texture->get_width() == 8);
@@ -100,7 +100,7 @@ TEST_CASE("[SceneTree][ImageTexture] is_pixel_opaque") {
 }
 
 TEST_CASE("[SceneTree][ImageTexture] set_path") {
-	Ref<ImageTexture> image_texture = memnewOldNoConstructor(ImageTexture);
+	Ref<ImageTexture> image_texture = memnewNoConstructor<ImageTexture>();
 	String path = TestUtils::get_data_path("images/icon.png");
 	image_texture->set_path(path, true);
 	CHECK(image_texture->get_path() == path);

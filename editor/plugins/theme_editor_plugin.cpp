@@ -911,17 +911,17 @@ void ThemeItemImportTree::_bind_methods() {
 }
 
 ThemeItemImportTree::ThemeItemImportTree() {
-	import_items_filter = memnewOldNoConstructor(LineEdit);
+	import_items_filter = memnewNoConstructor<LineEdit>();
 	import_items_filter->set_placeholder(TTR("Filter Items"));
 	import_items_filter->set_clear_button_enabled(true);
 	add_child(import_items_filter);
 	import_items_filter->connect(SceneStringName(text_changed), callable_mp(this, &ThemeItemImportTree::_filter_text_changed));
 
-	HBoxContainer *import_main_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *import_main_hb = memnewNoConstructor<HBoxContainer>();
 	import_main_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(import_main_hb);
 
-	import_items_tree = memnewOldNoConstructor(Tree);
+	import_items_tree = memnewNoConstructor<Tree>();
 	import_items_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	import_items_tree->set_hide_root(true);
 	import_items_tree->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -943,59 +943,59 @@ ThemeItemImportTree::ThemeItemImportTree() {
 	import_items_tree->set_column_clip_content(1, true);
 	import_items_tree->set_column_clip_content(2, true);
 
-	ScrollContainer *import_bulk_sc = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *import_bulk_sc = memnewNoConstructor<ScrollContainer>();
 	import_bulk_sc->set_custom_minimum_size(Size2(260.0, 0.0) * EDSCALE);
 	import_bulk_sc->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	import_main_hb->add_child(import_bulk_sc);
-	VBoxContainer *import_bulk_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *import_bulk_vb = memnewNoConstructor<VBoxContainer>();
 	import_bulk_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	import_bulk_sc->add_child(import_bulk_vb);
 
-	Label *import_bulk_label = memnewOldNoConstructor(Label);
+	Label *import_bulk_label = memnewNoConstructor<Label>();
 	import_bulk_label->set_text(TTR("Select by data type:"));
 	import_bulk_vb->add_child(import_bulk_label);
 
-	select_colors_icon = memnewOldNoConstructor(TextureRect);
-	select_colors_label = memnewOldNoConstructor(Label);
-	deselect_all_colors_button = memnewOldNoConstructor(Button);
-	select_all_colors_button = memnewOldNoConstructor(Button);
-	select_full_colors_button = memnewOldNoConstructor(Button);
-	total_selected_colors_label = memnewOldNoConstructor(Label);
+	select_colors_icon = memnewNoConstructor<TextureRect>();
+	select_colors_label = memnewNoConstructor<Label>();
+	deselect_all_colors_button = memnewNoConstructor<Button>();
+	select_all_colors_button = memnewNoConstructor<Button>();
+	select_full_colors_button = memnewNoConstructor<Button>();
+	total_selected_colors_label = memnewNoConstructor<Label>();
 
-	select_constants_icon = memnewOldNoConstructor(TextureRect);
-	select_constants_label = memnewOldNoConstructor(Label);
-	deselect_all_constants_button = memnewOldNoConstructor(Button);
-	select_all_constants_button = memnewOldNoConstructor(Button);
-	select_full_constants_button = memnewOldNoConstructor(Button);
-	total_selected_constants_label = memnewOldNoConstructor(Label);
+	select_constants_icon = memnewNoConstructor<TextureRect>();
+	select_constants_label = memnewNoConstructor<Label>();
+	deselect_all_constants_button = memnewNoConstructor<Button>();
+	select_all_constants_button = memnewNoConstructor<Button>();
+	select_full_constants_button = memnewNoConstructor<Button>();
+	total_selected_constants_label = memnewNoConstructor<Label>();
 
-	select_fonts_icon = memnewOldNoConstructor(TextureRect);
-	select_fonts_label = memnewOldNoConstructor(Label);
-	deselect_all_fonts_button = memnewOldNoConstructor(Button);
-	select_all_fonts_button = memnewOldNoConstructor(Button);
-	select_full_fonts_button = memnewOldNoConstructor(Button);
-	total_selected_fonts_label = memnewOldNoConstructor(Label);
+	select_fonts_icon = memnewNoConstructor<TextureRect>();
+	select_fonts_label = memnewNoConstructor<Label>();
+	deselect_all_fonts_button = memnewNoConstructor<Button>();
+	select_all_fonts_button = memnewNoConstructor<Button>();
+	select_full_fonts_button = memnewNoConstructor<Button>();
+	total_selected_fonts_label = memnewNoConstructor<Label>();
 
-	select_font_sizes_icon = memnewOldNoConstructor(TextureRect);
-	select_font_sizes_label = memnewOldNoConstructor(Label);
-	deselect_all_font_sizes_button = memnewOldNoConstructor(Button);
-	select_all_font_sizes_button = memnewOldNoConstructor(Button);
-	select_full_font_sizes_button = memnewOldNoConstructor(Button);
-	total_selected_font_sizes_label = memnewOldNoConstructor(Label);
+	select_font_sizes_icon = memnewNoConstructor<TextureRect>();
+	select_font_sizes_label = memnewNoConstructor<Label>();
+	deselect_all_font_sizes_button = memnewNoConstructor<Button>();
+	select_all_font_sizes_button = memnewNoConstructor<Button>();
+	select_full_font_sizes_button = memnewNoConstructor<Button>();
+	total_selected_font_sizes_label = memnewNoConstructor<Label>();
 
-	select_icons_icon = memnewOldNoConstructor(TextureRect);
-	select_icons_label = memnewOldNoConstructor(Label);
-	deselect_all_icons_button = memnewOldNoConstructor(Button);
-	select_all_icons_button = memnewOldNoConstructor(Button);
-	select_full_icons_button = memnewOldNoConstructor(Button);
-	total_selected_icons_label = memnewOldNoConstructor(Label);
+	select_icons_icon = memnewNoConstructor<TextureRect>();
+	select_icons_label = memnewNoConstructor<Label>();
+	deselect_all_icons_button = memnewNoConstructor<Button>();
+	select_all_icons_button = memnewNoConstructor<Button>();
+	select_full_icons_button = memnewNoConstructor<Button>();
+	total_selected_icons_label = memnewNoConstructor<Label>();
 
-	select_styleboxes_icon = memnewOldNoConstructor(TextureRect);
-	select_styleboxes_label = memnewOldNoConstructor(Label);
-	deselect_all_styleboxes_button = memnewOldNoConstructor(Button);
-	select_all_styleboxes_button = memnewOldNoConstructor(Button);
-	select_full_styleboxes_button = memnewOldNoConstructor(Button);
-	total_selected_styleboxes_label = memnewOldNoConstructor(Label);
+	select_styleboxes_icon = memnewNoConstructor<TextureRect>();
+	select_styleboxes_label = memnewNoConstructor<Label>();
+	deselect_all_styleboxes_button = memnewNoConstructor<Button>();
+	select_all_styleboxes_button = memnewNoConstructor<Button>();
+	select_full_styleboxes_button = memnewNoConstructor<Button>();
+	total_selected_styleboxes_label = memnewNoConstructor<Label>();
 
 	for (int i = 0; i < Theme::DATA_TYPE_MAX; i++) {
 		Theme::DataType dt = (Theme::DataType)i;
@@ -1102,13 +1102,13 @@ ThemeItemImportTree::ThemeItemImportTree() {
 		}
 
 		if (i > 0) {
-			import_bulk_vb->add_child(memnewOldNoConstructor(HSeparator));
+			import_bulk_vb->add_child(memnewNoConstructor<HSeparator>());
 		}
 
-		HBoxContainer *all_set = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *all_set = memnewNoConstructor<HBoxContainer>();
 		import_bulk_vb->add_child(all_set);
 
-		HBoxContainer *label_set = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *label_set = memnewNoConstructor<HBoxContainer>();
 		label_set->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		all_set->add_child(label_set);
 		select_items_icon->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
@@ -1118,7 +1118,7 @@ ThemeItemImportTree::ThemeItemImportTree() {
 		select_items_label->set_text(items_title);
 		label_set->add_child(select_items_label);
 
-		HBoxContainer *button_set = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *button_set = memnewNoConstructor<HBoxContainer>();
 		button_set->set_alignment(BoxContainer::ALIGNMENT_END);
 		all_set->add_child(button_set);
 		select_all_items_button->set_flat(true);
@@ -1139,14 +1139,14 @@ ThemeItemImportTree::ThemeItemImportTree() {
 		import_bulk_vb->add_child(total_selected_items_label);
 
 		if (dt == Theme::DATA_TYPE_ICON) {
-			select_icons_warning_hb = memnewOldNoConstructor(HBoxContainer);
+			select_icons_warning_hb = memnewNoConstructor<HBoxContainer>();
 			import_bulk_vb->add_child(select_icons_warning_hb);
 
-			select_icons_warning_icon = memnewOldNoConstructor(TextureRect);
+			select_icons_warning_icon = memnewNoConstructor<TextureRect>();
 			select_icons_warning_icon->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 			select_icons_warning_hb->add_child(select_icons_warning_icon);
 
-			select_icons_warning = memnewOldNoConstructor(Label);
+			select_icons_warning = memnewNoConstructor<Label>();
 			select_icons_warning->set_text(TTR("Caution: Adding icon data may considerably increase the size of your Theme resource."));
 			select_icons_warning->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 			select_icons_warning->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -1154,37 +1154,37 @@ ThemeItemImportTree::ThemeItemImportTree() {
 		}
 	}
 
-	add_child(memnewOldNoConstructor(HSeparator));
+	add_child(memnewNoConstructor<HSeparator>());
 
-	HBoxContainer *import_buttons = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *import_buttons = memnewNoConstructor<HBoxContainer>();
 	add_child(import_buttons);
 
-	import_collapse_types_button = memnewOldNoConstructor(Button);
+	import_collapse_types_button = memnewNoConstructor<Button>();
 	import_collapse_types_button->set_flat(true);
 	import_collapse_types_button->set_tooltip_text(TTR("Collapse types."));
 	import_buttons->add_child(import_collapse_types_button);
 	import_collapse_types_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemImportTree::_toggle_type_items).bind(true));
-	import_expand_types_button = memnewOldNoConstructor(Button);
+	import_expand_types_button = memnewNoConstructor<Button>();
 	import_expand_types_button->set_flat(true);
 	import_expand_types_button->set_tooltip_text(TTR("Expand types."));
 	import_buttons->add_child(import_expand_types_button);
 	import_expand_types_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemImportTree::_toggle_type_items).bind(false));
 
-	import_buttons->add_child(memnewOldNoConstructor(VSeparator));
+	import_buttons->add_child(memnewNoConstructor<VSeparator>());
 
-	import_select_all_button = memnewOldNoConstructor(Button);
+	import_select_all_button = memnewNoConstructor<Button>();
 	import_select_all_button->set_flat(true);
 	import_select_all_button->set_text(TTR("Select All"));
 	import_select_all_button->set_tooltip_text(TTR("Select all Theme items."));
 	import_buttons->add_child(import_select_all_button);
 	import_select_all_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemImportTree::_select_all_items_pressed));
-	import_select_full_button = memnewOldNoConstructor(Button);
+	import_select_full_button = memnewNoConstructor<Button>();
 	import_select_full_button->set_flat(true);
 	import_select_full_button->set_text(TTR("Select With Data"));
 	import_select_full_button->set_tooltip_text(TTR("Select all Theme items with item data."));
 	import_buttons->add_child(import_select_full_button);
 	import_select_full_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemImportTree::_select_full_items_pressed));
-	import_deselect_all_button = memnewOldNoConstructor(Button);
+	import_deselect_all_button = memnewNoConstructor<Button>();
 	import_deselect_all_button->set_flat(true);
 	import_deselect_all_button->set_text(TTR("Deselect All"));
 	import_deselect_all_button->set_tooltip_text(TTR("Deselect all Theme items."));
@@ -1193,7 +1193,7 @@ ThemeItemImportTree::ThemeItemImportTree() {
 
 	import_buttons->add_spacer();
 
-	Button *import_add_selected_button = memnewOldNoConstructor(Button);
+	Button *import_add_selected_button = memnewNoConstructor<Button>();
 	import_add_selected_button->set_text(TTR("Import Selected"));
 	import_buttons->add_child(import_add_selected_button);
 	import_add_selected_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemImportTree::_import_selected));
@@ -1915,24 +1915,24 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 
 	theme_type_editor = p_theme_type_editor;
 
-	tc = memnewOldNoConstructor(TabContainer);
+	tc = memnewNoConstructor<TabContainer>();
 	add_child(tc);
 	tc->set_theme_type_variation("TabContainerOdd");
 
 	// Edit Items tab.
-	HSplitContainer *edit_dialog_hs = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *edit_dialog_hs = memnewNoConstructor<HSplitContainer>();
 	tc->add_child(edit_dialog_hs);
 	tc->set_tab_title(0, TTR("Edit Items"));
 
-	VBoxContainer *edit_dialog_side_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *edit_dialog_side_vb = memnewNoConstructor<VBoxContainer>();
 	edit_dialog_side_vb->set_custom_minimum_size(Size2(200.0, 0.0) * EDSCALE);
 	edit_dialog_hs->add_child(edit_dialog_side_vb);
 
-	Label *edit_type_label = memnewOldNoConstructor(Label);
+	Label *edit_type_label = memnewNoConstructor<Label>();
 	edit_type_label->set_text(TTR("Types:"));
 	edit_dialog_side_vb->add_child(edit_type_label);
 
-	edit_type_list = memnewOldNoConstructor(Tree);
+	edit_type_list = memnewNoConstructor<Tree>();
 	edit_type_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	edit_type_list->set_hide_root(true);
 	edit_type_list->set_hide_folding(true);
@@ -1942,101 +1942,101 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 	edit_type_list->connect(SceneStringName(item_selected), callable_mp(this, &ThemeItemEditorDialog::_edited_type_selected));
 	edit_type_list->connect("button_clicked", callable_mp(this, &ThemeItemEditorDialog::_edited_type_button_pressed));
 
-	Label *edit_add_type_label = memnewOldNoConstructor(Label);
+	Label *edit_add_type_label = memnewNoConstructor<Label>();
 	edit_add_type_label->set_text(TTR("Add Type:"));
 	edit_dialog_side_vb->add_child(edit_add_type_label);
 
-	HBoxContainer *edit_add_type_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *edit_add_type_hb = memnewNoConstructor<HBoxContainer>();
 	edit_dialog_side_vb->add_child(edit_add_type_hb);
-	edit_add_type_value = memnewOldNoConstructor(LineEdit);
+	edit_add_type_value = memnewNoConstructor<LineEdit>();
 	edit_add_type_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	edit_add_type_value->connect("text_submitted", callable_mp(this, &ThemeItemEditorDialog::_add_theme_type));
 	edit_add_type_hb->add_child(edit_add_type_value);
-	edit_add_type_button = memnewOldNoConstructor(Button);
+	edit_add_type_button = memnewNoConstructor<Button>();
 	edit_add_type_hb->add_child(edit_add_type_button);
 	edit_add_type_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_add_theme_type).bind(""));
 
-	VBoxContainer *edit_items_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *edit_items_vb = memnewNoConstructor<VBoxContainer>();
 	edit_items_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	edit_dialog_hs->add_child(edit_items_vb);
 
-	HBoxContainer *edit_items_toolbar = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *edit_items_toolbar = memnewNoConstructor<HBoxContainer>();
 	edit_items_vb->add_child(edit_items_toolbar);
 
-	Label *edit_items_toolbar_add_label = memnewOldNoConstructor(Label);
+	Label *edit_items_toolbar_add_label = memnewNoConstructor<Label>();
 	edit_items_toolbar_add_label->set_text(TTR("Add Item:"));
 	edit_items_toolbar->add_child(edit_items_toolbar_add_label);
 
-	edit_items_add_color = memnewOldNoConstructor(Button);
+	edit_items_add_color = memnewNoConstructor<Button>();
 	edit_items_add_color->set_tooltip_text(TTR("Add Color Item"));
 	edit_items_add_color->set_flat(true);
 	edit_items_add_color->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_color);
 	edit_items_add_color->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_COLOR));
 
-	edit_items_add_constant = memnewOldNoConstructor(Button);
+	edit_items_add_constant = memnewNoConstructor<Button>();
 	edit_items_add_constant->set_tooltip_text(TTR("Add Constant Item"));
 	edit_items_add_constant->set_flat(true);
 	edit_items_add_constant->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_constant);
 	edit_items_add_constant->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_CONSTANT));
 
-	edit_items_add_font = memnewOldNoConstructor(Button);
+	edit_items_add_font = memnewNoConstructor<Button>();
 	edit_items_add_font->set_tooltip_text(TTR("Add Font Item"));
 	edit_items_add_font->set_flat(true);
 	edit_items_add_font->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_font);
 	edit_items_add_font->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_FONT));
 
-	edit_items_add_font_size = memnewOldNoConstructor(Button);
+	edit_items_add_font_size = memnewNoConstructor<Button>();
 	edit_items_add_font_size->set_tooltip_text(TTR("Add Font Size Item"));
 	edit_items_add_font_size->set_flat(true);
 	edit_items_add_font_size->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_font_size);
 	edit_items_add_font_size->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_FONT_SIZE));
 
-	edit_items_add_icon = memnewOldNoConstructor(Button);
+	edit_items_add_icon = memnewNoConstructor<Button>();
 	edit_items_add_icon->set_tooltip_text(TTR("Add Icon Item"));
 	edit_items_add_icon->set_flat(true);
 	edit_items_add_icon->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_icon);
 	edit_items_add_icon->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_ICON));
 
-	edit_items_add_stylebox = memnewOldNoConstructor(Button);
+	edit_items_add_stylebox = memnewNoConstructor<Button>();
 	edit_items_add_stylebox->set_tooltip_text(TTR("Add StyleBox Item"));
 	edit_items_add_stylebox->set_flat(true);
 	edit_items_add_stylebox->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_add_stylebox);
 	edit_items_add_stylebox->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_add_theme_item_dialog).bind(Theme::DATA_TYPE_STYLEBOX));
 
-	edit_items_toolbar->add_child(memnewOldNoConstructor(VSeparator));
+	edit_items_toolbar->add_child(memnewNoConstructor<VSeparator>());
 
-	Label *edit_items_toolbar_remove_label = memnewOldNoConstructor(Label);
+	Label *edit_items_toolbar_remove_label = memnewNoConstructor<Label>();
 	edit_items_toolbar_remove_label->set_text(TTR("Remove Items:"));
 	edit_items_toolbar->add_child(edit_items_toolbar_remove_label);
 
-	edit_items_remove_class = memnewOldNoConstructor(Button);
+	edit_items_remove_class = memnewNoConstructor<Button>();
 	edit_items_remove_class->set_tooltip_text(TTR("Remove Class Items"));
 	edit_items_remove_class->set_flat(true);
 	edit_items_remove_class->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_remove_class);
 	edit_items_remove_class->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_remove_class_items));
 
-	edit_items_remove_custom = memnewOldNoConstructor(Button);
+	edit_items_remove_custom = memnewNoConstructor<Button>();
 	edit_items_remove_custom->set_tooltip_text(TTR("Remove Custom Items"));
 	edit_items_remove_custom->set_flat(true);
 	edit_items_remove_custom->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_remove_custom);
 	edit_items_remove_custom->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_remove_custom_items));
 
-	edit_items_remove_all = memnewOldNoConstructor(Button);
+	edit_items_remove_all = memnewNoConstructor<Button>();
 	edit_items_remove_all->set_tooltip_text(TTR("Remove All Items"));
 	edit_items_remove_all->set_flat(true);
 	edit_items_remove_all->set_disabled(true);
 	edit_items_toolbar->add_child(edit_items_remove_all);
 	edit_items_remove_all->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_remove_all_items));
 
-	edit_items_tree = memnewOldNoConstructor(Tree);
+	edit_items_tree = memnewNoConstructor<Tree>();
 	edit_items_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	edit_items_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	edit_items_tree->set_hide_root(true);
@@ -2044,7 +2044,7 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 	edit_items_vb->add_child(edit_items_tree);
 	edit_items_tree->connect("button_clicked", callable_mp(this, &ThemeItemEditorDialog::_item_tree_button_pressed));
 
-	edit_items_message = memnewOldNoConstructor(Label);
+	edit_items_message = memnewNoConstructor<Label>();
 	edit_items_message->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	edit_items_message->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	edit_items_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -2052,57 +2052,57 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 	edit_items_message->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 	edit_items_tree->add_child(edit_items_message);
 
-	edit_theme_item_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	edit_theme_item_dialog = memnewNoConstructor<ConfirmationDialog>();
 	edit_theme_item_dialog->set_title(TTR("Add Theme Item"));
 	add_child(edit_theme_item_dialog);
-	VBoxContainer *edit_theme_item_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *edit_theme_item_vb = memnewNoConstructor<VBoxContainer>();
 	edit_theme_item_dialog->add_child(edit_theme_item_vb);
 
-	edit_theme_item_old_vb = memnewOldNoConstructor(VBoxContainer);
+	edit_theme_item_old_vb = memnewNoConstructor<VBoxContainer>();
 	edit_theme_item_vb->add_child(edit_theme_item_old_vb);
-	Label *edit_theme_item_old = memnewOldNoConstructor(Label);
+	Label *edit_theme_item_old = memnewNoConstructor<Label>();
 	edit_theme_item_old->set_text(TTR("Old Name:"));
 	edit_theme_item_old_vb->add_child(edit_theme_item_old);
-	theme_item_old_name = memnewOldNoConstructor(Label);
+	theme_item_old_name = memnewNoConstructor<Label>();
 	edit_theme_item_old_vb->add_child(theme_item_old_name);
 
-	Label *edit_theme_item_label = memnewOldNoConstructor(Label);
+	Label *edit_theme_item_label = memnewNoConstructor<Label>();
 	edit_theme_item_label->set_text(TTR("Name:"));
 	edit_theme_item_vb->add_child(edit_theme_item_label);
-	theme_item_name = memnewOldNoConstructor(LineEdit);
+	theme_item_name = memnewNoConstructor<LineEdit>();
 	edit_theme_item_vb->add_child(theme_item_name);
 	theme_item_name->connect(SceneStringName(gui_input), callable_mp(this, &ThemeItemEditorDialog::_edit_theme_item_gui_input));
 	edit_theme_item_dialog->connect(SceneStringName(confirmed), callable_mp(this, &ThemeItemEditorDialog::_confirm_edit_theme_item));
 
 	// Import Items tab.
-	TabContainer *import_tc = memnewOldNoConstructor(TabContainer);
+	TabContainer *import_tc = memnewNoConstructor<TabContainer>();
 	import_tc->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	tc->add_child(import_tc);
 	tc->set_tab_title(1, TTR("Import Items"));
 
-	import_default_theme_items = memnewOldNoConstructor(ThemeItemImportTree);
+	import_default_theme_items = memnewNoConstructor<ThemeItemImportTree>();
 	import_tc->add_child(import_default_theme_items);
 	import_tc->set_tab_title(0, TTR("Default Theme"));
 	import_default_theme_items->connect("items_imported", callable_mp(this, &ThemeItemEditorDialog::_update_edit_types));
 
-	import_editor_theme_items = memnewOldNoConstructor(ThemeItemImportTree);
+	import_editor_theme_items = memnewNoConstructor<ThemeItemImportTree>();
 	import_tc->add_child(import_editor_theme_items);
 	import_tc->set_tab_title(1, TTR("Editor Theme"));
 	import_editor_theme_items->connect("items_imported", callable_mp(this, &ThemeItemEditorDialog::_update_edit_types));
 
-	VBoxContainer *import_another_theme_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *import_another_theme_vb = memnewNoConstructor<VBoxContainer>();
 
-	HBoxContainer *import_another_file_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *import_another_file_hb = memnewNoConstructor<HBoxContainer>();
 	import_another_theme_vb->add_child(import_another_file_hb);
-	import_another_theme_value = memnewOldNoConstructor(LineEdit);
+	import_another_theme_value = memnewNoConstructor<LineEdit>();
 	import_another_theme_value->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	import_another_theme_value->set_editable(false);
 	import_another_file_hb->add_child(import_another_theme_value);
-	import_another_theme_button = memnewOldNoConstructor(Button);
+	import_another_theme_button = memnewNoConstructor<Button>();
 	import_another_file_hb->add_child(import_another_theme_button);
 	import_another_theme_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeItemEditorDialog::_open_select_another_theme));
 
-	import_another_theme_dialog = memnewOldNoConstructor(EditorFileDialog);
+	import_another_theme_dialog = memnewNoConstructor<EditorFileDialog>();
 	import_another_theme_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	import_another_theme_dialog->set_title(TTR("Select Another Theme Resource:"));
 	List<String> ext;
@@ -2113,7 +2113,7 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 	import_another_file_hb->add_child(import_another_theme_dialog);
 	import_another_theme_dialog->connect("file_selected", callable_mp(this, &ThemeItemEditorDialog::_select_another_theme_cbk));
 
-	import_other_theme_items = memnewOldNoConstructor(ThemeItemImportTree);
+	import_other_theme_items = memnewNoConstructor<ThemeItemImportTree>();
 	import_other_theme_items->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	import_another_theme_vb->add_child(import_other_theme_items);
 
@@ -2121,7 +2121,7 @@ ThemeItemEditorDialog::ThemeItemEditorDialog(ThemeTypeEditor *p_theme_type_edito
 	import_tc->set_tab_title(2, TTR("Another Theme"));
 	import_other_theme_items->connect("items_imported", callable_mp(this, &ThemeItemEditorDialog::_update_edit_types));
 
-	confirm_closing_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	confirm_closing_dialog = memnewNoConstructor<ConfirmationDialog>();
 	confirm_closing_dialog->set_autowrap(true);
 	add_child(confirm_closing_dialog);
 	confirm_closing_dialog->connect(SceneStringName(confirmed), callable_mp(this, &ThemeItemEditorDialog::_close_dialog));
@@ -2238,30 +2238,30 @@ void ThemeTypeDialog::set_include_own_types(bool p_enable) {
 ThemeTypeDialog::ThemeTypeDialog() {
 	set_hide_on_ok(false);
 
-	VBoxContainer *add_type_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *add_type_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(add_type_vb);
 
-	Label *add_type_filter_label = memnewOldNoConstructor(Label);
+	Label *add_type_filter_label = memnewNoConstructor<Label>();
 	add_type_filter_label->set_text(TTR("Filter the list of types or create a new custom type:"));
 	add_type_vb->add_child(add_type_filter_label);
 
-	add_type_filter = memnewOldNoConstructor(LineEdit);
+	add_type_filter = memnewNoConstructor<LineEdit>();
 	add_type_vb->add_child(add_type_filter);
 	add_type_filter->connect(SceneStringName(text_changed), callable_mp(this, &ThemeTypeDialog::_add_type_filter_cbk));
 	add_type_filter->connect("text_submitted", callable_mp(this, &ThemeTypeDialog::_add_type_dialog_entered));
 
-	Label *add_type_options_label = memnewOldNoConstructor(Label);
+	Label *add_type_options_label = memnewNoConstructor<Label>();
 	add_type_options_label->set_text(TTR("Available Node-based types:"));
 	add_type_vb->add_child(add_type_options_label);
 
-	add_type_options = memnewOldNoConstructor(ItemList);
+	add_type_options = memnewNoConstructor<ItemList>();
 	add_type_options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_type_options->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_type_vb->add_child(add_type_options);
 	add_type_options->connect(SceneStringName(item_selected), callable_mp(this, &ThemeTypeDialog::_add_type_options_cbk));
 	add_type_options->connect("item_activated", callable_mp(this, &ThemeTypeDialog::_add_type_dialog_activated));
 
-	add_type_confirmation = memnewOldNoConstructor(ConfirmationDialog);
+	add_type_confirmation = memnewNoConstructor<ConfirmationDialog>();
 	add_type_confirmation->set_title(TTR("Type name is empty!"));
 	add_type_confirmation->set_text(TTR("Are you sure you want to create an empty type?"));
 	add_type_confirmation->connect(SceneStringName(confirmed), callable_mp(this, &ThemeTypeDialog::_add_type_confirmed));
@@ -2273,30 +2273,30 @@ ThemeTypeDialog::ThemeTypeDialog() {
 Control *ThemeItemLabel::make_custom_tooltip(const String &p_text) const {
 	EditorHelpBit *help_bit = memnewWithArgs<EditorHelpBit>(p_text);
 	EditorHelpBitTooltip::show_tooltip(help_bit, const_cast<ThemeItemLabel *>(this));
-	return memnewOldNoConstructor(Control); // Make the standard tooltip invisible.
+	return memnewNoConstructor<Control>(); // Make the standard tooltip invisible.
 }
 
 VBoxContainer *ThemeTypeEditor::_create_item_list(Theme::DataType p_data_type) {
-	VBoxContainer *items_tab = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *items_tab = memnewNoConstructor<VBoxContainer>();
 	items_tab->set_custom_minimum_size(Size2(0, 160) * EDSCALE);
 	data_type_tabs->add_child(items_tab);
 	data_type_tabs->set_tab_title(data_type_tabs->get_tab_count() - 1, "");
 
-	ScrollContainer *items_sc = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *items_sc = memnewNoConstructor<ScrollContainer>();
 	items_sc->set_v_size_flags(SIZE_EXPAND_FILL);
 	items_sc->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	items_tab->add_child(items_sc);
-	VBoxContainer *items_list = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *items_list = memnewNoConstructor<VBoxContainer>();
 	items_list->set_h_size_flags(SIZE_EXPAND_FILL);
 	items_sc->add_child(items_list);
 
-	HBoxContainer *item_add_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *item_add_hb = memnewNoConstructor<HBoxContainer>();
 	items_tab->add_child(item_add_hb);
-	LineEdit *item_add_edit = memnewOldNoConstructor(LineEdit);
+	LineEdit *item_add_edit = memnewNoConstructor<LineEdit>();
 	item_add_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	item_add_hb->add_child(item_add_edit);
 	item_add_edit->connect("text_submitted", callable_mp(this, &ThemeTypeEditor::_item_add_lineedit_cbk).bind(p_data_type, item_add_edit));
-	Button *item_add_button = memnewOldNoConstructor(Button);
+	Button *item_add_button = memnewNoConstructor<Button>();
 	item_add_button->set_text(TTR("Add"));
 	item_add_button->set_disabled(true);
 	item_add_hb->add_child(item_add_button);
@@ -2447,14 +2447,14 @@ HashMap<StringName, bool> ThemeTypeEditor::_get_type_items(String p_type_name, T
 }
 
 HBoxContainer *ThemeTypeEditor::_create_property_control(Theme::DataType p_data_type, String p_item_name, bool p_editable) {
-	HBoxContainer *item_control = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *item_control = memnewNoConstructor<HBoxContainer>();
 
-	HBoxContainer *item_name_container = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *item_name_container = memnewNoConstructor<HBoxContainer>();
 	item_name_container->set_h_size_flags(SIZE_EXPAND_FILL);
 	item_name_container->set_stretch_ratio(2.0);
 	item_control->add_child(item_name_container);
 
-	Label *item_name = memnewOldNoConstructor(ThemeItemLabel);
+	Label *item_name = memnewNoConstructor<ThemeItemLabel>();
 	item_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	item_name->set_clip_text(true);
 	item_name->set_text(p_item_name);
@@ -2464,28 +2464,28 @@ HBoxContainer *ThemeTypeEditor::_create_property_control(Theme::DataType p_data_
 	item_name_container->add_child(item_name);
 
 	if (p_editable) {
-		LineEdit *item_name_edit = memnewOldNoConstructor(LineEdit);
+		LineEdit *item_name_edit = memnewNoConstructor<LineEdit>();
 		item_name_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 		item_name_edit->set_text(p_item_name);
 		item_name_container->add_child(item_name_edit);
 		item_name_edit->connect("text_submitted", callable_mp(this, &ThemeTypeEditor::_item_rename_entered).bind(p_data_type, p_item_name, item_name_container));
 		item_name_edit->hide();
 
-		Button *item_rename_button = memnewOldNoConstructor(Button);
+		Button *item_rename_button = memnewNoConstructor<Button>();
 		item_rename_button->set_icon(get_editor_theme_icon(SNAME("Edit")));
 		item_rename_button->set_tooltip_text(TTR("Rename Item"));
 		item_rename_button->set_flat(true);
 		item_name_container->add_child(item_rename_button);
 		item_rename_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_item_rename_cbk).bind(p_data_type, p_item_name, item_name_container));
 
-		Button *item_remove_button = memnewOldNoConstructor(Button);
+		Button *item_remove_button = memnewNoConstructor<Button>();
 		item_remove_button->set_icon(get_editor_theme_icon(SNAME("Remove")));
 		item_remove_button->set_tooltip_text(TTR("Remove Item"));
 		item_remove_button->set_flat(true);
 		item_name_container->add_child(item_remove_button);
 		item_remove_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_item_remove_cbk).bind(p_data_type, p_item_name));
 
-		Button *item_rename_confirm_button = memnewOldNoConstructor(Button);
+		Button *item_rename_confirm_button = memnewNoConstructor<Button>();
 		item_rename_confirm_button->set_icon(get_editor_theme_icon(SNAME("ImportCheck")));
 		item_rename_confirm_button->set_tooltip_text(TTR("Confirm Item Rename"));
 		item_rename_confirm_button->set_flat(true);
@@ -2493,7 +2493,7 @@ HBoxContainer *ThemeTypeEditor::_create_property_control(Theme::DataType p_data_
 		item_rename_confirm_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_item_rename_confirmed).bind(p_data_type, p_item_name, item_name_container));
 		item_rename_confirm_button->hide();
 
-		Button *item_rename_cancel_button = memnewOldNoConstructor(Button);
+		Button *item_rename_cancel_button = memnewNoConstructor<Button>();
 		item_rename_cancel_button->set_icon(get_editor_theme_icon(SNAME("ImportFail")));
 		item_rename_cancel_button->set_tooltip_text(TTR("Cancel Item Rename"));
 		item_rename_cancel_button->set_flat(true);
@@ -2503,7 +2503,7 @@ HBoxContainer *ThemeTypeEditor::_create_property_control(Theme::DataType p_data_
 	} else {
 		item_name->add_theme_color_override(SceneStringName(font_color), get_theme_color(SNAME("font_disabled_color"), EditorStringName(Editor)));
 
-		Button *item_override_button = memnewOldNoConstructor(Button);
+		Button *item_override_button = memnewNoConstructor<Button>();
 		item_override_button->set_icon(get_editor_theme_icon(SNAME("Add")));
 		item_override_button->set_tooltip_text(TTR("Override Item"));
 		item_override_button->set_flat(true);
@@ -2534,7 +2534,7 @@ void ThemeTypeEditor::_update_type_items() {
 		HashMap<StringName, bool> color_items = _get_type_items(edited_type, Theme::DATA_TYPE_COLOR, show_default);
 		for (const KeyValue<StringName, bool> &E : color_items) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_COLOR, E.key, E.value);
-			ColorPickerButton *item_editor = memnewOldNoConstructor(ColorPickerButton);
+			ColorPickerButton *item_editor = memnewNoConstructor<ColorPickerButton>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_control->add_child(item_editor);
 
@@ -2563,7 +2563,7 @@ void ThemeTypeEditor::_update_type_items() {
 		HashMap<StringName, bool> constant_items = _get_type_items(edited_type, Theme::DATA_TYPE_CONSTANT, show_default);
 		for (const KeyValue<StringName, bool> &E : constant_items) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_CONSTANT, E.key, E.value);
-			SpinBox *item_editor = memnewOldNoConstructor(SpinBox);
+			SpinBox *item_editor = memnewNoConstructor<SpinBox>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_min(-100000);
 			item_editor->set_max(100000);
@@ -2596,7 +2596,7 @@ void ThemeTypeEditor::_update_type_items() {
 		HashMap<StringName, bool> font_items = _get_type_items(edited_type, Theme::DATA_TYPE_FONT, show_default);
 		for (const KeyValue<StringName, bool> &E : font_items) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_FONT, E.key, E.value);
-			EditorResourcePicker *item_editor = memnewOldNoConstructor(EditorResourcePicker);
+			EditorResourcePicker *item_editor = memnewNoConstructor<EditorResourcePicker>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_base_type("Font");
 			item_control->add_child(item_editor);
@@ -2634,7 +2634,7 @@ void ThemeTypeEditor::_update_type_items() {
 		HashMap<StringName, bool> font_size_items = _get_type_items(edited_type, Theme::DATA_TYPE_FONT_SIZE, show_default);
 		for (const KeyValue<StringName, bool> &E : font_size_items) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_FONT_SIZE, E.key, E.value);
-			SpinBox *item_editor = memnewOldNoConstructor(SpinBox);
+			SpinBox *item_editor = memnewNoConstructor<SpinBox>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_min(-100000);
 			item_editor->set_max(100000);
@@ -2667,7 +2667,7 @@ void ThemeTypeEditor::_update_type_items() {
 		HashMap<StringName, bool> icon_items = _get_type_items(edited_type, Theme::DATA_TYPE_ICON, show_default);
 		for (const KeyValue<StringName, bool> &E : icon_items) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_ICON, E.key, E.value);
-			EditorResourcePicker *item_editor = memnewOldNoConstructor(EditorResourcePicker);
+			EditorResourcePicker *item_editor = memnewNoConstructor<EditorResourcePicker>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_base_type("Texture2D");
 			item_control->add_child(item_editor);
@@ -2704,12 +2704,12 @@ void ThemeTypeEditor::_update_type_items() {
 
 		if (leading_stylebox.pinned) {
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_STYLEBOX, leading_stylebox.item_name, true);
-			EditorResourcePicker *item_editor = memnewOldNoConstructor(EditorResourcePicker);
+			EditorResourcePicker *item_editor = memnewNoConstructor<EditorResourcePicker>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_stretch_ratio(1.5);
 			item_editor->set_base_type("StyleBox");
 
-			Button *pin_leader_button = memnewOldNoConstructor(Button);
+			Button *pin_leader_button = memnewNoConstructor<Button>();
 			pin_leader_button->set_flat(true);
 			pin_leader_button->set_toggle_mode(true);
 			pin_leader_button->set_pressed(true);
@@ -2729,7 +2729,7 @@ void ThemeTypeEditor::_update_type_items() {
 			item_editor->connect("resource_changed", callable_mp(this, &ThemeTypeEditor::_stylebox_item_changed).bind(leading_stylebox.item_name));
 
 			stylebox_items_list->add_child(item_control);
-			stylebox_items_list->add_child(memnewOldNoConstructor(HSeparator));
+			stylebox_items_list->add_child(memnewNoConstructor<HSeparator>());
 		}
 
 		HashMap<StringName, bool> stylebox_items = _get_type_items(edited_type, Theme::DATA_TYPE_STYLEBOX, show_default);
@@ -2739,7 +2739,7 @@ void ThemeTypeEditor::_update_type_items() {
 			}
 
 			HBoxContainer *item_control = _create_property_control(Theme::DATA_TYPE_STYLEBOX, E.key, E.value);
-			EditorResourcePicker *item_editor = memnewOldNoConstructor(EditorResourcePicker);
+			EditorResourcePicker *item_editor = memnewNoConstructor<EditorResourcePicker>();
 			item_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 			item_editor->set_stretch_ratio(1.5);
 			item_editor->set_base_type("StyleBox");
@@ -2753,7 +2753,7 @@ void ThemeTypeEditor::_update_type_items() {
 				item_editor->connect("resource_selected", callable_mp(this, &ThemeTypeEditor::_edit_resource_item));
 				item_editor->connect("resource_changed", callable_mp(this, &ThemeTypeEditor::_stylebox_item_changed).bind(E.key));
 
-				Button *pin_leader_button = memnewOldNoConstructor(Button);
+				Button *pin_leader_button = memnewNoConstructor<Button>();
 				pin_leader_button->set_flat(true);
 				pin_leader_button->set_toggle_mode(true);
 				pin_leader_button->set_icon(get_editor_theme_icon(SNAME("Pin")));
@@ -3430,32 +3430,32 @@ bool ThemeTypeEditor::is_stylebox_pinned(Ref<StyleBox> p_stylebox) {
 }
 
 ThemeTypeEditor::ThemeTypeEditor() {
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(main_vb);
 
-	HBoxContainer *type_list_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *type_list_hb = memnewNoConstructor<HBoxContainer>();
 	main_vb->add_child(type_list_hb);
 
-	Label *type_list_label = memnewOldNoConstructor(Label);
+	Label *type_list_label = memnewNoConstructor<Label>();
 	type_list_label->set_text(TTR("Type:"));
 	type_list_hb->add_child(type_list_label);
 
-	theme_type_list = memnewOldNoConstructor(OptionButton);
+	theme_type_list = memnewNoConstructor<OptionButton>();
 	theme_type_list->set_h_size_flags(SIZE_EXPAND_FILL);
 	theme_type_list->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_ELLIPSIS);
 	theme_type_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	type_list_hb->add_child(theme_type_list);
 	theme_type_list->connect(SceneStringName(item_selected), callable_mp(this, &ThemeTypeEditor::_list_type_selected));
 
-	add_type_button = memnewOldNoConstructor(Button);
+	add_type_button = memnewNoConstructor<Button>();
 	add_type_button->set_tooltip_text(TTR("Add a type from a list of available types or create a new one."));
 	type_list_hb->add_child(add_type_button);
 	add_type_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_add_type_button_cbk));
 
-	HBoxContainer *type_controls = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *type_controls = memnewNoConstructor<HBoxContainer>();
 	main_vb->add_child(type_controls);
 
-	show_default_items_button = memnewOldNoConstructor(CheckButton);
+	show_default_items_button = memnewNoConstructor<CheckButton>();
 	show_default_items_button->set_h_size_flags(SIZE_EXPAND_FILL);
 	show_default_items_button->set_text(TTR("Show Default"));
 	show_default_items_button->set_tooltip_text(TTR("Show default type items alongside items that have been overridden."));
@@ -3463,14 +3463,14 @@ ThemeTypeEditor::ThemeTypeEditor() {
 	type_controls->add_child(show_default_items_button);
 	show_default_items_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_update_type_items));
 
-	Button *add_default_items_button = memnewOldNoConstructor(Button);
+	Button *add_default_items_button = memnewNoConstructor<Button>();
 	add_default_items_button->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_default_items_button->set_text(TTR("Override All"));
 	add_default_items_button->set_tooltip_text(TTR("Override all default type items."));
 	type_controls->add_child(add_default_items_button);
 	add_default_items_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_add_default_type_items));
 
-	data_type_tabs = memnewOldNoConstructor(TabContainer);
+	data_type_tabs = memnewNoConstructor<TabContainer>();
 	data_type_tabs->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	main_vb->add_child(data_type_tabs);
 	data_type_tabs->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -3484,50 +3484,50 @@ ThemeTypeEditor::ThemeTypeEditor() {
 	icon_items_list = _create_item_list(Theme::DATA_TYPE_ICON);
 	stylebox_items_list = _create_item_list(Theme::DATA_TYPE_STYLEBOX);
 
-	VBoxContainer *type_settings_tab = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *type_settings_tab = memnewNoConstructor<VBoxContainer>();
 	type_settings_tab->set_custom_minimum_size(Size2(0, 160) * EDSCALE);
 	data_type_tabs->add_child(type_settings_tab);
 	data_type_tabs->set_tab_title(data_type_tabs->get_tab_count() - 1, "");
 
-	ScrollContainer *type_settings_sc = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *type_settings_sc = memnewNoConstructor<ScrollContainer>();
 	type_settings_sc->set_v_size_flags(SIZE_EXPAND_FILL);
 	type_settings_sc->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	type_settings_tab->add_child(type_settings_sc);
-	VBoxContainer *type_settings_list = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *type_settings_list = memnewNoConstructor<VBoxContainer>();
 	type_settings_list->set_h_size_flags(SIZE_EXPAND_FILL);
 	type_settings_sc->add_child(type_settings_list);
 
-	VBoxContainer *type_variation_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *type_variation_vb = memnewNoConstructor<VBoxContainer>();
 	type_settings_list->add_child(type_variation_vb);
 
-	HBoxContainer *type_variation_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *type_variation_hb = memnewNoConstructor<HBoxContainer>();
 	type_variation_vb->add_child(type_variation_hb);
-	Label *type_variation_label = memnewOldNoConstructor(Label);
+	Label *type_variation_label = memnewNoConstructor<Label>();
 	type_variation_hb->add_child(type_variation_label);
 	type_variation_label->set_text(TTR("Base Type"));
 	type_variation_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	type_variation_edit = memnewOldNoConstructor(LineEdit);
+	type_variation_edit = memnewNoConstructor<LineEdit>();
 	type_variation_hb->add_child(type_variation_edit);
 	type_variation_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	type_variation_edit->connect(SceneStringName(text_changed), callable_mp(this, &ThemeTypeEditor::_type_variation_changed));
 	type_variation_edit->connect(SceneStringName(focus_exited), callable_mp(this, &ThemeTypeEditor::_update_type_items));
-	type_variation_button = memnewOldNoConstructor(Button);
+	type_variation_button = memnewNoConstructor<Button>();
 	type_variation_hb->add_child(type_variation_button);
 	type_variation_button->set_tooltip_text(TTR("Select the variation base type from a list of available types."));
 	type_variation_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeTypeEditor::_add_type_variation_cbk));
 
-	type_variation_locked = memnewOldNoConstructor(Label);
+	type_variation_locked = memnewNoConstructor<Label>();
 	type_variation_vb->add_child(type_variation_locked);
 	type_variation_locked->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	type_variation_locked->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 	type_variation_locked->set_text(TTR("A type associated with a built-in class cannot be marked as a variation of another type."));
 	type_variation_locked->hide();
 
-	add_type_dialog = memnewOldNoConstructor(ThemeTypeDialog);
+	add_type_dialog = memnewNoConstructor<ThemeTypeDialog>();
 	add_child(add_type_dialog);
 	add_type_dialog->connect("type_selected", callable_mp(this, &ThemeTypeEditor::_add_type_dialog_selected));
 
-	update_debounce_timer = memnewOldNoConstructor(Timer);
+	update_debounce_timer = memnewNoConstructor<Timer>();
 	update_debounce_timer->set_one_shot(true);
 	update_debounce_timer->set_wait_time(0.5);
 	update_debounce_timer->connect("timeout", callable_mp(this, &ThemeTypeEditor::_update_type_list));
@@ -3592,7 +3592,7 @@ void ThemeEditor::_add_preview_button_cbk() {
 }
 
 void ThemeEditor::_preview_scene_dialog_cbk(const String &p_path) {
-	SceneThemeEditorPreview *preview_tab = memnewOldNoConstructor(SceneThemeEditorPreview);
+	SceneThemeEditorPreview *preview_tab = memnewNoConstructor<SceneThemeEditorPreview>();
 	if (!preview_tab->set_preview_scene(p_path)) {
 		return;
 	}
@@ -3682,84 +3682,84 @@ void ThemeEditor::_notification(int p_what) {
 }
 
 ThemeEditor::ThemeEditor() {
-	HBoxContainer *top_menu = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *top_menu = memnewNoConstructor<HBoxContainer>();
 	add_child(top_menu);
 
-	theme_name = memnewOldNoConstructor(Label);
+	theme_name = memnewNoConstructor<Label>();
 	theme_name->set_text(TTR("Theme:"));
 	theme_name->set_theme_type_variation("HeaderSmall");
 	top_menu->add_child(theme_name);
 
 	top_menu->add_spacer(false);
 
-	Button *theme_save_button = memnewOldNoConstructor(Button);
+	Button *theme_save_button = memnewNoConstructor<Button>();
 	theme_save_button->set_text(TTR("Save"));
 	theme_save_button->set_flat(true);
 	theme_save_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditor::_theme_save_button_cbk).bind(false));
 	top_menu->add_child(theme_save_button);
 
-	Button *theme_save_as_button = memnewOldNoConstructor(Button);
+	Button *theme_save_as_button = memnewNoConstructor<Button>();
 	theme_save_as_button->set_text(TTR("Save As..."));
 	theme_save_as_button->set_flat(true);
 	theme_save_as_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditor::_theme_save_button_cbk).bind(true));
 	top_menu->add_child(theme_save_as_button);
 
-	Button *theme_close_button = memnewOldNoConstructor(Button);
+	Button *theme_close_button = memnewNoConstructor<Button>();
 	theme_close_button->set_text(TTR("Close"));
 	theme_close_button->set_flat(true);
 	theme_close_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditor::_theme_close_button_cbk));
 	top_menu->add_child(theme_close_button);
 
-	top_menu->add_child(memnewOldNoConstructor(VSeparator));
+	top_menu->add_child(memnewNoConstructor<VSeparator>());
 
-	Button *theme_edit_button = memnewOldNoConstructor(Button);
+	Button *theme_edit_button = memnewNoConstructor<Button>();
 	theme_edit_button->set_text(TTR("Manage Items..."));
 	theme_edit_button->set_tooltip_text(TTR("Add, remove, organize and import Theme items."));
 	theme_edit_button->set_flat(true);
 	theme_edit_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditor::_theme_edit_button_cbk));
 	top_menu->add_child(theme_edit_button);
 
-	theme_type_editor = memnewOldNoConstructor(ThemeTypeEditor);
+	theme_type_editor = memnewNoConstructor<ThemeTypeEditor>();
 
 	theme_edit_dialog = memnewWithArgs<ThemeItemEditorDialog>(theme_type_editor);
 	theme_edit_dialog->hide();
 	top_menu->add_child(theme_edit_dialog);
 
-	HSplitContainer *main_hs = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *main_hs = memnewNoConstructor<HSplitContainer>();
 	main_hs->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(main_hs);
 
-	VBoxContainer *preview_tabs_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *preview_tabs_vb = memnewNoConstructor<VBoxContainer>();
 	preview_tabs_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	preview_tabs_vb->set_custom_minimum_size(Size2(520, 0) * EDSCALE);
 	preview_tabs_vb->add_theme_constant_override("separation", 2 * EDSCALE);
 	main_hs->add_child(preview_tabs_vb);
-	HBoxContainer *preview_tabbar_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *preview_tabbar_hb = memnewNoConstructor<HBoxContainer>();
 	preview_tabs_vb->add_child(preview_tabbar_hb);
-	preview_tabs_content = memnewOldNoConstructor(PanelContainer);
+	preview_tabs_content = memnewNoConstructor<PanelContainer>();
 	preview_tabs_content->set_v_size_flags(SIZE_EXPAND_FILL);
 	preview_tabs_content->set_draw_behind_parent(true);
 	preview_tabs_vb->add_child(preview_tabs_content);
 
-	preview_tabs = memnewOldNoConstructor(TabBar);
+	preview_tabs = memnewNoConstructor<TabBar>();
 	preview_tabs->set_h_size_flags(SIZE_EXPAND_FILL);
 	preview_tabbar_hb->add_child(preview_tabs);
 	preview_tabs->connect("tab_changed", callable_mp(this, &ThemeEditor::_change_preview_tab));
 	preview_tabs->connect("tab_button_pressed", callable_mp(this, &ThemeEditor::_remove_preview_tab));
 
-	HBoxContainer *add_preview_button_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *add_preview_button_hb = memnewNoConstructor<HBoxContainer>();
 	preview_tabbar_hb->add_child(add_preview_button_hb);
-	add_preview_button = memnewOldNoConstructor(Button);
+	add_preview_button = memnewNoConstructor<Button>();
 	add_preview_button->set_text(TTR("Add Preview"));
 	add_preview_button_hb->add_child(add_preview_button);
 	add_preview_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditor::_add_preview_button_cbk));
 
-	DefaultThemeEditorPreview *default_preview_tab = memnewOldNoConstructor(DefaultThemeEditorPreview);
+	DefaultThemeEditorPreview *default_preview_tab = memnewNoConstructor<DefaultThemeEditorPreview>();
 	preview_tabs_content->add_child(default_preview_tab);
 	default_preview_tab->connect("control_picked", callable_mp(this, &ThemeEditor::_preview_control_picked));
 	preview_tabs->add_tab(TTR("Default Preview"));
 
-	preview_scene_dialog = memnewOldNoConstructor(EditorFileDialog);
+	preview_scene_dialog = memnewNoConstructor<EditorFileDialog>();
 	preview_scene_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	preview_scene_dialog->set_title(TTR("Select UI Scene:"));
 	List<String> ext;
@@ -3866,7 +3866,7 @@ bool ThemeEditorPlugin::can_auto_hide() const {
 }
 
 ThemeEditorPlugin::ThemeEditorPlugin() {
-	theme_editor = memnewOldNoConstructor(ThemeEditor);
+	theme_editor = memnewNoConstructor<ThemeEditor>();
 	theme_editor->plugin = this;
 	theme_editor->set_custom_minimum_size(Size2(0, 200) * EDSCALE);
 

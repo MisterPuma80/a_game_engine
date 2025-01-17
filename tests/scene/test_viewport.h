@@ -141,16 +141,16 @@ public:
 };
 
 TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
-	DragStart *node_a = memnewOldNoConstructor(DragStart);
-	NotificationControlViewport *node_b = memnewOldNoConstructor(NotificationControlViewport);
-	Node2D *node_c = memnewOldNoConstructor(Node2D);
-	DragTarget *node_d = memnewOldNoConstructor(DragTarget);
-	NotificationControlViewport *node_e = memnewOldNoConstructor(NotificationControlViewport);
-	Node *node_f = memnewOldNoConstructor(Node);
-	NotificationControlViewport *node_g = memnewOldNoConstructor(NotificationControlViewport);
-	NotificationControlViewport *node_h = memnewOldNoConstructor(NotificationControlViewport);
-	NotificationControlViewport *node_i = memnewOldNoConstructor(NotificationControlViewport);
-	NotificationControlViewport *node_j = memnewOldNoConstructor(NotificationControlViewport);
+	DragStart *node_a = memnewNoConstructor<DragStart>();
+	NotificationControlViewport *node_b = memnewNoConstructor<NotificationControlViewport>();
+	Node2D *node_c = memnewNoConstructor<Node2D>();
+	DragTarget *node_d = memnewNoConstructor<DragTarget>();
+	NotificationControlViewport *node_e = memnewNoConstructor<NotificationControlViewport>();
+	Node *node_f = memnewNoConstructor<Node>();
+	NotificationControlViewport *node_g = memnewNoConstructor<NotificationControlViewport>();
+	NotificationControlViewport *node_h = memnewNoConstructor<NotificationControlViewport>();
+	NotificationControlViewport *node_i = memnewNoConstructor<NotificationControlViewport>();
+	NotificationControlViewport *node_j = memnewNoConstructor<NotificationControlViewport>();
 
 	node_a->set_name(SNAME("NodeA"));
 	node_b->set_name(SNAME("NodeB"));
@@ -1211,10 +1211,10 @@ TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
 			}
 
 			SUBCASE("[Viewport][GuiInputEvent] Drag and Drop parent propagation.") {
-				Node2D *node_aa = memnewOldNoConstructor(Node2D);
-				Control *node_aaa = memnewOldNoConstructor(Control);
-				Node2D *node_dd = memnewOldNoConstructor(Node2D);
-				Control *node_ddd = memnewOldNoConstructor(Control);
+				Node2D *node_aa = memnewNoConstructor<Node2D>();
+				Control *node_aaa = memnewNoConstructor<Control>();
+				Node2D *node_dd = memnewNoConstructor<Node2D>();
+				Control *node_ddd = memnewNoConstructor<Control>();
 				node_aaa->set_size(Size2i(10, 10));
 				node_aaa->set_position(Point2i(0, 5));
 				node_ddd->set_size(Size2i(10, 10));
@@ -1356,9 +1356,9 @@ TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
 
 TEST_CASE("[SceneTree][Viewport] Control mouse cursor shape") {
 	SUBCASE("[Viewport][CursorShape] Mouse cursor is not overridden by SubViewportContainer") {
-		SubViewportContainer *node_a = memnewOldNoConstructor(SubViewportContainer);
-		SubViewport *node_b = memnewOldNoConstructor(SubViewport);
-		Control *node_c = memnewOldNoConstructor(Control);
+		SubViewportContainer *node_a = memnewNoConstructor<SubViewportContainer>();
+		SubViewport *node_b = memnewNoConstructor<SubViewport>();
+		Control *node_c = memnewNoConstructor<Control>();
 
 		node_a->set_name("SubViewportContainer");
 		node_b->set_name("SubViewport");
@@ -1457,9 +1457,9 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 	Vector<PickingCollider> v;
 	for (int i = 0; i < 4; i++) {
 		PickingCollider pc;
-		pc.a = memnewOldNoConstructor(TestArea2D);
-		pc.c = memnewOldNoConstructor(CollisionShape2D);
-		pc.r = Ref<RectangleShape2D>(memnewOldNoConstructor(RectangleShape2D));
+		pc.a = memnewNoConstructor<TestArea2D>();
+		pc.c = memnewNoConstructor<CollisionShape2D>();
+		pc.r = Ref<RectangleShape2D>(memnewNoConstructor<RectangleShape2D>());
 		pc.r->set_size(Size2(150, 150));
 		pc.c->set_shape(pc.r);
 		pc.a->add_child(pc.c);
@@ -1470,13 +1470,13 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 		SIGNAL_WATCH(pc.a, SceneStringName(mouse_exited));
 	}
 
-	Node2D *node_a = memnewOldNoConstructor(Node2D);
+	Node2D *node_a = memnewNoConstructor<Node2D>();
 	node_a->set_position(Point2i(0, 0));
 	v[0].a->set_position(Point2i(0, 0));
 	v[1].a->set_position(Point2i(0, 100));
 	node_a->add_child(v[0].a);
 	node_a->add_child(v[1].a);
-	Node2D *node_b = memnewOldNoConstructor(Node2D);
+	Node2D *node_b = memnewNoConstructor<Node2D>();
 	node_b->set_position(Point2i(100, 0));
 	v[2].a->set_position(Point2i(0, 0));
 	v[3].a->set_position(Point2i(0, 100));
@@ -1659,7 +1659,7 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 	}
 
 	SUBCASE("[Viewport][Picking2D] CollisionObject in CanvasLayer") {
-		CanvasLayer *node_c = memnewOldNoConstructor(CanvasLayer);
+		CanvasLayer *node_c = memnewNoConstructor<CanvasLayer>();
 		node_c->set_rotation(Math_PI);
 		node_c->set_offset(Point2i(100, 100));
 		root->add_child(node_c);
@@ -1804,7 +1804,7 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 
 TEST_CASE("[SceneTree][Viewport] Embedded Windows") {
 	Window *root = SceneTree::get_singleton()->get_root();
-	Window *w = memnewOldNoConstructor(Window);
+	Window *w = memnewNoConstructor<Window>();
 
 	SUBCASE("[Viewport] Safe-rect of embedded Window") {
 		root->add_child(w);

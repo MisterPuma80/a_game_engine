@@ -470,7 +470,7 @@ void EditorAssetInstaller::_set_skip_toplevel(bool p_checked) {
 
 void EditorAssetInstaller::_open_target_dir_dialog() {
 	if (!target_dir_dialog) {
-		target_dir_dialog = memnewOldNoConstructor(EditorFileDialog);
+		target_dir_dialog = memnewNoConstructor<EditorFileDialog>();
 		target_dir_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_DIR);
 		target_dir_dialog->set_title(TTR("Select Install Folder"));
 		target_dir_dialog->set_current_dir(target_dir_path);
@@ -664,42 +664,42 @@ void EditorAssetInstaller::_bind_methods() {
 }
 
 EditorAssetInstaller::EditorAssetInstaller() {
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	add_child(vb);
 
 	// Status bar.
 
-	HBoxContainer *asset_status = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *asset_status = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(asset_status);
 
-	Label *asset_label = memnewOldNoConstructor(Label);
+	Label *asset_label = memnewNoConstructor<Label>();
 	asset_label->set_text(TTR("Asset:"));
 	asset_label->set_theme_type_variation("HeaderSmall");
 	asset_status->add_child(asset_label);
 
-	asset_title_label = memnewOldNoConstructor(Label);
+	asset_title_label = memnewNoConstructor<Label>();
 	asset_status->add_child(asset_title_label);
 
 	// File remapping controls.
 
-	HBoxContainer *remapping_tools = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *remapping_tools = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(remapping_tools);
 
-	show_source_files_button = memnewOldNoConstructor(Button);
+	show_source_files_button = memnewNoConstructor<Button>();
 	show_source_files_button->set_toggle_mode(true);
 	show_source_files_button->set_tooltip_text(TTR("Open the list of the asset contents and select which files to install."));
 	remapping_tools->add_child(show_source_files_button);
 	show_source_files_button->connect("toggled", callable_mp(this, &EditorAssetInstaller::_toggle_source_tree).bind(false));
 
-	Button *target_dir_button = memnewOldNoConstructor(Button);
+	Button *target_dir_button = memnewNoConstructor<Button>();
 	target_dir_button->set_text(TTR("Change Install Folder"));
 	target_dir_button->set_tooltip_text(TTR("Change the folder where the contents of the asset are going to be installed."));
 	remapping_tools->add_child(target_dir_button);
 	target_dir_button->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetInstaller::_open_target_dir_dialog));
 
-	remapping_tools->add_child(memnewOldNoConstructor(VSeparator));
+	remapping_tools->add_child(memnewNoConstructor<VSeparator>());
 
-	skip_toplevel_check = memnewOldNoConstructor(CheckBox);
+	skip_toplevel_check = memnewNoConstructor<CheckBox>();
 	skip_toplevel_check->set_text(TTR("Ignore asset root"));
 	skip_toplevel_check->set_tooltip_text(TTR("Ignore the root directory when extracting files."));
 	skip_toplevel_check->connect("toggled", callable_mp(this, &EditorAssetInstaller::_set_skip_toplevel));
@@ -707,11 +707,11 @@ EditorAssetInstaller::EditorAssetInstaller() {
 
 	remapping_tools->add_spacer();
 
-	asset_conflicts_label = memnewOldNoConstructor(Label);
+	asset_conflicts_label = memnewNoConstructor<Label>();
 	asset_conflicts_label->set_theme_type_variation("HeaderSmall");
 	asset_conflicts_label->set_text(TTR("No files conflict with your project"));
 	remapping_tools->add_child(asset_conflicts_label);
-	asset_conflicts_link = memnewOldNoConstructor(LinkButton);
+	asset_conflicts_link = memnewNoConstructor<LinkButton>();
 	asset_conflicts_link->set_theme_type_variation("HeaderSmallLink");
 	asset_conflicts_link->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	asset_conflicts_link->set_tooltip_text(TTR("Show contents of the asset and conflicting files."));
@@ -721,36 +721,36 @@ EditorAssetInstaller::EditorAssetInstaller() {
 
 	// File hierarchy trees.
 
-	HSplitContainer *tree_split = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *tree_split = memnewNoConstructor<HSplitContainer>();
 	tree_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vb->add_child(tree_split);
 
-	source_tree_vb = memnewOldNoConstructor(VBoxContainer);
+	source_tree_vb = memnewNoConstructor<VBoxContainer>();
 	source_tree_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	source_tree_vb->set_visible(show_source_files_button->is_pressed());
 	tree_split->add_child(source_tree_vb);
 
-	Label *source_tree_label = memnewOldNoConstructor(Label);
+	Label *source_tree_label = memnewNoConstructor<Label>();
 	source_tree_label->set_text(TTR("Contents of the asset:"));
 	source_tree_label->set_theme_type_variation("HeaderSmall");
 	source_tree_vb->add_child(source_tree_label);
 
-	source_tree = memnewOldNoConstructor(Tree);
+	source_tree = memnewNoConstructor<Tree>();
 	source_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	source_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	source_tree->connect("item_edited", callable_mp(this, &EditorAssetInstaller::_item_checked_cbk));
 	source_tree_vb->add_child(source_tree);
 
-	VBoxContainer *destination_tree_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *destination_tree_vb = memnewNoConstructor<VBoxContainer>();
 	destination_tree_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	tree_split->add_child(destination_tree_vb);
 
-	Label *destination_tree_label = memnewOldNoConstructor(Label);
+	Label *destination_tree_label = memnewNoConstructor<Label>();
 	destination_tree_label->set_text(TTR("Installation preview:"));
 	destination_tree_label->set_theme_type_variation("HeaderSmall");
 	destination_tree_vb->add_child(destination_tree_label);
 
-	destination_tree = memnewOldNoConstructor(Tree);
+	destination_tree = memnewNoConstructor<Tree>();
 	destination_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	destination_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	destination_tree->connect("item_edited", callable_mp(this, &EditorAssetInstaller::_item_checked_cbk));

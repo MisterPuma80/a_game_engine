@@ -90,13 +90,13 @@ void HashingContext::_create_ctx(HashType p_type) {
 	type = p_type;
 	switch (type) {
 		case HASH_MD5:
-			ctx = memnewOldNoConstructor(CryptoCore::MD5Context);
+			ctx = memnewNoConstructor<CryptoCore::MD5Context>();
 			break;
 		case HASH_SHA1:
-			ctx = memnewOldNoConstructor(CryptoCore::SHA1Context);
+			ctx = memnewNoConstructor<CryptoCore::SHA1Context>();
 			break;
 		case HASH_SHA256:
-			ctx = memnewOldNoConstructor(CryptoCore::SHA256Context);
+			ctx = memnewNoConstructor<CryptoCore::SHA256Context>();
 			break;
 		default:
 			ctx = nullptr;

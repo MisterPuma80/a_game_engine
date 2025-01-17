@@ -587,7 +587,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 
 	keep_screen_on = GLOBAL_GET("display/window/energy_saving/keep_screen_on");
 
-	native_menu = memnewOldNoConstructor(NativeMenu);
+	native_menu = memnewNoConstructor<NativeMenu>();
 
 #if defined(RD_ENABLED)
 	rendering_context = nullptr;
@@ -595,7 +595,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanAndroid);
+		rendering_context = memnewNoConstructor<RenderingContextDriverVulkanAndroid>();
 	}
 #endif
 
@@ -646,7 +646,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 		rendering_context->window_set_size(MAIN_WINDOW_ID, display_size.width, display_size.height);
 		rendering_context->window_set_vsync_mode(MAIN_WINDOW_ID, p_vsync_mode);
 
-		rendering_device = memnewOldNoConstructor(RenderingDevice);
+		rendering_device = memnewNoConstructor<RenderingDevice>();
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			rendering_device = nullptr;
 			memdelete(rendering_context);

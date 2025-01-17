@@ -259,44 +259,44 @@ bool EditorNetworkProfiler::is_profiling() {
 }
 
 EditorNetworkProfiler::EditorNetworkProfiler() {
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	hb->add_theme_constant_override("separation", 8 * EDSCALE);
 	add_child(hb);
 
-	activate = memnewOldNoConstructor(Button);
+	activate = memnewNoConstructor<Button>();
 	activate->set_toggle_mode(true);
 	activate->set_text(TTR("Start"));
 	activate->connect(SceneStringName(pressed), callable_mp(this, &EditorNetworkProfiler::_activate_pressed));
 	hb->add_child(activate);
 
-	clear_button = memnewOldNoConstructor(Button);
+	clear_button = memnewNoConstructor<Button>();
 	clear_button->set_text(TTR("Clear"));
 	clear_button->connect(SceneStringName(pressed), callable_mp(this, &EditorNetworkProfiler::_clear_pressed));
 	hb->add_child(clear_button);
 
 	hb->add_spacer();
 
-	Label *lb = memnewOldNoConstructor(Label);
+	Label *lb = memnewNoConstructor<Label>();
 	// TRANSLATORS: This is the label for the network profiler's incoming bandwidth.
 	lb->set_text(TTR("Down", "Network"));
 	hb->add_child(lb);
 
-	incoming_bandwidth_text = memnewOldNoConstructor(LineEdit);
+	incoming_bandwidth_text = memnewNoConstructor<LineEdit>();
 	incoming_bandwidth_text->set_editable(false);
 	incoming_bandwidth_text->set_custom_minimum_size(Size2(120, 0) * EDSCALE);
 	incoming_bandwidth_text->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	hb->add_child(incoming_bandwidth_text);
 
-	Control *down_up_spacer = memnewOldNoConstructor(Control);
+	Control *down_up_spacer = memnewNoConstructor<Control>();
 	down_up_spacer->set_custom_minimum_size(Size2(30, 0) * EDSCALE);
 	hb->add_child(down_up_spacer);
 
-	lb = memnewOldNoConstructor(Label);
+	lb = memnewNoConstructor<Label>();
 	// TRANSLATORS: This is the label for the network profiler's outgoing bandwidth.
 	lb->set_text(TTR("Up", "Network"));
 	hb->add_child(lb);
 
-	outgoing_bandwidth_text = memnewOldNoConstructor(LineEdit);
+	outgoing_bandwidth_text = memnewNoConstructor<LineEdit>();
 	outgoing_bandwidth_text->set_editable(false);
 	outgoing_bandwidth_text->set_custom_minimum_size(Size2(120, 0) * EDSCALE);
 	outgoing_bandwidth_text->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -305,14 +305,14 @@ EditorNetworkProfiler::EditorNetworkProfiler() {
 	// Set initial texts in the incoming/outgoing bandwidth labels
 	set_bandwidth(0, 0);
 
-	HSplitContainer *sc = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *sc = memnewNoConstructor<HSplitContainer>();
 	add_child(sc);
 	sc->set_v_size_flags(SIZE_EXPAND_FILL);
 	sc->set_h_size_flags(SIZE_EXPAND_FILL);
 	sc->set_split_offset(100 * EDSCALE);
 
 	// RPC
-	counters_display = memnewOldNoConstructor(Tree);
+	counters_display = memnewNoConstructor<Tree>();
 	counters_display->set_custom_minimum_size(Size2(320, 0) * EDSCALE);
 	counters_display->set_v_size_flags(SIZE_EXPAND_FILL);
 	counters_display->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -335,7 +335,7 @@ EditorNetworkProfiler::EditorNetworkProfiler() {
 	sc->add_child(counters_display);
 
 	// Replication
-	replication_display = memnewOldNoConstructor(Tree);
+	replication_display = memnewNoConstructor<Tree>();
 	replication_display->set_custom_minimum_size(Size2(320, 0) * EDSCALE);
 	replication_display->set_v_size_flags(SIZE_EXPAND_FILL);
 	replication_display->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -366,7 +366,7 @@ EditorNetworkProfiler::EditorNetworkProfiler() {
 	replication_display->connect("button_clicked", callable_mp(this, &EditorNetworkProfiler::_replication_button_clicked));
 	sc->add_child(replication_display);
 
-	refresh_timer = memnewOldNoConstructor(Timer);
+	refresh_timer = memnewNoConstructor<Timer>();
 	refresh_timer->set_wait_time(0.5);
 	refresh_timer->connect("timeout", callable_mp(this, &EditorNetworkProfiler::_refresh));
 	add_child(refresh_timer);

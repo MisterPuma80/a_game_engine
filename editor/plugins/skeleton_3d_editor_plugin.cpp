@@ -59,7 +59,7 @@
 #include "scene/resources/surface_tool.h"
 
 void BoneTransformEditor::create_editors() {
-	section = memnewOldNoConstructor(EditorInspectorSection);
+	section = memnewNoConstructor<EditorInspectorSection>();
 	section->setup("trf_properties", label, this, Color(0.0f, 0.0f, 0.0f), true);
 	section->unfold();
 	add_child(section);
@@ -98,7 +98,7 @@ void BoneTransformEditor::create_editors() {
 	section->get_vbox()->add_child(scale_property);
 
 	// Transform/Matrix section.
-	rest_section = memnewOldNoConstructor(EditorInspectorSection);
+	rest_section = memnewNoConstructor<EditorInspectorSection>();
 	rest_section->setup("trf_properties_transform", "Rest", this, Color(0.0f, 0.0f, 0.0f), true);
 	section->get_vbox()->add_child(rest_section);
 
@@ -384,7 +384,7 @@ void Skeleton3DEditor::create_physical_skeleton() {
 
 	ur->create_action(TTR("Create physical bones"), UndoRedo::MERGE_ALL);
 
-	PhysicalBoneSimulator3D *simulator = memnewOldNoConstructor(PhysicalBoneSimulator3D);
+	PhysicalBoneSimulator3D *simulator = memnewNoConstructor<PhysicalBoneSimulator3D>();
 	ur->add_do_method(skeleton, "add_child", simulator);
 	ur->add_do_method(simulator, "set_owner", owner);
 	ur->add_do_method(simulator, "set_name", "PhysicalBoneSimulator3D");
@@ -436,11 +436,11 @@ PhysicalBone3D *Skeleton3DEditor::create_physical_bone(int bone_id, int bone_chi
 	const real_t half_height(child_rest.origin.length() * 0.5);
 	const real_t radius(half_height * 0.2);
 
-	CapsuleShape3D *bone_shape_capsule = memnewOldNoConstructor(CapsuleShape3D);
+	CapsuleShape3D *bone_shape_capsule = memnewNoConstructor<CapsuleShape3D>();
 	bone_shape_capsule->set_height(half_height * 2);
 	bone_shape_capsule->set_radius(radius);
 
-	CollisionShape3D *bone_shape = memnewOldNoConstructor(CollisionShape3D);
+	CollisionShape3D *bone_shape = memnewNoConstructor<CollisionShape3D>();
 	bone_shape->set_shape(bone_shape_capsule);
 	bone_shape->set_name("CollisionShape3D");
 
@@ -463,7 +463,7 @@ PhysicalBone3D *Skeleton3DEditor::create_physical_bone(int bone_id, int bone_chi
 	Transform3D joint_transform;
 	joint_transform.origin = Vector3(0, 0, half_height);
 
-	PhysicalBone3D *physical_bone = memnewOldNoConstructor(PhysicalBone3D);
+	PhysicalBone3D *physical_bone = memnewNoConstructor<PhysicalBone3D>();
 	physical_bone->add_child(bone_shape);
 	physical_bone->set_name("Physical Bone " + skeleton->get_bone_name(bone_id));
 	physical_bone->set_body_offset(body_transform);
@@ -492,7 +492,7 @@ void Skeleton3DEditor::export_skeleton_profile() {
 
 void Skeleton3DEditor::_file_selected(const String &p_file) {
 	// Export SkeletonProfile.
-	Ref<SkeletonProfile> sp(memnewOldNoConstructor(SkeletonProfile));
+	Ref<SkeletonProfile> sp(memnewNoConstructor<SkeletonProfile>());
 
 	// Build SkeletonProfile.
 	sp->set_group_size(1);
@@ -550,9 +550,9 @@ Variant Skeleton3DEditor::get_drag_data_fw(const Point2 &p_point, Control *p_fro
 
 	Ref<Texture> icon = selected->get_icon(0);
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
-	TextureRect *tf = memnewOldNoConstructor(TextureRect);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
+	TextureRect *tf = memnewNoConstructor<TextureRect>();
 	tf->set_texture(icon);
 	tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	hb->add_child(tf);
@@ -717,16 +717,16 @@ void Skeleton3DEditor::create_editors() {
 	AnimationTrackEditor *te = AnimationPlayerEditor::get_singleton()->get_track_editor();
 
 	// Create File dialog.
-	file_dialog = memnewOldNoConstructor(EditorFileDialog);
+	file_dialog = memnewNoConstructor<EditorFileDialog>();
 	file_dialog->connect("file_selected", callable_mp(this, &Skeleton3DEditor::_file_selected));
 	add_child(file_dialog);
 
 	// Create Top Menu Bar.
-	topmenu_bar = memnewOldNoConstructor(HBoxContainer);
+	topmenu_bar = memnewNoConstructor<HBoxContainer>();
 	ne->add_control_to_menu_panel(topmenu_bar);
 
 	// Create Skeleton Option in Top Menu Bar.
-	skeleton_options = memnewOldNoConstructor(MenuButton);
+	skeleton_options = memnewNoConstructor<MenuButton>();
 	skeleton_options->set_flat(false);
 	skeleton_options->set_theme_type_variation("FlatMenuButton");
 	topmenu_bar->add_child(skeleton_options);
@@ -748,7 +748,7 @@ void Skeleton3DEditor::create_editors() {
 	Vector<Variant> button_binds;
 	button_binds.resize(1);
 
-	edit_mode_button = memnewOldNoConstructor(Button);
+	edit_mode_button = memnewNoConstructor<Button>();
 	topmenu_bar->add_child(edit_mode_button);
 	edit_mode_button->set_theme_type_variation("FlatButton");
 	edit_mode_button->set_toggle_mode(true);
@@ -764,12 +764,12 @@ void Skeleton3DEditor::create_editors() {
 	}
 
 	// Keying buttons.
-	animation_hb = memnewOldNoConstructor(HBoxContainer);
+	animation_hb = memnewNoConstructor<HBoxContainer>();
 	topmenu_bar->add_child(animation_hb);
-	animation_hb->add_child(memnewOldNoConstructor(VSeparator));
+	animation_hb->add_child(memnewNoConstructor<VSeparator>());
 	animation_hb->hide();
 
-	key_loc_button = memnewOldNoConstructor(Button);
+	key_loc_button = memnewNoConstructor<Button>();
 	key_loc_button->set_theme_type_variation("FlatButton");
 	key_loc_button->set_toggle_mode(true);
 	key_loc_button->set_pressed(false);
@@ -777,7 +777,7 @@ void Skeleton3DEditor::create_editors() {
 	key_loc_button->set_tooltip_text(TTR("Translation mask for inserting keys."));
 	animation_hb->add_child(key_loc_button);
 
-	key_rot_button = memnewOldNoConstructor(Button);
+	key_rot_button = memnewNoConstructor<Button>();
 	key_rot_button->set_theme_type_variation("FlatButton");
 	key_rot_button->set_toggle_mode(true);
 	key_rot_button->set_pressed(true);
@@ -785,7 +785,7 @@ void Skeleton3DEditor::create_editors() {
 	key_rot_button->set_tooltip_text(TTR("Rotation mask for inserting keys."));
 	animation_hb->add_child(key_rot_button);
 
-	key_scale_button = memnewOldNoConstructor(Button);
+	key_scale_button = memnewNoConstructor<Button>();
 	key_scale_button->set_theme_type_variation("FlatButton");
 	key_scale_button->set_toggle_mode(true);
 	key_scale_button->set_pressed(false);
@@ -793,7 +793,7 @@ void Skeleton3DEditor::create_editors() {
 	key_scale_button->set_tooltip_text(TTR("Scale mask for inserting keys."));
 	animation_hb->add_child(key_scale_button);
 
-	key_insert_button = memnewOldNoConstructor(Button);
+	key_insert_button = memnewNoConstructor<Button>();
 	key_insert_button->set_theme_type_variation("FlatButton");
 	key_insert_button->set_focus_mode(FOCUS_NONE);
 	key_insert_button->connect(SceneStringName(pressed), callable_mp(this, &Skeleton3DEditor::insert_keys).bind(false));
@@ -801,7 +801,7 @@ void Skeleton3DEditor::create_editors() {
 	key_insert_button->set_shortcut(ED_SHORTCUT("skeleton_3d_editor/insert_key_to_existing_tracks", TTR("Insert Key (Existing Tracks)"), Key::INSERT));
 	animation_hb->add_child(key_insert_button);
 
-	key_insert_all_button = memnewOldNoConstructor(Button);
+	key_insert_all_button = memnewNoConstructor<Button>();
 	key_insert_all_button->set_theme_type_variation("FlatButton");
 	key_insert_all_button->set_focus_mode(FOCUS_NONE);
 	key_insert_all_button->connect(SceneStringName(pressed), callable_mp(this, &Skeleton3DEditor::insert_keys).bind(true));
@@ -810,17 +810,17 @@ void Skeleton3DEditor::create_editors() {
 	animation_hb->add_child(key_insert_all_button);
 
 	// Bone tree.
-	bones_section = memnewOldNoConstructor(EditorInspectorSection);
+	bones_section = memnewNoConstructor<EditorInspectorSection>();
 	bones_section->setup("bones", "Bones", skeleton, Color(0.0f, 0.0, 0.0f), true);
 	add_child(bones_section);
 	bones_section->unfold();
 
-	ScrollContainer *s_con = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *s_con = memnewNoConstructor<ScrollContainer>();
 	s_con->set_h_size_flags(SIZE_EXPAND_FILL);
 	s_con->set_custom_minimum_size(Size2(1, 350) * EDSCALE);
 	bones_section->get_vbox()->add_child(s_con);
 
-	joint_tree = memnewOldNoConstructor(Tree);
+	joint_tree = memnewNoConstructor<Tree>();
 	joint_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	joint_tree->set_columns(1);
 	joint_tree->set_focus_mode(Control::FOCUS_NONE);
@@ -911,8 +911,8 @@ Skeleton3DEditor::Skeleton3DEditor(EditorInspectorPluginSkeleton *e_plugin, Skel
 	singleton = this;
 
 	// Handle.
-	handle_material = Ref<ShaderMaterial>(memnewOldNoConstructor(ShaderMaterial));
-	handle_shader = Ref<Shader>(memnewOldNoConstructor(Shader));
+	handle_material = Ref<ShaderMaterial>(memnewNoConstructor<ShaderMaterial>());
+	handle_shader = Ref<Shader>(memnewNoConstructor<Shader>());
 	handle_shader->set_code(R"(
 // Skeleton 3D gizmo handle shader.
 
@@ -951,7 +951,7 @@ void fragment() {
 	handle_material->set_shader_parameter("point_size", handle->get_width());
 	handle_material->set_shader_parameter("texture_albedo", handle);
 
-	handles_mesh_instance = memnewOldNoConstructor(MeshInstance3D);
+	handles_mesh_instance = memnewNoConstructor<MeshInstance3D>();
 	handles_mesh_instance->set_cast_shadows_setting(GeometryInstance3D::SHADOW_CASTING_SETTING_OFF);
 	handles_mesh.instantiate();
 	handles_mesh_instance->set_mesh(handles_mesh);
@@ -1123,11 +1123,11 @@ void EditorInspectorPluginSkeleton::parse_begin(Object *p_object) {
 }
 
 Skeleton3DEditorPlugin::Skeleton3DEditorPlugin() {
-	skeleton_plugin = memnewOldNoConstructor(EditorInspectorPluginSkeleton);
+	skeleton_plugin = memnewNoConstructor<EditorInspectorPluginSkeleton>();
 
 	EditorInspector::add_inspector_plugin(skeleton_plugin);
 
-	Ref<Skeleton3DGizmoPlugin> gizmo_plugin = Ref<Skeleton3DGizmoPlugin>(memnewOldNoConstructor(Skeleton3DGizmoPlugin));
+	Ref<Skeleton3DGizmoPlugin> gizmo_plugin = Ref<Skeleton3DGizmoPlugin>(memnewNoConstructor<Skeleton3DGizmoPlugin>());
 	Node3DEditor::get_singleton()->add_gizmo_plugin(gizmo_plugin);
 }
 
@@ -1188,15 +1188,15 @@ int Skeleton3DEditor::get_selected_bone() const {
 }
 
 Skeleton3DGizmoPlugin::Skeleton3DGizmoPlugin() {
-	unselected_mat = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	unselected_mat = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	unselected_mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	unselected_mat->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	unselected_mat->set_flag(StandardMaterial3D::FLAG_ALBEDO_FROM_VERTEX_COLOR, true);
 	unselected_mat->set_flag(StandardMaterial3D::FLAG_SRGB_VERTEX_COLOR, true);
 	unselected_mat->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 
-	selected_mat = Ref<ShaderMaterial>(memnewOldNoConstructor(ShaderMaterial));
-	selected_sh = Ref<Shader>(memnewOldNoConstructor(Shader));
+	selected_mat = Ref<ShaderMaterial>(memnewNoConstructor<ShaderMaterial>());
+	selected_sh = Ref<Shader>(memnewNoConstructor<Shader>());
 	selected_sh->set_code(R"(
 // Skeleton 3D gizmo bones shader.
 
@@ -1371,7 +1371,7 @@ void Skeleton3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 	axis_colors.push_back(Node3DEditor::get_singleton()->get_theme_color(SNAME("axis_y_color"), EditorStringName(Editor)));
 	axis_colors.push_back(Node3DEditor::get_singleton()->get_theme_color(SNAME("axis_z_color"), EditorStringName(Editor)));
 
-	Ref<SurfaceTool> surface_tool(memnewOldNoConstructor(SurfaceTool));
+	Ref<SurfaceTool> surface_tool(memnewNoConstructor<SurfaceTool>());
 	surface_tool->begin(Mesh::PRIMITIVE_LINES);
 
 	if (p_gizmo->is_selected()) {

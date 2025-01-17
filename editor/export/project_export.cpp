@@ -83,10 +83,10 @@ void ProjectExportTextureFormatError::show_for_texture_format(const String &p_fr
 
 ProjectExportTextureFormatError::ProjectExportTextureFormatError() {
 	// Set up the label.
-	texture_format_error_label = memnewOldNoConstructor(Label);
+	texture_format_error_label = memnewNoConstructor<Label>();
 	add_child(texture_format_error_label);
 	// Set up the fix button.
-	fix_texture_format_button = memnewOldNoConstructor(LinkButton);
+	fix_texture_format_button = memnewNoConstructor<LinkButton>();
 	fix_texture_format_button->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	fix_texture_format_button->set_text(TTR("Fix Import"));
 	add_child(fix_texture_format_button);
@@ -709,11 +709,11 @@ Variant ProjectExportDialog::get_drag_data_fw(const Point2 &p_point, Control *p_
 			d["type"] = "export_preset";
 			d["preset"] = pos;
 
-			HBoxContainer *drag = memnewOldNoConstructor(HBoxContainer);
-			TextureRect *tr = memnewOldNoConstructor(TextureRect);
+			HBoxContainer *drag = memnewNoConstructor<HBoxContainer>();
+			TextureRect *tr = memnewNoConstructor<TextureRect>();
 			tr->set_texture(presets->get_item_icon(pos));
 			drag->add_child(tr);
-			Label *label = memnewOldNoConstructor(Label);
+			Label *label = memnewNoConstructor<Label>();
 			label->set_text(presets->get_item_text(pos));
 			drag->add_child(label);
 
@@ -1214,45 +1214,45 @@ ProjectExportDialog::ProjectExportDialog() {
 	set_title(TTR("Export"));
 	set_clamp_to_embedder(true);
 
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(main_vb);
 
-	HSplitContainer *hbox = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *hbox = memnewNoConstructor<HSplitContainer>();
 	main_vb->add_child(hbox);
 	hbox->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
 	// Presets list.
 
-	VBoxContainer *preset_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *preset_vb = memnewNoConstructor<VBoxContainer>();
 	preset_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hbox->add_child(preset_vb);
 
 	Label *l = memnewWithArgs<Label>(TTR("Presets"));
 	l->set_theme_type_variation("HeaderSmall");
 
-	HBoxContainer *preset_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *preset_hb = memnewNoConstructor<HBoxContainer>();
 	preset_hb->add_child(l);
 	preset_hb->add_spacer();
 	preset_vb->add_child(preset_hb);
 
-	add_preset = memnewOldNoConstructor(MenuButton);
+	add_preset = memnewNoConstructor<MenuButton>();
 	add_preset->set_text(TTR("Add..."));
 	add_preset->get_popup()->connect("index_pressed", callable_mp(this, &ProjectExportDialog::_add_preset));
 	preset_hb->add_child(add_preset);
-	MarginContainer *mc = memnewOldNoConstructor(MarginContainer);
+	MarginContainer *mc = memnewNoConstructor<MarginContainer>();
 	preset_vb->add_child(mc);
 	mc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
-	presets = memnewOldNoConstructor(ItemList);
+	presets = memnewNoConstructor<ItemList>();
 	presets->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	SET_DRAG_FORWARDING_GCD(presets, ProjectExportDialog);
 	mc->add_child(presets);
 	presets->connect(SceneStringName(item_selected), callable_mp(this, &ProjectExportDialog::_edit_preset));
-	duplicate_preset = memnewOldNoConstructor(Button);
+	duplicate_preset = memnewNoConstructor<Button>();
 	duplicate_preset->set_tooltip_text(TTR("Duplicate"));
 	duplicate_preset->set_flat(true);
 	preset_hb->add_child(duplicate_preset);
 	duplicate_preset->connect(SceneStringName(pressed), callable_mp(this, &ProjectExportDialog::_duplicate_preset));
-	delete_preset = memnewOldNoConstructor(Button);
+	delete_preset = memnewNoConstructor<Button>();
 	delete_preset->set_tooltip_text(TTR("Delete"));
 	delete_preset->set_flat(true);
 	preset_hb->add_child(delete_preset);
@@ -1260,31 +1260,31 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Preset settings.
 
-	VBoxContainer *settings_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *settings_vb = memnewNoConstructor<VBoxContainer>();
 	settings_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hbox->add_child(settings_vb);
 
-	name = memnewOldNoConstructor(LineEdit);
+	name = memnewNoConstructor<LineEdit>();
 	settings_vb->add_margin_child(TTR("Name:"), name);
 	name->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_name_changed));
 
-	runnable = memnewOldNoConstructor(CheckButton);
+	runnable = memnewNoConstructor<CheckButton>();
 	runnable->set_text(TTR("Runnable"));
 	runnable->set_tooltip_text(TTR("If checked, the preset will be available for use in one-click deploy.\nOnly one preset per platform may be marked as runnable."));
 	runnable->connect(SceneStringName(pressed), callable_mp(this, &ProjectExportDialog::_runnable_pressed));
 
-	advanced_options = memnewOldNoConstructor(CheckButton);
+	advanced_options = memnewNoConstructor<CheckButton>();
 	advanced_options->set_text(TTR("Advanced Options"));
 	advanced_options->set_tooltip_text(TTR("If checked, the advanced options will be shown."));
 	advanced_options->connect(SceneStringName(pressed), callable_mp(this, &ProjectExportDialog::_advanced_options_pressed));
 
-	HBoxContainer *preset_configs_container = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *preset_configs_container = memnewNoConstructor<HBoxContainer>();
 	preset_configs_container->add_spacer(true);
 	preset_configs_container->add_child(advanced_options);
 	preset_configs_container->add_child(runnable);
 	settings_vb->add_child(preset_configs_container);
 
-	export_path = memnewOldNoConstructor(EditorPropertyPath);
+	export_path = memnewNoConstructor<EditorPropertyPath>();
 	settings_vb->add_child(export_path);
 	export_path->set_label(TTR("Export Path"));
 	export_path->set_object_and_property(this, "export_path");
@@ -1293,7 +1293,7 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Subsections.
 
-	sections = memnewOldNoConstructor(TabContainer);
+	sections = memnewNoConstructor<TabContainer>();
 	sections->set_use_hidden_tabs_for_min_size(true);
 	sections->set_theme_type_variation("TabContainerOdd");
 	settings_vb->add_child(sections);
@@ -1301,7 +1301,7 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Main preset parameters.
 
-	parameters = memnewOldNoConstructor(EditorInspector);
+	parameters = memnewNoConstructor<EditorInspector>();
 	sections->add_child(parameters);
 	parameters->set_name(TTR("Options"));
 	parameters->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -1311,17 +1311,17 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Resources export parameters.
 
-	ScrollContainer *resources_scroll_container = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *resources_scroll_container = memnewNoConstructor<ScrollContainer>();
 	resources_scroll_container->set_name(TTR("Resources"));
 	resources_scroll_container->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	sections->add_child(resources_scroll_container);
 
-	VBoxContainer *resources_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *resources_vb = memnewNoConstructor<VBoxContainer>();
 	resources_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	resources_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	resources_scroll_container->add_child(resources_vb);
 
-	export_filter = memnewOldNoConstructor(OptionButton);
+	export_filter = memnewNoConstructor<OptionButton>();
 	export_filter->add_item(TTR("Export all resources in the project"));
 	export_filter->add_item(TTR("Export selected scenes (and dependencies)"));
 	export_filter->add_item(TTR("Export selected resources (and dependencies)"));
@@ -1330,14 +1330,14 @@ ProjectExportDialog::ProjectExportDialog() {
 	resources_vb->add_margin_child(TTR("Export Mode:"), export_filter);
 	export_filter->connect(SceneStringName(item_selected), callable_mp(this, &ProjectExportDialog::_export_type_changed));
 
-	include_label = memnewOldNoConstructor(Label);
+	include_label = memnewNoConstructor<Label>();
 	include_label->set_text(TTR("Resources to export:"));
 	resources_vb->add_child(include_label);
-	include_margin = memnewOldNoConstructor(MarginContainer);
+	include_margin = memnewNoConstructor<MarginContainer>();
 	include_margin->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	resources_vb->add_child(include_margin);
 
-	include_files = memnewOldNoConstructor(Tree);
+	include_files = memnewNoConstructor<Tree>();
 	include_files->set_custom_minimum_size(Size2(1, 75 * EDSCALE));
 	include_margin->add_child(include_files);
 	include_files->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -1345,7 +1345,7 @@ ProjectExportDialog::ProjectExportDialog() {
 	include_files->connect("check_propagated_to_item", callable_mp(this, &ProjectExportDialog::_check_propagated_to_item));
 	include_files->connect("custom_popup_edited", callable_mp(this, &ProjectExportDialog::_tree_popup_edited));
 
-	server_strip_message = memnewOldNoConstructor(Label);
+	server_strip_message = memnewNoConstructor<Label>();
 	server_strip_message->set_visible(false);
 	server_strip_message->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	server_strip_message->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
@@ -1368,20 +1368,20 @@ ProjectExportDialog::ProjectExportDialog() {
 		server_strip_message->set_text(message);
 	}
 
-	file_mode_popup = memnewOldNoConstructor(PopupMenu);
+	file_mode_popup = memnewNoConstructor<PopupMenu>();
 	add_child(file_mode_popup);
 	file_mode_popup->add_item(TTR("Strip Visuals"), EditorExportPreset::MODE_FILE_STRIP);
 	file_mode_popup->add_item(TTR("Keep"), EditorExportPreset::MODE_FILE_KEEP);
 	file_mode_popup->add_item(TTR("Remove"), EditorExportPreset::MODE_FILE_REMOVE);
 	file_mode_popup->connect(SceneStringName(id_pressed), callable_mp(this, &ProjectExportDialog::_set_file_export_mode));
 
-	include_filters = memnewOldNoConstructor(LineEdit);
+	include_filters = memnewNoConstructor<LineEdit>();
 	resources_vb->add_margin_child(
 			TTR("Filters to export non-resource files/folders\n(comma-separated, e.g: *.json, *.txt, docs/*)"),
 			include_filters);
 	include_filters->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_filter_changed));
 
-	exclude_filters = memnewOldNoConstructor(LineEdit);
+	exclude_filters = memnewNoConstructor<LineEdit>();
 	resources_vb->add_margin_child(
 			TTR("Filters to exclude files/folders from project\n(comma-separated, e.g: *.json, *.txt, docs/*)"),
 			exclude_filters);
@@ -1389,13 +1389,13 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Feature tags.
 
-	VBoxContainer *feature_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *feature_vb = memnewNoConstructor<VBoxContainer>();
 	feature_vb->set_name(TTR("Features"));
 	feature_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	custom_features = memnewOldNoConstructor(LineEdit);
+	custom_features = memnewNoConstructor<LineEdit>();
 	custom_features->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_custom_features_changed));
 	feature_vb->add_margin_child(TTR("Custom (comma-separated):"), custom_features);
-	custom_feature_display = memnewOldNoConstructor(RichTextLabel);
+	custom_feature_display = memnewNoConstructor<RichTextLabel>();
 	custom_feature_display->set_custom_minimum_size(Size2(1, 75 * EDSCALE));
 	custom_feature_display->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	feature_vb->add_margin_child(TTR("Feature List:"), custom_feature_display, true);
@@ -1403,60 +1403,60 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Encryption export parameters.
 
-	ScrollContainer *sec_scroll_container = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *sec_scroll_container = memnewNoConstructor<ScrollContainer>();
 	sec_scroll_container->set_name(TTR("Encryption"));
 	sec_scroll_container->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 
-	VBoxContainer *sec_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *sec_vb = memnewNoConstructor<VBoxContainer>();
 	sec_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	sec_scroll_container->add_child(sec_vb);
 
-	enc_pck = memnewOldNoConstructor(CheckButton);
+	enc_pck = memnewNoConstructor<CheckButton>();
 	enc_pck->connect("toggled", callable_mp(this, &ProjectExportDialog::_enc_pck_changed));
 	enc_pck->set_text(TTR("Encrypt Exported PCK"));
 	sec_vb->add_child(enc_pck);
 
-	enc_directory = memnewOldNoConstructor(CheckButton);
+	enc_directory = memnewNoConstructor<CheckButton>();
 	enc_directory->connect("toggled", callable_mp(this, &ProjectExportDialog::_enc_directory_changed));
 	enc_directory->set_text(TTR("Encrypt Index (File Names and Info)"));
 	sec_vb->add_child(enc_directory);
 
-	enc_in_filters = memnewOldNoConstructor(LineEdit);
+	enc_in_filters = memnewNoConstructor<LineEdit>();
 	enc_in_filters->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_enc_filters_changed));
 	sec_vb->add_margin_child(
 			TTR("Filters to include files/folders\n(comma-separated, e.g: *.tscn, *.tres, scenes/*)"),
 			enc_in_filters);
 
-	enc_ex_filters = memnewOldNoConstructor(LineEdit);
+	enc_ex_filters = memnewNoConstructor<LineEdit>();
 	enc_ex_filters->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_enc_filters_changed));
 	sec_vb->add_margin_child(
 			TTR("Filters to exclude files/folders\n(comma-separated, e.g: *.ctex, *.import, music/*)"),
 			enc_ex_filters);
 
-	script_key = memnewOldNoConstructor(LineEdit);
+	script_key = memnewNoConstructor<LineEdit>();
 	script_key->connect(SceneStringName(text_changed), callable_mp(this, &ProjectExportDialog::_script_encryption_key_changed));
-	script_key_error = memnewOldNoConstructor(Label);
+	script_key_error = memnewNoConstructor<Label>();
 	script_key_error->set_text(String::utf8("•  ") + TTR("Invalid Encryption Key (must be 64 hexadecimal characters long)"));
 	script_key_error->add_theme_color_override(SceneStringName(font_color), EditorNode::get_singleton()->get_editor_theme()->get_color(SNAME("error_color"), EditorStringName(Editor)));
 	sec_vb->add_margin_child(TTR("Encryption Key (256-bits as hexadecimal):"), script_key);
 	sec_vb->add_child(script_key_error);
 	sections->add_child(sec_scroll_container);
 
-	Label *sec_info = memnewOldNoConstructor(Label);
+	Label *sec_info = memnewNoConstructor<Label>();
 	sec_info->set_text(TTR("Note: Encryption key needs to be stored in the binary,\nyou need to build the export templates from source."));
 	sec_vb->add_child(sec_info);
 
-	LinkButton *sec_more_info = memnewOldNoConstructor(LinkButton);
+	LinkButton *sec_more_info = memnewNoConstructor<LinkButton>();
 	sec_more_info->set_text(TTR("More Info..."));
 	sec_more_info->connect(SceneStringName(pressed), callable_mp(this, &ProjectExportDialog::_open_key_help_link));
 	sec_vb->add_child(sec_more_info);
 
 	// Script export parameters.
 
-	VBoxContainer *script_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *script_vb = memnewNoConstructor<VBoxContainer>();
 	script_vb->set_name(TTR("Scripts"));
 
-	script_mode = memnewOldNoConstructor(OptionButton);
+	script_mode = memnewNoConstructor<OptionButton>();
 	script_vb->add_margin_child(TTR("GDScript Export Mode:"), script_mode);
 	script_mode->add_item(TTR("Text (easier debugging)"), (int)EditorExportPreset::MODE_SCRIPT_TEXT);
 	script_mode->add_item(TTR("Binary tokens (faster loading)"), (int)EditorExportPreset::MODE_SCRIPT_BINARY_TOKENS);
@@ -1480,7 +1480,7 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Deletion dialog.
 
-	delete_confirm = memnewOldNoConstructor(ConfirmationDialog);
+	delete_confirm = memnewNoConstructor<ConfirmationDialog>();
 	add_child(delete_confirm);
 	delete_confirm->set_ok_button_text(TTR("Delete"));
 	delete_confirm->connect(SceneStringName(confirmed), callable_mp(this, &ProjectExportDialog::_delete_preset_confirm));
@@ -1498,7 +1498,7 @@ ProjectExportDialog::ProjectExportDialog() {
 	// Disable initially before we select a valid preset
 	export_button->set_disabled(true);
 
-	export_all_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	export_all_dialog = memnewNoConstructor<ConfirmationDialog>();
 	add_child(export_all_dialog);
 	export_all_dialog->set_title(TTR("Export All"));
 	export_all_dialog->set_text(TTR("Choose an export mode:"));
@@ -1511,7 +1511,7 @@ ProjectExportDialog::ProjectExportDialog() {
 	export_all_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectExportDialog::_export_all_dialog));
 	export_all_button->set_disabled(true);
 
-	export_pck_zip = memnewOldNoConstructor(EditorFileDialog);
+	export_pck_zip = memnewNoConstructor<EditorFileDialog>();
 	export_pck_zip->add_filter("*.zip", TTR("ZIP File"));
 	export_pck_zip->add_filter("*.pck", TTR("Godot Project Pack"));
 	export_pck_zip->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
@@ -1521,40 +1521,40 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Export warnings and errors bottom section.
 
-	export_texture_format_error = memnewOldNoConstructor(ProjectExportTextureFormatError);
+	export_texture_format_error = memnewNoConstructor<ProjectExportTextureFormatError>();
 	main_vb->add_child(export_texture_format_error);
 	export_texture_format_error->hide();
 	export_texture_format_error->connect("texture_format_enabled", callable_mp(this, &ProjectExportDialog::_update_current_preset));
 
-	export_error = memnewOldNoConstructor(Label);
+	export_error = memnewNoConstructor<Label>();
 	main_vb->add_child(export_error);
 	export_error->hide();
 	export_error->add_theme_color_override(SceneStringName(font_color), EditorNode::get_singleton()->get_editor_theme()->get_color(SNAME("error_color"), EditorStringName(Editor)));
 
-	export_warning = memnewOldNoConstructor(Label);
+	export_warning = memnewNoConstructor<Label>();
 	main_vb->add_child(export_warning);
 	export_warning->hide();
 	export_warning->add_theme_color_override(SceneStringName(font_color), EditorNode::get_singleton()->get_editor_theme()->get_color(SNAME("warning_color"), EditorStringName(Editor)));
 
-	export_templates_error = memnewOldNoConstructor(HBoxContainer);
+	export_templates_error = memnewNoConstructor<HBoxContainer>();
 	main_vb->add_child(export_templates_error);
 	export_templates_error->hide();
 
-	Label *export_error2 = memnewOldNoConstructor(Label);
+	Label *export_error2 = memnewNoConstructor<Label>();
 	export_templates_error->add_child(export_error2);
 	export_error2->add_theme_color_override(SceneStringName(font_color), EditorNode::get_singleton()->get_editor_theme()->get_color(SNAME("error_color"), EditorStringName(Editor)));
 	export_error2->set_text(String::utf8("•  ") + TTR("Export templates for this platform are missing:") + " ");
 
-	result_dialog = memnewOldNoConstructor(AcceptDialog);
+	result_dialog = memnewNoConstructor<AcceptDialog>();
 	result_dialog->set_title(TTR("Project Export"));
-	result_dialog_log = memnewOldNoConstructor(RichTextLabel);
+	result_dialog_log = memnewNoConstructor<RichTextLabel>();
 	result_dialog_log->set_custom_minimum_size(Size2(300, 80) * EDSCALE);
 	result_dialog->add_child(result_dialog_log);
 
 	main_vb->add_child(result_dialog);
 	result_dialog->hide();
 
-	LinkButton *download_templates = memnewOldNoConstructor(LinkButton);
+	LinkButton *download_templates = memnewNoConstructor<LinkButton>();
 	download_templates->set_text(TTR("Manage Export Templates"));
 	download_templates->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	export_templates_error->add_child(download_templates);
@@ -1562,7 +1562,7 @@ ProjectExportDialog::ProjectExportDialog() {
 
 	// Export project file dialog.
 
-	export_project = memnewOldNoConstructor(EditorFileDialog);
+	export_project = memnewNoConstructor<EditorFileDialog>();
 	export_project->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 	add_child(export_project);
 	export_project->connect("file_selected", callable_mp(this, &ProjectExportDialog::_export_project_to_path));

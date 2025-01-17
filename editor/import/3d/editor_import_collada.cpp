@@ -169,7 +169,7 @@ void ColladaImport::_pre_process_lights(Collada::Node *p_node) {
 
 Error ColladaImport::_create_scene_skeletons(Collada::Node *p_node) {
 	if (p_node->type == Collada::Node::TYPE_SKELETON) {
-		Skeleton3D *sk = memnewOldNoConstructor(Skeleton3D);
+		Skeleton3D *sk = memnewNoConstructor<Skeleton3D>();
 		int bone = 0;
 		for (int i = 0; i < p_node->children.size(); i++) {
 			_populate_skeleton(sk, p_node->children[i], bone, -1);
@@ -192,7 +192,7 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 
 	switch (p_node->type) {
 		case Collada::Node::TYPE_NODE: {
-			node = memnewOldNoConstructor(Node3D);
+			node = memnewNoConstructor<Node3D>();
 		} break;
 		case Collada::Node::TYPE_JOINT: {
 			return OK; // do nothing
@@ -212,7 +212,7 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 						return OK;
 					}
 					//well, it's an ambient light..
-					Light3D *l = memnewOldNoConstructor(DirectionalLight3D);
+					Light3D *l = memnewNoConstructor<DirectionalLight3D>();
 					//l->set_color(Light::COLOR_AMBIENT,ld.color);
 					//l->set_color(Light::COLOR_DIFFUSE,Color(0,0,0));
 					//l->set_color(Light::COLOR_SPECULAR,Color(0,0,0));
@@ -220,7 +220,7 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 
 				} else if (ld.mode == Collada::LightData::MODE_DIRECTIONAL) {
 					//well, it's an ambient light..
-					Light3D *l = memnewOldNoConstructor(DirectionalLight3D);
+					Light3D *l = memnewNoConstructor<DirectionalLight3D>();
 					/*
 					if (found_ambient) //use it here
 						l->set_color(Light::COLOR_AMBIENT,ambient);
@@ -233,9 +233,9 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 					Light3D *l;
 
 					if (ld.mode == Collada::LightData::MODE_OMNI) {
-						l = memnewOldNoConstructor(OmniLight3D);
+						l = memnewNoConstructor<OmniLight3D>();
 					} else {
-						l = memnewOldNoConstructor(SpotLight3D);
+						l = memnewNoConstructor<SpotLight3D>();
 						//l->set_parameter(Light::PARAM_SPOT_ANGLE,ld.spot_angle);
 						//l->set_parameter(Light::PARAM_SPOT_ATTENUATION,ld.spot_exp);
 					}
@@ -248,12 +248,12 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 				}
 
 			} else {
-				node = memnewOldNoConstructor(Node3D);
+				node = memnewNoConstructor<Node3D>();
 			}
 		} break;
 		case Collada::Node::TYPE_CAMERA: {
 			Collada::NodeCamera *cam = static_cast<Collada::NodeCamera *>(p_node);
-			Camera3D *camera = memnewOldNoConstructor(Camera3D);
+			Camera3D *camera = memnewNoConstructor<Camera3D>();
 
 			if (collada.state.camera_data_map.has(cam->camera)) {
 				const Collada::CameraData &cd = collada.state.camera_data_map[cam->camera];
@@ -289,10 +289,10 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 			Collada::NodeGeometry *ng = static_cast<Collada::NodeGeometry *>(p_node);
 
 			if (collada.state.curve_data_map.has(ng->source)) {
-				node = memnewOldNoConstructor(Path3D);
+				node = memnewNoConstructor<Path3D>();
 			} else {
 				//mesh since nothing else
-				node = memnewOldNoConstructor(ImporterMeshInstance3D);
+				node = memnewNoConstructor<ImporterMeshInstance3D>();
 				//Object::cast_to<ImporterMeshInstance3D>(node)->set_flag(GeometryInstance3D::FLAG_USE_BAKED_LIGHT, true);
 			}
 		} break;
@@ -337,7 +337,7 @@ Error ColladaImport::_create_material(const String &p_target) {
 	ERR_FAIL_COND_V(!collada.state.effect_map.has(src_mat.instance_effect), ERR_INVALID_PARAMETER);
 	Collada::Effect &effect = collada.state.effect_map[src_mat.instance_effect];
 
-	Ref<StandardMaterial3D> material = memnewOldNoConstructor(StandardMaterial3D);
+	Ref<StandardMaterial3D> material = memnewNoConstructor<StandardMaterial3D>();
 
 	String base_name;
 	if (!src_mat.name.is_empty()) {
@@ -1081,7 +1081,7 @@ Error ColladaImport::_create_resources(Collada::Node *p_node, bool p_use_compres
 			if (curve_cache.has(ng->source)) {
 				path->set_curve(curve_cache[ng->source]);
 			} else {
-				Ref<Curve3D> c = memnewOldNoConstructor(Curve3D);
+				Ref<Curve3D> c = memnewNoConstructor<Curve3D>();
 
 				const Collada::CurveData &cd = collada.state.curve_data_map[ng->source];
 
@@ -1229,7 +1229,7 @@ Error ColladaImport::_create_resources(Collada::Node *p_node, bool p_use_compres
 							for (int i = 0; i < names.size(); i++) {
 								const String &meshid2 = names[i];
 								if (collada.state.mesh_data_map.has(meshid2)) {
-									Ref<ImporterMesh> mesh = Ref<ImporterMesh>(memnewOldNoConstructor(ImporterMesh));
+									Ref<ImporterMesh> mesh = Ref<ImporterMesh>(memnewNoConstructor<ImporterMesh>());
 									const Collada::MeshData &meshdata = collada.state.mesh_data_map[meshid2];
 									mesh->set_name(meshdata.name);
 									Error err = _create_mesh_surfaces(false, mesh, ng2->material_map, meshdata, apply_xform, bone_remap, skin, nullptr, Vector<Ref<ImporterMesh>>(), false);
@@ -1263,7 +1263,7 @@ Error ColladaImport::_create_resources(Collada::Node *p_node, bool p_use_compres
 					//bleh, must ignore invalid
 
 					ERR_FAIL_COND_V(!collada.state.mesh_data_map.has(meshid), ERR_INVALID_DATA);
-					mesh = Ref<ImporterMesh>(memnewOldNoConstructor(ImporterMesh));
+					mesh = Ref<ImporterMesh>(memnewNoConstructor<ImporterMesh>());
 					const Collada::MeshData &meshdata = collada.state.mesh_data_map[meshid];
 					String name = meshdata.name;
 					if (name.is_empty()) {
@@ -1338,7 +1338,7 @@ Error ColladaImport::load(const String &p_path, int p_flags, bool p_force_make_t
 	ERR_FAIL_COND_V(!collada.state.visual_scene_map.has(collada.state.root_visual_scene), ERR_INVALID_DATA);
 	Collada::VisualScene &vs = collada.state.visual_scene_map[collada.state.root_visual_scene];
 
-	scene = memnewOldNoConstructor(Node3D); // root
+	scene = memnewNoConstructor<Node3D>(); // root
 
 	//determine what's going on with the lights
 	for (int i = 0; i < vs.root_nodes.size(); i++) {
@@ -1484,7 +1484,7 @@ void ColladaImport::create_animations(bool p_import_value_tracks) {
 }
 
 void ColladaImport::create_animation(int p_clip, bool p_import_value_tracks) {
-	Ref<Animation> animation = Ref<Animation>(memnewOldNoConstructor(Animation));
+	Ref<Animation> animation = Ref<Animation>(memnewNoConstructor<Animation>());
 
 	if (p_clip == -1) {
 		animation->set_name("default");
@@ -1838,7 +1838,7 @@ Node *EditorSceneFormatImporterCollada::import_scene(const String &p_path, uint3
 
 	if (p_flags & IMPORT_ANIMATION) {
 		state.create_animations(true);
-		AnimationPlayer *ap = memnewOldNoConstructor(AnimationPlayer);
+		AnimationPlayer *ap = memnewNoConstructor<AnimationPlayer>();
 		for (int i = 0; i < state.animations.size(); i++) {
 			String name;
 			if (state.animations[i]->get_name().is_empty()) {

@@ -293,7 +293,7 @@ StringName::StringName(const char *p_name, bool p_static) {
 		return;
 	}
 
-	_data = memnewOldNoConstructor(_Data);
+	_data = memnewNoConstructor<_Data>();
 	_data->name = p_name;
 	_data->refcount.init();
 	_data->static_count.set(p_static ? 1 : 0);
@@ -352,7 +352,7 @@ StringName::StringName(const StaticCString &p_static_string, bool p_static) {
 		return;
 	}
 
-	_data = memnewOldNoConstructor(_Data);
+	_data = memnewNoConstructor<_Data>();
 
 	_data->refcount.init();
 	_data->static_count.set(p_static ? 1 : 0);
@@ -410,7 +410,7 @@ StringName::StringName(const String &p_name, bool p_static) {
 		return;
 	}
 
-	_data = memnewOldNoConstructor(_Data);
+	_data = memnewNoConstructor<_Data>();
 	_data->name = p_name;
 	_data->refcount.init();
 	_data->static_count.set(p_static ? 1 : 0);

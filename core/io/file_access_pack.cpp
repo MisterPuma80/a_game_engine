@@ -78,7 +78,7 @@ void PackedData::add_path(const String &p_pkg_path, const String &p_path, uint64
 
 			for (int j = 0; j < ds.size(); j++) {
 				if (!cd->subdirs.has(ds[j])) {
-					PackedDir *pd = memnewOldNoConstructor(PackedDir);
+					PackedDir *pd = memnewNoConstructor<PackedDir>();
 					pd->name = ds[j];
 					pd->parent = cd;
 					cd->subdirs[pd->name] = pd;
@@ -106,9 +106,9 @@ PackedData *PackedData::singleton = nullptr;
 
 PackedData::PackedData() {
 	singleton = this;
-	root = memnewOldNoConstructor(PackedDir);
+	root = memnewNoConstructor<PackedDir>();
 
-	add_pack_source(memnewOldNoConstructor(PackedSourcePCK));
+	add_pack_source(memnewNoConstructor<PackedSourcePCK>());
 }
 
 void PackedData::_free_packed_dirs(PackedDir *p_dir) {

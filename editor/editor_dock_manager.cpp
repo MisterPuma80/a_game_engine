@@ -236,7 +236,7 @@ void EditorDockManager::_open_dock_in_window(Control *p_dock, bool p_show_window
 	Size2 dock_size = p_dock->get_size() + borders * 2;
 	Point2 dock_screen_pos = p_dock->get_screen_position();
 
-	WindowWrapper *wrapper = memnewOldNoConstructor(WindowWrapper);
+	WindowWrapper *wrapper = memnewNoConstructor<WindowWrapper>();
 	wrapper->set_window_title(vformat(TTR("%s - Blazium Engine"), all_docks[p_dock].title));
 	wrapper->set_margins_enabled(true);
 
@@ -838,10 +838,10 @@ EditorDockManager::EditorDockManager() {
 
 	closed_dock_parent = EditorNode::get_singleton()->get_gui_base();
 
-	dock_context_popup = memnewOldNoConstructor(DockContextPopup);
+	dock_context_popup = memnewNoConstructor<DockContextPopup>();
 	EditorNode::get_singleton()->get_gui_base()->add_child(dock_context_popup);
 
-	docks_menu = memnewOldNoConstructor(PopupMenu);
+	docks_menu = memnewNoConstructor<PopupMenu>();
 	docks_menu->set_hide_on_item_selection(false);
 	docks_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorDockManager::_docks_menu_option));
 	EditorNode::get_singleton()->get_gui_base()->connect(SceneStringName(theme_changed), callable_mp(this, &EditorDockManager::_update_docks_menu));
@@ -1078,23 +1078,23 @@ void DockContextPopup::docks_updated() {
 DockContextPopup::DockContextPopup() {
 	dock_manager = EditorDockManager::get_singleton();
 
-	dock_select_popup_vb = memnewOldNoConstructor(VBoxContainer);
+	dock_select_popup_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(dock_select_popup_vb);
 
-	HBoxContainer *header_hb = memnewOldNoConstructor(HBoxContainer);
-	tab_move_left_button = memnewOldNoConstructor(Button);
+	HBoxContainer *header_hb = memnewNoConstructor<HBoxContainer>();
+	tab_move_left_button = memnewNoConstructor<Button>();
 	tab_move_left_button->set_flat(true);
 	tab_move_left_button->set_focus_mode(Control::FOCUS_NONE);
 	tab_move_left_button->connect(SceneStringName(pressed), callable_mp(this, &DockContextPopup::_tab_move_left));
 	header_hb->add_child(tab_move_left_button);
 
-	Label *position_label = memnewOldNoConstructor(Label);
+	Label *position_label = memnewNoConstructor<Label>();
 	position_label->set_text(TTR("Dock Position"));
 	position_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	position_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	header_hb->add_child(position_label);
 
-	tab_move_right_button = memnewOldNoConstructor(Button);
+	tab_move_right_button = memnewNoConstructor<Button>();
 	tab_move_right_button->set_flat(true);
 	tab_move_right_button->set_focus_mode(Control::FOCUS_NONE);
 	tab_move_right_button->connect(SceneStringName(pressed), callable_mp(this, &DockContextPopup::_tab_move_right));
@@ -1102,7 +1102,7 @@ DockContextPopup::DockContextPopup() {
 	header_hb->add_child(tab_move_right_button);
 	dock_select_popup_vb->add_child(header_hb);
 
-	dock_select = memnewOldNoConstructor(Control);
+	dock_select = memnewNoConstructor<Control>();
 	dock_select->set_custom_minimum_size(Size2(128, 64) * EDSCALE);
 	dock_select->connect(SceneStringName(gui_input), callable_mp(this, &DockContextPopup::_dock_select_input));
 	dock_select->connect(SceneStringName(draw), callable_mp(this, &DockContextPopup::_dock_select_draw));
@@ -1110,7 +1110,7 @@ DockContextPopup::DockContextPopup() {
 	dock_select->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	dock_select_popup_vb->add_child(dock_select);
 
-	make_float_button = memnewOldNoConstructor(Button);
+	make_float_button = memnewNoConstructor<Button>();
 	make_float_button->set_text(TTR("Make Floating"));
 	if (!EditorNode::get_singleton()->is_multi_window_enabled()) {
 		make_float_button->set_disabled(true);
@@ -1123,7 +1123,7 @@ DockContextPopup::DockContextPopup() {
 	make_float_button->connect(SceneStringName(pressed), callable_mp(this, &DockContextPopup::_float_dock));
 	dock_select_popup_vb->add_child(make_float_button);
 
-	dock_to_bottom_button = memnewOldNoConstructor(Button);
+	dock_to_bottom_button = memnewNoConstructor<Button>();
 	dock_to_bottom_button->set_text(TTR("Move to Bottom"));
 	dock_to_bottom_button->set_tooltip_text(TTR("Move this dock to the bottom panel."));
 	dock_to_bottom_button->set_focus_mode(Control::FOCUS_NONE);
@@ -1132,7 +1132,7 @@ DockContextPopup::DockContextPopup() {
 	dock_to_bottom_button->hide();
 	dock_select_popup_vb->add_child(dock_to_bottom_button);
 
-	close_button = memnewOldNoConstructor(Button);
+	close_button = memnewNoConstructor<Button>();
 	close_button->set_text(TTR("Close"));
 	close_button->set_tooltip_text(TTR("Close this dock."));
 	close_button->set_focus_mode(Control::FOCUS_NONE);

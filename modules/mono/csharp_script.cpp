@@ -125,7 +125,7 @@ void CSharpLanguage::init() {
 	EditorNode::add_init_callback(&_editor_init_callback);
 #endif
 
-	gdmono = memnewOldNoConstructor(GDMono);
+	gdmono = memnewNoConstructor<GDMono>();
 
 	// Initialize only if the project uses C#.
 	if (gdmono->should_initialize()) {
@@ -402,7 +402,7 @@ String CSharpLanguage::validate_path(const String &p_path) const {
 }
 
 Script *CSharpLanguage::create_script() const {
-	return memnewOldNoConstructor(CSharpScript);
+	return memnewNoConstructor<CSharpScript>();
 }
 
 bool CSharpLanguage::supports_builtin_mode() const {
@@ -2826,7 +2826,7 @@ Ref<Resource> ResourceFormatLoaderCSharpScript::load(const String &p_path, const
 		GDMonoCache::managed_callbacks.ScriptManagerBridge_GetOrCreateScriptBridgeForPath(&p_path, &scr);
 		ERR_FAIL_NULL_V_MSG(scr, Ref<Resource>(), "Could not create C# script '" + real_path + "'.");
 	} else {
-		scr = Ref<CSharpScript>(memnewOldNoConstructor(CSharpScript));
+		scr = Ref<CSharpScript>(memnewNoConstructor<CSharpScript>());
 	}
 
 #if defined(DEBUG_ENABLED) || defined(TOOLS_ENABLED)

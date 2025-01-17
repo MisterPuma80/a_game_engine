@@ -348,7 +348,7 @@ void ResourceLoader::_run_load_task(void *p_userdata) {
 		if (!Thread::is_main_thread()) {
 			// Let the caller thread use its own, for added flexibility. Provide one otherwise.
 			if (MessageQueue::get_singleton() == MessageQueue::get_main_singleton()) {
-				own_mq_override = memnewOldNoConstructor(CallQueue);
+				own_mq_override = memnewNoConstructor<CallQueue>();
 				MessageQueue::set_thread_singleton_override(own_mq_override);
 			}
 			set_current_thread_safe_for_nodes(true);
@@ -810,7 +810,7 @@ Ref<Resource> ResourceLoader::_load_complete_inner(LoadToken &p_load_token, Erro
 			} else if (load_task.need_wait) {
 				// Loading thread is main or user thread.
 				if (!load_task.cond_var) {
-					load_task.cond_var = memnewOldNoConstructor(ConditionVariable);
+					load_task.cond_var = memnewNoConstructor<ConditionVariable>();
 				}
 				load_task.awaiters_count++;
 				do {

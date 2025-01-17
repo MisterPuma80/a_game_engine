@@ -385,7 +385,7 @@ Ref<TriangleMesh> Mesh::generate_triangle_mesh() const {
 		}
 	}
 
-	triangle_mesh = Ref<TriangleMesh>(memnewOldNoConstructor(TriangleMesh));
+	triangle_mesh = Ref<TriangleMesh>(memnewNoConstructor<TriangleMesh>());
 	triangle_mesh->create(faces);
 
 	return triangle_mesh;
@@ -442,7 +442,7 @@ Ref<TriangleMesh> Mesh::generate_surface_triangle_mesh(int p_surface) const {
 		}
 	}
 
-	Ref<TriangleMesh> tr_mesh = Ref<TriangleMesh>(memnewOldNoConstructor(TriangleMesh));
+	Ref<TriangleMesh> tr_mesh = Ref<TriangleMesh>(memnewNoConstructor<TriangleMesh>());
 	tr_mesh->create(faces);
 	surface_triangle_meshes.set(p_surface, tr_mesh);
 
@@ -544,7 +544,7 @@ Ref<ConvexPolygonShape3D> Mesh::create_convex_shape(bool p_clean, bool p_simplif
 		vertices.append_array(v);
 	}
 
-	Ref<ConvexPolygonShape3D> shape = memnewOldNoConstructor(ConvexPolygonShape3D);
+	Ref<ConvexPolygonShape3D> shape = memnewNoConstructor<ConvexPolygonShape3D>();
 
 	if (p_clean) {
 		Geometry3D::MeshData md;
@@ -577,7 +577,7 @@ Ref<ConcavePolygonShape3D> Mesh::create_trimesh_shape() const {
 		face_points.set(i + 2, f.vertex[2]);
 	}
 
-	Ref<ConcavePolygonShape3D> shape = memnewOldNoConstructor(ConcavePolygonShape3D);
+	Ref<ConcavePolygonShape3D> shape = memnewNoConstructor<ConcavePolygonShape3D>();
 	shape->set_faces(face_points);
 	return shape;
 }
@@ -777,7 +777,7 @@ Ref<Mesh> Mesh::create_outline(float p_margin) const {
 		}
 	}
 
-	Ref<ArrayMesh> newmesh = memnewOldNoConstructor(ArrayMesh);
+	Ref<ArrayMesh> newmesh = memnewNoConstructor<ArrayMesh>();
 	newmesh->add_surface_from_arrays(PRIMITIVE_TRIANGLES, arrays);
 	return newmesh;
 }
@@ -2025,7 +2025,7 @@ void ArrayMesh::regen_normal_maps() {
 	Vector<Ref<SurfaceTool>> surfs;
 	Vector<uint64_t> formats;
 	for (int i = 0; i < get_surface_count(); i++) {
-		Ref<SurfaceTool> st = memnewOldNoConstructor(SurfaceTool);
+		Ref<SurfaceTool> st = memnewNoConstructor<SurfaceTool>();
 		st->create_from(Ref<ArrayMesh>(this), i);
 		surfs.push_back(st);
 		formats.push_back(surface_get_format(i));

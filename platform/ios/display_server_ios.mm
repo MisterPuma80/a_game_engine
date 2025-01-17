@@ -61,7 +61,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 	if (tts_enabled) {
 		tts = [[TTS_IOS alloc] init];
 	}
-	native_menu = memnewOldNoConstructor(NativeMenu);
+	native_menu = memnewNoConstructor<NativeMenu>();
 
 #if defined(RD_ENABLED)
 	rendering_context = nullptr;
@@ -82,7 +82,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 			ERR_FAIL_MSG("Failed to create iOS Vulkan rendering layer.");
 		}
 		wpd.vulkan.layer_ptr = (CAMetalLayer *const *)&layer;
-		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanIOS);
+		rendering_context = memnewNoConstructor<RenderingContextDriverVulkanIOS>();
 	}
 #endif
 
@@ -120,7 +120,7 @@ DisplayServerIOS::DisplayServerIOS(const String &p_rendering_driver, WindowMode 
 		rendering_context->window_set_size(MAIN_WINDOW_ID, size.width, size.height);
 		rendering_context->window_set_vsync_mode(MAIN_WINDOW_ID, p_vsync_mode);
 
-		rendering_device = memnewOldNoConstructor(RenderingDevice);
+		rendering_device = memnewNoConstructor<RenderingDevice>();
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			rendering_device = nullptr;
 			memdelete(rendering_context);

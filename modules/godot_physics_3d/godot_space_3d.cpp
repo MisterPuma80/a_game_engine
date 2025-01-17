@@ -1268,7 +1268,7 @@ GodotSpace3D::GodotSpace3D() {
 	broadphase->set_pair_callback(_broadphase_pair, this);
 	broadphase->set_unpair_callback(_broadphase_unpair, this);
 
-	direct_access = memnewOldNoConstructor(GodotPhysicsDirectSpaceState3D);
+	direct_access = memnewNoConstructor<GodotPhysicsDirectSpaceState3D>();
 	direct_access->space = this;
 }
 

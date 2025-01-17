@@ -1326,7 +1326,7 @@ Error RenderingDevice::_texture_update(RID p_texture, uint32_t p_layer, const Ve
 
 void RenderingDevice::_texture_check_shared_fallback(Texture *p_texture) {
 	if (p_texture->shared_fallback == nullptr) {
-		p_texture->shared_fallback = memnewOldNoConstructor(Texture::SharedFallback);
+		p_texture->shared_fallback = memnewNoConstructor<Texture::SharedFallback>();
 	}
 }
 
@@ -4232,7 +4232,7 @@ Error RenderingDevice::_draw_list_allocate(const Rect2i &p_viewport, uint32_t p_
 	// Lock while draw_list is active.
 	_THREAD_SAFE_LOCK_
 
-	draw_list = memnewOldNoConstructor(DrawList);
+	draw_list = memnewNoConstructor<DrawList>();
 	draw_list->viewport = p_viewport;
 
 	return OK;
@@ -4285,7 +4285,7 @@ RenderingDevice::ComputeListID RenderingDevice::compute_list_begin() {
 	// Lock while compute_list is active.
 	_THREAD_SAFE_LOCK_
 
-	compute_list = memnewOldNoConstructor(ComputeList);
+	compute_list = memnewNoConstructor<ComputeList>();
 
 	draw_graph.add_compute_list_begin();
 
@@ -5861,7 +5861,7 @@ void RenderingDevice::finalize() {
 }
 
 RenderingDevice *RenderingDevice::create_local_device() {
-	RenderingDevice *rd = memnewOldNoConstructor(RenderingDevice);
+	RenderingDevice *rd = memnewNoConstructor<RenderingDevice>();
 	rd->initialize(context);
 	return rd;
 }

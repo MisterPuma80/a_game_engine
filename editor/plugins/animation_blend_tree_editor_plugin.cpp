@@ -152,7 +152,7 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 	blend_tree->get_node_list(&nodes);
 
 	for (const StringName &E : nodes) {
-		GraphNode *node = memnewOldNoConstructor(GraphNode);
+		GraphNode *node = memnewNoConstructor<GraphNode>();
 		graph->add_child(node);
 
 		node->set_draggable(!read_only);
@@ -167,7 +167,7 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 
 		int base = 0;
 		if (String(E) != "output") {
-			LineEdit *name = memnewOldNoConstructor(LineEdit);
+			LineEdit *name = memnewNoConstructor<LineEdit>();
 			name->set_text(E);
 			name->set_editable(!read_only);
 			name->set_expand_to_text_length_enabled(true);
@@ -180,7 +180,7 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 			agnode->set_deletable(true);
 
 			if (!read_only) {
-				Button *delete_button = memnewOldNoConstructor(Button);
+				Button *delete_button = memnewNoConstructor<Button>();
 				delete_button->set_flat(true);
 				delete_button->set_focus_mode(FOCUS_NONE);
 				delete_button->set_icon(get_editor_theme_icon(SNAME("Close")));
@@ -190,7 +190,7 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 		}
 
 		for (int i = 0; i < agnode->get_input_count(); i++) {
-			Label *in_name = memnewOldNoConstructor(Label);
+			Label *in_name = memnewNoConstructor<Label>();
 			node->add_child(in_name);
 			in_name->set_text(agnode->get_input_name(i));
 			node->set_slot(base + i, true, read_only ? -1 : 0, get_theme_color(SceneStringName(font_color), SNAME("Label")), false, 0, Color());
@@ -218,8 +218,8 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 		node->connect("dragged", callable_mp(this, &AnimationNodeBlendTreeEditor::_node_dragged).bind(E));
 
 		if (AnimationTreeEditor::get_singleton()->can_edit(agnode)) {
-			node->add_child(memnewOldNoConstructor(HSeparator));
-			Button *open_in_editor = memnewOldNoConstructor(Button);
+			node->add_child(memnewNoConstructor<HSeparator>());
+			Button *open_in_editor = memnewNoConstructor<Button>();
 			open_in_editor->set_text(TTR("Open Editor"));
 			open_in_editor->set_icon(get_editor_theme_icon(SNAME("Edit")));
 			node->add_child(open_in_editor);
@@ -228,8 +228,8 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 		}
 
 		if (agnode->has_filter()) {
-			node->add_child(memnewOldNoConstructor(HSeparator));
-			Button *inspect_filters = memnewOldNoConstructor(Button);
+			node->add_child(memnewNoConstructor<HSeparator>());
+			Button *inspect_filters = memnewNoConstructor<Button>();
 			if (read_only) {
 				inspect_filters->set_text(TTR("Inspect Filters"));
 			} else {
@@ -243,17 +243,17 @@ void AnimationNodeBlendTreeEditor::update_graph() {
 
 		Ref<AnimationNodeAnimation> anim = agnode;
 		if (anim.is_valid()) {
-			MenuButton *mb = memnewOldNoConstructor(MenuButton);
+			MenuButton *mb = memnewNoConstructor<MenuButton>();
 			mb->set_text(anim->get_animation());
 			mb->set_icon(get_editor_theme_icon(SNAME("Animation")));
 			mb->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 			mb->set_disabled(read_only);
 			Array options;
 
-			node->add_child(memnewOldNoConstructor(HSeparator));
+			node->add_child(memnewNoConstructor<HSeparator>());
 			node->add_child(mb);
 
-			ProgressBar *pb = memnewOldNoConstructor(ProgressBar);
+			ProgressBar *pb = memnewNoConstructor<ProgressBar>();
 
 			List<StringName> anims;
 			tree->get_animation_list(&anims);
@@ -1174,7 +1174,7 @@ AnimationNodeBlendTreeEditor::AnimationNodeBlendTreeEditor() {
 	updating = false;
 	use_position_from_popup_menu = false;
 
-	graph = memnewOldNoConstructor(GraphEdit);
+	graph = memnewNoConstructor<GraphEdit>();
 	add_child(graph);
 	graph->add_valid_right_disconnect_type(0);
 	graph->add_valid_left_disconnect_type(0);
@@ -1192,11 +1192,11 @@ AnimationNodeBlendTreeEditor::AnimationNodeBlendTreeEditor() {
 	float graph_lines_curvature = EDITOR_GET("editors/visual_editors/lines_curvature");
 	graph->set_connection_lines_curvature(graph_lines_curvature);
 
-	VSeparator *vs = memnewOldNoConstructor(VSeparator);
+	VSeparator *vs = memnewNoConstructor<VSeparator>();
 	graph->get_menu_hbox()->add_child(vs);
 	graph->get_menu_hbox()->move_child(vs, 0);
 
-	add_node = memnewOldNoConstructor(MenuButton);
+	add_node = memnewNoConstructor<MenuButton>();
 	graph->get_menu_hbox()->add_child(add_node);
 	add_node->set_text(TTR("Add Node..."));
 	graph->get_menu_hbox()->move_child(add_node, 0);
@@ -1221,50 +1221,50 @@ AnimationNodeBlendTreeEditor::AnimationNodeBlendTreeEditor() {
 	add_options.push_back(AddOption("StateMachine", "AnimationNodeStateMachine"));
 	_update_options_menu();
 
-	error_panel = memnewOldNoConstructor(PanelContainer);
+	error_panel = memnewNoConstructor<PanelContainer>();
 	add_child(error_panel);
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_panel->add_child(error_label);
 	error_label->set_text("eh");
 
-	filter_dialog = memnewOldNoConstructor(AcceptDialog);
+	filter_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(filter_dialog);
 	filter_dialog->set_title(TTR("Edit Filtered Tracks:"));
 
-	VBoxContainer *filter_vbox = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *filter_vbox = memnewNoConstructor<VBoxContainer>();
 	filter_dialog->add_child(filter_vbox);
 
-	HBoxContainer *filter_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *filter_hbox = memnewNoConstructor<HBoxContainer>();
 	filter_vbox->add_child(filter_hbox);
 
-	filter_enabled = memnewOldNoConstructor(CheckBox);
+	filter_enabled = memnewNoConstructor<CheckBox>();
 	filter_enabled->set_text(TTR("Enable Filtering"));
 	filter_enabled->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendTreeEditor::_filter_toggled));
 	filter_hbox->add_child(filter_enabled);
 
-	filter_fill_selection = memnewOldNoConstructor(Button);
+	filter_fill_selection = memnewNoConstructor<Button>();
 	filter_fill_selection->set_text(TTR("Fill Selected Children"));
 	filter_fill_selection->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendTreeEditor::_filter_fill_selection));
 	filter_hbox->add_child(filter_fill_selection);
 
-	filter_invert_selection = memnewOldNoConstructor(Button);
+	filter_invert_selection = memnewNoConstructor<Button>();
 	filter_invert_selection->set_text(TTR("Invert"));
 	filter_invert_selection->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendTreeEditor::_filter_invert_selection));
 	filter_hbox->add_child(filter_invert_selection);
 
-	filter_clear_selection = memnewOldNoConstructor(Button);
+	filter_clear_selection = memnewNoConstructor<Button>();
 	filter_clear_selection->set_text(TTR("Clear"));
 	filter_clear_selection->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendTreeEditor::_filter_clear_selection));
 	filter_hbox->add_child(filter_clear_selection);
 
-	filters = memnewOldNoConstructor(Tree);
+	filters = memnewNoConstructor<Tree>();
 	filter_vbox->add_child(filters);
 	filters->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	filters->set_v_size_flags(SIZE_EXPAND_FILL);
 	filters->set_hide_root(true);
 	filters->connect("item_edited", callable_mp(this, &AnimationNodeBlendTreeEditor::_filter_edited));
 
-	open_file = memnewOldNoConstructor(EditorFileDialog);
+	open_file = memnewNoConstructor<EditorFileDialog>();
 	add_child(open_file);
 	open_file->set_title(TTR("Open Animation Node"));
 	open_file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);

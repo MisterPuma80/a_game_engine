@@ -657,13 +657,13 @@ AnimationNodeBlendSpace1DEditor *AnimationNodeBlendSpace1DEditor::singleton = nu
 AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	singleton = this;
 
-	HBoxContainer *top_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *top_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(top_hb);
 
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 
-	tool_blend = memnewOldNoConstructor(Button);
+	tool_blend = memnewNoConstructor<Button>();
 	tool_blend->set_theme_type_variation("FlatButton");
 	tool_blend->set_toggle_mode(true);
 	tool_blend->set_button_group(bg);
@@ -672,7 +672,7 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	tool_blend->set_tooltip_text(TTR("Set the blending position within the space"));
 	tool_blend->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_tool_switch).bind(3));
 
-	tool_select = memnewOldNoConstructor(Button);
+	tool_select = memnewNoConstructor<Button>();
 	tool_select->set_theme_type_variation("FlatButton");
 	tool_select->set_toggle_mode(true);
 	tool_select->set_button_group(bg);
@@ -680,7 +680,7 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	tool_select->set_tooltip_text(TTR("Select and move points, create points with RMB."));
 	tool_select->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_tool_switch).bind(0));
 
-	tool_create = memnewOldNoConstructor(Button);
+	tool_create = memnewNoConstructor<Button>();
 	tool_create->set_theme_type_variation("FlatButton");
 	tool_create->set_toggle_mode(true);
 	tool_create->set_button_group(bg);
@@ -688,17 +688,17 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	tool_create->set_tooltip_text(TTR("Create points."));
 	tool_create->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_tool_switch).bind(1));
 
-	tool_erase_sep = memnewOldNoConstructor(VSeparator);
+	tool_erase_sep = memnewNoConstructor<VSeparator>();
 	top_hb->add_child(tool_erase_sep);
-	tool_erase = memnewOldNoConstructor(Button);
+	tool_erase = memnewNoConstructor<Button>();
 	tool_erase->set_theme_type_variation("FlatButton");
 	top_hb->add_child(tool_erase);
 	tool_erase->set_tooltip_text(TTR("Erase points."));
 	tool_erase->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_erase_selected));
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
-	snap = memnewOldNoConstructor(Button);
+	snap = memnewNoConstructor<Button>();
 	snap->set_theme_type_variation("FlatButton");
 	snap->set_toggle_mode(true);
 	top_hb->add_child(snap);
@@ -706,38 +706,38 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	snap->set_tooltip_text(TTR("Enable snap and show grid."));
 	snap->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_snap_toggled));
 
-	snap_value = memnewOldNoConstructor(SpinBox);
+	snap_value = memnewNoConstructor<SpinBox>();
 	top_hb->add_child(snap_value);
 	snap_value->set_min(0.01);
 	snap_value->set_step(0.01);
 	snap_value->set_max(1000);
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 	top_hb->add_child(memnewWithArgs<Label>(TTR("Sync:")));
-	sync = memnewOldNoConstructor(CheckBox);
+	sync = memnewNoConstructor<CheckBox>();
 	top_hb->add_child(sync);
 	sync->connect("toggled", callable_mp(this, &AnimationNodeBlendSpace1DEditor::_config_changed));
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
 	top_hb->add_child(memnewWithArgs<Label>(TTR("Blend:")));
-	interpolation = memnewOldNoConstructor(OptionButton);
+	interpolation = memnewNoConstructor<OptionButton>();
 	top_hb->add_child(interpolation);
 	interpolation->connect(SceneStringName(item_selected), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_config_changed));
 
-	edit_hb = memnewOldNoConstructor(HBoxContainer);
+	edit_hb = memnewNoConstructor<HBoxContainer>();
 	top_hb->add_child(edit_hb);
-	edit_hb->add_child(memnewOldNoConstructor(VSeparator));
+	edit_hb->add_child(memnewNoConstructor<VSeparator>());
 	edit_hb->add_child(memnewWithArgs<Label>(TTR("Point")));
 
-	edit_value = memnewOldNoConstructor(SpinBox);
+	edit_value = memnewNoConstructor<SpinBox>();
 	edit_hb->add_child(edit_value);
 	edit_value->set_min(-1000);
 	edit_value->set_max(1000);
 	edit_value->set_step(0.01);
 	edit_value->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_edit_point_pos));
 
-	open_editor = memnewOldNoConstructor(Button);
+	open_editor = memnewNoConstructor<Button>();
 	edit_hb->add_child(open_editor);
 	open_editor->set_text(TTR("Open Editor"));
 	open_editor->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_open_editor), CONNECT_DEFERRED);
@@ -745,17 +745,17 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	edit_hb->hide();
 	open_editor->hide();
 
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(main_vb);
 	main_vb->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	panel = memnewOldNoConstructor(PanelContainer);
+	panel = memnewNoConstructor<PanelContainer>();
 	panel->set_clip_contents(true);
 	main_vb->add_child(panel);
 	panel->set_h_size_flags(SIZE_EXPAND_FILL);
 	panel->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	blend_space_draw = memnewOldNoConstructor(Control);
+	blend_space_draw = memnewNoConstructor<Control>();
 	blend_space_draw->connect(SceneStringName(gui_input), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_blend_space_gui_input));
 	blend_space_draw->connect(SceneStringName(draw), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_blend_space_draw));
 	blend_space_draw->set_focus_mode(FOCUS_ALL);
@@ -763,21 +763,21 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	panel->add_child(blend_space_draw);
 
 	{
-		HBoxContainer *bottom_hb = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *bottom_hb = memnewNoConstructor<HBoxContainer>();
 		main_vb->add_child(bottom_hb);
 		bottom_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-		min_value = memnewOldNoConstructor(SpinBox);
+		min_value = memnewNoConstructor<SpinBox>();
 		min_value->set_min(-10000);
 		min_value->set_max(0);
 		min_value->set_step(0.01);
 
-		max_value = memnewOldNoConstructor(SpinBox);
+		max_value = memnewNoConstructor<SpinBox>();
 		max_value->set_min(0.01);
 		max_value->set_max(10000);
 		max_value->set_step(0.01);
 
-		label_value = memnewOldNoConstructor(LineEdit);
+		label_value = memnewNoConstructor<LineEdit>();
 		label_value->set_expand_to_text_length_enabled(true);
 
 		// now add
@@ -794,22 +794,22 @@ AnimationNodeBlendSpace1DEditor::AnimationNodeBlendSpace1DEditor() {
 	max_value->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_config_changed));
 	label_value->connect(SceneStringName(text_changed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_labels_changed));
 
-	error_panel = memnewOldNoConstructor(PanelContainer);
+	error_panel = memnewNoConstructor<PanelContainer>();
 	add_child(error_panel);
 
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_panel->add_child(error_label);
 
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeBlendSpace1DEditor::_add_menu_type));
 
-	animations_menu = memnewOldNoConstructor(PopupMenu);
+	animations_menu = memnewNoConstructor<PopupMenu>();
 	animations_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	menu->add_child(animations_menu);
 	animations_menu->connect("index_pressed", callable_mp(this, &AnimationNodeBlendSpace1DEditor::_add_animation_type));
 
-	open_file = memnewOldNoConstructor(EditorFileDialog);
+	open_file = memnewNoConstructor<EditorFileDialog>();
 	add_child(open_file);
 	open_file->set_title(TTR("Open Animation Node"));
 	open_file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);

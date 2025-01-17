@@ -122,34 +122,34 @@ void ControlPositioningWarning::_notification(int p_notification) {
 ControlPositioningWarning::ControlPositioningWarning() {
 	set_mouse_filter(MOUSE_FILTER_STOP);
 
-	bg_panel = memnewOldNoConstructor(PanelContainer);
+	bg_panel = memnewNoConstructor<PanelContainer>();
 	bg_panel->set_mouse_filter(MOUSE_FILTER_IGNORE);
 	add_child(bg_panel);
 
-	grid = memnewOldNoConstructor(GridContainer);
+	grid = memnewNoConstructor<GridContainer>();
 	grid->set_columns(3);
 	bg_panel->add_child(grid);
 
-	title_icon = memnewOldNoConstructor(TextureRect);
+	title_icon = memnewNoConstructor<TextureRect>();
 	title_icon->set_stretch_mode(TextureRect::StretchMode::STRETCH_KEEP_CENTERED);
 	grid->add_child(title_icon);
 
-	title_label = memnewOldNoConstructor(Label);
+	title_label = memnewNoConstructor<Label>();
 	title_label->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD);
 	title_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	title_label->set_vertical_alignment(VerticalAlignment::VERTICAL_ALIGNMENT_CENTER);
 	grid->add_child(title_label);
 
-	hint_icon = memnewOldNoConstructor(TextureRect);
+	hint_icon = memnewNoConstructor<TextureRect>();
 	hint_icon->set_stretch_mode(TextureRect::StretchMode::STRETCH_KEEP_CENTERED);
 	grid->add_child(hint_icon);
 
 	// Filler.
-	hint_filler_left = memnewOldNoConstructor(Control);
+	hint_filler_left = memnewNoConstructor<Control>();
 	hint_filler_left->hide();
 	grid->add_child(hint_filler_left);
 
-	hint_label = memnewOldNoConstructor(Label);
+	hint_label = memnewNoConstructor<Label>();
 	hint_label->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD);
 	hint_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hint_label->set_vertical_alignment(VerticalAlignment::VERTICAL_ALIGNMENT_CENTER);
@@ -157,7 +157,7 @@ ControlPositioningWarning::ControlPositioningWarning() {
 	grid->add_child(hint_label);
 
 	// Filler.
-	hint_filler_right = memnewOldNoConstructor(Control);
+	hint_filler_right = memnewNoConstructor<Control>();
 	hint_filler_right->hide();
 	grid->add_child(hint_filler_right);
 }
@@ -215,7 +215,7 @@ void EditorPropertyAnchorsPreset::setup(const Vector<String> &p_options) {
 }
 
 EditorPropertyAnchorsPreset::EditorPropertyAnchorsPreset() {
-	options = memnewOldNoConstructor(OptionButton);
+	options = memnewNoConstructor<OptionButton>();
 	options->set_clip_text(true);
 	options->set_flat(true);
 	add_child(options);
@@ -354,7 +354,7 @@ void EditorPropertySizeFlags::setup(const Vector<String> &p_options, bool p_vert
 			continue;
 		}
 
-		CheckBox *cb = memnewOldNoConstructor(CheckBox);
+		CheckBox *cb = memnewNoConstructor<CheckBox>();
 		cb->set_text(text_split[0]);
 		cb->set_clip_text(true);
 		cb->set_meta("_value", current_val);
@@ -394,10 +394,10 @@ void EditorPropertySizeFlags::setup(const Vector<String> &p_options, bool p_vert
 }
 
 EditorPropertySizeFlags::EditorPropertySizeFlags() {
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	add_child(vb);
 
-	flag_presets = memnewOldNoConstructor(OptionButton);
+	flag_presets = memnewNoConstructor<OptionButton>();
 	flag_presets->set_clip_text(true);
 	flag_presets->set_flat(true);
 	vb->add_child(flag_presets);
@@ -405,11 +405,11 @@ EditorPropertySizeFlags::EditorPropertySizeFlags() {
 	set_label_reference(flag_presets);
 	flag_presets->connect(SceneStringName(item_selected), callable_mp(this, &EditorPropertySizeFlags::_preset_selected));
 
-	flag_options = memnewOldNoConstructor(VBoxContainer);
+	flag_options = memnewNoConstructor<VBoxContainer>();
 	flag_options->hide();
 	vb->add_child(flag_options);
 
-	flag_expand = memnewOldNoConstructor(CheckBox);
+	flag_expand = memnewNoConstructor<CheckBox>();
 	flag_expand->set_text(TTR("Expand"));
 	vb->add_child(flag_expand);
 	add_focusable(flag_expand);
@@ -434,7 +434,7 @@ void EditorInspectorPluginControl::parse_group(Object *p_object, const String &p
 		return;
 	}
 
-	ControlPositioningWarning *pos_warning = memnewOldNoConstructor(ControlPositioningWarning);
+	ControlPositioningWarning *pos_warning = memnewNoConstructor<ControlPositioningWarning>();
 	pos_warning->set_control(control);
 	add_custom_control(pos_warning);
 }
@@ -446,7 +446,7 @@ bool EditorInspectorPluginControl::parse_property(Object *p_object, const Varian
 	}
 
 	if (p_path == "anchors_preset") {
-		EditorPropertyAnchorsPreset *prop_editor = memnewOldNoConstructor(EditorPropertyAnchorsPreset);
+		EditorPropertyAnchorsPreset *prop_editor = memnewNoConstructor<EditorPropertyAnchorsPreset>();
 		Vector<String> options = p_hint_text.split(",");
 		prop_editor->setup(options);
 		add_property_editor(p_path, prop_editor);
@@ -455,7 +455,7 @@ bool EditorInspectorPluginControl::parse_property(Object *p_object, const Varian
 	}
 
 	if (p_path == "size_flags_horizontal" || p_path == "size_flags_vertical") {
-		EditorPropertySizeFlags *prop_editor = memnewOldNoConstructor(EditorPropertySizeFlags);
+		EditorPropertySizeFlags *prop_editor = memnewNoConstructor<EditorPropertySizeFlags>();
 		Vector<String> options;
 		if (!p_hint_text.is_empty()) {
 			options = p_hint_text.split(",");
@@ -539,20 +539,20 @@ ControlEditorPopupButton::ControlEditorPopupButton() {
 	set_toggle_mode(true);
 	set_focus_mode(FOCUS_NONE);
 
-	popup_panel = memnewOldNoConstructor(PopupPanel);
+	popup_panel = memnewNoConstructor<PopupPanel>();
 	popup_panel->set_theme_type_variation("ControlEditorPopupPanel");
 	add_child(popup_panel);
 	popup_panel->connect("about_to_popup", callable_mp(this, &ControlEditorPopupButton::_popup_visibility_changed).bind(true));
 	popup_panel->connect("popup_hide", callable_mp(this, &ControlEditorPopupButton::_popup_visibility_changed).bind(false));
 
-	popup_vbox = memnewOldNoConstructor(VBoxContainer);
+	popup_vbox = memnewNoConstructor<VBoxContainer>();
 	popup_panel->add_child(popup_vbox);
 }
 
 void ControlEditorPresetPicker::_add_row_button(HBoxContainer *p_row, const int p_preset, const String &p_name) {
 	ERR_FAIL_COND(preset_buttons.has(p_preset));
 
-	Button *b = memnewOldNoConstructor(Button);
+	Button *b = memnewNoConstructor<Button>();
 	b->set_custom_minimum_size(Size2i(36, 36) * EDSCALE);
 	b->set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	b->set_tooltip_text(p_name);
@@ -607,11 +607,11 @@ void AnchorPresetPicker::_bind_methods() {
 }
 
 AnchorPresetPicker::AnchorPresetPicker() {
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	main_vb->add_theme_constant_override("separation", grid_separation);
 	add_child(main_vb);
 
-	HBoxContainer *top_row = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *top_row = memnewNoConstructor<HBoxContainer>();
 	top_row->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	top_row->add_theme_constant_override("separation", grid_separation);
 	main_vb->add_child(top_row);
@@ -619,10 +619,10 @@ AnchorPresetPicker::AnchorPresetPicker() {
 	_add_row_button(top_row, PRESET_TOP_LEFT, TTR("Top Left"));
 	_add_row_button(top_row, PRESET_CENTER_TOP, TTR("Center Top"));
 	_add_row_button(top_row, PRESET_TOP_RIGHT, TTR("Top Right"));
-	_add_separator(top_row, memnewOldNoConstructor(VSeparator));
+	_add_separator(top_row, memnewNoConstructor<VSeparator>());
 	_add_row_button(top_row, PRESET_TOP_WIDE, TTR("Top Wide"));
 
-	HBoxContainer *mid_row = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *mid_row = memnewNoConstructor<HBoxContainer>();
 	mid_row->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	mid_row->add_theme_constant_override("separation", grid_separation);
 	main_vb->add_child(mid_row);
@@ -630,10 +630,10 @@ AnchorPresetPicker::AnchorPresetPicker() {
 	_add_row_button(mid_row, PRESET_CENTER_LEFT, TTR("Center Left"));
 	_add_row_button(mid_row, PRESET_CENTER, TTR("Center"));
 	_add_row_button(mid_row, PRESET_CENTER_RIGHT, TTR("Center Right"));
-	_add_separator(mid_row, memnewOldNoConstructor(VSeparator));
+	_add_separator(mid_row, memnewNoConstructor<VSeparator>());
 	_add_row_button(mid_row, PRESET_HCENTER_WIDE, TTR("HCenter Wide"));
 
-	HBoxContainer *bot_row = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *bot_row = memnewNoConstructor<HBoxContainer>();
 	bot_row->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	bot_row->add_theme_constant_override("separation", grid_separation);
 	main_vb->add_child(bot_row);
@@ -641,12 +641,12 @@ AnchorPresetPicker::AnchorPresetPicker() {
 	_add_row_button(bot_row, PRESET_BOTTOM_LEFT, TTR("Bottom Left"));
 	_add_row_button(bot_row, PRESET_CENTER_BOTTOM, TTR("Center Bottom"));
 	_add_row_button(bot_row, PRESET_BOTTOM_RIGHT, TTR("Bottom Right"));
-	_add_separator(bot_row, memnewOldNoConstructor(VSeparator));
+	_add_separator(bot_row, memnewNoConstructor<VSeparator>());
 	_add_row_button(bot_row, PRESET_BOTTOM_WIDE, TTR("Bottom Wide"));
 
-	_add_separator(main_vb, memnewOldNoConstructor(HSeparator));
+	_add_separator(main_vb, memnewNoConstructor<HSeparator>());
 
-	HBoxContainer *extra_row = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *extra_row = memnewNoConstructor<HBoxContainer>();
 	extra_row->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	extra_row->add_theme_constant_override("separation", grid_separation);
 	main_vb->add_child(extra_row);
@@ -654,7 +654,7 @@ AnchorPresetPicker::AnchorPresetPicker() {
 	_add_row_button(extra_row, PRESET_LEFT_WIDE, TTR("Left Wide"));
 	_add_row_button(extra_row, PRESET_VCENTER_WIDE, TTR("VCenter Wide"));
 	_add_row_button(extra_row, PRESET_RIGHT_WIDE, TTR("Right Wide"));
-	_add_separator(extra_row, memnewOldNoConstructor(VSeparator));
+	_add_separator(extra_row, memnewNoConstructor<VSeparator>());
 	_add_row_button(extra_row, PRESET_FULL_RECT, TTR("Full Rect"));
 }
 
@@ -719,10 +719,10 @@ void SizeFlagPresetPicker::_bind_methods() {
 SizeFlagPresetPicker::SizeFlagPresetPicker(bool p_vertical) {
 	vertical = p_vertical;
 
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	add_child(main_vb);
 
-	HBoxContainer *main_row = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *main_row = memnewNoConstructor<HBoxContainer>();
 	main_row->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	main_row->add_theme_constant_override("separation", grid_separation);
 	main_vb->add_child(main_row);
@@ -730,10 +730,10 @@ SizeFlagPresetPicker::SizeFlagPresetPicker(bool p_vertical) {
 	_add_row_button(main_row, SIZE_SHRINK_BEGIN, TTR("Shrink Begin"));
 	_add_row_button(main_row, SIZE_SHRINK_CENTER, TTR("Shrink Center"));
 	_add_row_button(main_row, SIZE_SHRINK_END, TTR("Shrink End"));
-	_add_separator(main_row, memnewOldNoConstructor(VSeparator));
+	_add_separator(main_row, memnewNoConstructor<VSeparator>());
 	_add_row_button(main_row, SIZE_FILL, TTR("Fill"));
 
-	expand_button = memnewOldNoConstructor(CheckButton);
+	expand_button = memnewNoConstructor<CheckButton>();
 	expand_button->set_flat(true);
 	expand_button->set_text(TTR("Expand"));
 	expand_button->set_tooltip_text(TTR("Enable to also set the Expand flag.\nDisable to only set Shrink/Fill flags."));
@@ -1064,28 +1064,28 @@ void ControlEditorToolbar::_notification(int p_what) {
 
 ControlEditorToolbar::ControlEditorToolbar() {
 	// Anchor and offset tools.
-	anchors_button = memnewOldNoConstructor(ControlEditorPopupButton);
+	anchors_button = memnewNoConstructor<ControlEditorPopupButton>();
 	anchors_button->set_tooltip_text(TTR("Presets for the anchor and offset values of a Control node."));
 	add_child(anchors_button);
 
-	Label *anchors_label = memnewOldNoConstructor(Label);
+	Label *anchors_label = memnewNoConstructor<Label>();
 	anchors_label->set_text(TTR("Anchor preset"));
 	anchors_button->get_popup_hbox()->add_child(anchors_label);
-	AnchorPresetPicker *anchors_picker = memnewOldNoConstructor(AnchorPresetPicker);
+	AnchorPresetPicker *anchors_picker = memnewNoConstructor<AnchorPresetPicker>();
 	anchors_picker->set_h_size_flags(SIZE_SHRINK_CENTER);
 	anchors_button->get_popup_hbox()->add_child(anchors_picker);
 	anchors_picker->connect("anchors_preset_selected", callable_mp(this, &ControlEditorToolbar::_anchors_preset_selected));
 
-	anchors_button->get_popup_hbox()->add_child(memnewOldNoConstructor(HSeparator));
+	anchors_button->get_popup_hbox()->add_child(memnewNoConstructor<HSeparator>());
 
-	Button *keep_ratio_button = memnewOldNoConstructor(Button);
+	Button *keep_ratio_button = memnewNoConstructor<Button>();
 	keep_ratio_button->set_text_alignment(HORIZONTAL_ALIGNMENT_LEFT);
 	keep_ratio_button->set_text(TTR("Set to Current Ratio"));
 	keep_ratio_button->set_tooltip_text(TTR("Adjust anchors and offsets to match the current rect size."));
 	anchors_button->get_popup_hbox()->add_child(keep_ratio_button);
 	keep_ratio_button->connect(SceneStringName(pressed), callable_mp(this, &ControlEditorToolbar::_anchors_to_current_ratio));
 
-	anchor_mode_button = memnewOldNoConstructor(Button);
+	anchor_mode_button = memnewNoConstructor<Button>();
 	anchor_mode_button->set_theme_type_variation("FlatButton");
 	anchor_mode_button->set_toggle_mode(true);
 	anchor_mode_button->set_tooltip_text(TTR("When active, moving Control nodes changes their anchors instead of their offsets."));
@@ -1093,11 +1093,11 @@ ControlEditorToolbar::ControlEditorToolbar() {
 	anchor_mode_button->connect("toggled", callable_mp(this, &ControlEditorToolbar::_anchor_mode_toggled));
 
 	// Container tools.
-	containers_button = memnewOldNoConstructor(ControlEditorPopupButton);
+	containers_button = memnewNoConstructor<ControlEditorPopupButton>();
 	containers_button->set_tooltip_text(TTR("Sizing settings for children of a Container node."));
 	add_child(containers_button);
 
-	Label *container_h_label = memnewOldNoConstructor(Label);
+	Label *container_h_label = memnewNoConstructor<Label>();
 	container_h_label->set_text(TTR("Horizontal alignment"));
 	containers_button->get_popup_hbox()->add_child(container_h_label);
 	container_h_picker = memnewWithArgs<SizeFlagPresetPicker>(false);
@@ -1105,9 +1105,9 @@ ControlEditorToolbar::ControlEditorToolbar() {
 	container_h_picker->connect("size_flags_selected", callable_mp(this, &ControlEditorToolbar::_container_flags_selected).bind(false));
 	container_h_picker->connect("expand_flag_toggled", callable_mp(this, &ControlEditorToolbar::_expand_flag_toggled).bind(false));
 
-	containers_button->get_popup_hbox()->add_child(memnewOldNoConstructor(HSeparator));
+	containers_button->get_popup_hbox()->add_child(memnewNoConstructor<HSeparator>());
 
-	Label *container_v_label = memnewOldNoConstructor(Label);
+	Label *container_v_label = memnewNoConstructor<Label>();
 	container_v_label->set_text(TTR("Vertical alignment"));
 	containers_button->get_popup_hbox()->add_child(container_v_label);
 	container_v_picker = memnewWithArgs<SizeFlagPresetPicker>(true);
@@ -1128,7 +1128,7 @@ ControlEditorToolbar *ControlEditorToolbar::singleton = nullptr;
 // Editor plugin.
 
 ControlEditorPlugin::ControlEditorPlugin() {
-	toolbar = memnewOldNoConstructor(ControlEditorToolbar);
+	toolbar = memnewNoConstructor<ControlEditorToolbar>();
 	toolbar->hide();
 	add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar);
 

@@ -1033,7 +1033,7 @@ DisplayServerWeb::DisplayServerWeb(const String &p_rendering_driver, WindowMode 
 	r_error = OK; // Always succeeds for now.
 
 	tts = GLOBAL_GET("audio/general/text_to_speech");
-	native_menu = memnewOldNoConstructor(NativeMenu); // Dummy native menu.
+	native_menu = memnewNoConstructor<NativeMenu>(); // Dummy native menu.
 
 	// Ensure the canvas ID.
 	godot_js_config_canvas_id_get(canvas_id, 256);

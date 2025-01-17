@@ -3378,7 +3378,7 @@ void TileSet::_compatibility_conversion() {
 		CompatibilityTileData *ctd = E.value;
 
 		// Add the texture
-		TileSetAtlasSource *atlas_source = memnewOldNoConstructor(TileSetAtlasSource);
+		TileSetAtlasSource *atlas_source = memnewNoConstructor<TileSetAtlasSource>();
 		int source_id = add_source(Ref<TileSetSource>(atlas_source));
 
 		atlas_source->set_texture(ctd->texture);
@@ -3705,7 +3705,7 @@ bool TileSet::_set(const StringName &p_name, const Variant &p_value) {
 		CompatibilityTileData *ctd;
 		HashMap<int, CompatibilityTileData *>::Iterator E = compatibility_data.find(id);
 		if (!E) {
-			ctd = memnewOldNoConstructor(CompatibilityTileData);
+			ctd = memnewNoConstructor<CompatibilityTileData>();
 			compatibility_data.insert(id, ctd);
 		} else {
 			ctd = E->value;
@@ -4784,7 +4784,7 @@ bool TileSetAtlasSource::_set(const StringName &p_name, const Variant &p_value) 
 						create_alternative_tile(coords, alternative_id);
 					}
 					if (!tiles[coords].alternatives.has(alternative_id)) {
-						tiles[coords].alternatives[alternative_id] = memnewOldNoConstructor(TileData);
+						tiles[coords].alternatives[alternative_id] = memnewNoConstructor<TileData>();
 						tiles[coords].alternatives[alternative_id]->set_tile_set(tile_set);
 						tiles[coords].alternatives[alternative_id]->set_allow_transform(alternative_id > 0);
 						tiles[coords].alternatives_ids.push_back(alternative_id);
@@ -4966,7 +4966,7 @@ void TileSetAtlasSource::create_tile(const Vector2i p_atlas_coords, const Vector
 	TileAlternativesData tad;
 	tad.size_in_atlas = p_size;
 	tad.animation_frames_durations.push_back(1.0);
-	tad.alternatives[0] = memnewOldNoConstructor(TileData);
+	tad.alternatives[0] = memnewNoConstructor<TileData>();
 	tad.alternatives[0]->set_tile_set(tile_set);
 	tad.alternatives[0]->set_allow_transform(false);
 	tad.alternatives[0]->connect(CoreStringName(changed), callable_mp((Resource *)this, &TileSetAtlasSource::emit_changed));
@@ -5365,7 +5365,7 @@ int TileSetAtlasSource::create_alternative_tile(const Vector2i p_atlas_coords, i
 
 	int new_alternative_id = p_alternative_id_override >= 0 ? p_alternative_id_override : tiles[p_atlas_coords].next_alternative_id;
 
-	tiles[p_atlas_coords].alternatives[new_alternative_id] = memnewOldNoConstructor(TileData);
+	tiles[p_atlas_coords].alternatives[new_alternative_id] = memnewNoConstructor<TileData>();
 	tiles[p_atlas_coords].alternatives[new_alternative_id]->set_tile_set(tile_set);
 	tiles[p_atlas_coords].alternatives[new_alternative_id]->set_allow_transform(true);
 	tiles[p_atlas_coords].alternatives[new_alternative_id]->connect(CoreStringName(changed), callable_mp((Resource *)this, &TileSetAtlasSource::emit_changed));
@@ -6120,7 +6120,7 @@ bool TileData::is_allowing_transform() const {
 }
 
 TileData *TileData::duplicate() {
-	TileData *output = memnewOldNoConstructor(TileData);
+	TileData *output = memnewNoConstructor<TileData>();
 	output->tile_set = tile_set;
 
 	output->allow_transform = allow_transform;

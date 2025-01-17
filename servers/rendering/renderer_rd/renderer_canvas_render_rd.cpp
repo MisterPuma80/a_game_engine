@@ -2398,7 +2398,7 @@ RendererCanvasRenderRD::CanvasShaderData::~CanvasShaderData() {
 }
 
 RendererRD::MaterialStorage::ShaderData *RendererCanvasRenderRD::_create_shader_func() {
-	CanvasShaderData *shader_data = memnewOldNoConstructor(CanvasShaderData);
+	CanvasShaderData *shader_data = memnewNoConstructor<CanvasShaderData>();
 	return shader_data;
 }
 
@@ -2415,7 +2415,7 @@ RendererCanvasRenderRD::CanvasMaterialData::~CanvasMaterialData() {
 }
 
 RendererRD::MaterialStorage::MaterialData *RendererCanvasRenderRD::_create_material_func(CanvasShaderData *p_shader) {
-	CanvasMaterialData *material_data = memnewOldNoConstructor(CanvasMaterialData);
+	CanvasMaterialData *material_data = memnewNoConstructor<CanvasMaterialData>();
 	material_data->shader_data = p_shader;
 	//update will happen later anyway so do nothing.
 	return material_data;

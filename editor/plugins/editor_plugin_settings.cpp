@@ -207,11 +207,11 @@ void EditorPluginSettings::_bind_methods() {
 EditorPluginSettings::EditorPluginSettings() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("editor_plugins/");
 
-	plugin_config_dialog = memnewOldNoConstructor(PluginConfigDialog);
+	plugin_config_dialog = memnewNoConstructor<PluginConfigDialog>();
 	plugin_config_dialog->config("");
 	add_child(plugin_config_dialog);
 
-	HBoxContainer *title_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *title_hb = memnewNoConstructor<HBoxContainer>();
 	Label *label = memnewWithArgs<Label>(TTR("Installed Plugins:"));
 	label->set_theme_type_variation("HeaderSmall");
 	title_hb->add_child(label);
@@ -221,7 +221,7 @@ EditorPluginSettings::EditorPluginSettings() {
 	title_hb->add_child(create_plugin_button);
 	add_child(title_hb);
 
-	plugin_list = memnewOldNoConstructor(Tree);
+	plugin_list = memnewNoConstructor<Tree>();
 	plugin_list->set_v_size_flags(SIZE_EXPAND_FILL);
 	plugin_list->set_columns(COLUMN_MAX);
 	plugin_list->set_column_titles_visible(true);
@@ -256,7 +256,7 @@ EditorPluginSettings::EditorPluginSettings() {
 	plugin_list->set_hide_root(true);
 	plugin_list->connect("item_edited", callable_mp(this, &EditorPluginSettings::_plugin_activity_changed), CONNECT_DEFERRED);
 
-	VBoxContainer *mc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *mc = memnewNoConstructor<VBoxContainer>();
 	mc->add_child(plugin_list);
 	mc->set_v_size_flags(SIZE_EXPAND_FILL);
 	mc->set_h_size_flags(SIZE_EXPAND_FILL);

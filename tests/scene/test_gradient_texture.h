@@ -40,9 +40,9 @@ namespace TestGradientTexture {
 // [SceneTree] in a test case name enables initializing a mock render server,
 // which ImageTexture is dependent on.
 TEST_CASE("[SceneTree][GradientTexture1D] Create GradientTexture1D") {
-	Ref<GradientTexture1D> gradient_texture = memnewOldNoConstructor(GradientTexture1D);
+	Ref<GradientTexture1D> gradient_texture = memnewNoConstructor<GradientTexture1D>();
 
-	Ref<Gradient> test_gradient = memnewOldNoConstructor(Gradient);
+	Ref<Gradient> test_gradient = memnewNoConstructor<Gradient>();
 	gradient_texture->set_gradient(test_gradient);
 	CHECK(gradient_texture->get_gradient() == test_gradient);
 
@@ -54,9 +54,9 @@ TEST_CASE("[SceneTree][GradientTexture1D] Create GradientTexture1D") {
 }
 
 TEST_CASE("[SceneTree][GradientTexture2D] Create GradientTexture2D") {
-	Ref<GradientTexture2D> gradient_texture = memnewOldNoConstructor(GradientTexture2D);
+	Ref<GradientTexture2D> gradient_texture = memnewNoConstructor<GradientTexture2D>();
 
-	Ref<Gradient> test_gradient = memnewOldNoConstructor(Gradient);
+	Ref<Gradient> test_gradient = memnewNoConstructor<Gradient>();
 	gradient_texture->set_gradient(test_gradient);
 	CHECK(gradient_texture->get_gradient() == test_gradient);
 

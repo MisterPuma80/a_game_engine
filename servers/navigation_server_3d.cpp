@@ -338,7 +338,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_geometry_face_m
 
 	bool enabled_geometry_face_random_color = get_debug_navigation_enable_geometry_face_random_color();
 
-	Ref<StandardMaterial3D> face_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> face_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	face_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	face_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	face_material->set_albedo(get_debug_navigation_geometry_face_color());
@@ -361,7 +361,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_geometry_edge_m
 
 	bool enabled_edge_lines_xray = get_debug_navigation_enable_edge_lines_xray();
 
-	Ref<StandardMaterial3D> line_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> line_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	line_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	line_material->set_albedo(get_debug_navigation_geometry_edge_color());
 	line_material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
@@ -379,7 +379,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_geometry_face_d
 		return debug_navigation_geometry_face_disabled_material;
 	}
 
-	Ref<StandardMaterial3D> face_disabled_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> face_disabled_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	face_disabled_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	face_disabled_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	face_disabled_material->set_albedo(get_debug_navigation_geometry_face_disabled_color());
@@ -397,7 +397,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_geometry_edge_d
 
 	bool enabled_edge_lines_xray = get_debug_navigation_enable_edge_lines_xray();
 
-	Ref<StandardMaterial3D> line_disabled_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> line_disabled_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	line_disabled_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	line_disabled_material->set_albedo(get_debug_navigation_geometry_edge_disabled_color());
 	line_disabled_material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
@@ -417,7 +417,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_edge_connection
 
 	bool enabled_edge_connections_xray = get_debug_navigation_enable_edge_connections_xray();
 
-	Ref<StandardMaterial3D> edge_connections_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> edge_connections_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	edge_connections_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	edge_connections_material->set_albedo(get_debug_navigation_edge_connection_color());
 	edge_connections_material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
@@ -436,7 +436,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_link_connection
 		return debug_navigation_link_connections_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_albedo(debug_navigation_link_connection_color);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
@@ -454,7 +454,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_link_connection
 		return debug_navigation_link_connections_disabled_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_albedo(debug_navigation_link_connection_disabled_color);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
@@ -472,7 +472,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_agent_path_line
 		return debug_navigation_agent_path_line_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 
 	material->set_albedo(debug_navigation_agent_path_color);
@@ -491,7 +491,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_agent_path_poin
 		return debug_navigation_agent_path_point_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_albedo(debug_navigation_agent_path_color);
 	material->set_flag(StandardMaterial3D::FLAG_USE_POINT_SIZE, true);
 	material->set_point_size(debug_navigation_agent_path_point_size);
@@ -510,7 +510,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_agent
 		return debug_navigation_avoidance_agents_radius_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	material->set_cull_mode(StandardMaterial3D::CULL_DISABLED);
 	material->set_albedo(debug_navigation_avoidance_agents_radius_color);
@@ -525,7 +525,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_obsta
 		return debug_navigation_avoidance_obstacles_radius_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -542,7 +542,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_stati
 		return debug_navigation_avoidance_static_obstacle_pushin_face_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -559,7 +559,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_stati
 		return debug_navigation_avoidance_static_obstacle_pushout_face_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -576,7 +576,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_stati
 		return debug_navigation_avoidance_static_obstacle_pushin_edge_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	//material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -594,7 +594,7 @@ Ref<StandardMaterial3D> NavigationServer3D::get_debug_navigation_avoidance_stati
 		return debug_navigation_avoidance_static_obstacle_pushout_edge_material;
 	}
 
-	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	Ref<StandardMaterial3D> material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	///material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);

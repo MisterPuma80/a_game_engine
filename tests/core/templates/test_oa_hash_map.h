@@ -201,7 +201,7 @@ TEST_CASE("[OAHashMap] Non-trivial types") {
 		OAHashMap<int64_t, Vector4 *> map2;
 
 		for (uint32_t i = 0; i < count; i++) {
-			Vector4 *vec = memnewOldNoConstructor(Vector4);
+			Vector4 *vec = memnewNoConstructor<Vector4>();
 			vec->x = 10;
 			vec->y = 12;
 			vec->z = 151;

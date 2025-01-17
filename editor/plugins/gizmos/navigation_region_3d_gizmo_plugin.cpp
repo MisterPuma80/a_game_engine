@@ -134,13 +134,13 @@ void NavigationRegion3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 		}
 	}
 
-	Ref<TriangleMesh> tmesh = memnewOldNoConstructor(TriangleMesh);
+	Ref<TriangleMesh> tmesh = memnewNoConstructor<TriangleMesh>();
 	tmesh->create(tmeshfaces);
 
 	p_gizmo->add_collision_triangles(tmesh);
 	p_gizmo->add_collision_segments(lines);
 
-	Ref<ArrayMesh> debug_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+	Ref<ArrayMesh> debug_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 	int polygon_count = navigationmesh->get_polygon_count();
 
 	// build geometry face surface

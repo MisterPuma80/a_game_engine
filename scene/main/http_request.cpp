@@ -664,7 +664,7 @@ void HTTPRequest::_bind_methods() {
 HTTPRequest::HTTPRequest() {
 	client = Ref<HTTPClient>(HTTPClient::create());
 	tls_options = TLSOptions::client();
-	timer = memnewOldNoConstructor(Timer);
+	timer = memnewNoConstructor<Timer>();
 	timer->set_one_shot(true);
 	timer->connect("timeout", callable_mp(this, &HTTPRequest::_timeout));
 	add_child(timer);

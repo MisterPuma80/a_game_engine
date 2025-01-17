@@ -160,7 +160,7 @@ void GDScriptByteCodeGenerator::end_parameters() {
 }
 
 void GDScriptByteCodeGenerator::write_start(GDScript *p_script, const StringName &p_function_name, bool p_static, Variant p_rpc_config, const GDScriptDataType &p_return_type) {
-	function = memnewOldNoConstructor(GDScriptFunction);
+	function = memnewNoConstructor<GDScriptFunction>();
 	debug_stack = EngineDebugger::is_active();
 
 	function->name = p_function_name;

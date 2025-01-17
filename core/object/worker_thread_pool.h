@@ -209,7 +209,7 @@ public:
 	template <typename C, typename M, typename U>
 	TaskID add_template_task(C *p_instance, M p_method, U p_userdata, bool p_high_priority = false, const String &p_description = String()) {
 		typedef TaskUserData<C, M, U> TUD;
-		TUD *ud = memnewOldNoConstructor(TUD);
+		TUD *ud = memnewNoConstructor<TUD>();
 		ud->instance = p_instance;
 		ud->method = p_method;
 		ud->userdata = p_userdata;
@@ -227,7 +227,7 @@ public:
 	template <typename C, typename M, typename U>
 	GroupID add_template_group_task(C *p_instance, M p_method, U p_userdata, int p_elements, int p_tasks = -1, bool p_high_priority = false, const String &p_description = String()) {
 		typedef GroupUserData<C, M, U> GroupUD;
-		GroupUD *ud = memnewOldNoConstructor(GroupUD);
+		GroupUD *ud = memnewNoConstructor<GroupUD>();
 		ud->instance = p_instance;
 		ud->method = p_method;
 		ud->userdata = p_userdata;

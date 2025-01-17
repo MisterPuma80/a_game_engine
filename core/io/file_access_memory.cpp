@@ -61,7 +61,7 @@ void FileAccessMemory::cleanup() {
 }
 
 Ref<FileAccess> FileAccessMemory::create() {
-	return memnewOldNoConstructor(FileAccessMemory);
+	return memnewNoConstructor<FileAccessMemory>();
 }
 
 bool FileAccessMemory::file_exists(const String &p_name) {

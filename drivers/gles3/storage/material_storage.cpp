@@ -2645,7 +2645,7 @@ CanvasShaderData::~CanvasShaderData() {
 }
 
 GLES3::ShaderData *GLES3::_create_canvas_shader_func() {
-	CanvasShaderData *shader_data = memnewOldNoConstructor(CanvasShaderData);
+	CanvasShaderData *shader_data = memnewNoConstructor<CanvasShaderData>();
 	return shader_data;
 }
 
@@ -2691,7 +2691,7 @@ CanvasMaterialData::~CanvasMaterialData() {
 }
 
 GLES3::MaterialData *GLES3::_create_canvas_material_func(ShaderData *p_shader) {
-	CanvasMaterialData *material_data = memnewOldNoConstructor(CanvasMaterialData);
+	CanvasMaterialData *material_data = memnewNoConstructor<CanvasMaterialData>();
 	material_data->shader_data = static_cast<CanvasShaderData *>(p_shader);
 	//update will happen later anyway so do nothing.
 	return material_data;
@@ -2811,7 +2811,7 @@ SkyShaderData::~SkyShaderData() {
 }
 
 GLES3::ShaderData *GLES3::_create_sky_shader_func() {
-	SkyShaderData *shader_data = memnewOldNoConstructor(SkyShaderData);
+	SkyShaderData *shader_data = memnewNoConstructor<SkyShaderData>();
 	return shader_data;
 }
 
@@ -2826,7 +2826,7 @@ void SkyMaterialData::update_parameters(const HashMap<StringName, Variant> &p_pa
 SkyMaterialData::~SkyMaterialData() {
 }
 GLES3::MaterialData *GLES3::_create_sky_material_func(ShaderData *p_shader) {
-	SkyMaterialData *material_data = memnewOldNoConstructor(SkyMaterialData);
+	SkyMaterialData *material_data = memnewNoConstructor<SkyMaterialData>();
 	material_data->shader_data = static_cast<SkyShaderData *>(p_shader);
 	//update will happen later anyway so do nothing.
 	return material_data;
@@ -3085,7 +3085,7 @@ SceneShaderData::~SceneShaderData() {
 }
 
 GLES3::ShaderData *GLES3::_create_scene_shader_func() {
-	SceneShaderData *shader_data = memnewOldNoConstructor(SceneShaderData);
+	SceneShaderData *shader_data = memnewNoConstructor<SceneShaderData>();
 	return shader_data;
 }
 
@@ -3105,7 +3105,7 @@ SceneMaterialData::~SceneMaterialData() {
 }
 
 GLES3::MaterialData *GLES3::_create_scene_material_func(ShaderData *p_shader) {
-	SceneMaterialData *material_data = memnewOldNoConstructor(SceneMaterialData);
+	SceneMaterialData *material_data = memnewNoConstructor<SceneMaterialData>();
 	material_data->shader_data = static_cast<SceneShaderData *>(p_shader);
 	//update will happen later anyway so do nothing.
 	return material_data;
@@ -3195,7 +3195,7 @@ ParticlesShaderData::~ParticlesShaderData() {
 }
 
 GLES3::ShaderData *GLES3::_create_particles_shader_func() {
-	ParticlesShaderData *shader_data = memnewOldNoConstructor(ParticlesShaderData);
+	ParticlesShaderData *shader_data = memnewNoConstructor<ParticlesShaderData>();
 	return shader_data;
 }
 
@@ -3207,7 +3207,7 @@ ParticleProcessMaterialData::~ParticleProcessMaterialData() {
 }
 
 GLES3::MaterialData *GLES3::_create_particles_material_func(ShaderData *p_shader) {
-	ParticleProcessMaterialData *material_data = memnewOldNoConstructor(ParticleProcessMaterialData);
+	ParticleProcessMaterialData *material_data = memnewNoConstructor<ParticleProcessMaterialData>();
 	material_data->shader_data = static_cast<ParticlesShaderData *>(p_shader);
 	//update will happen later anyway so do nothing.
 	return material_data;

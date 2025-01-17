@@ -324,7 +324,7 @@ void Sprite2DEditor::_convert_to_mesh_2d_node() {
 
 	mesh->add_surface_from_arrays(Mesh::PRIMITIVE_TRIANGLES, a, Array(), Dictionary(), Mesh::ARRAY_FLAG_USE_2D_VERTICES);
 
-	MeshInstance2D *mesh_instance = memnewOldNoConstructor(MeshInstance2D);
+	MeshInstance2D *mesh_instance = memnewNoConstructor<MeshInstance2D>();
 	mesh_instance->set_mesh(mesh);
 
 	EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
@@ -340,7 +340,7 @@ void Sprite2DEditor::_convert_to_polygon_2d_node() {
 		return;
 	}
 
-	Polygon2D *polygon_2d_instance = memnewOldNoConstructor(Polygon2D);
+	Polygon2D *polygon_2d_instance = memnewNoConstructor<Polygon2D>();
 
 	int total_point_count = 0;
 	for (int i = 0; i < computed_outline_lines.size(); i++) {
@@ -398,7 +398,7 @@ void Sprite2DEditor::_create_collision_polygon_2d_node() {
 	for (int i = 0; i < computed_outline_lines.size(); i++) {
 		Vector<Vector2> outline = computed_outline_lines[i];
 
-		CollisionPolygon2D *collision_polygon_2d_instance = memnewOldNoConstructor(CollisionPolygon2D);
+		CollisionPolygon2D *collision_polygon_2d_instance = memnewNoConstructor<CollisionPolygon2D>();
 		collision_polygon_2d_instance->set_polygon(outline);
 
 		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
@@ -431,7 +431,7 @@ void Sprite2DEditor::_create_light_occluder_2d_node() {
 		}
 		polygon->set_polygon(a);
 
-		LightOccluder2D *light_occluder_2d_instance = memnewOldNoConstructor(LightOccluder2D);
+		LightOccluder2D *light_occluder_2d_instance = memnewNoConstructor<LightOccluder2D>();
 		light_occluder_2d_instance->set_occluder_polygon(polygon);
 
 		EditorUndoRedoManager *ur = EditorUndoRedoManager::get_singleton();
@@ -581,7 +581,7 @@ void Sprite2DEditor::_bind_methods() {
 }
 
 Sprite2DEditor::Sprite2DEditor() {
-	options = memnewOldNoConstructor(MenuButton);
+	options = memnewNoConstructor<MenuButton>();
 
 	CanvasItemEditor::get_singleton()->add_control_to_menu_panel(options);
 
@@ -595,13 +595,13 @@ Sprite2DEditor::Sprite2DEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &Sprite2DEditor::_menu_option));
 
-	err_dialog = memnewOldNoConstructor(AcceptDialog);
+	err_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(err_dialog);
 
-	debug_uv_dialog = memnewOldNoConstructor(ConfirmationDialog);
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	debug_uv_dialog = memnewNoConstructor<ConfirmationDialog>();
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	debug_uv_dialog->add_child(vb);
-	debug_uv = memnewOldNoConstructor(Panel);
+	debug_uv = memnewNoConstructor<Panel>();
 	debug_uv->connect(SceneStringName(gui_input), callable_mp(this, &Sprite2DEditor::_debug_uv_input));
 	debug_uv->connect(SceneStringName(draw), callable_mp(this, &Sprite2DEditor::_debug_uv_draw));
 	debug_uv->set_custom_minimum_size(Size2(800, 500) * EDSCALE);
@@ -611,24 +611,24 @@ Sprite2DEditor::Sprite2DEditor() {
 	panner.instantiate();
 	panner->set_callbacks(callable_mp(this, &Sprite2DEditor::_pan_callback), callable_mp(this, &Sprite2DEditor::_zoom_callback));
 
-	zoom_widget = memnewOldNoConstructor(EditorZoomWidget);
+	zoom_widget = memnewNoConstructor<EditorZoomWidget>();
 	debug_uv->add_child(zoom_widget);
 	zoom_widget->set_anchors_and_offsets_preset(Control::PRESET_TOP_LEFT, Control::PRESET_MODE_MINSIZE, 2 * EDSCALE);
 	zoom_widget->connect("zoom_changed", callable_mp(this, &Sprite2DEditor::_update_zoom_and_pan).unbind(1).bind(true));
 	zoom_widget->set_shortcut_context(nullptr);
 
-	v_scroll = memnewOldNoConstructor(VScrollBar);
+	v_scroll = memnewNoConstructor<VScrollBar>();
 	debug_uv->add_child(v_scroll);
 	v_scroll->connect(SceneStringName(value_changed), callable_mp(this, &Sprite2DEditor::_update_zoom_and_pan).unbind(1).bind(false));
-	h_scroll = memnewOldNoConstructor(HScrollBar);
+	h_scroll = memnewNoConstructor<HScrollBar>();
 	debug_uv->add_child(h_scroll);
 	h_scroll->connect(SceneStringName(value_changed), callable_mp(this, &Sprite2DEditor::_update_zoom_and_pan).unbind(1).bind(false));
 
 	debug_uv_dialog->connect(SceneStringName(confirmed), callable_mp(this, &Sprite2DEditor::_create_node));
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	hb->add_child(memnewWithArgs<Label>(TTR("Simplification:")));
-	simplification = memnewOldNoConstructor(SpinBox);
+	simplification = memnewNoConstructor<SpinBox>();
 	simplification->set_min(0.01);
 	simplification->set_max(10.00);
 	simplification->set_step(0.01);
@@ -636,7 +636,7 @@ Sprite2DEditor::Sprite2DEditor() {
 	hb->add_child(simplification);
 	hb->add_spacer();
 	hb->add_child(memnewWithArgs<Label>(TTR("Shrink (Pixels):")));
-	shrink_pixels = memnewOldNoConstructor(SpinBox);
+	shrink_pixels = memnewNoConstructor<SpinBox>();
 	shrink_pixels->set_min(0);
 	shrink_pixels->set_max(10);
 	shrink_pixels->set_step(1);
@@ -644,14 +644,14 @@ Sprite2DEditor::Sprite2DEditor() {
 	hb->add_child(shrink_pixels);
 	hb->add_spacer();
 	hb->add_child(memnewWithArgs<Label>(TTR("Grow (Pixels):")));
-	grow_pixels = memnewOldNoConstructor(SpinBox);
+	grow_pixels = memnewNoConstructor<SpinBox>();
 	grow_pixels->set_min(0);
 	grow_pixels->set_max(10);
 	grow_pixels->set_step(1);
 	grow_pixels->set_value(2);
 	hb->add_child(grow_pixels);
 	hb->add_spacer();
-	update_preview = memnewOldNoConstructor(Button);
+	update_preview = memnewNoConstructor<Button>();
 	update_preview->set_text(TTR("Update Preview"));
 	update_preview->connect(SceneStringName(pressed), callable_mp(this, &Sprite2DEditor::_update_mesh_data));
 	hb->add_child(update_preview);
@@ -678,7 +678,7 @@ void Sprite2DEditorPlugin::make_visible(bool p_visible) {
 }
 
 Sprite2DEditorPlugin::Sprite2DEditorPlugin() {
-	sprite_editor = memnewOldNoConstructor(Sprite2DEditor);
+	sprite_editor = memnewNoConstructor<Sprite2DEditor>();
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(sprite_editor);
 	make_visible(false);
 

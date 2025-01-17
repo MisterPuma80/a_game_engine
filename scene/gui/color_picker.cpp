@@ -160,7 +160,7 @@ void ColorPicker::_notification(int p_what) {
 			Size2 slider_arrow_size = theme_cache.bar_arrow->get_size();
 			Ref<StyleBox> slider_style;
 			if (theme_cache.colorize_sliders) {
-				Ref<StyleBoxEmpty> empty_style(memnewOldNoConstructor(StyleBoxEmpty));
+				Ref<StyleBoxEmpty> empty_style(memnewNoConstructor<StyleBoxEmpty>());
 				slider_style = empty_style;
 			} else {
 				slider_style = get_theme_stylebox("slider", "HSlider")->duplicate();
@@ -489,18 +489,18 @@ void ColorPicker::add_mode(ColorMode *p_mode) {
 }
 
 void ColorPicker::create_slider(GridContainer *gc, int idx) {
-	Label *lbl = memnewOldNoConstructor(Label);
+	Label *lbl = memnewNoConstructor<Label>();
 	lbl->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	lbl->set_v_size_flags(SIZE_SHRINK_CENTER);
 	lbl->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	gc->add_child(lbl);
 
-	HSlider *slider = memnewOldNoConstructor(HSlider);
+	HSlider *slider = memnewNoConstructor<HSlider>();
 	slider->set_v_size_flags(SIZE_SHRINK_CENTER);
 	slider->set_focus_mode(FOCUS_NONE);
 	gc->add_child(slider);
 
-	SpinBox *val = memnewOldNoConstructor(SpinBox);
+	SpinBox *val = memnewNoConstructor<SpinBox>();
 	slider->share(val);
 	val->set_select_all_on_focus(true);
 	gc->add_child(val);
@@ -1472,7 +1472,7 @@ void ColorPicker::_pick_button_pressed() {
 	set_process_internal(true);
 
 	if (!picker_window) {
-		picker_window = memnewOldNoConstructor(Popup);
+		picker_window = memnewNoConstructor<Popup>();
 		picker_window->set_size(Vector2i(1, 1));
 		picker_window->connect(SceneStringName(visibility_changed), callable_mp(this, &ColorPicker::_pick_finished));
 		add_child(picker_window, false, INTERNAL_MODE_FRONT);
@@ -1500,28 +1500,28 @@ void ColorPicker::_pick_button_pressed_legacy() {
 	}
 
 	if (!picker_window) {
-		picker_window = memnewOldNoConstructor(Popup);
+		picker_window = memnewNoConstructor<Popup>();
 		picker_window->hide();
 		picker_window->set_transient(true);
 		add_child(picker_window, false, INTERNAL_MODE_FRONT);
 
-		picker_texture_rect = memnewOldNoConstructor(TextureRect);
+		picker_texture_rect = memnewNoConstructor<TextureRect>();
 		picker_texture_rect->set_anchors_preset(Control::PRESET_FULL_RECT);
 		picker_window->add_child(picker_texture_rect);
 		picker_texture_rect->set_default_cursor_shape(CURSOR_POINTING_HAND);
 		picker_texture_rect->connect(SceneStringName(gui_input), callable_mp(this, &ColorPicker::_picker_texture_input));
 
-		picker_preview = memnewOldNoConstructor(Panel);
+		picker_preview = memnewNoConstructor<Panel>();
 		picker_preview->set_anchors_preset(Control::PRESET_CENTER_TOP);
 		picker_preview->set_mouse_filter(MOUSE_FILTER_IGNORE);
 		picker_window->add_child(picker_preview);
 
-		picker_preview_label = memnewOldNoConstructor(Label);
+		picker_preview_label = memnewNoConstructor<Label>();
 		picker_preview->set_anchors_preset(Control::PRESET_CENTER_TOP);
 		picker_preview_label->set_text("Color Picking active");
 		picker_preview->add_child(picker_preview_label);
 
-		picker_preview_style_box = (Ref<StyleBoxFlat>)memnewOldNoConstructor(StyleBoxFlat);
+		picker_preview_style_box = (Ref<StyleBoxFlat>)memnewNoConstructor<StyleBoxFlat>();
 		picker_preview_style_box->set_bg_color(Color(1.0, 1.0, 1.0));
 		picker_preview->add_theme_style_override(SceneStringName(panel), picker_preview_style_box);
 	}
@@ -1777,17 +1777,17 @@ void ColorPicker::_bind_methods() {
 }
 
 ColorPicker::ColorPicker() {
-	internal_margin = memnewOldNoConstructor(MarginContainer);
+	internal_margin = memnewNoConstructor<MarginContainer>();
 	add_child(internal_margin, false, INTERNAL_MODE_FRONT);
 
-	real_vbox = memnewOldNoConstructor(VBoxContainer);
+	real_vbox = memnewNoConstructor<VBoxContainer>();
 	internal_margin->add_child(real_vbox);
 
-	hb_edit = memnewOldNoConstructor(HBoxContainer);
+	hb_edit = memnewNoConstructor<HBoxContainer>();
 	real_vbox->add_child(hb_edit);
 	hb_edit->set_v_size_flags(SIZE_SHRINK_BEGIN);
 
-	uv_edit = memnewOldNoConstructor(Control);
+	uv_edit = memnewNoConstructor<Control>();
 	hb_edit->add_child(uv_edit);
 	uv_edit->connect(SceneStringName(gui_input), callable_mp(this, &ColorPicker::_uv_input).bind(uv_edit));
 	uv_edit->set_mouse_filter(MOUSE_FILTER_PASS);
@@ -1795,22 +1795,22 @@ ColorPicker::ColorPicker() {
 	uv_edit->set_v_size_flags(SIZE_EXPAND_FILL);
 	uv_edit->connect(SceneStringName(draw), callable_mp(this, &ColorPicker::_hsv_draw).bind(0, uv_edit));
 
-	sample_hbc = memnewOldNoConstructor(HBoxContainer);
+	sample_hbc = memnewNoConstructor<HBoxContainer>();
 	real_vbox->add_child(sample_hbc);
 
-	btn_pick = memnewOldNoConstructor(Button);
+	btn_pick = memnewNoConstructor<Button>();
 	btn_pick->set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	btn_pick->set_size_mode(BaseButton::SIZE_MODE_FIT_HEIGHT);
 	sample_hbc->add_child(btn_pick);
 
-	sample = memnewOldNoConstructor(Control);
+	sample = memnewNoConstructor<Control>();
 	sample_hbc->add_child(sample);
 	sample->set_h_size_flags(SIZE_EXPAND_FILL);
 	sample->set_mouse_filter(MOUSE_FILTER_STOP);
 	sample->connect(SceneStringName(gui_input), callable_mp(this, &ColorPicker::_sample_input));
 	sample->connect(SceneStringName(draw), callable_mp(this, &ColorPicker::_sample_draw));
 
-	btn_shape = memnewOldNoConstructor(MenuButton);
+	btn_shape = memnewNoConstructor<MenuButton>();
 	btn_shape->set_flat(false);
 	btn_shape->set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	btn_shape->set_size_mode(BaseButton::SIZE_MODE_FIT_HEIGHT);
@@ -1833,17 +1833,17 @@ ColorPicker::ColorPicker() {
 	add_mode(new ColorModeRAW(this));
 	add_mode(new ColorModeOKHSL(this));
 
-	slider_vbc = memnewOldNoConstructor(VBoxContainer);
+	slider_vbc = memnewNoConstructor<VBoxContainer>();
 	real_vbox->add_child(slider_vbc);
 
-	mode_hbc = memnewOldNoConstructor(HBoxContainer);
+	mode_hbc = memnewNoConstructor<HBoxContainer>();
 	mode_hbc->add_theme_constant_override("separation", 0);
 	slider_vbc->add_child(mode_hbc);
 
 	mode_group.instantiate();
 
 	for (int i = 0; i < MODE_MAX; i++) {
-		mode_btns[i] = memnewOldNoConstructor(Button);
+		mode_btns[i] = memnewNoConstructor<Button>();
 		mode_hbc->add_child(mode_btns[i]);
 		mode_btns[i]->set_focus_mode(FOCUS_NONE);
 		mode_btns[i]->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -1856,7 +1856,7 @@ ColorPicker::ColorPicker() {
 
 	current_mode = MODE_RGB;
 
-	slider_gc = memnewOldNoConstructor(GridContainer);
+	slider_gc = memnewNoConstructor<GridContainer>();
 	slider_vbc->add_child(slider_gc);
 
 	slider_gc->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -1868,11 +1868,11 @@ ColorPicker::ColorPicker() {
 
 	alpha_label->set_text("A");
 
-	hex_hbc = memnewOldNoConstructor(HBoxContainer);
+	hex_hbc = memnewNoConstructor<HBoxContainer>();
 	hex_hbc->set_alignment(ALIGNMENT_BEGIN);
 	real_vbox->add_child(hex_hbc);
 
-	text_type = memnewOldNoConstructor(Button);
+	text_type = memnewNoConstructor<Button>();
 	text_type->set_icon_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	text_type->set_size_mode(BaseButton::SIZE_MODE_FIT_HEIGHT);
 	text_type->set_tooltip_text(RTR("Switch between hexadecimal and code values."));
@@ -1880,7 +1880,7 @@ ColorPicker::ColorPicker() {
 	text_type->set_tooltip_text(RTR("Switch between hexadecimal and code values."));
 	text_type->connect(SceneStringName(pressed), callable_mp(this, &ColorPicker::_text_type_toggled));
 
-	c_text = memnewOldNoConstructor(LineEdit);
+	c_text = memnewNoConstructor<LineEdit>();
 	hex_hbc->add_child(c_text);
 	c_text->set_h_size_flags(SIZE_EXPAND_FILL);
 	c_text->set_select_all_on_focus(true);
@@ -1890,7 +1890,7 @@ ColorPicker::ColorPicker() {
 	c_text->connect(SceneStringName(text_changed), callable_mp(this, &ColorPicker::_text_changed));
 	c_text->connect(SceneStringName(focus_exited), callable_mp(this, &ColorPicker::_html_focus_exit));
 
-	wheel_edit = memnewOldNoConstructor(AspectRatioContainer);
+	wheel_edit = memnewNoConstructor<AspectRatioContainer>();
 	wheel_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	wheel_edit->set_v_size_flags(SIZE_EXPAND_FILL);
 	hb_edit->add_child(wheel_edit);
@@ -1901,21 +1901,21 @@ ColorPicker::ColorPicker() {
 	circle_mat.instantiate();
 	circle_mat->set_shader(circle_shader);
 
-	wheel_margin = memnewOldNoConstructor(MarginContainer);
+	wheel_margin = memnewNoConstructor<MarginContainer>();
 	wheel_margin->add_theme_constant_override("margin_bottom", 8);
 	wheel_edit->add_child(wheel_margin);
 
-	wheel = memnewOldNoConstructor(Control);
+	wheel = memnewNoConstructor<Control>();
 	wheel_margin->add_child(wheel);
 	wheel->set_mouse_filter(MOUSE_FILTER_PASS);
 	wheel->connect(SceneStringName(draw), callable_mp(this, &ColorPicker::_hsv_draw).bind(2, wheel));
 
-	wheel_uv = memnewOldNoConstructor(Control);
+	wheel_uv = memnewNoConstructor<Control>();
 	wheel_margin->add_child(wheel_uv);
 	wheel_uv->connect(SceneStringName(gui_input), callable_mp(this, &ColorPicker::_uv_input).bind(wheel_uv));
 	wheel_uv->connect(SceneStringName(draw), callable_mp(this, &ColorPicker::_hsv_draw).bind(0, wheel_uv));
 
-	w_edit = memnewOldNoConstructor(Control);
+	w_edit = memnewNoConstructor<Control>();
 	hb_edit->add_child(w_edit);
 	w_edit->set_h_size_flags(SIZE_FILL);
 	w_edit->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -1925,19 +1925,19 @@ ColorPicker::ColorPicker() {
 	_update_controls();
 	updating = false;
 
-	preset_foldable = memnewOldNoConstructor(FoldableContainer);
+	preset_foldable = memnewNoConstructor<FoldableContainer>();
 	preset_foldable->set_text("Swatches");
 	preset_foldable->add_button();
 	preset_foldable->set_button_tooltip(0, ETR("Add current color as a preset."));
 	preset_foldable->set_button_visible(0, can_add_swatches);
 	preset_foldable->connect(SNAME("button_pressed"), callable_mp(this, &ColorPicker::_preset_foldable_button_pressed));
 
-	ScrollContainer *preset_scroll = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *preset_scroll = memnewNoConstructor<ScrollContainer>();
 	preset_scroll->set_follow_focus(true);
 	preset_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	preset_foldable->add_child(preset_scroll);
 
-	preset_hbc = memnewOldNoConstructor(HBoxContainer);
+	preset_hbc = memnewNoConstructor<HBoxContainer>();
 	preset_hbc->set_h_size_flags(SIZE_EXPAND_FILL);
 	preset_scroll->add_child(preset_hbc);
 
@@ -1945,15 +1945,15 @@ ColorPicker::ColorPicker() {
 	real_vbox->add_child(preset_foldable);
 	preset_group.instantiate();
 
-	recent_preset_foldable = memnewOldNoConstructor(FoldableContainer);
+	recent_preset_foldable = memnewNoConstructor<FoldableContainer>();
 	recent_preset_foldable->set_text("Recent Colors");
 
-	ScrollContainer *recent_preset_scroll = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *recent_preset_scroll = memnewNoConstructor<ScrollContainer>();
 	recent_preset_scroll->set_follow_focus(true);
 	recent_preset_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	recent_preset_foldable->add_child(recent_preset_scroll);
 
-	recent_preset_hbc = memnewOldNoConstructor(HBoxContainer);
+	recent_preset_hbc = memnewNoConstructor<HBoxContainer>();
 	recent_preset_hbc->set_h_size_flags(SIZE_EXPAND_FILL);
 	recent_preset_scroll->add_child(recent_preset_hbc);
 
@@ -2099,9 +2099,9 @@ PopupPanel *ColorPickerButton::get_popup() {
 
 void ColorPickerButton::_update_picker() {
 	if (!picker) {
-		popup = memnewOldNoConstructor(ColorPickerPopupPanel);
+		popup = memnewNoConstructor<ColorPickerPopupPanel>();
 		popup->set_wrap_controls(true);
-		picker = memnewOldNoConstructor(ColorPicker);
+		picker = memnewNoConstructor<ColorPicker>();
 		picker->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 		popup->add_child(picker);
 		add_child(popup, false, INTERNAL_MODE_FRONT);

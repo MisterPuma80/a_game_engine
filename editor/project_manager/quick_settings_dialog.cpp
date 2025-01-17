@@ -146,7 +146,7 @@ void QuickSettingsDialog::_update_current_values() {
 }
 
 void QuickSettingsDialog::_add_setting_control(const String &p_text, Control *p_control) {
-	HBoxContainer *container = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *container = memnewNoConstructor<HBoxContainer>();
 	settings_list->add_child(container);
 
 	Label *label = memnewWithArgs<Label>(p_text);
@@ -234,7 +234,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 	set_title(TTR("Quick Settings"));
 	set_ok_button_text(TTR("Close"));
 
-	VBoxContainer *main_vbox = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vbox = memnewNoConstructor<VBoxContainer>();
 	add_child(main_vbox);
 	main_vbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 
@@ -242,16 +242,16 @@ QuickSettingsDialog::QuickSettingsDialog() {
 	{
 		_fetch_setting_values();
 
-		settings_list_panel = memnewOldNoConstructor(PanelContainer);
+		settings_list_panel = memnewNoConstructor<PanelContainer>();
 		main_vbox->add_child(settings_list_panel);
 
-		settings_list = memnewOldNoConstructor(VBoxContainer);
+		settings_list = memnewNoConstructor<VBoxContainer>();
 		settings_list_panel->add_child(settings_list);
 
 #ifndef ANDROID_ENABLED
 		// Language options.
 		{
-			language_option_button = memnewOldNoConstructor(OptionButton);
+			language_option_button = memnewNoConstructor<OptionButton>();
 			language_option_button->set_fit_to_longest_item(false);
 			language_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_language_selected));
 
@@ -268,7 +268,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Theme options.
 		{
-			theme_option_button = memnewOldNoConstructor(OptionButton);
+			theme_option_button = memnewNoConstructor<OptionButton>();
 			theme_option_button->set_fit_to_longest_item(false);
 			theme_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_theme_selected));
 
@@ -291,7 +291,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Scale options.
 		{
-			scale_option_button = memnewOldNoConstructor(OptionButton);
+			scale_option_button = memnewNoConstructor<OptionButton>();
 			scale_option_button->set_fit_to_longest_item(false);
 			scale_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_scale_selected));
 
@@ -305,7 +305,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Network mode options.
 		{
-			network_mode_option_button = memnewOldNoConstructor(OptionButton);
+			network_mode_option_button = memnewNoConstructor<OptionButton>();
 			network_mode_option_button->set_fit_to_longest_item(false);
 			network_mode_option_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_network_mode_selected));
 
@@ -319,7 +319,7 @@ QuickSettingsDialog::QuickSettingsDialog() {
 
 		// Project directory naming options.
 		{
-			directory_naming_convention_button = memnewOldNoConstructor(OptionButton);
+			directory_naming_convention_button = memnewNoConstructor<OptionButton>();
 			directory_naming_convention_button->set_fit_to_longest_item(false);
 			directory_naming_convention_button->connect(SceneStringName(item_selected), callable_mp(this, &QuickSettingsDialog::_directory_naming_convention_selected));
 

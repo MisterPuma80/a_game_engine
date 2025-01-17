@@ -619,16 +619,16 @@ Vector<Vector<String>> EditorProfiler::get_data_as_csv() const {
 }
 
 EditorProfiler::EditorProfiler() {
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	add_child(hb);
-	activate = memnewOldNoConstructor(Button);
+	activate = memnewNoConstructor<Button>();
 	activate->set_toggle_mode(true);
 	activate->set_disabled(true);
 	activate->set_text(TTR("Start"));
 	activate->connect(SceneStringName(pressed), callable_mp(this, &EditorProfiler::_activate_pressed));
 	hb->add_child(activate);
 
-	clear_button = memnewOldNoConstructor(Button);
+	clear_button = memnewNoConstructor<Button>();
 	clear_button->set_text(TTR("Clear"));
 	clear_button->connect(SceneStringName(pressed), callable_mp(this, &EditorProfiler::_clear_pressed));
 	clear_button->set_disabled(true);
@@ -636,7 +636,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_child(memnewWithArgs<Label>(TTR("Measure:")));
 
-	display_mode = memnewOldNoConstructor(OptionButton);
+	display_mode = memnewNoConstructor<OptionButton>();
 	display_mode->add_item(TTR("Frame Time (ms)"));
 	display_mode->add_item(TTR("Average Time (ms)"));
 	display_mode->add_item(TTR("Frame %"));
@@ -647,7 +647,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_child(memnewWithArgs<Label>(TTR("Time:")));
 
-	display_time = memnewOldNoConstructor(OptionButton);
+	display_time = memnewNoConstructor<OptionButton>();
 	// TRANSLATORS: This is an option in the profiler to display the time spent in a function, including the time spent in other functions called by that function.
 	display_time->add_item(TTR("Inclusive"));
 	// TRANSLATORS: This is an option in the profiler to display the time spent in a function, exincluding the time spent in other functions called by that function.
@@ -667,7 +667,7 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_child(memnewWithArgs<Label>(TTR("Frame #:")));
 
-	cursor_metric_edit = memnewOldNoConstructor(SpinBox);
+	cursor_metric_edit = memnewNoConstructor<SpinBox>();
 	cursor_metric_edit->set_h_size_flags(SIZE_FILL);
 	cursor_metric_edit->set_value(0);
 	cursor_metric_edit->set_editable(false);
@@ -676,11 +676,11 @@ EditorProfiler::EditorProfiler() {
 
 	hb->add_theme_constant_override("separation", 8 * EDSCALE);
 
-	h_split = memnewOldNoConstructor(HSplitContainer);
+	h_split = memnewNoConstructor<HSplitContainer>();
 	add_child(h_split);
 	h_split->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	variables = memnewOldNoConstructor(Tree);
+	variables = memnewNoConstructor<Tree>();
 	variables->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	variables->set_custom_minimum_size(Size2(320, 0) * EDSCALE);
 	variables->set_hide_folding(true);
@@ -702,7 +702,7 @@ EditorProfiler::EditorProfiler() {
 	variables->set_column_custom_minimum_width(2, 50 * EDSCALE);
 	variables->connect("item_edited", callable_mp(this, &EditorProfiler::_item_edited));
 
-	graph = memnewOldNoConstructor(TextureRect);
+	graph = memnewNoConstructor<TextureRect>();
 	graph->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	graph->set_mouse_filter(MOUSE_FILTER_STOP);
 	graph->connect(SceneStringName(draw), callable_mp(this, &EditorProfiler::_graph_tex_draw));
@@ -715,13 +715,13 @@ EditorProfiler::EditorProfiler() {
 	int metric_size = CLAMP(int(EDITOR_GET("debugger/profiler_frame_history_size")), 60, 10000);
 	frame_metrics.resize(metric_size);
 
-	frame_delay = memnewOldNoConstructor(Timer);
+	frame_delay = memnewNoConstructor<Timer>();
 	frame_delay->set_wait_time(0.1);
 	frame_delay->set_one_shot(true);
 	add_child(frame_delay);
 	frame_delay->connect("timeout", callable_mp(this, &EditorProfiler::_update_frame));
 
-	plot_delay = memnewOldNoConstructor(Timer);
+	plot_delay = memnewNoConstructor<Timer>();
 	plot_delay->set_wait_time(0.1);
 	plot_delay->set_one_shot(true);
 	add_child(plot_delay);

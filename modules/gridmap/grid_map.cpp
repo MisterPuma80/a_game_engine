@@ -359,7 +359,7 @@ void GridMap::set_cell_item(const Vector3i &p_position, int p_item, int p_rot) {
 
 	if (!octant_map.has(octantkey)) {
 		//create octant because it does not exist
-		Octant *g = memnewOldNoConstructor(Octant);
+		Octant *g = memnewNoConstructor<Octant>();
 		g->dirty = true;
 		g->static_body = PhysicsServer3D::get_singleton()->body_create();
 		PhysicsServer3D::get_singleton()->body_set_mode(g->static_body, PhysicsServer3D::BODY_MODE_STATIC);
@@ -802,7 +802,7 @@ void GridMap::_octant_enter_world(const OctantKey &p_key) {
 				g.navigation_debug_edge_connections_instance = RenderingServer::get_singleton()->instance_create();
 			}
 			if (!g.navigation_debug_edge_connections_mesh.is_valid()) {
-				g.navigation_debug_edge_connections_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+				g.navigation_debug_edge_connections_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 			}
 
 			_update_octant_navigation_debug_edge_connections_mesh(p_key);
@@ -1387,7 +1387,7 @@ void GridMap::_update_octant_navigation_debug_edge_connections_mesh(const Octant
 	}
 
 	if (!g.navigation_debug_edge_connections_mesh.is_valid()) {
-		g.navigation_debug_edge_connections_mesh = Ref<ArrayMesh>(memnewOldNoConstructor(ArrayMesh));
+		g.navigation_debug_edge_connections_mesh = Ref<ArrayMesh>(memnewNoConstructor<ArrayMesh>());
 	}
 
 	g.navigation_debug_edge_connections_mesh->clear_surfaces();

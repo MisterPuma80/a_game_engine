@@ -325,7 +325,7 @@ void initialize_physics() {
 	// Fall back to dummy if no default server has been registered.
 	if (!physics_server_3d) {
 		WARN_PRINT(vformat("Falling back to dummy PhysicsServer3D; 3D physics functionality will be disabled. If this is intended, set the %s project setting to Dummy.", PhysicsServer3DManager::setting_property_name));
-		physics_server_3d = memnewOldNoConstructor(PhysicsServer3DDummy);
+		physics_server_3d = memnewNoConstructor<PhysicsServer3DDummy>();
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -344,7 +344,7 @@ void initialize_physics() {
 	// Fall back to dummy if no default server has been registered.
 	if (!physics_server_2d) {
 		WARN_PRINT(vformat("Falling back to dummy PhysicsServer2D; 2D physics functionality will be disabled. If this is intended, set the %s project setting to Dummy.", PhysicsServer2DManager::setting_property_name));
-		physics_server_2d = memnewOldNoConstructor(PhysicsServer2DDummy);
+		physics_server_2d = memnewNoConstructor<PhysicsServer2DDummy>();
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -378,7 +378,7 @@ void initialize_navigation_server() {
 
 	// Fall back to dummy if no default server has been registered.
 	if (!navigation_server_3d) {
-		navigation_server_3d = memnewOldNoConstructor(NavigationServer3DDummy);
+		navigation_server_3d = memnewNoConstructor<NavigationServer3DDummy>();
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -388,7 +388,7 @@ void initialize_navigation_server() {
 	// Init 2D Navigation Server
 	navigation_server_2d = NavigationServer2DManager::new_default_server();
 	if (!navigation_server_2d) {
-		navigation_server_2d = memnewOldNoConstructor(NavigationServer2DDummy);
+		navigation_server_2d = memnewNoConstructor<NavigationServer2DDummy>();
 	}
 
 	ERR_FAIL_NULL_MSG(navigation_server_2d, "Failed to initialize NavigationServer2D.");
@@ -408,7 +408,7 @@ void finalize_navigation_server() {
 }
 
 void initialize_theme_db() {
-	theme_db = memnewOldNoConstructor(ThemeDB);
+	theme_db = memnewNoConstructor<ThemeDB>();
 }
 
 void finalize_theme_db() {
@@ -693,19 +693,19 @@ Error Main::test_setup() {
 
 	OS::get_singleton()->initialize();
 
-	engine = memnewOldNoConstructor(Engine);
+	engine = memnewNoConstructor<Engine>();
 
 	register_core_types();
 	register_core_driver_types();
 
-	packed_data = memnewOldNoConstructor(PackedData);
+	packed_data = memnewNoConstructor<PackedData>();
 
-	globals = memnewOldNoConstructor(ProjectSettings);
+	globals = memnewNoConstructor<ProjectSettings>();
 
 	register_core_settings(); // Here globals are present.
 
-	translation_server = memnewOldNoConstructor(TranslationServer);
-	tsman = memnewOldNoConstructor(TextServerManager);
+	translation_server = memnewNoConstructor<TranslationServer>();
+	tsman = memnewNoConstructor<TextServerManager>();
 
 	if (tsman) {
 		Ref<TextServerDummy> ts;
@@ -714,9 +714,9 @@ Error Main::test_setup() {
 	}
 
 #ifndef _3D_DISABLED
-	physics_server_3d_manager = memnewOldNoConstructor(PhysicsServer3DManager);
+	physics_server_3d_manager = memnewNoConstructor<PhysicsServer3DManager>();
 #endif // _3D_DISABLED
-	physics_server_2d_manager = memnewOldNoConstructor(PhysicsServer2DManager);
+	physics_server_2d_manager = memnewNoConstructor<PhysicsServer2DManager>();
 
 	// From `Main::setup2()`.
 	initialize_modules(MODULE_INITIALIZATION_LEVEL_CORE);
@@ -931,7 +931,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	// platforms, it's used to set up the time utilities.
 	OS::get_singleton()->benchmark_begin_measure("Startup", "Main::Setup");
 
-	engine = memnewOldNoConstructor(Engine);
+	engine = memnewNoConstructor<Engine>();
 
 	MAIN_PRINT("Main: Initialize CORE");
 
@@ -940,13 +940,13 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	MAIN_PRINT("Main: Initialize Globals");
 
-	input_map = memnewOldNoConstructor(InputMap);
-	globals = memnewOldNoConstructor(ProjectSettings);
+	input_map = memnewNoConstructor<InputMap>();
+	globals = memnewNoConstructor<ProjectSettings>();
 
 	register_core_settings(); //here globals are present
 
-	translation_server = memnewOldNoConstructor(TranslationServer);
-	performance = memnewOldNoConstructor(Performance);
+	translation_server = memnewNoConstructor<TranslationServer>();
+	performance = memnewNoConstructor<Performance>();
 	GDREGISTER_CLASS(Performance);
 	engine->add_singleton(Engine::Singleton("Performance", performance));
 
@@ -1004,7 +1004,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	packed_data = PackedData::get_singleton();
 	if (!packed_data) {
-		packed_data = memnewOldNoConstructor(PackedData);
+		packed_data = memnewNoConstructor<PackedData>();
 	}
 
 #ifdef MINIZIP_ENABLED
@@ -1013,7 +1013,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	zip_packed_data = ZipArchive::get_singleton();
 	//TODO: remove this temporary fix
 	if (!zip_packed_data) {
-		zip_packed_data = memnewOldNoConstructor(ZipArchive);
+		zip_packed_data = memnewNoConstructor<ZipArchive>();
 	}
 
 	packed_data->add_pack_source(zip_packed_data);
@@ -2471,14 +2471,14 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	Engine::get_singleton()->set_frame_delay(frame_delay);
 
-	message_queue = memnewOldNoConstructor(MessageQueue);
+	message_queue = memnewNoConstructor<MessageQueue>();
 
 	Thread::release_main_thread(); // If setup2() is called from another thread, that one will become main thread, so preventively release this one.
 	set_current_thread_safe_for_nodes(false);
 
 #if defined(STEAMAPI_ENABLED)
 	if (editor || project_manager) {
-		steam_tracker = memnewOldNoConstructor(SteamTracker);
+		steam_tracker = memnewNoConstructor<SteamTracker>();
 	}
 #endif
 
@@ -2682,7 +2682,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 
 	OS::get_singleton()->benchmark_begin_measure("Startup", "Servers");
 
-	tsman = memnewOldNoConstructor(TextServerManager);
+	tsman = memnewNoConstructor<TextServerManager>();
 	if (tsman) {
 		Ref<TextServerDummy> ts;
 		ts.instantiate();
@@ -2690,9 +2690,9 @@ Error Main::setup2(bool p_show_boot_logo) {
 	}
 
 #ifndef _3D_DISABLED
-	physics_server_3d_manager = memnewOldNoConstructor(PhysicsServer3DManager);
+	physics_server_3d_manager = memnewNoConstructor<PhysicsServer3DManager>();
 #endif // _3D_DISABLED
-	physics_server_2d_manager = memnewOldNoConstructor(PhysicsServer2DManager);
+	physics_server_2d_manager = memnewNoConstructor<PhysicsServer2DManager>();
 
 	register_server_types();
 	{
@@ -2709,7 +2709,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "Input");
 
-		input = memnewOldNoConstructor(Input);
+		input = memnewNoConstructor<Input>();
 		OS::get_singleton()->initialize_joypads();
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "Input");
@@ -2921,7 +2921,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 		AudioDriverManager::initialize(audio_driver_idx);
 
 		// Right moment to create and initialize the audio server.
-		audio_server = memnewOldNoConstructor(AudioServer);
+		audio_server = memnewNoConstructor<AudioServer>();
 		audio_server->init();
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "Audio");
@@ -2933,7 +2933,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "XR");
 
-		xr_server = memnewOldNoConstructor(XRServer);
+		xr_server = memnewNoConstructor<XRServer>();
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "XR");
 	}
@@ -3581,7 +3581,7 @@ int Main::start() {
 
 	MainLoop *main_loop = nullptr;
 	if (editor) {
-		main_loop = memnewOldNoConstructor(SceneTree);
+		main_loop = memnewNoConstructor<SceneTree>();
 	}
 	if (main_loop_type.is_empty()) {
 		main_loop_type = GLOBAL_GET("application/run/main_loop_type");
@@ -3802,7 +3802,7 @@ int Main::start() {
 		EditorNode *editor_node = nullptr;
 		if (editor) {
 			OS::get_singleton()->benchmark_begin_measure("Startup", "Editor");
-			editor_node = memnewOldNoConstructor(EditorNode);
+			editor_node = memnewNoConstructor<EditorNode>();
 			sml->get_root()->add_child(editor_node);
 
 			if (!_export_preset.is_empty()) {
@@ -3993,8 +3993,8 @@ int Main::start() {
 		if (project_manager) {
 			OS::get_singleton()->benchmark_begin_measure("Startup", "Project Manager");
 			Engine::get_singleton()->set_editor_hint(true);
-			ProjectManager *pmanager = memnewOldNoConstructor(ProjectManager);
-			ProgressDialog *progress_dialog = memnewOldNoConstructor(ProgressDialog);
+			ProjectManager *pmanager = memnewNoConstructor<ProjectManager>();
+			ProgressDialog *progress_dialog = memnewNoConstructor<ProgressDialog>();
 			pmanager->add_child(progress_dialog);
 			sml->get_root()->add_child(pmanager);
 			OS::get_singleton()->benchmark_end_measure("Startup", "Project Manager");

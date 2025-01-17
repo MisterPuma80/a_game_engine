@@ -2076,7 +2076,7 @@ RenderingDeviceGraph::ResourceTracker *RenderingDeviceGraph::resource_tracker_cr
 #if PRINT_RESOURCE_TRACKER_TOTAL
 	print_line("Resource trackers:", ++resource_tracker_total);
 #endif
-	return memnewOldNoConstructor(ResourceTracker);
+	return memnewNoConstructor<ResourceTracker>();
 }
 
 void RenderingDeviceGraph::resource_tracker_free(ResourceTracker *tracker) {

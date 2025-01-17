@@ -490,7 +490,7 @@ void ProjectDialog::ok_pressed() {
 	// Before we create a project, check that the target folder is empty.
 	// If not, we need to ask the user if they're sure they want to do this.
 	if (!is_folder_empty) {
-		ConfirmationDialog *cd = memnewOldNoConstructor(ConfirmationDialog);
+		ConfirmationDialog *cd = memnewNoConstructor<ConfirmationDialog>();
 		cd->set_title(TTR("Warning: This folder is not empty"));
 		cd->set_text(TTR("You are about to create a Godot project in a non-empty folder.\nThe entire contents of this folder will be imported as project resources!\n\nAre you sure you wish to continue?"));
 		cd->get_ok_button()->connect(SceneStringName(pressed), callable_mp(this, &ProjectDialog::_nonempty_confirmation_ok_pressed));
@@ -817,7 +817,7 @@ void ProjectDialog::_notification(int p_what) {
 			install_browse->set_icon(get_editor_theme_icon(SNAME("FolderBrowse")));
 		} break;
 		case NOTIFICATION_READY: {
-			fdialog_project = memnewOldNoConstructor(EditorFileDialog);
+			fdialog_project = memnewNoConstructor<EditorFileDialog>();
 			fdialog_project->set_previews_enabled(false); // Crucial, otherwise the engine crashes.
 			fdialog_project->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 			fdialog_project->connect("dir_selected", callable_mp(this, &ProjectDialog::_project_path_selected));
@@ -834,98 +834,98 @@ void ProjectDialog::_bind_methods() {
 }
 
 ProjectDialog::ProjectDialog() {
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	add_child(vb);
 
-	name_container = memnewOldNoConstructor(VBoxContainer);
+	name_container = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(name_container);
 
-	Label *l = memnewOldNoConstructor(Label);
+	Label *l = memnewNoConstructor<Label>();
 	l->set_text(TTR("Project Name:"));
 	name_container->add_child(l);
 
-	project_name = memnewOldNoConstructor(LineEdit);
+	project_name = memnewNoConstructor<LineEdit>();
 	project_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	name_container->add_child(project_name);
 
-	project_path_container = memnewOldNoConstructor(VBoxContainer);
+	project_path_container = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(project_path_container);
 
-	HBoxContainer *pphb_label = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *pphb_label = memnewNoConstructor<HBoxContainer>();
 	project_path_container->add_child(pphb_label);
 
-	l = memnewOldNoConstructor(Label);
+	l = memnewNoConstructor<Label>();
 	l->set_text(TTR("Project Path:"));
 	l->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	pphb_label->add_child(l);
 
-	create_dir = memnewOldNoConstructor(CheckButton);
+	create_dir = memnewNoConstructor<CheckButton>();
 	create_dir->set_text(TTR("Create Folder"));
 	create_dir->set_pressed(true);
 	pphb_label->add_child(create_dir);
 	create_dir->connect("toggled", callable_mp(this, &ProjectDialog::_create_dir_toggled));
 
-	HBoxContainer *pphb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *pphb = memnewNoConstructor<HBoxContainer>();
 	project_path_container->add_child(pphb);
 
-	project_path = memnewOldNoConstructor(LineEdit);
+	project_path = memnewNoConstructor<LineEdit>();
 	project_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	project_path->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	pphb->add_child(project_path);
 
-	install_path_container = memnewOldNoConstructor(VBoxContainer);
+	install_path_container = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(install_path_container);
 
-	l = memnewOldNoConstructor(Label);
+	l = memnewNoConstructor<Label>();
 	l->set_text(TTR("Project Installation Path:"));
 	install_path_container->add_child(l);
 
-	HBoxContainer *iphb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *iphb = memnewNoConstructor<HBoxContainer>();
 	install_path_container->add_child(iphb);
 
-	install_path = memnewOldNoConstructor(LineEdit);
+	install_path = memnewNoConstructor<LineEdit>();
 	install_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	install_path->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	iphb->add_child(install_path);
 
 	// status icon
-	project_status_rect = memnewOldNoConstructor(TextureRect);
+	project_status_rect = memnewNoConstructor<TextureRect>();
 	project_status_rect->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	pphb->add_child(project_status_rect);
 
-	project_browse = memnewOldNoConstructor(Button);
+	project_browse = memnewNoConstructor<Button>();
 	project_browse->set_text(TTR("Browse"));
 	project_browse->connect(SceneStringName(pressed), callable_mp(this, &ProjectDialog::_browse_project_path));
 	pphb->add_child(project_browse);
 
 	// install status icon
-	install_status_rect = memnewOldNoConstructor(TextureRect);
+	install_status_rect = memnewNoConstructor<TextureRect>();
 	install_status_rect->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	iphb->add_child(install_status_rect);
 
-	install_browse = memnewOldNoConstructor(Button);
+	install_browse = memnewNoConstructor<Button>();
 	install_browse->set_text(TTR("Browse"));
 	install_browse->connect(SceneStringName(pressed), callable_mp(this, &ProjectDialog::_browse_install_path));
 	iphb->add_child(install_browse);
 
-	msg = memnewOldNoConstructor(Label);
+	msg = memnewNoConstructor<Label>();
 	msg->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	msg->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	msg->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	vb->add_child(msg);
 
 	// Renderer selection.
-	renderer_container = memnewOldNoConstructor(VBoxContainer);
+	renderer_container = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(renderer_container);
-	l = memnewOldNoConstructor(Label);
+	l = memnewNoConstructor<Label>();
 	l->set_text(TTR("Renderer:"));
 	renderer_container->add_child(l);
-	HBoxContainer *rshc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *rshc = memnewNoConstructor<HBoxContainer>();
 	renderer_container->add_child(rshc);
 	renderer_button_group.instantiate();
 
 	// Left hand side, used for checkboxes to select renderer.
-	Container *rvb = memnewOldNoConstructor(VBoxContainer);
+	Container *rvb = memnewNoConstructor<VBoxContainer>();
 	rshc->add_child(rvb);
 
 	String default_renderer_type = "forward_plus";
@@ -939,7 +939,7 @@ ProjectDialog::ProjectDialog() {
 		default_renderer_type = "gl_compatibility";
 	}
 
-	Button *rs_button = memnewOldNoConstructor(CheckBox);
+	Button *rs_button = memnewNoConstructor<CheckBox>();
 	rs_button->set_button_group(renderer_button_group);
 	rs_button->set_text(TTR("Forward+"));
 #ifndef RD_ENABLED
@@ -951,7 +951,7 @@ ProjectDialog::ProjectDialog() {
 	if (default_renderer_type == "forward_plus") {
 		rs_button->set_pressed(true);
 	}
-	rs_button = memnewOldNoConstructor(CheckBox);
+	rs_button = memnewNoConstructor<CheckBox>();
 	rs_button->set_button_group(renderer_button_group);
 	rs_button->set_text(TTR("Mobile"));
 #ifndef RD_ENABLED
@@ -963,7 +963,7 @@ ProjectDialog::ProjectDialog() {
 	if (default_renderer_type == "mobile") {
 		rs_button->set_pressed(true);
 	}
-	rs_button = memnewOldNoConstructor(CheckBox);
+	rs_button = memnewNoConstructor<CheckBox>();
 	rs_button->set_button_group(renderer_button_group);
 	rs_button->set_text(TTR("Compatibility"));
 #if !defined(GLES3_ENABLED)
@@ -977,17 +977,17 @@ ProjectDialog::ProjectDialog() {
 		rs_button->set_pressed(true);
 	}
 #endif
-	rshc->add_child(memnewOldNoConstructor(VSeparator));
+	rshc->add_child(memnewNoConstructor<VSeparator>());
 
 	// Right hand side, used for text explaining each choice.
-	rvb = memnewOldNoConstructor(VBoxContainer);
+	rvb = memnewNoConstructor<VBoxContainer>();
 	rvb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	rshc->add_child(rvb);
-	renderer_info = memnewOldNoConstructor(Label);
+	renderer_info = memnewNoConstructor<Label>();
 	renderer_info->set_modulate(Color(1, 1, 1, 0.7));
 	rvb->add_child(renderer_info);
 
-	rd_not_supported = memnewOldNoConstructor(Label);
+	rd_not_supported = memnewNoConstructor<Label>();
 	rd_not_supported->set_text(TTR("Rendering Device backend not available. Please use the Compatibility renderer."));
 	rd_not_supported->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	rd_not_supported->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
@@ -997,7 +997,7 @@ ProjectDialog::ProjectDialog() {
 
 	_renderer_selected();
 
-	l = memnewOldNoConstructor(Label);
+	l = memnewNoConstructor<Label>();
 	l->set_text(TTR("The renderer can be changed later, but scenes may need to be adjusted."));
 	// Add some extra spacing to separate it from the list above and the buttons below.
 	l->set_custom_minimum_size(Size2(0, 40) * EDSCALE);
@@ -1006,21 +1006,21 @@ ProjectDialog::ProjectDialog() {
 	l->set_modulate(Color(1, 1, 1, 0.7));
 	renderer_container->add_child(l);
 
-	default_files_container = memnewOldNoConstructor(HBoxContainer);
+	default_files_container = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(default_files_container);
-	l = memnewOldNoConstructor(Label);
+	l = memnewNoConstructor<Label>();
 	l->set_text(TTR("Version Control Metadata:"));
 	default_files_container->add_child(l);
-	vcs_metadata_selection = memnewOldNoConstructor(OptionButton);
+	vcs_metadata_selection = memnewNoConstructor<OptionButton>();
 	vcs_metadata_selection->set_custom_minimum_size(Size2(100, 20));
 	vcs_metadata_selection->add_item(TTR("None"), (int)EditorVCSInterface::VCSMetadata::NONE);
 	vcs_metadata_selection->add_item(TTR("Git"), (int)EditorVCSInterface::VCSMetadata::GIT);
 	vcs_metadata_selection->select((int)EditorVCSInterface::VCSMetadata::GIT);
 	default_files_container->add_child(vcs_metadata_selection);
-	Control *spacer = memnewOldNoConstructor(Control);
+	Control *spacer = memnewNoConstructor<Control>();
 	spacer->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	default_files_container->add_child(spacer);
-	fdialog_install = memnewOldNoConstructor(EditorFileDialog);
+	fdialog_install = memnewNoConstructor<EditorFileDialog>();
 	fdialog_install->set_previews_enabled(false); //Crucial, otherwise the engine crashes.
 	fdialog_install->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 	add_child(fdialog_install);
@@ -1033,6 +1033,6 @@ ProjectDialog::ProjectDialog() {
 
 	set_hide_on_ok(false);
 
-	dialog_error = memnewOldNoConstructor(AcceptDialog);
+	dialog_error = memnewNoConstructor<AcceptDialog>();
 	add_child(dialog_error);
 }

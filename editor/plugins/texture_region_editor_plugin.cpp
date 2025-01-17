@@ -1127,14 +1127,14 @@ TextureRegionEditor::TextureRegionEditor() {
 	panner.instantiate();
 	panner->set_callbacks(callable_mp(this, &TextureRegionEditor::_pan_callback), callable_mp(this, &TextureRegionEditor::_zoom_callback));
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	add_child(vb);
 
-	HBoxContainer *hb_tools = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb_tools = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(hb_tools);
 	hb_tools->add_child(memnewWithArgs<Label>(TTR("Snap Mode:")));
 
-	snap_mode_button = memnewOldNoConstructor(OptionButton);
+	snap_mode_button = memnewNoConstructor<OptionButton>();
 	hb_tools->add_child(snap_mode_button);
 	snap_mode_button->add_item(TTR("None"), 0);
 	snap_mode_button->add_item(TTR("Pixel Snap"), 1);
@@ -1143,52 +1143,52 @@ TextureRegionEditor::TextureRegionEditor() {
 	snap_mode_button->select(snap_mode);
 	snap_mode_button->connect(SceneStringName(item_selected), callable_mp(this, &TextureRegionEditor::_set_snap_mode));
 
-	hb_grid = memnewOldNoConstructor(HBoxContainer);
+	hb_grid = memnewNoConstructor<HBoxContainer>();
 	hb_tools->add_child(hb_grid);
 
-	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
+	hb_grid->add_child(memnewNoConstructor<VSeparator>());
 	hb_grid->add_child(memnewWithArgs<Label>(TTR("Offset:")));
 
-	sb_off_x = memnewOldNoConstructor(SpinBox);
+	sb_off_x = memnewNoConstructor<SpinBox>();
 	sb_off_x->set_step(1);
 	sb_off_x->set_suffix("px");
 	sb_off_x->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_set_snap_off_x));
 	hb_grid->add_child(sb_off_x);
 
-	sb_off_y = memnewOldNoConstructor(SpinBox);
+	sb_off_y = memnewNoConstructor<SpinBox>();
 	sb_off_y->set_step(1);
 	sb_off_y->set_suffix("px");
 	sb_off_y->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_set_snap_off_y));
 	hb_grid->add_child(sb_off_y);
 
-	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
+	hb_grid->add_child(memnewNoConstructor<VSeparator>());
 	hb_grid->add_child(memnewWithArgs<Label>(TTR("Step:")));
 
-	sb_step_x = memnewOldNoConstructor(SpinBox);
+	sb_step_x = memnewNoConstructor<SpinBox>();
 	sb_step_x->set_min(0);
 	sb_step_x->set_step(1);
 	sb_step_x->set_suffix("px");
 	sb_step_x->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_set_snap_step_x));
 	hb_grid->add_child(sb_step_x);
 
-	sb_step_y = memnewOldNoConstructor(SpinBox);
+	sb_step_y = memnewNoConstructor<SpinBox>();
 	sb_step_y->set_min(0);
 	sb_step_y->set_step(1);
 	sb_step_y->set_suffix("px");
 	sb_step_y->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_set_snap_step_y));
 	hb_grid->add_child(sb_step_y);
 
-	hb_grid->add_child(memnewOldNoConstructor(VSeparator));
+	hb_grid->add_child(memnewNoConstructor<VSeparator>());
 	hb_grid->add_child(memnewWithArgs<Label>(TTR("Separation:")));
 
-	sb_sep_x = memnewOldNoConstructor(SpinBox);
+	sb_sep_x = memnewNoConstructor<SpinBox>();
 	sb_sep_x->set_min(0);
 	sb_sep_x->set_step(1);
 	sb_sep_x->set_suffix("px");
 	sb_sep_x->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_set_snap_sep_x));
 	hb_grid->add_child(sb_sep_x);
 
-	sb_sep_y = memnewOldNoConstructor(SpinBox);
+	sb_sep_y = memnewNoConstructor<SpinBox>();
 	sb_sep_y->set_min(0);
 	sb_sep_y->set_step(1);
 	sb_sep_y->set_suffix("px");
@@ -1211,48 +1211,48 @@ TextureRegionEditor::TextureRegionEditor() {
 	max_draw_zoom = 128.0f * MAX(1.0f, EDSCALE);
 	min_draw_zoom = 0.01f * MAX(1.0f, EDSCALE);
 
-	texture_preview = memnewOldNoConstructor(PanelContainer);
+	texture_preview = memnewNoConstructor<PanelContainer>();
 	vb->add_child(texture_preview);
 	texture_preview->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	texture_preview->set_clip_contents(true);
 	texture_preview->connect(SceneStringName(draw), callable_mp(this, &TextureRegionEditor::_texture_preview_draw));
 
-	texture_overlay = memnewOldNoConstructor(Panel);
+	texture_overlay = memnewNoConstructor<Panel>();
 	texture_preview->add_child(texture_overlay);
 	texture_overlay->set_focus_mode(Control::FOCUS_CLICK);
 	texture_overlay->connect(SceneStringName(draw), callable_mp(this, &TextureRegionEditor::_texture_overlay_draw));
 	texture_overlay->connect(SceneStringName(gui_input), callable_mp(this, &TextureRegionEditor::_texture_overlay_input));
 	texture_overlay->connect(SceneStringName(focus_exited), callable_mp(panner.ptr(), &ViewPanner::release_pan_key));
 
-	HBoxContainer *zoom_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *zoom_hb = memnewNoConstructor<HBoxContainer>();
 	texture_overlay->add_child(zoom_hb);
 	zoom_hb->set_begin(Point2(5, 5));
 
-	zoom_out = memnewOldNoConstructor(Button);
+	zoom_out = memnewNoConstructor<Button>();
 	zoom_out->set_flat(true);
 	zoom_out->set_tooltip_text(TTR("Zoom Out"));
 	zoom_out->connect(SceneStringName(pressed), callable_mp(this, &TextureRegionEditor::_zoom_out));
 	zoom_hb->add_child(zoom_out);
 
-	zoom_reset = memnewOldNoConstructor(Button);
+	zoom_reset = memnewNoConstructor<Button>();
 	zoom_reset->set_flat(true);
 	zoom_reset->set_tooltip_text(TTR("Zoom Reset"));
 	zoom_reset->connect(SceneStringName(pressed), callable_mp(this, &TextureRegionEditor::_zoom_reset));
 	zoom_hb->add_child(zoom_reset);
 
-	zoom_in = memnewOldNoConstructor(Button);
+	zoom_in = memnewNoConstructor<Button>();
 	zoom_in->set_flat(true);
 	zoom_in->set_tooltip_text(TTR("Zoom In"));
 	zoom_in->connect(SceneStringName(pressed), callable_mp(this, &TextureRegionEditor::_zoom_in));
 	zoom_hb->add_child(zoom_in);
 
-	vscroll = memnewOldNoConstructor(VScrollBar);
+	vscroll = memnewNoConstructor<VScrollBar>();
 	vscroll->set_anchors_and_offsets_preset(Control::PRESET_RIGHT_WIDE);
 	vscroll->set_step(0.001);
 	vscroll->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_scroll_changed));
 	texture_overlay->add_child(vscroll);
 
-	hscroll = memnewOldNoConstructor(HScrollBar);
+	hscroll = memnewNoConstructor<HScrollBar>();
 	hscroll->set_anchors_and_offsets_preset(Control::PRESET_BOTTOM_WIDE);
 	hscroll->set_step(0.001);
 	hscroll->connect(SceneStringName(value_changed), callable_mp(this, &TextureRegionEditor::_scroll_changed));
@@ -1282,7 +1282,7 @@ bool EditorInspectorPluginTextureRegion::parse_property(Object *p_object, const 
 }
 
 EditorInspectorPluginTextureRegion::EditorInspectorPluginTextureRegion() {
-	texture_region_editor = memnewOldNoConstructor(TextureRegionEditor);
+	texture_region_editor = memnewNoConstructor<TextureRegionEditor>();
 	EditorNode::get_singleton()->get_gui_base()->add_child(texture_region_editor);
 }
 

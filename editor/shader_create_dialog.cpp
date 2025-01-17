@@ -551,12 +551,12 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Main Controls.
 
-	gc = memnewOldNoConstructor(GridContainer);
+	gc = memnewNoConstructor<GridContainer>();
 	gc->set_columns(2);
 
 	// Error Fields.
 
-	validation_panel = memnewOldNoConstructor(EditorValidationPanel);
+	validation_panel = memnewNoConstructor<EditorValidationPanel>();
 	validation_panel->add_line(MSG_ID_SHADER, TTR("Shader path/name is valid."));
 	validation_panel->add_line(MSG_ID_PATH, TTR("Will create a new shader file."));
 	validation_panel->add_line(MSG_ID_BUILT_IN);
@@ -565,10 +565,10 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Spacing.
 
-	Control *spacing = memnewOldNoConstructor(Control);
+	Control *spacing = memnewNoConstructor<Control>();
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(gc);
 	vb->add_child(spacing);
 	vb->add_child(validation_panel);
@@ -576,7 +576,7 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Type.
 
-	type_menu = memnewOldNoConstructor(OptionButton);
+	type_menu = memnewNoConstructor<OptionButton>();
 	type_menu->set_custom_minimum_size(Size2(250, 0) * EDSCALE);
 	type_menu->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	gc->add_child(memnewWithArgs<Label>(TTR("Type:")));
@@ -616,7 +616,7 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Modes.
 
-	mode_menu = memnewOldNoConstructor(OptionButton);
+	mode_menu = memnewNoConstructor<OptionButton>();
 	for (const String &type_name : ShaderTypes::get_singleton()->get_types_list()) {
 		mode_menu->add_item(type_name.capitalize());
 	}
@@ -626,14 +626,14 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Templates.
 
-	template_menu = memnewOldNoConstructor(OptionButton);
+	template_menu = memnewNoConstructor<OptionButton>();
 	gc->add_child(memnewWithArgs<Label>(TTR("Template:")));
 	gc->add_child(template_menu);
 	template_menu->connect(SceneStringName(item_selected), callable_mp(this, &ShaderCreateDialog::_template_changed));
 
 	// Built-in Shader.
 
-	internal = memnewOldNoConstructor(CheckBox);
+	internal = memnewNoConstructor<CheckBox>();
 	internal->set_text(TTR("On"));
 	internal->connect("toggled", callable_mp(this, &ShaderCreateDialog::_built_in_toggled));
 	gc->add_child(memnewWithArgs<Label>(TTR("Built-in Shader:")));
@@ -641,15 +641,15 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Path.
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->connect(SceneStringName(sort_children), callable_mp(this, &ShaderCreateDialog::_path_hbox_sorted));
-	file_path = memnewOldNoConstructor(LineEdit);
+	file_path = memnewNoConstructor<LineEdit>();
 	file_path->connect(SceneStringName(text_changed), callable_mp(this, &ShaderCreateDialog::_path_changed));
 	file_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->add_child(file_path);
 	register_text_enter(file_path);
-	path_button = memnewOldNoConstructor(Button);
+	path_button = memnewNoConstructor<Button>();
 	path_button->connect(SceneStringName(pressed), callable_mp(this, &ShaderCreateDialog::_browse_path));
 	hb->add_child(path_button);
 	gc->add_child(memnewWithArgs<Label>(TTR("Path:")));
@@ -657,12 +657,12 @@ ShaderCreateDialog::ShaderCreateDialog() {
 
 	// Dialog Setup.
 
-	file_browse = memnewOldNoConstructor(EditorFileDialog);
+	file_browse = memnewNoConstructor<EditorFileDialog>();
 	file_browse->connect("file_selected", callable_mp(this, &ShaderCreateDialog::_file_selected));
 	file_browse->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	add_child(file_browse);
 
-	alert = memnewOldNoConstructor(AcceptDialog);
+	alert = memnewNoConstructor<AcceptDialog>();
 	alert->get_label()->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	alert->get_label()->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	alert->get_label()->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);

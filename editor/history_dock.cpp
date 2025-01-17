@@ -232,13 +232,13 @@ HistoryDock::HistoryDock() {
 	ur_manager->connect("history_changed", callable_mp(this, &HistoryDock::on_history_changed));
 	ur_manager->connect("version_changed", callable_mp(this, &HistoryDock::on_version_changed));
 
-	HBoxContainer *mode_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *mode_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(mode_hb);
 
 	bool include_scene = EditorSettings::get_singleton()->get_project_metadata("history", "include_scene", true);
 	bool include_global = EditorSettings::get_singleton()->get_project_metadata("history", "include_global", true);
 
-	current_scene_checkbox = memnewOldNoConstructor(CheckBox);
+	current_scene_checkbox = memnewNoConstructor<CheckBox>();
 	mode_hb->add_child(current_scene_checkbox);
 	current_scene_checkbox->set_flat(true);
 	current_scene_checkbox->set_pressed(include_scene);
@@ -248,7 +248,7 @@ HistoryDock::HistoryDock() {
 	current_scene_checkbox->connect("toggled", callable_mp(this, &HistoryDock::refresh_history).unbind(1));
 	current_scene_checkbox->connect("toggled", callable_mp(this, &HistoryDock::save_options).unbind(1));
 
-	global_history_checkbox = memnewOldNoConstructor(CheckBox);
+	global_history_checkbox = memnewNoConstructor<CheckBox>();
 	mode_hb->add_child(global_history_checkbox);
 	global_history_checkbox->set_flat(true);
 	global_history_checkbox->set_pressed(include_global);
@@ -258,7 +258,7 @@ HistoryDock::HistoryDock() {
 	global_history_checkbox->connect("toggled", callable_mp(this, &HistoryDock::refresh_history).unbind(1));
 	global_history_checkbox->connect("toggled", callable_mp(this, &HistoryDock::save_options).unbind(1));
 
-	action_list = memnewOldNoConstructor(ItemList);
+	action_list = memnewNoConstructor<ItemList>();
 	action_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_child(action_list);
 	action_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);

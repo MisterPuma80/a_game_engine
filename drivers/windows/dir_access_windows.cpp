@@ -457,7 +457,7 @@ Error DirAccessWindows::create_link(String p_source, String p_target) {
 }
 
 DirAccessWindows::DirAccessWindows() {
-	p = memnewOldNoConstructor(DirAccessWindowsPrivate);
+	p = memnewNoConstructor<DirAccessWindowsPrivate>();
 	p->h = INVALID_HANDLE_VALUE;
 	current_dir = ".";
 

@@ -160,7 +160,7 @@ VSRerouteNode::VSRerouteNode() {
 
 	const Size2 size = Size2(32, 32) * EDSCALE;
 
-	Control *slot_area = memnewOldNoConstructor(Control);
+	Control *slot_area = memnewNoConstructor<Control>();
 	slot_area->set_custom_minimum_size(size);
 	slot_area->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	add_child(slot_area);
@@ -246,7 +246,7 @@ void VisualShaderGraphPlugin::show_port_preview(VisualShader::Type p_type, int p
 				link.preview_pos = link.graph_element->get_child_count();
 			}
 
-			VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
+			VBoxContainer *vbox = memnewNoConstructor<VBoxContainer>();
 			link.graph_element->add_child(vbox);
 			link.graph_element->move_child(vbox, link.preview_pos);
 
@@ -255,11 +255,11 @@ void VisualShaderGraphPlugin::show_port_preview(VisualShader::Type p_type, int p
 				graph_node->set_slot_draw_stylebox(vbox->get_index(false), false);
 			}
 
-			Control *offset = memnewOldNoConstructor(Control);
+			Control *offset = memnewNoConstructor<Control>();
 			offset->set_custom_minimum_size(Size2(0, 5 * EDSCALE));
 			vbox->add_child(offset);
 
-			VisualShaderNodePortPreview *port_preview = memnewOldNoConstructor(VisualShaderNodePortPreview);
+			VisualShaderNodePortPreview *port_preview = memnewNoConstructor<VisualShaderNodePortPreview>();
 			port_preview->setup(visual_shader, visual_shader->get_shader_type(), p_node_id, p_port_id, p_is_valid);
 			port_preview->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 			vbox->add_child(port_preview);
@@ -673,15 +673,15 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 	GraphElement *node;
 	if (is_frame) {
-		GraphFrame *frame = memnewOldNoConstructor(GraphFrame);
+		GraphFrame *frame = memnewNoConstructor<GraphFrame>();
 		frame->set_title(vsnode->get_caption());
 		node = frame;
 	} else if (is_reroute) {
-		VSRerouteNode *reroute_gnode = memnewOldNoConstructor(VSRerouteNode);
+		VSRerouteNode *reroute_gnode = memnewNoConstructor<VSRerouteNode>();
 		reroute_gnode->set_ignore_invalid_connection_type(true);
 		node = reroute_gnode;
 	} else {
-		VSGraphNode *gnode = memnewOldNoConstructor(VSGraphNode);
+		VSGraphNode *gnode = memnewNoConstructor<VSGraphNode>();
 		gnode->set_title(vsnode->get_caption());
 		node = gnode;
 	}
@@ -756,7 +756,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		graph_frame->set_tint_color(frame_node->get_tint_color());
 
 		// Add hint label.
-		Label *frame_hint_label = memnewOldNoConstructor(Label);
+		Label *frame_hint_label = memnewNoConstructor<Label>();
 		node->add_child(frame_hint_label);
 		frame_hint_label->set_horizontal_alignment(HorizontalAlignment::HORIZONTAL_ALIGNMENT_CENTER);
 		frame_hint_label->set_vertical_alignment(VerticalAlignment::VERTICAL_ALIGNMENT_CENTER);
@@ -784,7 +784,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 	}
 
 	if (!is_reroute) {
-		Control *content_offset = memnewOldNoConstructor(Control);
+		Control *content_offset = memnewNoConstructor<Control>();
 		content_offset->set_custom_minimum_size(Size2(0, 5 * EDSCALE));
 		node->add_child(content_offset);
 	}
@@ -820,7 +820,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 	HBoxContainer *hb = nullptr;
 
 	if (parameter.is_valid()) {
-		LineEdit *parameter_name = memnewOldNoConstructor(LineEdit);
+		LineEdit *parameter_name = memnewNoConstructor<LineEdit>();
 		register_parameter_name(p_id, parameter_name);
 		parameter_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		parameter_name->set_text(parameter->get_parameter_name());
@@ -828,7 +828,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		parameter_name->connect(SceneStringName(focus_exited), callable_mp(editor, &VisualShaderEditor::_parameter_line_edit_focus_out).bind(parameter_name, p_id));
 
 		if (vsnode->get_output_port_count() == 1 && vsnode->get_output_port_name(0) == "") {
-			hb = memnewOldNoConstructor(HBoxContainer);
+			hb = memnewNoConstructor<HBoxContainer>();
 			hb->add_child(parameter_name);
 			node->add_child(hb);
 		} else {
@@ -861,24 +861,24 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 			if (first) {
 				first = false;
-				vbox = memnewOldNoConstructor(VBoxContainer);
+				vbox = memnewNoConstructor<VBoxContainer>();
 				node->add_child(vbox);
 				port_offset++;
 			}
 
-			HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+			HBoxContainer *hbox = memnewNoConstructor<HBoxContainer>();
 			vbox->add_child(hbox);
 			hbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
 			String prop_name = dp.name.strip_edges();
 			if (!prop_name.is_empty()) {
-				Label *label = memnewOldNoConstructor(Label);
+				Label *label = memnewNoConstructor<Label>();
 				label->set_auto_translate_mode(Node::AUTO_TRANSLATE_MODE_DISABLED); // TODO: Implement proper translation switch.
 				label->set_text(prop_name + ":");
 				hbox->add_child(label);
 			}
 
-			OptionButton *op = memnewOldNoConstructor(OptionButton);
+			OptionButton *op = memnewNoConstructor<OptionButton>();
 			hbox->add_child(op);
 			op->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			op->connect(SceneStringName(item_selected), callable_mp(editor, &VisualShaderEditor::_set_custom_node_option).bind(p_id, i), CONNECT_DEFERRED);
@@ -899,7 +899,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 	bool is_curve = curve.is_valid() || curve_xyz.is_valid();
 	if (is_curve) {
-		hb = memnewOldNoConstructor(HBoxContainer);
+		hb = memnewNoConstructor<HBoxContainer>();
 		node->add_child(hb);
 	}
 
@@ -910,7 +910,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 			curve->get_texture()->connect_changed(callable_mp(graph_plugin, &VisualShaderGraphPlugin::update_curve).bind(p_id));
 		}
 
-		CurveEditor *curve_editor = memnewOldNoConstructor(CurveEditor);
+		CurveEditor *curve_editor = memnewNoConstructor<CurveEditor>();
 		node->add_child(curve_editor);
 		register_curve_editor(p_id, 0, curve_editor);
 		curve_editor->set_custom_minimum_size(Size2(300, 0));
@@ -927,7 +927,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 			curve_xyz->get_texture()->connect_changed(callable_mp(graph_plugin, &VisualShaderGraphPlugin::update_curve_xyz).bind(p_id));
 		}
 
-		CurveEditor *curve_editor_x = memnewOldNoConstructor(CurveEditor);
+		CurveEditor *curve_editor_x = memnewNoConstructor<CurveEditor>();
 		node->add_child(curve_editor_x);
 		register_curve_editor(p_id, 0, curve_editor_x);
 		curve_editor_x->set_custom_minimum_size(Size2(300, 0));
@@ -936,7 +936,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 			curve_editor_x->set_curve(curve_xyz->get_texture()->get_curve_x());
 		}
 
-		CurveEditor *curve_editor_y = memnewOldNoConstructor(CurveEditor);
+		CurveEditor *curve_editor_y = memnewNoConstructor<CurveEditor>();
 		node->add_child(curve_editor_y);
 		register_curve_editor(p_id, 1, curve_editor_y);
 		curve_editor_y->set_custom_minimum_size(Size2(300, 0));
@@ -945,7 +945,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 			curve_editor_y->set_curve(curve_xyz->get_texture()->get_curve_y());
 		}
 
-		CurveEditor *curve_editor_z = memnewOldNoConstructor(CurveEditor);
+		CurveEditor *curve_editor_z = memnewNoConstructor<CurveEditor>();
 		node->add_child(curve_editor_z);
 		register_curve_editor(p_id, 2, curve_editor_z);
 		curve_editor_z->set_custom_minimum_size(Size2(300, 0));
@@ -967,7 +967,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 	if (is_group) {
 		if (group_node->is_editable()) {
-			HBoxContainer *hb2 = memnewOldNoConstructor(HBoxContainer);
+			HBoxContainer *hb2 = memnewNoConstructor<HBoxContainer>();
 
 			String input_port_name = "input" + itos(group_node->get_free_input_port_id());
 			String output_port_name = "output" + itos(group_node->get_free_output_port_id());
@@ -985,14 +985,14 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 				}
 			}
 
-			Button *add_input_btn = memnewOldNoConstructor(Button);
+			Button *add_input_btn = memnewNoConstructor<Button>();
 			add_input_btn->set_text(TTR("Add Input"));
 			add_input_btn->connect(SceneStringName(pressed), callable_mp(editor, &VisualShaderEditor::_add_input_port).bind(p_id, group_node->get_free_input_port_id(), VisualShaderNode::PORT_TYPE_VECTOR_3D, input_port_name), CONNECT_DEFERRED);
 			hb2->add_child(add_input_btn);
 
 			hb2->add_spacer();
 
-			Button *add_output_btn = memnewOldNoConstructor(Button);
+			Button *add_output_btn = memnewNoConstructor<Button>();
 			add_output_btn->set_text(TTR("Add Output"));
 			add_output_btn->connect(SceneStringName(pressed), callable_mp(editor, &VisualShaderEditor::_add_output_port).bind(p_id, group_node->get_free_output_port_id(), VisualShaderNode::PORT_TYPE_VECTOR_3D, output_port_name), CONNECT_DEFERRED);
 			hb2->add_child(add_output_btn);
@@ -1052,7 +1052,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		}
 
 		if (vsnode->is_port_separator(i)) {
-			node->add_child(memnewOldNoConstructor(HSeparator));
+			node->add_child(memnewNoConstructor<HSeparator>());
 			port_offset++;
 		}
 
@@ -1089,7 +1089,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		if (i == 0 && hb != nullptr) {
 			is_first_hbox = true;
 		} else {
-			hb = memnewOldNoConstructor(HBoxContainer);
+			hb = memnewNoConstructor<HBoxContainer>();
 		}
 		hb->add_theme_constant_override("separation", 7 * EDSCALE);
 
@@ -1100,7 +1100,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 			default_value = vsnode->get_input_port_default_value(j);
 		}
 
-		Button *default_input_btn = memnewOldNoConstructor(Button);
+		Button *default_input_btn = memnewNoConstructor<Button>();
 		hb->add_child(default_input_btn);
 		register_default_input_button(p_id, j, default_input_btn);
 		default_input_btn->connect(SceneStringName(pressed), callable_mp(editor, &VisualShaderEditor::_edit_port_default_input).bind(default_input_btn, p_id, j));
@@ -1116,7 +1116,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		} else {
 			if (valid_left) {
 				if (is_group) {
-					OptionButton *type_box = memnewOldNoConstructor(OptionButton);
+					OptionButton *type_box = memnewNoConstructor<OptionButton>();
 					hb->add_child(type_box);
 					type_box->add_item(TTR("Float"));
 					type_box->add_item(TTR("Int"));
@@ -1131,7 +1131,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 					type_box->set_custom_minimum_size(Size2(100 * EDSCALE, 0));
 					type_box->connect(SceneStringName(item_selected), callable_mp(editor, &VisualShaderEditor::_change_input_port_type).bind(p_id, j), CONNECT_DEFERRED);
 
-					LineEdit *name_box = memnewOldNoConstructor(LineEdit);
+					LineEdit *name_box = memnewNoConstructor<LineEdit>();
 					hb->add_child(name_box);
 					name_box->set_custom_minimum_size(Size2(65 * EDSCALE, 0));
 					name_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -1139,20 +1139,20 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 					name_box->connect("text_submitted", callable_mp(editor, &VisualShaderEditor::_change_input_port_name).bind(name_box, p_id, j), CONNECT_DEFERRED);
 					name_box->connect(SceneStringName(focus_exited), callable_mp(editor, &VisualShaderEditor::_port_name_focus_out).bind(name_box, p_id, j, false), CONNECT_DEFERRED);
 
-					Button *remove_btn = memnewOldNoConstructor(Button);
+					Button *remove_btn = memnewNoConstructor<Button>();
 					remove_btn->set_icon(EditorNode::get_singleton()->get_editor_theme()->get_icon(SNAME("Remove"), EditorStringName(EditorIcons)));
 					remove_btn->set_tooltip_text(TTR("Remove") + " " + name_left);
 					remove_btn->connect(SceneStringName(pressed), callable_mp(editor, &VisualShaderEditor::_remove_input_port).bind(p_id, j), CONNECT_DEFERRED);
 					hb->add_child(remove_btn);
 				} else {
-					Label *label = memnewOldNoConstructor(Label);
+					Label *label = memnewNoConstructor<Label>();
 					label->set_auto_translate_mode(Node::AUTO_TRANSLATE_MODE_DISABLED); // TODO: Implement proper translation switch.
 					label->set_text(name_left);
 					label->add_theme_style_override(CoreStringName(normal), editor->get_theme_stylebox(SNAME("label_style"), SNAME("VShaderEditor")));
 					hb->add_child(label);
 
 					if (vsnode->is_input_port_default(j, mode) && !port_left_used) {
-						Label *hint_label = memnewOldNoConstructor(Label);
+						Label *hint_label = memnewNoConstructor<Label>();
 						hint_label->set_text(TTR("[default]"));
 						hint_label->add_theme_color_override(SceneStringName(font_color), editor->get_theme_color(SNAME("font_readonly_color"), SNAME("TextEdit")));
 						hint_label->add_theme_style_override(CoreStringName(normal), editor->get_theme_stylebox(SNAME("label_style"), SNAME("VShaderEditor")));
@@ -1167,13 +1167,13 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 			if (valid_right) {
 				if (is_group) {
-					Button *remove_btn = memnewOldNoConstructor(Button);
+					Button *remove_btn = memnewNoConstructor<Button>();
 					remove_btn->set_icon(EditorNode::get_singleton()->get_editor_theme()->get_icon(SNAME("Remove"), EditorStringName(EditorIcons)));
 					remove_btn->set_tooltip_text(TTR("Remove") + " " + name_left);
 					remove_btn->connect(SceneStringName(pressed), callable_mp(editor, &VisualShaderEditor::_remove_output_port).bind(p_id, i), CONNECT_DEFERRED);
 					hb->add_child(remove_btn);
 
-					LineEdit *name_box = memnewOldNoConstructor(LineEdit);
+					LineEdit *name_box = memnewNoConstructor<LineEdit>();
 					hb->add_child(name_box);
 					name_box->set_custom_minimum_size(Size2(65 * EDSCALE, 0));
 					name_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -1181,7 +1181,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 					name_box->connect("text_submitted", callable_mp(editor, &VisualShaderEditor::_change_output_port_name).bind(name_box, p_id, i), CONNECT_DEFERRED);
 					name_box->connect(SceneStringName(focus_exited), callable_mp(editor, &VisualShaderEditor::_port_name_focus_out).bind(name_box, p_id, i, true), CONNECT_DEFERRED);
 
-					OptionButton *type_box = memnewOldNoConstructor(OptionButton);
+					OptionButton *type_box = memnewNoConstructor<OptionButton>();
 					hb->add_child(type_box);
 					type_box->add_item(TTR("Float"));
 					type_box->add_item(TTR("Int"));
@@ -1195,7 +1195,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 					type_box->set_custom_minimum_size(Size2(100 * EDSCALE, 0));
 					type_box->connect(SceneStringName(item_selected), callable_mp(editor, &VisualShaderEditor::_change_output_port_type).bind(p_id, i), CONNECT_DEFERRED);
 				} else {
-					Label *label = memnewOldNoConstructor(Label);
+					Label *label = memnewNoConstructor<Label>();
 					label->set_auto_translate_mode(Node::AUTO_TRANSLATE_MODE_DISABLED); // TODO: Implement proper translation switch.
 					label->set_text(name_right);
 					label->add_theme_style_override(CoreStringName(normal), editor->get_theme_stylebox(SNAME("label_style"), SNAME("VShaderEditor"))); //more compact
@@ -1206,7 +1206,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 
 		if (valid_right) {
 			if (expanded_port_counter == 0 && vsnode->is_output_port_expandable(i)) {
-				TextureButton *expand = memnewOldNoConstructor(TextureButton);
+				TextureButton *expand = memnewNoConstructor<TextureButton>();
 				expand->set_toggle_mode(true);
 				expand->set_texture_normal(editor->get_editor_theme_icon(SNAME("GuiTreeArrowRight")));
 				expand->set_texture_pressed(editor->get_editor_theme_icon(SNAME("GuiTreeArrowDown")));
@@ -1216,7 +1216,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 				hb->add_child(expand);
 			}
 			if (vsnode->has_output_port_preview(i) && port_right != VisualShaderNode::PORT_TYPE_TRANSFORM && port_right != VisualShaderNode::PORT_TYPE_SAMPLER) {
-				TextureButton *preview = memnewOldNoConstructor(TextureButton);
+				TextureButton *preview = memnewNoConstructor<TextureButton>();
 				preview->set_toggle_mode(true);
 				preview->set_texture_normal(editor->get_editor_theme_icon(SNAME("GuiVisibilityHidden")));
 				preview->set_texture_pressed(editor->get_editor_theme_icon(SNAME("GuiVisibilityVisible")));
@@ -1230,7 +1230,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		}
 
 		if (is_group) {
-			offset = memnewOldNoConstructor(Control);
+			offset = memnewNoConstructor<Control>();
 			offset->set_custom_minimum_size(Size2(0, 5 * EDSCALE));
 			node->add_child(offset);
 			port_offset++;
@@ -1351,7 +1351,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		has_relative_parameter_instances = is_node_has_parameter_instances_relatively(p_type, p_id);
 		show_port_preview(p_type, p_id, vsnode->get_output_port_for_preview(), !has_relative_parameter_instances);
 	} else if (!is_reroute) {
-		offset = memnewOldNoConstructor(Control);
+		offset = memnewNoConstructor<Control>();
 		offset->set_custom_minimum_size(Size2(0, 4 * EDSCALE));
 		node->add_child(offset);
 	}
@@ -1361,7 +1361,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 		error += "\n" + TTR("The 2D preview cannot correctly show the result retrieved from instance parameter.");
 	}
 	if (!error.is_empty()) {
-		Label *error_label = memnewOldNoConstructor(Label);
+		Label *error_label = memnewNoConstructor<Label>();
 		error_label->add_theme_color_override(SceneStringName(font_color), editor->get_theme_color(SNAME("error_color"), EditorStringName(Editor)));
 		error_label->set_text(error);
 		error_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
@@ -1369,7 +1369,7 @@ void VisualShaderGraphPlugin::add_node(VisualShader::Type p_type, int p_id, bool
 	}
 
 	if (is_expression) {
-		CodeEdit *expression_box = memnewOldNoConstructor(CodeEdit);
+		CodeEdit *expression_box = memnewNoConstructor<CodeEdit>();
 		Ref<CodeHighlighter> expression_syntax_highlighter;
 		expression_syntax_highlighter.instantiate();
 		expression_node->set_ctrl_pressed(expression_box, 0);
@@ -4725,7 +4725,7 @@ void VisualShaderEditor::_graph_gui_input(const Ref<InputEvent> &p_event) {
 
 				if (selected_float_constant != -1) {
 					if (!constants_submenu) {
-						constants_submenu = memnewOldNoConstructor(PopupMenu);
+						constants_submenu = memnewNoConstructor<PopupMenu>();
 
 						for (int i = 0; i < MAX_FLOAT_CONST_DEFS; i++) {
 							constants_submenu->add_item(float_constant_defs[i].name, i);
@@ -5805,7 +5805,7 @@ Variant VisualShaderEditor::get_drag_data_fw(const Point2 &p_point, Control *p_f
 		Dictionary d;
 		d["id"] = id;
 
-		Label *label = memnewOldNoConstructor(Label);
+		Label *label = memnewNoConstructor<Label>();
 		label->set_text(it->get_text(0));
 		set_drag_preview(label);
 		return d;
@@ -6056,7 +6056,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	FileSystemDock::get_singleton()->get_script_create_dialog()->connect("script_created", callable_mp(this, &VisualShaderEditor::_script_created));
 	FileSystemDock::get_singleton()->connect("resource_removed", callable_mp(this, &VisualShaderEditor::_resource_removed));
 
-	graph = memnewOldNoConstructor(GraphEdit);
+	graph = memnewNoConstructor<GraphEdit>();
 	graph->get_menu_hbox()->set_h_size_flags(SIZE_EXPAND_FILL);
 	graph->set_v_size_flags(SIZE_EXPAND_FILL);
 	graph->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -6152,36 +6152,36 @@ VisualShaderEditor::VisualShaderEditor() {
 	graph->add_valid_connection_type(VisualShaderNode::PORT_TYPE_TRANSFORM, VisualShaderNode::PORT_TYPE_TRANSFORM);
 	graph->add_valid_connection_type(VisualShaderNode::PORT_TYPE_SAMPLER, VisualShaderNode::PORT_TYPE_SAMPLER);
 
-	VSeparator *vs = memnewOldNoConstructor(VSeparator);
+	VSeparator *vs = memnewNoConstructor<VSeparator>();
 	graph->get_menu_hbox()->add_child(vs);
 	graph->get_menu_hbox()->move_child(vs, 0);
 
-	custom_mode_box = memnewOldNoConstructor(CheckBox);
+	custom_mode_box = memnewNoConstructor<CheckBox>();
 	custom_mode_box->set_text(TTR("Custom"));
 	custom_mode_box->set_pressed(false);
 	custom_mode_box->set_visible(false);
 	custom_mode_box->connect("toggled", callable_mp(this, &VisualShaderEditor::_custom_mode_toggled));
 
-	edit_type_standard = memnewOldNoConstructor(OptionButton);
+	edit_type_standard = memnewNoConstructor<OptionButton>();
 	edit_type_standard->add_item(TTR("Vertex"));
 	edit_type_standard->add_item(TTR("Fragment"));
 	edit_type_standard->add_item(TTR("Light"));
 	edit_type_standard->select(1);
 	edit_type_standard->connect(SceneStringName(item_selected), callable_mp(this, &VisualShaderEditor::_mode_selected));
 
-	edit_type_particles = memnewOldNoConstructor(OptionButton);
+	edit_type_particles = memnewNoConstructor<OptionButton>();
 	edit_type_particles->add_item(TTR("Start"));
 	edit_type_particles->add_item(TTR("Process"));
 	edit_type_particles->add_item(TTR("Collide"));
 	edit_type_particles->select(0);
 	edit_type_particles->connect(SceneStringName(item_selected), callable_mp(this, &VisualShaderEditor::_mode_selected));
 
-	edit_type_sky = memnewOldNoConstructor(OptionButton);
+	edit_type_sky = memnewNoConstructor<OptionButton>();
 	edit_type_sky->add_item(TTR("Sky"));
 	edit_type_sky->select(0);
 	edit_type_sky->connect(SceneStringName(item_selected), callable_mp(this, &VisualShaderEditor::_mode_selected));
 
-	edit_type_fog = memnewOldNoConstructor(OptionButton);
+	edit_type_fog = memnewNoConstructor<OptionButton>();
 	edit_type_fog->add_item(TTR("Fog"));
 	edit_type_fog->select(0);
 	edit_type_fog->connect(SceneStringName(item_selected), callable_mp(this, &VisualShaderEditor::_mode_selected));
@@ -6199,7 +6199,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	graph->get_menu_hbox()->add_child(edit_type_fog);
 	graph->get_menu_hbox()->move_child(edit_type_fog, 0);
 
-	add_node = memnewOldNoConstructor(Button);
+	add_node = memnewNoConstructor<Button>();
 	add_node->set_flat(true);
 	add_node->set_text(TTR("Add Node..."));
 	graph->get_menu_hbox()->add_child(add_node);
@@ -6209,7 +6209,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	graph->connect("graph_elements_linked_to_frame_request", callable_mp(this, &VisualShaderEditor::_nodes_linked_to_frame_request));
 	graph->connect("frame_rect_changed", callable_mp(this, &VisualShaderEditor::_frame_rect_changed));
 
-	varying_button = memnewOldNoConstructor(MenuButton);
+	varying_button = memnewNoConstructor<MenuButton>();
 	varying_button->set_text(TTR("Manage Varyings"));
 	varying_button->set_switch_on_hover(true);
 	graph->get_menu_hbox()->add_child(varying_button);
@@ -6219,7 +6219,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	varying_menu->add_item(TTR("Remove Varying"), int(VaryingMenuOptions::REMOVE));
 	varying_menu->connect(SceneStringName(id_pressed), callable_mp(this, &VisualShaderEditor::_varying_menu_id_pressed));
 
-	preview_shader = memnewOldNoConstructor(Button);
+	preview_shader = memnewNoConstructor<Button>();
 	preview_shader->set_theme_type_variation("FlatButton");
 	preview_shader->set_toggle_mode(true);
 	preview_shader->set_tooltip_text(TTR("Show generated shader code."));
@@ -6230,7 +6230,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	// PREVIEW WINDOW
 	///////////////////////////////////////
 
-	preview_window = memnewOldNoConstructor(Window);
+	preview_window = memnewNoConstructor<Window>();
 	preview_window->set_title(TTR("Generated Shader Code"));
 	preview_window->set_visible(preview_showed);
 	preview_window->set_exclusive(true);
@@ -6238,11 +6238,11 @@ VisualShaderEditor::VisualShaderEditor() {
 	preview_window->connect("size_changed", callable_mp(this, &VisualShaderEditor::_preview_size_changed));
 	add_child(preview_window);
 
-	preview_vbox = memnewOldNoConstructor(VBoxContainer);
+	preview_vbox = memnewNoConstructor<VBoxContainer>();
 	preview_window->add_child(preview_vbox);
 	preview_vbox->add_theme_constant_override("separation", 0);
 
-	preview_text = memnewOldNoConstructor(CodeEdit);
+	preview_text = memnewNoConstructor<CodeEdit>();
 	syntax_highlighter.instantiate();
 	preview_vbox->add_child(preview_text);
 	preview_text->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -6250,11 +6250,11 @@ VisualShaderEditor::VisualShaderEditor() {
 	preview_text->set_draw_line_numbers(true);
 	preview_text->set_editable(false);
 
-	error_panel = memnewOldNoConstructor(PanelContainer);
+	error_panel = memnewNoConstructor<PanelContainer>();
 	preview_vbox->add_child(error_panel);
 	error_panel->set_visible(false);
 
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_panel->add_child(error_label);
 	error_label->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 
@@ -6262,7 +6262,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	// POPUP MENU
 	///////////////////////////////////////
 
-	popup_menu = memnewOldNoConstructor(PopupMenu);
+	popup_menu = memnewNoConstructor<PopupMenu>();
 	add_child(popup_menu);
 	popup_menu->set_hide_on_checkable_item_selection(false);
 	popup_menu->add_item(TTR("Add Node"), NodeMenuOptions::ADD);
@@ -6275,7 +6275,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	popup_menu->add_item(TTR("Clear Copy Buffer"), NodeMenuOptions::CLEAR_COPY_BUFFER);
 	popup_menu->connect(SceneStringName(id_pressed), callable_mp(this, &VisualShaderEditor::_node_menu_id_pressed));
 
-	connection_popup_menu = memnewOldNoConstructor(PopupMenu);
+	connection_popup_menu = memnewNoConstructor<PopupMenu>();
 	add_child(connection_popup_menu);
 	connection_popup_menu->add_item(TTR("Disconnect"), ConnectionMenuOptions::DISCONNECT);
 	connection_popup_menu->add_item(TTR("Insert New Node"), ConnectionMenuOptions::INSERT_NEW_NODE);
@@ -6286,27 +6286,27 @@ VisualShaderEditor::VisualShaderEditor() {
 	// SHADER NODES TREE
 	///////////////////////////////////////
 
-	VBoxContainer *members_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *members_vb = memnewNoConstructor<VBoxContainer>();
 	members_vb->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	HBoxContainer *filter_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *filter_hb = memnewNoConstructor<HBoxContainer>();
 	members_vb->add_child(filter_hb);
 
-	node_filter = memnewOldNoConstructor(LineEdit);
+	node_filter = memnewNoConstructor<LineEdit>();
 	filter_hb->add_child(node_filter);
 	node_filter->connect(SceneStringName(text_changed), callable_mp(this, &VisualShaderEditor::_member_filter_changed));
 	node_filter->connect(SceneStringName(gui_input), callable_mp(this, &VisualShaderEditor::_sbox_input));
 	node_filter->set_h_size_flags(SIZE_EXPAND_FILL);
 	node_filter->set_placeholder(TTR("Search"));
 
-	tools = memnewOldNoConstructor(MenuButton);
+	tools = memnewNoConstructor<MenuButton>();
 	filter_hb->add_child(tools);
 	tools->set_tooltip_text(TTR("Options"));
 	tools->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &VisualShaderEditor::_tools_menu_option));
 	tools->get_popup()->add_item(TTR("Expand All"), EXPAND_ALL);
 	tools->get_popup()->add_item(TTR("Collapse All"), COLLAPSE_ALL);
 
-	members = memnewOldNoConstructor(Tree);
+	members = memnewNoConstructor<Tree>();
 	members_vb->add_child(members);
 	SET_DRAG_FORWARDING_GCD(members, VisualShaderEditor);
 	members->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED); // TODO: Implement proper translation switch.
@@ -6320,29 +6320,29 @@ VisualShaderEditor::VisualShaderEditor() {
 	members->connect(SceneStringName(item_selected), callable_mp(this, &VisualShaderEditor::_member_selected));
 	members->connect("nothing_selected", callable_mp(this, &VisualShaderEditor::_member_unselected));
 
-	HBoxContainer *desc_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *desc_hbox = memnewNoConstructor<HBoxContainer>();
 	members_vb->add_child(desc_hbox);
 
-	Label *desc_label = memnewOldNoConstructor(Label);
+	Label *desc_label = memnewNoConstructor<Label>();
 	desc_hbox->add_child(desc_label);
 	desc_label->set_text(TTR("Description:"));
 
 	desc_hbox->add_spacer();
 
-	highend_label = memnewOldNoConstructor(Label);
+	highend_label = memnewNoConstructor<Label>();
 	desc_hbox->add_child(highend_label);
 	highend_label->set_visible(false);
 	highend_label->set_text("Vulkan");
 	highend_label->set_mouse_filter(Control::MOUSE_FILTER_STOP);
 	highend_label->set_tooltip_text(TTR("High-end node"));
 
-	node_desc = memnewOldNoConstructor(RichTextLabel);
+	node_desc = memnewNoConstructor<RichTextLabel>();
 	members_vb->add_child(node_desc);
 	node_desc->set_h_size_flags(SIZE_EXPAND_FILL);
 	node_desc->set_v_size_flags(SIZE_FILL);
 	node_desc->set_custom_minimum_size(Size2(0, 70 * EDSCALE));
 
-	members_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	members_dialog = memnewNoConstructor<ConfirmationDialog>();
 	members_dialog->set_title(TTR("Create Shader Node"));
 	members_dialog->set_exclusive(true);
 	members_dialog->add_child(members_vb);
@@ -6354,7 +6354,7 @@ VisualShaderEditor::VisualShaderEditor() {
 
 	// add varyings dialog
 	{
-		add_varying_dialog = memnewOldNoConstructor(ConfirmationDialog);
+		add_varying_dialog = memnewNoConstructor<ConfirmationDialog>();
 		add_varying_dialog->set_title(TTR("Create Shader Varying"));
 		add_varying_dialog->set_exclusive(true);
 		add_varying_dialog->set_ok_button_text(TTR("Create"));
@@ -6362,14 +6362,14 @@ VisualShaderEditor::VisualShaderEditor() {
 		add_varying_dialog->get_ok_button()->set_disabled(true);
 		add_child(add_varying_dialog);
 
-		VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 		add_varying_dialog->add_child(vb);
 
-		HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 		vb->add_child(hb);
 		hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-		varying_type = memnewOldNoConstructor(OptionButton);
+		varying_type = memnewNoConstructor<OptionButton>();
 		hb->add_child(varying_type);
 		varying_type->add_item("Float");
 		varying_type->add_item("Int");
@@ -6380,18 +6380,18 @@ VisualShaderEditor::VisualShaderEditor() {
 		varying_type->add_item("Boolean");
 		varying_type->add_item("Transform");
 
-		varying_name = memnewOldNoConstructor(LineEdit);
+		varying_name = memnewNoConstructor<LineEdit>();
 		hb->add_child(varying_name);
 		varying_name->set_custom_minimum_size(Size2(150 * EDSCALE, 0));
 		varying_name->set_h_size_flags(SIZE_EXPAND_FILL);
 		varying_name->connect(SceneStringName(text_changed), callable_mp(this, &VisualShaderEditor::_varying_name_changed));
 
-		varying_mode = memnewOldNoConstructor(OptionButton);
+		varying_mode = memnewNoConstructor<OptionButton>();
 		hb->add_child(varying_mode);
 		varying_mode->add_item("Vertex -> [Fragment, Light]");
 		varying_mode->add_item("Fragment -> Light");
 
-		varying_error_label = memnewOldNoConstructor(Label);
+		varying_error_label = memnewNoConstructor<Label>();
 		vb->add_child(varying_error_label);
 		varying_error_label->set_h_size_flags(SIZE_EXPAND_FILL);
 
@@ -6400,17 +6400,17 @@ VisualShaderEditor::VisualShaderEditor() {
 
 	// remove varying dialog
 	{
-		remove_varying_dialog = memnewOldNoConstructor(ConfirmationDialog);
+		remove_varying_dialog = memnewNoConstructor<ConfirmationDialog>();
 		remove_varying_dialog->set_title(TTR("Delete Shader Varying"));
 		remove_varying_dialog->set_exclusive(true);
 		remove_varying_dialog->set_ok_button_text(TTR("Delete"));
 		remove_varying_dialog->get_ok_button()->connect(SceneStringName(pressed), callable_mp(this, &VisualShaderEditor::_varying_deleted));
 		add_child(remove_varying_dialog);
 
-		VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 		remove_varying_dialog->add_child(vb);
 
-		varyings = memnewOldNoConstructor(Tree);
+		varyings = memnewNoConstructor<Tree>();
 		vb->add_child(varyings);
 		varyings->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 		varyings->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -6424,15 +6424,15 @@ VisualShaderEditor::VisualShaderEditor() {
 		varyings->connect("nothing_selected", callable_mp(this, &VisualShaderEditor::_varying_unselected));
 	}
 
-	alert = memnewOldNoConstructor(AcceptDialog);
+	alert = memnewNoConstructor<AcceptDialog>();
 	alert->get_label()->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 	alert->get_label()->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	alert->get_label()->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	alert->get_label()->set_custom_minimum_size(Size2(400, 60) * EDSCALE);
 	add_child(alert);
 
-	frame_title_change_popup = memnewOldNoConstructor(PopupPanel);
-	frame_title_change_edit = memnewOldNoConstructor(LineEdit);
+	frame_title_change_popup = memnewNoConstructor<PopupPanel>();
+	frame_title_change_edit = memnewNoConstructor<LineEdit>();
 	frame_title_change_edit->set_expand_to_text_length_enabled(true);
 	frame_title_change_edit->set_select_all_on_focus(true);
 	frame_title_change_edit->connect(SceneStringName(text_changed), callable_mp(this, &VisualShaderEditor::_frame_title_text_changed));
@@ -6444,14 +6444,14 @@ VisualShaderEditor::VisualShaderEditor() {
 	frame_title_change_popup->connect("popup_hide", callable_mp(this, &VisualShaderEditor::_frame_title_popup_hide));
 	add_child(frame_title_change_popup);
 
-	frame_tint_color_pick_popup = memnewOldNoConstructor(PopupPanel);
-	VBoxContainer *frame_popup_item_tint_color_editor = memnewOldNoConstructor(VBoxContainer);
+	frame_tint_color_pick_popup = memnewNoConstructor<PopupPanel>();
+	VBoxContainer *frame_popup_item_tint_color_editor = memnewNoConstructor<VBoxContainer>();
 	frame_tint_color_pick_popup->add_child(frame_popup_item_tint_color_editor);
-	frame_tint_color_picker = memnewOldNoConstructor(ColorPicker);
+	frame_tint_color_picker = memnewNoConstructor<ColorPicker>();
 	frame_popup_item_tint_color_editor->add_child(frame_tint_color_picker);
 	frame_tint_color_picker->reset_size();
 	frame_tint_color_picker->connect("color_changed", callable_mp(this, &VisualShaderEditor::_frame_color_changed));
-	Button *frame_tint_color_confirm_button = memnewOldNoConstructor(Button);
+	Button *frame_tint_color_confirm_button = memnewNoConstructor<Button>();
 	frame_tint_color_confirm_button->set_text(TTR("OK"));
 	frame_popup_item_tint_color_editor->add_child(frame_tint_color_confirm_button);
 	frame_tint_color_confirm_button->connect(SceneStringName(pressed), callable_mp(this, &VisualShaderEditor::_frame_color_confirm));
@@ -7133,7 +7133,7 @@ VisualShaderEditor::VisualShaderEditor() {
 	graph_plugin.instantiate();
 	graph_plugin->set_editor(this);
 
-	property_editor_popup = memnewOldNoConstructor(PopupPanel);
+	property_editor_popup = memnewNoConstructor<PopupPanel>();
 	property_editor_popup->set_min_size(Size2(360, 0) * EDSCALE);
 	add_child(property_editor_popup);
 
@@ -7439,11 +7439,11 @@ public:
 		shader_type = VisualShader::Type((int)p_node->get_meta("shader_type"));
 
 		for (int i = 0; i < p_properties.size(); i++) {
-			HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+			HBoxContainer *hbox = memnewNoConstructor<HBoxContainer>();
 			hbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			add_child(hbox);
 
-			Label *prop_name = memnewOldNoConstructor(Label);
+			Label *prop_name = memnewNoConstructor<Label>();
 			String prop_name_str = p_names[i];
 			if (p_overrided_names.has(p_names[i])) {
 				prop_name_str = p_overrided_names[p_names[i]] + ":";
@@ -7482,19 +7482,19 @@ Control *VisualShaderNodePluginDefault::create_editor(const Ref<Resource> &p_par
 	Ref<VisualShader> p_shader = Ref<VisualShader>(p_parent_resource.ptr());
 
 	if (p_shader.is_valid() && (p_node->is_class("VisualShaderNodeVaryingGetter") || p_node->is_class("VisualShaderNodeVaryingSetter"))) {
-		VisualShaderNodePluginVaryingEditor *editor = memnewOldNoConstructor(VisualShaderNodePluginVaryingEditor);
+		VisualShaderNodePluginVaryingEditor *editor = memnewNoConstructor<VisualShaderNodePluginVaryingEditor>();
 		editor->setup(vseditor, p_node, p_shader->get_shader_type());
 		return editor;
 	}
 
 	if (p_node->is_class("VisualShaderNodeParameterRef")) {
-		VisualShaderNodePluginParameterRefEditor *editor = memnewOldNoConstructor(VisualShaderNodePluginParameterRefEditor);
+		VisualShaderNodePluginParameterRefEditor *editor = memnewNoConstructor<VisualShaderNodePluginParameterRefEditor>();
 		editor->setup(vseditor, p_node);
 		return editor;
 	}
 
 	if (p_node->is_class("VisualShaderNodeInput")) {
-		VisualShaderNodePluginInputEditor *editor = memnewOldNoConstructor(VisualShaderNodePluginInputEditor);
+		VisualShaderNodePluginInputEditor *editor = memnewNoConstructor<VisualShaderNodePluginInputEditor>();
 		editor->setup(vseditor, p_node);
 		return editor;
 	}
@@ -7551,7 +7551,7 @@ Control *VisualShaderNodePluginDefault::create_editor(const Ref<Resource> &p_par
 		editors.push_back(prop);
 		properties.push_back(pinfo[i].name);
 	}
-	VisualShaderNodePluginDefaultEditor *editor = memnewOldNoConstructor(VisualShaderNodePluginDefaultEditor);
+	VisualShaderNodePluginDefaultEditor *editor = memnewNoConstructor<VisualShaderNodePluginDefaultEditor>();
 	editor->setup(vseditor, p_parent_resource, editors, properties, p_node->get_editable_properties_names(), p_node);
 	return editor;
 }
@@ -7661,7 +7661,7 @@ void EditorPropertyVisualShaderMode::_bind_methods() {
 }
 
 EditorPropertyVisualShaderMode::EditorPropertyVisualShaderMode() {
-	options = memnewOldNoConstructor(OptionButton);
+	options = memnewNoConstructor<OptionButton>();
 	options->set_clip_text(true);
 	add_child(options);
 	add_focusable(options);
@@ -7674,7 +7674,7 @@ bool EditorInspectorVisualShaderModePlugin::can_handle(Object *p_object) {
 
 bool EditorInspectorVisualShaderModePlugin::parse_property(Object *p_object, const Variant::Type p_type, const String &p_path, const PropertyHint p_hint, const String &p_hint_text, const BitField<PropertyUsageFlags> p_usage, const bool p_wide) {
 	if (p_path == "mode" && p_object->is_class("VisualShader") && p_type == Variant::INT) {
-		EditorPropertyVisualShaderMode *mode_editor = memnewOldNoConstructor(EditorPropertyVisualShaderMode);
+		EditorPropertyVisualShaderMode *mode_editor = memnewNoConstructor<EditorPropertyVisualShaderMode>();
 		Vector<String> options = p_hint_text.split(",");
 		mode_editor->setup(options);
 		add_property_editor(p_path, mode_editor);

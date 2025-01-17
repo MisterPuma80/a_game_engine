@@ -404,7 +404,7 @@ void BaseButton::shortcut_input(const Ref<InputEvent> &p_event) {
 
 		if (shortcut_feedback && is_inside_tree()) {
 			if (shortcut_feedback_timer == nullptr) {
-				shortcut_feedback_timer = memnewOldNoConstructor(Timer);
+				shortcut_feedback_timer = memnewNoConstructor<Timer>();
 				shortcut_feedback_timer->set_one_shot(true);
 				add_child(shortcut_feedback_timer);
 				shortcut_feedback_timer->set_wait_time(GLOBAL_GET("gui/timers/button_shortcut_feedback_highlight_time"));

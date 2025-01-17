@@ -235,7 +235,7 @@ int GDScriptLanguage::find_function(const String &p_function, const String &p_co
 }
 
 Script *GDScriptLanguage::create_script() const {
-	return memnewOldNoConstructor(GDScript);
+	return memnewNoConstructor<GDScript>();
 }
 
 /* DEBUGGER FUNCTIONS */

@@ -1340,11 +1340,11 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 	// Input.
 	Input::get_singleton()->set_event_dispatch_function(dispatch_input_events);
 
-	native_menu = memnewOldNoConstructor(NativeMenu);
+	native_menu = memnewNoConstructor<NativeMenu>();
 
 #ifdef SPEECHD_ENABLED
 	// Init TTS
-	tts = memnewOldNoConstructor(TTS_Linux);
+	tts = memnewNoConstructor<TTS_Linux>();
 #endif
 
 	rendering_driver = p_rendering_driver;
@@ -1355,7 +1355,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 #ifdef RD_ENABLED
 #ifdef VULKAN_ENABLED
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanWayland);
+		rendering_context = memnewNoConstructor<RenderingContextDriverVulkanWayland>();
 	}
 #endif // VULKAN_ENABLED
 
@@ -1446,7 +1446,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 		}
 
 		if (rendering_driver == "opengl3") {
-			egl_manager = memnewOldNoConstructor(EGLManagerWayland);
+			egl_manager = memnewNoConstructor<EGLManagerWayland>();
 
 			if (egl_manager->initialize(wayland_thread.get_wl_display()) != OK || egl_manager->open_display(wayland_thread.get_wl_display()) != OK) {
 				memdelete(egl_manager);
@@ -1478,7 +1478,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 		}
 
 		if (rendering_driver == "opengl3_es") {
-			egl_manager = memnewOldNoConstructor(EGLManagerWaylandGLES);
+			egl_manager = memnewNoConstructor<EGLManagerWaylandGLES>();
 
 			if (egl_manager->initialize(wayland_thread.get_wl_display()) != OK || egl_manager->open_display(wayland_thread.get_wl_display()) != OK) {
 				memdelete(egl_manager);
@@ -1523,7 +1523,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 
 #ifdef RD_ENABLED
 	if (rendering_context) {
-		rendering_device = memnewOldNoConstructor(RenderingDevice);
+		rendering_device = memnewNoConstructor<RenderingDevice>();
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			memdelete(rendering_device);
 			rendering_device = nullptr;
@@ -1539,8 +1539,8 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 #endif // RD_ENABLED
 
 #ifdef DBUS_ENABLED
-	portal_desktop = memnewOldNoConstructor(FreeDesktopPortalDesktop);
-	screensaver = memnewOldNoConstructor(FreeDesktopScreenSaver);
+	portal_desktop = memnewNoConstructor<FreeDesktopPortalDesktop>();
+	screensaver = memnewNoConstructor<FreeDesktopScreenSaver>();
 #endif // DBUS_ENABLED
 
 	screen_set_keep_on(GLOBAL_GET("display/window/energy_saving/keep_screen_on"));

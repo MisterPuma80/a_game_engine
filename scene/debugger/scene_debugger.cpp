@@ -237,7 +237,7 @@ void SceneDebugger::_save_node(ObjectID id, const String &p_path) {
 	// Root node cannot ever be unique name in its own Scene!
 	copy->set_unique_name_in_owner(false);
 
-	Ref<PackedScene> ps = memnewOldNoConstructor(PackedScene);
+	Ref<PackedScene> ps = memnewNoConstructor<PackedScene>();
 	ps->pack(copy);
 	ResourceSaver::save(ps, p_path);
 

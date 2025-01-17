@@ -50,7 +50,7 @@ static void *godot_open(voidpf opaque, const char *p_fname, int mode) {
 	Ref<FileAccess> f = FileAccess::open(String::utf8(p_fname), FileAccess::READ);
 	ERR_FAIL_COND_V(f.is_null(), nullptr);
 
-	ZipData *zd = memnewOldNoConstructor(ZipData);
+	ZipData *zd = memnewNoConstructor<ZipData>();
 	zd->f = f;
 	return zd;
 }
@@ -216,7 +216,7 @@ Ref<FileAccess> ZipArchive::get_file(const String &p_path, PackedData::PackedFil
 
 ZipArchive *ZipArchive::get_singleton() {
 	if (instance == nullptr) {
-		instance = memnewOldNoConstructor(ZipArchive);
+		instance = memnewNoConstructor<ZipArchive>();
 	}
 
 	return instance;

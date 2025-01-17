@@ -100,7 +100,7 @@ public:
 };
 
 TEST_CASE("[SceneTree][Node] Testing node operations with a very simple scene tree") {
-	Node *node = memnewOldNoConstructor(Node);
+	Node *node = memnewNoConstructor<Node>();
 
 	// Check initial scene tree setup.
 	CHECK_EQ(SceneTree::get_singleton()->get_root()->get_child_count(), 0);
@@ -221,9 +221,9 @@ TEST_CASE("[SceneTree][Node] Testing node operations with a very simple scene tr
 }
 
 TEST_CASE("[SceneTree][Node] Testing node operations with a more complex simple scene tree") {
-	Node *node1 = memnewOldNoConstructor(Node);
-	Node *node2 = memnewOldNoConstructor(Node);
-	Node *node1_1 = memnewOldNoConstructor(Node);
+	Node *node1 = memnewNoConstructor<Node>();
+	Node *node2 = memnewNoConstructor<Node>();
+	Node *node1_1 = memnewNoConstructor<Node>();
 
 	SceneTree::get_singleton()->get_root()->add_child(node1);
 	SceneTree::get_singleton()->get_root()->add_child(node2);
@@ -500,15 +500,15 @@ TEST_CASE("[SceneTree][Node] Testing node operations with a more complex simple 
 }
 
 TEST_CASE("[SceneTree][Node]Exported node checks") {
-	TestNode *node = memnewOldNoConstructor(TestNode);
+	TestNode *node = memnewNoConstructor<TestNode>();
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
-	Node *child = memnewOldNoConstructor(Node);
+	Node *child = memnewNoConstructor<Node>();
 	child->set_name("Child");
 	node->add_child(child);
 	child->set_owner(node);
 
-	Node *child2 = memnewOldNoConstructor(Node);
+	Node *child2 = memnewNoConstructor<Node>();
 	child2->set_name("Child2");
 	node->add_child(child2);
 	child2->set_owner(node);
@@ -538,7 +538,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 		String scene_path = TestUtils::get_temp_path("test_scene.tscn");
 		ps->set_path(scene_path);
 
-		Node *root = memnewOldNoConstructor(Node);
+		Node *root = memnewNoConstructor<Node>();
 
 		Node *sub_child = ps->instantiate(PackedScene::GEN_EDIT_STATE_MAIN);
 		root->add_child(sub_child);
@@ -573,7 +573,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 		String scene_path = TestUtils::get_temp_path("test_scene.tscn");
 		ps->set_path(scene_path);
 
-		Node *root = memnewOldNoConstructor(Node);
+		Node *root = memnewNoConstructor<Node>();
 
 		Node *sub_child = ps->instantiate(PackedScene::GEN_EDIT_STATE_MAIN);
 		root->add_child(sub_child);
@@ -609,7 +609,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 }
 
 TEST_CASE("[Node] Processing checks") {
-	Node *node = memnewOldNoConstructor(Node);
+	Node *node = memnewNoConstructor<Node>();
 
 	SUBCASE("Processing") {
 		CHECK_FALSE(node->is_processing());
@@ -715,7 +715,7 @@ TEST_CASE("[Node] Processing checks") {
 }
 
 TEST_CASE("[SceneTree][Node] Test the processing") {
-	TestNode *node = memnewOldNoConstructor(TestNode);
+	TestNode *node = memnewNoConstructor<TestNode>();
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
 	SUBCASE("No process") {
@@ -824,19 +824,19 @@ TEST_CASE("[SceneTree][Node] Test the processing") {
 TEST_CASE("[SceneTree][Node] Test the process priority") {
 	List<Node *> process_order;
 
-	TestNode *node = memnewOldNoConstructor(TestNode);
+	TestNode *node = memnewNoConstructor<TestNode>();
 	node->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
-	TestNode *node2 = memnewOldNoConstructor(TestNode);
+	TestNode *node2 = memnewNoConstructor<TestNode>();
 	node2->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node2);
 
-	TestNode *node3 = memnewOldNoConstructor(TestNode);
+	TestNode *node3 = memnewNoConstructor<TestNode>();
 	node3->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node3);
 
-	TestNode *node4 = memnewOldNoConstructor(TestNode);
+	TestNode *node4 = memnewNoConstructor<TestNode>();
 	node4->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node4);
 

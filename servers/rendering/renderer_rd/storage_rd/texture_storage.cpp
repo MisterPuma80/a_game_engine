@@ -654,7 +654,7 @@ bool TextureStorage::canvas_texture_get_uniform_set(RID p_texture, RS::CanvasIte
 	if (t) {
 		//regular texture
 		if (!t->canvas_texture) {
-			t->canvas_texture = memnewOldNoConstructor(CanvasTexture);
+			t->canvas_texture = memnewNoConstructor<CanvasTexture>();
 			t->canvas_texture->diffuse = p_texture;
 		}
 

@@ -253,7 +253,7 @@ void Range::share(Range *p_range) {
 }
 
 void Range::unshare() {
-	Shared *nshared = memnewOldNoConstructor(Shared);
+	Shared *nshared = memnewNoConstructor<Shared>();
 	nshared->min = shared->min;
 	nshared->max = shared->max;
 	nshared->val = shared->val;
@@ -374,7 +374,7 @@ bool Range::is_lesser_allowed() const {
 }
 
 Range::Range() {
-	shared = memnewOldNoConstructor(Shared);
+	shared = memnewNoConstructor<Shared>();
 	shared->owners.insert(this);
 }
 

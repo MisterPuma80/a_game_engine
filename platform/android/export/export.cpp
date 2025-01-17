@@ -63,6 +63,6 @@ void register_android_exporter() {
 	EDITOR_DEF("export/android/wifi_remote_debug_host", "localhost");
 #endif
 
-	Ref<EditorExportPlatformAndroid> exporter = Ref<EditorExportPlatformAndroid>(memnewOldNoConstructor(EditorExportPlatformAndroid));
+	Ref<EditorExportPlatformAndroid> exporter = Ref<EditorExportPlatformAndroid>(memnewNoConstructor<EditorExportPlatformAndroid>());
 	EditorExport::get_singleton()->add_export_platform(exporter);
 }

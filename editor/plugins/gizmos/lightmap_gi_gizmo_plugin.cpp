@@ -42,7 +42,7 @@ LightmapGIGizmoPlugin::LightmapGIGizmoPlugin() {
 	gizmo_color.a = 0.1;
 	create_material("lightmap_lines", gizmo_color);
 
-	Ref<StandardMaterial3D> mat = memnewOldNoConstructor(StandardMaterial3D);
+	Ref<StandardMaterial3D> mat = memnewNoConstructor<StandardMaterial3D>();
 	mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	mat->set_cull_mode(StandardMaterial3D::CULL_DISABLED);
 	mat->set_flag(StandardMaterial3D::FLAG_ALBEDO_FROM_VERTEX_COLOR, true);

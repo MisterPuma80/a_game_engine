@@ -365,13 +365,13 @@ void EditorRunBar::_bind_methods() {
 EditorRunBar::EditorRunBar() {
 	singleton = this;
 
-	main_panel = memnewOldNoConstructor(PanelContainer);
+	main_panel = memnewNoConstructor<PanelContainer>();
 	add_child(main_panel);
 
-	main_hbox = memnewOldNoConstructor(HBoxContainer);
+	main_hbox = memnewNoConstructor<HBoxContainer>();
 	main_panel->add_child(main_hbox);
 
-	play_button = memnewOldNoConstructor(Button);
+	play_button = memnewNoConstructor<Button>();
 	main_hbox->add_child(play_button);
 	play_button->set_theme_type_variation("RunBarButton");
 	play_button->set_toggle_mode(true);
@@ -383,7 +383,7 @@ EditorRunBar::EditorRunBar() {
 	ED_SHORTCUT_OVERRIDE("editor/run_project", "macos", KeyModifierMask::META | Key::B);
 	play_button->set_shortcut(ED_GET_SHORTCUT("editor/run_project"));
 
-	pause_button = memnewOldNoConstructor(Button);
+	pause_button = memnewNoConstructor<Button>();
 	main_hbox->add_child(pause_button);
 	pause_button->set_theme_type_variation("RunBarButton");
 	pause_button->set_toggle_mode(true);
@@ -395,7 +395,7 @@ EditorRunBar::EditorRunBar() {
 	ED_SHORTCUT_OVERRIDE("editor/pause_running_project", "macos", KeyModifierMask::META | KeyModifierMask::CTRL | Key::Y);
 	pause_button->set_shortcut(ED_GET_SHORTCUT("editor/pause_running_project"));
 
-	stop_button = memnewOldNoConstructor(Button);
+	stop_button = memnewNoConstructor<Button>();
 	main_hbox->add_child(stop_button);
 	stop_button->set_theme_type_variation("RunBarButton");
 	stop_button->set_focus_mode(Control::FOCUS_NONE);
@@ -407,11 +407,11 @@ EditorRunBar::EditorRunBar() {
 	ED_SHORTCUT_OVERRIDE("editor/stop_running_project", "macos", KeyModifierMask::META | Key::PERIOD);
 	stop_button->set_shortcut(ED_GET_SHORTCUT("editor/stop_running_project"));
 
-	run_native = memnewOldNoConstructor(EditorRunNative);
+	run_native = memnewNoConstructor<EditorRunNative>();
 	main_hbox->add_child(run_native);
 	run_native->connect("native_run", callable_mp(this, &EditorRunBar::_run_native));
 
-	play_scene_button = memnewOldNoConstructor(Button);
+	play_scene_button = memnewNoConstructor<Button>();
 	main_hbox->add_child(play_scene_button);
 	play_scene_button->set_theme_type_variation("RunBarButton");
 	play_scene_button->set_toggle_mode(true);
@@ -423,7 +423,7 @@ EditorRunBar::EditorRunBar() {
 	ED_SHORTCUT_OVERRIDE("editor/run_current_scene", "macos", KeyModifierMask::META | Key::R);
 	play_scene_button->set_shortcut(ED_GET_SHORTCUT("editor/run_current_scene"));
 
-	play_custom_scene_button = memnewOldNoConstructor(Button);
+	play_custom_scene_button = memnewNoConstructor<Button>();
 	main_hbox->add_child(play_custom_scene_button);
 	play_custom_scene_button->set_theme_type_variation("RunBarButton");
 	play_custom_scene_button->set_toggle_mode(true);
@@ -435,10 +435,10 @@ EditorRunBar::EditorRunBar() {
 	ED_SHORTCUT_OVERRIDE("editor/run_specific_scene", "macos", KeyModifierMask::META | KeyModifierMask::SHIFT | Key::R);
 	play_custom_scene_button->set_shortcut(ED_GET_SHORTCUT("editor/run_specific_scene"));
 
-	write_movie_panel = memnewOldNoConstructor(PanelContainer);
+	write_movie_panel = memnewNoConstructor<PanelContainer>();
 	main_hbox->add_child(write_movie_panel);
 
-	write_movie_button = memnewOldNoConstructor(Button);
+	write_movie_button = memnewNoConstructor<Button>();
 	write_movie_panel->add_child(write_movie_button);
 	write_movie_button->set_theme_type_variation("RunBarButton");
 	write_movie_button->set_toggle_mode(true);
@@ -447,7 +447,7 @@ EditorRunBar::EditorRunBar() {
 	write_movie_button->set_tooltip_text(TTR("Enable Movie Maker mode.\nThe project will run at stable FPS and the visual and audio output will be recorded to a video file."));
 	write_movie_button->connect("toggled", callable_mp(this, &EditorRunBar::_write_movie_toggled));
 
-	quick_run = memnewOldNoConstructor(EditorQuickOpen);
+	quick_run = memnewNoConstructor<EditorQuickOpen>();
 	add_child(quick_run);
 	quick_run->connect("quick_open", callable_mp(this, &EditorRunBar::_quick_run_selected));
 }

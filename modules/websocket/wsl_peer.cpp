@@ -38,7 +38,7 @@ CryptoCore::RandomGenerator *WSLPeer::_static_rng = nullptr;
 
 void WSLPeer::initialize() {
 	WebSocketPeer::_create = WSLPeer::_create;
-	_static_rng = memnewOldNoConstructor(CryptoCore::RandomGenerator);
+	_static_rng = memnewNoConstructor<CryptoCore::RandomGenerator>();
 	_static_rng->init();
 }
 

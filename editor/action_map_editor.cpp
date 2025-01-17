@@ -534,21 +534,21 @@ void ActionMapEditor::_on_filter_unfocused() {
 
 ActionMapEditor::ActionMapEditor() {
 	// Main Vbox Container
-	VBoxContainer *main_vbox = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vbox = memnewNoConstructor<VBoxContainer>();
 	main_vbox->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	add_child(main_vbox);
 
-	HBoxContainer *top_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *top_hbox = memnewNoConstructor<HBoxContainer>();
 	main_vbox->add_child(top_hbox);
 
-	action_list_search = memnewOldNoConstructor(LineEdit);
+	action_list_search = memnewNoConstructor<LineEdit>();
 	action_list_search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	action_list_search->set_placeholder(TTR("Filter by Name"));
 	action_list_search->set_clear_button_enabled(true);
 	action_list_search->connect(SceneStringName(text_changed), callable_mp(this, &ActionMapEditor::_search_term_updated));
 	top_hbox->add_child(action_list_search);
 
-	action_list_search_by_event = memnewOldNoConstructor(EventListenerLineEdit);
+	action_list_search_by_event = memnewNoConstructor<EventListenerLineEdit>();
 	action_list_search_by_event->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	action_list_search_by_event->set_stretch_ratio(0.75);
 	action_list_search_by_event->connect("event_changed", callable_mp(this, &ActionMapEditor::_search_by_event));
@@ -556,7 +556,7 @@ ActionMapEditor::ActionMapEditor() {
 	action_list_search_by_event->connect(SceneStringName(focus_exited), callable_mp(this, &ActionMapEditor::_on_filter_unfocused));
 	top_hbox->add_child(action_list_search_by_event);
 
-	clear_all_search = memnewOldNoConstructor(Button);
+	clear_all_search = memnewNoConstructor<Button>();
 	clear_all_search->set_text(TTR("Clear All"));
 	clear_all_search->set_tooltip_text(TTR("Clear all search filters."));
 	clear_all_search->connect(SceneStringName(pressed), callable_mp(action_list_search_by_event, &EventListenerLineEdit::clear_event));
@@ -564,10 +564,10 @@ ActionMapEditor::ActionMapEditor() {
 	top_hbox->add_child(clear_all_search);
 
 	// Adding Action line edit + button
-	add_hbox = memnewOldNoConstructor(HBoxContainer);
+	add_hbox = memnewNoConstructor<HBoxContainer>();
 	add_hbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	add_edit = memnewOldNoConstructor(LineEdit);
+	add_edit = memnewNoConstructor<LineEdit>();
 	add_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_edit->set_placeholder(TTR("Add New Action"));
 	add_edit->set_clear_button_enabled(true);
@@ -575,16 +575,16 @@ ActionMapEditor::ActionMapEditor() {
 	add_edit->connect("text_submitted", callable_mp(this, &ActionMapEditor::_add_action));
 	add_hbox->add_child(add_edit);
 
-	add_button = memnewOldNoConstructor(Button);
+	add_button = memnewNoConstructor<Button>();
 	add_button->set_text(TTR("Add"));
 	add_button->connect(SceneStringName(pressed), callable_mp(this, &ActionMapEditor::_add_action_pressed));
 	add_hbox->add_child(add_button);
 	// Disable the button and set its tooltip.
 	_add_edit_text_changed(add_edit->get_text());
 
-	add_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	add_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	show_builtin_actions_checkbutton = memnewOldNoConstructor(CheckButton);
+	show_builtin_actions_checkbutton = memnewNoConstructor<CheckButton>();
 	show_builtin_actions_checkbutton->set_text(TTR("Show Built-in Actions"));
 	show_builtin_actions_checkbutton->connect("toggled", callable_mp(this, &ActionMapEditor::set_show_builtin_actions));
 	add_hbox->add_child(show_builtin_actions_checkbutton);
@@ -595,7 +595,7 @@ ActionMapEditor::ActionMapEditor() {
 	main_vbox->add_child(add_hbox);
 
 	// Action Editor Tree
-	action_tree = memnewOldNoConstructor(Tree);
+	action_tree = memnewNoConstructor<Tree>();
 	action_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	action_tree->set_columns(3);
 	action_tree->set_hide_root(true);
@@ -615,10 +615,10 @@ ActionMapEditor::ActionMapEditor() {
 	SET_DRAG_FORWARDING_GCD(action_tree, ActionMapEditor);
 
 	// Adding event dialog
-	event_config_dialog = memnewOldNoConstructor(InputEventConfigurationDialog);
+	event_config_dialog = memnewNoConstructor<InputEventConfigurationDialog>();
 	event_config_dialog->connect(SceneStringName(confirmed), callable_mp(this, &ActionMapEditor::_event_config_confirmed));
 	add_child(event_config_dialog);
 
-	message = memnewOldNoConstructor(AcceptDialog);
+	message = memnewNoConstructor<AcceptDialog>();
 	add_child(message);
 }

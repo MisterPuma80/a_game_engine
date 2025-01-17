@@ -175,7 +175,7 @@ void LightmapGIEditorPlugin::_bind_methods() {
 }
 
 LightmapGIEditorPlugin::LightmapGIEditorPlugin() {
-	bake = memnewOldNoConstructor(Button);
+	bake = memnewNoConstructor<Button>();
 	bake->set_theme_type_variation("FlatButton");
 	// TODO: Rework this as a dedicated toolbar control so we can hook into theme changes and update it
 	// when the editor theme updates.
@@ -186,7 +186,7 @@ LightmapGIEditorPlugin::LightmapGIEditorPlugin() {
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, bake);
 	lightmap = nullptr;
 
-	file_dialog = memnewOldNoConstructor(EditorFileDialog);
+	file_dialog = memnewNoConstructor<EditorFileDialog>();
 	file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	file_dialog->add_filter("*.lmbake", TTR("LightMap Bake"));
 	file_dialog->set_title(TTR("Select lightmap bake file:"));

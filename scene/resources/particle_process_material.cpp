@@ -39,7 +39,7 @@ RBSet<String> ParticleProcessMaterial::min_max_properties;
 ParticleProcessMaterial::ShaderNames *ParticleProcessMaterial::shader_names = nullptr;
 
 void ParticleProcessMaterial::init_shaders() {
-	shader_names = memnewOldNoConstructor(ShaderNames);
+	shader_names = memnewNoConstructor<ShaderNames>();
 
 	shader_names->direction = "direction";
 	shader_names->spread = "spread";

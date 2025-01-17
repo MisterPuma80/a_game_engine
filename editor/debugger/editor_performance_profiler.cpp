@@ -392,7 +392,7 @@ EditorPerformanceProfiler::EditorPerformanceProfiler() {
 	set_name(TTR("Monitors"));
 	set_split_offset(340 * EDSCALE);
 
-	monitor_tree = memnewOldNoConstructor(Tree);
+	monitor_tree = memnewNoConstructor<Tree>();
 	monitor_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	monitor_tree->set_columns(2);
 	monitor_tree->set_column_title(0, TTR("Monitor"));
@@ -403,13 +403,13 @@ EditorPerformanceProfiler::EditorPerformanceProfiler() {
 	monitor_tree->set_hide_root(true);
 	add_child(monitor_tree);
 
-	monitor_draw = memnewOldNoConstructor(Control);
+	monitor_draw = memnewNoConstructor<Control>();
 	monitor_draw->set_clip_contents(true);
 	monitor_draw->connect(SceneStringName(draw), callable_mp(this, &EditorPerformanceProfiler::_monitor_draw));
 	monitor_draw->connect(SceneStringName(gui_input), callable_mp(this, &EditorPerformanceProfiler::_marker_input));
 	add_child(monitor_draw);
 
-	info_message = memnewOldNoConstructor(Label);
+	info_message = memnewNoConstructor<Label>();
 	info_message->set_text(TTR("Pick one or more items from the list to display the graph."));
 	info_message->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	info_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);

@@ -1587,7 +1587,7 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 
 	if (p_rendering_driver == "vulkan") {
 #ifdef VULKAN_ENABLED
-		graphics_extension = memnewOldNoConstructor(OpenXRVulkanExtension);
+		graphics_extension = memnewNoConstructor<OpenXRVulkanExtension>();
 		register_extension_wrapper(graphics_extension);
 #else
 		// shouldn't be possible...
@@ -1595,7 +1595,7 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 #endif
 	} else if (p_rendering_driver == "opengl3") {
 #if defined(GLES3_ENABLED) && !defined(MACOS_ENABLED)
-		graphics_extension = memnewOldNoConstructor(OpenXROpenGLExtension);
+		graphics_extension = memnewNoConstructor<OpenXROpenGLExtension>();
 		register_extension_wrapper(graphics_extension);
 #else
 		// shouldn't be possible...

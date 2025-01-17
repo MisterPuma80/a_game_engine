@@ -5844,7 +5844,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 
 	xwayland = OS::get_singleton()->get_environment("XDG_SESSION_TYPE").to_lower() == "wayland";
 
-	native_menu = memnewOldNoConstructor(NativeMenu);
+	native_menu = memnewNoConstructor<NativeMenu>();
 	context = p_context;
 
 #ifdef SOWRAP_ENABLED
@@ -6132,7 +6132,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	// Init TTS
 	bool tts_enabled = GLOBAL_GET("audio/general/text_to_speech");
 	if (tts_enabled) {
-		tts = memnewOldNoConstructor(TTS_Linux);
+		tts = memnewNoConstructor<TTS_Linux>();
 	}
 #endif
 
@@ -6148,7 +6148,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanX11);
+		rendering_context = memnewNoConstructor<RenderingContextDriverVulkanX11>();
 	}
 #endif // VULKAN_ENABLED
 
@@ -6260,7 +6260,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	}
 
 	if (rendering_driver == "opengl3_es") {
-		gl_manager_egl = memnewOldNoConstructor(GLManagerEGL_X11);
+		gl_manager_egl = memnewNoConstructor<GLManagerEGL_X11>();
 		if (gl_manager_egl->initialize() != OK || gl_manager_egl->open_display(x11_display) != OK) {
 			memdelete(gl_manager_egl);
 			gl_manager_egl = nullptr;
@@ -6310,7 +6310,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 
 #if defined(RD_ENABLED)
 	if (rendering_context) {
-		rendering_device = memnewOldNoConstructor(RenderingDevice);
+		rendering_device = memnewNoConstructor<RenderingDevice>();
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			memdelete(rendering_device);
 			rendering_device = nullptr;
@@ -6472,10 +6472,10 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	_update_real_mouse_position(windows[MAIN_WINDOW_ID]);
 
 #ifdef DBUS_ENABLED
-	screensaver = memnewOldNoConstructor(FreeDesktopScreenSaver);
+	screensaver = memnewNoConstructor<FreeDesktopScreenSaver>();
 	screen_set_keep_on(GLOBAL_GET("display/window/energy_saving/keep_screen_on"));
 
-	portal_desktop = memnewOldNoConstructor(FreeDesktopPortalDesktop);
+	portal_desktop = memnewNoConstructor<FreeDesktopPortalDesktop>();
 #endif // DBUS_ENABLED
 
 	XSetErrorHandler(&default_window_error_handler);

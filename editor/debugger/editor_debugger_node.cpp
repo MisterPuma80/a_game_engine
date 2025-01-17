@@ -69,7 +69,7 @@ EditorDebuggerNode::EditorDebuggerNode() {
 	add_theme_constant_override("margin_left", -EditorNode::get_singleton()->get_editor_theme()->get_stylebox(SNAME("BottomPanelDebuggerOverride"), EditorStringName(EditorStyles))->get_margin(SIDE_LEFT));
 	add_theme_constant_override("margin_right", -EditorNode::get_singleton()->get_editor_theme()->get_stylebox(SNAME("BottomPanelDebuggerOverride"), EditorStringName(EditorStyles))->get_margin(SIDE_RIGHT));
 
-	tabs = memnewOldNoConstructor(TabContainer);
+	tabs = memnewNoConstructor<TabContainer>();
 	tabs->set_tabs_visible(false);
 	tabs->connect("tab_changed", callable_mp(this, &EditorDebuggerNode::_debugger_changed));
 	add_child(tabs);
@@ -82,7 +82,7 @@ EditorDebuggerNode::EditorDebuggerNode() {
 	_add_debugger();
 
 	// Remote scene tree
-	remote_scene_tree = memnewOldNoConstructor(EditorDebuggerTree);
+	remote_scene_tree = memnewNoConstructor<EditorDebuggerTree>();
 	remote_scene_tree->connect("object_selected", callable_mp(this, &EditorDebuggerNode::_remote_object_requested));
 	remote_scene_tree->connect("save_node", callable_mp(this, &EditorDebuggerNode::_save_node_requested));
 	remote_scene_tree->connect("button_clicked", callable_mp(this, &EditorDebuggerNode::_remote_tree_button_pressed));
@@ -96,7 +96,7 @@ EditorDebuggerNode::EditorDebuggerNode() {
 }
 
 ScriptEditorDebugger *EditorDebuggerNode::_add_debugger() {
-	ScriptEditorDebugger *node = memnewOldNoConstructor(ScriptEditorDebugger);
+	ScriptEditorDebugger *node = memnewNoConstructor<ScriptEditorDebugger>();
 
 	int id = tabs->get_tab_count();
 	node->connect("stop_requested", callable_mp(this, &EditorDebuggerNode::_debugger_wants_stop).bind(id));

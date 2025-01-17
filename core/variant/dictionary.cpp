@@ -358,7 +358,7 @@ Dictionary Dictionary::duplicate(bool p_deep) const {
 
 void Dictionary::make_read_only() {
 	if (_p->read_only == nullptr) {
-		_p->read_only = memnewOldNoConstructor(Variant);
+		_p->read_only = memnewNoConstructor<Variant>();
 	}
 }
 bool Dictionary::is_read_only() const {
@@ -404,7 +404,7 @@ Dictionary::Dictionary(const Dictionary &p_from) {
 }
 
 Dictionary::Dictionary() {
-	_p = memnewOldNoConstructor(DictionaryPrivate);
+	_p = memnewNoConstructor<DictionaryPrivate>();
 	_p->refcount.init();
 }
 

@@ -1776,17 +1776,17 @@ void EditorFileDialog::_update_option_controls() {
 	selected_options.clear();
 
 	for (const EditorFileDialog::Option &opt : options) {
-		Label *lbl = memnewOldNoConstructor(Label);
+		Label *lbl = memnewNoConstructor<Label>();
 		lbl->set_text(opt.name);
 		grid_options->add_child(lbl);
 		if (opt.values.is_empty()) {
-			CheckBox *cb = memnewOldNoConstructor(CheckBox);
+			CheckBox *cb = memnewNoConstructor<CheckBox>();
 			cb->set_pressed(opt.default_idx);
 			grid_options->add_child(cb);
 			cb->connect("toggled", callable_mp(this, &EditorFileDialog::_option_changed_checkbox_toggled).bind(opt.name));
 			selected_options[opt.name] = (bool)opt.default_idx;
 		} else {
-			OptionButton *ob = memnewOldNoConstructor(OptionButton);
+			OptionButton *ob = memnewNoConstructor<OptionButton>();
 			for (const String &val : opt.values) {
 				ob->add_item(val);
 			}
@@ -2043,7 +2043,7 @@ void EditorFileDialog::add_side_menu(Control *p_menu, const String &p_title) {
 	// HSplitContainer has 3 children at maximum capacity, 1 of them is the SplitContainerDragger.
 	ERR_FAIL_COND_MSG(body_hsplit->get_child_count() > 2, "EditorFileDialog: Only one side menu can be added.");
 	// Everything for the side menu goes inside of a VBoxContainer.
-	side_vbox = memnewOldNoConstructor(VBoxContainer);
+	side_vbox = memnewNoConstructor<VBoxContainer>();
 	side_vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	side_vbox->set_stretch_ratio(0.5);
 	body_hsplit->add_child(side_vbox);
@@ -2074,7 +2074,7 @@ EditorFileDialog::EditorFileDialog() {
 	show_hidden_files = default_show_hidden_files;
 	display_mode = default_display_mode;
 
-	vbc = memnewOldNoConstructor(VBoxContainer);
+	vbc = memnewNoConstructor<VBoxContainer>();
 	add_child(vbc);
 
 	set_title(TTR("Save a File"));
@@ -2099,16 +2099,16 @@ EditorFileDialog::EditorFileDialog() {
 	ED_SHORTCUT_OVERRIDE("file_dialog/toggle_favorite", "macos", KeyModifierMask::META | KeyModifierMask::CTRL | Key::F);
 	ED_SHORTCUT_OVERRIDE("file_dialog/toggle_mode", "macos", KeyModifierMask::META | KeyModifierMask::CTRL | Key::V);
 
-	pathhb = memnewOldNoConstructor(HBoxContainer);
+	pathhb = memnewNoConstructor<HBoxContainer>();
 	vbc->add_child(pathhb);
 
-	dir_prev = memnewOldNoConstructor(Button);
+	dir_prev = memnewNoConstructor<Button>();
 	dir_prev->set_theme_type_variation("FlatButton");
 	dir_prev->set_tooltip_text(TTR("Go to previous folder."));
-	dir_next = memnewOldNoConstructor(Button);
+	dir_next = memnewNoConstructor<Button>();
 	dir_next->set_theme_type_variation("FlatButton");
 	dir_next->set_tooltip_text(TTR("Go to next folder."));
-	dir_up = memnewOldNoConstructor(Button);
+	dir_up = memnewNoConstructor<Button>();
 	dir_up->set_theme_type_variation("FlatButton");
 	dir_up->set_tooltip_text(TTR("Go to parent folder."));
 
@@ -2124,28 +2124,28 @@ EditorFileDialog::EditorFileDialog() {
 	l->set_theme_type_variation("HeaderSmall");
 	pathhb->add_child(l);
 
-	drives_container = memnewOldNoConstructor(HBoxContainer);
+	drives_container = memnewNoConstructor<HBoxContainer>();
 	pathhb->add_child(drives_container);
 
-	dir = memnewOldNoConstructor(LineEdit);
+	dir = memnewNoConstructor<LineEdit>();
 	dir->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	pathhb->add_child(dir);
 	dir->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	refresh = memnewOldNoConstructor(Button);
+	refresh = memnewNoConstructor<Button>();
 	refresh->set_theme_type_variation("FlatButton");
 	refresh->set_tooltip_text(TTR("Refresh files."));
 	refresh->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::update_file_list));
 	pathhb->add_child(refresh);
 
-	favorite = memnewOldNoConstructor(Button);
+	favorite = memnewNoConstructor<Button>();
 	favorite->set_theme_type_variation("FlatButton");
 	favorite->set_toggle_mode(true);
 	favorite->set_tooltip_text(TTR("(Un)favorite current folder."));
 	favorite->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_favorite_pressed));
 	pathhb->add_child(favorite);
 
-	show_hidden = memnewOldNoConstructor(Button);
+	show_hidden = memnewNoConstructor<Button>();
 	show_hidden->set_theme_type_variation("FlatButton");
 	show_hidden->set_toggle_mode(true);
 	show_hidden->set_pressed(is_showing_hidden_files());
@@ -2153,12 +2153,12 @@ EditorFileDialog::EditorFileDialog() {
 	show_hidden->connect("toggled", callable_mp(this, &EditorFileDialog::set_show_hidden_files));
 	pathhb->add_child(show_hidden);
 
-	pathhb->add_child(memnewOldNoConstructor(VSeparator));
+	pathhb->add_child(memnewNoConstructor<VSeparator>());
 
 	Ref<ButtonGroup> view_mode_group;
 	view_mode_group.instantiate();
 
-	mode_thumbnails = memnewOldNoConstructor(Button);
+	mode_thumbnails = memnewNoConstructor<Button>();
 	mode_thumbnails->set_theme_type_variation("FlatButton");
 	mode_thumbnails->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::set_display_mode).bind(DISPLAY_THUMBNAILS));
 	mode_thumbnails->set_toggle_mode(true);
@@ -2167,7 +2167,7 @@ EditorFileDialog::EditorFileDialog() {
 	mode_thumbnails->set_tooltip_text(TTR("View items as a grid of thumbnails."));
 	pathhb->add_child(mode_thumbnails);
 
-	mode_list = memnewOldNoConstructor(Button);
+	mode_list = memnewNoConstructor<Button>();
 	mode_list->set_theme_type_variation("FlatButton");
 	mode_list->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::set_display_mode).bind(DISPLAY_LIST));
 	mode_list->set_toggle_mode(true);
@@ -2176,42 +2176,42 @@ EditorFileDialog::EditorFileDialog() {
 	mode_list->set_tooltip_text(TTR("View items as a list."));
 	pathhb->add_child(mode_list);
 
-	shortcuts_container = memnewOldNoConstructor(HBoxContainer);
+	shortcuts_container = memnewNoConstructor<HBoxContainer>();
 	pathhb->add_child(shortcuts_container);
 
-	drives = memnewOldNoConstructor(OptionButton);
+	drives = memnewNoConstructor<OptionButton>();
 	drives->connect(SceneStringName(item_selected), callable_mp(this, &EditorFileDialog::_select_drive));
 	pathhb->add_child(drives);
 
-	pathhb->add_child(memnewOldNoConstructor(VSeparator));
+	pathhb->add_child(memnewNoConstructor<VSeparator>());
 
-	makedir = memnewOldNoConstructor(Button);
+	makedir = memnewNoConstructor<Button>();
 	makedir->set_theme_type_variation("FlatButton");
 	makedir->set_tooltip_text(TTR("Create a new folder."));
 	makedir->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_make_dir));
 	pathhb->add_child(makedir);
 
-	body_hsplit = memnewOldNoConstructor(HSplitContainer);
+	body_hsplit = memnewNoConstructor<HSplitContainer>();
 	body_hsplit->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc->add_child(body_hsplit);
 
-	grid_options = memnewOldNoConstructor(GridContainer);
+	grid_options = memnewNoConstructor<GridContainer>();
 	grid_options->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 	grid_options->set_columns(2);
 	vbc->add_child(grid_options);
 
-	list_hb = memnewOldNoConstructor(HSplitContainer);
+	list_hb = memnewNoConstructor<HSplitContainer>();
 	list_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	body_hsplit->add_child(list_hb);
 
-	VSplitContainer *vsc = memnewOldNoConstructor(VSplitContainer);
+	VSplitContainer *vsc = memnewNoConstructor<VSplitContainer>();
 	list_hb->add_child(vsc);
 
-	VBoxContainer *fav_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *fav_vb = memnewNoConstructor<VBoxContainer>();
 	vsc->add_child(fav_vb);
 	fav_vb->set_custom_minimum_size(Size2(150, 100) * EDSCALE);
 	fav_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
-	HBoxContainer *fav_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *fav_hb = memnewNoConstructor<HBoxContainer>();
 	fav_vb->add_child(fav_hb);
 
 	l = memnewWithArgs<Label>(TTR("Favorites:"));
@@ -2219,40 +2219,40 @@ EditorFileDialog::EditorFileDialog() {
 	fav_hb->add_child(l);
 
 	fav_hb->add_spacer();
-	fav_up = memnewOldNoConstructor(Button);
+	fav_up = memnewNoConstructor<Button>();
 	fav_up->set_theme_type_variation("FlatButton");
 	fav_hb->add_child(fav_up);
 	fav_up->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_favorite_move_up));
-	fav_down = memnewOldNoConstructor(Button);
+	fav_down = memnewNoConstructor<Button>();
 	fav_down->set_theme_type_variation("FlatButton");
 	fav_hb->add_child(fav_down);
 	fav_down->connect(SceneStringName(pressed), callable_mp(this, &EditorFileDialog::_favorite_move_down));
 
-	favorites = memnewOldNoConstructor(ItemList);
+	favorites = memnewNoConstructor<ItemList>();
 	favorites->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	fav_vb->add_child(favorites);
 	favorites->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	favorites->connect(SceneStringName(item_selected), callable_mp(this, &EditorFileDialog::_favorite_selected));
 
-	VBoxContainer *rec_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *rec_vb = memnewNoConstructor<VBoxContainer>();
 	vsc->add_child(rec_vb);
 	rec_vb->set_custom_minimum_size(Size2(150, 100) * EDSCALE);
 	rec_vb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
-	recent = memnewOldNoConstructor(ItemList);
+	recent = memnewNoConstructor<ItemList>();
 	recent->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	recent->set_allow_reselect(true);
 	rec_vb->add_margin_child(TTR("Recent:"), recent, true);
 	recent->connect(SceneStringName(item_selected), callable_mp(this, &EditorFileDialog::_recent_selected));
 
-	VBoxContainer *item_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *item_vb = memnewNoConstructor<VBoxContainer>();
 	list_hb->add_child(item_vb);
 	item_vb->set_custom_minimum_size(Size2(320, 0) * EDSCALE);
 
-	HBoxContainer *preview_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *preview_hb = memnewNoConstructor<HBoxContainer>();
 	preview_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	item_vb->add_child(preview_hb);
 
-	VBoxContainer *list_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *list_vb = memnewNoConstructor<VBoxContainer>();
 	list_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
 	l = memnewWithArgs<Label>(TTR("Directories & Files:"));
@@ -2262,7 +2262,7 @@ EditorFileDialog::EditorFileDialog() {
 
 	// Item (files and folders) list with context menu.
 
-	item_list = memnewOldNoConstructor(ItemList);
+	item_list = memnewNoConstructor<ItemList>();
 	item_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	item_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	item_list->connect("item_clicked", callable_mp(this, &EditorFileDialog::_item_list_item_rmb_clicked));
@@ -2271,32 +2271,32 @@ EditorFileDialog::EditorFileDialog() {
 
 	list_vb->add_child(item_list);
 
-	item_menu = memnewOldNoConstructor(PopupMenu);
+	item_menu = memnewNoConstructor<PopupMenu>();
 	item_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorFileDialog::_item_menu_id_pressed));
 	add_child(item_menu);
 
 	// Other stuff.
 
-	preview_vb = memnewOldNoConstructor(VBoxContainer);
+	preview_vb = memnewNoConstructor<VBoxContainer>();
 	preview_hb->add_child(preview_vb);
-	CenterContainer *prev_cc = memnewOldNoConstructor(CenterContainer);
+	CenterContainer *prev_cc = memnewNoConstructor<CenterContainer>();
 	preview_vb->add_margin_child(TTR("Preview:"), prev_cc);
-	preview = memnewOldNoConstructor(TextureRect);
+	preview = memnewNoConstructor<TextureRect>();
 	prev_cc->add_child(preview);
 	preview_vb->hide();
 
-	file_box = memnewOldNoConstructor(HBoxContainer);
+	file_box = memnewNoConstructor<HBoxContainer>();
 
 	l = memnewWithArgs<Label>(TTR("File:"));
 	l->set_theme_type_variation("HeaderSmall");
 	file_box->add_child(l);
 
-	file = memnewOldNoConstructor(LineEdit);
+	file = memnewNoConstructor<LineEdit>();
 	file->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	file->set_stretch_ratio(4);
 	file->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	file_box->add_child(file);
-	filter = memnewOldNoConstructor(OptionButton);
+	filter = memnewNoConstructor<OptionButton>();
 	filter->set_stretch_ratio(3);
 	filter->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	filter->set_clip_text(true); // Too many extensions overflow it.
@@ -2316,30 +2316,30 @@ EditorFileDialog::EditorFileDialog() {
 	file->connect("text_submitted", callable_mp(this, &EditorFileDialog::_file_submitted));
 	filter->connect(SceneStringName(item_selected), callable_mp(this, &EditorFileDialog::_filter_selected));
 
-	confirm_save = memnewOldNoConstructor(ConfirmationDialog);
+	confirm_save = memnewNoConstructor<ConfirmationDialog>();
 	add_child(confirm_save);
 	confirm_save->connect(SceneStringName(confirmed), callable_mp(this, &EditorFileDialog::_save_confirm_pressed));
 
-	dep_remove_dialog = memnewOldNoConstructor(DependencyRemoveDialog);
+	dep_remove_dialog = memnewNoConstructor<DependencyRemoveDialog>();
 	add_child(dep_remove_dialog);
 
-	global_remove_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	global_remove_dialog = memnewNoConstructor<ConfirmationDialog>();
 	global_remove_dialog->set_text(TTR("Remove the selected files? For safety only files and empty directories can be deleted from here. (Cannot be undone.)\nDepending on your filesystem configuration, the files will either be moved to the system trash or deleted permanently."));
 	global_remove_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorFileDialog::_delete_files_global));
 	add_child(global_remove_dialog);
 
-	makedialog = memnewOldNoConstructor(ConfirmationDialog);
+	makedialog = memnewNoConstructor<ConfirmationDialog>();
 	makedialog->set_title(TTR("Create Folder"));
-	VBoxContainer *makevb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *makevb = memnewNoConstructor<VBoxContainer>();
 	makedialog->add_child(makevb);
 
-	makedirname = memnewOldNoConstructor(LineEdit);
+	makedirname = memnewNoConstructor<LineEdit>();
 	makedirname->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	makevb->add_margin_child(TTR("Name:"), makedirname);
 	add_child(makedialog);
 	makedialog->register_text_enter(makedirname);
 	makedialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorFileDialog::_make_dir_confirm));
-	error_dialog = memnewOldNoConstructor(AcceptDialog);
+	error_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(error_dialog);
 
 	update_filters();

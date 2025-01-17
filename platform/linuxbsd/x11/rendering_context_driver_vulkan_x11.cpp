@@ -54,7 +54,7 @@ RenderingContextDriver::SurfaceID RenderingContextDriverVulkanX11::surface_creat
 	VkResult err = vkCreateXlibSurfaceKHR(instance_get(), &create_info, nullptr, &vk_surface);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SurfaceID());
 
-	Surface *surface = memnewOldNoConstructor(Surface);
+	Surface *surface = memnewNoConstructor<Surface>();
 	surface->vk_surface = vk_surface;
 	return SurfaceID(surface);
 }

@@ -650,7 +650,7 @@ void Path2DEditor::_restore_curve_points(Path2D *p_path2d, const PackedVector2Ar
 }
 
 Path2DEditor::Path2DEditor() {
-	curve_edit = memnewOldNoConstructor(Button);
+	curve_edit = memnewNoConstructor<Button>();
 	curve_edit->set_theme_type_variation("FlatButton");
 	curve_edit->set_toggle_mode(true);
 	curve_edit->set_pressed(true);
@@ -659,7 +659,7 @@ Path2DEditor::Path2DEditor() {
 	curve_edit->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_EDIT));
 	add_child(curve_edit);
 
-	curve_edit_curve = memnewOldNoConstructor(Button);
+	curve_edit_curve = memnewNoConstructor<Button>();
 	curve_edit_curve->set_theme_type_variation("FlatButton");
 	curve_edit_curve->set_toggle_mode(true);
 	curve_edit_curve->set_focus_mode(Control::FOCUS_NONE);
@@ -667,7 +667,7 @@ Path2DEditor::Path2DEditor() {
 	curve_edit_curve->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_EDIT_CURVE));
 	add_child(curve_edit_curve);
 
-	curve_create = memnewOldNoConstructor(Button);
+	curve_create = memnewNoConstructor<Button>();
 	curve_create->set_theme_type_variation("FlatButton");
 	curve_create->set_toggle_mode(true);
 	curve_create->set_focus_mode(Control::FOCUS_NONE);
@@ -675,7 +675,7 @@ Path2DEditor::Path2DEditor() {
 	curve_create->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_CREATE));
 	add_child(curve_create);
 
-	curve_del = memnewOldNoConstructor(Button);
+	curve_del = memnewNoConstructor<Button>();
 	curve_del->set_theme_type_variation("FlatButton");
 	curve_del->set_toggle_mode(true);
 	curve_del->set_focus_mode(Control::FOCUS_NONE);
@@ -683,21 +683,21 @@ Path2DEditor::Path2DEditor() {
 	curve_del->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_DELETE));
 	add_child(curve_del);
 
-	curve_close = memnewOldNoConstructor(Button);
+	curve_close = memnewNoConstructor<Button>();
 	curve_close->set_theme_type_variation("FlatButton");
 	curve_close->set_focus_mode(Control::FOCUS_NONE);
 	curve_close->set_tooltip_text(TTR("Close Curve"));
 	curve_close->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_CLOSE));
 	add_child(curve_close);
 
-	curve_clear_points = memnewOldNoConstructor(Button);
+	curve_clear_points = memnewNoConstructor<Button>();
 	curve_clear_points->set_theme_type_variation("FlatButton");
 	curve_clear_points->set_focus_mode(Control::FOCUS_NONE);
 	curve_clear_points->set_tooltip_text(TTR("Clear Points"));
 	curve_clear_points->connect(SceneStringName(pressed), callable_mp(this, &Path2DEditor::_confirm_clear_points));
 	add_child(curve_clear_points);
 
-	clear_points_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	clear_points_dialog = memnewNoConstructor<ConfirmationDialog>();
 	clear_points_dialog->set_title(TTR("Please Confirm..."));
 	clear_points_dialog->set_text(TTR("Remove all curve points?"));
 	clear_points_dialog->connect(SceneStringName(confirmed), callable_mp(this, &Path2DEditor::_mode_selected).bind(MODE_CLEAR_POINTS));
@@ -705,7 +705,7 @@ Path2DEditor::Path2DEditor() {
 
 	PopupMenu *menu;
 
-	handle_menu = memnewOldNoConstructor(MenuButton);
+	handle_menu = memnewNoConstructor<MenuButton>();
 	handle_menu->set_flat(false);
 	handle_menu->set_theme_type_variation("FlatMenuButton");
 	handle_menu->set_text(TTR("Options"));
@@ -738,7 +738,7 @@ void Path2DEditorPlugin::make_visible(bool p_visible) {
 }
 
 Path2DEditorPlugin::Path2DEditorPlugin() {
-	path2d_editor = memnewOldNoConstructor(Path2DEditor);
+	path2d_editor = memnewNoConstructor<Path2DEditor>();
 	CanvasItemEditor::get_singleton()->add_control_to_menu_panel(path2d_editor);
 	path2d_editor->hide();
 }

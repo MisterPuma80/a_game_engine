@@ -418,7 +418,7 @@ void EditorExport::connect_presets_runnable_updated(const Callable &p_target) {
 }
 
 EditorExport::EditorExport() {
-	save_timer = memnewOldNoConstructor(Timer);
+	save_timer = memnewNoConstructor<Timer>();
 	add_child(save_timer);
 	save_timer->set_wait_time(0.8);
 	save_timer->set_one_shot(true);

@@ -1010,7 +1010,7 @@ UnixTerminalLogger::~UnixTerminalLogger() {}
 
 OS_Unix::OS_Unix() {
 	Vector<Logger *> loggers;
-	loggers.push_back(memnewOldNoConstructor(UnixTerminalLogger));
+	loggers.push_back(memnewNoConstructor<UnixTerminalLogger>());
 	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 }
 

@@ -186,16 +186,16 @@ void OpenXRInteractionProfileEditor::_on_remove_pressed(const String p_action, c
 }
 
 void OpenXRInteractionProfileEditor::_add_io_path(VBoxContainer *p_container, const OpenXRInteractionProfileMetadata::IOPath *p_io_path) {
-	HBoxContainer *path_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *path_hb = memnewNoConstructor<HBoxContainer>();
 	path_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	p_container->add_child(path_hb);
 
-	Label *path_label = memnewOldNoConstructor(Label);
+	Label *path_label = memnewNoConstructor<Label>();
 	path_label->set_text(p_io_path->display_name);
 	path_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	path_hb->add_child(path_label);
 
-	Label *type_label = memnewOldNoConstructor(Label);
+	Label *type_label = memnewNoConstructor<Label>();
 	switch (p_io_path->action_type) {
 		case OpenXRAction::OPENXR_ACTION_BOOL: {
 			type_label->set_text(TTR("Boolean"));
@@ -219,7 +219,7 @@ void OpenXRInteractionProfileEditor::_add_io_path(VBoxContainer *p_container, co
 	type_label->set_custom_minimum_size(Size2(50.0, 0.0));
 	path_hb->add_child(type_label);
 
-	Button *path_add = memnewOldNoConstructor(Button);
+	Button *path_add = memnewNoConstructor<Button>();
 	path_add->set_icon(get_theme_icon(SNAME("Add"), EditorStringName(EditorIcons)));
 	path_add->set_flat(true);
 	path_add->connect(SceneStringName(pressed), callable_mp(this, &OpenXRInteractionProfileEditor::select_action_for).bind(String(p_io_path->openxr_path)));
@@ -233,20 +233,20 @@ void OpenXRInteractionProfileEditor::_add_io_path(VBoxContainer *p_container, co
 			if (binding->has_path(io_path)) {
 				Ref<OpenXRAction> action = binding->get_action();
 
-				HBoxContainer *action_hb = memnewOldNoConstructor(HBoxContainer);
+				HBoxContainer *action_hb = memnewNoConstructor<HBoxContainer>();
 				action_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				p_container->add_child(action_hb);
 
-				Control *indent_node = memnewOldNoConstructor(Control);
+				Control *indent_node = memnewNoConstructor<Control>();
 				indent_node->set_custom_minimum_size(Size2(10.0, 0.0));
 				action_hb->add_child(indent_node);
 
-				Label *action_label = memnewOldNoConstructor(Label);
+				Label *action_label = memnewNoConstructor<Label>();
 				action_label->set_text(action->get_name_with_set() + ": " + action->get_localized_name());
 				action_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				action_hb->add_child(action_label);
 
-				Button *action_rem = memnewOldNoConstructor(Button);
+				Button *action_rem = memnewNoConstructor<Button>();
 				action_rem->set_flat(true);
 				action_rem->set_icon(get_theme_icon(SNAME("Remove"), EditorStringName(EditorIcons)));
 				action_rem->connect(SceneStringName(pressed), callable_mp((OpenXRInteractionProfileEditor *)this, &OpenXRInteractionProfileEditor::_on_remove_pressed).bind(action->get_name_with_set(), String(p_io_path->openxr_path)));
@@ -282,15 +282,15 @@ void OpenXRInteractionProfileEditor::_update_interaction_profile() {
 	}
 
 	for (int i = 0; i < top_level_paths.size(); i++) {
-		PanelContainer *panel = memnewOldNoConstructor(PanelContainer);
+		PanelContainer *panel = memnewNoConstructor<PanelContainer>();
 		panel->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		main_hb->add_child(panel);
 		panel->add_theme_style_override(SceneStringName(panel), get_theme_stylebox(SceneStringName(panel), SNAME("TabContainer")));
 
-		VBoxContainer *container = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *container = memnewNoConstructor<VBoxContainer>();
 		panel->add_child(container);
 
-		Label *label = memnewOldNoConstructor(Label);
+		Label *label = memnewNoConstructor<Label>();
 		label->set_text(OpenXRInteractionProfileMetadata::get_singleton()->get_top_level_name(top_level_paths[i]));
 		container->add_child(label);
 
@@ -317,7 +317,7 @@ void OpenXRInteractionProfileEditor::_theme_changed() {
 
 OpenXRInteractionProfileEditor::OpenXRInteractionProfileEditor(Ref<OpenXRActionMap> p_action_map, Ref<OpenXRInteractionProfile> p_interaction_profile) :
 		OpenXRInteractionProfileEditorBase(p_action_map, p_interaction_profile) {
-	main_hb = memnewOldNoConstructor(HBoxContainer);
+	main_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(main_hb);
 
 	select_action_dialog = memnewWithArgs<OpenXRSelectActionDialog>(p_action_map);

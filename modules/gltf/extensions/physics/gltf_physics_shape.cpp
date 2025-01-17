@@ -175,7 +175,7 @@ Ref<GLTFPhysicsShape> GLTFPhysicsShape::from_node(const CollisionShape3D *p_godo
 }
 
 CollisionShape3D *GLTFPhysicsShape::to_node(bool p_cache_shapes) {
-	CollisionShape3D *godot_shape_node = memnewOldNoConstructor(CollisionShape3D);
+	CollisionShape3D *godot_shape_node = memnewNoConstructor<CollisionShape3D>();
 	to_resource(p_cache_shapes); // Sets `_shape_cache`.
 	godot_shape_node->set_shape(_shape_cache);
 	return godot_shape_node;

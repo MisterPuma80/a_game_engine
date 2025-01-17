@@ -146,12 +146,12 @@ Texture3DEditor::Texture3DEditor() {
 	set_texture_repeat(TextureRepeat::TEXTURE_REPEAT_ENABLED);
 	set_custom_minimum_size(Size2(1, 150));
 
-	texture_rect = memnewOldNoConstructor(Control);
+	texture_rect = memnewNoConstructor<Control>();
 	texture_rect->set_mouse_filter(MOUSE_FILTER_IGNORE);
 	add_child(texture_rect);
 	texture_rect->connect(SceneStringName(draw), callable_mp(this, &Texture3DEditor::_texture_rect_draw));
 
-	layer = memnewOldNoConstructor(SpinBox);
+	layer = memnewNoConstructor<SpinBox>();
 	layer->set_step(1);
 	layer->set_max(100);
 	layer->set_h_grow_direction(GROW_DIRECTION_BEGIN);
@@ -161,7 +161,7 @@ Texture3DEditor::Texture3DEditor() {
 	layer->set_anchor(SIDE_LEFT, 1);
 	layer->connect(SceneStringName(value_changed), callable_mp(this, &Texture3DEditor::_layer_changed));
 
-	info = memnewOldNoConstructor(Label);
+	info = memnewNoConstructor<Label>();
 	info->set_h_grow_direction(GROW_DIRECTION_BEGIN);
 	info->set_v_grow_direction(GROW_DIRECTION_BEGIN);
 	info->add_theme_color_override(SceneStringName(font_color), Color(1, 1, 1, 1));
@@ -194,7 +194,7 @@ void EditorInspectorPlugin3DTexture::parse_begin(Object *p_object) {
 	}
 	Ref<Texture3D> m(texture);
 
-	Texture3DEditor *editor = memnewOldNoConstructor(Texture3DEditor);
+	Texture3DEditor *editor = memnewNoConstructor<Texture3DEditor>();
 	editor->edit(m);
 	add_custom_control(editor);
 }

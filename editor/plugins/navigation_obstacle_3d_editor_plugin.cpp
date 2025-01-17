@@ -527,13 +527,13 @@ void NavigationObstacle3DEditor::_bind_methods() {
 NavigationObstacle3DEditor::NavigationObstacle3DEditor() {
 	obstacle_node = nullptr;
 
-	button_create = memnewOldNoConstructor(Button);
+	button_create = memnewNoConstructor<Button>();
 	button_create->set_theme_type_variation("FlatButton");
 	add_child(button_create);
 	button_create->connect(SceneStringName(pressed), callable_mp(this, &NavigationObstacle3DEditor::_menu_option).bind(MODE_CREATE));
 	button_create->set_toggle_mode(true);
 
-	button_edit = memnewOldNoConstructor(Button);
+	button_edit = memnewNoConstructor<Button>();
 	button_edit->set_theme_type_variation("FlatButton");
 	add_child(button_edit);
 	button_edit->connect(SceneStringName(pressed), callable_mp(this, &NavigationObstacle3DEditor::_menu_option).bind(MODE_EDIT));
@@ -541,12 +541,12 @@ NavigationObstacle3DEditor::NavigationObstacle3DEditor() {
 
 	mode = MODE_EDIT;
 	wip_active = false;
-	point_lines_meshinstance = memnewOldNoConstructor(MeshInstance3D);
+	point_lines_meshinstance = memnewNoConstructor<MeshInstance3D>();
 	point_lines_mesh.instantiate();
 	point_lines_meshinstance->set_mesh(point_lines_mesh);
 	point_lines_meshinstance->set_transform(Transform3D(Basis(), Vector3(0, 0, 0.00001)));
 
-	line_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	line_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	line_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	line_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
 	line_material->set_flag(StandardMaterial3D::FLAG_ALBEDO_FROM_VERTEX_COLOR, true);
@@ -554,7 +554,7 @@ NavigationObstacle3DEditor::NavigationObstacle3DEditor() {
 	line_material->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	line_material->set_albedo(Color(1, 1, 1));
 
-	handle_material = Ref<StandardMaterial3D>(memnewOldNoConstructor(StandardMaterial3D));
+	handle_material = Ref<StandardMaterial3D>(memnewNoConstructor<StandardMaterial3D>());
 	handle_material->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	handle_material->set_flag(StandardMaterial3D::FLAG_USE_POINT_SIZE, true);
 	handle_material->set_transparency(StandardMaterial3D::TRANSPARENCY_ALPHA);
@@ -565,7 +565,7 @@ NavigationObstacle3DEditor::NavigationObstacle3DEditor() {
 	handle_material->set_point_size(handle->get_width());
 	handle_material->set_texture(StandardMaterial3D::TEXTURE_ALBEDO, handle);
 
-	point_handles_meshinstance = memnewOldNoConstructor(MeshInstance3D);
+	point_handles_meshinstance = memnewNoConstructor<MeshInstance3D>();
 	point_lines_meshinstance->add_child(point_handles_meshinstance);
 	point_handle_mesh.instantiate();
 	point_handles_meshinstance->set_mesh(point_handle_mesh);
@@ -596,7 +596,7 @@ void NavigationObstacle3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 NavigationObstacle3DEditorPlugin::NavigationObstacle3DEditorPlugin() {
-	obstacle_editor = memnewOldNoConstructor(NavigationObstacle3DEditor);
+	obstacle_editor = memnewNoConstructor<NavigationObstacle3DEditor>();
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(obstacle_editor);
 
 	obstacle_editor->hide();

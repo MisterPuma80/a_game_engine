@@ -72,7 +72,7 @@ void NetSocketAndroid::multicast_lock_release() {
 }
 
 NetSocket *NetSocketAndroid::_create_func() {
-	return memnewOldNoConstructor(NetSocketAndroid);
+	return memnewNoConstructor<NetSocketAndroid>();
 }
 
 void NetSocketAndroid::make_default() {

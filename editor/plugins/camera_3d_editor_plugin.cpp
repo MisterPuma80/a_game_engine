@@ -67,7 +67,7 @@ void Camera3DEditor::edit(Node *p_camera) {
 }
 
 Camera3DEditor::Camera3DEditor() {
-	preview = memnewOldNoConstructor(Button);
+	preview = memnewNoConstructor<Button>();
 	add_child(preview);
 
 	preview->set_text(TTR("Preview"));

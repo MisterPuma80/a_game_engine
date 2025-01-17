@@ -106,7 +106,7 @@ void MeshEditor::_on_light_2_switch_pressed() {
 }
 
 MeshEditor::MeshEditor() {
-	viewport = memnewOldNoConstructor(SubViewport);
+	viewport = memnewNoConstructor<SubViewport>();
 	Ref<World3D> world_3d;
 	world_3d.instantiate();
 	viewport->set_world_3d(world_3d); // Use own world.
@@ -114,7 +114,7 @@ MeshEditor::MeshEditor() {
 	viewport->set_disable_input(true);
 	viewport->set_msaa_3d(Viewport::MSAA_4X);
 	set_stretch(true);
-	camera = memnewOldNoConstructor(Camera3D);
+	camera = memnewNoConstructor<Camera3D>();
 	camera->set_transform(Transform3D(Basis(), Vector3(0, 0, 1.1)));
 	camera->set_perspective(45, 0.1, 10);
 	viewport->add_child(camera);
@@ -124,39 +124,39 @@ MeshEditor::MeshEditor() {
 		camera->set_attributes(camera_attributes);
 	}
 
-	light1 = memnewOldNoConstructor(DirectionalLight3D);
+	light1 = memnewNoConstructor<DirectionalLight3D>();
 	light1->set_transform(Transform3D().looking_at(Vector3(-1, -1, -1), Vector3(0, 1, 0)));
 	viewport->add_child(light1);
 
-	light2 = memnewOldNoConstructor(DirectionalLight3D);
+	light2 = memnewNoConstructor<DirectionalLight3D>();
 	light2->set_transform(Transform3D().looking_at(Vector3(0, 1, 0), Vector3(0, 0, 1)));
 	light2->set_color(Color(0.7, 0.7, 0.7));
 	viewport->add_child(light2);
 
-	rotation = memnewOldNoConstructor(Node3D);
+	rotation = memnewNoConstructor<Node3D>();
 	viewport->add_child(rotation);
-	mesh_instance = memnewOldNoConstructor(MeshInstance3D);
+	mesh_instance = memnewNoConstructor<MeshInstance3D>();
 	rotation->add_child(mesh_instance);
 
 	set_custom_minimum_size(Size2(1, 150) * EDSCALE);
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	add_child(hb);
 	hb->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT, Control::PRESET_MODE_MINSIZE, 2);
 
 	hb->add_spacer();
 
-	VBoxContainer *vb_light = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb_light = memnewNoConstructor<VBoxContainer>();
 	hb->add_child(vb_light);
 
-	light_1_switch = memnewOldNoConstructor(Button);
+	light_1_switch = memnewNoConstructor<Button>();
 	light_1_switch->set_theme_type_variation("PreviewLightButton");
 	light_1_switch->set_toggle_mode(true);
 	light_1_switch->set_pressed(true);
 	vb_light->add_child(light_1_switch);
 	light_1_switch->connect(SceneStringName(pressed), callable_mp(this, &MeshEditor::_on_light_1_switch_pressed));
 
-	light_2_switch = memnewOldNoConstructor(Button);
+	light_2_switch = memnewNoConstructor<Button>();
 	light_2_switch->set_theme_type_variation("PreviewLightButton");
 	light_2_switch->set_toggle_mode(true);
 	light_2_switch->set_pressed(true);
@@ -180,7 +180,7 @@ void EditorInspectorPluginMesh::parse_begin(Object *p_object) {
 	}
 	Ref<Mesh> m(mesh);
 
-	MeshEditor *editor = memnewOldNoConstructor(MeshEditor);
+	MeshEditor *editor = memnewNoConstructor<MeshEditor>();
 	editor->edit(m);
 	add_custom_control(editor);
 }

@@ -2672,7 +2672,7 @@ Node *Node::_duplicate(int p_flags, HashMap<const Node *, Node *> *r_duplimap) c
 
 	if (Object::cast_to<InstancePlaceholder>(this)) {
 		const InstancePlaceholder *ip = Object::cast_to<const InstancePlaceholder>(this);
-		InstancePlaceholder *nip = memnewOldNoConstructor(InstancePlaceholder);
+		InstancePlaceholder *nip = memnewNoConstructor<InstancePlaceholder>();
 		nip->set_instance_path(ip->get_instance_path());
 		node = nip;
 

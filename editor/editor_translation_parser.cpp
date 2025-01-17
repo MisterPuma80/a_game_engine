@@ -162,7 +162,7 @@ void EditorTranslationParser::clean_parsers() {
 
 EditorTranslationParser *EditorTranslationParser::get_singleton() {
 	if (!singleton) {
-		singleton = memnewOldNoConstructor(EditorTranslationParser);
+		singleton = memnewNoConstructor<EditorTranslationParser>();
 	}
 	return singleton;
 }

@@ -314,7 +314,7 @@ void GenericTilePolygonEditor::_advanced_menu_item_pressed(int p_item_pressed) {
 		undo_redo = EditorUndoRedoManager::get_singleton();
 	} else {
 		// This nice hack allows for discarding undo actions without making code too complex.
-		undo_redo = memnewOldNoConstructor(EditorUndoRedoManager);
+		undo_redo = memnewNoConstructor<EditorUndoRedoManager>();
 	}
 
 	switch (p_item_pressed) {
@@ -510,7 +510,7 @@ void GenericTilePolygonEditor::_base_control_gui_input(Ref<InputEvent> p_event) 
 		undo_redo = EditorUndoRedoManager::get_singleton();
 	} else {
 		// This nice hack allows for discarding undo actions without making code too complex.
-		undo_redo = memnewOldNoConstructor(EditorUndoRedoManager);
+		undo_redo = memnewNoConstructor<EditorUndoRedoManager>();
 	}
 
 	real_t grab_threshold = EDITOR_GET("editors/polygon_editor/point_grab_radius");
@@ -893,12 +893,12 @@ void GenericTilePolygonEditor::_bind_methods() {
 }
 
 GenericTilePolygonEditor::GenericTilePolygonEditor() {
-	toolbar = memnewOldNoConstructor(HBoxContainer);
+	toolbar = memnewNoConstructor<HBoxContainer>();
 	add_child(toolbar);
 
 	tools_button_group.instantiate();
 
-	button_expand = memnewOldNoConstructor(Button);
+	button_expand = memnewNoConstructor<Button>();
 	button_expand->set_theme_type_variation("FlatButton");
 	button_expand->set_toggle_mode(true);
 	button_expand->set_pressed(false);
@@ -906,9 +906,9 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	button_expand->connect("toggled", callable_mp(this, &GenericTilePolygonEditor::_toggle_expand));
 	toolbar->add_child(button_expand);
 
-	toolbar->add_child(memnewOldNoConstructor(VSeparator));
+	toolbar->add_child(memnewNoConstructor<VSeparator>());
 
-	button_create = memnewOldNoConstructor(Button);
+	button_create = memnewNoConstructor<Button>();
 	button_create->set_theme_type_variation("FlatButton");
 	button_create->set_toggle_mode(true);
 	button_create->set_button_group(tools_button_group);
@@ -916,21 +916,21 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	button_create->set_tooltip_text(TTR("Add polygon tool"));
 	toolbar->add_child(button_create);
 
-	button_edit = memnewOldNoConstructor(Button);
+	button_edit = memnewNoConstructor<Button>();
 	button_edit->set_theme_type_variation("FlatButton");
 	button_edit->set_toggle_mode(true);
 	button_edit->set_button_group(tools_button_group);
 	button_edit->set_tooltip_text(TTR("Edit points tool"));
 	toolbar->add_child(button_edit);
 
-	button_delete = memnewOldNoConstructor(Button);
+	button_delete = memnewNoConstructor<Button>();
 	button_delete->set_theme_type_variation("FlatButton");
 	button_delete->set_toggle_mode(true);
 	button_delete->set_button_group(tools_button_group);
 	button_delete->set_tooltip_text(TTR("Delete points tool"));
 	toolbar->add_child(button_delete);
 
-	button_advanced_menu = memnewOldNoConstructor(MenuButton);
+	button_advanced_menu = memnewNoConstructor<MenuButton>();
 	button_advanced_menu->set_flat(false);
 	button_advanced_menu->set_theme_type_variation("FlatMenuButton");
 	button_advanced_menu->set_toggle_mode(true);
@@ -945,9 +945,9 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	button_advanced_menu->set_focus_mode(FOCUS_ALL);
 	toolbar->add_child(button_advanced_menu);
 
-	toolbar->add_child(memnewOldNoConstructor(VSeparator));
+	toolbar->add_child(memnewNoConstructor<VSeparator>());
 
-	button_pixel_snap = memnewOldNoConstructor(MenuButton);
+	button_pixel_snap = memnewNoConstructor<MenuButton>();
 	toolbar->add_child(button_pixel_snap);
 	button_pixel_snap->set_flat(false);
 	button_pixel_snap->set_theme_type_variation("FlatMenuButton");
@@ -957,24 +957,24 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	button_pixel_snap->get_popup()->add_item(TTR("Grid Snap"), SNAP_GRID);
 	button_pixel_snap->get_popup()->connect("index_pressed", callable_mp(this, &GenericTilePolygonEditor::_set_snap_option));
 
-	snap_subdivision = memnewOldNoConstructor(SpinBox);
+	snap_subdivision = memnewNoConstructor<SpinBox>();
 	toolbar->add_child(snap_subdivision);
 	snap_subdivision->get_line_edit()->add_theme_constant_override("minimum_character_width", 2);
 	snap_subdivision->set_min(1);
 	snap_subdivision->set_max(99);
 
-	Control *root = memnewOldNoConstructor(Control);
+	Control *root = memnewNoConstructor<Control>();
 	root->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	root->set_custom_minimum_size(Size2(0, 200 * EDSCALE));
 	root->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	add_child(root);
 
-	panel = memnewOldNoConstructor(Panel);
+	panel = memnewNoConstructor<Panel>();
 	panel->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	panel->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	root->add_child(panel);
 
-	base_control = memnewOldNoConstructor(Control);
+	base_control = memnewNoConstructor<Control>();
 	base_control->set_texture_filter(CanvasItem::TEXTURE_FILTER_NEAREST);
 	base_control->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	base_control->connect(SceneStringName(draw), callable_mp(this, &GenericTilePolygonEditor::_base_control_draw));
@@ -985,14 +985,14 @@ GenericTilePolygonEditor::GenericTilePolygonEditor() {
 	snap_subdivision->connect(SceneStringName(value_changed), callable_mp((CanvasItem *)base_control, &CanvasItem::queue_redraw).unbind(1));
 	snap_subdivision->connect(SceneStringName(value_changed), callable_mp(this, &GenericTilePolygonEditor::_store_snap_options).unbind(1));
 
-	editor_zoom_widget = memnewOldNoConstructor(EditorZoomWidget);
+	editor_zoom_widget = memnewNoConstructor<EditorZoomWidget>();
 	editor_zoom_widget->setup_zoom_limits(0.125, 128.0);
 	editor_zoom_widget->set_position(Vector2(5, 5));
 	editor_zoom_widget->connect("zoom_changed", callable_mp(this, &GenericTilePolygonEditor::_zoom_changed).unbind(1));
 	editor_zoom_widget->set_shortcut_context(this);
 	root->add_child(editor_zoom_widget);
 
-	button_center_view = memnewOldNoConstructor(Button);
+	button_center_view = memnewNoConstructor<Button>();
 	button_center_view->set_anchors_and_offsets_preset(Control::PRESET_TOP_RIGHT, Control::PRESET_MODE_MINSIZE, 5);
 	button_center_view->set_grow_direction_preset(Control::PRESET_TOP_RIGHT);
 	button_center_view->connect(SceneStringName(pressed), callable_mp(this, &GenericTilePolygonEditor::_center_view));
@@ -1355,12 +1355,12 @@ Variant::Type TileDataDefaultEditor::get_property_type() {
 }
 
 TileDataDefaultEditor::TileDataDefaultEditor() {
-	label = memnewOldNoConstructor(Label);
+	label = memnewNoConstructor<Label>();
 	label->set_text(TTR("Painting:"));
 	label->set_theme_type_variation("HeaderSmall");
 	add_child(label);
 
-	picker_button = memnewOldNoConstructor(Button);
+	picker_button = memnewNoConstructor<Button>();
 	picker_button->set_theme_type_variation("FlatButton");
 	picker_button->set_toggle_mode(true);
 	picker_button->set_shortcut(ED_GET_SHORTCUT("tiles_editor/picker"));
@@ -1533,7 +1533,7 @@ void TileDataOcclusionShapeEditor::_notification(int p_what) {
 }
 
 TileDataOcclusionShapeEditor::TileDataOcclusionShapeEditor() {
-	polygon_editor = memnewOldNoConstructor(GenericTilePolygonEditor);
+	polygon_editor = memnewNoConstructor<GenericTilePolygonEditor>();
 	add_child(polygon_editor);
 }
 
@@ -1735,7 +1735,7 @@ void TileDataCollisionEditor::_notification(int p_what) {
 }
 
 TileDataCollisionEditor::TileDataCollisionEditor() {
-	polygon_editor = memnewOldNoConstructor(GenericTilePolygonEditor);
+	polygon_editor = memnewNoConstructor<GenericTilePolygonEditor>();
 	polygon_editor->set_multiple_polygon_mode(true);
 	polygon_editor->connect("polygons_changed", callable_mp(this, &TileDataCollisionEditor::_polygons_changed));
 	add_child(polygon_editor);
@@ -2839,13 +2839,13 @@ void TileDataTerrainsEditor::_notification(int p_what) {
 }
 
 TileDataTerrainsEditor::TileDataTerrainsEditor() {
-	label = memnewOldNoConstructor(Label);
+	label = memnewNoConstructor<Label>();
 	label->set_text(TTR("Painting:"));
 	label->set_theme_type_variation("HeaderSmall");
 	add_child(label);
 
 	// Toolbar
-	picker_button = memnewOldNoConstructor(Button);
+	picker_button = memnewNoConstructor<Button>();
 	picker_button->set_theme_type_variation("FlatButton");
 	picker_button->set_toggle_mode(true);
 	picker_button->set_shortcut(ED_GET_SHORTCUT("tiles_editor/picker"));
@@ -2858,14 +2858,14 @@ TileDataTerrainsEditor::TileDataTerrainsEditor() {
 	dummy_object->set("terrain", -1);
 
 	// Get the default value for the type.
-	terrain_set_property_editor = memnewOldNoConstructor(EditorPropertyEnum);
+	terrain_set_property_editor = memnewNoConstructor<EditorPropertyEnum>();
 	terrain_set_property_editor->set_object_and_property(dummy_object, "terrain_set");
 	terrain_set_property_editor->set_label("Terrain Set");
 	terrain_set_property_editor->connect("property_changed", callable_mp(this, &TileDataTerrainsEditor::_property_value_changed).unbind(1));
 	terrain_set_property_editor->set_tooltip_text(terrain_set_property_editor->get_edited_property());
 	add_child(terrain_set_property_editor);
 
-	terrain_property_editor = memnewOldNoConstructor(EditorPropertyEnum);
+	terrain_property_editor = memnewNoConstructor<EditorPropertyEnum>();
 	terrain_property_editor->set_object_and_property(dummy_object, "terrain");
 	terrain_property_editor->set_label("Terrain");
 	terrain_property_editor->connect("property_changed", callable_mp(this, &TileDataTerrainsEditor::_property_value_changed).unbind(1));
@@ -2951,7 +2951,7 @@ void TileDataNavigationEditor::_notification(int p_what) {
 }
 
 TileDataNavigationEditor::TileDataNavigationEditor() {
-	polygon_editor = memnewOldNoConstructor(GenericTilePolygonEditor);
+	polygon_editor = memnewNoConstructor<GenericTilePolygonEditor>();
 	polygon_editor->set_multiple_polygon_mode(true);
 	add_child(polygon_editor);
 }

@@ -355,24 +355,24 @@ void ResourcePreloaderEditor::_bind_methods() {
 ResourcePreloaderEditor::ResourcePreloaderEditor() {
 	//add_style_override("panel", EditorNode::get_singleton()->get_gui_base()->get_stylebox("panel","Panel"));
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	add_child(vbc);
 
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 	vbc->add_child(hbc);
 
-	load = memnewOldNoConstructor(Button);
+	load = memnewNoConstructor<Button>();
 	load->set_tooltip_text(TTR("Load Resource"));
 	hbc->add_child(load);
 
-	paste = memnewOldNoConstructor(Button);
+	paste = memnewNoConstructor<Button>();
 	paste->set_text(TTR("Paste"));
 	hbc->add_child(paste);
 
-	file = memnewOldNoConstructor(EditorFileDialog);
+	file = memnewNoConstructor<EditorFileDialog>();
 	add_child(file);
 
-	tree = memnewOldNoConstructor(Tree);
+	tree = memnewNoConstructor<Tree>();
 	tree->connect("button_clicked", callable_mp(this, &ResourcePreloaderEditor::_cell_button_pressed));
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_columns(2);
@@ -387,7 +387,7 @@ ResourcePreloaderEditor::ResourcePreloaderEditor() {
 	SET_DRAG_FORWARDING_GCD(tree, ResourcePreloaderEditor);
 	vbc->add_child(tree);
 
-	dialog = memnewOldNoConstructor(AcceptDialog);
+	dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(dialog);
 
 	load->connect(SceneStringName(pressed), callable_mp(this, &ResourcePreloaderEditor::_load_pressed));
@@ -427,7 +427,7 @@ void ResourcePreloaderEditorPlugin::make_visible(bool p_visible) {
 }
 
 ResourcePreloaderEditorPlugin::ResourcePreloaderEditorPlugin() {
-	preloader_editor = memnewOldNoConstructor(ResourcePreloaderEditor);
+	preloader_editor = memnewNoConstructor<ResourcePreloaderEditor>();
 	preloader_editor->set_custom_minimum_size(Size2(0, 250) * EDSCALE);
 
 	button = EditorNode::get_bottom_panel()->add_item("ResourcePreloader", preloader_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_resource_preloader_bottom_panel", TTR("Toggle ResourcePreloader Bottom Panel")));

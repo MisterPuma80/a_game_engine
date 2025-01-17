@@ -687,7 +687,7 @@ SceneMultiplayer::SceneMultiplayer() {
 	cache = Ref<SceneCacheInterface>(memnewWithArgs<SceneCacheInterface>(this));
 	replicator = Ref<SceneReplicationInterface>(memnewOldWithArgs(SceneReplicationInterface(this, cache.ptr())));
 	rpc = Ref<SceneRPCInterface>(memnewOldWithArgs(SceneRPCInterface(this, cache.ptr(), replicator.ptr())));
-	set_multiplayer_peer(Ref<OfflineMultiplayerPeer>(memnewOldNoConstructor(OfflineMultiplayerPeer)));
+	set_multiplayer_peer(Ref<OfflineMultiplayerPeer>(memnewNoConstructor<OfflineMultiplayerPeer>()));
 }
 
 SceneMultiplayer::~SceneMultiplayer() {

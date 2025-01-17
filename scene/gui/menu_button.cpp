@@ -218,7 +218,7 @@ MenuButton::MenuButton(const String &p_text) :
 	set_focus_mode(FOCUS_NONE);
 	set_action_mode(ACTION_MODE_BUTTON_PRESS);
 
-	popup = memnewOldNoConstructor(PopupMenu);
+	popup = memnewNoConstructor<PopupMenu>();
 	popup->hide();
 	add_child(popup, false, INTERNAL_MODE_FRONT);
 	popup->connect("about_to_popup", callable_mp(this, &MenuButton::_popup_visibility_changed).bind(true));

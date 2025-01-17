@@ -628,7 +628,7 @@ void VideoStreamPlaybackTheora::_streaming_thread(void *ud) {
 #endif
 
 VideoStreamPlaybackTheora::VideoStreamPlaybackTheora() {
-	texture = Ref<ImageTexture>(memnewOldNoConstructor(ImageTexture));
+	texture = Ref<ImageTexture>(memnewNoConstructor<ImageTexture>());
 
 #ifdef THEORA_USE_THREAD_STREAMING
 	int rb_power = nearest_shift(RB_SIZE_KB * 1024);
@@ -657,7 +657,7 @@ Ref<Resource> ResourceFormatLoaderTheora::load(const String &p_path, const Strin
 		return Ref<Resource>();
 	}
 
-	VideoStreamTheora *stream = memnewOldNoConstructor(VideoStreamTheora);
+	VideoStreamTheora *stream = memnewNoConstructor<VideoStreamTheora>();
 	stream->set_file(p_path);
 
 	Ref<VideoStreamTheora> ogv_stream = Ref<VideoStreamTheora>(stream);

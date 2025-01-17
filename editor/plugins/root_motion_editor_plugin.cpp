@@ -197,24 +197,24 @@ void EditorPropertyRootMotion::_bind_methods() {
 }
 
 EditorPropertyRootMotion::EditorPropertyRootMotion() {
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 	add_child(hbc);
-	assign = memnewOldNoConstructor(Button);
+	assign = memnewNoConstructor<Button>();
 	assign->set_h_size_flags(SIZE_EXPAND_FILL);
 	assign->set_clip_text(true);
 	assign->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyRootMotion::_node_assign));
 	hbc->add_child(assign);
 
-	clear = memnewOldNoConstructor(Button);
+	clear = memnewNoConstructor<Button>();
 	clear->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyRootMotion::_node_clear));
 	hbc->add_child(clear);
 
-	filter_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	filter_dialog = memnewNoConstructor<ConfirmationDialog>();
 	add_child(filter_dialog);
 	filter_dialog->set_title(TTR("Edit Filtered Tracks:"));
 	filter_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorPropertyRootMotion::_confirmed));
 
-	filters = memnewOldNoConstructor(Tree);
+	filters = memnewNoConstructor<Tree>();
 	filter_dialog->add_child(filters);
 	filters->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	filters->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -231,7 +231,7 @@ bool EditorInspectorRootMotionPlugin::can_handle(Object *p_object) {
 
 bool EditorInspectorRootMotionPlugin::parse_property(Object *p_object, const Variant::Type p_type, const String &p_path, const PropertyHint p_hint, const String &p_hint_text, const BitField<PropertyUsageFlags> p_usage, const bool p_wide) {
 	if (p_path == "root_motion_track" && p_object->is_class("AnimationMixer") && p_type == Variant::NODE_PATH) {
-		EditorPropertyRootMotion *editor = memnewOldNoConstructor(EditorPropertyRootMotion);
+		EditorPropertyRootMotion *editor = memnewNoConstructor<EditorPropertyRootMotion>();
 		add_property_editor(p_path, editor);
 		return true;
 	}

@@ -144,38 +144,38 @@ EditorAssetLibraryItem::EditorAssetLibraryItem(bool p_clickable) {
 	border->set_content_margin_all(5 * EDSCALE);
 	add_theme_style_override(SceneStringName(panel), border);
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	// Add some spacing to visually separate the icon from the asset details.
 	hb->add_theme_constant_override("separation", 15 * EDSCALE);
 	add_child(hb);
 
-	icon = memnewOldNoConstructor(TextureButton);
+	icon = memnewNoConstructor<TextureButton>();
 	icon->set_custom_minimum_size(Size2(64, 64) * EDSCALE);
 	hb->add_child(icon);
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 
 	hb->add_child(vb);
 	vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	title = memnewOldNoConstructor(LinkButton);
+	title = memnewNoConstructor<LinkButton>();
 	title->set_auto_translate_mode(AutoTranslateMode::AUTO_TRANSLATE_MODE_DISABLED);
 	title->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);
 	vb->add_child(title);
 
-	category = memnewOldNoConstructor(LinkButton);
+	category = memnewNoConstructor<LinkButton>();
 	category->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);
 	vb->add_child(category);
 
-	HBoxContainer *author_price_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *author_price_hbox = memnewNoConstructor<HBoxContainer>();
 	author_price_hbox->add_theme_constant_override("separation", 5 * EDSCALE);
 	vb->add_child(author_price_hbox);
 
-	author = memnewOldNoConstructor(LinkButton);
+	author = memnewNoConstructor<LinkButton>();
 	author->set_tooltip_text(TTR("Author"));
 	author_price_hbox->add_child(author);
 
-	author_price_hbox->add_child(memnewOldNoConstructor(HSeparator));
+	author_price_hbox->add_child(memnewNoConstructor<HSeparator>());
 
 	if (p_clickable) {
 		author->set_underline_mode(LinkButton::UNDERLINE_MODE_ON_HOVER);
@@ -195,7 +195,7 @@ EditorAssetLibraryItem::EditorAssetLibraryItem(bool p_clickable) {
 	label_margin.instantiate();
 	label_margin->set_content_margin_all(0);
 
-	price = memnewOldNoConstructor(Label);
+	price = memnewNoConstructor<Label>();
 	price->add_theme_style_override(CoreStringName(normal), label_margin);
 	price->set_tooltip_text(TTR("License"));
 	price->set_mouse_filter(MOUSE_FILTER_PASS);
@@ -315,7 +315,7 @@ void EditorAssetLibraryItemDescription::add_preview(int p_id, bool p_video, cons
 	new_preview.id = p_id;
 	new_preview.video_link = p_url;
 	new_preview.is_video = p_video;
-	new_preview.button = memnewOldNoConstructor(Button);
+	new_preview.button = memnewNoConstructor<Button>();
 	new_preview.button->set_icon(previews->get_editor_theme_icon(SNAME("ThumbnailWait")));
 	new_preview.button->set_toggle_mode(true);
 	new_preview.button->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibraryItemDescription::_preview_click).bind(p_id));
@@ -330,24 +330,24 @@ void EditorAssetLibraryItemDescription::add_preview(int p_id, bool p_video, cons
 }
 
 EditorAssetLibraryItemDescription::EditorAssetLibraryItemDescription() {
-	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbox = memnewNoConstructor<HBoxContainer>();
 	add_child(hbox);
-	VBoxContainer *desc_vbox = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *desc_vbox = memnewNoConstructor<VBoxContainer>();
 	hbox->add_child(desc_vbox);
 	hbox->add_theme_constant_override("separation", 15 * EDSCALE);
 
-	item = memnewOldNoConstructor(EditorAssetLibraryItem);
+	item = memnewNoConstructor<EditorAssetLibraryItem>();
 
 	desc_vbox->add_child(item);
 	desc_vbox->set_custom_minimum_size(Size2(440 * EDSCALE, 440 * EDSCALE));
 
-	description = memnewOldNoConstructor(RichTextLabel);
+	description = memnewNoConstructor<RichTextLabel>();
 	desc_vbox->add_child(description);
 	description->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	description->connect("meta_clicked", callable_mp(this, &EditorAssetLibraryItemDescription::_link_click));
 	description->add_theme_constant_override(SceneStringName(line_separation), Math::round(5 * EDSCALE));
 
-	previews_vbox = memnewOldNoConstructor(VBoxContainer);
+	previews_vbox = memnewNoConstructor<VBoxContainer>();
 	previews_vbox->hide(); // Will be shown if we add any previews later.
 
 	hbox->add_child(previews_vbox);
@@ -355,7 +355,7 @@ EditorAssetLibraryItemDescription::EditorAssetLibraryItemDescription() {
 	previews_vbox->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	previews_vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	preview = memnewOldNoConstructor(TextureRect);
+	preview = memnewNoConstructor<TextureRect>();
 	previews_vbox->add_child(preview);
 	preview->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	preview->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
@@ -363,14 +363,14 @@ EditorAssetLibraryItemDescription::EditorAssetLibraryItemDescription() {
 	preview->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	preview->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	previews_bg = memnewOldNoConstructor(PanelContainer);
+	previews_bg = memnewNoConstructor<PanelContainer>();
 	previews_vbox->add_child(previews_bg);
 	previews_bg->set_custom_minimum_size(Size2(640 * EDSCALE, 101 * EDSCALE));
 
-	previews = memnewOldNoConstructor(ScrollContainer);
+	previews = memnewNoConstructor<ScrollContainer>();
 	previews_bg->add_child(previews);
 	previews->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
-	preview_hb = memnewOldNoConstructor(HBoxContainer);
+	preview_hb = memnewNoConstructor<HBoxContainer>();
 	preview_hb->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
 	previews->add_child(preview_hb);
@@ -571,27 +571,27 @@ void EditorAssetLibraryItemDownload::_bind_methods() {
 }
 
 EditorAssetLibraryItemDownload::EditorAssetLibraryItemDownload() {
-	panel = memnewOldNoConstructor(PanelContainer);
+	panel = memnewNoConstructor<PanelContainer>();
 	add_child(panel);
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	panel->add_child(hb);
-	icon = memnewOldNoConstructor(TextureRect);
+	icon = memnewNoConstructor<TextureRect>();
 	icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	icon->set_v_size_flags(0);
 	hb->add_child(icon);
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	hb->add_child(vb);
 	vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	HBoxContainer *title_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *title_hb = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(title_hb);
-	title = memnewOldNoConstructor(Label);
+	title = memnewNoConstructor<Label>();
 	title_hb->add_child(title);
 	title->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	dismiss_button = memnewOldNoConstructor(TextureButton);
+	dismiss_button = memnewNoConstructor<TextureButton>();
 	dismiss_button->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibraryItemDownload::_close));
 	title_hb->add_child(dismiss_button);
 
@@ -601,20 +601,20 @@ EditorAssetLibraryItemDownload::EditorAssetLibraryItemDownload() {
 
 	status = memnewWithArgs<Label>(TTR("Idle"));
 	vb->add_child(status);
-	progress = memnewOldNoConstructor(ProgressBar);
+	progress = memnewNoConstructor<ProgressBar>();
 	progress->set_editor_preview_indeterminate(true);
 	vb->add_child(progress);
 
-	HBoxContainer *hb2 = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb2 = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(hb2);
 	hb2->add_spacer();
 
-	install_button = memnewOldNoConstructor(Button);
+	install_button = memnewNoConstructor<Button>();
 	install_button->set_text(TTR("Install..."));
 	install_button->set_disabled(true);
 	install_button->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibraryItemDownload::install));
 
-	retry_button = memnewOldNoConstructor(Button);
+	retry_button = memnewNoConstructor<Button>();
 	retry_button->set_text(TTR("Retry"));
 	retry_button->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibraryItemDownload::_make_request));
 	// Only show the Retry button in case of a failure.
@@ -624,16 +624,16 @@ EditorAssetLibraryItemDownload::EditorAssetLibraryItemDownload() {
 	hb2->add_child(install_button);
 	set_custom_minimum_size(Size2(310, 0) * EDSCALE);
 
-	download = memnewOldNoConstructor(HTTPRequest);
+	download = memnewNoConstructor<HTTPRequest>();
 	panel->add_child(download);
 	download->connect("request_completed", callable_mp(this, &EditorAssetLibraryItemDownload::_http_download_completed));
 	setup_http_request(download);
 
-	download_error = memnewOldNoConstructor(AcceptDialog);
+	download_error = memnewNoConstructor<AcceptDialog>();
 	panel->add_child(download_error);
 	download_error->set_title(TTR("Download Error"));
 
-	asset_installer = memnewOldNoConstructor(EditorAssetInstaller);
+	asset_installer = memnewNoConstructor<EditorAssetInstaller>();
 	panel->add_child(asset_installer);
 	asset_installer->connect(SceneStringName(confirmed), callable_mp(this, &EditorAssetLibraryItemDownload::_close));
 
@@ -752,7 +752,7 @@ void EditorAssetLibrary::_install_asset() {
 		return;
 	}
 
-	EditorAssetLibraryItemDownload *download = memnewOldNoConstructor(EditorAssetLibraryItemDownload);
+	EditorAssetLibraryItemDownload *download = memnewNoConstructor<EditorAssetLibraryItemDownload>();
 	downloads_hb->add_child(download);
 	download->configure(description->get_title(), description->get_asset_id(), description->get_preview_icon(), description->get_download_url(), description->get_sha256());
 
@@ -845,7 +845,7 @@ void EditorAssetLibrary::_image_update(bool p_use_cache, bool p_final, const Pac
 
 	int len = image_data.size();
 	const uint8_t *r = image_data.ptr();
-	Ref<Image> image = memnewOldNoConstructor(Image);
+	Ref<Image> image = memnewNoConstructor<Image>();
 
 	uint8_t png_signature[8] = { 137, 80, 78, 71, 13, 10, 26, 10 };
 	uint8_t jpg_signature[3] = { 255, 216, 255 };
@@ -1025,7 +1025,7 @@ void EditorAssetLibrary::_request_image(ObjectID p_for, int p_asset_id, String p
 	iq.image_url = trimmed_url;
 	iq.image_index = p_image_index;
 	iq.image_type = p_type;
-	iq.request = memnewOldNoConstructor(HTTPRequest);
+	iq.request = memnewNoConstructor<HTTPRequest>();
 	setup_http_request(iq.request);
 
 	iq.target = p_for;
@@ -1127,7 +1127,7 @@ void EditorAssetLibrary::_request_current_config() {
 }
 
 HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int p_page_len, int p_total_items, int p_current_items) {
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
 	if (p_page_count < 2) {
 		return hbc;
@@ -1146,7 +1146,7 @@ HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int
 	hbc->add_spacer();
 	hbc->add_theme_constant_override("separation", 5 * EDSCALE);
 
-	Button *first = memnewOldNoConstructor(Button);
+	Button *first = memnewNoConstructor<Button>();
 	first->set_text(TTR("First", "Pagination"));
 	first->set_theme_type_variation("PanelBackgroundButton");
 	if (p_page != 0) {
@@ -1157,7 +1157,7 @@ HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int
 	}
 	hbc->add_child(first);
 
-	Button *prev = memnewOldNoConstructor(Button);
+	Button *prev = memnewNoConstructor<Button>();
 	prev->set_text(TTR("Previous", "Pagination"));
 	prev->set_theme_type_variation("PanelBackgroundButton");
 	if (p_page > 0) {
@@ -1167,10 +1167,10 @@ HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int
 		prev->set_focus_mode(Control::FOCUS_NONE);
 	}
 	hbc->add_child(prev);
-	hbc->add_child(memnewOldNoConstructor(VSeparator));
+	hbc->add_child(memnewNoConstructor<VSeparator>());
 
 	for (int i = from; i < to; i++) {
-		Button *current = memnewOldNoConstructor(Button);
+		Button *current = memnewNoConstructor<Button>();
 		// Add padding to make page number buttons easier to click.
 		current->set_text(vformat(" %d ", i + 1));
 		current->set_theme_type_variation("PanelBackgroundButton");
@@ -1183,7 +1183,7 @@ HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int
 		hbc->add_child(current);
 	}
 
-	Button *next = memnewOldNoConstructor(Button);
+	Button *next = memnewNoConstructor<Button>();
 	next->set_text(TTR("Next", "Pagination"));
 	next->set_theme_type_variation("PanelBackgroundButton");
 	if (p_page < p_page_count - 1) {
@@ -1192,10 +1192,10 @@ HBoxContainer *EditorAssetLibrary::_make_pages(int p_page, int p_page_count, int
 		next->set_disabled(true);
 		next->set_focus_mode(Control::FOCUS_NONE);
 	}
-	hbc->add_child(memnewOldNoConstructor(VSeparator));
+	hbc->add_child(memnewNoConstructor<VSeparator>());
 	hbc->add_child(next);
 
-	Button *last = memnewOldNoConstructor(Button);
+	Button *last = memnewNoConstructor<Button>();
 	last->set_text(TTR("Last", "Pagination"));
 	last->set_theme_type_variation("PanelBackgroundButton");
 	if (p_page != p_page_count - 1) {
@@ -1354,7 +1354,7 @@ void EditorAssetLibrary::_http_request_completed(int p_status, int p_code, const
 			asset_top_page = _make_pages(page, pages, page_len, total_items, result.size());
 			library_vb->add_child(asset_top_page);
 
-			asset_items = memnewOldNoConstructor(GridContainer);
+			asset_items = memnewNoConstructor<GridContainer>();
 			_update_asset_items_columns();
 			asset_items->add_theme_constant_override("h_separation", 10 * EDSCALE);
 			asset_items->add_theme_constant_override("v_separation", 10 * EDSCALE);
@@ -1441,7 +1441,7 @@ void EditorAssetLibrary::_http_request_completed(int p_status, int p_code, const
 				memdelete(description);
 			}
 
-			description = memnewOldNoConstructor(EditorAssetLibraryItemDescription);
+			description = memnewNoConstructor<EditorAssetLibraryItemDescription>();
 			add_child(description);
 			description->connect(SceneStringName(confirmed), callable_mp(this, &EditorAssetLibrary::_install_asset));
 
@@ -1505,7 +1505,7 @@ void EditorAssetLibrary::_asset_file_selected(const String &p_file) {
 		asset_installer = nullptr;
 	}
 
-	asset_installer = memnewOldNoConstructor(EditorAssetInstaller);
+	asset_installer = memnewNoConstructor<EditorAssetInstaller>();
 	asset_installer->set_asset_name(p_file);
 	add_child(asset_installer);
 	asset_installer->open_asset(p_file);
@@ -1600,15 +1600,15 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	templates_only = p_templates_only;
 	loading_blocked = ((int)EDITOR_GET("network/connection/network_mode") == EditorSettings::NETWORK_OFFLINE);
 
-	VBoxContainer *library_main = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *library_main = memnewNoConstructor<VBoxContainer>();
 	add_child(library_main);
 
-	HBoxContainer *search_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *search_hb = memnewNoConstructor<HBoxContainer>();
 
 	library_main->add_child(search_hb);
 	library_main->add_theme_constant_override("separation", 10 * EDSCALE);
 
-	filter = memnewOldNoConstructor(LineEdit);
+	filter = memnewNoConstructor<LineEdit>();
 	if (templates_only) {
 		filter->set_placeholder(TTR("Search Templates, Projects, and Demos"));
 	} else {
@@ -1621,22 +1621,22 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 
 	// Perform a search automatically if the user hasn't entered any text for a certain duration.
 	// This way, the user doesn't need to press Enter to initiate their search.
-	filter_debounce_timer = memnewOldNoConstructor(Timer);
+	filter_debounce_timer = memnewNoConstructor<Timer>();
 	filter_debounce_timer->set_one_shot(true);
 	filter_debounce_timer->set_wait_time(0.25);
 	filter_debounce_timer->connect("timeout", callable_mp(this, &EditorAssetLibrary::_filter_debounce_timer_timeout));
 	search_hb->add_child(filter_debounce_timer);
 
 	if (!p_templates_only) {
-		search_hb->add_child(memnewOldNoConstructor(VSeparator));
+		search_hb->add_child(memnewNoConstructor<VSeparator>());
 	}
 
-	Button *open_asset = memnewOldNoConstructor(Button);
+	Button *open_asset = memnewNoConstructor<Button>();
 	open_asset->set_text(TTR("Import..."));
 	search_hb->add_child(open_asset);
 	open_asset->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibrary::_asset_open));
 
-	Button *plugins = memnewOldNoConstructor(Button);
+	Button *plugins = memnewNoConstructor<Button>();
 	plugins->set_text(TTR("Plugins..."));
 	search_hb->add_child(plugins);
 	plugins->connect(SceneStringName(pressed), callable_mp(this, &EditorAssetLibrary::_manage_plugins));
@@ -1646,11 +1646,11 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 		plugins->hide();
 	}
 
-	HBoxContainer *search_hb2 = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *search_hb2 = memnewNoConstructor<HBoxContainer>();
 	library_main->add_child(search_hb2);
 
 	search_hb2->add_child(memnewWithArgs<Label>(TTR("Sort:") + " "));
-	sort = memnewOldNoConstructor(OptionButton);
+	sort = memnewNoConstructor<OptionButton>();
 	for (int i = 0; i < SORT_MAX; i++) {
 		sort->add_item(TTRGET(sort_text[i]));
 	}
@@ -1661,20 +1661,20 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	sort->set_clip_text(true);
 	sort->connect(SceneStringName(item_selected), callable_mp(this, &EditorAssetLibrary::_rerun_search));
 
-	search_hb2->add_child(memnewOldNoConstructor(VSeparator));
+	search_hb2->add_child(memnewNoConstructor<VSeparator>());
 
 	search_hb2->add_child(memnewWithArgs<Label>(TTR("Category:") + " "));
-	categories = memnewOldNoConstructor(OptionButton);
+	categories = memnewNoConstructor<OptionButton>();
 	categories->add_item(TTR("All"));
 	search_hb2->add_child(categories);
 	categories->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	categories->set_clip_text(true);
 	categories->connect(SceneStringName(item_selected), callable_mp(this, &EditorAssetLibrary::_rerun_search));
 
-	search_hb2->add_child(memnewOldNoConstructor(VSeparator));
+	search_hb2->add_child(memnewNoConstructor<VSeparator>());
 
 	search_hb2->add_child(memnewWithArgs<Label>(TTR("Site:") + " "));
-	repository = memnewOldNoConstructor(OptionButton);
+	repository = memnewNoConstructor<OptionButton>();
 
 	_update_repository_options();
 
@@ -1684,9 +1684,9 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	repository->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	repository->set_clip_text(true);
 
-	search_hb2->add_child(memnewOldNoConstructor(VSeparator));
+	search_hb2->add_child(memnewNoConstructor<VSeparator>());
 
-	support = memnewOldNoConstructor(MenuButton);
+	support = memnewNoConstructor<MenuButton>();
 	search_hb2->add_child(support);
 	support->set_text(TTR("Support"));
 	support->get_popup()->set_hide_on_checkable_item_selection(false);
@@ -1699,11 +1699,11 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 
 	/////////
 
-	library_scroll_bg = memnewOldNoConstructor(PanelContainer);
+	library_scroll_bg = memnewNoConstructor<PanelContainer>();
 	library_main->add_child(library_scroll_bg);
 	library_scroll_bg->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	library_scroll = memnewOldNoConstructor(ScrollContainer);
+	library_scroll = memnewNoConstructor<ScrollContainer>();
 	library_scroll->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 
 	library_scroll_bg->add_child(library_scroll);
@@ -1712,43 +1712,43 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	border2.instantiate();
 	border2->set_content_margin_individual(15 * EDSCALE, 15 * EDSCALE, 35 * EDSCALE, 15 * EDSCALE);
 
-	PanelContainer *library_vb_border = memnewOldNoConstructor(PanelContainer);
+	PanelContainer *library_vb_border = memnewNoConstructor<PanelContainer>();
 	library_scroll->add_child(library_vb_border);
 	library_vb_border->add_theme_style_override(SceneStringName(panel), border2);
 	library_vb_border->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	library_vb = memnewOldNoConstructor(VBoxContainer);
+	library_vb = memnewNoConstructor<VBoxContainer>();
 	library_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
 	library_vb_border->add_child(library_vb);
 
-	library_message_box = memnewOldNoConstructor(VBoxContainer);
+	library_message_box = memnewNoConstructor<VBoxContainer>();
 	library_message_box->hide();
 	library_vb->add_child(library_message_box);
 
-	library_message = memnewOldNoConstructor(Label);
+	library_message = memnewNoConstructor<Label>();
 	library_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	library_message_box->add_child(library_message);
 
-	library_message_button = memnewOldNoConstructor(Button);
+	library_message_button = memnewNoConstructor<Button>();
 	library_message_button->set_h_size_flags(SIZE_SHRINK_CENTER);
 	library_message_button->set_theme_type_variation("PanelBackgroundButton");
 	library_message_box->add_child(library_message_button);
 
-	asset_top_page = memnewOldNoConstructor(HBoxContainer);
+	asset_top_page = memnewNoConstructor<HBoxContainer>();
 	library_vb->add_child(asset_top_page);
 
-	asset_items = memnewOldNoConstructor(GridContainer);
+	asset_items = memnewNoConstructor<GridContainer>();
 	_update_asset_items_columns();
 	asset_items->add_theme_constant_override("h_separation", 10 * EDSCALE);
 	asset_items->add_theme_constant_override("v_separation", 10 * EDSCALE);
 
 	library_vb->add_child(asset_items);
 
-	asset_bottom_page = memnewOldNoConstructor(HBoxContainer);
+	asset_bottom_page = memnewNoConstructor<HBoxContainer>();
 	library_vb->add_child(asset_bottom_page);
 
-	request = memnewOldNoConstructor(HTTPRequest);
+	request = memnewNoConstructor<HTTPRequest>();
 	add_child(request);
 	setup_http_request(request);
 	request->connect("request_completed", callable_mp(this, &EditorAssetLibrary::_http_request_completed));
@@ -1757,11 +1757,11 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 
 	library_vb->add_theme_constant_override("separation", 20 * EDSCALE);
 
-	error_hb = memnewOldNoConstructor(HBoxContainer);
+	error_hb = memnewNoConstructor<HBoxContainer>();
 	library_main->add_child(error_hb);
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_hb->add_child(error_label);
-	error_tr = memnewOldNoConstructor(TextureRect);
+	error_tr = memnewNoConstructor<TextureRect>();
 	error_tr->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	error_hb->add_child(error_tr);
 
@@ -1770,13 +1770,13 @@ EditorAssetLibrary::EditorAssetLibrary(bool p_templates_only) {
 	set_process(true);
 	set_process_shortcut_input(true); // Global shortcuts since there is no main element to be focused.
 
-	downloads_scroll = memnewOldNoConstructor(ScrollContainer);
+	downloads_scroll = memnewNoConstructor<ScrollContainer>();
 	downloads_scroll->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	library_main->add_child(downloads_scroll);
-	downloads_hb = memnewOldNoConstructor(HBoxContainer);
+	downloads_hb = memnewNoConstructor<HBoxContainer>();
 	downloads_scroll->add_child(downloads_hb);
 
-	asset_open = memnewOldNoConstructor(EditorFileDialog);
+	asset_open = memnewNoConstructor<EditorFileDialog>();
 
 	asset_open->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 	asset_open->add_filter("*.zip", TTR("Assets ZIP File"));
@@ -1808,7 +1808,7 @@ void AssetLibraryEditorPlugin::make_visible(bool p_visible) {
 }
 
 AssetLibraryEditorPlugin::AssetLibraryEditorPlugin() {
-	addon_library = memnewOldNoConstructor(EditorAssetLibrary);
+	addon_library = memnewNoConstructor<EditorAssetLibrary>();
 	addon_library->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(addon_library);
 	addon_library->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);

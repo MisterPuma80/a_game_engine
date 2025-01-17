@@ -1090,19 +1090,19 @@ void PhysicalBone3D::set_joint_type(JointType p_joint_type) {
 	joint_data = nullptr;
 	switch (p_joint_type) {
 		case JOINT_TYPE_PIN:
-			joint_data = memnewOldNoConstructor(PinJointData);
+			joint_data = memnewNoConstructor<PinJointData>();
 			break;
 		case JOINT_TYPE_CONE:
-			joint_data = memnewOldNoConstructor(ConeJointData);
+			joint_data = memnewNoConstructor<ConeJointData>();
 			break;
 		case JOINT_TYPE_HINGE:
-			joint_data = memnewOldNoConstructor(HingeJointData);
+			joint_data = memnewNoConstructor<HingeJointData>();
 			break;
 		case JOINT_TYPE_SLIDER:
-			joint_data = memnewOldNoConstructor(SliderJointData);
+			joint_data = memnewNoConstructor<SliderJointData>();
 			break;
 		case JOINT_TYPE_6DOF:
-			joint_data = memnewOldNoConstructor(SixDOFJointData);
+			joint_data = memnewNoConstructor<SixDOFJointData>();
 			break;
 		case JOINT_TYPE_NONE:
 			break;

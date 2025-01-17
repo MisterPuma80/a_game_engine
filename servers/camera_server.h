@@ -85,7 +85,7 @@ public:
 	}
 
 	static CameraServer *create() {
-		CameraServer *server = create_func ? create_func() : memnewOldNoConstructor(CameraServer);
+		CameraServer *server = create_func ? create_func() : memnewNoConstructor<CameraServer>();
 		return server;
 	};
 

@@ -44,7 +44,7 @@ EditorUndoRedoManager *EditorUndoRedoManager::singleton = nullptr;
 EditorUndoRedoManager::History &EditorUndoRedoManager::get_or_create_history(int p_idx) {
 	if (!history_map.has(p_idx)) {
 		History history;
-		history.undo_redo = memnewOldNoConstructor(UndoRedo);
+		history.undo_redo = memnewNoConstructor<UndoRedo>();
 		history.id = p_idx;
 		history_map[p_idx] = history;
 

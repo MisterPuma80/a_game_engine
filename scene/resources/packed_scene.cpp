@@ -212,7 +212,7 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 						node = sdata->instantiate(p_edit_state == GEN_EDIT_STATE_DISABLED ? PackedScene::GEN_EDIT_STATE_DISABLED : PackedScene::GEN_EDIT_STATE_INSTANCE);
 						ERR_FAIL_NULL_V(node, nullptr);
 					} else if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
-						missing_node = memnewOldNoConstructor(MissingNode);
+						missing_node = memnewNoConstructor<MissingNode>();
 						missing_node->set_original_scene(scene_path);
 						missing_node->set_recording_properties(true);
 						node = missing_node;
@@ -220,7 +220,7 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 						ERR_FAIL_V_MSG(nullptr, "Placeholder scene is missing.");
 					}
 				} else {
-					InstancePlaceholder *ip = memnewOldNoConstructor(InstancePlaceholder);
+					InstancePlaceholder *ip = memnewNoConstructor<InstancePlaceholder>();
 					ip->set_instance_path(scene_path);
 					node = ip;
 				}
@@ -232,7 +232,7 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 					node = sdata->instantiate(p_edit_state == GEN_EDIT_STATE_DISABLED ? PackedScene::GEN_EDIT_STATE_DISABLED : PackedScene::GEN_EDIT_STATE_INSTANCE);
 					ERR_FAIL_NULL_V_MSG(node, nullptr, vformat("Failed to load scene dependency: \"%s\". Make sure the required scene is valid.", sdata->get_path()));
 				} else if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
-					missing_node = memnewOldNoConstructor(MissingNode);
+					missing_node = memnewNoConstructor<MissingNode>();
 #ifdef TOOLS_ENABLED
 					if (res.is_valid()) {
 						missing_node->set_original_scene(res->get_meta("__load_path__", ""));
@@ -268,7 +268,7 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 				}
 
 				if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
-					missing_node = memnewOldNoConstructor(MissingNode);
+					missing_node = memnewNoConstructor<MissingNode>();
 					missing_node->set_original_class(snames[n.type]);
 					missing_node->set_recording_properties(true);
 					node = missing_node;
@@ -277,18 +277,18 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 					WARN_PRINT(vformat("Node %s of type %s cannot be created. A placeholder will be created instead.", snames[n.name], snames[n.type]).ascii().get_data());
 					if (n.parent >= 0 && n.parent < nc && ret_nodes[n.parent]) {
 						if (Object::cast_to<Control>(ret_nodes[n.parent])) {
-							obj = memnewOldNoConstructor(Control);
+							obj = memnewNoConstructor<Control>();
 						} else if (Object::cast_to<Node2D>(ret_nodes[n.parent])) {
-							obj = memnewOldNoConstructor(Node2D);
+							obj = memnewNoConstructor<Node2D>();
 #ifndef _3D_DISABLED
 						} else if (Object::cast_to<Node3D>(ret_nodes[n.parent])) {
-							obj = memnewOldNoConstructor(Node3D);
+							obj = memnewNoConstructor<Node3D>();
 #endif // _3D_DISABLED
 						}
 					}
 
 					if (!obj) {
-						obj = memnewOldNoConstructor(Node);
+						obj = memnewNoConstructor<Node>();
 					}
 
 					node = Object::cast_to<Node>(obj);
@@ -2117,7 +2117,7 @@ void PackedScene::replace_state(Ref<SceneState> p_by) {
 }
 
 void PackedScene::recreate_state() {
-	state = Ref<SceneState>(memnewOldNoConstructor(SceneState));
+	state = Ref<SceneState>(memnewNoConstructor<SceneState>());
 	state->set_path(get_path());
 #ifdef TOOLS_ENABLED
 	state->set_last_modified_time(get_last_modified_time());
@@ -2208,5 +2208,5 @@ void PackedScene::_bind_methods() {
 }
 
 PackedScene::PackedScene() {
-	state = Ref<SceneState>(memnewOldNoConstructor(SceneState));
+	state = Ref<SceneState>(memnewNoConstructor<SceneState>());
 }

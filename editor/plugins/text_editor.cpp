@@ -492,7 +492,7 @@ void TextEditor::_convert_case(CodeTextEditor::CaseStyle p_case) {
 
 ScriptEditorBase *TextEditor::create_editor(const Ref<Resource> &p_resource) {
 	if (Object::cast_to<TextFile>(*p_resource) || Object::cast_to<JSON>(*p_resource)) {
-		return memnewOldNoConstructor(TextEditor);
+		return memnewNoConstructor<TextEditor>();
 	}
 	return nullptr;
 }
@@ -600,7 +600,7 @@ void TextEditor::update_toggle_scripts_button() {
 }
 
 TextEditor::TextEditor() {
-	code_editor = memnewOldNoConstructor(CodeTextEditor);
+	code_editor = memnewNoConstructor<CodeTextEditor>();
 	add_child(code_editor);
 	code_editor->add_theme_constant_override("separation", 0);
 	code_editor->connect("load_theme_settings", callable_mp(this, &TextEditor::_load_theme_settings));
@@ -614,13 +614,13 @@ TextEditor::TextEditor() {
 	code_editor->get_text_editor()->set_context_menu_enabled(false);
 	code_editor->get_text_editor()->connect(SceneStringName(gui_input), callable_mp(this, &TextEditor::_text_edit_gui_input));
 
-	context_menu = memnewOldNoConstructor(PopupMenu);
+	context_menu = memnewNoConstructor<PopupMenu>();
 	add_child(context_menu);
 	context_menu->connect(SceneStringName(id_pressed), callable_mp(this, &TextEditor::_edit_option));
 
-	edit_hb = memnewOldNoConstructor(HBoxContainer);
+	edit_hb = memnewNoConstructor<HBoxContainer>();
 
-	edit_menu = memnewOldNoConstructor(MenuButton);
+	edit_menu = memnewNoConstructor<MenuButton>();
 	edit_menu->set_shortcut_context(this);
 	edit_hb->add_child(edit_menu);
 	edit_menu->set_text(TTR("Edit"));
@@ -655,14 +655,14 @@ TextEditor::TextEditor() {
 	edit_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_indent_to_tabs"), EDIT_CONVERT_INDENT_TO_TABS);
 
 	edit_menu->get_popup()->add_separator();
-	PopupMenu *convert_case = memnewOldNoConstructor(PopupMenu);
+	PopupMenu *convert_case = memnewNoConstructor<PopupMenu>();
 	edit_menu->get_popup()->add_submenu_node_item(TTR("Convert Case"), convert_case);
 	convert_case->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_to_uppercase"), EDIT_TO_UPPERCASE);
 	convert_case->add_shortcut(ED_GET_SHORTCUT("script_text_editor/convert_to_lowercase"), EDIT_TO_LOWERCASE);
 	convert_case->add_shortcut(ED_GET_SHORTCUT("script_text_editor/capitalize"), EDIT_CAPITALIZE);
 	convert_case->connect(SceneStringName(id_pressed), callable_mp(this, &TextEditor::_edit_option));
 
-	highlighter_menu = memnewOldNoConstructor(PopupMenu);
+	highlighter_menu = memnewNoConstructor<PopupMenu>();
 	edit_menu->get_popup()->add_submenu_node_item(TTR("Syntax Highlighter"), highlighter_menu);
 	highlighter_menu->connect(SceneStringName(id_pressed), callable_mp(this, &TextEditor::_change_syntax_highlighter));
 
@@ -675,7 +675,7 @@ TextEditor::TextEditor() {
 	add_syntax_highlighter(highlighter);
 	set_syntax_highlighter(plain_highlighter);
 
-	search_menu = memnewOldNoConstructor(MenuButton);
+	search_menu = memnewNoConstructor<MenuButton>();
 	search_menu->set_shortcut_context(this);
 	edit_hb->add_child(search_menu);
 	search_menu->set_text(TTR("Search"));
@@ -690,7 +690,7 @@ TextEditor::TextEditor() {
 	search_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/find_in_files"), SEARCH_IN_FILES);
 	search_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/replace_in_files"), REPLACE_IN_FILES);
 
-	MenuButton *goto_menu = memnewOldNoConstructor(MenuButton);
+	MenuButton *goto_menu = memnewNoConstructor<MenuButton>();
 	goto_menu->set_shortcut_context(this);
 	edit_hb->add_child(goto_menu);
 	goto_menu->set_text(TTR("Go To"));
@@ -700,13 +700,13 @@ TextEditor::TextEditor() {
 	goto_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/goto_line"), SEARCH_GOTO_LINE);
 	goto_menu->get_popup()->add_separator();
 
-	bookmarks_menu = memnewOldNoConstructor(PopupMenu);
+	bookmarks_menu = memnewNoConstructor<PopupMenu>();
 	goto_menu->get_popup()->add_submenu_node_item(TTR("Bookmarks"), bookmarks_menu);
 	_update_bookmark_list();
 	bookmarks_menu->connect("about_to_popup", callable_mp(this, &TextEditor::_update_bookmark_list));
 	bookmarks_menu->connect("index_pressed", callable_mp(this, &TextEditor::_bookmark_item_pressed));
 
-	goto_line_dialog = memnewOldNoConstructor(GotoLineDialog);
+	goto_line_dialog = memnewNoConstructor<GotoLineDialog>();
 	add_child(goto_line_dialog);
 }
 

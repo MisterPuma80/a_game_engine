@@ -875,13 +875,13 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	singleton = this;
 	updating = false;
 
-	HBoxContainer *top_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *top_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(top_hb);
 
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 
-	tool_blend = memnewOldNoConstructor(Button);
+	tool_blend = memnewNoConstructor<Button>();
 	tool_blend->set_theme_type_variation("FlatButton");
 	tool_blend->set_toggle_mode(true);
 	tool_blend->set_button_group(bg);
@@ -890,7 +890,7 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	tool_blend->set_tooltip_text(TTR("Set the blending position within the space"));
 	tool_blend->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_tool_switch).bind(3));
 
-	tool_select = memnewOldNoConstructor(Button);
+	tool_select = memnewNoConstructor<Button>();
 	tool_select->set_theme_type_variation("FlatButton");
 	tool_select->set_toggle_mode(true);
 	tool_select->set_button_group(bg);
@@ -898,7 +898,7 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	tool_select->set_tooltip_text(TTR("Select and move points, create points with RMB."));
 	tool_select->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_tool_switch).bind(0));
 
-	tool_create = memnewOldNoConstructor(Button);
+	tool_create = memnewNoConstructor<Button>();
 	tool_create->set_theme_type_variation("FlatButton");
 	tool_create->set_toggle_mode(true);
 	tool_create->set_button_group(bg);
@@ -906,7 +906,7 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	tool_create->set_tooltip_text(TTR("Create points."));
 	tool_create->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_tool_switch).bind(1));
 
-	tool_triangle = memnewOldNoConstructor(Button);
+	tool_triangle = memnewNoConstructor<Button>();
 	tool_triangle->set_theme_type_variation("FlatButton");
 	tool_triangle->set_toggle_mode(true);
 	tool_triangle->set_button_group(bg);
@@ -914,27 +914,27 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	tool_triangle->set_tooltip_text(TTR("Create triangles by connecting points."));
 	tool_triangle->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_tool_switch).bind(2));
 
-	tool_erase_sep = memnewOldNoConstructor(VSeparator);
+	tool_erase_sep = memnewNoConstructor<VSeparator>();
 	top_hb->add_child(tool_erase_sep);
-	tool_erase = memnewOldNoConstructor(Button);
+	tool_erase = memnewNoConstructor<Button>();
 	tool_erase->set_theme_type_variation("FlatButton");
 	top_hb->add_child(tool_erase);
 	tool_erase->set_tooltip_text(TTR("Erase points and triangles."));
 	tool_erase->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_erase_selected));
 	tool_erase->set_disabled(true);
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
-	auto_triangles = memnewOldNoConstructor(Button);
+	auto_triangles = memnewNoConstructor<Button>();
 	auto_triangles->set_theme_type_variation("FlatButton");
 	top_hb->add_child(auto_triangles);
 	auto_triangles->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_auto_triangles_toggled));
 	auto_triangles->set_toggle_mode(true);
 	auto_triangles->set_tooltip_text(TTR("Generate blend triangles automatically (instead of manually)"));
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
-	snap = memnewOldNoConstructor(Button);
+	snap = memnewNoConstructor<Button>();
 	snap->set_theme_type_variation("FlatButton");
 	snap->set_toggle_mode(true);
 	top_hb->add_child(snap);
@@ -942,77 +942,77 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	snap->set_tooltip_text(TTR("Enable snap and show grid."));
 	snap->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_snap_toggled));
 
-	snap_x = memnewOldNoConstructor(SpinBox);
+	snap_x = memnewNoConstructor<SpinBox>();
 	top_hb->add_child(snap_x);
 	snap_x->set_prefix("x:");
 	snap_x->set_min(0.01);
 	snap_x->set_step(0.01);
 	snap_x->set_max(1000);
 
-	snap_y = memnewOldNoConstructor(SpinBox);
+	snap_y = memnewNoConstructor<SpinBox>();
 	top_hb->add_child(snap_y);
 	snap_y->set_prefix("y:");
 	snap_y->set_min(0.01);
 	snap_y->set_step(0.01);
 	snap_y->set_max(1000);
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
 	top_hb->add_child(memnewWithArgs<Label>(TTR("Sync:")));
-	sync = memnewOldNoConstructor(CheckBox);
+	sync = memnewNoConstructor<CheckBox>();
 	top_hb->add_child(sync);
 	sync->connect("toggled", callable_mp(this, &AnimationNodeBlendSpace2DEditor::_config_changed));
 
-	top_hb->add_child(memnewOldNoConstructor(VSeparator));
+	top_hb->add_child(memnewNoConstructor<VSeparator>());
 
 	top_hb->add_child(memnewWithArgs<Label>(TTR("Blend:")));
-	interpolation = memnewOldNoConstructor(OptionButton);
+	interpolation = memnewNoConstructor<OptionButton>();
 	top_hb->add_child(interpolation);
 	interpolation->connect(SceneStringName(item_selected), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_config_changed));
 
-	edit_hb = memnewOldNoConstructor(HBoxContainer);
+	edit_hb = memnewNoConstructor<HBoxContainer>();
 	top_hb->add_child(edit_hb);
-	edit_hb->add_child(memnewOldNoConstructor(VSeparator));
+	edit_hb->add_child(memnewNoConstructor<VSeparator>());
 	edit_hb->add_child(memnewWithArgs<Label>(TTR("Point")));
-	edit_x = memnewOldNoConstructor(SpinBox);
+	edit_x = memnewNoConstructor<SpinBox>();
 	edit_hb->add_child(edit_x);
 	edit_x->set_min(-1000);
 	edit_x->set_step(0.01);
 	edit_x->set_max(1000);
 	edit_x->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_edit_point_pos));
-	edit_y = memnewOldNoConstructor(SpinBox);
+	edit_y = memnewNoConstructor<SpinBox>();
 	edit_hb->add_child(edit_y);
 	edit_y->set_min(-1000);
 	edit_y->set_step(0.01);
 	edit_y->set_max(1000);
 	edit_y->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_edit_point_pos));
-	open_editor = memnewOldNoConstructor(Button);
+	open_editor = memnewNoConstructor<Button>();
 	edit_hb->add_child(open_editor);
 	open_editor->set_text(TTR("Open Editor"));
 	open_editor->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_open_editor), CONNECT_DEFERRED);
 	edit_hb->hide();
 	open_editor->hide();
 
-	HBoxContainer *main_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *main_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(main_hb);
 	main_hb->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	GridContainer *main_grid = memnewOldNoConstructor(GridContainer);
+	GridContainer *main_grid = memnewNoConstructor<GridContainer>();
 	main_grid->set_columns(2);
 	main_hb->add_child(main_grid);
 	main_grid->set_h_size_flags(SIZE_EXPAND_FILL);
 	{
-		VBoxContainer *left_vbox = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *left_vbox = memnewNoConstructor<VBoxContainer>();
 		main_grid->add_child(left_vbox);
 		left_vbox->set_v_size_flags(SIZE_EXPAND_FILL);
-		max_y_value = memnewOldNoConstructor(SpinBox);
+		max_y_value = memnewNoConstructor<SpinBox>();
 		left_vbox->add_child(max_y_value);
 		left_vbox->add_spacer();
-		label_y = memnewOldNoConstructor(LineEdit);
+		label_y = memnewNoConstructor<LineEdit>();
 		left_vbox->add_child(label_y);
 		label_y->set_expand_to_text_length_enabled(true);
 		left_vbox->add_spacer();
-		min_y_value = memnewOldNoConstructor(SpinBox);
+		min_y_value = memnewNoConstructor<SpinBox>();
 		left_vbox->add_child(min_y_value);
 
 		max_y_value->set_max(10000);
@@ -1024,31 +1024,31 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 		min_y_value->set_step(0.01);
 	}
 
-	panel = memnewOldNoConstructor(PanelContainer);
+	panel = memnewNoConstructor<PanelContainer>();
 	panel->set_clip_contents(true);
 	main_grid->add_child(panel);
 	panel->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	blend_space_draw = memnewOldNoConstructor(Control);
+	blend_space_draw = memnewNoConstructor<Control>();
 	blend_space_draw->connect(SceneStringName(gui_input), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_blend_space_gui_input));
 	blend_space_draw->connect(SceneStringName(draw), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_blend_space_draw));
 	blend_space_draw->set_focus_mode(FOCUS_ALL);
 
 	panel->add_child(blend_space_draw);
-	main_grid->add_child(memnewOldNoConstructor(Control)); //empty bottom left
+	main_grid->add_child(memnewNoConstructor<Control>()); //empty bottom left
 
 	{
-		HBoxContainer *bottom_vbox = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *bottom_vbox = memnewNoConstructor<HBoxContainer>();
 		main_grid->add_child(bottom_vbox);
 		bottom_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
-		min_x_value = memnewOldNoConstructor(SpinBox);
+		min_x_value = memnewNoConstructor<SpinBox>();
 		bottom_vbox->add_child(min_x_value);
 		bottom_vbox->add_spacer();
-		label_x = memnewOldNoConstructor(LineEdit);
+		label_x = memnewNoConstructor<LineEdit>();
 		bottom_vbox->add_child(label_x);
 		label_x->set_expand_to_text_length_enabled(true);
 		bottom_vbox->add_spacer();
-		max_x_value = memnewOldNoConstructor(SpinBox);
+		max_x_value = memnewNoConstructor<SpinBox>();
 		bottom_vbox->add_child(max_x_value);
 
 		max_x_value->set_max(10000);
@@ -1069,23 +1069,23 @@ AnimationNodeBlendSpace2DEditor::AnimationNodeBlendSpace2DEditor() {
 	label_x->connect(SceneStringName(text_changed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_labels_changed));
 	label_y->connect(SceneStringName(text_changed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_labels_changed));
 
-	error_panel = memnewOldNoConstructor(PanelContainer);
+	error_panel = memnewNoConstructor<PanelContainer>();
 	add_child(error_panel);
-	error_label = memnewOldNoConstructor(Label);
+	error_label = memnewNoConstructor<Label>();
 	error_panel->add_child(error_label);
 
 	set_custom_minimum_size(Size2(0, 300 * EDSCALE));
 
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeBlendSpace2DEditor::_add_menu_type));
 
-	animations_menu = memnewOldNoConstructor(PopupMenu);
+	animations_menu = memnewNoConstructor<PopupMenu>();
 	animations_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	menu->add_child(animations_menu);
 	animations_menu->connect("index_pressed", callable_mp(this, &AnimationNodeBlendSpace2DEditor::_add_animation_type));
 
-	open_file = memnewOldNoConstructor(EditorFileDialog);
+	open_file = memnewNoConstructor<EditorFileDialog>();
 	add_child(open_file);
 	open_file->set_title(TTR("Open Animation Node"));
 	open_file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);

@@ -312,7 +312,7 @@ void godotsharp_internal_tie_managed_to_unmanaged_with_pre_setup(GCHandleIntPtr 
 }
 
 void godotsharp_internal_new_csharp_script(Ref<CSharpScript> *r_dest) {
-	memnew_placement(r_dest, Ref<CSharpScript>(memnewOldNoConstructor(CSharpScript)));
+	memnew_placement(r_dest, Ref<CSharpScript>(memnewNoConstructor<CSharpScript>()));
 }
 
 void godotsharp_internal_editor_file_system_update_files(const PackedStringArray &p_script_paths) {

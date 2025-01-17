@@ -64,7 +64,7 @@ int CurveTexture::get_width() const {
 
 void CurveTexture::ensure_default_setup(float p_min, float p_max) {
 	if (_curve.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewNoConstructor<Curve>());
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -209,7 +209,7 @@ int CurveXYZTexture::get_width() const {
 
 void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	if (_curve_x.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewNoConstructor<Curve>());
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -218,7 +218,7 @@ void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	}
 
 	if (_curve_y.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewNoConstructor<Curve>());
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);
@@ -227,7 +227,7 @@ void CurveXYZTexture::ensure_default_setup(float p_min, float p_max) {
 	}
 
 	if (_curve_z.is_null()) {
-		Ref<Curve> curve = Ref<Curve>(memnewOldNoConstructor(Curve));
+		Ref<Curve> curve = Ref<Curve>(memnewNoConstructor<Curve>());
 		curve->add_point(Vector2(0, 1));
 		curve->add_point(Vector2(1, 1));
 		curve->set_min_value(p_min);

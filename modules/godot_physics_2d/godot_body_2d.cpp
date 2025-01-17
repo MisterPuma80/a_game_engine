@@ -726,7 +726,7 @@ void GodotBody2D::set_state_sync_callback(const Callable &p_callable) {
 void GodotBody2D::set_force_integration_callback(const Callable &p_callable, const Variant &p_udata) {
 	if (p_callable.is_valid()) {
 		if (!fi_callback_data) {
-			fi_callback_data = memnewOldNoConstructor(ForceIntegrationCallbackData);
+			fi_callback_data = memnewNoConstructor<ForceIntegrationCallbackData>();
 		}
 		fi_callback_data->callable = p_callable;
 		fi_callback_data->udata = p_udata;
@@ -738,7 +738,7 @@ void GodotBody2D::set_force_integration_callback(const Callable &p_callable, con
 
 GodotPhysicsDirectBodyState2D *GodotBody2D::get_direct_state() {
 	if (!direct_state) {
-		direct_state = memnewOldNoConstructor(GodotPhysicsDirectBodyState2D);
+		direct_state = memnewNoConstructor<GodotPhysicsDirectBodyState2D>();
 		direct_state->body = this;
 	}
 	return direct_state;

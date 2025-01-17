@@ -223,7 +223,7 @@ void CameraFeedLinux::_unmap_buffers(unsigned int p_count) {
 
 void CameraFeedLinux::_start_thread() {
 	exit_flag.clear();
-	thread = memnewOldNoConstructor(Thread);
+	thread = memnewNoConstructor<Thread>();
 	thread->start(CameraFeedLinux::update_buffer_thread_func, this);
 }
 

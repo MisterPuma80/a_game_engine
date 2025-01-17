@@ -1216,7 +1216,7 @@ void Viewport::set_world_2d(const Ref<World2D> &p_world_2d) {
 		}
 	} else {
 		WARN_PRINT("Invalid world_2d");
-		world_2d = Ref<World2D>(memnewOldNoConstructor(World2D));
+		world_2d = Ref<World2D>(memnewNoConstructor<World2D>());
 	}
 
 	world_2d->register_viewport(this);
@@ -1464,7 +1464,7 @@ void Viewport::_gui_show_tooltip() {
 	}
 
 	// Popup window which houses the tooltip content.
-	PopupPanel *panel = memnewOldNoConstructor(PopupPanel);
+	PopupPanel *panel = memnewNoConstructor<PopupPanel>();
 	panel->set_theme_type_variation(SNAME("TooltipPanel"));
 
 	// Ensure no opaque background behind the panel as its StyleBox can be partially transparent (e.g. corners).
@@ -1476,7 +1476,7 @@ void Viewport::_gui_show_tooltip() {
 
 	// If no custom tooltip is given, use a default implementation.
 	if (!base_tooltip) {
-		gui.tooltip_label = memnewOldNoConstructor(Label);
+		gui.tooltip_label = memnewNoConstructor<Label>();
 		gui.tooltip_label->set_theme_type_variation(SNAME("TooltipLabel"));
 		gui.tooltip_label->set_text(gui.tooltip_text);
 		base_tooltip = gui.tooltip_label;
@@ -4415,7 +4415,7 @@ void Viewport::set_world_3d(const Ref<World3D> &p_world_3d) {
 			own_world_3d = world_3d->duplicate();
 			world_3d->connect_changed(callable_mp(this, &Viewport::_own_world_3d_changed));
 		} else {
-			own_world_3d = Ref<World3D>(memnewOldNoConstructor(World3D));
+			own_world_3d = Ref<World3D>(memnewNoConstructor<World3D>());
 		}
 	}
 
@@ -4466,7 +4466,7 @@ void Viewport::set_use_own_world_3d(bool p_use_own_world_3d) {
 			own_world_3d = world_3d->duplicate();
 			world_3d->connect_changed(callable_mp(this, &Viewport::_own_world_3d_changed));
 		} else {
-			own_world_3d = Ref<World3D>(memnewOldNoConstructor(World3D));
+			own_world_3d = Ref<World3D>(memnewNoConstructor<World3D>());
 		}
 	} else {
 		own_world_3d = Ref<World3D>();
@@ -4989,7 +4989,7 @@ void Viewport::_validate_property(PropertyInfo &p_property) const {
 }
 
 Viewport::Viewport() {
-	world_2d = Ref<World2D>(memnewOldNoConstructor(World2D));
+	world_2d = Ref<World2D>(memnewNoConstructor<World2D>());
 	world_2d->register_viewport(this);
 
 	viewport = RenderingServer::get_singleton()->viewport_create();

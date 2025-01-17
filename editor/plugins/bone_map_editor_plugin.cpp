@@ -59,7 +59,7 @@ void BoneMapperButton::fetch_textures() {
 	// Hack to avoid handle color darkening...
 	set_modulate(EditorThemeManager::is_dark_theme() ? Color(1, 1, 1) : Color(4.25, 4.25, 4.25));
 
-	circle = memnewOldNoConstructor(TextureRect);
+	circle = memnewNoConstructor<TextureRect>();
 	circle->set_texture(get_editor_theme_icon(SNAME("BoneMapperHandleCircle")));
 	add_child(circle);
 	set_state(BONE_MAP_STATE_UNSET);
@@ -110,10 +110,10 @@ BoneMapperButton::~BoneMapperButton() {
 }
 
 void BoneMapperItem::create_editor() {
-	HBoxContainer *hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbox = memnewNoConstructor<HBoxContainer>();
 	add_child(hbox);
 
-	skeleton_bone_selector = memnewOldNoConstructor(EditorPropertyText);
+	skeleton_bone_selector = memnewNoConstructor<EditorPropertyText>();
 	skeleton_bone_selector->set_label(profile_bone_name);
 	skeleton_bone_selector->set_selectable(false);
 	skeleton_bone_selector->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -122,12 +122,12 @@ void BoneMapperItem::create_editor() {
 	skeleton_bone_selector->connect("property_changed", callable_mp(this, &BoneMapperItem::_value_changed));
 	hbox->add_child(skeleton_bone_selector);
 
-	picker_button = memnewOldNoConstructor(Button);
+	picker_button = memnewNoConstructor<Button>();
 	picker_button->set_icon(get_editor_theme_icon(SNAME("ClassList")));
 	picker_button->connect(SceneStringName(pressed), callable_mp(this, &BoneMapperItem::_open_picker));
 	hbox->add_child(picker_button);
 
-	add_child(memnewOldNoConstructor(HSeparator));
+	add_child(memnewNoConstructor<HSeparator>());
 }
 
 void BoneMapperItem::_update_property() {
@@ -173,10 +173,10 @@ BoneMapperItem::~BoneMapperItem() {
 void BonePicker::create_editors() {
 	set_title(TTR("Bone Picker:"));
 
-	VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbox = memnewNoConstructor<VBoxContainer>();
 	add_child(vbox);
 
-	bones = memnewOldNoConstructor(Tree);
+	bones = memnewNoConstructor<Tree>();
 	bones->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	bones->set_select_mode(Tree::SELECT_SINGLE);
 	bones->set_v_size_flags(Control::SIZE_EXPAND_FILL);
@@ -280,7 +280,7 @@ void BoneMapper::create_editor() {
 	picker->connect(SceneStringName(confirmed), callable_mp(this, &BoneMapper::_apply_picker_selection));
 	add_child(picker, false, INTERNAL_MODE_FRONT);
 
-	profile_selector = memnewOldNoConstructor(EditorPropertyResource);
+	profile_selector = memnewNoConstructor<EditorPropertyResource>();
 	profile_selector->setup(bone_map.ptr(), "profile", "SkeletonProfile");
 	profile_selector->set_label("Profile");
 	profile_selector->set_selectable(false);
@@ -288,12 +288,12 @@ void BoneMapper::create_editor() {
 	profile_selector->update_property();
 	profile_selector->connect("property_changed", callable_mp(this, &BoneMapper::_profile_changed));
 	add_child(profile_selector);
-	add_child(memnewOldNoConstructor(HSeparator));
+	add_child(memnewNoConstructor<HSeparator>());
 
-	HBoxContainer *group_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *group_hbox = memnewNoConstructor<HBoxContainer>();
 	add_child(group_hbox);
 
-	profile_group_selector = memnewOldNoConstructor(EditorPropertyEnum);
+	profile_group_selector = memnewNoConstructor<EditorPropertyEnum>();
 	profile_group_selector->set_label("Group");
 	profile_group_selector->set_selectable(false);
 	profile_group_selector->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -302,32 +302,32 @@ void BoneMapper::create_editor() {
 	profile_group_selector->connect("property_changed", callable_mp(this, &BoneMapper::_value_changed));
 	group_hbox->add_child(profile_group_selector);
 
-	clear_mapping_button = memnewOldNoConstructor(Button);
+	clear_mapping_button = memnewNoConstructor<Button>();
 	clear_mapping_button->set_icon(get_editor_theme_icon(SNAME("Clear")));
 	clear_mapping_button->set_tooltip_text(TTR("Clear mappings in current group."));
 	clear_mapping_button->connect(SceneStringName(pressed), callable_mp(this, &BoneMapper::_clear_mapping_current_group));
 	group_hbox->add_child(clear_mapping_button);
 
-	bone_mapper_field = memnewOldNoConstructor(AspectRatioContainer);
+	bone_mapper_field = memnewNoConstructor<AspectRatioContainer>();
 	bone_mapper_field->set_stretch_mode(AspectRatioContainer::STRETCH_FIT);
 	bone_mapper_field->set_custom_minimum_size(Vector2(0, 256.0) * EDSCALE);
 	bone_mapper_field->set_h_size_flags(Control::SIZE_FILL);
 	add_child(bone_mapper_field);
 
-	profile_bg = memnewOldNoConstructor(ColorRect);
+	profile_bg = memnewNoConstructor<ColorRect>();
 	profile_bg->set_color(Color(0, 0, 0, 1));
 	profile_bg->set_h_size_flags(Control::SIZE_FILL);
 	profile_bg->set_v_size_flags(Control::SIZE_FILL);
 	bone_mapper_field->add_child(profile_bg);
 
-	profile_texture = memnewOldNoConstructor(TextureRect);
+	profile_texture = memnewNoConstructor<TextureRect>();
 	profile_texture->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	profile_texture->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	profile_texture->set_h_size_flags(Control::SIZE_FILL);
 	profile_texture->set_v_size_flags(Control::SIZE_FILL);
 	bone_mapper_field->add_child(profile_texture);
 
-	mapper_item_vbox = memnewOldNoConstructor(VBoxContainer);
+	mapper_item_vbox = memnewNoConstructor<VBoxContainer>();
 	add_child(mapper_item_vbox);
 
 	recreate_items();

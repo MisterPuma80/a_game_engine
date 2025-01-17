@@ -677,7 +677,7 @@ bool AnimationMixer::_update_caches() {
 						// It is a corner case, but which may cause problems with blending.
 						ERR_CONTINUE_MSG(anim->track_get_key_count(i) == 0, mixer_name + ": '" + String(E) + "', Value Track:  '" + String(path) + "' must have at least one key to cache for blending.");
 
-						TrackCacheValue *track_value = memnewOldNoConstructor(TrackCacheValue);
+						TrackCacheValue *track_value = memnewNoConstructor<TrackCacheValue>();
 
 						if (resource.is_valid()) {
 							track_value->object_id = resource->get_instance_id();
@@ -729,7 +729,7 @@ bool AnimationMixer::_update_caches() {
 							continue;
 						}
 
-						TrackCacheTransform *track_xform = memnewOldNoConstructor(TrackCacheTransform);
+						TrackCacheTransform *track_xform = memnewNoConstructor<TrackCacheTransform>();
 						track_xform->type = Animation::TYPE_POSITION_3D;
 
 						track_xform->bone_idx = -1;
@@ -808,7 +808,7 @@ bool AnimationMixer::_update_caches() {
 							continue;
 						}
 
-						TrackCacheBlendShape *track_bshape = memnewOldNoConstructor(TrackCacheBlendShape);
+						TrackCacheBlendShape *track_bshape = memnewNoConstructor<TrackCacheBlendShape>();
 
 						track_bshape->shape_index = blend_shape_idx;
 						track_bshape->object_id = mesh_3d->get_instance_id();
@@ -823,7 +823,7 @@ bool AnimationMixer::_update_caches() {
 #endif
 					} break;
 					case Animation::TYPE_METHOD: {
-						TrackCacheMethod *track_method = memnewOldNoConstructor(TrackCacheMethod);
+						TrackCacheMethod *track_method = memnewNoConstructor<TrackCacheMethod>();
 
 						if (resource.is_valid()) {
 							track_method->object_id = resource->get_instance_id();
@@ -835,7 +835,7 @@ bool AnimationMixer::_update_caches() {
 
 					} break;
 					case Animation::TYPE_AUDIO: {
-						TrackCacheAudio *track_audio = memnewOldNoConstructor(TrackCacheAudio);
+						TrackCacheAudio *track_audio = memnewNoConstructor<TrackCacheAudio>();
 
 						track_audio->object_id = child->get_instance_id();
 						track_audio->audio_stream.instantiate();
@@ -847,7 +847,7 @@ bool AnimationMixer::_update_caches() {
 
 					} break;
 					case Animation::TYPE_ANIMATION: {
-						TrackCacheAnimation *track_animation = memnewOldNoConstructor(TrackCacheAnimation);
+						TrackCacheAnimation *track_animation = memnewNoConstructor<TrackCacheAnimation>();
 
 						track_animation->object_id = child->get_instance_id();
 
@@ -2098,7 +2098,7 @@ void AnimationMixer::reset() {
 	Node *root_node_object = get_node_or_null(root_node);
 	ERR_FAIL_NULL(root_node_object);
 
-	AnimationPlayer *aux_player = memnewOldNoConstructor(AnimationPlayer);
+	AnimationPlayer *aux_player = memnewNoConstructor<AnimationPlayer>();
 	root_node_object->add_child(aux_player);
 	Ref<AnimationLibrary> al;
 	al.instantiate();

@@ -453,11 +453,11 @@ void ShaderGlobalsEditor::_notification(int p_what) {
 ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("shader_globals/");
 
-	HBoxContainer *add_menu_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *add_menu_hb = memnewNoConstructor<HBoxContainer>();
 	add_child(add_menu_hb);
 
 	add_menu_hb->add_child(memnewWithArgs<Label>(TTR("Name:")));
-	variable_name = memnewOldNoConstructor(LineEdit);
+	variable_name = memnewNoConstructor<LineEdit>();
 	variable_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	variable_name->set_clear_button_enabled(true);
 	variable_name->connect(SceneStringName(text_changed), callable_mp(this, &ShaderGlobalsEditor::_variable_name_text_changed));
@@ -466,7 +466,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	add_menu_hb->add_child(variable_name);
 
 	add_menu_hb->add_child(memnewWithArgs<Label>(TTR("Type:")));
-	variable_type = memnewOldNoConstructor(OptionButton);
+	variable_type = memnewNoConstructor<OptionButton>();
 	variable_type->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_menu_hb->add_child(variable_type);
 
@@ -479,7 +479,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	add_menu_hb->add_child(variable_add);
 	variable_add->connect(SceneStringName(pressed), callable_mp(this, &ShaderGlobalsEditor::_variable_added));
 
-	inspector = memnewOldNoConstructor(EditorInspector);
+	inspector = memnewNoConstructor<EditorInspector>();
 	inspector->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(inspector);
 	inspector->set_use_wide_editors(true);
@@ -487,7 +487,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	inspector->set_use_deletable_properties(true);
 	inspector->connect("property_deleted", callable_mp(this, &ShaderGlobalsEditor::_variable_deleted), CONNECT_DEFERRED);
 
-	interface = memnewOldNoConstructor(ShaderGlobalsEditorInterface);
+	interface = memnewNoConstructor<ShaderGlobalsEditorInterface>();
 	interface->connect("var_changed", callable_mp(this, &ShaderGlobalsEditor::_changed));
 }
 

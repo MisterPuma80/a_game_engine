@@ -339,7 +339,7 @@ IP *IP::create() {
 
 IP::IP() {
 	singleton = this;
-	resolver = memnewOldNoConstructor(_IP_ResolverPrivate);
+	resolver = memnewNoConstructor<_IP_ResolverPrivate>();
 
 	resolver->thread_abort.clear();
 	resolver->thread.start(_IP_ResolverPrivate::_thread_function, resolver);

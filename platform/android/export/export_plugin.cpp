@@ -712,7 +712,7 @@ Vector<PluginConfigAndroid> EditorExportPlatformAndroid::get_plugins() {
 		Vector<String> plugins_filenames = list_gdap_files(plugins_dir);
 
 		if (!plugins_filenames.is_empty()) {
-			Ref<ConfigFile> config_file = memnewOldNoConstructor(ConfigFile);
+			Ref<ConfigFile> config_file = memnewNoConstructor<ConfigFile>();
 			for (int i = 0; i < plugins_filenames.size(); i++) {
 				PluginConfigAndroid config = PluginConfigAndroid::load_plugin_config(config_file, plugins_dir.path_join(plugins_filenames[i]));
 				if (config.valid_config) {
@@ -3743,7 +3743,7 @@ void EditorExportPlatformAndroid::resolve_platform_feature_priorities(const Ref<
 EditorExportPlatformAndroid::EditorExportPlatformAndroid() {
 	if (EditorNode::get_singleton()) {
 #ifdef MODULE_SVG_ENABLED
-		Ref<Image> img = memnewOldNoConstructor(Image);
+		Ref<Image> img = memnewNoConstructor<Image>();
 		const bool upsample = !Math::is_equal_approx(Math::round(EDSCALE), EDSCALE);
 
 		ImageLoaderSVG::create_image_from_string(img, _android_logo_svg, EDSCALE, upsample, false);

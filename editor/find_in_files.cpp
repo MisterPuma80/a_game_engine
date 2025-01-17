@@ -302,75 +302,75 @@ FindInFilesDialog::FindInFilesDialog() {
 	set_min_size(Size2(500 * EDSCALE, 0));
 	set_title(TTR("Find in Files"));
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	vbc->set_anchor_and_offset(SIDE_LEFT, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_TOP, Control::ANCHOR_BEGIN, 8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_RIGHT, Control::ANCHOR_END, -8 * EDSCALE);
 	vbc->set_anchor_and_offset(SIDE_BOTTOM, Control::ANCHOR_END, -8 * EDSCALE);
 	add_child(vbc);
 
-	GridContainer *gc = memnewOldNoConstructor(GridContainer);
+	GridContainer *gc = memnewNoConstructor<GridContainer>();
 	gc->set_columns(2);
 	vbc->add_child(gc);
 
-	Label *find_label = memnewOldNoConstructor(Label);
+	Label *find_label = memnewNoConstructor<Label>();
 	find_label->set_text(TTR("Find:"));
 	gc->add_child(find_label);
 
-	_search_text_line_edit = memnewOldNoConstructor(LineEdit);
+	_search_text_line_edit = memnewNoConstructor<LineEdit>();
 	_search_text_line_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	_search_text_line_edit->connect(SceneStringName(text_changed), callable_mp(this, &FindInFilesDialog::_on_search_text_modified));
 	_search_text_line_edit->connect("text_submitted", callable_mp(this, &FindInFilesDialog::_on_search_text_submitted));
 	gc->add_child(_search_text_line_edit);
 
-	_replace_label = memnewOldNoConstructor(Label);
+	_replace_label = memnewNoConstructor<Label>();
 	_replace_label->set_text(TTR("Replace:"));
 	_replace_label->hide();
 	gc->add_child(_replace_label);
 
-	_replace_text_line_edit = memnewOldNoConstructor(LineEdit);
+	_replace_text_line_edit = memnewNoConstructor<LineEdit>();
 	_replace_text_line_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	_replace_text_line_edit->connect("text_submitted", callable_mp(this, &FindInFilesDialog::_on_replace_text_submitted));
 	_replace_text_line_edit->hide();
 	gc->add_child(_replace_text_line_edit);
 
-	gc->add_child(memnewOldNoConstructor(Control)); // Space to maintain the grid alignment.
+	gc->add_child(memnewNoConstructor<Control>()); // Space to maintain the grid alignment.
 
 	{
-		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
-		_whole_words_checkbox = memnewOldNoConstructor(CheckBox);
+		_whole_words_checkbox = memnewNoConstructor<CheckBox>();
 		_whole_words_checkbox->set_text(TTR("Whole Words"));
 		hbc->add_child(_whole_words_checkbox);
 
-		_match_case_checkbox = memnewOldNoConstructor(CheckBox);
+		_match_case_checkbox = memnewNoConstructor<CheckBox>();
 		_match_case_checkbox->set_text(TTR("Match Case"));
 		hbc->add_child(_match_case_checkbox);
 
 		gc->add_child(hbc);
 	}
 
-	Label *folder_label = memnewOldNoConstructor(Label);
+	Label *folder_label = memnewNoConstructor<Label>();
 	folder_label->set_text(TTR("Folder:"));
 	gc->add_child(folder_label);
 
 	{
-		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
-		Label *prefix_label = memnewOldNoConstructor(Label);
+		Label *prefix_label = memnewNoConstructor<Label>();
 		prefix_label->set_text("res://");
 		hbc->add_child(prefix_label);
 
-		_folder_line_edit = memnewOldNoConstructor(LineEdit);
+		_folder_line_edit = memnewNoConstructor<LineEdit>();
 		_folder_line_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hbc->add_child(_folder_line_edit);
 
-		Button *folder_button = memnewOldNoConstructor(Button);
+		Button *folder_button = memnewNoConstructor<Button>();
 		folder_button->set_text("...");
 		folder_button->connect(SceneStringName(pressed), callable_mp(this, &FindInFilesDialog::_on_folder_button_pressed));
 		hbc->add_child(folder_button);
 
-		_folder_dialog = memnewOldNoConstructor(FileDialog);
+		_folder_dialog = memnewNoConstructor<FileDialog>();
 		_folder_dialog->set_file_mode(FileDialog::FILE_MODE_OPEN_DIR);
 		_folder_dialog->connect("dir_selected", callable_mp(this, &FindInFilesDialog::_on_folder_selected));
 		add_child(_folder_dialog);
@@ -378,12 +378,12 @@ FindInFilesDialog::FindInFilesDialog() {
 		gc->add_child(hbc);
 	}
 
-	Label *filter_label = memnewOldNoConstructor(Label);
+	Label *filter_label = memnewNoConstructor<Label>();
 	filter_label->set_text(TTR("Filters:"));
 	filter_label->set_tooltip_text(TTR("Include the files with the following extensions. Add or remove them in ProjectSettings."));
 	gc->add_child(filter_label);
 
-	_filters_container = memnewOldNoConstructor(HBoxContainer);
+	_filters_container = memnewNoConstructor<HBoxContainer>();
 	gc->add_child(_filters_container);
 
 	_find_button = add_button(TTR("Find..."), false, "find");
@@ -487,7 +487,7 @@ void FindInFilesDialog::_notification(int p_what) {
 				}
 				Array exts = GLOBAL_GET("editor/script/search_in_file_extensions");
 				for (int i = 0; i < exts.size(); ++i) {
-					CheckBox *cb = memnewOldNoConstructor(CheckBox);
+					CheckBox *cb = memnewNoConstructor<CheckBox>();
 					cb->set_text(exts[i]);
 					if (!_filters_preferences.has(exts[i])) {
 						_filters_preferences[exts[i]] = true;
@@ -570,12 +570,12 @@ const char *FindInFilesPanel::SIGNAL_FILES_MODIFIED = "files_modified";
 const char *FindInFilesPanel::SIGNAL_CLOSE_BUTTON_CLICKED = "close_button_clicked";
 
 FindInFilesPanel::FindInFilesPanel() {
-	_finder = memnewOldNoConstructor(FindInFiles);
+	_finder = memnewNoConstructor<FindInFiles>();
 	_finder->connect(FindInFiles::SIGNAL_RESULT_FOUND, callable_mp(this, &FindInFilesPanel::_on_result_found));
 	_finder->connect(SceneStringName(finished), callable_mp(this, &FindInFilesPanel::_on_finished));
 	add_child(_finder);
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	vbc->set_anchor_and_offset(SIDE_LEFT, ANCHOR_BEGIN, 0);
 	vbc->set_anchor_and_offset(SIDE_TOP, ANCHOR_BEGIN, 0);
 	vbc->set_anchor_and_offset(SIDE_RIGHT, ANCHOR_END, 0);
@@ -583,37 +583,37 @@ FindInFilesPanel::FindInFilesPanel() {
 	add_child(vbc);
 
 	{
-		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
-		Label *find_label = memnewOldNoConstructor(Label);
+		Label *find_label = memnewNoConstructor<Label>();
 		find_label->set_text(TTR("Find:"));
 		hbc->add_child(find_label);
 
-		_search_text_label = memnewOldNoConstructor(Label);
+		_search_text_label = memnewNoConstructor<Label>();
 		hbc->add_child(_search_text_label);
 
-		_progress_bar = memnewOldNoConstructor(ProgressBar);
+		_progress_bar = memnewNoConstructor<ProgressBar>();
 		_progress_bar->set_h_size_flags(SIZE_EXPAND_FILL);
 		_progress_bar->set_v_size_flags(SIZE_SHRINK_CENTER);
 		hbc->add_child(_progress_bar);
 		set_progress_visible(false);
 
-		_status_label = memnewOldNoConstructor(Label);
+		_status_label = memnewNoConstructor<Label>();
 		hbc->add_child(_status_label);
 
-		_refresh_button = memnewOldNoConstructor(Button);
+		_refresh_button = memnewNoConstructor<Button>();
 		_refresh_button->set_text(TTR("Refresh"));
 		_refresh_button->connect(SceneStringName(pressed), callable_mp(this, &FindInFilesPanel::_on_refresh_button_clicked));
 		_refresh_button->hide();
 		hbc->add_child(_refresh_button);
 
-		_cancel_button = memnewOldNoConstructor(Button);
+		_cancel_button = memnewNoConstructor<Button>();
 		_cancel_button->set_text(TTR("Cancel"));
 		_cancel_button->connect(SceneStringName(pressed), callable_mp(this, &FindInFilesPanel::_on_cancel_button_clicked));
 		_cancel_button->hide();
 		hbc->add_child(_cancel_button);
 
-		_close_button = memnewOldNoConstructor(Button);
+		_close_button = memnewNoConstructor<Button>();
 		_close_button->set_text(TTR("Close"));
 		_close_button->connect(SceneStringName(pressed), callable_mp(this, &FindInFilesPanel::_on_close_button_clicked));
 		hbc->add_child(_close_button);
@@ -621,7 +621,7 @@ FindInFilesPanel::FindInFilesPanel() {
 		vbc->add_child(hbc);
 	}
 
-	_results_display = memnewOldNoConstructor(Tree);
+	_results_display = memnewNoConstructor<Tree>();
 	_results_display->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	_results_display->set_v_size_flags(SIZE_EXPAND_FILL);
 	_results_display->connect(SceneStringName(item_selected), callable_mp(this, &FindInFilesPanel::_on_result_selected));
@@ -636,18 +636,18 @@ FindInFilesPanel::FindInFilesPanel() {
 	vbc->add_child(_results_display);
 
 	{
-		_replace_container = memnewOldNoConstructor(HBoxContainer);
+		_replace_container = memnewNoConstructor<HBoxContainer>();
 
-		Label *replace_label = memnewOldNoConstructor(Label);
+		Label *replace_label = memnewNoConstructor<Label>();
 		replace_label->set_text(TTR("Replace:"));
 		_replace_container->add_child(replace_label);
 
-		_replace_line_edit = memnewOldNoConstructor(LineEdit);
+		_replace_line_edit = memnewNoConstructor<LineEdit>();
 		_replace_line_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 		_replace_line_edit->connect(SceneStringName(text_changed), callable_mp(this, &FindInFilesPanel::_on_replace_text_changed));
 		_replace_container->add_child(_replace_line_edit);
 
-		_replace_all_button = memnewOldNoConstructor(Button);
+		_replace_all_button = memnewNoConstructor<Button>();
 		_replace_all_button->set_text(TTR("Replace all (no undo)"));
 		_replace_all_button->connect(SceneStringName(pressed), callable_mp(this, &FindInFilesPanel::_on_replace_all_clicked));
 		_replace_container->add_child(_replace_all_button);

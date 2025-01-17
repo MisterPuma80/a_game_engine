@@ -54,11 +54,11 @@ NavigationMeshGenerator *_nav_mesh_generator = nullptr;
 #endif // DISABLE_DEPRECATED
 
 NavigationServer3D *new_navigation_server_3d() {
-	return memnewOldNoConstructor(GodotNavigationServer3D);
+	return memnewNoConstructor<GodotNavigationServer3D>();
 }
 
 NavigationServer2D *new_navigation_server_2d() {
-	return memnewOldNoConstructor(GodotNavigationServer2D);
+	return memnewNoConstructor<GodotNavigationServer2D>();
 }
 
 void initialize_navigation_module(ModuleInitializationLevel p_level) {
@@ -68,7 +68,7 @@ void initialize_navigation_module(ModuleInitializationLevel p_level) {
 
 #ifndef DISABLE_DEPRECATED
 #ifndef _3D_DISABLED
-		_nav_mesh_generator = memnewOldNoConstructor(NavigationMeshGenerator);
+		_nav_mesh_generator = memnewNoConstructor<NavigationMeshGenerator>();
 		GDREGISTER_CLASS(NavigationMeshGenerator);
 		Engine::get_singleton()->add_singleton(Engine::Singleton("NavigationMeshGenerator", NavigationMeshGenerator::get_singleton()));
 #endif

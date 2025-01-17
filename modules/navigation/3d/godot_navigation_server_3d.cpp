@@ -1336,7 +1336,7 @@ void GodotNavigationServer3D::process(real_t p_delta_time) {
 
 void GodotNavigationServer3D::init() {
 #ifndef _3D_DISABLED
-	navmesh_generator_3d = memnewOldNoConstructor(NavMeshGenerator3D);
+	navmesh_generator_3d = memnewNoConstructor<NavMeshGenerator3D>();
 #endif // _3D_DISABLED
 }
 

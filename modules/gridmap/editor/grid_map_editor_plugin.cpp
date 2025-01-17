@@ -1201,20 +1201,20 @@ GridMapEditor::GridMapEditor() {
 	ED_SHORTCUT("grid_map/fill_selection", TTR("Fill Selection"), KeyModifierMask::CTRL + Key::F);
 
 	int mw = EDITOR_DEF("editors/grid_map/palette_min_width", 230);
-	Control *ec = memnewOldNoConstructor(Control);
+	Control *ec = memnewNoConstructor<Control>();
 	ec->set_custom_minimum_size(Size2(mw, 0) * EDSCALE);
 	add_child(ec);
 
-	spatial_editor_hb = memnewOldNoConstructor(HBoxContainer);
+	spatial_editor_hb = memnewNoConstructor<HBoxContainer>();
 	spatial_editor_hb->set_h_size_flags(SIZE_EXPAND_FILL);
 	spatial_editor_hb->set_alignment(BoxContainer::ALIGNMENT_END);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(spatial_editor_hb);
 
-	spin_box_label = memnewOldNoConstructor(Label);
+	spin_box_label = memnewNoConstructor<Label>();
 	spin_box_label->set_text(TTR("Floor:"));
 	spatial_editor_hb->add_child(spin_box_label);
 
-	floor = memnewOldNoConstructor(SpinBox);
+	floor = memnewNoConstructor<SpinBox>();
 	floor->set_min(-32767);
 	floor->set_max(32767);
 	floor->set_step(1);
@@ -1225,9 +1225,9 @@ GridMapEditor::GridMapEditor() {
 	floor->connect(SceneStringName(mouse_exited), callable_mp(this, &GridMapEditor::_floor_mouse_exited));
 	floor->get_line_edit()->connect(SceneStringName(mouse_exited), callable_mp(this, &GridMapEditor::_floor_mouse_exited));
 
-	spatial_editor_hb->add_child(memnewOldNoConstructor(VSeparator));
+	spatial_editor_hb->add_child(memnewNoConstructor<VSeparator>());
 
-	options = memnewOldNoConstructor(MenuButton);
+	options = memnewNoConstructor<MenuButton>();
 	spatial_editor_hb->add_child(options);
 	spatial_editor_hb->hide();
 
@@ -1259,14 +1259,14 @@ GridMapEditor::GridMapEditor() {
 	options->get_popup()->add_separator();
 	options->get_popup()->add_item(TTR("Settings..."), MENU_OPTION_GRIDMAP_SETTINGS);
 
-	settings_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	settings_dialog = memnewNoConstructor<ConfirmationDialog>();
 	settings_dialog->set_title(TTR("GridMap Settings"));
 	add_child(settings_dialog);
-	settings_vbc = memnewOldNoConstructor(VBoxContainer);
+	settings_vbc = memnewNoConstructor<VBoxContainer>();
 	settings_vbc->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	settings_dialog->add_child(settings_vbc);
 
-	settings_pick_distance = memnewOldNoConstructor(SpinBox);
+	settings_pick_distance = memnewNoConstructor<SpinBox>();
 	settings_pick_distance->set_max(10000.0f);
 	settings_pick_distance->set_min(500.0f);
 	settings_pick_distance->set_step(1.0f);
@@ -1275,11 +1275,11 @@ GridMapEditor::GridMapEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &GridMapEditor::_menu_option));
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	add_child(hb);
 	hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	search_box = memnewOldNoConstructor(LineEdit);
+	search_box = memnewNoConstructor<LineEdit>();
 	search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	search_box->set_placeholder(TTR("Filter Meshes"));
 	search_box->set_clear_button_enabled(true);
@@ -1287,21 +1287,21 @@ GridMapEditor::GridMapEditor() {
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &GridMapEditor::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &GridMapEditor::_sbox_input));
 
-	mode_thumbnail = memnewOldNoConstructor(Button);
+	mode_thumbnail = memnewNoConstructor<Button>();
 	mode_thumbnail->set_theme_type_variation("FlatButton");
 	mode_thumbnail->set_toggle_mode(true);
 	mode_thumbnail->set_pressed(true);
 	hb->add_child(mode_thumbnail);
 	mode_thumbnail->connect(SceneStringName(pressed), callable_mp(this, &GridMapEditor::_set_display_mode).bind(DISPLAY_THUMBNAIL));
 
-	mode_list = memnewOldNoConstructor(Button);
+	mode_list = memnewNoConstructor<Button>();
 	mode_list->set_theme_type_variation("FlatButton");
 	mode_list->set_toggle_mode(true);
 	mode_list->set_pressed(false);
 	hb->add_child(mode_list);
 	mode_list->connect(SceneStringName(pressed), callable_mp(this, &GridMapEditor::_set_display_mode).bind(DISPLAY_LIST));
 
-	size_slider = memnewOldNoConstructor(HSlider);
+	size_slider = memnewNoConstructor<HSlider>();
 	size_slider->set_h_size_flags(SIZE_EXPAND_FILL);
 	size_slider->set_min(0.2f);
 	size_slider->set_max(4.0f);
@@ -1312,13 +1312,13 @@ GridMapEditor::GridMapEditor() {
 
 	EDITOR_DEF("editors/grid_map/preview_size", 64);
 
-	mesh_library_palette = memnewOldNoConstructor(ItemList);
+	mesh_library_palette = memnewNoConstructor<ItemList>();
 	mesh_library_palette->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_child(mesh_library_palette);
 	mesh_library_palette->set_v_size_flags(SIZE_EXPAND_FILL);
 	mesh_library_palette->connect(SceneStringName(gui_input), callable_mp(this, &GridMapEditor::_mesh_library_palette_input));
 
-	info_message = memnewOldNoConstructor(Label);
+	info_message = memnewNoConstructor<Label>();
 	info_message->set_text(TTR("Give a MeshLibrary resource to this GridMap to use its meshes."));
 	info_message->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	info_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -1537,7 +1537,7 @@ GridMapEditorPlugin::GridMapEditorPlugin() {
 	EDITOR_DEF("editors/grid_map/editor_side", 1);
 	EditorSettings::get_singleton()->add_property_hint(PropertyInfo(Variant::INT, "editors/grid_map/editor_side", PROPERTY_HINT_ENUM, "Left,Right"));
 
-	grid_map_editor = memnewOldNoConstructor(GridMapEditor);
+	grid_map_editor = memnewNoConstructor<GridMapEditor>();
 	switch ((int)EDITOR_GET("editors/grid_map/editor_side")) {
 		case 0: { // Left.
 			Node3DEditor::get_singleton()->add_control_to_left_panel(grid_map_editor);

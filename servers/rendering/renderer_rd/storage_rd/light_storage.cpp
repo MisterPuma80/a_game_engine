@@ -1641,7 +1641,7 @@ ClusterBuilderRD *LightStorage::reflection_probe_instance_get_cluster_builder(RI
 		return nullptr;
 	} else {
 		if (ra->cluster_builder == nullptr) {
-			ra->cluster_builder = memnewOldNoConstructor(ClusterBuilderRD);
+			ra->cluster_builder = memnewNoConstructor<ClusterBuilderRD>();
 			ra->cluster_builder->set_shared(p_cluster_builder_shared);
 			ra->cluster_builder->setup(Size2i(ra->size, ra->size), get_max_cluster_elements(), RID(), RID(), RID());
 		}

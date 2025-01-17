@@ -533,7 +533,7 @@ HashMap<BaseMaterial3D::MaterialKey, BaseMaterial3D::ShaderData, BaseMaterial3D:
 BaseMaterial3D::ShaderNames *BaseMaterial3D::shader_names = nullptr;
 
 void BaseMaterial3D::init_shaders() {
-	shader_names = memnewOldNoConstructor(ShaderNames);
+	shader_names = memnewNoConstructor<ShaderNames>();
 
 	shader_names->albedo = "albedo";
 	shader_names->specular = "specular";

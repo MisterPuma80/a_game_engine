@@ -3504,7 +3504,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 		tts = [[TTS_MacOS alloc] init];
 	}
 
-	native_menu = memnewOldNoConstructor(NativeMenuMacOS);
+	native_menu = memnewNoConstructor<NativeMenuMacOS>();
 
 	NSMenuItem *menu_item;
 	NSString *title;
@@ -3603,7 +3603,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnewOldNoConstructor(RenderingContextDriverVulkanMacOS);
+		rendering_context = memnewNoConstructor<RenderingContextDriverVulkanMacOS>();
 	}
 #endif
 
@@ -3630,7 +3630,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 
 #if defined(GLES3_ENABLED)
 	if (rendering_driver == "opengl3_angle") {
-		gl_manager_angle = memnewOldNoConstructor(GLManagerANGLE_MacOS);
+		gl_manager_angle = memnewNoConstructor<GLManagerANGLE_MacOS>();
 		if (gl_manager_angle->initialize() != OK || gl_manager_angle->open_display(nullptr) != OK) {
 			memdelete(gl_manager_angle);
 			gl_manager_angle = nullptr;
@@ -3651,7 +3651,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 	}
 
 	if (rendering_driver == "opengl3") {
-		gl_manager_legacy = memnewOldNoConstructor(GLManagerLegacy_MacOS);
+		gl_manager_legacy = memnewNoConstructor<GLManagerLegacy_MacOS>();
 		if (gl_manager_legacy->initialize() != OK) {
 			memdelete(gl_manager_legacy);
 			gl_manager_legacy = nullptr;
@@ -3692,7 +3692,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 #endif
 #if defined(RD_ENABLED)
 	if (rendering_context) {
-		rendering_device = memnewOldNoConstructor(RenderingDevice);
+		rendering_device = memnewNoConstructor<RenderingDevice>();
 		rendering_device->initialize(rendering_context, MAIN_WINDOW_ID);
 		rendering_device->screen_create(MAIN_WINDOW_ID);
 

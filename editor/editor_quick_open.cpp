@@ -295,16 +295,16 @@ void EditorQuickOpen::_bind_methods() {
 }
 
 EditorQuickOpen::EditorQuickOpen() {
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	add_child(vbc);
 
-	search_box = memnewOldNoConstructor(LineEdit);
+	search_box = memnewNoConstructor<LineEdit>();
 	search_box->connect(SceneStringName(text_changed), callable_mp(this, &EditorQuickOpen::_text_changed));
 	search_box->connect(SceneStringName(gui_input), callable_mp(this, &EditorQuickOpen::_sbox_input));
 	vbc->add_margin_child(TTR("Search:"), search_box);
 	register_text_enter(search_box);
 
-	search_options = memnewOldNoConstructor(Tree);
+	search_options = memnewNoConstructor<Tree>();
 	search_options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	search_options->connect("item_activated", callable_mp(this, &EditorQuickOpen::_confirmed));
 	search_options->create_item();

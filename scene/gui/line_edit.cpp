@@ -922,7 +922,7 @@ Variant LineEdit::get_drag_data(const Point2 &p_point) {
 
 	if (selection.drag_attempt && selection.enabled) {
 		String t = get_selected_text();
-		Label *l = memnewOldNoConstructor(Label);
+		Label *l = memnewNoConstructor<Label>();
 		l->set_text(t);
 		set_drag_preview(l);
 		return t;
@@ -2643,16 +2643,16 @@ Key LineEdit::_get_menu_action_accelerator(const String &p_action) {
 }
 
 void LineEdit::_generate_context_menu() {
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	add_child(menu, false, INTERNAL_MODE_FRONT);
 
-	menu_dir = memnewOldNoConstructor(PopupMenu);
+	menu_dir = memnewNoConstructor<PopupMenu>();
 	menu_dir->add_radio_check_item(ETR("Same as Layout Direction"), MENU_DIR_INHERITED);
 	menu_dir->add_radio_check_item(ETR("Auto-Detect Direction"), MENU_DIR_AUTO);
 	menu_dir->add_radio_check_item(ETR("Left-to-Right"), MENU_DIR_LTR);
 	menu_dir->add_radio_check_item(ETR("Right-to-Left"), MENU_DIR_RTL);
 
-	menu_ctl = memnewOldNoConstructor(PopupMenu);
+	menu_ctl = memnewNoConstructor<PopupMenu>();
 	menu_ctl->add_item(ETR("Left-to-Right Mark (LRM)"), MENU_INSERT_LRM);
 	menu_ctl->add_item(ETR("Right-to-Left Mark (RLM)"), MENU_INSERT_RLM);
 	menu_ctl->add_item(ETR("Start of Left-to-Right Embedding (LRE)"), MENU_INSERT_LRE);

@@ -441,7 +441,7 @@ SceneShaderForwardClustered::ShaderData::~ShaderData() {
 }
 
 RendererRD::MaterialStorage::ShaderData *SceneShaderForwardClustered::_create_shader_func() {
-	ShaderData *shader_data = memnewOldNoConstructor(ShaderData);
+	ShaderData *shader_data = memnewNoConstructor<ShaderData>();
 	singleton->shader_list.add(&shader_data->shader_list_element);
 	return shader_data;
 }
@@ -465,7 +465,7 @@ SceneShaderForwardClustered::MaterialData::~MaterialData() {
 }
 
 RendererRD::MaterialStorage::MaterialData *SceneShaderForwardClustered::_create_material_func(ShaderData *p_shader) {
-	MaterialData *material_data = memnewOldNoConstructor(MaterialData);
+	MaterialData *material_data = memnewNoConstructor<MaterialData>();
 	material_data->shader_data = p_shader;
 	//update will happen later anyway so do nothing.
 	return material_data;

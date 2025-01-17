@@ -102,19 +102,19 @@ public:
 
 		set_title(TTR("Configure Snap"));
 
-		container = memnewOldNoConstructor(VBoxContainer);
+		container = memnewNoConstructor<VBoxContainer>();
 		add_child(container);
 
-		child_container = memnewOldNoConstructor(GridContainer);
+		child_container = memnewNoConstructor<GridContainer>();
 		child_container->set_columns(3);
 		container->add_child(child_container);
 
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Grid Offset:"));
 		child_container->add_child(label);
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-		grid_offset_x = memnewOldNoConstructor(SpinBox);
+		grid_offset_x = memnewNoConstructor<SpinBox>();
 		grid_offset_x->set_min(-SPIN_BOX_GRID_RANGE);
 		grid_offset_x->set_max(SPIN_BOX_GRID_RANGE);
 		grid_offset_x->set_allow_lesser(true);
@@ -124,7 +124,7 @@ public:
 		grid_offset_x->set_select_all_on_focus(true);
 		child_container->add_child(grid_offset_x);
 
-		grid_offset_y = memnewOldNoConstructor(SpinBox);
+		grid_offset_y = memnewNoConstructor<SpinBox>();
 		grid_offset_y->set_min(-SPIN_BOX_GRID_RANGE);
 		grid_offset_y->set_max(SPIN_BOX_GRID_RANGE);
 		grid_offset_y->set_allow_lesser(true);
@@ -134,12 +134,12 @@ public:
 		grid_offset_y->set_select_all_on_focus(true);
 		child_container->add_child(grid_offset_y);
 
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Grid Step:"));
 		child_container->add_child(label);
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-		grid_step_x = memnewOldNoConstructor(SpinBox);
+		grid_step_x = memnewNoConstructor<SpinBox>();
 		grid_step_x->set_min(1);
 		grid_step_x->set_max(SPIN_BOX_GRID_RANGE);
 		grid_step_x->set_allow_greater(true);
@@ -148,7 +148,7 @@ public:
 		grid_step_x->set_select_all_on_focus(true);
 		child_container->add_child(grid_step_x);
 
-		grid_step_y = memnewOldNoConstructor(SpinBox);
+		grid_step_y = memnewNoConstructor<SpinBox>();
 		grid_step_y->set_min(1);
 		grid_step_y->set_max(SPIN_BOX_GRID_RANGE);
 		grid_step_y->set_allow_greater(true);
@@ -157,12 +157,12 @@ public:
 		grid_step_y->set_select_all_on_focus(true);
 		child_container->add_child(grid_step_y);
 
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Primary Line Every:"));
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		child_container->add_child(label);
 
-		primary_grid_step_x = memnewOldNoConstructor(SpinBox);
+		primary_grid_step_x = memnewNoConstructor<SpinBox>();
 		primary_grid_step_x->set_min(1);
 		primary_grid_step_x->set_step(1);
 		primary_grid_step_x->set_max(SPIN_BOX_GRID_RANGE);
@@ -172,7 +172,7 @@ public:
 		primary_grid_step_x->set_select_all_on_focus(true);
 		child_container->add_child(primary_grid_step_x);
 
-		primary_grid_step_y = memnewOldNoConstructor(SpinBox);
+		primary_grid_step_y = memnewNoConstructor<SpinBox>();
 		primary_grid_step_y->set_min(1);
 		primary_grid_step_y->set_step(1);
 		primary_grid_step_y->set_max(SPIN_BOX_GRID_RANGE);
@@ -182,20 +182,20 @@ public:
 		primary_grid_step_y->set_select_all_on_focus(true);
 		child_container->add_child(primary_grid_step_y);
 
-		container->add_child(memnewOldNoConstructor(HSeparator));
+		container->add_child(memnewNoConstructor<HSeparator>());
 
 		// We need to create another GridContainer with the same column count,
 		// so we can put an HSeparator above
-		child_container = memnewOldNoConstructor(GridContainer);
+		child_container = memnewNoConstructor<GridContainer>();
 		child_container->set_columns(2);
 		container->add_child(child_container);
 
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Rotation Offset:"));
 		child_container->add_child(label);
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-		rotation_offset = memnewOldNoConstructor(SpinBox);
+		rotation_offset = memnewNoConstructor<SpinBox>();
 		rotation_offset->set_min(-SPIN_BOX_ROTATION_RANGE);
 		rotation_offset->set_max(SPIN_BOX_ROTATION_RANGE);
 		rotation_offset->set_suffix("deg");
@@ -203,12 +203,12 @@ public:
 		rotation_offset->set_select_all_on_focus(true);
 		child_container->add_child(rotation_offset);
 
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Rotation Step:"));
 		child_container->add_child(label);
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-		rotation_step = memnewOldNoConstructor(SpinBox);
+		rotation_step = memnewNoConstructor<SpinBox>();
 		rotation_step->set_min(-SPIN_BOX_ROTATION_RANGE);
 		rotation_step->set_max(SPIN_BOX_ROTATION_RANGE);
 		rotation_step->set_suffix("deg");
@@ -216,17 +216,17 @@ public:
 		rotation_step->set_select_all_on_focus(true);
 		child_container->add_child(rotation_step);
 
-		container->add_child(memnewOldNoConstructor(HSeparator));
+		container->add_child(memnewNoConstructor<HSeparator>());
 
-		child_container = memnewOldNoConstructor(GridContainer);
+		child_container = memnewNoConstructor<GridContainer>();
 		child_container->set_columns(2);
 		container->add_child(child_container);
-		label = memnewOldNoConstructor(Label);
+		label = memnewNoConstructor<Label>();
 		label->set_text(TTR("Scale Step:"));
 		child_container->add_child(label);
 		label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-		scale_step = memnewOldNoConstructor(SpinBox);
+		scale_step = memnewNoConstructor<SpinBox>();
 		scale_step->set_min(SPIN_BOX_SCALE_MIN);
 		scale_step->set_max(SPIN_BOX_SCALE_MAX);
 		scale_step->set_allow_greater(true);
@@ -531,7 +531,7 @@ Object *CanvasItemEditor::_get_editor_data(Object *p_what) {
 		return nullptr;
 	}
 
-	return memnewOldNoConstructor(CanvasItemEditorSelectedItem);
+	return memnewNoConstructor<CanvasItemEditorSelectedItem>();
 }
 
 void CanvasItemEditor::_keying_changed() {
@@ -4772,7 +4772,7 @@ void CanvasItemEditor::_popup_callback(int p_op) {
 					continue;
 				}
 
-				Bone2D *new_bone = memnewOldNoConstructor(Bone2D);
+				Bone2D *new_bone = memnewNoConstructor<Bone2D>();
 				String new_bone_name = n2d->get_name();
 				new_bone_name += "Bone2D";
 				new_bone->set_name(new_bone_name);
@@ -5124,7 +5124,7 @@ void CanvasItemEditor::add_control_to_menu_panel(Control *p_control) {
 	ERR_FAIL_NULL(p_control);
 	ERR_FAIL_COND(p_control->get_parent());
 
-	VSeparator *sep = memnewOldNoConstructor(VSeparator);
+	VSeparator *sep = memnewNoConstructor<VSeparator>();
 	context_toolbar_hbox->add_child(sep);
 	context_toolbar_hbox->add_child(p_control);
 	context_toolbar_separators[p_control] = sep;
@@ -5219,33 +5219,33 @@ CanvasItemEditor::CanvasItemEditor() {
 	// Add some margin to the sides for better aesthetics.
 	// This prevents the first button's hover/pressed effect from "touching" the panel's border,
 	// which looks ugly.
-	MarginContainer *toolbar_margin = memnewOldNoConstructor(MarginContainer);
+	MarginContainer *toolbar_margin = memnewNoConstructor<MarginContainer>();
 	toolbar_margin->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	toolbar_margin->add_theme_constant_override("margin_right", 4 * EDSCALE);
 	add_child(toolbar_margin);
 
 	// A fluid container for all toolbars.
-	HFlowContainer *main_flow = memnewOldNoConstructor(HFlowContainer);
+	HFlowContainer *main_flow = memnewNoConstructor<HFlowContainer>();
 	toolbar_margin->add_child(main_flow);
 
 	// Main toolbars.
-	HBoxContainer *main_menu_hbox = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *main_menu_hbox = memnewNoConstructor<HBoxContainer>();
 	main_menu_hbox->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	main_flow->add_child(main_menu_hbox);
 
-	bottom_split = memnewOldNoConstructor(VSplitContainer);
+	bottom_split = memnewNoConstructor<VSplitContainer>();
 	add_child(bottom_split);
 	bottom_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	left_panel_split = memnewOldNoConstructor(HSplitContainer);
+	left_panel_split = memnewNoConstructor<HSplitContainer>();
 	bottom_split->add_child(left_panel_split);
 	left_panel_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	right_panel_split = memnewOldNoConstructor(HSplitContainer);
+	right_panel_split = memnewNoConstructor<HSplitContainer>();
 	left_panel_split->add_child(right_panel_split);
 	right_panel_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 
-	viewport_scrollable = memnewOldNoConstructor(Control);
+	viewport_scrollable = memnewNoConstructor<Control>();
 	right_panel_split->add_child(viewport_scrollable);
 	viewport_scrollable->set_mouse_filter(MOUSE_FILTER_PASS);
 	viewport_scrollable->set_clip_contents(true);
@@ -5253,13 +5253,13 @@ CanvasItemEditor::CanvasItemEditor() {
 	viewport_scrollable->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	viewport_scrollable->connect(SceneStringName(draw), callable_mp(this, &CanvasItemEditor::_update_scrollbars));
 
-	SubViewportContainer *scene_tree = memnewOldNoConstructor(SubViewportContainer);
+	SubViewportContainer *scene_tree = memnewNoConstructor<SubViewportContainer>();
 	viewport_scrollable->add_child(scene_tree);
 	scene_tree->set_stretch(true);
 	scene_tree->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	scene_tree->add_child(EditorNode::get_singleton()->get_scene_root());
 
-	controls_vb = memnewOldNoConstructor(VBoxContainer);
+	controls_vb = memnewNoConstructor<VBoxContainer>();
 	controls_vb->set_begin(Point2(5, 5));
 
 	ED_SHORTCUT("canvas_item_editor/cancel_transform", TTR("Cancel Transformation"), Key::ESCAPE);
@@ -5296,16 +5296,16 @@ CanvasItemEditor::CanvasItemEditor() {
 	ED_SHORTCUT_ARRAY("canvas_item_editor/zoom_1600_percent", TTR("Zoom to 1600%"),
 			{ int32_t(Key::KEY_5), int32_t(Key::KP_5) });
 
-	HBoxContainer *controls_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *controls_hb = memnewNoConstructor<HBoxContainer>();
 	controls_vb->add_child(controls_hb);
 
-	button_center_view = memnewOldNoConstructor(Button);
+	button_center_view = memnewNoConstructor<Button>();
 	controls_hb->add_child(button_center_view);
 	button_center_view->set_flat(true);
 	button_center_view->set_tooltip_text(TTR("Center View"));
 	button_center_view->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_popup_callback).bind(VIEW_CENTER_TO_SELECTION));
 
-	zoom_widget = memnewOldNoConstructor(EditorZoomWidget);
+	zoom_widget = memnewNoConstructor<EditorZoomWidget>();
 	zoom_widget->set_anchors_and_offsets_preset(Control::PRESET_TOP_LEFT, Control::PRESET_MODE_MINSIZE, 2 * EDSCALE);
 	zoom_widget->set_shortcut_context(this);
 	controls_hb->add_child(zoom_widget);
@@ -5324,19 +5324,19 @@ CanvasItemEditor::CanvasItemEditor() {
 	viewport->connect(SceneStringName(gui_input), callable_mp(this, &CanvasItemEditor::_gui_input_viewport));
 	viewport->connect(SceneStringName(focus_exited), callable_mp(panner.ptr(), &ViewPanner::release_pan_key));
 
-	h_scroll = memnewOldNoConstructor(HScrollBar);
+	h_scroll = memnewNoConstructor<HScrollBar>();
 	viewport->add_child(h_scroll);
 	h_scroll->connect(SceneStringName(value_changed), callable_mp(this, &CanvasItemEditor::_update_scroll));
 	h_scroll->hide();
 
-	v_scroll = memnewOldNoConstructor(VScrollBar);
+	v_scroll = memnewNoConstructor<VScrollBar>();
 	viewport->add_child(v_scroll);
 	v_scroll->connect(SceneStringName(value_changed), callable_mp(this, &CanvasItemEditor::_update_scroll));
 	v_scroll->hide();
 
 	viewport->add_child(controls_vb);
 
-	select_button = memnewOldNoConstructor(Button);
+	select_button = memnewNoConstructor<Button>();
 	select_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(select_button);
 	select_button->set_toggle_mode(true);
@@ -5346,9 +5346,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	select_button->set_shortcut_context(this);
 	select_button->set_tooltip_text(keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Drag: Rotate selected node around pivot.") + "\n" + TTR("Alt+Drag: Move selected node.") + "\n" + keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Alt+Drag: Scale selected node.") + "\n" + TTR("V: Set selected node's pivot position.") + "\n" + TTR("Alt+RMB: Show list of all nodes at position clicked, including locked.") + "\n" + TTR("RMB: Add node at position clicked."));
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	move_button = memnewOldNoConstructor(Button);
+	move_button = memnewNoConstructor<Button>();
 	move_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(move_button);
 	move_button->set_toggle_mode(true);
@@ -5357,7 +5357,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	move_button->set_shortcut_context(this);
 	move_button->set_tooltip_text(TTR("Move Mode"));
 
-	rotate_button = memnewOldNoConstructor(Button);
+	rotate_button = memnewNoConstructor<Button>();
 	rotate_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(rotate_button);
 	rotate_button->set_toggle_mode(true);
@@ -5366,7 +5366,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	rotate_button->set_shortcut_context(this);
 	rotate_button->set_tooltip_text(TTR("Rotate Mode"));
 
-	scale_button = memnewOldNoConstructor(Button);
+	scale_button = memnewNoConstructor<Button>();
 	scale_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(scale_button);
 	scale_button->set_toggle_mode(true);
@@ -5375,23 +5375,23 @@ CanvasItemEditor::CanvasItemEditor() {
 	scale_button->set_shortcut_context(this);
 	scale_button->set_tooltip_text(TTR("Shift: Scale proportionally."));
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	list_select_button = memnewOldNoConstructor(Button);
+	list_select_button = memnewNoConstructor<Button>();
 	list_select_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(list_select_button);
 	list_select_button->set_toggle_mode(true);
 	list_select_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_button_tool_select).bind(TOOL_LIST_SELECT));
 	list_select_button->set_tooltip_text(TTR("Show list of selectable nodes at position clicked."));
 
-	pivot_button = memnewOldNoConstructor(Button);
+	pivot_button = memnewNoConstructor<Button>();
 	pivot_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(pivot_button);
 	pivot_button->set_toggle_mode(true);
 	pivot_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_button_tool_select).bind(TOOL_EDIT_PIVOT));
 	pivot_button->set_tooltip_text(TTR("Click to change object's rotation pivot.") + "\n" + TTR("Shift: Set temporary rotation pivot.") + "\n" + TTR("Click this button while holding Shift to put the rotation pivot in the center of the selected nodes."));
 
-	pan_button = memnewOldNoConstructor(Button);
+	pan_button = memnewNoConstructor<Button>();
 	pan_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(pan_button);
 	pan_button->set_toggle_mode(true);
@@ -5400,7 +5400,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	pan_button->set_shortcut_context(this);
 	pan_button->set_tooltip_text(TTR("You can also use Pan View shortcut (Space by default) to pan in any mode."));
 
-	ruler_button = memnewOldNoConstructor(Button);
+	ruler_button = memnewNoConstructor<Button>();
 	ruler_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(ruler_button);
 	ruler_button->set_toggle_mode(true);
@@ -5409,9 +5409,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	ruler_button->set_shortcut_context(this);
 	ruler_button->set_tooltip_text(TTR("Ruler Mode"));
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	smart_snap_button = memnewOldNoConstructor(Button);
+	smart_snap_button = memnewNoConstructor<Button>();
 	smart_snap_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(smart_snap_button);
 	smart_snap_button->set_toggle_mode(true);
@@ -5420,7 +5420,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	smart_snap_button->set_shortcut(ED_SHORTCUT("canvas_item_editor/use_smart_snap", TTR("Use Smart Snap"), KeyModifierMask::SHIFT | Key::S));
 	smart_snap_button->set_shortcut_context(this);
 
-	grid_snap_button = memnewOldNoConstructor(Button);
+	grid_snap_button = memnewNoConstructor<Button>();
 	grid_snap_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(grid_snap_button);
 	grid_snap_button->set_toggle_mode(true);
@@ -5429,7 +5429,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	grid_snap_button->set_shortcut(ED_SHORTCUT("canvas_item_editor/use_grid_snap", TTR("Use Grid Snap"), KeyModifierMask::SHIFT | Key::G));
 	grid_snap_button->set_shortcut_context(this);
 
-	snap_config_menu = memnewOldNoConstructor(MenuButton);
+	snap_config_menu = memnewNoConstructor<MenuButton>();
 	snap_config_menu->set_flat(false);
 	snap_config_menu->set_theme_type_variation("FlatMenuButton");
 	snap_config_menu->set_shortcut_context(this);
@@ -5446,7 +5446,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_check_shortcut(ED_SHORTCUT("canvas_item_editor/snap_relative", TTR("Snap Relative")), SNAP_RELATIVE);
 	p->add_check_shortcut(ED_SHORTCUT("canvas_item_editor/use_pixel_snap", TTR("Use Pixel Snap")), SNAP_USE_PIXEL);
 
-	smartsnap_config_popup = memnewOldNoConstructor(PopupMenu);
+	smartsnap_config_popup = memnewNoConstructor<PopupMenu>();
 	smartsnap_config_popup->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_popup_callback));
 	smartsnap_config_popup->set_hide_on_checkable_item_selection(false);
 	smartsnap_config_popup->add_check_shortcut(ED_SHORTCUT("canvas_item_editor/snap_node_parent", TTR("Snap to Parent")), SNAP_USE_NODE_PARENT);
@@ -5460,9 +5460,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_separator();
 	p->add_shortcut(ED_SHORTCUT("canvas_item_editor/configure_snap", TTR("Configure Snap...")), SNAP_CONFIGURE);
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	lock_button = memnewOldNoConstructor(Button);
+	lock_button = memnewNoConstructor<Button>();
 	lock_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(lock_button);
 
@@ -5471,7 +5471,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	lock_button->set_shortcut(ED_GET_SHORTCUT("editor/lock_selected_nodes"));
 
-	unlock_button = memnewOldNoConstructor(Button);
+	unlock_button = memnewNoConstructor<Button>();
 	unlock_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(unlock_button);
 	unlock_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_popup_callback).bind(UNLOCK_SELECTED));
@@ -5479,7 +5479,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	unlock_button->set_shortcut(ED_GET_SHORTCUT("editor/unlock_selected_nodes"));
 
-	group_button = memnewOldNoConstructor(Button);
+	group_button = memnewNoConstructor<Button>();
 	group_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(group_button);
 	group_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_popup_callback).bind(GROUP_SELECTED));
@@ -5487,7 +5487,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	group_button->set_shortcut(ED_GET_SHORTCUT("editor/group_selected_nodes"));
 
-	ungroup_button = memnewOldNoConstructor(Button);
+	ungroup_button = memnewNoConstructor<Button>();
 	ungroup_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(ungroup_button);
 	ungroup_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_popup_callback).bind(UNGROUP_SELECTED));
@@ -5495,9 +5495,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	ungroup_button->set_shortcut(ED_GET_SHORTCUT("editor/ungroup_selected_nodes"));
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	skeleton_menu = memnewOldNoConstructor(MenuButton);
+	skeleton_menu = memnewNoConstructor<MenuButton>();
 	skeleton_menu->set_flat(false);
 	skeleton_menu->set_theme_type_variation("FlatMenuButton");
 	skeleton_menu->set_shortcut_context(this);
@@ -5512,9 +5512,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_shortcut(ED_SHORTCUT("canvas_item_editor/skeleton_make_bones", TTR("Make Bone2D Node(s) from Node(s)"), KeyModifierMask::CMD_OR_CTRL | KeyModifierMask::SHIFT | Key::B), SKELETON_MAKE_BONES);
 	p->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_popup_callback));
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	override_camera_button = memnewOldNoConstructor(Button);
+	override_camera_button = memnewNoConstructor<Button>();
 	override_camera_button->set_theme_type_variation("FlatButton");
 	main_menu_hbox->add_child(override_camera_button);
 	override_camera_button->connect("toggled", callable_mp(this, &CanvasItemEditor::_button_override_camera));
@@ -5522,9 +5522,9 @@ CanvasItemEditor::CanvasItemEditor() {
 	override_camera_button->set_disabled(true);
 	_update_override_camera_button(false);
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
-	view_menu = memnewOldNoConstructor(MenuButton);
+	view_menu = memnewNoConstructor<MenuButton>();
 	view_menu->set_flat(false);
 	view_menu->set_theme_type_variation("FlatMenuButton");
 	// TRANSLATORS: Noun, name of the 2D/3D View menus.
@@ -5537,7 +5537,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	p = view_menu->get_popup();
 	p->set_hide_on_checkable_item_selection(false);
 
-	grid_menu = memnewOldNoConstructor(PopupMenu);
+	grid_menu = memnewNoConstructor<PopupMenu>();
 	grid_menu->connect("about_to_popup", callable_mp(this, &CanvasItemEditor::_prepare_grid_menu));
 	grid_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_on_grid_menu_id_pressed));
 	grid_menu->add_radio_check_item(TTR("Show"), GRID_VISIBILITY_SHOW);
@@ -5554,7 +5554,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_check_shortcut(ED_SHORTCUT("canvas_item_editor/show_viewport", TTR("Show Viewport")), SHOW_VIEWPORT);
 	p->add_separator();
 
-	gizmos_menu = memnewOldNoConstructor(PopupMenu);
+	gizmos_menu = memnewNoConstructor<PopupMenu>();
 	gizmos_menu->set_name("GizmosMenu");
 	gizmos_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_popup_callback));
 	gizmos_menu->set_hide_on_checkable_item_selection(false);
@@ -5572,7 +5572,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_separator();
 	p->add_check_shortcut(ED_SHORTCUT("canvas_item_editor/preview_canvas_scale", TTR("Preview Canvas Scale")), PREVIEW_CANVAS_SCALE);
 
-	theme_menu = memnewOldNoConstructor(PopupMenu);
+	theme_menu = memnewNoConstructor<PopupMenu>();
 	theme_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_switch_theme_preview));
 	theme_menu->add_radio_check_item(TTR("Project theme"), THEME_PREVIEW_PROJECT);
 	theme_menu->add_radio_check_item(TTR("Editor theme"), THEME_PREVIEW_EDITOR);
@@ -5584,20 +5584,20 @@ CanvasItemEditor::CanvasItemEditor() {
 		theme_menu->set_item_checked(i, i == theme_preview);
 	}
 
-	main_menu_hbox->add_child(memnewOldNoConstructor(VSeparator));
+	main_menu_hbox->add_child(memnewNoConstructor<VSeparator>());
 
 	// Contextual toolbars.
-	context_toolbar_panel = memnewOldNoConstructor(PanelContainer);
-	context_toolbar_hbox = memnewOldNoConstructor(HBoxContainer);
+	context_toolbar_panel = memnewNoConstructor<PanelContainer>();
+	context_toolbar_hbox = memnewNoConstructor<HBoxContainer>();
 	context_toolbar_panel->add_child(context_toolbar_hbox);
 	main_flow->add_child(context_toolbar_panel);
 
 	// Animation controls.
-	animation_hb = memnewOldNoConstructor(HBoxContainer);
+	animation_hb = memnewNoConstructor<HBoxContainer>();
 	add_control_to_menu_panel(animation_hb);
 	animation_hb->hide();
 
-	key_loc_button = memnewOldNoConstructor(Button);
+	key_loc_button = memnewNoConstructor<Button>();
 	key_loc_button->set_theme_type_variation("FlatButton");
 	key_loc_button->set_toggle_mode(true);
 	key_loc_button->set_pressed(true);
@@ -5606,7 +5606,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	key_loc_button->set_tooltip_text(TTR("Translation mask for inserting keys."));
 	animation_hb->add_child(key_loc_button);
 
-	key_rot_button = memnewOldNoConstructor(Button);
+	key_rot_button = memnewNoConstructor<Button>();
 	key_rot_button->set_theme_type_variation("FlatButton");
 	key_rot_button->set_toggle_mode(true);
 	key_rot_button->set_pressed(true);
@@ -5615,7 +5615,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	key_rot_button->set_tooltip_text(TTR("Rotation mask for inserting keys."));
 	animation_hb->add_child(key_rot_button);
 
-	key_scale_button = memnewOldNoConstructor(Button);
+	key_scale_button = memnewNoConstructor<Button>();
 	key_scale_button->set_theme_type_variation("FlatButton");
 	key_scale_button->set_toggle_mode(true);
 	key_scale_button->set_focus_mode(FOCUS_NONE);
@@ -5623,7 +5623,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	key_scale_button->set_tooltip_text(TTR("Scale mask for inserting keys."));
 	animation_hb->add_child(key_scale_button);
 
-	key_insert_button = memnewOldNoConstructor(Button);
+	key_insert_button = memnewNoConstructor<Button>();
 	key_insert_button->set_theme_type_variation("FlatButton");
 	key_insert_button->set_focus_mode(FOCUS_NONE);
 	key_insert_button->connect(SceneStringName(pressed), callable_mp(this, &CanvasItemEditor::_popup_callback).bind(ANIM_INSERT_KEY));
@@ -5632,7 +5632,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	key_insert_button->set_shortcut_context(this);
 	animation_hb->add_child(key_insert_button);
 
-	key_auto_insert_button = memnewOldNoConstructor(Button);
+	key_auto_insert_button = memnewNoConstructor<Button>();
 	key_auto_insert_button->set_theme_type_variation("FlatButton");
 	key_auto_insert_button->set_toggle_mode(true);
 	key_auto_insert_button->set_focus_mode(FOCUS_NONE);
@@ -5641,7 +5641,7 @@ CanvasItemEditor::CanvasItemEditor() {
 	key_auto_insert_button->set_shortcut_context(this);
 	animation_hb->add_child(key_auto_insert_button);
 
-	animation_menu = memnewOldNoConstructor(MenuButton);
+	animation_menu = memnewNoConstructor<MenuButton>();
 	animation_menu->set_flat(false);
 	animation_menu->set_theme_type_variation("FlatMenuButton");
 	animation_menu->set_shortcut_context(this);
@@ -5659,20 +5659,20 @@ CanvasItemEditor::CanvasItemEditor() {
 	p->add_shortcut(ED_SHORTCUT("canvas_item_editor/anim_paste_pose", TTR("Paste Pose")), ANIM_PASTE_POSE);
 	p->add_shortcut(ED_SHORTCUT("canvas_item_editor/anim_clear_pose", TTR("Clear Pose"), KeyModifierMask::SHIFT | Key::K), ANIM_CLEAR_POSE);
 
-	snap_dialog = memnewOldNoConstructor(SnapDialog);
+	snap_dialog = memnewNoConstructor<SnapDialog>();
 	snap_dialog->connect(SceneStringName(confirmed), callable_mp(this, &CanvasItemEditor::_snap_changed));
 	add_child(snap_dialog);
 
-	select_sb = Ref<StyleBoxTexture>(memnewOldNoConstructor(StyleBoxTexture));
+	select_sb = Ref<StyleBoxTexture>(memnewNoConstructor<StyleBoxTexture>());
 
-	selection_menu = memnewOldNoConstructor(PopupMenu);
+	selection_menu = memnewNoConstructor<PopupMenu>();
 	add_child(selection_menu);
 	selection_menu->set_min_size(Vector2(100, 0));
 	selection_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	selection_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_selection_result_pressed));
 	selection_menu->connect("popup_hide", callable_mp(this, &CanvasItemEditor::_selection_menu_hide), CONNECT_DEFERRED);
 
-	add_node_menu = memnewOldNoConstructor(PopupMenu);
+	add_node_menu = memnewNoConstructor<PopupMenu>();
 	add_child(add_node_menu);
 	add_node_menu->connect(SceneStringName(id_pressed), callable_mp(this, &CanvasItemEditor::_add_node_pressed));
 
@@ -5738,7 +5738,7 @@ void CanvasItemEditorPlugin::_notification(int p_what) {
 }
 
 CanvasItemEditorPlugin::CanvasItemEditorPlugin() {
-	canvas_item_editor = memnewOldNoConstructor(CanvasItemEditor);
+	canvas_item_editor = memnewNoConstructor<CanvasItemEditor>();
 	canvas_item_editor->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(canvas_item_editor);
 	canvas_item_editor->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
@@ -5784,7 +5784,7 @@ void CanvasItemEditorViewport::_create_preview(const Vector<String> &files) cons
 
 		Ref<Texture2D> texture = res;
 		if (texture.is_valid()) {
-			Sprite2D *sprite = memnewOldNoConstructor(Sprite2D);
+			Sprite2D *sprite = memnewNoConstructor<Sprite2D>();
 			sprite->set_texture(texture);
 			sprite->set_modulate(Color(1, 1, 1, 0.7f));
 			preview_node->add_child(sprite);
@@ -5802,7 +5802,7 @@ void CanvasItemEditorViewport::_create_preview(const Vector<String> &files) cons
 
 		Ref<AudioStream> audio = res;
 		if (audio.is_valid()) {
-			Sprite2D *sprite = memnewOldNoConstructor(Sprite2D);
+			Sprite2D *sprite = memnewNoConstructor<Sprite2D>();
 			sprite->set_texture(get_editor_theme_icon(SNAME("AudioStreamPlayer2D")));
 			sprite->set_modulate(Color(1, 1, 1, 0.7f));
 			sprite->set_position(Vector2(0, -sprite->get_texture()->get_size().height) * EDSCALE);
@@ -5918,7 +5918,7 @@ void CanvasItemEditorViewport::_create_texture_node(Node *p_parent, Node *p_chil
 }
 
 void CanvasItemEditorViewport::_create_audio_node(Node *p_parent, const String &p_path, const Point2 &p_point) {
-	AudioStreamPlayer2D *child = memnewOldNoConstructor(AudioStreamPlayer2D);
+	AudioStreamPlayer2D *child = memnewNoConstructor<AudioStreamPlayer2D>();
 	child->set_stream(ResourceCache::get_ref(p_path));
 
 	// Adjust casing according to project setting. The file name is expected to be in snake_case, but will work for others.
@@ -6309,43 +6309,43 @@ CanvasItemEditorViewport::CanvasItemEditorViewport(CanvasItemEditor *p_canvas_it
 
 	target_node = nullptr;
 	canvas_item_editor = p_canvas_item_editor;
-	preview_node = memnewOldNoConstructor(Control);
+	preview_node = memnewNoConstructor<Control>();
 
-	accept = memnewOldNoConstructor(AcceptDialog);
+	accept = memnewNoConstructor<AcceptDialog>();
 	EditorNode::get_singleton()->get_gui_base()->add_child(accept);
 
-	texture_node_type_selector = memnewOldNoConstructor(AcceptDialog);
+	texture_node_type_selector = memnewNoConstructor<AcceptDialog>();
 	EditorNode::get_singleton()->get_gui_base()->add_child(texture_node_type_selector);
 	texture_node_type_selector->set_title(TTR("Change Default Type"));
 	texture_node_type_selector->connect(SceneStringName(confirmed), callable_mp(this, &CanvasItemEditorViewport::_on_change_type_confirmed));
 	texture_node_type_selector->connect("canceled", callable_mp(this, &CanvasItemEditorViewport::_on_change_type_closed));
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	texture_node_type_selector->add_child(vbc);
 	vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vbc->set_custom_minimum_size(Size2(240, 260) * EDSCALE);
 
-	VBoxContainer *btn_group = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *btn_group = memnewNoConstructor<VBoxContainer>();
 	vbc->add_child(btn_group);
 	btn_group->set_h_size_flags(SIZE_EXPAND_FILL);
 
 	button_group.instantiate();
 	for (int i = 0; i < texture_node_types.size(); i++) {
-		CheckBox *check = memnewOldNoConstructor(CheckBox);
+		CheckBox *check = memnewNoConstructor<CheckBox>();
 		btn_group->add_child(check);
 		check->set_text(texture_node_types[i]);
 		check->connect("button_down", callable_mp(this, &CanvasItemEditorViewport::_on_select_texture_node_type).bind(check));
 		check->set_button_group(button_group);
 	}
 
-	label = memnewOldNoConstructor(Label);
+	label = memnewNoConstructor<Label>();
 	label->add_theme_color_override("font_shadow_color", Color(0, 0, 0, 1));
 	label->add_theme_constant_override("shadow_outline_size", 1 * EDSCALE);
 	label->hide();
 	canvas_item_editor->get_controls_container()->add_child(label);
 
-	label_desc = memnewOldNoConstructor(Label);
+	label_desc = memnewNoConstructor<Label>();
 	label_desc->add_theme_color_override(SceneStringName(font_color), Color(0.6f, 0.6f, 0.6f, 1));
 	label_desc->add_theme_color_override("font_shadow_color", Color(0.2f, 0.2f, 0.2f, 1));
 	label_desc->add_theme_constant_override("shadow_outline_size", 1 * EDSCALE);

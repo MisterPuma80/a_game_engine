@@ -130,9 +130,9 @@ void NavigationMeshEditor::_bind_methods() {
 }
 
 NavigationMeshEditor::NavigationMeshEditor() {
-	bake_hbox = memnewOldNoConstructor(HBoxContainer);
+	bake_hbox = memnewNoConstructor<HBoxContainer>();
 
-	button_bake = memnewOldNoConstructor(Button);
+	button_bake = memnewNoConstructor<Button>();
 	button_bake->set_theme_type_variation("FlatButton");
 	bake_hbox->add_child(button_bake);
 	button_bake->set_toggle_mode(true);
@@ -140,17 +140,17 @@ NavigationMeshEditor::NavigationMeshEditor() {
 	button_bake->set_tooltip_text(TTR("Bakes the NavigationMesh by first parsing the scene for source geometry and then creating the navigation mesh vertices and polygons."));
 	button_bake->connect(SceneStringName(pressed), callable_mp(this, &NavigationMeshEditor::_bake_pressed));
 
-	button_reset = memnewOldNoConstructor(Button);
+	button_reset = memnewNoConstructor<Button>();
 	button_reset->set_theme_type_variation("FlatButton");
 	bake_hbox->add_child(button_reset);
 	button_reset->set_text(TTR("Clear NavigationMesh"));
 	button_reset->set_tooltip_text(TTR("Clears the internal NavigationMesh vertices and polygons."));
 	button_reset->connect(SceneStringName(pressed), callable_mp(this, &NavigationMeshEditor::_clear_pressed));
 
-	bake_info = memnewOldNoConstructor(Label);
+	bake_info = memnewNoConstructor<Label>();
 	bake_hbox->add_child(bake_info);
 
-	err_dialog = memnewOldNoConstructor(AcceptDialog);
+	err_dialog = memnewNoConstructor<AcceptDialog>();
 	add_child(err_dialog);
 	node = nullptr;
 }
@@ -178,7 +178,7 @@ void NavigationMeshEditorPlugin::make_visible(bool p_visible) {
 }
 
 NavigationMeshEditorPlugin::NavigationMeshEditorPlugin() {
-	navigation_mesh_editor = memnewOldNoConstructor(NavigationMeshEditor);
+	navigation_mesh_editor = memnewNoConstructor<NavigationMeshEditor>();
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(navigation_mesh_editor);
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, navigation_mesh_editor->bake_hbox);
 	navigation_mesh_editor->hide();

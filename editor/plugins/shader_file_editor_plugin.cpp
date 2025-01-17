@@ -254,17 +254,17 @@ ShaderFileEditor *ShaderFileEditor::singleton = nullptr;
 
 ShaderFileEditor::ShaderFileEditor() {
 	singleton = this;
-	HSplitContainer *main_hs = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *main_hs = memnewNoConstructor<HSplitContainer>();
 
 	add_child(main_hs);
 
-	versions = memnewOldNoConstructor(ItemList);
+	versions = memnewNoConstructor<ItemList>();
 	versions->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	versions->connect(SceneStringName(item_selected), callable_mp(this, &ShaderFileEditor::_version_selected));
 	versions->set_custom_minimum_size(Size2i(200 * EDSCALE, 0));
 	main_hs->add_child(versions);
 
-	VBoxContainer *main_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *main_vb = memnewNoConstructor<VBoxContainer>();
 	main_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	main_hs->add_child(main_vb);
 
@@ -276,7 +276,7 @@ ShaderFileEditor::ShaderFileEditor() {
 		"Compute"
 	};
 
-	stage_hb = memnewOldNoConstructor(HBoxContainer);
+	stage_hb = memnewNoConstructor<HBoxContainer>();
 	main_vb->add_child(stage_hb);
 
 	Ref<ButtonGroup> bg;
@@ -291,7 +291,7 @@ ShaderFileEditor::ShaderFileEditor() {
 		button->connect(SceneStringName(pressed), callable_mp(this, &ShaderFileEditor::_version_selected).bind(i));
 	}
 
-	error_text = memnewOldNoConstructor(RichTextLabel);
+	error_text = memnewNoConstructor<RichTextLabel>();
 	error_text->set_v_size_flags(SIZE_EXPAND_FILL);
 	error_text->set_selection_enabled(true);
 	error_text->set_context_menu_enabled(true);
@@ -322,7 +322,7 @@ void ShaderFileEditorPlugin::make_visible(bool p_visible) {
 }
 
 ShaderFileEditorPlugin::ShaderFileEditorPlugin() {
-	shader_editor = memnewOldNoConstructor(ShaderFileEditor);
+	shader_editor = memnewNoConstructor<ShaderFileEditor>();
 
 	shader_editor->set_custom_minimum_size(Size2(0, 300) * EDSCALE);
 	button = EditorNode::get_bottom_panel()->add_item(TTR("ShaderFile"), shader_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_shader_file_bottom_panel", TTR("Toggle ShaderFile Bottom Panel")));

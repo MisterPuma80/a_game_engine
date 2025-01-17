@@ -614,14 +614,14 @@ void GroupsEditor::_confirm_delete() {
 
 void GroupsEditor::_show_add_group_dialog() {
 	if (!add_group_dialog) {
-		add_group_dialog = memnewOldNoConstructor(ConfirmationDialog);
+		add_group_dialog = memnewNoConstructor<ConfirmationDialog>();
 		add_group_dialog->set_title(TTR("Create New Group"));
 		add_group_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GroupsEditor::_confirm_add));
 
-		VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 		add_group_dialog->add_child(vbc);
 
-		GridContainer *gc = memnewOldNoConstructor(GridContainer);
+		GridContainer *gc = memnewNoConstructor<GridContainer>();
 		gc->set_columns(2);
 		vbc->add_child(gc);
 
@@ -629,16 +629,16 @@ void GroupsEditor::_show_add_group_dialog() {
 		label_name->set_h_size_flags(SIZE_SHRINK_BEGIN);
 		gc->add_child(label_name);
 
-		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 		hbc->set_h_size_flags(SIZE_EXPAND_FILL);
 		gc->add_child(hbc);
 
-		add_group_name = memnewOldNoConstructor(LineEdit);
+		add_group_name = memnewNoConstructor<LineEdit>();
 		add_group_name->set_custom_minimum_size(Size2(200 * EDSCALE, 0));
 		add_group_name->set_h_size_flags(SIZE_EXPAND_FILL);
 		hbc->add_child(add_group_name);
 
-		global_group_button = memnewOldNoConstructor(CheckButton);
+		global_group_button = memnewNoConstructor<CheckButton>();
 		global_group_button->set_text(TTR("Global"));
 		hbc->add_child(global_group_button);
 
@@ -646,7 +646,7 @@ void GroupsEditor::_show_add_group_dialog() {
 		label_name->set_h_size_flags(SIZE_SHRINK_BEGIN);
 		gc->add_child(label_description);
 
-		add_group_description = memnewOldNoConstructor(LineEdit);
+		add_group_description = memnewNoConstructor<LineEdit>();
 		add_group_description->set_h_size_flags(SIZE_EXPAND_FILL);
 		add_group_description->set_editable(false);
 		gc->add_child(add_group_description);
@@ -656,7 +656,7 @@ void GroupsEditor::_show_add_group_dialog() {
 		add_group_dialog->register_text_enter(add_group_name);
 		add_group_dialog->register_text_enter(add_group_description);
 
-		add_validation_panel = memnewOldNoConstructor(EditorValidationPanel);
+		add_validation_panel = memnewNoConstructor<EditorValidationPanel>();
 		add_validation_panel->add_line(EditorValidationPanel::MSG_ID_DEFAULT, TTR("Group name is valid."));
 		add_validation_panel->set_update_callback(callable_mp(this, &GroupsEditor::_check_add));
 		add_validation_panel->set_accept_button(add_group_dialog->get_ok_button());
@@ -680,24 +680,24 @@ void GroupsEditor::_show_add_group_dialog() {
 
 void GroupsEditor::_show_rename_group_dialog() {
 	if (!rename_group_dialog) {
-		rename_group_dialog = memnewOldNoConstructor(ConfirmationDialog);
+		rename_group_dialog = memnewNoConstructor<ConfirmationDialog>();
 		rename_group_dialog->set_title(TTR("Rename Group"));
 		rename_group_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GroupsEditor::_confirm_rename));
 
-		VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+		VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 		rename_group_dialog->add_child(vbc);
 
-		HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+		HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 		hbc->add_child(memnewWithArgs<Label>(TTR("Name:")));
 
-		rename_group = memnewOldNoConstructor(LineEdit);
+		rename_group = memnewNoConstructor<LineEdit>();
 		rename_group->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 		hbc->add_child(rename_group);
 		vbc->add_child(hbc);
 
 		rename_group_dialog->register_text_enter(rename_group);
 
-		rename_validation_panel = memnewOldNoConstructor(EditorValidationPanel);
+		rename_validation_panel = memnewNoConstructor<EditorValidationPanel>();
 		rename_validation_panel->add_line(EditorValidationPanel::MSG_ID_DEFAULT, TTR("Group name is valid."));
 		rename_validation_panel->set_update_callback(callable_mp(this, &GroupsEditor::_check_rename));
 		rename_validation_panel->set_accept_button(rename_group_dialog->get_ok_button());
@@ -706,7 +706,7 @@ void GroupsEditor::_show_rename_group_dialog() {
 
 		vbc->add_child(rename_validation_panel);
 
-		rename_check_box = memnewOldNoConstructor(CheckBox);
+		rename_check_box = memnewNoConstructor<CheckBox>();
 		rename_check_box->set_text(TTR("Rename references in all scenes"));
 		vbc->add_child(rename_check_box);
 
@@ -737,14 +737,14 @@ void GroupsEditor::_show_rename_group_dialog() {
 
 void GroupsEditor::_show_remove_group_dialog() {
 	if (!remove_group_dialog) {
-		remove_group_dialog = memnewOldNoConstructor(ConfirmationDialog);
+		remove_group_dialog = memnewNoConstructor<ConfirmationDialog>();
 		remove_group_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GroupsEditor::_confirm_delete));
 
-		VBoxContainer *vbox = memnewOldNoConstructor(VBoxContainer);
-		remove_label = memnewOldNoConstructor(Label);
+		VBoxContainer *vbox = memnewNoConstructor<VBoxContainer>();
+		remove_label = memnewNoConstructor<Label>();
 		vbox->add_child(remove_label);
 
-		remove_check_box = memnewOldNoConstructor(CheckBox);
+		remove_check_box = memnewNoConstructor<CheckBox>();
 		remove_check_box->set_text(TTR("Delete references from all scenes"));
 		vbox->add_child(remove_check_box);
 
@@ -839,23 +839,23 @@ GroupsEditor::GroupsEditor() {
 	ED_SHORTCUT("groups_editor/rename", TTR("Rename"), Key::F2);
 	ED_SHORTCUT_OVERRIDE("groups_editor/rename", "macos", Key::ENTER);
 
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 	add_child(hbc);
 
-	add = memnewOldNoConstructor(Button);
+	add = memnewNoConstructor<Button>();
 	add->set_flat(true);
 	add->set_tooltip_text(TTR("Add a new group."));
 	add->connect(SceneStringName(pressed), callable_mp(this, &GroupsEditor::_show_add_group_dialog));
 	hbc->add_child(add);
 
-	filter = memnewOldNoConstructor(LineEdit);
+	filter = memnewNoConstructor<LineEdit>();
 	filter->set_clear_button_enabled(true);
 	filter->set_placeholder(TTR("Filter Groups"));
 	filter->set_h_size_flags(SIZE_EXPAND_FILL);
 	filter->connect(SceneStringName(text_changed), callable_mp(this, &GroupsEditor::_update_tree).unbind(1));
 	hbc->add_child(filter);
 
-	tree = memnewOldNoConstructor(Tree);
+	tree = memnewNoConstructor<Tree>();
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_hide_root(true);
 	tree->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -866,7 +866,7 @@ GroupsEditor::GroupsEditor() {
 	tree->connect(SceneStringName(gui_input), callable_mp(this, &GroupsEditor::_groups_gui_input));
 	add_child(tree);
 
-	menu = memnewOldNoConstructor(PopupMenu);
+	menu = memnewNoConstructor<PopupMenu>();
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &GroupsEditor::_menu_id_pressed));
 	tree->add_child(menu);
 

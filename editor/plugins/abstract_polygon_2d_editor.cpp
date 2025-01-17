@@ -728,25 +728,25 @@ AbstractPolygon2DEditor::AbstractPolygon2DEditor(bool p_wip_destructive) {
 	selected_point = Vertex();
 	edge_point = PosVertex();
 
-	button_create = memnewOldNoConstructor(Button);
+	button_create = memnewNoConstructor<Button>();
 	button_create->set_theme_type_variation("FlatButton");
 	add_child(button_create);
 	button_create->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_CREATE));
 	button_create->set_toggle_mode(true);
 
-	button_edit = memnewOldNoConstructor(Button);
+	button_edit = memnewNoConstructor<Button>();
 	button_edit->set_theme_type_variation("FlatButton");
 	add_child(button_edit);
 	button_edit->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_EDIT));
 	button_edit->set_toggle_mode(true);
 
-	button_delete = memnewOldNoConstructor(Button);
+	button_delete = memnewNoConstructor<Button>();
 	button_delete->set_theme_type_variation("FlatButton");
 	add_child(button_delete);
 	button_delete->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_DELETE));
 	button_delete->set_toggle_mode(true);
 
-	create_resource = memnewOldNoConstructor(ConfirmationDialog);
+	create_resource = memnewNoConstructor<ConfirmationDialog>();
 	add_child(create_resource);
 	create_resource->set_ok_button_text(TTR("Create"));
 }

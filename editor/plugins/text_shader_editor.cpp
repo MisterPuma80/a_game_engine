@@ -1120,7 +1120,7 @@ void TextShaderEditor::_make_context_menu(bool p_selection, Vector2 p_position) 
 TextShaderEditor::TextShaderEditor() {
 	_update_warnings(false);
 
-	code_editor = memnewOldNoConstructor(ShaderTextEditor);
+	code_editor = memnewNoConstructor<ShaderTextEditor>();
 
 	code_editor->connect("script_validated", callable_mp(this, &TextShaderEditor::_script_validated));
 
@@ -1141,14 +1141,14 @@ TextShaderEditor::TextShaderEditor() {
 
 	code_editor->update_editor_settings();
 
-	context_menu = memnewOldNoConstructor(PopupMenu);
+	context_menu = memnewNoConstructor<PopupMenu>();
 	add_child(context_menu);
 	context_menu->connect(SceneStringName(id_pressed), callable_mp(this, &TextShaderEditor::_menu_option));
 
-	VBoxContainer *main_container = memnewOldNoConstructor(VBoxContainer);
-	HBoxContainer *hbc = memnewOldNoConstructor(HBoxContainer);
+	VBoxContainer *main_container = memnewNoConstructor<VBoxContainer>();
+	HBoxContainer *hbc = memnewNoConstructor<HBoxContainer>();
 
-	edit_menu = memnewOldNoConstructor(MenuButton);
+	edit_menu = memnewNoConstructor<MenuButton>();
 	edit_menu->set_shortcut_context(this);
 	edit_menu->set_text(TTR("Edit"));
 	edit_menu->set_switch_on_hover(true);
@@ -1176,7 +1176,7 @@ TextShaderEditor::TextShaderEditor() {
 	edit_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("ui_text_completion_query"), EDIT_COMPLETE);
 	edit_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &TextShaderEditor::_menu_option));
 
-	search_menu = memnewOldNoConstructor(MenuButton);
+	search_menu = memnewNoConstructor<MenuButton>();
 	search_menu->set_shortcut_context(this);
 	search_menu->set_text(TTR("Search"));
 	search_menu->set_switch_on_hover(true);
@@ -1187,7 +1187,7 @@ TextShaderEditor::TextShaderEditor() {
 	search_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/replace"), SEARCH_REPLACE);
 	search_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &TextShaderEditor::_menu_option));
 
-	MenuButton *goto_menu = memnewOldNoConstructor(MenuButton);
+	MenuButton *goto_menu = memnewNoConstructor<MenuButton>();
 	goto_menu->set_shortcut_context(this);
 	goto_menu->set_text(TTR("Go To"));
 	goto_menu->set_switch_on_hover(true);
@@ -1196,13 +1196,13 @@ TextShaderEditor::TextShaderEditor() {
 	goto_menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("script_text_editor/goto_line"), SEARCH_GOTO_LINE);
 	goto_menu->get_popup()->add_separator();
 
-	bookmarks_menu = memnewOldNoConstructor(PopupMenu);
+	bookmarks_menu = memnewNoConstructor<PopupMenu>();
 	goto_menu->get_popup()->add_submenu_node_item(TTR("Bookmarks"), bookmarks_menu);
 	_update_bookmark_list();
 	bookmarks_menu->connect("about_to_popup", callable_mp(this, &TextShaderEditor::_update_bookmark_list));
 	bookmarks_menu->connect("index_pressed", callable_mp(this, &TextShaderEditor::_bookmark_item_pressed));
 
-	help_menu = memnewOldNoConstructor(MenuButton);
+	help_menu = memnewNoConstructor<MenuButton>();
 	help_menu->set_text(TTR("Help"));
 	help_menu->set_switch_on_hover(true);
 	help_menu->get_popup()->add_item(TTR("Online Docs"), HELP_DOCS);
@@ -1216,18 +1216,18 @@ TextShaderEditor::TextShaderEditor() {
 	hbc->add_child(help_menu);
 	hbc->add_theme_style_override(SceneStringName(panel), EditorNode::get_singleton()->get_editor_theme()->get_stylebox(SNAME("ScriptEditorPanel"), EditorStringName(EditorStyles)));
 
-	VSplitContainer *editor_box = memnewOldNoConstructor(VSplitContainer);
+	VSplitContainer *editor_box = memnewNoConstructor<VSplitContainer>();
 	main_container->add_child(editor_box);
 	editor_box->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	editor_box->set_v_size_flags(SIZE_EXPAND_FILL);
 	editor_box->add_child(code_editor);
 
-	FindReplaceBar *bar = memnewOldNoConstructor(FindReplaceBar);
+	FindReplaceBar *bar = memnewNoConstructor<FindReplaceBar>();
 	main_container->add_child(bar);
 	bar->hide();
 	code_editor->set_find_replace_bar(bar);
 
-	warnings_panel = memnewOldNoConstructor(RichTextLabel);
+	warnings_panel = memnewNoConstructor<RichTextLabel>();
 	warnings_panel->set_custom_minimum_size(Size2(0, 100 * EDSCALE));
 	warnings_panel->set_h_size_flags(SIZE_EXPAND_FILL);
 	warnings_panel->set_meta_underline(true);
@@ -1239,15 +1239,15 @@ TextShaderEditor::TextShaderEditor() {
 	editor_box->add_child(warnings_panel);
 	code_editor->set_warnings_panel(warnings_panel);
 
-	goto_line_dialog = memnewOldNoConstructor(GotoLineDialog);
+	goto_line_dialog = memnewNoConstructor<GotoLineDialog>();
 	add_child(goto_line_dialog);
 
-	disk_changed = memnewOldNoConstructor(ConfirmationDialog);
+	disk_changed = memnewNoConstructor<ConfirmationDialog>();
 
-	VBoxContainer *vbc = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vbc = memnewNoConstructor<VBoxContainer>();
 	disk_changed->add_child(vbc);
 
-	Label *dl = memnewOldNoConstructor(Label);
+	Label *dl = memnewNoConstructor<Label>();
 	dl->set_text(TTR("This shader has been modified on disk.\nWhat action should be taken?"));
 	vbc->add_child(dl);
 

@@ -808,14 +808,14 @@ Variant VariantUtilityFunctions::weakref(const Variant &obj, Callable::CallError
 	if (obj.get_type() == Variant::OBJECT) {
 		r_error.error = Callable::CallError::CALL_OK;
 		if (obj.is_ref_counted()) {
-			Ref<WeakRef> wref = memnewOldNoConstructor(WeakRef);
+			Ref<WeakRef> wref = memnewNoConstructor<WeakRef>();
 			Ref<RefCounted> r = obj;
 			if (r.is_valid()) {
 				wref->set_ref(r);
 			}
 			return wref;
 		} else {
-			Ref<WeakRef> wref = memnewOldNoConstructor(WeakRef);
+			Ref<WeakRef> wref = memnewNoConstructor<WeakRef>();
 			Object *o = obj.get_validated_object();
 			if (o) {
 				wref->set_obj(o);
@@ -824,7 +824,7 @@ Variant VariantUtilityFunctions::weakref(const Variant &obj, Callable::CallError
 		}
 	} else if (obj.get_type() == Variant::NIL) {
 		r_error.error = Callable::CallError::CALL_OK;
-		Ref<WeakRef> wref = memnewOldNoConstructor(WeakRef);
+		Ref<WeakRef> wref = memnewNoConstructor<WeakRef>();
 		return wref;
 	} else {
 		r_error.error = Callable::CallError::CALL_ERROR_INVALID_ARGUMENT;

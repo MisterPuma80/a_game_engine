@@ -54,7 +54,7 @@ DebuggerEditorPlugin::DebuggerEditorPlugin(PopupMenu *p_debug_menu) {
 	ED_SHORTCUT("debugger/debug_with_external_editor", TTR("Debug with External Editor"));
 
 	// File Server for deploy with remote filesystem.
-	file_server = memnewOldNoConstructor(EditorFileServer);
+	file_server = memnewNoConstructor<EditorFileServer>();
 
 	EditorDebuggerNode *debugger = memnewOldNoConstructor(EditorDebuggerNode);
 	Button *db = EditorNode::get_bottom_panel()->add_item(TTR("Debugger"), debugger, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_debugger_bottom_panel", TTR("Toggle Debugger Bottom Panel"), KeyModifierMask::ALT | Key::D));
@@ -102,7 +102,7 @@ DebuggerEditorPlugin::DebuggerEditorPlugin(PopupMenu *p_debug_menu) {
 	debug_menu->add_item(TTR("Customize Run Instances..."), RUN_MULTIPLE_INSTANCES);
 	debug_menu->connect(SceneStringName(id_pressed), callable_mp(this, &DebuggerEditorPlugin::_menu_option));
 
-	run_instances_dialog = memnewOldNoConstructor(RunInstancesDialog);
+	run_instances_dialog = memnewNoConstructor<RunInstancesDialog>();
 	EditorNode::get_singleton()->get_gui_base()->add_child(run_instances_dialog);
 }
 

@@ -774,7 +774,7 @@ const void *Array::id() const {
 }
 
 Array::Array(const Array &p_from, uint32_t p_type, const StringName &p_class_name, const Variant &p_script) {
-	_p = memnewOldNoConstructor(ArrayPrivate);
+	_p = memnewNoConstructor<ArrayPrivate>();
 	_p->refcount.init();
 	set_typed(p_type, p_class_name, p_script);
 	assign(p_from);
@@ -817,7 +817,7 @@ Variant Array::get_typed_script() const {
 
 void Array::make_read_only() {
 	if (_p->read_only == nullptr) {
-		_p->read_only = memnewOldNoConstructor(Variant);
+		_p->read_only = memnewNoConstructor<Variant>();
 	}
 }
 
@@ -831,7 +831,7 @@ Array::Array(const Array &p_from) {
 }
 
 Array::Array() {
-	_p = memnewOldNoConstructor(ArrayPrivate);
+	_p = memnewNoConstructor<ArrayPrivate>();
 	_p->refcount.init();
 }
 

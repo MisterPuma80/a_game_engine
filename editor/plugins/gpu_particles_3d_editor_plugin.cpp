@@ -206,19 +206,19 @@ void GPUParticles3DEditorBase::_bind_methods() {
 }
 
 GPUParticles3DEditorBase::GPUParticles3DEditorBase() {
-	emission_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	emission_dialog = memnewNoConstructor<ConfirmationDialog>();
 	emission_dialog->set_title(TTR("Create Emitter"));
 	add_child(emission_dialog);
-	VBoxContainer *emd_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *emd_vb = memnewNoConstructor<VBoxContainer>();
 	emission_dialog->add_child(emd_vb);
 
-	emission_amount = memnewOldNoConstructor(SpinBox);
+	emission_amount = memnewNoConstructor<SpinBox>();
 	emission_amount->set_min(1);
 	emission_amount->set_max(100000);
 	emission_amount->set_value(512);
 	emd_vb->add_margin_child(TTR("Emission Points:"), emission_amount);
 
-	emission_fill = memnewOldNoConstructor(OptionButton);
+	emission_fill = memnewNoConstructor<OptionButton>();
 	emission_fill->add_item(TTR("Surface Points"));
 	emission_fill->add_item(TTR("Surface Points+Normal (Directed)"));
 	emission_fill->add_item(TTR("Volume"));
@@ -227,7 +227,7 @@ GPUParticles3DEditorBase::GPUParticles3DEditorBase() {
 	emission_dialog->set_ok_button_text(TTR("Create"));
 	emission_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GPUParticles3DEditorBase::_generate_emission_points));
 
-	emission_tree_dialog = memnewOldNoConstructor(SceneTreeDialog);
+	emission_tree_dialog = memnewNoConstructor<SceneTreeDialog>();
 	Vector<StringName> valid_types;
 	valid_types.push_back("MeshInstance3D");
 	emission_tree_dialog->set_valid_types(valid_types);
@@ -276,7 +276,7 @@ void GPUParticles3DEditor::_menu_option(int p_option) {
 
 		} break;
 		case MENU_OPTION_CONVERT_TO_CPU_PARTICLES: {
-			CPUParticles3D *cpu_particles = memnewOldNoConstructor(CPUParticles3D);
+			CPUParticles3D *cpu_particles = memnewNoConstructor<CPUParticles3D>();
 			cpu_particles->convert_from_particles(node);
 			cpu_particles->set_name(node->get_name());
 			cpu_particles->set_transform(node->get_transform());
@@ -411,9 +411,9 @@ void GPUParticles3DEditor::_bind_methods() {
 
 GPUParticles3DEditor::GPUParticles3DEditor() {
 	node = nullptr;
-	particles_editor_hb = memnewOldNoConstructor(HBoxContainer);
+	particles_editor_hb = memnewNoConstructor<HBoxContainer>();
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(particles_editor_hb);
-	options = memnewOldNoConstructor(MenuButton);
+	options = memnewNoConstructor<MenuButton>();
 	options->set_switch_on_hover(true);
 	particles_editor_hb->add_child(options);
 	particles_editor_hb->hide();
@@ -426,11 +426,11 @@ GPUParticles3DEditor::GPUParticles3DEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &GPUParticles3DEditor::_menu_option));
 
-	generate_aabb = memnewOldNoConstructor(ConfirmationDialog);
+	generate_aabb = memnewNoConstructor<ConfirmationDialog>();
 	generate_aabb->set_title(TTR("Generate Visibility AABB"));
-	VBoxContainer *genvb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *genvb = memnewNoConstructor<VBoxContainer>();
 	generate_aabb->add_child(genvb);
-	generate_seconds = memnewOldNoConstructor(SpinBox);
+	generate_seconds = memnewNoConstructor<SpinBox>();
 	genvb->add_margin_child(TTR("Generation Time (sec):"), generate_seconds);
 	generate_seconds->set_min(0.1);
 	generate_seconds->set_max(25);
@@ -461,7 +461,7 @@ void GPUParticles3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 GPUParticles3DEditorPlugin::GPUParticles3DEditorPlugin() {
-	particles_editor = memnewOldNoConstructor(GPUParticles3DEditor);
+	particles_editor = memnewNoConstructor<GPUParticles3DEditor>();
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(particles_editor);
 
 	particles_editor->hide();

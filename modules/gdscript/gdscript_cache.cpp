@@ -52,7 +52,7 @@ uint32_t GDScriptParserRef::get_source_hash() const {
 
 GDScriptParser *GDScriptParserRef::get_parser() {
 	if (parser == nullptr) {
-		parser = memnewOldNoConstructor(GDScriptParser);
+		parser = memnewNoConstructor<GDScriptParser>();
 	}
 	return parser;
 }

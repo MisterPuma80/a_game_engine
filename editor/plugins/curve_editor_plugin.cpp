@@ -997,18 +997,18 @@ void CurveEditor::_notification(int p_what) {
 }
 
 CurveEditor::CurveEditor() {
-	HFlowContainer *toolbar = memnewOldNoConstructor(HFlowContainer);
+	HFlowContainer *toolbar = memnewNoConstructor<HFlowContainer>();
 	add_child(toolbar);
 
-	snap_button = memnewOldNoConstructor(Button);
+	snap_button = memnewNoConstructor<Button>();
 	snap_button->set_tooltip_text(TTR("Toggle Grid Snap"));
 	snap_button->set_toggle_mode(true);
 	toolbar->add_child(snap_button);
 	snap_button->connect("toggled", callable_mp(this, &CurveEditor::_set_snap_enabled));
 
-	toolbar->add_child(memnewOldNoConstructor(VSeparator));
+	toolbar->add_child(memnewNoConstructor<VSeparator>());
 
-	snap_count_edit = memnewOldNoConstructor(EditorSpinSlider);
+	snap_count_edit = memnewNoConstructor<EditorSpinSlider>();
 	snap_count_edit->set_min(2);
 	snap_count_edit->set_max(100);
 	snap_count_edit->set_value(DEFAULT_SNAP);
@@ -1016,18 +1016,18 @@ CurveEditor::CurveEditor() {
 	toolbar->add_child(snap_count_edit);
 	snap_count_edit->connect(SceneStringName(value_changed), callable_mp(this, &CurveEditor::_set_snap_count));
 
-	presets_button = memnewOldNoConstructor(MenuButton);
+	presets_button = memnewNoConstructor<MenuButton>();
 	presets_button->set_text(TTR("Presets"));
 	presets_button->set_switch_on_hover(true);
 	presets_button->set_h_size_flags(SIZE_EXPAND | SIZE_SHRINK_END);
 	toolbar->add_child(presets_button);
 	presets_button->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &CurveEditor::_on_preset_item_selected));
 
-	curve_editor_rect = memnewOldNoConstructor(CurveEdit);
+	curve_editor_rect = memnewNoConstructor<CurveEdit>();
 	add_child(curve_editor_rect);
 
 	// Some empty space below. Not a part of the curve editor so it can't draw in it.
-	Control *empty_space = memnewOldNoConstructor(Control);
+	Control *empty_space = memnewNoConstructor<Control>();
 	empty_space->set_custom_minimum_size(Vector2(0, spacing));
 	add_child(empty_space);
 
@@ -1047,7 +1047,7 @@ void EditorInspectorPluginCurve::parse_begin(Object *p_object) {
 	ERR_FAIL_NULL(curve);
 	Ref<Curve> c(curve);
 
-	CurveEditor *editor = memnewOldNoConstructor(CurveEditor);
+	CurveEditor *editor = memnewNoConstructor<CurveEditor>();
 	editor->set_curve(c);
 	add_custom_control(editor);
 }
@@ -1057,7 +1057,7 @@ CurveEditorPlugin::CurveEditorPlugin() {
 	plugin.instantiate();
 	add_inspector_plugin(plugin);
 
-	EditorInterface::get_singleton()->get_resource_previewer()->add_preview_generator(memnewOldNoConstructor(CurvePreviewGenerator));
+	EditorInterface::get_singleton()->get_resource_previewer()->add_preview_generator(memnewNoConstructor<CurvePreviewGenerator>());
 }
 
 ///////////////////////

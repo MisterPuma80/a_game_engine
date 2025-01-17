@@ -225,7 +225,7 @@ void POTGenerator::_add_new_msgid(const String &p_msgid, const String &p_context
 
 POTGenerator *POTGenerator::get_singleton() {
 	if (!singleton) {
-		singleton = memnewOldNoConstructor(POTGenerator);
+		singleton = memnewNoConstructor<POTGenerator>();
 	}
 	return singleton;
 }

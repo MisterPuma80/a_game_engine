@@ -830,12 +830,12 @@ void ScriptCreateDialog::_bind_methods() {
 ScriptCreateDialog::ScriptCreateDialog() {
 	/* Main Controls */
 
-	GridContainer *gc = memnewOldNoConstructor(GridContainer);
+	GridContainer *gc = memnewNoConstructor<GridContainer>();
 	gc->set_columns(2);
 
 	/* Information Messages Field */
 
-	validation_panel = memnewOldNoConstructor(EditorValidationPanel);
+	validation_panel = memnewNoConstructor<EditorValidationPanel>();
 	validation_panel->add_line(MSG_ID_SCRIPT, TTR("Script path/name is valid."));
 	validation_panel->add_line(MSG_ID_PATH, TTR("Will create a new script file."));
 	validation_panel->add_line(MSG_ID_BUILT_IN);
@@ -845,10 +845,10 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Spacing */
 
-	Control *spacing = memnewOldNoConstructor(Control);
+	Control *spacing = memnewNoConstructor<Control>();
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	vb->add_child(gc);
 	vb->add_child(spacing);
 	vb->add_child(validation_panel);
@@ -856,7 +856,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Language */
 
-	language_menu = memnewOldNoConstructor(OptionButton);
+	language_menu = memnewNoConstructor<OptionButton>();
 	language_menu->set_custom_minimum_size(Size2(350, 0) * EDSCALE);
 	language_menu->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	gc->add_child(memnewWithArgs<Label>(TTR("Language:")));
@@ -880,17 +880,17 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	base_type = "Object";
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	parent_name = memnewOldNoConstructor(LineEdit);
+	parent_name = memnewNoConstructor<LineEdit>();
 	parent_name->connect(SceneStringName(text_changed), callable_mp(this, &ScriptCreateDialog::_parent_name_changed));
 	parent_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->add_child(parent_name);
 	register_text_enter(parent_name);
-	parent_search_button = memnewOldNoConstructor(Button);
+	parent_search_button = memnewNoConstructor<Button>();
 	parent_search_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_browse_class_in_tree));
 	hb->add_child(parent_search_button);
-	parent_browse_button = memnewOldNoConstructor(Button);
+	parent_browse_button = memnewNoConstructor<Button>();
 	parent_browse_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_browse_path).bind(true, false));
 	hb->add_child(parent_browse_button);
 	gc->add_child(memnewWithArgs<Label>(TTR("Inherits:")));
@@ -898,17 +898,17 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Templates */
 	gc->add_child(memnewWithArgs<Label>(TTR("Template:")));
-	HBoxContainer *template_hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *template_hb = memnewNoConstructor<HBoxContainer>();
 	template_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	use_templates = memnewOldNoConstructor(CheckBox);
+	use_templates = memnewNoConstructor<CheckBox>();
 	use_templates->set_pressed(is_using_templates);
 	use_templates->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_use_template_pressed));
 	template_hb->add_child(use_templates);
 
 	template_inactive_message = "";
 
-	template_menu = memnewOldNoConstructor(OptionButton);
+	template_menu = memnewNoConstructor<OptionButton>();
 	template_menu->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	template_menu->connect(SceneStringName(item_selected), callable_mp(this, &ScriptCreateDialog::_template_changed));
 	template_hb->add_child(template_menu);
@@ -917,7 +917,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Built-in Script */
 
-	built_in = memnewOldNoConstructor(CheckBox);
+	built_in = memnewNoConstructor<CheckBox>();
 	built_in->set_text(TTR("On"));
 	built_in->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_built_in_pressed));
 	gc->add_child(memnewWithArgs<Label>(TTR("Built-in Script:")));
@@ -925,14 +925,14 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Path */
 
-	hb = memnewOldNoConstructor(HBoxContainer);
+	hb = memnewNoConstructor<HBoxContainer>();
 	hb->connect(SceneStringName(sort_children), callable_mp(this, &ScriptCreateDialog::_path_hbox_sorted));
-	file_path = memnewOldNoConstructor(LineEdit);
+	file_path = memnewNoConstructor<LineEdit>();
 	file_path->connect(SceneStringName(text_changed), callable_mp(this, &ScriptCreateDialog::_path_changed));
 	file_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hb->add_child(file_path);
 	register_text_enter(file_path);
-	path_button = memnewOldNoConstructor(Button);
+	path_button = memnewNoConstructor<Button>();
 	path_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptCreateDialog::_browse_path).bind(false, true));
 	hb->add_child(path_button);
 	Label *label = memnewWithArgs<Label>(TTR("Path:"));
@@ -943,7 +943,7 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Name */
 
-	built_in_name = memnewOldNoConstructor(LineEdit);
+	built_in_name = memnewNoConstructor<LineEdit>();
 	built_in_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	register_text_enter(built_in_name);
 	label = memnewWithArgs<Label>(TTR("Name:"));
@@ -956,16 +956,16 @@ ScriptCreateDialog::ScriptCreateDialog() {
 
 	/* Dialog Setup */
 
-	select_class = memnewOldNoConstructor(CreateDialog);
+	select_class = memnewNoConstructor<CreateDialog>();
 	select_class->connect("create", callable_mp(this, &ScriptCreateDialog::_create));
 	add_child(select_class);
 
-	file_browse = memnewOldNoConstructor(EditorFileDialog);
+	file_browse = memnewNoConstructor<EditorFileDialog>();
 	file_browse->connect("file_selected", callable_mp(this, &ScriptCreateDialog::_file_selected));
 	file_browse->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	add_child(file_browse);
 	set_ok_button_text(TTR("Create"));
-	alert = memnewOldNoConstructor(AcceptDialog);
+	alert = memnewNoConstructor<AcceptDialog>();
 	alert->get_label()->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	alert->get_label()->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	alert->get_label()->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);

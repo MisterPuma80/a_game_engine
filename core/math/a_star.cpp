@@ -54,7 +54,7 @@ void AStar3D::add_point(int64_t p_id, const Vector3 &p_pos, real_t p_weight_scal
 	bool p_exists = points.lookup(p_id, found_pt);
 
 	if (!p_exists) {
-		Point *pt = memnewOldNoConstructor(Point);
+		Point *pt = memnewNoConstructor<Point>();
 		pt->id = p_id;
 		pt->pos = p_pos;
 		pt->weight_scale = p_weight_scale;

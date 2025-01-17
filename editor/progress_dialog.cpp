@@ -44,14 +44,14 @@ void BackgroundProgress::_add_task(const String &p_task, const String &p_label, 
 	_THREAD_SAFE_METHOD_
 	ERR_FAIL_COND_MSG(tasks.has(p_task), "Task '" + p_task + "' already exists.");
 	BackgroundProgress::Task t;
-	t.hb = memnewOldNoConstructor(HBoxContainer);
-	Label *l = memnewOldNoConstructor(Label);
+	t.hb = memnewNoConstructor<HBoxContainer>();
+	Label *l = memnewNoConstructor<Label>();
 	l->set_text(p_label + " ");
 	t.hb->add_child(l);
-	t.progress = memnewOldNoConstructor(ProgressBar);
+	t.progress = memnewNoConstructor<ProgressBar>();
 	t.progress->set_max(p_steps);
 	t.progress->set_value(p_steps);
-	Control *ec = memnewOldNoConstructor(Control);
+	Control *ec = memnewNoConstructor<Control>();
 	ec->set_h_size_flags(SIZE_EXPAND_FILL);
 	ec->set_v_size_flags(SIZE_EXPAND_FILL);
 	t.progress->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
@@ -175,14 +175,14 @@ void ProgressDialog::add_task(const String &p_task, const String &p_label, int p
 
 	ERR_FAIL_COND_MSG(tasks.has(p_task), "Task '" + p_task + "' already exists.");
 	ProgressDialog::Task t;
-	t.vb = memnewOldNoConstructor(VBoxContainer);
-	VBoxContainer *vb2 = memnewOldNoConstructor(VBoxContainer);
+	t.vb = memnewNoConstructor<VBoxContainer>();
+	VBoxContainer *vb2 = memnewNoConstructor<VBoxContainer>();
 	t.vb->add_margin_child(p_label, vb2);
-	t.progress = memnewOldNoConstructor(ProgressBar);
+	t.progress = memnewNoConstructor<ProgressBar>();
 	t.progress->set_max(p_steps);
 	t.progress->set_value(p_steps);
 	vb2->add_child(t.progress);
-	t.state = memnewOldNoConstructor(Label);
+	t.state = memnewNoConstructor<Label>();
 	t.state->set_clip_text(true);
 	vb2->add_child(t.state);
 	main->add_child(t.vb);
@@ -249,16 +249,16 @@ void ProgressDialog::_cancel_pressed() {
 }
 
 ProgressDialog::ProgressDialog() {
-	main = memnewOldNoConstructor(VBoxContainer);
+	main = memnewNoConstructor<VBoxContainer>();
 	add_child(main);
 	main->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	set_exclusive(true);
 	set_flag(Window::FLAG_POPUP, false);
 	singleton = this;
-	cancel_hb = memnewOldNoConstructor(HBoxContainer);
+	cancel_hb = memnewNoConstructor<HBoxContainer>();
 	main->add_child(cancel_hb);
 	cancel_hb->hide();
-	cancel = memnewOldNoConstructor(Button);
+	cancel = memnewNoConstructor<Button>();
 	cancel_hb->add_spacer();
 	cancel_hb->add_child(cancel);
 	cancel->set_text(TTR("Cancel"));

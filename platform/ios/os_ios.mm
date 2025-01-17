@@ -106,7 +106,7 @@ OS_IOS::OS_IOS() {
 	main_loop = nullptr;
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnewOldNoConstructor(IOSTerminalLogger));
+	loggers.push_back(memnewNoConstructor<IOSTerminalLogger>());
 	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 
 	AudioDriverManager::add_driver(&audio_driver);
@@ -131,10 +131,10 @@ void OS_IOS::initialize() {
 }
 
 void OS_IOS::initialize_modules() {
-	ios = memnewOldNoConstructor(iOS);
+	ios = memnewNoConstructor<iOS>();
 	Engine::get_singleton()->add_singleton(Engine::Singleton("iOS", ios));
 
-	joypad_ios = memnewOldNoConstructor(JoypadIOS);
+	joypad_ios = memnewNoConstructor<JoypadIOS>();
 }
 
 void OS_IOS::deinitialize_modules() {

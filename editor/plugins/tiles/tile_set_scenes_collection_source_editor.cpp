@@ -238,7 +238,7 @@ void TileSetScenesCollectionSourceEditor::_scenes_list_item_activated(int p_inde
 
 void TileSetScenesCollectionSourceEditor::_source_add_pressed() {
 	if (!scene_select_dialog) {
-		scene_select_dialog = memnewOldNoConstructor(EditorFileDialog);
+		scene_select_dialog = memnewNoConstructor<EditorFileDialog>();
 		add_child(scene_select_dialog);
 		scene_select_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 		scene_select_dialog->connect("file_selected", callable_mp(this, &TileSetScenesCollectionSourceEditor::_scene_file_selected));
@@ -508,36 +508,36 @@ void TileSetScenesCollectionSourceEditor::_bind_methods() {
 
 TileSetScenesCollectionSourceEditor::TileSetScenesCollectionSourceEditor() {
 	// -- Right side --
-	HSplitContainer *split_container_right_side = memnewOldNoConstructor(HSplitContainer);
+	HSplitContainer *split_container_right_side = memnewNoConstructor<HSplitContainer>();
 	split_container_right_side->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_child(split_container_right_side);
 
 	// Middle panel.
-	ScrollContainer *middle_panel = memnewOldNoConstructor(ScrollContainer);
+	ScrollContainer *middle_panel = memnewNoConstructor<ScrollContainer>();
 	middle_panel->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	middle_panel->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	split_container_right_side->add_child(middle_panel);
 
-	VBoxContainer *middle_vbox_container = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *middle_vbox_container = memnewNoConstructor<VBoxContainer>();
 	middle_vbox_container->set_h_size_flags(SIZE_EXPAND_FILL);
 	middle_panel->add_child(middle_vbox_container);
 
 	// Scenes collection source inspector.
-	scenes_collection_source_inspector_label = memnewOldNoConstructor(Label);
+	scenes_collection_source_inspector_label = memnewNoConstructor<Label>();
 	scenes_collection_source_inspector_label->set_text(TTR("Scenes collection properties:"));
 	middle_vbox_container->add_child(scenes_collection_source_inspector_label);
 
 	scenes_collection_source_proxy_object = memnewOldNoArgs(TileSetScenesCollectionProxyObject());
 	scenes_collection_source_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_scenes_collection_source_proxy_object_changed));
 
-	scenes_collection_source_inspector = memnewOldNoConstructor(EditorInspector);
+	scenes_collection_source_inspector = memnewNoConstructor<EditorInspector>();
 	scenes_collection_source_inspector->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	scenes_collection_source_inspector->set_use_doc_hints(true);
-	scenes_collection_source_inspector->add_inspector_plugin(memnewOldNoConstructor(TileSourceInspectorPlugin));
+	scenes_collection_source_inspector->add_inspector_plugin(memnewNoConstructor<TileSourceInspectorPlugin>());
 	middle_vbox_container->add_child(scenes_collection_source_inspector);
 
 	// Tile inspector.
-	tile_inspector_label = memnewOldNoConstructor(Label);
+	tile_inspector_label = memnewNoConstructor<Label>();
 	tile_inspector_label->set_text(TTR("Tile properties:"));
 	tile_inspector_label->hide();
 	middle_vbox_container->add_child(tile_inspector_label);
@@ -546,17 +546,17 @@ TileSetScenesCollectionSourceEditor::TileSetScenesCollectionSourceEditor() {
 	tile_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_update_scenes_list).unbind(1));
 	tile_proxy_object->connect(CoreStringName(changed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_update_action_buttons).unbind(1));
 
-	tile_inspector = memnewOldNoConstructor(EditorInspector);
+	tile_inspector = memnewNoConstructor<EditorInspector>();
 	tile_inspector->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	tile_inspector->set_use_doc_hints(true);
 	tile_inspector->set_use_folding(true);
 	middle_vbox_container->add_child(tile_inspector);
 
 	// Scenes list.
-	VBoxContainer *right_vbox_container = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *right_vbox_container = memnewNoConstructor<VBoxContainer>();
 	split_container_right_side->add_child(right_vbox_container);
 
-	scene_tiles_list = memnewOldNoConstructor(ItemList);
+	scene_tiles_list = memnewNoConstructor<ItemList>();
 	scene_tiles_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	scene_tiles_list->set_h_size_flags(SIZE_EXPAND_FILL);
 	scene_tiles_list->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -567,15 +567,15 @@ TileSetScenesCollectionSourceEditor::TileSetScenesCollectionSourceEditor() {
 	scene_tiles_list->set_texture_filter(CanvasItem::TEXTURE_FILTER_NEAREST);
 	right_vbox_container->add_child(scene_tiles_list);
 
-	HBoxContainer *scenes_bottom_actions = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *scenes_bottom_actions = memnewNoConstructor<HBoxContainer>();
 	right_vbox_container->add_child(scenes_bottom_actions);
 
-	scene_tile_add_button = memnewOldNoConstructor(Button);
+	scene_tile_add_button = memnewNoConstructor<Button>();
 	scene_tile_add_button->set_theme_type_variation("FlatButton");
 	scene_tile_add_button->connect(SceneStringName(pressed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_source_add_pressed));
 	scenes_bottom_actions->add_child(scene_tile_add_button);
 
-	scene_tile_delete_button = memnewOldNoConstructor(Button);
+	scene_tile_delete_button = memnewNoConstructor<Button>();
 	scene_tile_delete_button->set_theme_type_variation("FlatButton");
 	scene_tile_delete_button->set_disabled(true);
 	scene_tile_delete_button->connect(SceneStringName(pressed), callable_mp(this, &TileSetScenesCollectionSourceEditor::_source_delete_pressed));

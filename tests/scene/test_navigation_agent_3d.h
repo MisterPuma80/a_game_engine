@@ -41,16 +41,16 @@ namespace TestNavigationAgent3D {
 
 TEST_SUITE("[Navigation]") {
 	TEST_CASE("[SceneTree][NavigationAgent3D] New agent should have valid RID") {
-		NavigationAgent3D *agent_node = memnewOldNoConstructor(NavigationAgent3D);
+		NavigationAgent3D *agent_node = memnewNoConstructor<NavigationAgent3D>();
 		CHECK(agent_node->get_rid().is_valid());
 		memdelete(agent_node);
 	}
 
 	TEST_CASE("[SceneTree][NavigationAgent3D] New agent should attach to default map") {
-		Node3D *node_3d = memnewOldNoConstructor(Node3D);
+		Node3D *node_3d = memnewNoConstructor<Node3D>();
 		SceneTree::get_singleton()->get_root()->add_child(node_3d);
 
-		NavigationAgent3D *agent_node = memnewOldNoConstructor(NavigationAgent3D);
+		NavigationAgent3D *agent_node = memnewNoConstructor<NavigationAgent3D>();
 
 		// agent should not be attached to any map when outside of tree
 		CHECK_FALSE(agent_node->get_navigation_map().is_valid());

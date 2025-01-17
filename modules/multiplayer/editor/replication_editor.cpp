@@ -176,16 +176,16 @@ ReplicationEditor::ReplicationEditor() {
 	set_v_size_flags(SIZE_EXPAND_FILL);
 	set_custom_minimum_size(Size2(0, 200) * EDSCALE);
 
-	delete_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	delete_dialog = memnewNoConstructor<ConfirmationDialog>();
 	delete_dialog->connect("canceled", callable_mp(this, &ReplicationEditor::_dialog_closed).bind(false));
 	delete_dialog->connect(SceneStringName(confirmed), callable_mp(this, &ReplicationEditor::_dialog_closed).bind(true));
 	add_child(delete_dialog);
 
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	vb->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(vb);
 
-	pick_node = memnewOldNoConstructor(SceneTreeDialog);
+	pick_node = memnewNoConstructor<SceneTreeDialog>();
 	add_child(pick_node);
 	pick_node->register_text_enter(pick_node->get_filter_line_edit());
 	pick_node->set_title(TTR("Pick a node to synchronize:"));
@@ -193,7 +193,7 @@ ReplicationEditor::ReplicationEditor() {
 	pick_node->get_filter_line_edit()->connect(SceneStringName(text_changed), callable_mp(this, &ReplicationEditor::_pick_node_filter_text_changed));
 	pick_node->get_filter_line_edit()->connect("gui_input", callable_mp(this, &ReplicationEditor::_pick_node_filter_input));
 
-	prop_selector = memnewOldNoConstructor(PropertySelector);
+	prop_selector = memnewNoConstructor<PropertySelector>();
 	add_child(prop_selector);
 	// Filter out properties that cannot be synchronized.
 	// * RIDs do not match across network.
@@ -243,41 +243,41 @@ ReplicationEditor::ReplicationEditor() {
 	prop_selector->set_type_filter(types);
 	prop_selector->connect("selected", callable_mp(this, &ReplicationEditor::_pick_node_property_selected));
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	vb->add_child(hb);
 
-	add_pick_button = memnewOldNoConstructor(Button);
+	add_pick_button = memnewNoConstructor<Button>();
 	add_pick_button->connect(SceneStringName(pressed), callable_mp(this, &ReplicationEditor::_pick_new_property));
 	add_pick_button->set_text(TTR("Add property to sync..."));
 	hb->add_child(add_pick_button);
 
-	VSeparator *vs = memnewOldNoConstructor(VSeparator);
+	VSeparator *vs = memnewNoConstructor<VSeparator>();
 	vs->set_custom_minimum_size(Size2(30 * EDSCALE, 0));
 	hb->add_child(vs);
 	hb->add_child(memnewWithArgs<Label>(TTR("Path:")));
 
-	np_line_edit = memnewOldNoConstructor(LineEdit);
+	np_line_edit = memnewNoConstructor<LineEdit>();
 	np_line_edit->set_placeholder(":property");
 	np_line_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	np_line_edit->connect("text_submitted", callable_mp(this, &ReplicationEditor::_np_text_submitted));
 	hb->add_child(np_line_edit);
 
-	add_from_path_button = memnewOldNoConstructor(Button);
+	add_from_path_button = memnewNoConstructor<Button>();
 	add_from_path_button->connect(SceneStringName(pressed), callable_mp(this, &ReplicationEditor::_add_pressed));
 	add_from_path_button->set_text(TTR("Add from path"));
 	hb->add_child(add_from_path_button);
 
-	vs = memnewOldNoConstructor(VSeparator);
+	vs = memnewNoConstructor<VSeparator>();
 	vs->set_custom_minimum_size(Size2(30 * EDSCALE, 0));
 	hb->add_child(vs);
 
-	pin = memnewOldNoConstructor(Button);
+	pin = memnewNoConstructor<Button>();
 	pin->set_theme_type_variation("FlatButton");
 	pin->set_toggle_mode(true);
 	pin->set_tooltip_text(TTR("Pin replication editor"));
 	hb->add_child(pin);
 
-	tree = memnewOldNoConstructor(Tree);
+	tree = memnewNoConstructor<Tree>();
 	tree->set_hide_root(true);
 	tree->set_columns(4);
 	tree->set_column_titles_visible(true);
@@ -296,7 +296,7 @@ ReplicationEditor::ReplicationEditor() {
 	tree->set_v_size_flags(SIZE_EXPAND_FILL);
 	vb->add_child(tree);
 
-	drop_label = memnewOldNoConstructor(Label);
+	drop_label = memnewNoConstructor<Label>();
 	drop_label->set_text(TTR("Add properties using the options above, or\ndrag them from the inspector and drop them here."));
 	drop_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	drop_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);

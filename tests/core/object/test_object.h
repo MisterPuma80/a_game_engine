@@ -201,7 +201,7 @@ TEST_CASE("[Object] Construction") {
 
 TEST_CASE("[Object] Script instance property setter") {
 	Object object;
-	_MockScriptInstance *script_instance = memnewOldNoConstructor(_MockScriptInstance);
+	_MockScriptInstance *script_instance = memnewNoConstructor<_MockScriptInstance>();
 	object.set_script_instance(script_instance);
 
 	bool valid = false;
@@ -218,7 +218,7 @@ TEST_CASE("[Object] Script instance property setter") {
 
 TEST_CASE("[Object] Script instance property getter") {
 	Object object;
-	_MockScriptInstance *script_instance = memnewOldNoConstructor(_MockScriptInstance);
+	_MockScriptInstance *script_instance = memnewNoConstructor<_MockScriptInstance>();
 	script_instance->set("some_name", 100); // Make sure script instance has the property
 	object.set_script_instance(script_instance);
 
@@ -486,7 +486,7 @@ public:
 };
 
 TEST_CASE("[Object] Notification order") { // GH-52325
-	NotificationObject2 *test_notification_object = memnewOldNoConstructor(NotificationObject2);
+	NotificationObject2 *test_notification_object = memnewNoConstructor<NotificationObject2>();
 
 	SUBCASE("regular order") {
 		test_notification_object->notification(12345, false);
@@ -510,7 +510,7 @@ TEST_CASE("[Object] Notification order") { // GH-52325
 }
 
 TEST_CASE("[Object] Destruction at the end of the call chain is safe") {
-	Object *object = memnewOldNoConstructor(Object);
+	Object *object = memnewNoConstructor<Object>();
 	ObjectID obj_id = object->get_instance_id();
 
 	class _SelfDestroyingScriptInstance : public _MockScriptInstance {

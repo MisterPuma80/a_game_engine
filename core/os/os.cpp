@@ -704,7 +704,7 @@ OS::OS() {
 	singleton = this;
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnewOldNoConstructor(StdLogger));
+	loggers.push_back(memnewNoConstructor<StdLogger>());
 	_set_logger(memnewWithArgs<CompositeLogger>(loggers));
 }
 

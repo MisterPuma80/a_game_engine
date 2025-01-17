@@ -45,28 +45,28 @@ RID GodotPhysicsServer2D::_shape_create(ShapeType p_shape) {
 	GodotShape2D *shape = nullptr;
 	switch (p_shape) {
 		case SHAPE_WORLD_BOUNDARY: {
-			shape = memnewOldNoConstructor(GodotWorldBoundaryShape2D);
+			shape = memnewNoConstructor<GodotWorldBoundaryShape2D>();
 		} break;
 		case SHAPE_SEPARATION_RAY: {
-			shape = memnewOldNoConstructor(GodotSeparationRayShape2D);
+			shape = memnewNoConstructor<GodotSeparationRayShape2D>();
 		} break;
 		case SHAPE_SEGMENT: {
-			shape = memnewOldNoConstructor(GodotSegmentShape2D);
+			shape = memnewNoConstructor<GodotSegmentShape2D>();
 		} break;
 		case SHAPE_CIRCLE: {
-			shape = memnewOldNoConstructor(GodotCircleShape2D);
+			shape = memnewNoConstructor<GodotCircleShape2D>();
 		} break;
 		case SHAPE_RECTANGLE: {
-			shape = memnewOldNoConstructor(GodotRectangleShape2D);
+			shape = memnewNoConstructor<GodotRectangleShape2D>();
 		} break;
 		case SHAPE_CAPSULE: {
-			shape = memnewOldNoConstructor(GodotCapsuleShape2D);
+			shape = memnewNoConstructor<GodotCapsuleShape2D>();
 		} break;
 		case SHAPE_CONVEX_POLYGON: {
-			shape = memnewOldNoConstructor(GodotConvexPolygonShape2D);
+			shape = memnewNoConstructor<GodotConvexPolygonShape2D>();
 		} break;
 		case SHAPE_CONCAVE_POLYGON: {
-			shape = memnewOldNoConstructor(GodotConcavePolygonShape2D);
+			shape = memnewNoConstructor<GodotConcavePolygonShape2D>();
 		} break;
 		case SHAPE_CUSTOM: {
 			ERR_FAIL_V(RID());
@@ -215,7 +215,7 @@ bool GodotPhysicsServer2D::shape_collide(RID p_shape_A, const Transform2D &p_xfo
 }
 
 RID GodotPhysicsServer2D::space_create() {
-	GodotSpace2D *space = memnewOldNoConstructor(GodotSpace2D);
+	GodotSpace2D *space = memnewNoConstructor<GodotSpace2D>();
 	RID id = space_owner.make_rid(space);
 	space->set_self(id);
 	RID area_id = area_create();
@@ -323,7 +323,7 @@ PhysicsDirectSpaceState2D *GodotPhysicsServer2D::space_get_direct_state(RID p_sp
 }
 
 RID GodotPhysicsServer2D::area_create() {
-	GodotArea2D *area = memnewOldNoConstructor(GodotArea2D);
+	GodotArea2D *area = memnewNoConstructor<GodotArea2D>();
 	RID rid = area_owner.make_rid(area);
 	area->set_self(rid);
 	return rid;
@@ -568,7 +568,7 @@ void GodotPhysicsServer2D::area_set_area_monitor_callback(RID p_area, const Call
 /* BODY API */
 
 RID GodotPhysicsServer2D::body_create() {
-	GodotBody2D *body = memnewOldNoConstructor(GodotBody2D);
+	GodotBody2D *body = memnewNoConstructor<GodotBody2D>();
 	RID rid = body_owner.make_rid(body);
 	body->set_self(rid);
 	return rid;
@@ -1062,7 +1062,7 @@ PhysicsDirectBodyState2D *GodotPhysicsServer2D::body_get_direct_state(RID p_body
 /* JOINT API */
 
 RID GodotPhysicsServer2D::joint_create() {
-	GodotJoint2D *joint = memnewOldNoConstructor(GodotJoint2D);
+	GodotJoint2D *joint = memnewNoConstructor<GodotJoint2D>();
 	RID joint_rid = joint_owner.make_rid(joint);
 	joint->set_self(joint_rid);
 	return joint_rid;
@@ -1072,7 +1072,7 @@ void GodotPhysicsServer2D::joint_clear(RID p_joint) {
 	GodotJoint2D *joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(joint);
 	if (joint->get_type() != JOINT_TYPE_MAX) {
-		GodotJoint2D *empty_joint = memnewOldNoConstructor(GodotJoint2D);
+		GodotJoint2D *empty_joint = memnewNoConstructor<GodotJoint2D>();
 		empty_joint->copy_settings_from(joint);
 
 		joint_owner.replace(p_joint, empty_joint);
@@ -1322,7 +1322,7 @@ void GodotPhysicsServer2D::set_active(bool p_active) {
 
 void GodotPhysicsServer2D::init() {
 	doing_sync = false;
-	stepper = memnewOldNoConstructor(GodotStep2D);
+	stepper = memnewNoConstructor<GodotStep2D>();
 }
 
 void GodotPhysicsServer2D::step(real_t p_step) {

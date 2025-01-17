@@ -194,7 +194,7 @@ void EditorZoomWidget::set_shortcut_context(Node *p_node) const {
 
 EditorZoomWidget::EditorZoomWidget() {
 	// Zoom buttons
-	zoom_minus = memnewOldNoConstructor(Button);
+	zoom_minus = memnewNoConstructor<Button>();
 	zoom_minus->set_flat(true);
 	zoom_minus->set_shortcut(ED_SHORTCUT_ARRAY("canvas_item_editor/zoom_minus", TTR("Zoom Out"), { int32_t(KeyModifierMask::CMD_OR_CTRL | Key::MINUS), int32_t(KeyModifierMask::CMD_OR_CTRL | Key::KP_SUBTRACT) }));
 	zoom_minus->set_shortcut_context(this);
@@ -202,10 +202,10 @@ EditorZoomWidget::EditorZoomWidget() {
 	add_child(zoom_minus);
 	zoom_minus->connect(SceneStringName(pressed), callable_mp(this, &EditorZoomWidget::_button_zoom_minus));
 
-	zoom_reset = memnewOldNoConstructor(Button);
+	zoom_reset = memnewNoConstructor<Button>();
 	zoom_reset->set_flat(true);
 
-	Ref<StyleBoxEmpty> empty_stylebox = memnewOldNoConstructor(StyleBoxEmpty);
+	Ref<StyleBoxEmpty> empty_stylebox = memnewNoConstructor<StyleBoxEmpty>();
 	zoom_reset->add_theme_style_override(CoreStringName(normal), empty_stylebox);
 	zoom_reset->add_theme_style_override("hover", empty_stylebox);
 	zoom_reset->add_theme_style_override("focus", empty_stylebox);
@@ -223,7 +223,7 @@ EditorZoomWidget::EditorZoomWidget() {
 	add_child(zoom_reset);
 	zoom_reset->connect(SceneStringName(pressed), callable_mp(this, &EditorZoomWidget::_button_zoom_reset));
 
-	zoom_plus = memnewOldNoConstructor(Button);
+	zoom_plus = memnewNoConstructor<Button>();
 	zoom_plus->set_flat(true);
 	zoom_plus->set_shortcut(ED_SHORTCUT_ARRAY("canvas_item_editor/zoom_plus", TTR("Zoom In"), { int32_t(KeyModifierMask::CMD_OR_CTRL | Key::EQUAL), int32_t(KeyModifierMask::CMD_OR_CTRL | Key::KP_ADD) }));
 	zoom_plus->set_shortcut_context(this);

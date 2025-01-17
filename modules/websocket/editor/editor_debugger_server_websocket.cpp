@@ -134,7 +134,7 @@ EditorDebuggerServerWebSocket::~EditorDebuggerServerWebSocket() {
 
 EditorDebuggerServer *EditorDebuggerServerWebSocket::create(const String &p_protocol) {
 	ERR_FAIL_COND_V(p_protocol != "ws://", nullptr);
-	return memnewOldNoConstructor(EditorDebuggerServerWebSocket);
+	return memnewNoConstructor<EditorDebuggerServerWebSocket>();
 }
 
 #endif // TOOLS_ENABLED

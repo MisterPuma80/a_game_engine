@@ -183,10 +183,10 @@ void VoxelGIEditorPlugin::_bind_methods() {
 }
 
 VoxelGIEditorPlugin::VoxelGIEditorPlugin() {
-	bake_hb = memnewOldNoConstructor(HBoxContainer);
+	bake_hb = memnewNoConstructor<HBoxContainer>();
 	bake_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	bake_hb->hide();
-	bake = memnewOldNoConstructor(Button);
+	bake = memnewNoConstructor<Button>();
 	bake->set_theme_type_variation("FlatButton");
 	// TODO: Rework this as a dedicated toolbar control so we can hook into theme changes and update it
 	// when the editor theme updates.
@@ -197,7 +197,7 @@ VoxelGIEditorPlugin::VoxelGIEditorPlugin() {
 
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, bake_hb);
 	voxel_gi = nullptr;
-	probe_file = memnewOldNoConstructor(EditorFileDialog);
+	probe_file = memnewNoConstructor<EditorFileDialog>();
 	probe_file->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	probe_file->add_filter("*.res");
 	probe_file->connect("file_selected", callable_mp(this, &VoxelGIEditorPlugin::_voxel_gi_save_path_and_bake));

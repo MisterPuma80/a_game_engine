@@ -567,7 +567,7 @@ void AnimationPlayerEditor::_animation_name_edited() {
 		} break;
 
 		case TOOL_NEW_ANIM: {
-			Ref<Animation> new_anim = Ref<Animation>(memnewOldNoConstructor(Animation));
+			Ref<Animation> new_anim = Ref<Animation>(memnewNoConstructor<Animation>());
 			new_anim->set_name(new_name);
 
 			if (animation->get_item_count() > 0) {
@@ -1287,7 +1287,7 @@ void AnimationPlayerEditor::_animation_duplicate() {
 }
 
 Ref<Animation> AnimationPlayerEditor::_animation_clone(Ref<Animation> p_anim) {
-	Ref<Animation> new_anim = memnewOldNoConstructor(Animation);
+	Ref<Animation> new_anim = memnewNoConstructor<Animation>();
 	List<PropertyInfo> plist;
 	p_anim->get_property_list(&plist);
 
@@ -1929,55 +1929,55 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 	set_focus_mode(FOCUS_ALL);
 	set_process_shortcut_input(true);
 
-	HBoxContainer *hb = memnewOldNoConstructor(HBoxContainer);
+	HBoxContainer *hb = memnewNoConstructor<HBoxContainer>();
 	add_child(hb);
 
-	play_bw_from = memnewOldNoConstructor(Button);
+	play_bw_from = memnewNoConstructor<Button>();
 	play_bw_from->set_theme_type_variation("FlatButton");
 	play_bw_from->set_tooltip_text(TTR("Play selected animation backwards from current pos. (A)"));
 	hb->add_child(play_bw_from);
 
-	play_bw = memnewOldNoConstructor(Button);
+	play_bw = memnewNoConstructor<Button>();
 	play_bw->set_theme_type_variation("FlatButton");
 	play_bw->set_tooltip_text(TTR("Play selected animation backwards from end. (Shift+A)"));
 	hb->add_child(play_bw);
 
-	stop = memnewOldNoConstructor(Button);
+	stop = memnewNoConstructor<Button>();
 	stop->set_theme_type_variation("FlatButton");
 	hb->add_child(stop);
 	stop->set_tooltip_text(TTR("Pause/stop animation playback. (S)"));
 
-	play = memnewOldNoConstructor(Button);
+	play = memnewNoConstructor<Button>();
 	play->set_theme_type_variation("FlatButton");
 	play->set_tooltip_text(TTR("Play selected animation from start. (Shift+D)"));
 	hb->add_child(play);
 
-	play_from = memnewOldNoConstructor(Button);
+	play_from = memnewNoConstructor<Button>();
 	play_from->set_theme_type_variation("FlatButton");
 	play_from->set_tooltip_text(TTR("Play selected animation from current pos. (D)"));
 	hb->add_child(play_from);
 
-	frame = memnewOldNoConstructor(SpinBox);
+	frame = memnewNoConstructor<SpinBox>();
 	hb->add_child(frame);
 	frame->set_custom_minimum_size(Size2(80, 0) * EDSCALE);
 	frame->set_stretch_ratio(2);
 	frame->set_step(0.0001);
 	frame->set_tooltip_text(TTR("Animation position (in seconds)."));
 
-	hb->add_child(memnewOldNoConstructor(VSeparator));
+	hb->add_child(memnewNoConstructor<VSeparator>());
 
-	scale = memnewOldNoConstructor(LineEdit);
+	scale = memnewNoConstructor<LineEdit>();
 	hb->add_child(scale);
 	scale->set_h_size_flags(SIZE_EXPAND_FILL);
 	scale->set_stretch_ratio(1);
 	scale->set_tooltip_text(TTR("Scale animation playback globally for the node."));
 	scale->hide();
 
-	delete_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	delete_dialog = memnewNoConstructor<ConfirmationDialog>();
 	add_child(delete_dialog);
 	delete_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationPlayerEditor::_animation_remove_confirmed));
 
-	tool_anim = memnewOldNoConstructor(MenuButton);
+	tool_anim = memnewNoConstructor<MenuButton>();
 	tool_anim->set_shortcut_context(this);
 	tool_anim->set_flat(false);
 	tool_anim->set_tooltip_text(TTR("Animation Tools"));
@@ -1996,33 +1996,33 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 	tool_anim->set_disabled(true);
 	hb->add_child(tool_anim);
 
-	animation = memnewOldNoConstructor(OptionButton);
+	animation = memnewNoConstructor<OptionButton>();
 	hb->add_child(animation);
 	animation->set_h_size_flags(SIZE_EXPAND_FILL);
 	animation->set_tooltip_text(TTR("Display list of animations in player."));
 	animation->set_clip_text(true);
 	animation->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 
-	autoplay = memnewOldNoConstructor(Button);
+	autoplay = memnewNoConstructor<Button>();
 	autoplay->set_theme_type_variation("FlatButton");
 	hb->add_child(autoplay);
 	autoplay->set_tooltip_text(TTR("Autoplay on Load"));
 
-	hb->add_child(memnewOldNoConstructor(VSeparator));
+	hb->add_child(memnewNoConstructor<VSeparator>());
 
-	track_editor = memnewOldNoConstructor(AnimationTrackEditor);
+	track_editor = memnewNoConstructor<AnimationTrackEditor>();
 	hb->add_child(track_editor->get_edit_menu());
 
-	hb->add_child(memnewOldNoConstructor(VSeparator));
+	hb->add_child(memnewNoConstructor<VSeparator>());
 
-	onion_toggle = memnewOldNoConstructor(Button);
+	onion_toggle = memnewNoConstructor<Button>();
 	onion_toggle->set_theme_type_variation("FlatButton");
 	onion_toggle->set_toggle_mode(true);
 	onion_toggle->set_tooltip_text(TTR("Enable Onion Skinning"));
 	onion_toggle->connect(SceneStringName(pressed), callable_mp(this, &AnimationPlayerEditor::_onion_skinning_menu).bind(ONION_SKINNING_ENABLE));
 	hb->add_child(onion_toggle);
 
-	onion_skinning = memnewOldNoConstructor(MenuButton);
+	onion_skinning = memnewNoConstructor<MenuButton>();
 	onion_skinning->set_flat(false);
 	onion_skinning->set_theme_type_variation("FlatMenuButton");
 	onion_skinning->set_tooltip_text(TTR("Onion Skinning Options"));
@@ -2043,55 +2043,55 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 	onion_skinning->get_popup()->add_check_item(TTR("Include Gizmos (3D)"), ONION_SKINNING_INCLUDE_GIZMOS);
 	hb->add_child(onion_skinning);
 
-	hb->add_child(memnewOldNoConstructor(VSeparator));
+	hb->add_child(memnewNoConstructor<VSeparator>());
 
-	pin = memnewOldNoConstructor(Button);
+	pin = memnewNoConstructor<Button>();
 	pin->set_theme_type_variation("FlatButton");
 	pin->set_toggle_mode(true);
 	pin->set_tooltip_text(TTR("Pin AnimationPlayer"));
 	hb->add_child(pin);
 	pin->connect(SceneStringName(pressed), callable_mp(this, &AnimationPlayerEditor::_pin_pressed));
 
-	file = memnewOldNoConstructor(EditorFileDialog);
+	file = memnewNoConstructor<EditorFileDialog>();
 	add_child(file);
 
-	name_dialog = memnewOldNoConstructor(ConfirmationDialog);
+	name_dialog = memnewNoConstructor<ConfirmationDialog>();
 	name_dialog->set_title(TTR("Create New Animation"));
 	name_dialog->set_hide_on_ok(false);
 	add_child(name_dialog);
-	VBoxContainer *vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *vb = memnewNoConstructor<VBoxContainer>();
 	name_dialog->add_child(vb);
 
 	name_title = memnewWithArgs<Label>(TTR("Animation Name:"));
 	vb->add_child(name_title);
 
-	HBoxContainer *name_hb = memnewOldNoConstructor(HBoxContainer);
-	name = memnewOldNoConstructor(LineEdit);
+	HBoxContainer *name_hb = memnewNoConstructor<HBoxContainer>();
+	name = memnewNoConstructor<LineEdit>();
 	name_hb->add_child(name);
 	name->set_h_size_flags(SIZE_EXPAND_FILL);
-	library = memnewOldNoConstructor(OptionButton);
+	library = memnewNoConstructor<OptionButton>();
 	name_hb->add_child(library);
 	library->hide();
 	vb->add_child(name_hb);
 	name_dialog->register_text_enter(name);
 
-	error_dialog = memnewOldNoConstructor(AcceptDialog);
+	error_dialog = memnewNoConstructor<AcceptDialog>();
 	error_dialog->set_ok_button_text(TTR("Close"));
 	error_dialog->set_title(TTR("Error!"));
 	name_dialog->add_child(error_dialog);
 
 	name_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationPlayerEditor::_animation_name_edited));
 
-	blend_editor.dialog = memnewOldNoConstructor(AcceptDialog);
+	blend_editor.dialog = memnewNoConstructor<AcceptDialog>();
 	blend_editor.dialog->set_title(TTR("Cross-Animation Blend Times"));
 	blend_editor.dialog->set_ok_button_text(TTR("Close"));
 	blend_editor.dialog->set_hide_on_ok(true);
 	add_child(blend_editor.dialog);
 
-	VBoxContainer *blend_vb = memnewOldNoConstructor(VBoxContainer);
+	VBoxContainer *blend_vb = memnewNoConstructor<VBoxContainer>();
 	blend_editor.dialog->add_child(blend_vb);
 
-	blend_editor.tree = memnewOldNoConstructor(Tree);
+	blend_editor.tree = memnewNoConstructor<Tree>();
 	blend_editor.tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	blend_editor.tree->set_hide_root(true);
 	blend_editor.tree->set_columns(2);
@@ -2102,7 +2102,7 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 	blend_vb->add_margin_child(TTR("Blend Times:"), blend_editor.tree, true);
 	blend_editor.tree->connect(SNAME("item_edited"), callable_mp(this, &AnimationPlayerEditor::_blend_edited));
 
-	blend_editor.next = memnewOldNoConstructor(OptionButton);
+	blend_editor.next = memnewNoConstructor<OptionButton>();
 	blend_editor.next->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	blend_vb->add_margin_child(TTR("Next (Auto Queue):"), blend_editor.next);
 
@@ -2126,7 +2126,7 @@ AnimationPlayerEditor::AnimationPlayerEditor(AnimationPlayerEditorPlugin *p_plug
 
 	_update_player();
 
-	library_editor = memnewOldNoConstructor(AnimationLibraryEditor);
+	library_editor = memnewNoConstructor<AnimationLibraryEditor>();
 	add_child(library_editor);
 	library_editor->connect(SNAME("update_editor"), callable_mp(this, &AnimationPlayerEditor::_animation_player_changed));
 
@@ -2274,14 +2274,14 @@ void AnimationPlayerEditorPlugin::_update_dummy_player(AnimationMixer *p_mixer) 
 	if (!dummy_player) {
 		Node *parent = p_mixer->get_parent();
 		ERR_FAIL_NULL(parent);
-		dummy_player = memnewOldNoConstructor(AnimationPlayer);
+		dummy_player = memnewNoConstructor<AnimationPlayer>();
 		dummy_player->set_active(false); // Inactive as default, it will be activated if the AnimationPlayerEditor visibility is changed.
 		parent->add_child(dummy_player);
 	}
 	player = dummy_player;
 
 	// Convert AnimationTree (AnimationMixer) to AnimationPlayer.
-	AnimationMixer *default_node = memnewOldNoConstructor(AnimationMixer);
+	AnimationMixer *default_node = memnewNoConstructor<AnimationMixer>();
 	List<PropertyInfo> pinfo;
 	default_node->get_property_list(&pinfo);
 	for (const PropertyInfo &E : pinfo) {
@@ -2337,7 +2337,7 @@ void EditorInspectorPluginAnimationTrackKeyEdit::parse_begin(Object *p_object) {
 }
 
 AnimationTrackKeyEditEditorPlugin::AnimationTrackKeyEditEditorPlugin() {
-	atk_plugin = memnewOldNoConstructor(EditorInspectorPluginAnimationTrackKeyEdit);
+	atk_plugin = memnewNoConstructor<EditorInspectorPluginAnimationTrackKeyEdit>();
 	EditorInspector::add_inspector_plugin(atk_plugin);
 }
 

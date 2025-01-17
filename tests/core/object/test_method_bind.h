@@ -146,14 +146,14 @@ public:
 
 		call("test_method_default_args", 1, 2, 3, 4);
 
-		ObjectSubclass *obj = memnewOldNoConstructor(ObjectSubclass);
+		ObjectSubclass *obj = memnewNoConstructor<ObjectSubclass>();
 		call("test_method_object_cast", obj);
 		memdelete(obj);
 	}
 };
 
 TEST_CASE("[MethodBind] check all method binds") {
-	MethodBindTester *mbt = memnewOldNoConstructor(MethodBindTester);
+	MethodBindTester *mbt = memnewNoConstructor<MethodBindTester>();
 
 	mbt->run_tests();
 

@@ -253,7 +253,7 @@ void RenderingContextDriverD3D12::driver_free(RenderingDeviceDriver *p_driver) {
 
 RenderingContextDriver::SurfaceID RenderingContextDriverD3D12::surface_create(const void *p_platform_data) {
 	const WindowPlatformData *wpd = (const WindowPlatformData *)(p_platform_data);
-	Surface *surface = memnewOldNoConstructor(Surface);
+	Surface *surface = memnewNoConstructor<Surface>();
 	surface->hwnd = wpd->window;
 	return SurfaceID(surface);
 }
