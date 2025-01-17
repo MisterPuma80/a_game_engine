@@ -1488,16 +1488,16 @@ void RendererSceneRenderRD::init() {
 
 	bool can_use_storage = _render_buffers_can_be_storage();
 	bool can_use_vrs = is_vrs_supported();
-	bokeh_dof = memnew(RendererRD::BokehDOF(!can_use_storage));
-	copy_effects = memnew(RendererRD::CopyEffects(!can_use_storage));
-	debug_effects = memnew(RendererRD::DebugEffects);
-	luminance = memnew(RendererRD::Luminance(!can_use_storage));
-	tone_mapper = memnew(RendererRD::ToneMapper);
+	bokeh_dof = memnewOld(RendererRD::BokehDOF(!can_use_storage));
+	copy_effects = memnewOld(RendererRD::CopyEffects(!can_use_storage));
+	debug_effects = memnewOld(RendererRD::DebugEffects);
+	luminance = memnewOld(RendererRD::Luminance(!can_use_storage));
+	tone_mapper = memnewOld(RendererRD::ToneMapper);
 	if (can_use_vrs) {
-		vrs = memnew(RendererRD::VRS);
+		vrs = memnewOld(RendererRD::VRS);
 	}
 	if (can_use_storage) {
-		fsr = memnew(RendererRD::FSR);
+		fsr = memnewOld(RendererRD::FSR);
 	}
 }
 

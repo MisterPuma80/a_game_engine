@@ -303,7 +303,7 @@ void WindowWrapper::set_margins_enabled(bool p_enabled) {
 		margins = nullptr;
 	} else if (p_enabled && !margins) {
 		Size2 borders = Size2(4, 4) * EDSCALE;
-		margins = memnew(MarginContainer);
+		margins = memnewOld(MarginContainer);
 		margins->add_theme_constant_override("margin_right", borders.width);
 		margins->add_theme_constant_override("margin_top", borders.height);
 		margins->add_theme_constant_override("margin_left", borders.width);
@@ -319,7 +319,7 @@ WindowWrapper::WindowWrapper() {
 		return;
 	}
 
-	window = memnew(Window);
+	window = memnewOld(Window);
 	window->set_wrap_controls(true);
 
 	add_child(window);
@@ -327,10 +327,10 @@ WindowWrapper::WindowWrapper() {
 
 	window->connect("close_requested", callable_mp(this, &WindowWrapper::set_window_enabled).bind(false));
 
-	ShortcutBin *capturer = memnew(ShortcutBin);
+	ShortcutBin *capturer = memnewOld(ShortcutBin);
 	window->add_child(capturer);
 
-	window_background = memnew(Panel);
+	window_background = memnewOld(Panel);
 	window_background->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	window->add_child(window_background);
 
@@ -352,7 +352,7 @@ void ScreenSelect::_build_advanced_menu() {
 
 	int current_screen = get_window()->get_current_screen();
 	for (int i = 0; i < DisplayServer::get_singleton()->get_screen_count(); i++) {
-		Button *button = memnew(Button);
+		Button *button = memnewOld(Button);
 
 		Size2 screen_size = Size2(DisplayServer::get_singleton()->screen_get_size(i));
 		Size2 button_size = Size2(height * (screen_size.x / screen_size.y), height);
@@ -454,30 +454,30 @@ ScreenSelect::ScreenSelect() {
 	// Create the popup.
 	const Size2 borders = Size2(4, 4) * EDSCALE;
 
-	popup = memnew(Popup);
+	popup = memnewOld(Popup);
 	popup->connect("popup_hide", callable_mp(static_cast<BaseButton *>(this), &ScreenSelect::set_pressed).bind(false));
 	add_child(popup);
 
-	popup_background = memnew(Panel);
+	popup_background = memnewOld(Panel);
 	popup_background->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	popup->add_child(popup_background);
 
-	MarginContainer *popup_root = memnew(MarginContainer);
+	MarginContainer *popup_root = memnewOld(MarginContainer);
 	popup_root->add_theme_constant_override("margin_right", borders.width);
 	popup_root->add_theme_constant_override("margin_top", borders.height);
 	popup_root->add_theme_constant_override("margin_left", borders.width);
 	popup_root->add_theme_constant_override("margin_bottom", borders.height);
 	popup->add_child(popup_root);
 
-	VBoxContainer *vb = memnew(VBoxContainer);
+	VBoxContainer *vb = memnewOld(VBoxContainer);
 	vb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	popup_root->add_child(vb);
 
-	Label *description = memnew(Label(TTR("Select Screen")));
+	Label *description = memnewOld(Label(TTR("Select Screen")));
 	description->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	vb->add_child(description);
 
-	screen_list = memnew(HBoxContainer);
+	screen_list = memnewOld(HBoxContainer);
 	screen_list->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	vb->add_child(screen_list);
 

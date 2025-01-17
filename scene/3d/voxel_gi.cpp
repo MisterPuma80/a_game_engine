@@ -455,7 +455,7 @@ void VoxelGI::bake(Node *p_from_node, bool p_create_visual_debug) {
 	//create the data for rendering server
 
 	if (p_create_visual_debug) {
-		MultiMeshInstance3D *mmi = memnew(MultiMeshInstance3D);
+		MultiMeshInstance3D *mmi = memnewOld(MultiMeshInstance3D);
 		mmi->set_multimesh(baker.create_debug_multimesh());
 		add_child(mmi, true);
 #ifdef TOOLS_ENABLED

@@ -592,7 +592,7 @@ void GPUParticles3D::convert_from_particles(Node *p_particles) {
 	set_draw_order(DrawOrder(cpu_particles->get_draw_order()));
 	set_draw_pass_mesh(0, cpu_particles->get_mesh());
 
-	Ref<ParticleProcessMaterial> proc_mat = memnew(ParticleProcessMaterial);
+	Ref<ParticleProcessMaterial> proc_mat = memnewOld(ParticleProcessMaterial);
 	set_process_material(proc_mat);
 
 	proc_mat->set_direction(cpu_particles->get_direction());
@@ -602,14 +602,14 @@ void GPUParticles3D::convert_from_particles(Node *p_particles) {
 
 	Ref<Gradient> grad = cpu_particles->get_color_ramp();
 	if (grad.is_valid()) {
-		Ref<GradientTexture1D> tex = memnew(GradientTexture1D);
+		Ref<GradientTexture1D> tex = memnewOld(GradientTexture1D);
 		tex->set_gradient(grad);
 		proc_mat->set_color_ramp(tex);
 	}
 
 	Ref<Gradient> grad_init = cpu_particles->get_color_initial_ramp();
 	if (grad_init.is_valid()) {
-		Ref<GradientTexture1D> tex = memnew(GradientTexture1D);
+		Ref<GradientTexture1D> tex = memnewOld(GradientTexture1D);
 		tex->set_gradient(grad_init);
 		proc_mat->set_color_initial_ramp(tex);
 	}
@@ -623,7 +623,7 @@ void GPUParticles3D::convert_from_particles(Node *p_particles) {
 	proc_mat->set_emission_box_extents(cpu_particles->get_emission_box_extents());
 
 	if (cpu_particles->get_split_scale()) {
-		Ref<CurveXYZTexture> scale3D = memnew(CurveXYZTexture);
+		Ref<CurveXYZTexture> scale3D = memnewOld(CurveXYZTexture);
 		scale3D->set_curve_x(cpu_particles->get_scale_curve_x());
 		scale3D->set_curve_y(cpu_particles->get_scale_curve_y());
 		scale3D->set_curve_z(cpu_particles->get_scale_curve_z());
@@ -638,7 +638,7 @@ void GPUParticles3D::convert_from_particles(Node *p_particles) {
 	{                                                                                                                 \
 		Ref<Curve> curve = cpu_particles->get_param_curve(CPUParticles3D::m_param);                                   \
 		if (curve.is_valid()) {                                                                                       \
-			Ref<CurveTexture> tex = memnew(CurveTexture);                                                             \
+			Ref<CurveTexture> tex = memnewOld(CurveTexture);                                                             \
 			tex->set_curve(curve);                                                                                    \
 			proc_mat->set_param_texture(ParticleProcessMaterial::m_param, tex);                                       \
 		}                                                                                                             \

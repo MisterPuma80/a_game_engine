@@ -547,7 +547,7 @@ Error SkinTool::_create_skeletons(
 	for (SkinSkeletonIndex skel_i = 0; skel_i < skeletons.size(); ++skel_i) {
 		Ref<GLTFSkeleton> gltf_skeleton = skeletons.write[skel_i];
 
-		Skeleton3D *skeleton = memnew(Skeleton3D);
+		Skeleton3D *skeleton = memnewOld(Skeleton3D);
 		gltf_skeleton->godot_skeleton = skeleton;
 		skeleton3d_to_gltf_skeleton[skeleton->get_instance_id()] = skel_i;
 

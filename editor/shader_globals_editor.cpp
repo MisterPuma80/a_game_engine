@@ -453,11 +453,11 @@ void ShaderGlobalsEditor::_notification(int p_what) {
 ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("shader_globals/");
 
-	HBoxContainer *add_menu_hb = memnew(HBoxContainer);
+	HBoxContainer *add_menu_hb = memnewOld(HBoxContainer);
 	add_child(add_menu_hb);
 
-	add_menu_hb->add_child(memnew(Label(TTR("Name:"))));
-	variable_name = memnew(LineEdit);
+	add_menu_hb->add_child(memnewOld(Label(TTR("Name:"))));
+	variable_name = memnewOld(LineEdit);
 	variable_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	variable_name->set_clear_button_enabled(true);
 	variable_name->connect(SceneStringName(text_changed), callable_mp(this, &ShaderGlobalsEditor::_variable_name_text_changed));
@@ -465,8 +465,8 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 
 	add_menu_hb->add_child(variable_name);
 
-	add_menu_hb->add_child(memnew(Label(TTR("Type:"))));
-	variable_type = memnew(OptionButton);
+	add_menu_hb->add_child(memnewOld(Label(TTR("Type:"))));
+	variable_type = memnewOld(OptionButton);
 	variable_type->set_h_size_flags(SIZE_EXPAND_FILL);
 	add_menu_hb->add_child(variable_type);
 
@@ -474,12 +474,12 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 		variable_type->add_item(global_var_type_names[i]);
 	}
 
-	variable_add = memnew(Button(TTR("Add")));
+	variable_add = memnewOld(Button(TTR("Add")));
 	variable_add->set_disabled(true);
 	add_menu_hb->add_child(variable_add);
 	variable_add->connect(SceneStringName(pressed), callable_mp(this, &ShaderGlobalsEditor::_variable_added));
 
-	inspector = memnew(EditorInspector);
+	inspector = memnewOld(EditorInspector);
 	inspector->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(inspector);
 	inspector->set_use_wide_editors(true);
@@ -487,7 +487,7 @@ ShaderGlobalsEditor::ShaderGlobalsEditor() {
 	inspector->set_use_deletable_properties(true);
 	inspector->connect("property_deleted", callable_mp(this, &ShaderGlobalsEditor::_variable_deleted), CONNECT_DEFERRED);
 
-	interface = memnew(ShaderGlobalsEditorInterface);
+	interface = memnewOld(ShaderGlobalsEditorInterface);
 	interface->connect("var_changed", callable_mp(this, &ShaderGlobalsEditor::_changed));
 }
 

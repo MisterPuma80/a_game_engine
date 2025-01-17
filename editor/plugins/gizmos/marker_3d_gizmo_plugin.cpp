@@ -36,7 +36,7 @@
 #include "scene/3d/marker_3d.h"
 
 Marker3DGizmoPlugin::Marker3DGizmoPlugin() {
-	pos3d_mesh = Ref<ArrayMesh>(memnew(ArrayMesh));
+	pos3d_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
 
 	Vector<Vector3> cursor_points;
 	Vector<Color> cursor_colors;
@@ -81,7 +81,7 @@ Marker3DGizmoPlugin::Marker3DGizmoPlugin() {
 	cursor_colors.push_back(color_z.lerp(Color(0, 0, 0), 0.75));
 	cursor_colors.push_back(color_z.lerp(Color(0, 0, 0), 0.75));
 
-	Ref<StandardMaterial3D> mat = memnew(StandardMaterial3D);
+	Ref<StandardMaterial3D> mat = memnewOld(StandardMaterial3D);
 	mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	mat->set_flag(StandardMaterial3D::FLAG_ALBEDO_FROM_VERTEX_COLOR, true);
 	mat->set_flag(StandardMaterial3D::FLAG_SRGB_VERTEX_COLOR, true);

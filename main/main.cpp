@@ -325,7 +325,7 @@ void initialize_physics() {
 	// Fall back to dummy if no default server has been registered.
 	if (!physics_server_3d) {
 		WARN_PRINT(vformat("Falling back to dummy PhysicsServer3D; 3D physics functionality will be disabled. If this is intended, set the %s project setting to Dummy.", PhysicsServer3DManager::setting_property_name));
-		physics_server_3d = memnew(PhysicsServer3DDummy);
+		physics_server_3d = memnewOld(PhysicsServer3DDummy);
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -344,7 +344,7 @@ void initialize_physics() {
 	// Fall back to dummy if no default server has been registered.
 	if (!physics_server_2d) {
 		WARN_PRINT(vformat("Falling back to dummy PhysicsServer2D; 2D physics functionality will be disabled. If this is intended, set the %s project setting to Dummy.", PhysicsServer2DManager::setting_property_name));
-		physics_server_2d = memnew(PhysicsServer2DDummy);
+		physics_server_2d = memnewOld(PhysicsServer2DDummy);
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -378,7 +378,7 @@ void initialize_navigation_server() {
 
 	// Fall back to dummy if no default server has been registered.
 	if (!navigation_server_3d) {
-		navigation_server_3d = memnew(NavigationServer3DDummy);
+		navigation_server_3d = memnewOld(NavigationServer3DDummy);
 	}
 
 	// Should be impossible, but make sure it's not null.
@@ -388,7 +388,7 @@ void initialize_navigation_server() {
 	// Init 2D Navigation Server
 	navigation_server_2d = NavigationServer2DManager::new_default_server();
 	if (!navigation_server_2d) {
-		navigation_server_2d = memnew(NavigationServer2DDummy);
+		navigation_server_2d = memnewOld(NavigationServer2DDummy);
 	}
 
 	ERR_FAIL_NULL_MSG(navigation_server_2d, "Failed to initialize NavigationServer2D.");
@@ -408,7 +408,7 @@ void finalize_navigation_server() {
 }
 
 void initialize_theme_db() {
-	theme_db = memnew(ThemeDB);
+	theme_db = memnewOld(ThemeDB);
 }
 
 void finalize_theme_db() {
@@ -693,19 +693,19 @@ Error Main::test_setup() {
 
 	OS::get_singleton()->initialize();
 
-	engine = memnew(Engine);
+	engine = memnewOld(Engine);
 
 	register_core_types();
 	register_core_driver_types();
 
-	packed_data = memnew(PackedData);
+	packed_data = memnewOld(PackedData);
 
-	globals = memnew(ProjectSettings);
+	globals = memnewOld(ProjectSettings);
 
 	register_core_settings(); // Here globals are present.
 
-	translation_server = memnew(TranslationServer);
-	tsman = memnew(TextServerManager);
+	translation_server = memnewOld(TranslationServer);
+	tsman = memnewOld(TextServerManager);
 
 	if (tsman) {
 		Ref<TextServerDummy> ts;
@@ -714,9 +714,9 @@ Error Main::test_setup() {
 	}
 
 #ifndef _3D_DISABLED
-	physics_server_3d_manager = memnew(PhysicsServer3DManager);
+	physics_server_3d_manager = memnewOld(PhysicsServer3DManager);
 #endif // _3D_DISABLED
-	physics_server_2d_manager = memnew(PhysicsServer2DManager);
+	physics_server_2d_manager = memnewOld(PhysicsServer2DManager);
 
 	// From `Main::setup2()`.
 	initialize_modules(MODULE_INITIALIZATION_LEVEL_CORE);
@@ -931,7 +931,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	// platforms, it's used to set up the time utilities.
 	OS::get_singleton()->benchmark_begin_measure("Startup", "Main::Setup");
 
-	engine = memnew(Engine);
+	engine = memnewOld(Engine);
 
 	MAIN_PRINT("Main: Initialize CORE");
 
@@ -940,13 +940,13 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	MAIN_PRINT("Main: Initialize Globals");
 
-	input_map = memnew(InputMap);
-	globals = memnew(ProjectSettings);
+	input_map = memnewOld(InputMap);
+	globals = memnewOld(ProjectSettings);
 
 	register_core_settings(); //here globals are present
 
-	translation_server = memnew(TranslationServer);
-	performance = memnew(Performance);
+	translation_server = memnewOld(TranslationServer);
+	performance = memnewOld(Performance);
 	GDREGISTER_CLASS(Performance);
 	engine->add_singleton(Engine::Singleton("Performance", performance));
 
@@ -1004,7 +1004,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	packed_data = PackedData::get_singleton();
 	if (!packed_data) {
-		packed_data = memnew(PackedData);
+		packed_data = memnewOld(PackedData);
 	}
 
 #ifdef MINIZIP_ENABLED
@@ -1013,7 +1013,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	zip_packed_data = ZipArchive::get_singleton();
 	//TODO: remove this temporary fix
 	if (!zip_packed_data) {
-		zip_packed_data = memnew(ZipArchive);
+		zip_packed_data = memnewOld(ZipArchive);
 	}
 
 	packed_data->add_pack_source(zip_packed_data);
@@ -1908,7 +1908,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			base_path = GLOBAL_GET("debug/file_logging/log_path");
 			max_files = GLOBAL_GET("debug/file_logging/max_log_files");
 		}
-		OS::get_singleton()->add_logger(memnew(RotatedFileLogger(base_path, max_files)));
+		OS::get_singleton()->add_logger(memnewOld(RotatedFileLogger(base_path, max_files)));
 	}
 
 	if (main_args.size() == 0 && String(GLOBAL_GET("application/run/main_scene")) == "") {
@@ -2471,14 +2471,14 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	Engine::get_singleton()->set_frame_delay(frame_delay);
 
-	message_queue = memnew(MessageQueue);
+	message_queue = memnewOld(MessageQueue);
 
 	Thread::release_main_thread(); // If setup2() is called from another thread, that one will become main thread, so preventively release this one.
 	set_current_thread_safe_for_nodes(false);
 
 #if defined(STEAMAPI_ENABLED)
 	if (editor || project_manager) {
-		steam_tracker = memnew(SteamTracker);
+		steam_tracker = memnewOld(SteamTracker);
 	}
 #endif
 
@@ -2682,7 +2682,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 
 	OS::get_singleton()->benchmark_begin_measure("Startup", "Servers");
 
-	tsman = memnew(TextServerManager);
+	tsman = memnewOld(TextServerManager);
 	if (tsman) {
 		Ref<TextServerDummy> ts;
 		ts.instantiate();
@@ -2690,9 +2690,9 @@ Error Main::setup2(bool p_show_boot_logo) {
 	}
 
 #ifndef _3D_DISABLED
-	physics_server_3d_manager = memnew(PhysicsServer3DManager);
+	physics_server_3d_manager = memnewOld(PhysicsServer3DManager);
 #endif // _3D_DISABLED
-	physics_server_2d_manager = memnew(PhysicsServer2DManager);
+	physics_server_2d_manager = memnewOld(PhysicsServer2DManager);
 
 	register_server_types();
 	{
@@ -2709,7 +2709,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "Input");
 
-		input = memnew(Input);
+		input = memnewOld(Input);
 		OS::get_singleton()->initialize_joypads();
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "Input");
@@ -2885,7 +2885,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "Rendering");
 
-		rendering_server = memnew(RenderingServerDefault(OS::get_singleton()->get_render_thread_mode() == OS::RENDER_SEPARATE_THREAD));
+		rendering_server = memnewOld(RenderingServerDefault(OS::get_singleton()->get_render_thread_mode() == OS::RENDER_SEPARATE_THREAD));
 
 		rendering_server->init();
 		//rendering_server->call_set_use_vsync(OS::get_singleton()->_use_vsync);
@@ -2921,7 +2921,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 		AudioDriverManager::initialize(audio_driver_idx);
 
 		// Right moment to create and initialize the audio server.
-		audio_server = memnew(AudioServer);
+		audio_server = memnewOld(AudioServer);
 		audio_server->init();
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "Audio");
@@ -2933,7 +2933,7 @@ Error Main::setup2(bool p_show_boot_logo) {
 	{
 		OS::get_singleton()->benchmark_begin_measure("Servers", "XR");
 
-		xr_server = memnew(XRServer);
+		xr_server = memnewOld(XRServer);
 
 		OS::get_singleton()->benchmark_end_measure("Servers", "XR");
 	}
@@ -3261,9 +3261,9 @@ void Main::setup_boot_logo() {
 #ifndef NO_DEFAULT_BOOT_LOGO
 			MAIN_PRINT("Main: Create bootsplash");
 #if defined(TOOLS_ENABLED) && !defined(NO_EDITOR_SPLASH)
-			Ref<Image> splash = (editor || project_manager) ? memnew(Image(boot_splash_editor_png)) : memnew(Image(boot_splash_png));
+			Ref<Image> splash = (editor || project_manager) ? memnewOld(Image(boot_splash_editor_png)) : memnewOld(Image(boot_splash_png));
 #else
-			Ref<Image> splash = memnew(Image(boot_splash_png));
+			Ref<Image> splash = memnewOld(Image(boot_splash_png));
 #endif
 
 			MAIN_PRINT("Main: ClearColor");
@@ -3275,7 +3275,7 @@ void Main::setup_boot_logo() {
 
 #if defined(TOOLS_ENABLED) && defined(MACOS_ENABLED)
 		if (DisplayServer::get_singleton()->has_feature(DisplayServer::FEATURE_ICON) && OS::get_singleton()->get_bundle_icon_path().is_empty()) {
-			Ref<Image> icon = memnew(Image(app_icon_png));
+			Ref<Image> icon = memnewOld(Image(app_icon_png));
 			DisplayServer::get_singleton()->set_icon(icon);
 		}
 #endif
@@ -3581,7 +3581,7 @@ int Main::start() {
 
 	MainLoop *main_loop = nullptr;
 	if (editor) {
-		main_loop = memnew(SceneTree);
+		main_loop = memnewOld(SceneTree);
 	}
 	if (main_loop_type.is_empty()) {
 		main_loop_type = GLOBAL_GET("application/run/main_loop_type");
@@ -3802,7 +3802,7 @@ int Main::start() {
 		EditorNode *editor_node = nullptr;
 		if (editor) {
 			OS::get_singleton()->benchmark_begin_measure("Startup", "Editor");
-			editor_node = memnew(EditorNode);
+			editor_node = memnewOld(EditorNode);
 			sml->get_root()->add_child(editor_node);
 
 			if (!_export_preset.is_empty()) {
@@ -3993,8 +3993,8 @@ int Main::start() {
 		if (project_manager) {
 			OS::get_singleton()->benchmark_begin_measure("Startup", "Project Manager");
 			Engine::get_singleton()->set_editor_hint(true);
-			ProjectManager *pmanager = memnew(ProjectManager);
-			ProgressDialog *progress_dialog = memnew(ProgressDialog);
+			ProjectManager *pmanager = memnewOld(ProjectManager);
+			ProgressDialog *progress_dialog = memnewOld(ProgressDialog);
 			pmanager->add_child(progress_dialog);
 			sml->get_root()->add_child(pmanager);
 			OS::get_singleton()->benchmark_end_measure("Startup", "Project Manager");
@@ -4009,7 +4009,7 @@ int Main::start() {
 	}
 
 	if (DisplayServer::get_singleton()->has_feature(DisplayServer::FEATURE_ICON) && !has_icon && OS::get_singleton()->get_bundle_icon_path().is_empty()) {
-		Ref<Image> icon = memnew(Image(app_icon_png));
+		Ref<Image> icon = memnewOld(Image(app_icon_png));
 		DisplayServer::get_singleton()->set_icon(icon);
 	}
 

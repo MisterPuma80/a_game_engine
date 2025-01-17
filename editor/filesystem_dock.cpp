@@ -169,15 +169,15 @@ void FileSystemList::_bind_methods() {
 FileSystemList::FileSystemList() {
 	set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 
-	popup_editor = memnew(Popup);
+	popup_editor = memnewOld(Popup);
 	add_child(popup_editor);
 
-	popup_editor_vb = memnew(VBoxContainer);
+	popup_editor_vb = memnewOld(VBoxContainer);
 	popup_editor_vb->add_theme_constant_override("separation", 0);
 	popup_editor_vb->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	popup_editor->add_child(popup_editor_vb);
 
-	line_editor = memnew(LineEdit);
+	line_editor = memnewOld(LineEdit);
 	line_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	popup_editor_vb->add_child(line_editor);
 	line_editor->connect("text_submitted", callable_mp(this, &FileSystemList::_line_editor_submit));
@@ -2515,7 +2515,7 @@ void FileSystemDock::_resource_created() {
 
 	PackedScene *scene = Object::cast_to<PackedScene>(r);
 	if (scene) {
-		Node *node = memnew(Node);
+		Node *node = memnewOld(Node);
 		node->set_name("Node");
 		scene->pack(node);
 		memdelete(node);
@@ -3109,7 +3109,7 @@ void FileSystemDock::_file_and_folders_fill_popup(PopupMenu *p_popup, const Vect
 	}
 
 	if (p_paths.size() == 1 && p_display_path_dependent_options) {
-		PopupMenu *new_menu = memnew(PopupMenu);
+		PopupMenu *new_menu = memnewOld(PopupMenu);
 		new_menu->connect(SceneStringName(id_pressed), callable_mp(this, &FileSystemDock::_tree_rmb_option));
 
 		p_popup->add_submenu_node_item(TTR("Create New"), new_menu, FILE_NEW);
@@ -3134,7 +3134,7 @@ void FileSystemDock::_file_and_folders_fill_popup(PopupMenu *p_popup, const Vect
 		p_popup->add_separator();
 
 		if (p_paths[0] != "res://") {
-			PopupMenu *folder_colors_menu = memnew(PopupMenu);
+			PopupMenu *folder_colors_menu = memnewOld(PopupMenu);
 			folder_colors_menu->connect(SceneStringName(id_pressed), callable_mp(this, &FileSystemDock::_folder_color_index_pressed).bind(folder_colors_menu));
 
 			p_popup->add_submenu_node_item(TTR("Set Folder Color..."), folder_colors_menu);
@@ -3705,7 +3705,7 @@ Dictionary FileSystemDock::get_assigned_folder_colors() const {
 }
 
 MenuButton *FileSystemDock::_create_file_menu_button() {
-	MenuButton *button = memnew(MenuButton);
+	MenuButton *button = memnewOld(MenuButton);
 	button->set_flat(false);
 	button->set_theme_type_variation("FlatMenuButton");
 	button->set_tooltip_text(TTR("Sort Files"));
@@ -3885,60 +3885,60 @@ FileSystemDock::FileSystemDock() {
 
 	editor_is_dark_theme = EditorThemeManager::is_dark_theme();
 
-	VBoxContainer *top_vbc = memnew(VBoxContainer);
+	VBoxContainer *top_vbc = memnewOld(VBoxContainer);
 	add_child(top_vbc);
 
-	HBoxContainer *toolbar_hbc = memnew(HBoxContainer);
+	HBoxContainer *toolbar_hbc = memnewOld(HBoxContainer);
 	top_vbc->add_child(toolbar_hbc);
 
-	HBoxContainer *nav_hbc = memnew(HBoxContainer);
+	HBoxContainer *nav_hbc = memnewOld(HBoxContainer);
 	nav_hbc->add_theme_constant_override("separation", 0);
 	toolbar_hbc->add_child(nav_hbc);
 
-	button_hist_prev = memnew(Button);
+	button_hist_prev = memnewOld(Button);
 	button_hist_prev->set_flat(true);
 	button_hist_prev->set_disabled(true);
 	button_hist_prev->set_focus_mode(FOCUS_NONE);
 	button_hist_prev->set_tooltip_text(TTR("Go to previous selected folder/file."));
 	nav_hbc->add_child(button_hist_prev);
 
-	button_hist_next = memnew(Button);
+	button_hist_next = memnewOld(Button);
 	button_hist_next->set_flat(true);
 	button_hist_next->set_disabled(true);
 	button_hist_next->set_focus_mode(FOCUS_NONE);
 	button_hist_next->set_tooltip_text(TTR("Go to next selected folder/file."));
 	nav_hbc->add_child(button_hist_next);
 
-	current_path_line_edit = memnew(LineEdit);
+	current_path_line_edit = memnewOld(LineEdit);
 	current_path_line_edit->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	current_path_line_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	_set_current_path_line_edit_text(current_path);
 	toolbar_hbc->add_child(current_path_line_edit);
 
-	button_reload = memnew(Button);
+	button_reload = memnewOld(Button);
 	button_reload->connect(SceneStringName(pressed), callable_mp(this, &FileSystemDock::_rescan));
 	button_reload->set_focus_mode(FOCUS_NONE);
 	button_reload->set_tooltip_text(TTR("Re-Scan Filesystem"));
 	button_reload->hide();
 	toolbar_hbc->add_child(button_reload);
 
-	button_toggle_display_mode = memnew(Button);
+	button_toggle_display_mode = memnewOld(Button);
 	button_toggle_display_mode->connect(SceneStringName(pressed), callable_mp(this, &FileSystemDock::_change_split_mode));
 	button_toggle_display_mode->set_focus_mode(FOCUS_NONE);
 	button_toggle_display_mode->set_tooltip_text(TTR("Change Split Mode"));
 	button_toggle_display_mode->set_theme_type_variation("FlatMenuButton");
 	toolbar_hbc->add_child(button_toggle_display_mode);
 
-	button_dock_placement = memnew(Button);
+	button_dock_placement = memnewOld(Button);
 	button_dock_placement->set_theme_type_variation("FlatMenuButton");
 	button_dock_placement->connect(SceneStringName(pressed), callable_mp(this, &FileSystemDock::_change_bottom_dock_placement));
 	button_dock_placement->hide();
 	toolbar_hbc->add_child(button_dock_placement);
 
-	toolbar2_hbc = memnew(HBoxContainer);
+	toolbar2_hbc = memnewOld(HBoxContainer);
 	top_vbc->add_child(toolbar2_hbc);
 
-	tree_search_box = memnew(LineEdit);
+	tree_search_box = memnewOld(LineEdit);
 	tree_search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	tree_search_box->set_placeholder(TTR("Filter Files"));
 	tree_search_box->set_clear_button_enabled(true);
@@ -3948,21 +3948,21 @@ FileSystemDock::FileSystemDock() {
 	tree_button_sort = _create_file_menu_button();
 	toolbar2_hbc->add_child(tree_button_sort);
 
-	file_list_popup = memnew(PopupMenu);
+	file_list_popup = memnewOld(PopupMenu);
 
 	add_child(file_list_popup);
 
-	tree_popup = memnew(PopupMenu);
+	tree_popup = memnewOld(PopupMenu);
 
 	add_child(tree_popup);
 
-	split_box = memnew(SplitContainer);
+	split_box = memnewOld(SplitContainer);
 	split_box->set_v_size_flags(SIZE_EXPAND_FILL);
 	split_box->connect("dragged", callable_mp(this, &FileSystemDock::_split_dragged));
 	split_box_offset_h = 240 * EDSCALE;
 	add_child(split_box);
 
-	tree = memnew(FileSystemTree);
+	tree = memnewOld(FileSystemTree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -3983,14 +3983,14 @@ FileSystemDock::FileSystemDock() {
 	tree->connect(SceneStringName(mouse_exited), callable_mp(this, &FileSystemDock::_tree_mouse_exited));
 	tree->connect("item_edited", callable_mp(this, &FileSystemDock::_rename_operation_confirm));
 
-	file_list_vb = memnew(VBoxContainer);
+	file_list_vb = memnewOld(VBoxContainer);
 	file_list_vb->set_v_size_flags(SIZE_EXPAND_FILL);
 	split_box->add_child(file_list_vb);
 
-	path_hb = memnew(HBoxContainer);
+	path_hb = memnewOld(HBoxContainer);
 	file_list_vb->add_child(path_hb);
 
-	file_list_search_box = memnew(LineEdit);
+	file_list_search_box = memnewOld(LineEdit);
 	file_list_search_box->set_h_size_flags(SIZE_EXPAND_FILL);
 	file_list_search_box->set_placeholder(TTR("Filter Files"));
 	file_list_search_box->set_clear_button_enabled(true);
@@ -4000,11 +4000,11 @@ FileSystemDock::FileSystemDock() {
 	file_list_button_sort = _create_file_menu_button();
 	path_hb->add_child(file_list_button_sort);
 
-	button_file_list_display_mode = memnew(Button);
+	button_file_list_display_mode = memnewOld(Button);
 	button_file_list_display_mode->set_theme_type_variation("FlatMenuButton");
 	path_hb->add_child(button_file_list_display_mode);
 
-	files = memnew(FileSystemList);
+	files = memnewOld(FileSystemList);
 	files->set_v_size_flags(SIZE_EXPAND_FILL);
 	files->set_select_mode(ItemList::SELECT_MULTI);
 	SET_DRAG_FORWARDING_GCD(files, FileSystemDock);
@@ -4017,72 +4017,72 @@ FileSystemDock::FileSystemDock() {
 	files->set_allow_rmb_select(true);
 	file_list_vb->add_child(files);
 
-	scanning_vb = memnew(VBoxContainer);
+	scanning_vb = memnewOld(VBoxContainer);
 	scanning_vb->hide();
 	add_child(scanning_vb);
 
-	Label *slabel = memnew(Label);
+	Label *slabel = memnewOld(Label);
 	slabel->set_text(TTR("Scanning Files,\nPlease Wait..."));
 	slabel->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	scanning_vb->add_child(slabel);
 
-	scanning_progress = memnew(ProgressBar);
+	scanning_progress = memnewOld(ProgressBar);
 	scanning_vb->add_child(scanning_progress);
 
-	deps_editor = memnew(DependencyEditor);
+	deps_editor = memnewOld(DependencyEditor);
 	add_child(deps_editor);
 
-	owners_editor = memnew(DependencyEditorOwners());
+	owners_editor = memnewOld(DependencyEditorOwners());
 	add_child(owners_editor);
 
-	remove_dialog = memnew(DependencyRemoveDialog);
+	remove_dialog = memnewOld(DependencyRemoveDialog);
 	remove_dialog->connect("resource_removed", callable_mp(this, &FileSystemDock::_resource_removed));
 	remove_dialog->connect("file_removed", callable_mp(this, &FileSystemDock::_file_removed));
 	remove_dialog->connect("folder_removed", callable_mp(this, &FileSystemDock::_folder_removed));
 	add_child(remove_dialog);
 
-	move_dialog = memnew(EditorDirDialog);
+	move_dialog = memnewOld(EditorDirDialog);
 	add_child(move_dialog);
 	move_dialog->connect("move_pressed", callable_mp(this, &FileSystemDock::_move_operation_confirm).bind(false, OVERWRITE_UNDECIDED));
 	move_dialog->connect("copy_pressed", callable_mp(this, &FileSystemDock::_move_operation_confirm).bind(true, OVERWRITE_UNDECIDED));
 
-	overwrite_dialog = memnew(ConfirmationDialog);
+	overwrite_dialog = memnewOld(ConfirmationDialog);
 	add_child(overwrite_dialog);
 	overwrite_dialog->set_ok_button_text(TTR("Overwrite"));
 	overwrite_dialog->add_button(TTR("Keep Both"), true)->connect(SceneStringName(pressed), callable_mp(this, &FileSystemDock::_overwrite_dialog_action).bind(false));
 	overwrite_dialog->connect(SceneStringName(confirmed), callable_mp(this, &FileSystemDock::_overwrite_dialog_action).bind(true));
 
-	VBoxContainer *overwrite_dialog_vb = memnew(VBoxContainer);
+	VBoxContainer *overwrite_dialog_vb = memnewOld(VBoxContainer);
 	overwrite_dialog->add_child(overwrite_dialog_vb);
 
-	overwrite_dialog_header = memnew(Label);
+	overwrite_dialog_header = memnewOld(Label);
 	overwrite_dialog_vb->add_child(overwrite_dialog_header);
 
-	overwrite_dialog_scroll = memnew(ScrollContainer);
+	overwrite_dialog_scroll = memnewOld(ScrollContainer);
 	overwrite_dialog_vb->add_child(overwrite_dialog_scroll);
 	overwrite_dialog_scroll->set_custom_minimum_size(Vector2(400, 600) * EDSCALE);
 
-	overwrite_dialog_file_list = memnew(Label);
+	overwrite_dialog_file_list = memnewOld(Label);
 	overwrite_dialog_scroll->add_child(overwrite_dialog_file_list);
 
-	overwrite_dialog_footer = memnew(Label);
+	overwrite_dialog_footer = memnewOld(Label);
 	overwrite_dialog_vb->add_child(overwrite_dialog_footer);
 
-	make_dir_dialog = memnew(DirectoryCreateDialog);
+	make_dir_dialog = memnewOld(DirectoryCreateDialog);
 	add_child(make_dir_dialog);
 
-	make_scene_dialog = memnew(SceneCreateDialog);
+	make_scene_dialog = memnewOld(SceneCreateDialog);
 	add_child(make_scene_dialog);
 	make_scene_dialog->connect(SceneStringName(confirmed), callable_mp(this, &FileSystemDock::_make_scene_confirm));
 
-	make_script_dialog = memnew(ScriptCreateDialog);
+	make_script_dialog = memnewOld(ScriptCreateDialog);
 	make_script_dialog->set_title(TTR("Create Script"));
 	add_child(make_script_dialog);
 
-	make_shader_dialog = memnew(ShaderCreateDialog);
+	make_shader_dialog = memnewOld(ShaderCreateDialog);
 	add_child(make_shader_dialog);
 
-	new_resource_dialog = memnew(CreateDialog);
+	new_resource_dialog = memnewOld(CreateDialog);
 	add_child(new_resource_dialog);
 	new_resource_dialog->set_base_type("Resource");
 	new_resource_dialog->connect("create", callable_mp(this, &FileSystemDock::_resource_created));
@@ -4100,8 +4100,8 @@ FileSystemDock::FileSystemDock() {
 	file_list_display_mode = FILE_LIST_DISPLAY_THUMBNAILS;
 
 	ProjectSettings::get_singleton()->connect("settings_changed", callable_mp(this, &FileSystemDock::_project_settings_changed));
-	add_resource_tooltip_plugin(memnew(EditorTextureTooltipPlugin));
-	add_resource_tooltip_plugin(memnew(EditorAudioStreamTooltipPlugin));
+	add_resource_tooltip_plugin(memnewOld(EditorTextureTooltipPlugin));
+	add_resource_tooltip_plugin(memnewOld(EditorAudioStreamTooltipPlugin));
 }
 
 FileSystemDock::~FileSystemDock() {

@@ -56,12 +56,12 @@ public:
 	NoisePreview() {
 		set_custom_minimum_size(Size2(0, EDSCALE * PREVIEW_HEIGHT));
 
-		_texture_rect = memnew(TextureRect);
+		_texture_rect = memnewOld(TextureRect);
 		_texture_rect->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 		_texture_rect->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_COVERED);
 		add_child(_texture_rect);
 
-		_3d_space_switch = memnew(Button);
+		_3d_space_switch = memnewOld(Button);
 		_3d_space_switch->set_text(TTR("3D"));
 		_3d_space_switch->set_tooltip_text(TTR("Toggles whether the noise preview is computed in 3D space."));
 		_3d_space_switch->set_toggle_mode(true);
@@ -130,7 +130,7 @@ public:
 		if (noise_ptr) {
 			Ref<Noise> noise(noise_ptr);
 
-			NoisePreview *viewer = memnew(NoisePreview);
+			NoisePreview *viewer = memnewOld(NoisePreview);
 			viewer->set_noise(noise);
 			add_custom_control(viewer);
 		}

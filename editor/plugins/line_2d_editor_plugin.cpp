@@ -64,5 +64,5 @@ void Line2DEditor::_action_set_polygon(int p_idx, const Variant &p_previous, con
 Line2DEditor::Line2DEditor() {}
 
 Line2DEditorPlugin::Line2DEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnew(Line2DEditor), "Line2D") {
+		AbstractPolygon2DEditorPlugin(memnewOld(Line2DEditor), "Line2D") {
 }

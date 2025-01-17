@@ -52,12 +52,12 @@ void add_sample_curve_points(Ref<Curve3D> &curve) {
 }
 
 TEST_CASE("[Curve3D] Default curve is empty") {
-	const Ref<Curve3D> curve = memnew(Curve3D);
+	const Ref<Curve3D> curve = memnewOld(Curve3D);
 	CHECK(curve->get_point_count() == 0);
 }
 
 TEST_CASE("[Curve3D] Point management") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 
 	SUBCASE("Functions for adding/removing points should behave as expected") {
 		curve->set_point_count(2);
@@ -100,7 +100,7 @@ TEST_CASE("[Curve3D] Point management") {
 }
 
 TEST_CASE("[Curve3D] Baked") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 
 	SUBCASE("Single Point") {
 		curve->add_point(Vector3());
@@ -149,7 +149,7 @@ TEST_CASE("[Curve3D] Baked") {
 
 TEST_CASE("[Curve3D] Sampling") {
 	// Sampling over a simple straight line to make assertions simpler
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3());
 	curve->add_point(Vector3(0, 50, 0));
 
@@ -230,7 +230,7 @@ TEST_CASE("[Curve3D] Sampling") {
 
 	SUBCASE("sample_baked_up_vector, off-axis") {
 		// Regression test for issue #81879
-		Ref<Curve3D> c = memnew(Curve3D);
+		Ref<Curve3D> c = memnewOld(Curve3D);
 		c->add_point(Vector3());
 		c->add_point(Vector3(0, .1, 1));
 		CHECK_LT((c->sample_baked_up_vector(c->get_closest_offset(Vector3(0, 0, .9))) - Vector3(0, 0.995037, -0.099504)).length(), 0.01);
@@ -238,7 +238,7 @@ TEST_CASE("[Curve3D] Sampling") {
 }
 
 TEST_CASE("[Curve3D] Tessellation") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	add_sample_curve_points(curve);
 
 	const int default_size = curve->tessellate().size();
@@ -269,7 +269,7 @@ TEST_CASE("[Curve3D] Tessellation") {
 }
 
 TEST_CASE("[Curve3D] Even length tessellation") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	add_sample_curve_points(curve);
 
 	const int default_size = curve->tessellate_even_length().size();

@@ -386,12 +386,12 @@ EditorSceneTabs::EditorSceneTabs() {
 	set_process_shortcut_input(true);
 	set_process_unhandled_key_input(true);
 
-	tabbar_panel = memnew(PanelContainer);
+	tabbar_panel = memnewOld(PanelContainer);
 	add_child(tabbar_panel);
-	tabbar_container = memnew(HBoxContainer);
+	tabbar_container = memnewOld(HBoxContainer);
 	tabbar_panel->add_child(tabbar_container);
 
-	scene_tabs = memnew(TabBar);
+	scene_tabs = memnewOld(TabBar);
 	scene_tabs->set_select_with_rmb(true);
 	scene_tabs->add_tab("unsaved");
 	scene_tabs->set_tab_close_display_policy((TabBar::CloseButtonDisplayPolicy)EDITOR_GET("interface/scene_tabs/display_close_button").operator int());
@@ -410,34 +410,34 @@ EditorSceneTabs::EditorSceneTabs() {
 	scene_tabs->connect("active_tab_rearranged", callable_mp(this, &EditorSceneTabs::_reposition_active_tab));
 	scene_tabs->connect(SceneStringName(resized), callable_mp(this, &EditorSceneTabs::_scene_tabs_resized), CONNECT_DEFERRED);
 
-	scene_tabs_context_menu = memnew(PopupMenu);
+	scene_tabs_context_menu = memnewOld(PopupMenu);
 	tabbar_container->add_child(scene_tabs_context_menu);
 	scene_tabs_context_menu->connect(SceneStringName(id_pressed), callable_mp(EditorNode::get_singleton(), &EditorNode::trigger_menu_option).bind(false));
 
-	scene_tab_add = memnew(Button);
+	scene_tab_add = memnewOld(Button);
 	scene_tab_add->set_flat(true);
 	scene_tab_add->set_theme_type_variation("FlatMenuButton");
 	scene_tab_add->set_tooltip_text(TTR("Add a new scene."));
 	scene_tabs->add_child(scene_tab_add);
 	scene_tab_add->connect(SceneStringName(pressed), callable_mp(EditorNode::get_singleton(), &EditorNode::trigger_menu_option).bind(EditorNode::FILE_NEW_SCENE, false));
 
-	scene_tab_add_ph = memnew(Control);
+	scene_tab_add_ph = memnewOld(Control);
 	scene_tab_add_ph->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	tabbar_container->add_child(scene_tab_add_ph);
 
 	// On-hover tab preview.
 
-	Control *tab_preview_anchor = memnew(Control);
+	Control *tab_preview_anchor = memnewOld(Control);
 	tab_preview_anchor->set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
 	add_child(tab_preview_anchor);
 
-	tab_preview_panel = memnew(Panel);
+	tab_preview_panel = memnewOld(Panel);
 	tab_preview_panel->set_size(Size2(100, 100) * EDSCALE);
 	tab_preview_panel->hide();
 	tab_preview_panel->set_self_modulate(Color(1, 1, 1, 0.7));
 	tab_preview_anchor->add_child(tab_preview_panel);
 
-	tab_preview = memnew(TextureRect);
+	tab_preview = memnewOld(TextureRect);
 	tab_preview->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	tab_preview->set_size(Size2(96, 96) * EDSCALE);
 	tab_preview->set_position(Point2(2, 2) * EDSCALE);

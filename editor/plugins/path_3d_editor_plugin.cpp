@@ -825,69 +825,69 @@ Path3DEditorPlugin::Path3DEditorPlugin() {
 
 	disk_size = EDITOR_DEF_RST("editors/3d_gizmos/gizmo_settings/path3d_tilt_disk_size", 0.8);
 
-	Ref<Path3DGizmoPlugin> gizmo_plugin = memnew(Path3DGizmoPlugin(disk_size));
+	Ref<Path3DGizmoPlugin> gizmo_plugin = memnewOld(Path3DGizmoPlugin(disk_size));
 	Node3DEditor::get_singleton()->add_gizmo_plugin(gizmo_plugin);
 	path_3d_gizmo_plugin = gizmo_plugin;
 
-	topmenu_bar = memnew(HBoxContainer);
+	topmenu_bar = memnewOld(HBoxContainer);
 	topmenu_bar->hide();
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(topmenu_bar);
 
-	curve_edit = memnew(Button);
+	curve_edit = memnewOld(Button);
 	curve_edit->set_theme_type_variation("FlatButton");
 	curve_edit->set_toggle_mode(true);
 	curve_edit->set_focus_mode(Control::FOCUS_NONE);
 	curve_edit->set_tooltip_text(TTR("Select Points") + "\n" + TTR("Shift+Click: Select multiple Points") + "\n" + keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Click: Add Point") + "\n" + TTR("Right Click: Delete Point"));
 	topmenu_bar->add_child(curve_edit);
 
-	curve_edit_curve = memnew(Button);
+	curve_edit_curve = memnewOld(Button);
 	curve_edit_curve->set_theme_type_variation("FlatButton");
 	curve_edit_curve->set_toggle_mode(true);
 	curve_edit_curve->set_focus_mode(Control::FOCUS_NONE);
 	curve_edit_curve->set_tooltip_text(TTR("Select Control Points") + "\n" + TTR("Shift+Click: Drag out Control Points"));
 	topmenu_bar->add_child(curve_edit_curve);
 
-	curve_edit_tilt = memnew(Button);
+	curve_edit_tilt = memnewOld(Button);
 	curve_edit_tilt->set_theme_type_variation("FlatButton");
 	curve_edit_tilt->set_toggle_mode(true);
 	curve_edit_tilt->set_focus_mode(Control::FOCUS_NONE);
 	curve_edit_tilt->set_tooltip_text(TTR("Select Tilt Handles"));
 	topmenu_bar->add_child(curve_edit_tilt);
 
-	curve_create = memnew(Button);
+	curve_create = memnewOld(Button);
 	curve_create->set_theme_type_variation("FlatButton");
 	curve_create->set_toggle_mode(true);
 	curve_create->set_focus_mode(Control::FOCUS_NONE);
 	curve_create->set_tooltip_text(TTR("Add Point (in empty space)") + "\n" + TTR("Split Segment (in curve)"));
 	topmenu_bar->add_child(curve_create);
 
-	curve_del = memnew(Button);
+	curve_del = memnewOld(Button);
 	curve_del->set_theme_type_variation("FlatButton");
 	curve_del->set_toggle_mode(true);
 	curve_del->set_focus_mode(Control::FOCUS_NONE);
 	curve_del->set_tooltip_text(TTR("Delete Point"));
 	topmenu_bar->add_child(curve_del);
 
-	curve_close = memnew(Button);
+	curve_close = memnewOld(Button);
 	curve_close->set_theme_type_variation("FlatButton");
 	curve_close->set_focus_mode(Control::FOCUS_NONE);
 	curve_close->set_tooltip_text(TTR("Close Curve"));
 	topmenu_bar->add_child(curve_close);
 
-	curve_clear_points = memnew(Button);
+	curve_clear_points = memnewOld(Button);
 	curve_clear_points->set_theme_type_variation("FlatButton");
 	curve_clear_points->set_focus_mode(Control::FOCUS_NONE);
 	curve_clear_points->set_tooltip_text(TTR("Clear Points"));
 	curve_clear_points->connect(SceneStringName(pressed), callable_mp(this, &Path3DEditorPlugin::_confirm_clear_points));
 	topmenu_bar->add_child(curve_clear_points);
 
-	clear_points_dialog = memnew(ConfirmationDialog);
+	clear_points_dialog = memnewOld(ConfirmationDialog);
 	clear_points_dialog->set_title(TTR("Please Confirm..."));
 	clear_points_dialog->set_text(TTR("Remove all curve points?"));
 	clear_points_dialog->connect(SceneStringName(confirmed), callable_mp(this, &Path3DEditorPlugin::_clear_points));
 	topmenu_bar->add_child(clear_points_dialog);
 
-	handle_menu = memnew(MenuButton);
+	handle_menu = memnewOld(MenuButton);
 	handle_menu->set_flat(false);
 	handle_menu->set_theme_type_variation("FlatMenuButton");
 	handle_menu->set_text(TTR("Options"));
@@ -912,7 +912,7 @@ Ref<EditorNode3DGizmo> Path3DGizmoPlugin::create_gizmo(Node3D *p_spatial) {
 
 	Path3D *path = Object::cast_to<Path3D>(p_spatial);
 	if (path) {
-		ref = Ref<Path3DGizmo>(memnew(Path3DGizmo(path, disk_size)));
+		ref = Ref<Path3DGizmo>(memnewOld(Path3DGizmo(path, disk_size)));
 	}
 
 	return ref;

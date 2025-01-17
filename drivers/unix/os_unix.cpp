@@ -168,7 +168,7 @@ void OS_Unix::initialize_core() {
 
 	NetSocketPosix::make_default();
 	IPUnix::make_default();
-	process_map = memnew((HashMap<ProcessID, ProcessInfo>));
+	process_map = memnewOld((HashMap<ProcessID, ProcessInfo>));
 
 	_setup_clock();
 }
@@ -1010,8 +1010,8 @@ UnixTerminalLogger::~UnixTerminalLogger() {}
 
 OS_Unix::OS_Unix() {
 	Vector<Logger *> loggers;
-	loggers.push_back(memnew(UnixTerminalLogger));
-	_set_logger(memnew(CompositeLogger(loggers)));
+	loggers.push_back(memnewOld(UnixTerminalLogger));
+	_set_logger(memnewOld(CompositeLogger(loggers)));
 }
 
 #endif

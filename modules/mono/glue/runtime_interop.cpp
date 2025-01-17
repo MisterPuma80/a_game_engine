@@ -312,7 +312,7 @@ void godotsharp_internal_tie_managed_to_unmanaged_with_pre_setup(GCHandleIntPtr 
 }
 
 void godotsharp_internal_new_csharp_script(Ref<CSharpScript> *r_dest) {
-	memnew_placement(r_dest, Ref<CSharpScript>(memnew(CSharpScript)));
+	memnew_placement(r_dest, Ref<CSharpScript>(memnewOld(CSharpScript)));
 }
 
 void godotsharp_internal_editor_file_system_update_files(const PackedStringArray &p_script_paths) {
@@ -489,7 +489,7 @@ void godotsharp_callable_new_with_delegate(GCHandleIntPtr p_delegate_handle, voi
 		const Object *p_object, Callable *r_callable) {
 	// TODO: Use pooling for ManagedCallable instances.
 	ObjectID objid = p_object ? p_object->get_instance_id() : ObjectID();
-	CallableCustom *managed_callable = memnew(ManagedCallable(p_delegate_handle, p_trampoline, objid));
+	CallableCustom *managed_callable = memnewOld(ManagedCallable(p_delegate_handle, p_trampoline, objid));
 	memnew_placement(r_callable, Callable(managed_callable));
 }
 

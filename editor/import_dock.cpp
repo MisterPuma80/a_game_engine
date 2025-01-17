@@ -784,18 +784,18 @@ ImportDock::ImportDock() {
 	singleton = this;
 	set_name("Import");
 
-	content = memnew(VBoxContainer);
+	content = memnewOld(VBoxContainer);
 	content->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(content);
 	content->hide();
 
-	imported = memnew(Label);
+	imported = memnewOld(Label);
 	imported->add_theme_style_override(CoreStringName(normal), EditorNode::get_singleton()->get_editor_theme()->get_stylebox(CoreStringName(normal), SNAME("LineEdit")));
 	imported->set_clip_text(true);
 	content->add_child(imported);
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	content->add_margin_child(TTR("Import As:"), hb);
-	import_as = memnew(OptionButton);
+	import_as = memnewOld(OptionButton);
 	import_as->set_disabled(true);
 	import_as->set_fit_to_longest_item(false);
 	import_as->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_ELLIPSIS);
@@ -803,13 +803,13 @@ ImportDock::ImportDock() {
 	import_as->connect(SceneStringName(item_selected), callable_mp(this, &ImportDock::_importer_selected));
 	hb->add_child(import_as);
 	import_as->set_h_size_flags(SIZE_EXPAND_FILL);
-	preset = memnew(MenuButton);
+	preset = memnewOld(MenuButton);
 	preset->set_text(TTR("Preset"));
 	preset->set_disabled(true);
 	preset->get_popup()->connect("index_pressed", callable_mp(this, &ImportDock::_preset_selected));
 	hb->add_child(preset);
 
-	import_opts = memnew(EditorInspector);
+	import_opts = memnewOld(EditorInspector);
 	content->add_child(import_opts);
 	import_opts->set_v_size_flags(SIZE_EXPAND_FILL);
 	import_opts->connect("property_edited", callable_mp(this, &ImportDock::_property_edited));
@@ -818,15 +818,15 @@ ImportDock::ImportDock() {
 	// The object name is set when the importer changes in `_update_options()`.
 	import_opts->set_use_doc_hints(true);
 
-	hb = memnew(HBoxContainer);
+	hb = memnewOld(HBoxContainer);
 	content->add_child(hb);
-	import = memnew(Button);
+	import = memnewOld(Button);
 	import->set_text(TTR("Reimport"));
 	import->set_disabled(true);
 	import->connect(SceneStringName(pressed), callable_mp(this, &ImportDock::_reimport_pressed));
 	if (!DisplayServer::get_singleton()->get_swap_cancel_ok()) {
 		advanced_spacer = hb->add_spacer();
-		advanced = memnew(Button);
+		advanced = memnewOld(Button);
 		advanced->set_text(TTR("Advanced..."));
 		hb->add_child(advanced);
 	}
@@ -835,7 +835,7 @@ ImportDock::ImportDock() {
 	hb->add_spacer();
 
 	if (DisplayServer::get_singleton()->get_swap_cancel_ok()) {
-		advanced = memnew(Button);
+		advanced = memnewOld(Button);
 		advanced->set_text(TTR("Advanced..."));
 		hb->add_child(advanced);
 		advanced_spacer = hb->add_spacer();
@@ -845,20 +845,20 @@ ImportDock::ImportDock() {
 	advanced_spacer->hide();
 	advanced->connect(SceneStringName(pressed), callable_mp(this, &ImportDock::_advanced_options));
 
-	reimport_confirm = memnew(ConfirmationDialog);
+	reimport_confirm = memnewOld(ConfirmationDialog);
 	content->add_child(reimport_confirm);
 	reimport_confirm->connect(SceneStringName(confirmed), callable_mp(this, &ImportDock::_reimport_and_cleanup));
 
-	VBoxContainer *vbc_confirm = memnew(VBoxContainer());
-	cleanup_warning = memnew(Label(TTR("The imported resource is currently loaded. All instances will be replaced and undo history will be cleared.")));
+	VBoxContainer *vbc_confirm = memnewOld(VBoxContainer());
+	cleanup_warning = memnewOld(Label(TTR("The imported resource is currently loaded. All instances will be replaced and undo history will be cleared.")));
 	vbc_confirm->add_child(cleanup_warning);
-	label_warning = memnew(Label(TTR("WARNING: Assets exist that use this resource. They may stop loading properly after changing type.")));
+	label_warning = memnewOld(Label(TTR("WARNING: Assets exist that use this resource. They may stop loading properly after changing type.")));
 	vbc_confirm->add_child(label_warning);
 	reimport_confirm->add_child(vbc_confirm);
 
-	params = memnew(ImportDockParameters);
+	params = memnewOld(ImportDockParameters);
 
-	select_a_resource = memnew(Label);
+	select_a_resource = memnewOld(Label);
 	select_a_resource->set_text(TTR("Select a resource file in the filesystem or in the inspector to adjust import settings."));
 	select_a_resource->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 	select_a_resource->set_custom_minimum_size(Size2(100 * EDSCALE, 0));

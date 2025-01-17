@@ -5427,7 +5427,7 @@ Vector<String> DisplayServerX11::get_rendering_drivers_func() {
 }
 
 DisplayServer *DisplayServerX11::create_func(const String &p_rendering_driver, WindowMode p_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnew(DisplayServerX11(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	DisplayServer *ds = memnewOld(DisplayServerX11(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 	return ds;
 }
 
@@ -5844,7 +5844,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 
 	xwayland = OS::get_singleton()->get_environment("XDG_SESSION_TYPE").to_lower() == "wayland";
 
-	native_menu = memnew(NativeMenu);
+	native_menu = memnewOld(NativeMenu);
 	context = p_context;
 
 #ifdef SOWRAP_ENABLED
@@ -6132,7 +6132,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	// Init TTS
 	bool tts_enabled = GLOBAL_GET("audio/general/text_to_speech");
 	if (tts_enabled) {
-		tts = memnew(TTS_Linux);
+		tts = memnewOld(TTS_Linux);
 	}
 #endif
 
@@ -6148,7 +6148,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnew(RenderingContextDriverVulkanX11);
+		rendering_context = memnewOld(RenderingContextDriverVulkanX11);
 	}
 #endif // VULKAN_ENABLED
 
@@ -6230,7 +6230,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 		}
 	}
 	if (rendering_driver == "opengl3") {
-		gl_manager = memnew(GLManager_X11(p_resolution, GLManager_X11::GLES_3_0_COMPATIBLE));
+		gl_manager = memnewOld(GLManager_X11(p_resolution, GLManager_X11::GLES_3_0_COMPATIBLE));
 		if (gl_manager->initialize(x11_display) != OK || gl_manager->open_display(x11_display) != OK) {
 			memdelete(gl_manager);
 			gl_manager = nullptr;
@@ -6260,7 +6260,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	}
 
 	if (rendering_driver == "opengl3_es") {
-		gl_manager_egl = memnew(GLManagerEGL_X11);
+		gl_manager_egl = memnewOld(GLManagerEGL_X11);
 		if (gl_manager_egl->initialize() != OK || gl_manager_egl->open_display(x11_display) != OK) {
 			memdelete(gl_manager_egl);
 			gl_manager_egl = nullptr;
@@ -6310,7 +6310,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 
 #if defined(RD_ENABLED)
 	if (rendering_context) {
-		rendering_device = memnew(RenderingDevice);
+		rendering_device = memnewOld(RenderingDevice);
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			memdelete(rendering_device);
 			rendering_device = nullptr;
@@ -6472,10 +6472,10 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	_update_real_mouse_position(windows[MAIN_WINDOW_ID]);
 
 #ifdef DBUS_ENABLED
-	screensaver = memnew(FreeDesktopScreenSaver);
+	screensaver = memnewOld(FreeDesktopScreenSaver);
 	screen_set_keep_on(GLOBAL_GET("display/window/energy_saving/keep_screen_on"));
 
-	portal_desktop = memnew(FreeDesktopPortalDesktop);
+	portal_desktop = memnewOld(FreeDesktopPortalDesktop);
 #endif // DBUS_ENABLED
 
 	XSetErrorHandler(&default_window_error_handler);

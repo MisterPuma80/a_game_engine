@@ -837,8 +837,8 @@ OS_Android::OS_Android(GodotJavaWrapper *p_godot_java, GodotIOJavaWrapper *p_god
 	godot_io_java = p_godot_io_java;
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnew(AndroidLogger));
-	_set_logger(memnew(CompositeLogger(loggers)));
+	loggers.push_back(memnewOld(AndroidLogger));
+	_set_logger(memnewOld(CompositeLogger(loggers)));
 
 	AudioDriverManager::add_driver(&audio_driver_android);
 

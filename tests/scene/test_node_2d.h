@@ -40,9 +40,9 @@ namespace TestNode2D {
 
 TEST_CASE("[SceneTree][Node2D]") {
 	SUBCASE("[Node2D][Global Transform] Global Transform should be accessible while not in SceneTree.") { // GH-79453
-		Node2D *test_node = memnew(Node2D);
+		Node2D *test_node = memnewOld(Node2D);
 		test_node->set_name("node");
-		Node2D *test_child = memnew(Node2D);
+		Node2D *test_child = memnewOld(Node2D);
 		test_child->set_name("child");
 		test_node->add_child(test_child);
 
@@ -59,9 +59,9 @@ TEST_CASE("[SceneTree][Node2D]") {
 	}
 
 	SUBCASE("[Node2D][Global Transform] Global Transform should be correct after inserting node from detached tree into SceneTree.") { // GH-86841
-		Node2D *main = memnew(Node2D);
-		Node2D *outer = memnew(Node2D);
-		Node2D *inner = memnew(Node2D);
+		Node2D *main = memnewOld(Node2D);
+		Node2D *outer = memnewOld(Node2D);
+		Node2D *inner = memnewOld(Node2D);
 		SceneTree::get_singleton()->get_root()->add_child(main);
 
 		main->set_position(Point2(100, 100));

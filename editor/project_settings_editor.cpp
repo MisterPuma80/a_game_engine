@@ -636,63 +636,63 @@ ProjectSettingsEditor::ProjectSettingsEditor(EditorData *p_data) {
 	ps = ProjectSettings::get_singleton();
 	data = p_data;
 
-	tab_container = memnew(TabContainer);
+	tab_container = memnewOld(TabContainer);
 	tab_container->set_use_hidden_tabs_for_min_size(true);
 	tab_container->set_theme_type_variation("TabContainerOdd");
 	tab_container->connect("tab_changed", callable_mp(this, &ProjectSettingsEditor::_tabs_tab_changed));
 	add_child(tab_container);
 
-	general_editor = memnew(VBoxContainer);
+	general_editor = memnewOld(VBoxContainer);
 	general_editor->set_name(TTR("General"));
 	general_editor->set_alignment(BoxContainer::ALIGNMENT_BEGIN);
 	general_editor->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	tab_container->add_child(general_editor);
 
-	HBoxContainer *search_bar = memnew(HBoxContainer);
+	HBoxContainer *search_bar = memnewOld(HBoxContainer);
 	general_editor->add_child(search_bar);
 
-	search_box = memnew(LineEdit);
+	search_box = memnewOld(LineEdit);
 	search_box->set_placeholder(TTR("Filter Settings"));
 	search_box->set_clear_button_enabled(true);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_bar->add_child(search_box);
 
-	advanced = memnew(CheckButton);
+	advanced = memnewOld(CheckButton);
 	advanced->set_text(TTR("Advanced Settings"));
 	advanced->connect("toggled", callable_mp(this, &ProjectSettingsEditor::_advanced_toggled));
 	search_bar->add_child(advanced);
 
-	custom_properties = memnew(HBoxContainer);
+	custom_properties = memnewOld(HBoxContainer);
 	general_editor->add_child(custom_properties);
 
-	property_box = memnew(LineEdit);
+	property_box = memnewOld(LineEdit);
 	property_box->set_placeholder(TTR("Select a Setting or Type its Name"));
 	property_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	property_box->connect(SceneStringName(text_changed), callable_mp(this, &ProjectSettingsEditor::_property_box_changed));
 	custom_properties->add_child(property_box);
 
-	feature_box = memnew(OptionButton);
+	feature_box = memnewOld(OptionButton);
 	feature_box->set_custom_minimum_size(Size2(120, 0) * EDSCALE);
 	feature_box->connect(SceneStringName(item_selected), callable_mp(this, &ProjectSettingsEditor::_feature_selected));
 	custom_properties->add_child(feature_box);
 
-	type_box = memnew(OptionButton);
+	type_box = memnewOld(OptionButton);
 	type_box->set_custom_minimum_size(Size2(120, 0) * EDSCALE);
 	custom_properties->add_child(type_box);
 
-	add_button = memnew(Button);
+	add_button = memnewOld(Button);
 	add_button->set_text(TTR("Add"));
 	add_button->set_disabled(true);
 	add_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectSettingsEditor::_add_setting));
 	custom_properties->add_child(add_button);
 
-	del_button = memnew(Button);
+	del_button = memnewOld(Button);
 	del_button->set_text(TTR("Delete"));
 	del_button->set_disabled(true);
 	del_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectSettingsEditor::_delete_setting));
 	custom_properties->add_child(del_button);
 
-	general_settings_inspector = memnew(SectionedInspector);
+	general_settings_inspector = memnewOld(SectionedInspector);
 	general_settings_inspector->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	general_settings_inspector->register_search_box(search_box);
 	general_settings_inspector->get_inspector()->set_use_filter(true);
@@ -701,33 +701,33 @@ ProjectSettingsEditor::ProjectSettingsEditor(EditorData *p_data) {
 	general_settings_inspector->get_inspector()->connect("restart_requested", callable_mp(this, &ProjectSettingsEditor::_editor_restart_request));
 	general_editor->add_child(general_settings_inspector);
 
-	restart_container = memnew(PanelContainer);
+	restart_container = memnewOld(PanelContainer);
 	general_editor->add_child(restart_container);
 
-	HBoxContainer *restart_hb = memnew(HBoxContainer);
+	HBoxContainer *restart_hb = memnewOld(HBoxContainer);
 	restart_container->hide();
 	restart_container->add_child(restart_hb);
 
-	restart_icon = memnew(TextureRect);
+	restart_icon = memnewOld(TextureRect);
 	restart_icon->set_v_size_flags(Control::SIZE_SHRINK_CENTER);
 	restart_hb->add_child(restart_icon);
 
-	restart_label = memnew(Label);
+	restart_label = memnewOld(Label);
 	restart_label->set_text(TTR("Changed settings will be applied to the editor after restarting."));
 	restart_hb->add_child(restart_label);
 	restart_hb->add_spacer();
 
-	Button *restart_button = memnew(Button);
+	Button *restart_button = memnewOld(Button);
 	restart_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectSettingsEditor::_editor_restart));
 	restart_hb->add_child(restart_button);
 	restart_button->set_text(TTR("Save & Restart"));
 
-	restart_close_button = memnew(Button);
+	restart_close_button = memnewOld(Button);
 	restart_close_button->set_flat(true);
 	restart_close_button->connect(SceneStringName(pressed), callable_mp(this, &ProjectSettingsEditor::_editor_restart_close));
 	restart_hb->add_child(restart_close_button);
 
-	action_map_editor = memnew(ActionMapEditor);
+	action_map_editor = memnewOld(ActionMapEditor);
 	action_map_editor->set_name(TTR("Input Map"));
 	action_map_editor->connect("action_added", callable_mp(this, &ProjectSettingsEditor::_action_added));
 	action_map_editor->connect("action_edited", callable_mp(this, &ProjectSettingsEditor::_action_edited));
@@ -738,35 +738,35 @@ ProjectSettingsEditor::ProjectSettingsEditor(EditorData *p_data) {
 	action_map_editor->connect(SNAME("filter_unfocused"), callable_mp((AcceptDialog *)this, &AcceptDialog::set_close_on_escape).bind(true));
 	tab_container->add_child(action_map_editor);
 
-	localization_editor = memnew(LocalizationEditor);
+	localization_editor = memnewOld(LocalizationEditor);
 	localization_editor->set_name(TTR("Localization"));
 	localization_editor->connect("localization_changed", callable_mp(this, &ProjectSettingsEditor::queue_save));
 	tab_container->add_child(localization_editor);
 
-	TabContainer *globals_container = memnew(TabContainer);
+	TabContainer *globals_container = memnewOld(TabContainer);
 	globals_container->set_name(TTR("Globals"));
 	tab_container->add_child(globals_container);
 
-	autoload_settings = memnew(EditorAutoloadSettings);
+	autoload_settings = memnewOld(EditorAutoloadSettings);
 	autoload_settings->set_name(TTR("Autoload"));
 	autoload_settings->connect("autoload_changed", callable_mp(this, &ProjectSettingsEditor::queue_save));
 	globals_container->add_child(autoload_settings);
 
-	shaders_global_shader_uniforms_editor = memnew(ShaderGlobalsEditor);
+	shaders_global_shader_uniforms_editor = memnewOld(ShaderGlobalsEditor);
 	shaders_global_shader_uniforms_editor->set_name(TTR("Shader Globals"));
 	shaders_global_shader_uniforms_editor->connect("globals_changed", callable_mp(this, &ProjectSettingsEditor::queue_save));
 	globals_container->add_child(shaders_global_shader_uniforms_editor);
 
-	group_settings = memnew(GroupSettingsEditor);
+	group_settings = memnewOld(GroupSettingsEditor);
 	group_settings->set_name(TTR("Groups"));
 	group_settings->connect("group_changed", callable_mp(this, &ProjectSettingsEditor::queue_save));
 	globals_container->add_child(group_settings);
 
-	plugin_settings = memnew(EditorPluginSettings);
+	plugin_settings = memnewOld(EditorPluginSettings);
 	plugin_settings->set_name(TTR("Plugins"));
 	tab_container->add_child(plugin_settings);
 
-	timer = memnew(Timer);
+	timer = memnewOld(Timer);
 	timer->set_wait_time(1.5);
 	timer->connect("timeout", callable_mp(ps, &ProjectSettings::save));
 	timer->set_one_shot(true);
@@ -784,7 +784,7 @@ ProjectSettingsEditor::ProjectSettingsEditor(EditorData *p_data) {
 	_update_advanced(use_advanced);
 	general_settings_inspector->set_restrict_to_basic_settings(!use_advanced);
 
-	import_defaults_editor = memnew(ImportDefaultsEditor);
+	import_defaults_editor = memnewOld(ImportDefaultsEditor);
 	import_defaults_editor->set_name(TTR("Import Defaults"));
 	tab_container->add_child(import_defaults_editor);
 

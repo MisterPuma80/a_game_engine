@@ -1074,7 +1074,7 @@ void NavigationAgent3D::_update_debug_path() {
 	}
 
 	if (!debug_path_mesh.is_valid()) {
-		debug_path_mesh = Ref<ArrayMesh>(memnew(ArrayMesh));
+		debug_path_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
 	}
 
 	debug_path_mesh->clear_surfaces();

@@ -192,7 +192,7 @@ Variant JavaScriptObjectImpl::_js2variant(int p_type, godot_js_wrapper_ex *p_val
 			return out;
 		}
 		case Variant::OBJECT: {
-			return memnew(JavaScriptObjectImpl(p_val->i));
+			return memnewOld(JavaScriptObjectImpl(p_val->i));
 		}
 		default:
 			return Variant();
@@ -219,7 +219,7 @@ int JavaScriptObjectImpl::_variant2js(const void **p_args, int p_pos, godot_js_w
 			r_val->r = v->operator real_t();
 			break;
 		case Variant::STRING: {
-			CharString *cs = memnew(CharString(v->operator String().utf8()));
+			CharString *cs = memnewOld(CharString(v->operator String().utf8()));
 			r_val->p = (void *)cs->get_data();
 			*p_lock = (void *)cs;
 		} break;
@@ -286,7 +286,7 @@ void JavaScriptObjectImpl::_callback(const JavaScriptObjectImpl *obj, Variant ar
 }
 
 Ref<JavaScriptObject> JavaScriptBridge::create_callback(const Callable &p_callable) {
-	Ref<JavaScriptObjectImpl> out = memnew(JavaScriptObjectImpl);
+	Ref<JavaScriptObjectImpl> out = memnewOld(JavaScriptObjectImpl);
 	out->_callable = p_callable;
 	out->_js_id = godot_js_wrapper_create_cb(out.ptr(), JavaScriptObjectImpl::callback);
 	return out;
@@ -295,7 +295,7 @@ Ref<JavaScriptObject> JavaScriptBridge::create_callback(const Callable &p_callab
 Ref<JavaScriptObject> JavaScriptBridge::get_interface(const String &p_interface) {
 	int js_id = godot_js_wrapper_interface_get(p_interface.utf8().get_data());
 	ERR_FAIL_COND_V_MSG(!js_id, Ref<JavaScriptObject>(), "No interface '" + p_interface + "' registered.");
-	return Ref<JavaScriptObject>(memnew(JavaScriptObjectImpl(js_id)));
+	return Ref<JavaScriptObject>(memnewOld(JavaScriptObjectImpl(js_id)));
 }
 
 Variant JavaScriptBridge::_create_object_bind(const Variant **p_args, int p_argcount, Callable::CallError &r_error) {

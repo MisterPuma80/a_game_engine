@@ -394,24 +394,24 @@ void ParticleProcessMaterialMinMaxPropertyEditor::update_property() {
 }
 
 ParticleProcessMaterialMinMaxPropertyEditor::ParticleProcessMaterialMinMaxPropertyEditor() {
-	VBoxContainer *content_vb = memnew(VBoxContainer);
+	VBoxContainer *content_vb = memnewOld(VBoxContainer);
 	content_vb->add_theme_constant_override(SNAME("separation"), 0);
 	add_child(content_vb);
 
 	// Helper Range objects to keep absolute min and max values.
-	min_range = memnew(Range);
+	min_range = memnewOld(Range);
 	min_range->hide();
 	add_child(min_range);
 
-	max_range = memnew(Range);
+	max_range = memnewOld(Range);
 	max_range->hide();
 	add_child(max_range);
 
 	// Range edit widget.
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	content_vb->add_child(hb);
 
-	range_edit_widget = memnew(Control);
+	range_edit_widget = memnewOld(Control);
 	range_edit_widget->set_h_size_flags(SIZE_EXPAND_FILL);
 	range_edit_widget->set_tooltip_text(TTR("Hold Shift to scale around midpoint instead of moving."));
 	hb->add_child(range_edit_widget);
@@ -421,20 +421,20 @@ ParticleProcessMaterialMinMaxPropertyEditor::ParticleProcessMaterialMinMaxProper
 	range_edit_widget->connect(SceneStringName(mouse_exited), callable_mp(this, &ParticleProcessMaterialMinMaxPropertyEditor::_set_mouse_inside).bind(false));
 
 	// Range controls for actual editing. Their min/max may depend on editing mode.
-	hb = memnew(HBoxContainer);
+	hb = memnewOld(HBoxContainer);
 	content_vb->add_child(hb);
 
-	min_edit = memnew(EditorSpinSlider);
+	min_edit = memnewOld(EditorSpinSlider);
 	min_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	hb->add_child(min_edit);
 	min_edit->connect(SceneStringName(value_changed), callable_mp(this, &ParticleProcessMaterialMinMaxPropertyEditor::_sync_sliders).bind(min_edit));
 
-	max_edit = memnew(EditorSpinSlider);
+	max_edit = memnewOld(EditorSpinSlider);
 	max_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	hb->add_child(max_edit);
 	max_edit->connect(SceneStringName(value_changed), callable_mp(this, &ParticleProcessMaterialMinMaxPropertyEditor::_sync_sliders).bind(max_edit));
 
-	toggle_mode_button = memnew(Button);
+	toggle_mode_button = memnewOld(Button);
 	toggle_mode_button->set_toggle_mode(true);
 	toggle_mode_button->set_tooltip_text(TTR("Toggle between minimum/maximum and base value/spread modes."));
 	hb->add_child(toggle_mode_button);
@@ -464,7 +464,7 @@ bool EditorInspectorParticleProcessMaterialPlugin::parse_property(Object *p_obje
 	bool allow_greater = range_hint.find("or_greater", 3) > -1;
 	bool degrees = range_hint.find("degrees", 3) > -1;
 
-	ParticleProcessMaterialMinMaxPropertyEditor *ed = memnew(ParticleProcessMaterialMinMaxPropertyEditor);
+	ParticleProcessMaterialMinMaxPropertyEditor *ed = memnewOld(ParticleProcessMaterialMinMaxPropertyEditor);
 	ed->setup(min, max, step, allow_less, allow_greater, degrees);
 	add_property_editor(p_path, ed);
 

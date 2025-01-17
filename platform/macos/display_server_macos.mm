@@ -3279,7 +3279,7 @@ bool DisplayServerMacOS::is_window_transparency_available() const {
 }
 
 DisplayServer *DisplayServerMacOS::create_func(const String &p_rendering_driver, WindowMode p_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnew(DisplayServerMacOS(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	DisplayServer *ds = memnewOld(DisplayServerMacOS(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 	if (r_error != OK) {
 		if (p_rendering_driver == "vulkan") {
 			String executable_command;
@@ -3504,7 +3504,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 		tts = [[TTS_MacOS alloc] init];
 	}
 
-	native_menu = memnew(NativeMenuMacOS);
+	native_menu = memnewOld(NativeMenuMacOS);
 
 	NSMenuItem *menu_item;
 	NSString *title;
@@ -3603,7 +3603,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnew(RenderingContextDriverVulkanMacOS);
+		rendering_context = memnewOld(RenderingContextDriverVulkanMacOS);
 	}
 #endif
 
@@ -3630,7 +3630,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 
 #if defined(GLES3_ENABLED)
 	if (rendering_driver == "opengl3_angle") {
-		gl_manager_angle = memnew(GLManagerANGLE_MacOS);
+		gl_manager_angle = memnewOld(GLManagerANGLE_MacOS);
 		if (gl_manager_angle->initialize() != OK || gl_manager_angle->open_display(nullptr) != OK) {
 			memdelete(gl_manager_angle);
 			gl_manager_angle = nullptr;
@@ -3651,7 +3651,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 	}
 
 	if (rendering_driver == "opengl3") {
-		gl_manager_legacy = memnew(GLManagerLegacy_MacOS);
+		gl_manager_legacy = memnewOld(GLManagerLegacy_MacOS);
 		if (gl_manager_legacy->initialize() != OK) {
 			memdelete(gl_manager_legacy);
 			gl_manager_legacy = nullptr;
@@ -3692,7 +3692,7 @@ DisplayServerMacOS::DisplayServerMacOS(const String &p_rendering_driver, WindowM
 #endif
 #if defined(RD_ENABLED)
 	if (rendering_context) {
-		rendering_device = memnew(RenderingDevice);
+		rendering_device = memnewOld(RenderingDevice);
 		rendering_device->initialize(rendering_context, MAIN_WINDOW_ID);
 		rendering_device->screen_create(MAIN_WINDOW_ID);
 

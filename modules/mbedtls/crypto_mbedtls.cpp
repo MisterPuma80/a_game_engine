@@ -50,7 +50,7 @@
 #define PEM_MIN_SIZE 54
 
 CryptoKey *CryptoKeyMbedTLS::create() {
-	return memnew(CryptoKeyMbedTLS);
+	return memnewOld(CryptoKeyMbedTLS);
 }
 
 Error CryptoKeyMbedTLS::load(const String &p_path, bool p_public_only) {
@@ -154,7 +154,7 @@ int CryptoKeyMbedTLS::_parse_key(const uint8_t *p_buf, int p_size) {
 }
 
 X509Certificate *X509CertificateMbedTLS::create() {
-	return memnew(X509CertificateMbedTLS);
+	return memnewOld(X509CertificateMbedTLS);
 }
 
 Error X509CertificateMbedTLS::load(const String &p_path) {
@@ -251,7 +251,7 @@ bool HMACContextMbedTLS::is_md_type_allowed(mbedtls_md_type_t p_md_type) {
 }
 
 HMACContext *HMACContextMbedTLS::create() {
-	return memnew(HMACContextMbedTLS);
+	return memnewOld(HMACContextMbedTLS);
 }
 
 Error HMACContextMbedTLS::start(HashingContext::HashType p_hash_type, const PackedByteArray &p_key) {
@@ -310,7 +310,7 @@ HMACContextMbedTLS::~HMACContextMbedTLS() {
 }
 
 Crypto *CryptoMbedTLS::create() {
-	return memnew(CryptoMbedTLS);
+	return memnewOld(CryptoMbedTLS);
 }
 
 void CryptoMbedTLS::initialize_crypto() {
@@ -360,7 +360,7 @@ X509CertificateMbedTLS *CryptoMbedTLS::get_default_certificates() {
 void CryptoMbedTLS::load_default_certificates(const String &p_path) {
 	ERR_FAIL_COND(default_certs != nullptr);
 
-	default_certs = memnew(X509CertificateMbedTLS);
+	default_certs = memnewOld(X509CertificateMbedTLS);
 	ERR_FAIL_NULL(default_certs);
 
 	if (!p_path.is_empty()) {

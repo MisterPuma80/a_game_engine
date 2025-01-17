@@ -609,7 +609,7 @@ bool AnimationNodeStateMachineEditor::_create_submenu(PopupMenu *p_menu, Ref<Ani
 	List<StringName> nodes;
 	p_nodesm->get_node_list(&nodes);
 
-	PopupMenu *nodes_menu = memnew(PopupMenu);
+	PopupMenu *nodes_menu = memnewOld(PopupMenu);
 	nodes_menu->set_name(p_name);
 	nodes_menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_connect_to));
 	p_menu->add_child(nodes_menu);
@@ -1665,13 +1665,13 @@ AnimationNodeStateMachineEditor *AnimationNodeStateMachineEditor::singleton = nu
 AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 	singleton = this;
 
-	HBoxContainer *top_hb = memnew(HBoxContainer);
+	HBoxContainer *top_hb = memnewOld(HBoxContainer);
 	add_child(top_hb);
 
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 
-	tool_select = memnew(Button);
+	tool_select = memnewOld(Button);
 	tool_select->set_theme_type_variation("FlatButton");
 	top_hb->add_child(tool_select);
 	tool_select->set_toggle_mode(true);
@@ -1680,7 +1680,7 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 	tool_select->set_tooltip_text(TTR("Select and move nodes.\nRMB: Add node at position clicked.\nShift+LMB+Drag: Connects the selected node with another node or creates a new node if you select an area without nodes."));
 	tool_select->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_update_mode), CONNECT_DEFERRED);
 
-	tool_create = memnew(Button);
+	tool_create = memnewOld(Button);
 	tool_create->set_theme_type_variation("FlatButton");
 	top_hb->add_child(tool_create);
 	tool_create->set_toggle_mode(true);
@@ -1688,7 +1688,7 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 	tool_create->set_tooltip_text(TTR("Create new nodes."));
 	tool_create->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_update_mode), CONNECT_DEFERRED);
 
-	tool_connect = memnew(Button);
+	tool_connect = memnewOld(Button);
 	tool_connect->set_theme_type_variation("FlatButton");
 	top_hb->add_child(tool_connect);
 	tool_connect->set_toggle_mode(true);
@@ -1697,26 +1697,26 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 	tool_connect->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_update_mode), CONNECT_DEFERRED);
 
 	// Context-sensitive selection tools:
-	selection_tools_hb = memnew(HBoxContainer);
+	selection_tools_hb = memnewOld(HBoxContainer);
 	top_hb->add_child(selection_tools_hb);
-	selection_tools_hb->add_child(memnew(VSeparator));
+	selection_tools_hb->add_child(memnewOld(VSeparator));
 
-	tool_erase = memnew(Button);
+	tool_erase = memnewOld(Button);
 	tool_erase->set_theme_type_variation("FlatButton");
 	tool_erase->set_tooltip_text(TTR("Remove selected node or transition."));
 	tool_erase->connect(SceneStringName(pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_erase_selected).bind(false));
 	tool_erase->set_disabled(true);
 	selection_tools_hb->add_child(tool_erase);
 
-	transition_tools_hb = memnew(HBoxContainer);
+	transition_tools_hb = memnewOld(HBoxContainer);
 	top_hb->add_child(transition_tools_hb);
-	transition_tools_hb->add_child(memnew(VSeparator));
+	transition_tools_hb->add_child(memnewOld(VSeparator));
 
-	transition_tools_hb->add_child(memnew(Label(TTR("Transition:"))));
-	switch_mode = memnew(OptionButton);
+	transition_tools_hb->add_child(memnewOld(Label(TTR("Transition:"))));
+	switch_mode = memnewOld(OptionButton);
 	transition_tools_hb->add_child(switch_mode);
 
-	auto_advance = memnew(Button);
+	auto_advance = memnewOld(Button);
 	auto_advance->set_theme_type_variation("FlatButton");
 	auto_advance->set_tooltip_text(TTR("New Transitions Should Auto Advance"));
 	auto_advance->set_toggle_mode(true);
@@ -1727,92 +1727,92 @@ AnimationNodeStateMachineEditor::AnimationNodeStateMachineEditor() {
 
 	top_hb->add_spacer();
 
-	top_hb->add_child(memnew(Label(TTR("Play Mode:"))));
-	play_mode = memnew(OptionButton);
+	top_hb->add_child(memnewOld(Label(TTR("Play Mode:"))));
+	play_mode = memnewOld(OptionButton);
 	top_hb->add_child(play_mode);
 
-	panel = memnew(PanelContainer);
+	panel = memnewOld(PanelContainer);
 	panel->set_clip_contents(true);
 	panel->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 	add_child(panel);
 	panel->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	state_machine_draw = memnew(Control);
+	state_machine_draw = memnewOld(Control);
 	panel->add_child(state_machine_draw);
 	state_machine_draw->connect(SceneStringName(gui_input), callable_mp(this, &AnimationNodeStateMachineEditor::_state_machine_gui_input));
 	state_machine_draw->connect(SceneStringName(draw), callable_mp(this, &AnimationNodeStateMachineEditor::_state_machine_draw));
 	state_machine_draw->set_focus_mode(FOCUS_ALL);
 	state_machine_draw->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 
-	state_machine_play_pos = memnew(Control);
+	state_machine_play_pos = memnewOld(Control);
 	state_machine_draw->add_child(state_machine_play_pos);
 	state_machine_play_pos->set_mouse_filter(MOUSE_FILTER_PASS); //pass all to parent
 	state_machine_play_pos->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	state_machine_play_pos->connect(SceneStringName(draw), callable_mp(this, &AnimationNodeStateMachineEditor::_state_machine_pos_draw_all));
 
-	v_scroll = memnew(VScrollBar);
+	v_scroll = memnewOld(VScrollBar);
 	state_machine_draw->add_child(v_scroll);
 	v_scroll->set_anchors_and_offsets_preset(PRESET_RIGHT_WIDE);
 	v_scroll->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeStateMachineEditor::_scroll_changed));
 
-	h_scroll = memnew(HScrollBar);
+	h_scroll = memnewOld(HScrollBar);
 	state_machine_draw->add_child(h_scroll);
 	h_scroll->set_anchors_and_offsets_preset(PRESET_BOTTOM_WIDE);
 	h_scroll->set_offset(SIDE_RIGHT, -v_scroll->get_size().x * EDSCALE);
 	h_scroll->connect(SceneStringName(value_changed), callable_mp(this, &AnimationNodeStateMachineEditor::_scroll_changed));
 
-	error_panel = memnew(PanelContainer);
+	error_panel = memnewOld(PanelContainer);
 	add_child(error_panel);
-	error_label = memnew(Label);
+	error_label = memnewOld(Label);
 	error_panel->add_child(error_label);
 	error_panel->hide();
 
 	set_custom_minimum_size(Size2(0, 300 * EDSCALE));
 
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_add_menu_type));
 	menu->connect("popup_hide", callable_mp(this, &AnimationNodeStateMachineEditor::_stop_connecting));
 
-	animations_menu = memnew(PopupMenu);
+	animations_menu = memnewOld(PopupMenu);
 	animations_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	menu->add_child(animations_menu);
 	animations_menu->connect("index_pressed", callable_mp(this, &AnimationNodeStateMachineEditor::_add_animation_type));
 
-	connect_menu = memnew(PopupMenu);
+	connect_menu = memnewOld(PopupMenu);
 	add_child(connect_menu);
 	connect_menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_connect_to));
 	connect_menu->connect("popup_hide", callable_mp(this, &AnimationNodeStateMachineEditor::_stop_connecting));
 
-	state_machine_menu = memnew(PopupMenu);
+	state_machine_menu = memnewOld(PopupMenu);
 	state_machine_menu->set_name("state_machines");
 	state_machine_menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_connect_to));
 	connect_menu->add_child(state_machine_menu);
 
-	end_menu = memnew(PopupMenu);
+	end_menu = memnewOld(PopupMenu);
 	end_menu->set_name("end_nodes");
 	end_menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationNodeStateMachineEditor::_connect_to));
 	connect_menu->add_child(end_menu);
 
-	name_edit_popup = memnew(Popup);
+	name_edit_popup = memnewOld(Popup);
 	add_child(name_edit_popup);
-	name_edit = memnew(LineEdit);
+	name_edit = memnewOld(LineEdit);
 	name_edit_popup->add_child(name_edit);
 	name_edit->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	name_edit->connect("text_submitted", callable_mp(this, &AnimationNodeStateMachineEditor::_name_edited));
 	name_edit->connect(SceneStringName(focus_exited), callable_mp(this, &AnimationNodeStateMachineEditor::_name_edited_focus_out));
 
-	open_file = memnew(EditorFileDialog);
+	open_file = memnewOld(EditorFileDialog);
 	add_child(open_file);
 	open_file->set_title(TTR("Open Animation Node"));
 	open_file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	open_file->connect("file_selected", callable_mp(this, &AnimationNodeStateMachineEditor::_file_opened));
 
-	delete_window = memnew(ConfirmationDialog);
+	delete_window = memnewOld(ConfirmationDialog);
 	delete_window->set_flag(Window::FLAG_RESIZE_DISABLED, true);
 	add_child(delete_window);
 
-	delete_tree = memnew(Tree);
+	delete_tree = memnewOld(Tree);
 	delete_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	delete_tree->set_hide_root(true);
 	delete_tree->connect(SceneStringName(draw), callable_mp(this, &AnimationNodeStateMachineEditor::_delete_tree_draw));

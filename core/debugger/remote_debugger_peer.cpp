@@ -229,7 +229,7 @@ RemoteDebuggerPeer *RemoteDebuggerPeerTCP::create(const String &p_uri) {
 		debug_host = debug_host.substr(0, sep_pos);
 	}
 
-	RemoteDebuggerPeerTCP *peer = memnew(RemoteDebuggerPeerTCP);
+	RemoteDebuggerPeerTCP *peer = memnewOld(RemoteDebuggerPeerTCP);
 	Error err = peer->connect_to_host(debug_host, debug_port);
 	if (err != OK) {
 		memdelete(peer);

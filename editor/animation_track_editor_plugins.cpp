@@ -1335,51 +1335,51 @@ AnimationTrackEditTypeAnimation::AnimationTrackEditTypeAnimation() {
 /////////
 AnimationTrackEdit *AnimationTrackEditDefaultPlugin::create_value_track_edit(Object *p_object, Variant::Type p_type, const String &p_property, PropertyHint p_hint, const String &p_hint_string, int p_usage) {
 	if (p_property == "playing" && (p_object->is_class("AudioStreamPlayer") || p_object->is_class("AudioStreamPlayer2D") || p_object->is_class("AudioStreamPlayer3D"))) {
-		AnimationTrackEditAudio *audio = memnew(AnimationTrackEditAudio);
+		AnimationTrackEditAudio *audio = memnewOld(AnimationTrackEditAudio);
 		audio->set_node(p_object);
 		return audio;
 	}
 
 	if (p_property == "frame" && (p_object->is_class("Sprite2D") || p_object->is_class("Sprite3D") || p_object->is_class("AnimatedSprite2D") || p_object->is_class("AnimatedSprite3D"))) {
-		AnimationTrackEditSpriteFrame *sprite = memnew(AnimationTrackEditSpriteFrame);
+		AnimationTrackEditSpriteFrame *sprite = memnewOld(AnimationTrackEditSpriteFrame);
 		sprite->set_node(p_object);
 		return sprite;
 	}
 
 	if (p_property == "frame_coords" && (p_object->is_class("Sprite2D") || p_object->is_class("Sprite3D"))) {
-		AnimationTrackEditSpriteFrame *sprite = memnew(AnimationTrackEditSpriteFrame);
+		AnimationTrackEditSpriteFrame *sprite = memnewOld(AnimationTrackEditSpriteFrame);
 		sprite->set_as_coords();
 		sprite->set_node(p_object);
 		return sprite;
 	}
 
 	if (p_property == "current_animation" && (p_object->is_class("AnimationPlayer"))) {
-		AnimationTrackEditSubAnim *player = memnew(AnimationTrackEditSubAnim);
+		AnimationTrackEditSubAnim *player = memnewOld(AnimationTrackEditSubAnim);
 		player->set_node(p_object);
 		return player;
 	}
 
 	if (p_property == "volume_db") {
-		AnimationTrackEditVolumeDB *vu = memnew(AnimationTrackEditVolumeDB);
+		AnimationTrackEditVolumeDB *vu = memnewOld(AnimationTrackEditVolumeDB);
 		return vu;
 	}
 
 	if (p_type == Variant::BOOL) {
-		return memnew(AnimationTrackEditBool);
+		return memnewOld(AnimationTrackEditBool);
 	}
 	if (p_type == Variant::COLOR) {
-		return memnew(AnimationTrackEditColor);
+		return memnewOld(AnimationTrackEditColor);
 	}
 
 	return nullptr;
 }
 
 AnimationTrackEdit *AnimationTrackEditDefaultPlugin::create_audio_track_edit() {
-	return memnew(AnimationTrackEditTypeAudio);
+	return memnewOld(AnimationTrackEditTypeAudio);
 }
 
 AnimationTrackEdit *AnimationTrackEditDefaultPlugin::create_animation_track_edit(Object *p_object) {
-	AnimationTrackEditTypeAnimation *an = memnew(AnimationTrackEditTypeAnimation);
+	AnimationTrackEditTypeAnimation *an = memnewOld(AnimationTrackEditTypeAnimation);
 	an->set_node(p_object);
 	return an;
 }

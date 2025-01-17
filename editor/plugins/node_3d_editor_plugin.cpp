@@ -4268,7 +4268,7 @@ AABB Node3DEditorViewport::_calculate_spatial_bounds(const Node3D *p_parent, con
 Node *Node3DEditorViewport::_sanitize_preview_node(Node *p_node) const {
 	Node3D *node_3d = Object::cast_to<Node3D>(p_node);
 	if (node_3d == nullptr) {
-		Node3D *replacement_node = memnew(Node3D);
+		Node3D *replacement_node = memnewOld(Node3D);
 		replacement_node->set_name(p_node->get_name());
 		p_node->replace_by(replacement_node);
 		memdelete(p_node);
@@ -4276,7 +4276,7 @@ Node *Node3DEditorViewport::_sanitize_preview_node(Node *p_node) const {
 	} else {
 		VisualInstance3D *visual_instance = Object::cast_to<VisualInstance3D>(node_3d);
 		if (visual_instance == nullptr) {
-			Node3D *replacement_node = memnew(Node3D);
+			Node3D *replacement_node = memnewOld(Node3D);
 			replacement_node->set_name(node_3d->get_name());
 			replacement_node->set_visible(node_3d->is_visible());
 			replacement_node->set_transform(node_3d->get_transform());
@@ -4314,7 +4314,7 @@ void Node3DEditorViewport::_create_preview_node(const Vector<String> &files) con
 
 		Ref<Mesh> mesh = res;
 		if (mesh.is_valid()) {
-			MeshInstance3D *mesh_instance = memnew(MeshInstance3D);
+			MeshInstance3D *mesh_instance = memnewOld(MeshInstance3D);
 			mesh_instance->set_mesh(mesh);
 			preview_node->add_child(mesh_instance);
 			add_preview = true;
@@ -4322,7 +4322,7 @@ void Node3DEditorViewport::_create_preview_node(const Vector<String> &files) con
 
 		Ref<AudioStream> audio = res;
 		if (audio.is_valid()) {
-			Sprite3D *sprite = memnew(Sprite3D);
+			Sprite3D *sprite = memnewOld(Sprite3D);
 			sprite->set_texture(get_editor_theme_icon(SNAME("Gizmo3DSamplePlayer")));
 			sprite->set_billboard_mode(StandardMaterial3D::BILLBOARD_ENABLED);
 			sprite->set_pixel_size(0.005);
@@ -4473,7 +4473,7 @@ bool Node3DEditorViewport::_create_instance(Node *p_parent, const String &p_path
 
 	if (mesh != nullptr || scene != nullptr) {
 		if (mesh != nullptr) {
-			MeshInstance3D *mesh_instance = memnew(MeshInstance3D);
+			MeshInstance3D *mesh_instance = memnewOld(MeshInstance3D);
 			mesh_instance->set_mesh(mesh);
 
 			// Adjust casing according to project setting. The file name is expected to be in snake_case, but will work for others.
@@ -4541,7 +4541,7 @@ bool Node3DEditorViewport::_create_audio_node(Node *p_parent, const String &p_pa
 	Ref<AudioStream> audio = ResourceLoader::load(p_path);
 	ERR_FAIL_COND_V(audio.is_null(), false);
 
-	AudioStreamPlayer3D *audio_player = memnew(AudioStreamPlayer3D);
+	AudioStreamPlayer3D *audio_player = memnewOld(AudioStreamPlayer3D);
 	audio_player->set_stream(audio);
 
 	// Adjust casing according to project setting. The file name is expected to be in snake_case, but will work for others.
@@ -4699,7 +4699,7 @@ bool Node3DEditorViewport::can_drop_data_fw(const Point2 &p_point, const Variant
 						// Let the mesh pass.
 						is_other_valid = true;
 					} else if (!is_other_valid && tex.is_valid()) {
-						Ref<StandardMaterial3D> new_mat = memnew(StandardMaterial3D);
+						Ref<StandardMaterial3D> new_mat = memnewOld(StandardMaterial3D);
 						new_mat->set_texture(BaseMaterial3D::TEXTURE_ALBEDO, tex);
 
 						spatial_editor->set_preview_material(new_mat);
@@ -4775,7 +4775,7 @@ void Node3DEditorViewport::drop_data_fw(const Point2 &p_point, const Variant &p_
 			target_node = root_node;
 		} else {
 			// Create a root node so we can add child nodes to it.
-			SceneTreeDock::get_singleton()->add_root_node(memnew(Node3D));
+			SceneTreeDock::get_singleton()->add_root_node(memnewOld(Node3D));
 			target_node = get_tree()->get_edited_scene_root();
 		}
 	}
@@ -5254,33 +5254,33 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	zoom_indicator_delay = 0.0;
 
 	spatial_editor = p_spatial_editor;
-	SubViewportContainer *c = memnew(SubViewportContainer);
+	SubViewportContainer *c = memnewOld(SubViewportContainer);
 	subviewport_container = c;
 	c->set_stretch(true);
 	add_child(c);
 	c->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
-	viewport = memnew(SubViewport);
+	viewport = memnewOld(SubViewport);
 	viewport->set_disable_input(true);
 
 	c->add_child(viewport);
-	surface = memnew(Control);
+	surface = memnewOld(Control);
 	SET_DRAG_FORWARDING_CD(surface, Node3DEditorViewport);
 	add_child(surface);
 	surface->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	surface->set_clip_contents(true);
-	camera = memnew(Camera3D);
+	camera = memnewOld(Camera3D);
 	camera->set_disable_gizmos(true);
 	camera->set_cull_mask(((1 << 20) - 1) | (1 << (GIZMO_BASE_LAYER + p_index)) | (1 << GIZMO_EDIT_LAYER) | (1 << GIZMO_GRID_LAYER) | (1 << MISC_TOOL_LAYER));
 	viewport->add_child(camera);
 	camera->make_current();
 	surface->set_focus_mode(FOCUS_ALL);
 
-	VBoxContainer *vbox = memnew(VBoxContainer);
+	VBoxContainer *vbox = memnewOld(VBoxContainer);
 	surface->add_child(vbox);
 	vbox->set_offset(SIDE_LEFT, 10 * EDSCALE);
 	vbox->set_offset(SIDE_TOP, 10 * EDSCALE);
 
-	view_menu = memnew(MenuButton);
+	view_menu = memnewOld(MenuButton);
 	view_menu->set_flat(false);
 	view_menu->set_h_size_flags(0);
 	view_menu->set_shortcut_context(this);
@@ -5312,7 +5312,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	view_menu->get_popup()->add_radio_check_shortcut(ED_SHORTCUT("spatial_editor/view_display_unshaded", TTR("Display Unshaded")), VIEW_DISPLAY_UNSHADED);
 	view_menu->get_popup()->set_item_checked(view_menu->get_popup()->get_item_index(VIEW_DISPLAY_NORMAL), true);
 
-	display_submenu = memnew(PopupMenu);
+	display_submenu = memnewOld(PopupMenu);
 	display_submenu->set_hide_on_checkable_item_selection(false);
 	display_submenu->add_radio_check_item(TTR("Directional Shadow Splits"), VIEW_DISPLAY_DEBUG_PSSM_SPLITS);
 	display_submenu->add_separator();
@@ -5415,7 +5415,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	ED_SHORTCUT("spatial_editor/instant_rotate", TTR("Begin Rotate Transformation"));
 	ED_SHORTCUT("spatial_editor/instant_scale", TTR("Begin Scale Transformation"));
 
-	preview_camera = memnew(CheckBox);
+	preview_camera = memnewOld(CheckBox);
 	preview_camera->set_text(TTR("Preview"));
 	preview_camera->set_shortcut(ED_SHORTCUT("spatial_editor/toggle_camera_preview", TTR("Toggle Camera Preview"), KeyModifierMask::CMD_OR_CTRL | Key::P));
 	vbox->add_child(preview_camera);
@@ -5427,7 +5427,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 
 	preview_node = nullptr;
 
-	bottom_center_vbox = memnew(VBoxContainer);
+	bottom_center_vbox = memnewOld(VBoxContainer);
 	bottom_center_vbox->set_anchors_preset(LayoutPreset::PRESET_CENTER);
 	bottom_center_vbox->set_anchor_and_offset(SIDE_TOP, ANCHOR_END, -20 * EDSCALE);
 	bottom_center_vbox->set_anchor_and_offset(SIDE_BOTTOM, ANCHOR_END, -10 * EDSCALE);
@@ -5435,7 +5435,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	bottom_center_vbox->set_v_grow_direction(GROW_DIRECTION_BEGIN);
 	surface->add_child(bottom_center_vbox);
 
-	info_panel = memnew(PanelContainer);
+	info_panel = memnewOld(PanelContainer);
 	info_panel->set_anchor_and_offset(SIDE_LEFT, ANCHOR_END, -90 * EDSCALE);
 	info_panel->set_anchor_and_offset(SIDE_TOP, ANCHOR_END, -90 * EDSCALE);
 	info_panel->set_anchor_and_offset(SIDE_RIGHT, ANCHOR_END, -10 * EDSCALE);
@@ -5446,10 +5446,10 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	surface->add_child(info_panel);
 	info_panel->hide();
 
-	info_label = memnew(Label);
+	info_label = memnewOld(Label);
 	info_panel->add_child(info_label);
 
-	cinema_label = memnew(Label);
+	cinema_label = memnewOld(Label);
 	cinema_label->set_anchor_and_offset(SIDE_TOP, ANCHOR_BEGIN, 10 * EDSCALE);
 	cinema_label->set_h_grow_direction(GROW_DIRECTION_END);
 	cinema_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -5459,7 +5459,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	cinema_label->hide();
 	previewing_cinema = false;
 
-	locked_label = memnew(Label);
+	locked_label = memnewOld(Label);
 	locked_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	locked_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	locked_label->set_h_size_flags(SIZE_SHRINK_CENTER);
@@ -5467,14 +5467,14 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	locked_label->set_text(TTR("View Rotation Locked"));
 	locked_label->hide();
 
-	zoom_limit_label = memnew(Label);
+	zoom_limit_label = memnewOld(Label);
 	zoom_limit_label->set_text(TTR("To zoom further, change the camera's clipping planes (View -> Settings...)"));
 	zoom_limit_label->set_name("ZoomLimitMessageLabel");
 	zoom_limit_label->add_theme_color_override(SceneStringName(font_color), Color(1, 1, 1, 1));
 	zoom_limit_label->hide();
 	bottom_center_vbox->add_child(zoom_limit_label);
 
-	preview_material_label = memnew(Label);
+	preview_material_label = memnewOld(Label);
 	preview_material_label->set_anchors_and_offsets_preset(LayoutPreset::PRESET_BOTTOM_LEFT);
 	preview_material_label->set_offset(Side::SIDE_TOP, -70 * EDSCALE);
 	preview_material_label->set_text(TTR("Overriding material..."));
@@ -5482,7 +5482,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	preview_material_label->hide();
 	surface->add_child(preview_material_label);
 
-	preview_material_label_desc = memnew(Label);
+	preview_material_label_desc = memnewOld(Label);
 	preview_material_label_desc->set_anchors_and_offsets_preset(LayoutPreset::PRESET_BOTTOM_LEFT);
 	preview_material_label_desc->set_offset(Side::SIDE_TOP, -50 * EDSCALE);
 	Key key = (OS::get_singleton()->has_feature("macos") || OS::get_singleton()->has_feature("web_macos") || OS::get_singleton()->has_feature("web_ios")) ? Key::META : Key::CTRL;
@@ -5492,18 +5492,18 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	preview_material_label_desc->hide();
 	surface->add_child(preview_material_label_desc);
 
-	frame_time_gradient = memnew(Gradient);
+	frame_time_gradient = memnewOld(Gradient);
 	// The color is set when the theme changes.
 	frame_time_gradient->add_point(0.5, Color());
 
-	top_right_vbox = memnew(VBoxContainer);
+	top_right_vbox = memnewOld(VBoxContainer);
 	top_right_vbox->add_theme_constant_override("separation", 10.0 * EDSCALE);
 	top_right_vbox->set_anchors_and_offsets_preset(PRESET_TOP_RIGHT, PRESET_MODE_MINSIZE, 10.0 * EDSCALE);
 	top_right_vbox->set_h_grow_direction(GROW_DIRECTION_BEGIN);
 
 	const int navigation_control_size = 150;
 
-	position_control = memnew(ViewportNavigationControl);
+	position_control = memnewOld(ViewportNavigationControl);
 	position_control->set_navigation_mode(Node3DEditorViewport::NAVIGATION_MOVE);
 	position_control->set_custom_minimum_size(Size2(navigation_control_size, navigation_control_size) * EDSCALE);
 	position_control->set_h_size_flags(SIZE_SHRINK_END);
@@ -5514,7 +5514,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	position_control->set_viewport(this);
 	surface->add_child(position_control);
 
-	look_control = memnew(ViewportNavigationControl);
+	look_control = memnewOld(ViewportNavigationControl);
 	look_control->set_navigation_mode(Node3DEditorViewport::NAVIGATION_LOOK);
 	look_control->set_custom_minimum_size(Size2(navigation_control_size, navigation_control_size) * EDSCALE);
 	look_control->set_h_size_flags(SIZE_SHRINK_END);
@@ -5525,28 +5525,28 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	look_control->set_viewport(this);
 	surface->add_child(look_control);
 
-	rotation_control = memnew(ViewportRotationControl);
+	rotation_control = memnewOld(ViewportRotationControl);
 	rotation_control->set_custom_minimum_size(Size2(80, 80) * EDSCALE);
 	rotation_control->set_h_size_flags(SIZE_SHRINK_END);
 	rotation_control->set_viewport(this);
 	top_right_vbox->add_child(rotation_control);
 
-	frame_time_panel = memnew(PanelContainer);
+	frame_time_panel = memnewOld(PanelContainer);
 	frame_time_panel->set_mouse_filter(MOUSE_FILTER_IGNORE);
 	top_right_vbox->add_child(frame_time_panel);
 	frame_time_panel->hide();
 
-	frame_time_vbox = memnew(VBoxContainer);
+	frame_time_vbox = memnewOld(VBoxContainer);
 	frame_time_panel->add_child(frame_time_vbox);
 
 	// Individual Labels are used to allow coloring each label with its own color.
-	cpu_time_label = memnew(Label);
+	cpu_time_label = memnewOld(Label);
 	frame_time_vbox->add_child(cpu_time_label);
 
-	gpu_time_label = memnew(Label);
+	gpu_time_label = memnewOld(Label);
 	frame_time_vbox->add_child(gpu_time_label);
 
-	fps_label = memnew(Label);
+	fps_label = memnewOld(Label);
 	frame_time_vbox->add_child(fps_label);
 
 	surface->add_child(top_right_vbox);
@@ -5556,7 +5556,7 @@ Node3DEditorViewport::Node3DEditorViewport(Node3DEditor *p_spatial_editor, int p
 	freelook_active = false;
 	freelook_speed = EDITOR_GET("editors/3d/freelook/freelook_base_speed");
 
-	selection_menu = memnew(PopupMenu);
+	selection_menu = memnewOld(PopupMenu);
 	add_child(selection_menu);
 	selection_menu->set_min_size(Size2(100, 0) * EDSCALE);
 	selection_menu->connect(SceneStringName(id_pressed), callable_mp(this, &Node3DEditorViewport::_selection_result_pressed));
@@ -6000,7 +6000,7 @@ Object *Node3DEditor::_get_editor_data(Object *p_what) {
 		return nullptr;
 	}
 
-	Node3DEditorSelectedItem *si = memnew(Node3DEditorSelectedItem);
+	Node3DEditorSelectedItem *si = memnewOld(Node3DEditorSelectedItem);
 
 	si->sp = sp;
 	si->sbox_instance = RenderingServer::get_singleton()->instance_create2(
@@ -6054,8 +6054,8 @@ void Node3DEditor::_generate_selection_boxes() {
 	// Create a x-ray (visible through solid surfaces) and standard version of the selection box.
 	// Both will be drawn at the same position, but with different opacity.
 	// This lets the user see where the selection is while still having a sense of depth.
-	Ref<SurfaceTool> st = memnew(SurfaceTool);
-	Ref<SurfaceTool> st_xray = memnew(SurfaceTool);
+	Ref<SurfaceTool> st = memnewOld(SurfaceTool);
+	Ref<SurfaceTool> st_xray = memnewOld(SurfaceTool);
 
 	st->begin(Mesh::PRIMITIVE_LINES);
 	st_xray->begin(Mesh::PRIMITIVE_LINES);
@@ -6069,7 +6069,7 @@ void Node3DEditor::_generate_selection_boxes() {
 		st_xray->add_vertex(b);
 	}
 
-	Ref<StandardMaterial3D> mat = memnew(StandardMaterial3D);
+	Ref<StandardMaterial3D> mat = memnewOld(StandardMaterial3D);
 	mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	mat->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	const Color selection_box_color = EDITOR_GET("editors/3d/selection_box_color");
@@ -6078,7 +6078,7 @@ void Node3DEditor::_generate_selection_boxes() {
 	st->set_material(mat);
 	selection_box = st->commit();
 
-	Ref<StandardMaterial3D> mat_xray = memnew(StandardMaterial3D);
+	Ref<StandardMaterial3D> mat_xray = memnewOld(StandardMaterial3D);
 	mat_xray->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 	mat_xray->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 	mat_xray->set_flag(StandardMaterial3D::FLAG_DISABLE_DEPTH_TEST, true);
@@ -6744,7 +6744,7 @@ void Node3DEditor::_init_indicators() {
 		origin_enabled = true;
 		grid_enabled = true;
 
-		Ref<Shader> origin_shader = memnew(Shader);
+		Ref<Shader> origin_shader = memnewOld(Shader);
 		origin_shader->set_code(R"(
 // 3D editor origin line shader.
 
@@ -6869,7 +6869,7 @@ void fragment() {
 
 		RenderingServer::get_singleton()->instance_geometry_set_cast_shadows_setting(origin_instance, RS::SHADOW_CASTING_SETTING_OFF);
 
-		Ref<Shader> grid_shader = memnew(Shader);
+		Ref<Shader> grid_shader = memnewOld(Shader);
 		grid_shader->set_code(R"(
 // 3D editor grid shader.
 
@@ -6947,14 +6947,14 @@ void fragment() {
 
 			col.a = EDITOR_GET("editors/3d/manipulator_gizmo_opacity");
 
-			move_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
-			move_plane_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
-			rotate_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
-			scale_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
-			scale_plane_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
-			axis_gizmo[i] = Ref<ArrayMesh>(memnew(ArrayMesh));
+			move_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+			move_plane_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+			rotate_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+			scale_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+			scale_plane_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
+			axis_gizmo[i] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
 
-			Ref<StandardMaterial3D> mat = memnew(StandardMaterial3D);
+			Ref<StandardMaterial3D> mat = memnewOld(StandardMaterial3D);
 			mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 			mat->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 			mat->set_on_top_of_alpha();
@@ -6969,7 +6969,7 @@ void fragment() {
 
 			//translate
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 				// Arrow profile
@@ -7012,7 +7012,7 @@ void fragment() {
 
 			// Plane Translation
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 				Vector3 vec = ivec2 - ivec3;
@@ -7039,7 +7039,7 @@ void fragment() {
 				surftool->add_vertex(points[2]);
 				surftool->add_vertex(points[3]);
 
-				Ref<StandardMaterial3D> plane_mat = memnew(StandardMaterial3D);
+				Ref<StandardMaterial3D> plane_mat = memnewOld(StandardMaterial3D);
 				plane_mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 				plane_mat->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 				plane_mat->set_on_top_of_alpha();
@@ -7057,7 +7057,7 @@ void fragment() {
 
 			// Rotate
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 				int n = 128; // number of circle segments
@@ -7095,7 +7095,7 @@ void fragment() {
 					}
 				}
 
-				Ref<Shader> rotate_shader = memnew(Shader);
+				Ref<Shader> rotate_shader = memnewOld(Shader);
 
 				rotate_shader->set_code(R"(
 // 3D editor rotation manipulator gizmo shader.
@@ -7129,7 +7129,7 @@ void fragment() {
 }
 )");
 
-				Ref<ShaderMaterial> rotate_mat = memnew(ShaderMaterial);
+				Ref<ShaderMaterial> rotate_mat = memnewOld(ShaderMaterial);
 				rotate_mat->set_render_priority(Material::RENDER_PRIORITY_MAX);
 				rotate_mat->set_shader(rotate_shader);
 				rotate_mat->set_shader_parameter("albedo", col);
@@ -7146,7 +7146,7 @@ void fragment() {
 				if (i == 2) { // Rotation white outline
 					Ref<ShaderMaterial> border_mat = rotate_mat->duplicate();
 
-					Ref<Shader> border_shader = memnew(Shader);
+					Ref<Shader> border_shader = memnewOld(Shader);
 					border_shader->set_code(R"(
 // 3D editor rotation manipulator gizmo shader (white outline).
 
@@ -7183,7 +7183,7 @@ void fragment() {
 					border_mat->set_shader(border_shader);
 					border_mat->set_shader_parameter("albedo", Color(0.75, 0.75, 0.75, col.a / 3.0));
 
-					rotate_gizmo[3] = Ref<ArrayMesh>(memnew(ArrayMesh));
+					rotate_gizmo[3] = Ref<ArrayMesh>(memnewOld(ArrayMesh));
 					rotate_gizmo[3]->add_surface_from_arrays(Mesh::PRIMITIVE_TRIANGLES, arrays);
 					rotate_gizmo[3]->surface_set_material(0, border_mat);
 				}
@@ -7191,7 +7191,7 @@ void fragment() {
 
 			// Scale
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 				// Cube arrow profile
@@ -7235,7 +7235,7 @@ void fragment() {
 
 			// Plane Scale
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 				Vector3 vec = ivec2 - ivec3;
@@ -7262,7 +7262,7 @@ void fragment() {
 				surftool->add_vertex(points[2]);
 				surftool->add_vertex(points[3]);
 
-				Ref<StandardMaterial3D> plane_mat = memnew(StandardMaterial3D);
+				Ref<StandardMaterial3D> plane_mat = memnewOld(StandardMaterial3D);
 				plane_mat->set_shading_mode(StandardMaterial3D::SHADING_MODE_UNSHADED);
 				plane_mat->set_flag(StandardMaterial3D::FLAG_DISABLE_FOG, true);
 				plane_mat->set_on_top_of_alpha();
@@ -7280,7 +7280,7 @@ void fragment() {
 
 			// Lines to visualize transforms locked to an axis/plane
 			{
-				Ref<SurfaceTool> surftool = memnew(SurfaceTool);
+				Ref<SurfaceTool> surftool = memnewOld(SurfaceTool);
 				surftool->begin(Mesh::PRIMITIVE_LINE_STRIP);
 
 				Vector3 vec;
@@ -7838,7 +7838,7 @@ void Node3DEditor::_add_sun_to_scene(bool p_already_added_environment) {
 	Node *base = get_tree()->get_edited_scene_root();
 	if (!base) {
 		// Create a root node so we can add child nodes to it.
-		SceneTreeDock::get_singleton()->add_root_node(memnew(Node3D));
+		SceneTreeDock::get_singleton()->add_root_node(memnewOld(Node3D));
 		base = get_tree()->get_edited_scene_root();
 	}
 	ERR_FAIL_NULL(base);
@@ -7867,12 +7867,12 @@ void Node3DEditor::_add_environment_to_scene(bool p_already_added_sun) {
 	Node *base = get_tree()->get_edited_scene_root();
 	if (!base) {
 		// Create a root node so we can add child nodes to it.
-		SceneTreeDock::get_singleton()->add_root_node(memnew(Node3D));
+		SceneTreeDock::get_singleton()->add_root_node(memnewOld(Node3D));
 		base = get_tree()->get_edited_scene_root();
 	}
 	ERR_FAIL_NULL(base);
 
-	WorldEnvironment *new_env = memnew(WorldEnvironment);
+	WorldEnvironment *new_env = memnewOld(WorldEnvironment);
 	new_env->set_environment(preview_environment->get_environment()->duplicate(true));
 	if (GLOBAL_GET("rendering/lights_and_shadows/use_physical_light_units")) {
 		new_env->set_camera_attributes(preview_environment->get_camera_attributes()->duplicate(true));
@@ -8031,7 +8031,7 @@ void Node3DEditor::add_control_to_menu_panel(Control *p_control) {
 	ERR_FAIL_NULL(p_control);
 	ERR_FAIL_COND(p_control->get_parent());
 
-	VSeparator *sep = memnew(VSeparator);
+	VSeparator *sep = memnewOld(VSeparator);
 	context_toolbar_hbox->add_child(sep);
 	context_toolbar_hbox->add_child(p_control);
 	context_toolbar_separators[p_control] = sep;
@@ -8307,38 +8307,38 @@ void Node3DEditor::_node_removed(Node *p_node) {
 }
 
 void Node3DEditor::_register_all_gizmos() {
-	add_gizmo_plugin(Ref<Camera3DGizmoPlugin>(memnew(Camera3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<Light3DGizmoPlugin>(memnew(Light3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<AudioStreamPlayer3DGizmoPlugin>(memnew(AudioStreamPlayer3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<AudioListener3DGizmoPlugin>(memnew(AudioListener3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<MeshInstance3DGizmoPlugin>(memnew(MeshInstance3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<OccluderInstance3DGizmoPlugin>(memnew(OccluderInstance3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<SoftBody3DGizmoPlugin>(memnew(SoftBody3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<SpriteBase3DGizmoPlugin>(memnew(SpriteBase3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<Label3DGizmoPlugin>(memnew(Label3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<GeometryInstance3DGizmoPlugin>(memnew(GeometryInstance3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<Marker3DGizmoPlugin>(memnew(Marker3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<RayCast3DGizmoPlugin>(memnew(RayCast3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<ShapeCast3DGizmoPlugin>(memnew(ShapeCast3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<SpringArm3DGizmoPlugin>(memnew(SpringArm3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<VehicleWheel3DGizmoPlugin>(memnew(VehicleWheel3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<VisibleOnScreenNotifier3DGizmoPlugin>(memnew(VisibleOnScreenNotifier3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<GPUParticles3DGizmoPlugin>(memnew(GPUParticles3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<GPUParticlesCollision3DGizmoPlugin>(memnew(GPUParticlesCollision3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<CPUParticles3DGizmoPlugin>(memnew(CPUParticles3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<ReflectionProbeGizmoPlugin>(memnew(ReflectionProbeGizmoPlugin)));
-	add_gizmo_plugin(Ref<DecalGizmoPlugin>(memnew(DecalGizmoPlugin)));
-	add_gizmo_plugin(Ref<VoxelGIGizmoPlugin>(memnew(VoxelGIGizmoPlugin)));
-	add_gizmo_plugin(Ref<LightmapGIGizmoPlugin>(memnew(LightmapGIGizmoPlugin)));
-	add_gizmo_plugin(Ref<LightmapProbeGizmoPlugin>(memnew(LightmapProbeGizmoPlugin)));
-	add_gizmo_plugin(Ref<CollisionObject3DGizmoPlugin>(memnew(CollisionObject3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<CollisionShape3DGizmoPlugin>(memnew(CollisionShape3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<CollisionPolygon3DGizmoPlugin>(memnew(CollisionPolygon3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<NavigationLink3DGizmoPlugin>(memnew(NavigationLink3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<NavigationRegion3DGizmoPlugin>(memnew(NavigationRegion3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<Joint3DGizmoPlugin>(memnew(Joint3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<PhysicalBone3DGizmoPlugin>(memnew(PhysicalBone3DGizmoPlugin)));
-	add_gizmo_plugin(Ref<FogVolumeGizmoPlugin>(memnew(FogVolumeGizmoPlugin)));
+	add_gizmo_plugin(Ref<Camera3DGizmoPlugin>(memnewOld(Camera3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<Light3DGizmoPlugin>(memnewOld(Light3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<AudioStreamPlayer3DGizmoPlugin>(memnewOld(AudioStreamPlayer3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<AudioListener3DGizmoPlugin>(memnewOld(AudioListener3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<MeshInstance3DGizmoPlugin>(memnewOld(MeshInstance3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<OccluderInstance3DGizmoPlugin>(memnewOld(OccluderInstance3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<SoftBody3DGizmoPlugin>(memnewOld(SoftBody3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<SpriteBase3DGizmoPlugin>(memnewOld(SpriteBase3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<Label3DGizmoPlugin>(memnewOld(Label3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<GeometryInstance3DGizmoPlugin>(memnewOld(GeometryInstance3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<Marker3DGizmoPlugin>(memnewOld(Marker3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<RayCast3DGizmoPlugin>(memnewOld(RayCast3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<ShapeCast3DGizmoPlugin>(memnewOld(ShapeCast3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<SpringArm3DGizmoPlugin>(memnewOld(SpringArm3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<VehicleWheel3DGizmoPlugin>(memnewOld(VehicleWheel3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<VisibleOnScreenNotifier3DGizmoPlugin>(memnewOld(VisibleOnScreenNotifier3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<GPUParticles3DGizmoPlugin>(memnewOld(GPUParticles3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<GPUParticlesCollision3DGizmoPlugin>(memnewOld(GPUParticlesCollision3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<CPUParticles3DGizmoPlugin>(memnewOld(CPUParticles3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<ReflectionProbeGizmoPlugin>(memnewOld(ReflectionProbeGizmoPlugin)));
+	add_gizmo_plugin(Ref<DecalGizmoPlugin>(memnewOld(DecalGizmoPlugin)));
+	add_gizmo_plugin(Ref<VoxelGIGizmoPlugin>(memnewOld(VoxelGIGizmoPlugin)));
+	add_gizmo_plugin(Ref<LightmapGIGizmoPlugin>(memnewOld(LightmapGIGizmoPlugin)));
+	add_gizmo_plugin(Ref<LightmapProbeGizmoPlugin>(memnewOld(LightmapProbeGizmoPlugin)));
+	add_gizmo_plugin(Ref<CollisionObject3DGizmoPlugin>(memnewOld(CollisionObject3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<CollisionShape3DGizmoPlugin>(memnewOld(CollisionShape3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<CollisionPolygon3DGizmoPlugin>(memnewOld(CollisionPolygon3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<NavigationLink3DGizmoPlugin>(memnewOld(NavigationLink3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<NavigationRegion3DGizmoPlugin>(memnewOld(NavigationRegion3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<Joint3DGizmoPlugin>(memnewOld(Joint3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<PhysicalBone3DGizmoPlugin>(memnewOld(PhysicalBone3DGizmoPlugin)));
+	add_gizmo_plugin(Ref<FogVolumeGizmoPlugin>(memnewOld(FogVolumeGizmoPlugin)));
 }
 
 void Node3DEditor::_bind_methods() {
@@ -8543,7 +8543,7 @@ Node3DEditor::Node3DEditor() {
 	gizmo.visible = true;
 	gizmo.scale = 1.0;
 
-	viewport_environment = Ref<Environment>(memnew(Environment));
+	viewport_environment = Ref<Environment>(memnewOld(Environment));
 	VBoxContainer *vbc = this;
 
 	custom_camera = nullptr;
@@ -8561,22 +8561,22 @@ Node3DEditor::Node3DEditor() {
 	// Add some margin to the sides for better aesthetics.
 	// This prevents the first button's hover/pressed effect from "touching" the panel's border,
 	// which looks ugly.
-	MarginContainer *toolbar_margin = memnew(MarginContainer);
+	MarginContainer *toolbar_margin = memnewOld(MarginContainer);
 	toolbar_margin->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	toolbar_margin->add_theme_constant_override("margin_right", 4 * EDSCALE);
 	vbc->add_child(toolbar_margin);
 
 	// A fluid container for all toolbars.
-	HFlowContainer *main_flow = memnew(HFlowContainer);
+	HFlowContainer *main_flow = memnewOld(HFlowContainer);
 	toolbar_margin->add_child(main_flow);
 
 	// Main toolbars.
-	HBoxContainer *main_menu_hbox = memnew(HBoxContainer);
+	HBoxContainer *main_menu_hbox = memnewOld(HBoxContainer);
 	main_flow->add_child(main_menu_hbox);
 
 	String sct;
 
-	tool_button[TOOL_MODE_SELECT] = memnew(Button);
+	tool_button[TOOL_MODE_SELECT] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_MODE_SELECT]);
 	tool_button[TOOL_MODE_SELECT]->set_toggle_mode(true);
 	tool_button[TOOL_MODE_SELECT]->set_theme_type_variation("FlatButton");
@@ -8585,9 +8585,9 @@ Node3DEditor::Node3DEditor() {
 	tool_button[TOOL_MODE_SELECT]->set_shortcut(ED_SHORTCUT("spatial_editor/tool_select", TTR("Select Mode"), Key::Q));
 	tool_button[TOOL_MODE_SELECT]->set_shortcut_context(this);
 	tool_button[TOOL_MODE_SELECT]->set_tooltip_text(keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Drag: Rotate selected node around pivot.") + "\n" + TTR("Alt+RMB: Show list of all nodes at position clicked, including locked."));
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
-	tool_button[TOOL_MODE_MOVE] = memnew(Button);
+	tool_button[TOOL_MODE_MOVE] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_MODE_MOVE]);
 	tool_button[TOOL_MODE_MOVE]->set_toggle_mode(true);
 	tool_button[TOOL_MODE_MOVE]->set_theme_type_variation("FlatButton");
@@ -8597,7 +8597,7 @@ Node3DEditor::Node3DEditor() {
 	tool_button[TOOL_MODE_MOVE]->set_shortcut_context(this);
 	tool_button[TOOL_MODE_MOVE]->set_tooltip_text(keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Drag: Use snap.") + "\n" + TTR("Alt+RMB: Show list of all nodes at position clicked, including locked."));
 
-	tool_button[TOOL_MODE_ROTATE] = memnew(Button);
+	tool_button[TOOL_MODE_ROTATE] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_MODE_ROTATE]);
 	tool_button[TOOL_MODE_ROTATE]->set_toggle_mode(true);
 	tool_button[TOOL_MODE_ROTATE]->set_theme_type_variation("FlatButton");
@@ -8606,7 +8606,7 @@ Node3DEditor::Node3DEditor() {
 	tool_button[TOOL_MODE_ROTATE]->set_shortcut_context(this);
 	tool_button[TOOL_MODE_ROTATE]->set_tooltip_text(keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Drag: Use snap.") + "\n" + TTR("Alt+RMB: Show list of all nodes at position clicked, including locked."));
 
-	tool_button[TOOL_MODE_SCALE] = memnew(Button);
+	tool_button[TOOL_MODE_SCALE] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_MODE_SCALE]);
 	tool_button[TOOL_MODE_SCALE]->set_toggle_mode(true);
 	tool_button[TOOL_MODE_SCALE]->set_theme_type_variation("FlatButton");
@@ -8615,16 +8615,16 @@ Node3DEditor::Node3DEditor() {
 	tool_button[TOOL_MODE_SCALE]->set_shortcut_context(this);
 	tool_button[TOOL_MODE_SCALE]->set_tooltip_text(keycode_get_string((Key)KeyModifierMask::CMD_OR_CTRL) + TTR("Drag: Use snap.") + "\n" + TTR("Alt+RMB: Show list of all nodes at position clicked, including locked."));
 
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
-	tool_button[TOOL_MODE_LIST_SELECT] = memnew(Button);
+	tool_button[TOOL_MODE_LIST_SELECT] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_MODE_LIST_SELECT]);
 	tool_button[TOOL_MODE_LIST_SELECT]->set_toggle_mode(true);
 	tool_button[TOOL_MODE_LIST_SELECT]->set_theme_type_variation("FlatButton");
 	tool_button[TOOL_MODE_LIST_SELECT]->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed).bind(MENU_TOOL_LIST_SELECT));
 	tool_button[TOOL_MODE_LIST_SELECT]->set_tooltip_text(TTR("Show list of selectable nodes at position clicked."));
 
-	tool_button[TOOL_LOCK_SELECTED] = memnew(Button);
+	tool_button[TOOL_LOCK_SELECTED] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_LOCK_SELECTED]);
 	tool_button[TOOL_LOCK_SELECTED]->set_theme_type_variation("FlatButton");
 	tool_button[TOOL_LOCK_SELECTED]->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed).bind(MENU_LOCK_SELECTED));
@@ -8632,7 +8632,7 @@ Node3DEditor::Node3DEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	tool_button[TOOL_LOCK_SELECTED]->set_shortcut(ED_GET_SHORTCUT("editor/lock_selected_nodes"));
 
-	tool_button[TOOL_UNLOCK_SELECTED] = memnew(Button);
+	tool_button[TOOL_UNLOCK_SELECTED] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_UNLOCK_SELECTED]);
 	tool_button[TOOL_UNLOCK_SELECTED]->set_theme_type_variation("FlatButton");
 	tool_button[TOOL_UNLOCK_SELECTED]->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed).bind(MENU_UNLOCK_SELECTED));
@@ -8640,7 +8640,7 @@ Node3DEditor::Node3DEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	tool_button[TOOL_UNLOCK_SELECTED]->set_shortcut(ED_GET_SHORTCUT("editor/unlock_selected_nodes"));
 
-	tool_button[TOOL_GROUP_SELECTED] = memnew(Button);
+	tool_button[TOOL_GROUP_SELECTED] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_GROUP_SELECTED]);
 	tool_button[TOOL_GROUP_SELECTED]->set_theme_type_variation("FlatButton");
 	tool_button[TOOL_GROUP_SELECTED]->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed).bind(MENU_GROUP_SELECTED));
@@ -8648,7 +8648,7 @@ Node3DEditor::Node3DEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	tool_button[TOOL_GROUP_SELECTED]->set_shortcut(ED_GET_SHORTCUT("editor/group_selected_nodes"));
 
-	tool_button[TOOL_UNGROUP_SELECTED] = memnew(Button);
+	tool_button[TOOL_UNGROUP_SELECTED] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_button[TOOL_UNGROUP_SELECTED]);
 	tool_button[TOOL_UNGROUP_SELECTED]->set_theme_type_variation("FlatButton");
 	tool_button[TOOL_UNGROUP_SELECTED]->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed).bind(MENU_UNGROUP_SELECTED));
@@ -8656,9 +8656,9 @@ Node3DEditor::Node3DEditor() {
 	// Define the shortcut globally (without a context) so that it works if the Scene tree dock is currently focused.
 	tool_button[TOOL_UNGROUP_SELECTED]->set_shortcut(ED_GET_SHORTCUT("editor/ungroup_selected_nodes"));
 
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
-	tool_option_button[TOOL_OPT_LOCAL_COORDS] = memnew(Button);
+	tool_option_button[TOOL_OPT_LOCAL_COORDS] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_option_button[TOOL_OPT_LOCAL_COORDS]);
 	tool_option_button[TOOL_OPT_LOCAL_COORDS]->set_toggle_mode(true);
 	tool_option_button[TOOL_OPT_LOCAL_COORDS]->set_theme_type_variation("FlatButton");
@@ -8666,7 +8666,7 @@ Node3DEditor::Node3DEditor() {
 	tool_option_button[TOOL_OPT_LOCAL_COORDS]->set_shortcut(ED_SHORTCUT("spatial_editor/local_coords", TTR("Use Local Space"), Key::T));
 	tool_option_button[TOOL_OPT_LOCAL_COORDS]->set_shortcut_context(this);
 
-	tool_option_button[TOOL_OPT_USE_SNAP] = memnew(Button);
+	tool_option_button[TOOL_OPT_USE_SNAP] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_option_button[TOOL_OPT_USE_SNAP]);
 	tool_option_button[TOOL_OPT_USE_SNAP]->set_toggle_mode(true);
 	tool_option_button[TOOL_OPT_USE_SNAP]->set_theme_type_variation("FlatButton");
@@ -8674,9 +8674,9 @@ Node3DEditor::Node3DEditor() {
 	tool_option_button[TOOL_OPT_USE_SNAP]->set_shortcut(ED_SHORTCUT("spatial_editor/snap", TTR("Use Snap"), Key::Y));
 	tool_option_button[TOOL_OPT_USE_SNAP]->set_shortcut_context(this);
 
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
-	tool_option_button[TOOL_OPT_OVERRIDE_CAMERA] = memnew(Button);
+	tool_option_button[TOOL_OPT_OVERRIDE_CAMERA] = memnewOld(Button);
 	main_menu_hbox->add_child(tool_option_button[TOOL_OPT_OVERRIDE_CAMERA]);
 	tool_option_button[TOOL_OPT_OVERRIDE_CAMERA]->set_toggle_mode(true);
 	tool_option_button[TOOL_OPT_OVERRIDE_CAMERA]->set_theme_type_variation("FlatButton");
@@ -8684,8 +8684,8 @@ Node3DEditor::Node3DEditor() {
 	tool_option_button[TOOL_OPT_OVERRIDE_CAMERA]->connect("toggled", callable_mp(this, &Node3DEditor::_menu_item_toggled).bind(MENU_TOOL_OVERRIDE_CAMERA));
 	_update_camera_override_button(false);
 
-	main_menu_hbox->add_child(memnew(VSeparator));
-	sun_button = memnew(Button);
+	main_menu_hbox->add_child(memnewOld(VSeparator));
+	sun_button = memnewOld(Button);
 	sun_button->set_tooltip_text(TTR("Toggle preview sunlight.\nIf a DirectionalLight3D node is added to the scene, preview sunlight is disabled."));
 	sun_button->set_toggle_mode(true);
 	sun_button->set_theme_type_variation("FlatButton");
@@ -8695,7 +8695,7 @@ Node3DEditor::Node3DEditor() {
 
 	main_menu_hbox->add_child(sun_button);
 
-	environ_button = memnew(Button);
+	environ_button = memnewOld(Button);
 	environ_button->set_tooltip_text(TTR("Toggle preview environment.\nIf a WorldEnvironment node is added to the scene, preview environment is disabled."));
 	environ_button->set_toggle_mode(true);
 	environ_button->set_theme_type_variation("FlatButton");
@@ -8705,17 +8705,17 @@ Node3DEditor::Node3DEditor() {
 
 	main_menu_hbox->add_child(environ_button);
 
-	sun_environ_settings = memnew(Button);
+	sun_environ_settings = memnewOld(Button);
 	sun_environ_settings->set_tooltip_text(TTR("Edit Sun and Environment settings."));
 	sun_environ_settings->set_theme_type_variation("FlatButton");
 	sun_environ_settings->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_sun_environ_settings_pressed));
 
 	main_menu_hbox->add_child(sun_environ_settings);
 
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
 	// Drag and drop support;
-	preview_node = memnew(Node3D);
+	preview_node = memnewOld(Node3D);
 	preview_bounds = AABB();
 
 	ED_SHORTCUT("spatial_editor/bottom_view", TTR("Bottom View"), KeyModifierMask::ALT + Key::KP_7);
@@ -8743,7 +8743,7 @@ Node3DEditor::Node3DEditor() {
 
 	PopupMenu *p;
 
-	transform_menu = memnew(MenuButton);
+	transform_menu = memnewOld(MenuButton);
 	transform_menu->set_flat(false);
 	transform_menu->set_theme_type_variation("FlatMenuButton");
 	transform_menu->set_text(TTR("Transform"));
@@ -8760,7 +8760,7 @@ Node3DEditor::Node3DEditor() {
 
 	p->connect(SceneStringName(id_pressed), callable_mp(this, &Node3DEditor::_menu_item_pressed));
 
-	view_menu = memnew(MenuButton);
+	view_menu = memnewOld(MenuButton);
 	view_menu->set_flat(false);
 	view_menu->set_theme_type_variation("FlatMenuButton");
 	// TRANSLATORS: Noun, name of the 2D/3D View menus.
@@ -8769,10 +8769,10 @@ Node3DEditor::Node3DEditor() {
 	view_menu->set_shortcut_context(this);
 	main_menu_hbox->add_child(view_menu);
 
-	main_menu_hbox->add_child(memnew(VSeparator));
+	main_menu_hbox->add_child(memnewOld(VSeparator));
 
-	context_toolbar_panel = memnew(PanelContainer);
-	context_toolbar_hbox = memnew(HBoxContainer);
+	context_toolbar_panel = memnewOld(PanelContainer);
+	context_toolbar_hbox = memnewOld(HBoxContainer);
 	context_toolbar_panel->add_child(context_toolbar_hbox);
 	main_flow->add_child(context_toolbar_panel);
 
@@ -8780,7 +8780,7 @@ Node3DEditor::Node3DEditor() {
 	p = view_menu->get_popup();
 	p->set_hide_on_checkable_item_selection(false);
 
-	accept = memnew(AcceptDialog);
+	accept = memnewOld(AcceptDialog);
 	EditorNode::get_singleton()->get_gui_base()->add_child(accept);
 
 	p->add_radio_check_shortcut(ED_SHORTCUT("spatial_editor/1_viewport", TTR("1 Viewport"), KeyModifierMask::CMD_OR_CTRL + Key::KEY_1), MENU_VIEW_USE_1_VIEWPORT);
@@ -8791,7 +8791,7 @@ Node3DEditor::Node3DEditor() {
 	p->add_radio_check_shortcut(ED_SHORTCUT("spatial_editor/4_viewports", TTR("4 Viewports"), KeyModifierMask::CMD_OR_CTRL + Key::KEY_4), MENU_VIEW_USE_4_VIEWPORTS);
 	p->add_separator();
 
-	gizmos_menu = memnew(PopupMenu);
+	gizmos_menu = memnewOld(PopupMenu);
 	gizmos_menu->set_hide_on_checkable_item_selection(false);
 	p->add_submenu_node_item(TTR("Gizmos"), gizmos_menu);
 	gizmos_menu->connect(SceneStringName(id_pressed), callable_mp(this, &Node3DEditor::_menu_gizmo_toggled));
@@ -8810,22 +8810,22 @@ Node3DEditor::Node3DEditor() {
 
 	/* REST OF MENU */
 
-	left_panel_split = memnew(HSplitContainer);
+	left_panel_split = memnewOld(HSplitContainer);
 	left_panel_split->set_v_size_flags(SIZE_EXPAND_FILL);
 	vbc->add_child(left_panel_split);
 
-	right_panel_split = memnew(HSplitContainer);
+	right_panel_split = memnewOld(HSplitContainer);
 	right_panel_split->set_v_size_flags(SIZE_EXPAND_FILL);
 	left_panel_split->add_child(right_panel_split);
 
-	shader_split = memnew(VSplitContainer);
+	shader_split = memnewOld(VSplitContainer);
 	shader_split->set_h_size_flags(SIZE_EXPAND_FILL);
 	right_panel_split->add_child(shader_split);
-	viewport_base = memnew(Node3DEditorViewportContainer);
+	viewport_base = memnewOld(Node3DEditorViewportContainer);
 	shader_split->add_child(viewport_base);
 	viewport_base->set_v_size_flags(SIZE_EXPAND_FILL);
 	for (uint32_t i = 0; i < VIEWPORTS_COUNT; i++) {
-		viewports[i] = memnew(Node3DEditorViewport(this, i));
+		viewports[i] = memnewOld(Node3DEditorViewport(this, i));
 		viewports[i]->connect("toggle_maximize_view", callable_mp(this, &Node3DEditor::_toggle_maximize_view));
 		viewports[i]->connect("clicked", callable_mp(this, &Node3DEditor::_update_camera_override_viewport));
 		viewports[i]->assign_pending_data_pointers(preview_node, &preview_bounds, accept);
@@ -8834,37 +8834,37 @@ Node3DEditor::Node3DEditor() {
 
 	/* SNAP DIALOG */
 
-	snap_dialog = memnew(ConfirmationDialog);
+	snap_dialog = memnewOld(ConfirmationDialog);
 	snap_dialog->set_title(TTR("Snap Settings"));
 	add_child(snap_dialog);
 	snap_dialog->connect(SceneStringName(confirmed), callable_mp(this, &Node3DEditor::_snap_changed));
 	snap_dialog->get_cancel_button()->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_snap_update));
 
-	VBoxContainer *snap_dialog_vbc = memnew(VBoxContainer);
+	VBoxContainer *snap_dialog_vbc = memnewOld(VBoxContainer);
 	snap_dialog->add_child(snap_dialog_vbc);
 
-	snap_translate = memnew(LineEdit);
+	snap_translate = memnewOld(LineEdit);
 	snap_translate->set_select_all_on_focus(true);
 	snap_dialog_vbc->add_margin_child(TTR("Translate Snap:"), snap_translate);
 
-	snap_rotate = memnew(LineEdit);
+	snap_rotate = memnewOld(LineEdit);
 	snap_rotate->set_select_all_on_focus(true);
 	snap_dialog_vbc->add_margin_child(TTR("Rotate Snap (deg.):"), snap_rotate);
 
-	snap_scale = memnew(LineEdit);
+	snap_scale = memnewOld(LineEdit);
 	snap_scale->set_select_all_on_focus(true);
 	snap_dialog_vbc->add_margin_child(TTR("Scale Snap (%):"), snap_scale);
 
 	/* SETTINGS DIALOG */
 
-	settings_dialog = memnew(ConfirmationDialog);
+	settings_dialog = memnewOld(ConfirmationDialog);
 	settings_dialog->set_title(TTR("Viewport Settings"));
 	add_child(settings_dialog);
-	settings_vbc = memnew(VBoxContainer);
+	settings_vbc = memnewOld(VBoxContainer);
 	settings_vbc->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	settings_dialog->add_child(settings_vbc);
 
-	settings_fov = memnew(SpinBox);
+	settings_fov = memnewOld(SpinBox);
 	settings_fov->set_max(MAX_FOV);
 	settings_fov->set_min(MIN_FOV);
 	settings_fov->set_step(0.1);
@@ -8873,7 +8873,7 @@ Node3DEditor::Node3DEditor() {
 	settings_fov->set_tooltip_text(TTR("FOV is defined as a vertical value, as the editor camera always uses the Keep Height aspect mode."));
 	settings_vbc->add_margin_child(TTR("Perspective VFOV (deg.):"), settings_fov);
 
-	settings_znear = memnew(SpinBox);
+	settings_znear = memnewOld(SpinBox);
 	settings_znear->set_max(MAX_Z);
 	settings_znear->set_min(MIN_Z);
 	settings_znear->set_step(0.01);
@@ -8881,7 +8881,7 @@ Node3DEditor::Node3DEditor() {
 	settings_znear->set_select_all_on_focus(true);
 	settings_vbc->add_margin_child(TTR("View Z-Near:"), settings_znear);
 
-	settings_zfar = memnew(SpinBox);
+	settings_zfar = memnewOld(SpinBox);
 	settings_zfar->set_max(MAX_Z);
 	settings_zfar->set_min(MIN_Z);
 	settings_zfar->set_step(0.1);
@@ -8895,60 +8895,60 @@ Node3DEditor::Node3DEditor() {
 
 	/* XFORM DIALOG */
 
-	xform_dialog = memnew(ConfirmationDialog);
+	xform_dialog = memnewOld(ConfirmationDialog);
 	xform_dialog->set_title(TTR("Transform Change"));
 	add_child(xform_dialog);
 
-	VBoxContainer *xform_vbc = memnew(VBoxContainer);
+	VBoxContainer *xform_vbc = memnewOld(VBoxContainer);
 	xform_dialog->add_child(xform_vbc);
 
-	Label *l = memnew(Label);
+	Label *l = memnewOld(Label);
 	l->set_text(TTR("Translate:"));
 	xform_vbc->add_child(l);
 
-	HBoxContainer *xform_hbc = memnew(HBoxContainer);
+	HBoxContainer *xform_hbc = memnewOld(HBoxContainer);
 	xform_vbc->add_child(xform_hbc);
 
 	for (int i = 0; i < 3; i++) {
-		xform_translate[i] = memnew(LineEdit);
+		xform_translate[i] = memnewOld(LineEdit);
 		xform_translate[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		xform_translate[i]->set_select_all_on_focus(true);
 		xform_hbc->add_child(xform_translate[i]);
 	}
 
-	l = memnew(Label);
+	l = memnewOld(Label);
 	l->set_text(TTR("Rotate (deg.):"));
 	xform_vbc->add_child(l);
 
-	xform_hbc = memnew(HBoxContainer);
+	xform_hbc = memnewOld(HBoxContainer);
 	xform_vbc->add_child(xform_hbc);
 
 	for (int i = 0; i < 3; i++) {
-		xform_rotate[i] = memnew(LineEdit);
+		xform_rotate[i] = memnewOld(LineEdit);
 		xform_rotate[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		xform_rotate[i]->set_select_all_on_focus(true);
 		xform_hbc->add_child(xform_rotate[i]);
 	}
 
-	l = memnew(Label);
+	l = memnewOld(Label);
 	l->set_text(TTR("Scale (ratio):"));
 	xform_vbc->add_child(l);
 
-	xform_hbc = memnew(HBoxContainer);
+	xform_hbc = memnewOld(HBoxContainer);
 	xform_vbc->add_child(xform_hbc);
 
 	for (int i = 0; i < 3; i++) {
-		xform_scale[i] = memnew(LineEdit);
+		xform_scale[i] = memnewOld(LineEdit);
 		xform_scale[i]->set_h_size_flags(SIZE_EXPAND_FILL);
 		xform_scale[i]->set_select_all_on_focus(true);
 		xform_hbc->add_child(xform_scale[i]);
 	}
 
-	l = memnew(Label);
+	l = memnewOld(Label);
 	l->set_text(TTR("Transform Type"));
 	xform_vbc->add_child(l);
 
-	xform_type = memnew(OptionButton);
+	xform_type = memnewOld(OptionButton);
 	xform_type->set_h_size_flags(SIZE_EXPAND_FILL);
 	xform_type->add_item(TTR("Pre"));
 	xform_type->add_item(TTR("Post"));
@@ -8973,26 +8973,26 @@ Node3DEditor::Node3DEditor() {
 	{
 		//sun popup
 
-		sun_environ_popup = memnew(PopupPanel);
+		sun_environ_popup = memnewOld(PopupPanel);
 		add_child(sun_environ_popup);
 
-		HBoxContainer *sun_environ_hb = memnew(HBoxContainer);
+		HBoxContainer *sun_environ_hb = memnewOld(HBoxContainer);
 
 		sun_environ_popup->add_child(sun_environ_hb);
 
-		sun_vb = memnew(VBoxContainer);
+		sun_vb = memnewOld(VBoxContainer);
 		sun_environ_hb->add_child(sun_vb);
 		sun_vb->set_custom_minimum_size(Size2(200 * EDSCALE, 0));
 		sun_vb->hide();
 
-		sun_title = memnew(Label);
+		sun_title = memnewOld(Label);
 		sun_title->set_theme_type_variation("HeaderSmall");
 		sun_vb->add_child(sun_title);
 		sun_title->set_text(TTR("Preview Sun"));
 		sun_title->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
-		CenterContainer *sun_direction_center = memnew(CenterContainer);
-		sun_direction = memnew(Control);
+		CenterContainer *sun_direction_center = memnewOld(CenterContainer);
+		sun_direction = memnewOld(Control);
 		sun_direction->set_custom_minimum_size(Size2(128, 128) * EDSCALE);
 		sun_direction_center->add_child(sun_direction);
 		sun_vb->add_margin_child(TTR("Sun Direction"), sun_direction_center);
@@ -9023,24 +9023,24 @@ void fragment() {
 		sun_direction_material->set_shader_parameter("sun_color", Vector3(1, 1, 1));
 		sun_direction->set_material(sun_direction_material);
 
-		HBoxContainer *sun_angle_hbox = memnew(HBoxContainer);
-		VBoxContainer *sun_angle_altitude_vbox = memnew(VBoxContainer);
-		Label *sun_angle_altitude_label = memnew(Label);
+		HBoxContainer *sun_angle_hbox = memnewOld(HBoxContainer);
+		VBoxContainer *sun_angle_altitude_vbox = memnewOld(VBoxContainer);
+		Label *sun_angle_altitude_label = memnewOld(Label);
 		sun_angle_altitude_label->set_text(TTR("Angular Altitude"));
 		sun_angle_altitude_vbox->add_child(sun_angle_altitude_label);
-		sun_angle_altitude = memnew(EditorSpinSlider);
+		sun_angle_altitude = memnewOld(EditorSpinSlider);
 		sun_angle_altitude->set_max(90);
 		sun_angle_altitude->set_min(-90);
 		sun_angle_altitude->set_step(0.1);
 		sun_angle_altitude->connect(SceneStringName(value_changed), callable_mp(this, &Node3DEditor::_sun_direction_angle_set).unbind(1));
 		sun_angle_altitude_vbox->add_child(sun_angle_altitude);
 		sun_angle_hbox->add_child(sun_angle_altitude_vbox);
-		VBoxContainer *sun_angle_azimuth_vbox = memnew(VBoxContainer);
+		VBoxContainer *sun_angle_azimuth_vbox = memnewOld(VBoxContainer);
 		sun_angle_azimuth_vbox->set_custom_minimum_size(Vector2(100, 0));
-		Label *sun_angle_azimuth_label = memnew(Label);
+		Label *sun_angle_azimuth_label = memnewOld(Label);
 		sun_angle_azimuth_label->set_text(TTR("Azimuth"));
 		sun_angle_azimuth_vbox->add_child(sun_angle_azimuth_label);
-		sun_angle_azimuth = memnew(EditorSpinSlider);
+		sun_angle_azimuth = memnewOld(EditorSpinSlider);
 		sun_angle_azimuth->set_max(180);
 		sun_angle_azimuth->set_min(-180);
 		sun_angle_azimuth->set_step(0.1);
@@ -9052,118 +9052,118 @@ void fragment() {
 		sun_angle_hbox->add_theme_constant_override("separation", 10);
 		sun_vb->add_child(sun_angle_hbox);
 
-		sun_color = memnew(ColorPickerButton);
+		sun_color = memnewOld(ColorPickerButton);
 		sun_color->set_edit_alpha(false);
 		sun_vb->add_margin_child(TTR("Sun Color"), sun_color);
 		sun_color->connect("color_changed", callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		sun_color->get_popup()->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(sun_color->get_picker()));
 
-		sun_energy = memnew(EditorSpinSlider);
+		sun_energy = memnewOld(EditorSpinSlider);
 		sun_energy->set_max(64.0);
 		sun_energy->set_min(0);
 		sun_energy->set_step(0.05);
 		sun_vb->add_margin_child(TTR("Sun Energy"), sun_energy);
 		sun_energy->connect(SceneStringName(value_changed), callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 
-		sun_max_distance = memnew(EditorSpinSlider);
+		sun_max_distance = memnewOld(EditorSpinSlider);
 		sun_vb->add_margin_child(TTR("Shadow Max Distance"), sun_max_distance);
 		sun_max_distance->connect(SceneStringName(value_changed), callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		sun_max_distance->set_min(1);
 		sun_max_distance->set_max(4096);
 
-		sun_add_to_scene = memnew(Button);
+		sun_add_to_scene = memnewOld(Button);
 		sun_add_to_scene->set_text(TTR("Add Sun to Scene"));
 		sun_add_to_scene->set_tooltip_text(TTR("Adds a DirectionalLight3D node matching the preview sun settings to the current scene.\nHold Shift while clicking to also add the preview environment to the current scene."));
 		sun_add_to_scene->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_add_sun_to_scene).bind(false));
 		sun_vb->add_spacer();
 		sun_vb->add_child(sun_add_to_scene);
 
-		sun_state = memnew(Label);
+		sun_state = memnewOld(Label);
 		sun_environ_hb->add_child(sun_state);
 		sun_state->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 		sun_state->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 		sun_state->set_h_size_flags(SIZE_EXPAND_FILL);
 
-		VSeparator *sc = memnew(VSeparator);
+		VSeparator *sc = memnewOld(VSeparator);
 		sc->set_custom_minimum_size(Size2(50 * EDSCALE, 0));
 		sc->set_v_size_flags(SIZE_EXPAND_FILL);
 		sun_environ_hb->add_child(sc);
 
-		environ_vb = memnew(VBoxContainer);
+		environ_vb = memnewOld(VBoxContainer);
 		sun_environ_hb->add_child(environ_vb);
 		environ_vb->set_custom_minimum_size(Size2(200 * EDSCALE, 0));
 		environ_vb->hide();
 
-		environ_title = memnew(Label);
+		environ_title = memnewOld(Label);
 		environ_title->set_theme_type_variation("HeaderSmall");
 
 		environ_vb->add_child(environ_title);
 		environ_title->set_text(TTR("Preview Environment"));
 		environ_title->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 
-		environ_sky_color = memnew(ColorPickerButton);
+		environ_sky_color = memnewOld(ColorPickerButton);
 		environ_sky_color->set_edit_alpha(false);
 		environ_sky_color->connect("color_changed", callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		environ_sky_color->get_popup()->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(environ_sky_color->get_picker()));
 		environ_vb->add_margin_child(TTR("Sky Color"), environ_sky_color);
-		environ_hz_color = memnew(ColorPickerButton);
+		environ_hz_color = memnewOld(ColorPickerButton);
 		environ_hz_color->set_edit_alpha(false);
 		environ_hz_color->connect("color_changed", callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		environ_hz_color->get_popup()->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(environ_hz_color->get_picker()));
 		environ_vb->add_margin_child(TTR("Horizon Color"), environ_hz_color);
-		environ_ground_color = memnew(ColorPickerButton);
+		environ_ground_color = memnewOld(ColorPickerButton);
 		environ_ground_color->connect("color_changed", callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		environ_ground_color->set_edit_alpha(false);
 		environ_ground_color->get_popup()->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(environ_ground_color->get_picker()));
 		environ_vb->add_margin_child(TTR("Ground Color"), environ_ground_color);
-		environ_energy = memnew(EditorSpinSlider);
+		environ_energy = memnewOld(EditorSpinSlider);
 		environ_energy->set_max(8.0);
 		environ_energy->set_min(0);
 		environ_energy->set_step(0.05);
 		environ_energy->connect(SceneStringName(value_changed), callable_mp(this, &Node3DEditor::_preview_settings_changed).unbind(1));
 		environ_vb->add_margin_child(TTR("Sky Energy"), environ_energy);
-		HBoxContainer *fx_vb = memnew(HBoxContainer);
+		HBoxContainer *fx_vb = memnewOld(HBoxContainer);
 		fx_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 
-		environ_ao_button = memnew(Button);
+		environ_ao_button = memnewOld(Button);
 		environ_ao_button->set_text(TTR("AO"));
 		environ_ao_button->set_toggle_mode(true);
 		environ_ao_button->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_preview_settings_changed), CONNECT_DEFERRED);
 		fx_vb->add_child(environ_ao_button);
-		environ_glow_button = memnew(Button);
+		environ_glow_button = memnewOld(Button);
 		environ_glow_button->set_text(TTR("Glow"));
 		environ_glow_button->set_toggle_mode(true);
 		environ_glow_button->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_preview_settings_changed), CONNECT_DEFERRED);
 		fx_vb->add_child(environ_glow_button);
-		environ_tonemap_button = memnew(Button);
+		environ_tonemap_button = memnewOld(Button);
 		environ_tonemap_button->set_text(TTR("Tonemap"));
 		environ_tonemap_button->set_toggle_mode(true);
 		environ_tonemap_button->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_preview_settings_changed), CONNECT_DEFERRED);
 		fx_vb->add_child(environ_tonemap_button);
-		environ_gi_button = memnew(Button);
+		environ_gi_button = memnewOld(Button);
 		environ_gi_button->set_text(TTR("GI"));
 		environ_gi_button->set_toggle_mode(true);
 		environ_gi_button->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_preview_settings_changed), CONNECT_DEFERRED);
 		fx_vb->add_child(environ_gi_button);
 		environ_vb->add_margin_child(TTR("Post Process"), fx_vb);
 
-		environ_add_to_scene = memnew(Button);
+		environ_add_to_scene = memnewOld(Button);
 		environ_add_to_scene->set_text(TTR("Add Environment to Scene"));
 		environ_add_to_scene->set_tooltip_text(TTR("Adds a WorldEnvironment node matching the preview environment settings to the current scene.\nHold Shift while clicking to also add the preview sun to the current scene."));
 		environ_add_to_scene->connect(SceneStringName(pressed), callable_mp(this, &Node3DEditor::_add_environment_to_scene).bind(false));
 		environ_vb->add_spacer();
 		environ_vb->add_child(environ_add_to_scene);
 
-		environ_state = memnew(Label);
+		environ_state = memnewOld(Label);
 		sun_environ_hb->add_child(environ_state);
 		environ_state->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 		environ_state->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 		environ_state->set_h_size_flags(SIZE_EXPAND_FILL);
 
-		preview_sun = memnew(DirectionalLight3D);
+		preview_sun = memnewOld(DirectionalLight3D);
 		preview_sun->set_shadow(true);
 		preview_sun->set_shadow_mode(DirectionalLight3D::SHADOW_PARALLEL_4_SPLITS);
-		preview_environment = memnew(WorldEnvironment);
+		preview_environment = memnewOld(WorldEnvironment);
 		environment.instantiate();
 		preview_environment->set_environment(environment);
 		if (GLOBAL_GET("rendering/lights_and_shadows/use_physical_light_units")) {
@@ -9338,7 +9338,7 @@ Vector<Node3D *> Node3DEditor::gizmo_bvh_frustum_query(const Vector<Plane> &p_fr
 }
 
 Node3DEditorPlugin::Node3DEditorPlugin() {
-	spatial_editor = memnew(Node3DEditor);
+	spatial_editor = memnewOld(Node3DEditor);
 	spatial_editor->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(spatial_editor);
 

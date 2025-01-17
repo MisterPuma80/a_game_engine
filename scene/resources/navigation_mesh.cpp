@@ -390,7 +390,7 @@ Ref<ArrayMesh> NavigationMesh::get_debug_mesh() {
 	}
 
 	if (!debug_mesh.is_valid()) {
-		debug_mesh = Ref<ArrayMesh>(memnew(ArrayMesh));
+		debug_mesh = Ref<ArrayMesh>(memnewOld(ArrayMesh));
 	} else {
 		debug_mesh->clear_surfaces();
 	}

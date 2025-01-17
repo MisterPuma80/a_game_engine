@@ -189,7 +189,7 @@ bool EditorRunNative::is_deploy_debug_remote_enabled() const {
 }
 
 EditorRunNative::EditorRunNative() {
-	remote_debug = memnew(MenuButton);
+	remote_debug = memnewOld(MenuButton);
 	remote_debug->set_flat(false);
 	remote_debug->set_theme_type_variation("RunBarButton");
 	remote_debug->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &EditorRunNative::start_run_native));
@@ -198,16 +198,16 @@ EditorRunNative::EditorRunNative() {
 
 	add_child(remote_debug);
 
-	result_dialog = memnew(AcceptDialog);
+	result_dialog = memnewOld(AcceptDialog);
 	result_dialog->set_title(TTR("Project Run"));
-	result_dialog_log = memnew(RichTextLabel);
+	result_dialog_log = memnewOld(RichTextLabel);
 	result_dialog_log->set_custom_minimum_size(Size2(300, 80) * EDSCALE);
 	result_dialog->add_child(result_dialog_log);
 
 	add_child(result_dialog);
 	result_dialog->hide();
 
-	run_native_confirm = memnew(ConfirmationDialog);
+	run_native_confirm = memnewOld(ConfirmationDialog);
 	add_child(run_native_confirm);
 	run_native_confirm->connect(SceneStringName(confirmed), callable_mp(this, &EditorRunNative::_confirm_run_native));
 

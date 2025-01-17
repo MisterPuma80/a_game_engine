@@ -41,9 +41,9 @@ namespace TestGraphNode {
 TEST_CASE("[GraphNode][SceneTree]") {
 	SUBCASE("[GraphNode] Graph Node only child on delete should not cause error.") {
 		// Setup.
-		GraphNode *test_node = memnew(GraphNode);
+		GraphNode *test_node = memnewOld(GraphNode);
 		test_node->set_name("Graph Node");
-		Control *test_child = memnew(Control);
+		Control *test_child = memnewOld(Control);
 		test_child->set_name("child");
 		test_node->add_child(test_child);
 

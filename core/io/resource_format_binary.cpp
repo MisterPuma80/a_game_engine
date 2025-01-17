@@ -774,7 +774,7 @@ Error ResourceLoaderBinary::load() {
 				if (!obj) {
 					if (ResourceLoader::is_creating_missing_resources_if_class_unavailable_enabled()) {
 						//create a missing resource
-						missing_resource = memnew(MissingResource);
+						missing_resource = memnewOld(MissingResource);
 						missing_resource->set_original_class(t);
 						missing_resource->set_recording_properties(true);
 						obj = missing_resource;

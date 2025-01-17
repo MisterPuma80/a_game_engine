@@ -245,20 +245,20 @@ void EditorPropertyFontMetaOverride::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnew(MarginContainer);
+			container = memnewOld(MarginContainer);
 			container->set_theme_type_variation("MarginContainer4px");
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnew(VBoxContainer);
+			VBoxContainer *vbox = memnewOld(VBoxContainer);
 			vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 			container->add_child(vbox);
 
-			property_vbox = memnew(VBoxContainer);
+			property_vbox = memnewOld(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
-			paginator = memnew(EditorPaginator);
+			paginator = memnewOld(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyFontMetaOverride::_page_changed));
 			vbox->add_child(paginator);
 		} else {
@@ -286,7 +286,7 @@ void EditorPropertyFontMetaOverride::update_property() {
 
 		for (int i = 0; i < amount; i++) {
 			String name = dict.get_key_at_index(i);
-			EditorProperty *prop = memnew(EditorPropertyCheck);
+			EditorProperty *prop = memnewOld(EditorPropertyCheck);
 			prop->set_object_and_property(object.ptr(), "keys/" + name);
 
 			if (script_editor) {
@@ -300,11 +300,11 @@ void EditorPropertyFontMetaOverride::update_property() {
 			prop->connect("property_changed", callable_mp(this, &EditorPropertyFontMetaOverride::_property_changed));
 			prop->connect("object_id_selected", callable_mp(this, &EditorPropertyFontMetaOverride::_object_id_selected));
 
-			HBoxContainer *hbox = memnew(HBoxContainer);
+			HBoxContainer *hbox = memnewOld(HBoxContainer);
 			property_vbox->add_child(hbox);
 			hbox->add_child(prop);
 			prop->set_h_size_flags(SIZE_EXPAND_FILL);
-			Button *remove = memnew(Button);
+			Button *remove = memnewOld(Button);
 			remove->set_icon(get_editor_theme_icon(SNAME("Remove")));
 			hbox->add_child(remove);
 			remove->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyFontMetaOverride::_remove).bind(remove, name));
@@ -358,7 +358,7 @@ EditorPropertyFontMetaOverride::EditorPropertyFontMetaOverride(bool p_script) {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyFontMetaOverride::_edit_pressed));
@@ -366,7 +366,7 @@ EditorPropertyFontMetaOverride::EditorPropertyFontMetaOverride(bool p_script) {
 	add_child(edit);
 	add_focusable(edit);
 
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	if (script_editor) {
 		script_codes = TranslationServer::get_singleton()->get_all_scripts();
 		for (int i = 0; i < script_codes.size(); i++) {
@@ -376,7 +376,7 @@ EditorPropertyFontMetaOverride::EditorPropertyFontMetaOverride(bool p_script) {
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyFontMetaOverride::_add_script));
 
-	locale_select = memnew(EditorLocaleDialog);
+	locale_select = memnewOld(EditorLocaleDialog);
 	locale_select->connect("locale_selected", callable_mp(this, &EditorPropertyFontMetaOverride::_add_lang));
 	add_child(locale_select);
 }
@@ -436,20 +436,20 @@ void EditorPropertyOTVariation::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnew(MarginContainer);
+			container = memnewOld(MarginContainer);
 			container->set_theme_type_variation("MarginContainer4px");
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnew(VBoxContainer);
+			VBoxContainer *vbox = memnewOld(VBoxContainer);
 			vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 			container->add_child(vbox);
 
-			property_vbox = memnew(VBoxContainer);
+			property_vbox = memnewOld(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
-			paginator = memnew(EditorPaginator);
+			paginator = memnewOld(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyOTVariation::_page_changed));
 			vbox->add_child(paginator);
 		} else {
@@ -479,7 +479,7 @@ void EditorPropertyOTVariation::update_property() {
 			int name_tag = supported.get_key_at_index(i);
 			Vector3i range = supported.get_value_at_index(i);
 
-			EditorPropertyInteger *prop = memnew(EditorPropertyInteger);
+			EditorPropertyInteger *prop = memnewOld(EditorPropertyInteger);
 			prop->setup(range.x, range.y, false, 1, false, false);
 			prop->set_object_and_property(object.ptr(), "keys/" + itos(name_tag));
 
@@ -544,7 +544,7 @@ EditorPropertyOTVariation::EditorPropertyOTVariation() {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyOTVariation::_edit_pressed));
@@ -655,20 +655,20 @@ void EditorPropertyOTFeatures::update_property() {
 		updating = true;
 
 		if (!container) {
-			container = memnew(MarginContainer);
+			container = memnewOld(MarginContainer);
 			container->set_theme_type_variation("MarginContainer4px");
 			add_child(container);
 			set_bottom_editor(container);
 
-			VBoxContainer *vbox = memnew(VBoxContainer);
+			VBoxContainer *vbox = memnewOld(VBoxContainer);
 			vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 			container->add_child(vbox);
 
-			property_vbox = memnew(VBoxContainer);
+			property_vbox = memnewOld(VBoxContainer);
 			property_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 			vbox->add_child(property_vbox);
 
-			paginator = memnew(EditorPaginator);
+			paginator = memnewOld(EditorPaginator);
 			paginator->connect("page_changed", callable_mp(this, &EditorPropertyOTFeatures::_page_changed));
 			vbox->add_child(paginator);
 		} else {
@@ -766,13 +766,13 @@ void EditorPropertyOTFeatures::update_property() {
 				EditorProperty *prop = nullptr;
 				switch (vtype) {
 					case Variant::NIL: {
-						prop = memnew(EditorPropertyNil);
+						prop = memnewOld(EditorPropertyNil);
 					} break;
 					case Variant::BOOL: {
-						prop = memnew(EditorPropertyCheck);
+						prop = memnewOld(EditorPropertyCheck);
 					} break;
 					case Variant::INT: {
-						EditorPropertyInteger *editor = memnew(EditorPropertyInteger);
+						EditorPropertyInteger *editor = memnewOld(EditorPropertyInteger);
 						editor->setup(0, 255, 1, false, false, false);
 						prop = editor;
 					} break;
@@ -794,11 +794,11 @@ void EditorPropertyOTFeatures::update_property() {
 				prop->connect("property_changed", callable_mp(this, &EditorPropertyOTFeatures::_property_changed));
 				prop->connect("object_id_selected", callable_mp(this, &EditorPropertyOTFeatures::_object_id_selected));
 
-				HBoxContainer *hbox = memnew(HBoxContainer);
+				HBoxContainer *hbox = memnewOld(HBoxContainer);
 				property_vbox->add_child(hbox);
 				hbox->add_child(prop);
 				prop->set_h_size_flags(SIZE_EXPAND_FILL);
-				Button *remove = memnew(Button);
+				Button *remove = memnewOld(Button);
 				remove->set_icon(get_editor_theme_icon(SNAME("Remove")));
 				hbox->add_child(remove);
 				remove->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyOTFeatures::_remove).bind(remove, name_tag));
@@ -847,7 +847,7 @@ EditorPropertyOTFeatures::EditorPropertyOTFeatures() {
 	object.instantiate();
 	page_length = int(EDITOR_GET("interface/inspector/max_array_dictionary_items_per_page"));
 
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->set_clip_text(true);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyOTFeatures::_edit_pressed));
@@ -855,12 +855,12 @@ EditorPropertyOTFeatures::EditorPropertyOTFeatures() {
 	add_child(edit);
 	add_focusable(edit);
 
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyOTFeatures::_add_feature));
 
 	for (int i = 0; i < FGRP_MAX; i++) {
-		menu_sub[i] = memnew(PopupMenu);
+		menu_sub[i] = memnewOld(PopupMenu);
 		menu->add_child(menu_sub[i]);
 		menu_sub[i]->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyOTFeatures::_add_feature));
 	}
@@ -886,16 +886,16 @@ bool EditorInspectorPluginFontVariation::can_handle(Object *p_object) {
 
 bool EditorInspectorPluginFontVariation::parse_property(Object *p_object, const Variant::Type p_type, const String &p_path, const PropertyHint p_hint, const String &p_hint_text, const BitField<PropertyUsageFlags> p_usage, const bool p_wide) {
 	if (p_path == "variation_opentype") {
-		add_property_editor(p_path, memnew(EditorPropertyOTVariation));
+		add_property_editor(p_path, memnewOld(EditorPropertyOTVariation));
 		return true;
 	} else if (p_path == "opentype_features") {
-		add_property_editor(p_path, memnew(EditorPropertyOTFeatures));
+		add_property_editor(p_path, memnewOld(EditorPropertyOTFeatures));
 		return true;
 	} else if (p_path == "language_support") {
-		add_property_editor(p_path, memnew(EditorPropertyFontMetaOverride(false)));
+		add_property_editor(p_path, memnewOld(EditorPropertyFontMetaOverride(false)));
 		return true;
 	} else if (p_path == "script_support") {
-		add_property_editor(p_path, memnew(EditorPropertyFontMetaOverride(true)));
+		add_property_editor(p_path, memnewOld(EditorPropertyFontMetaOverride(true)));
 		return true;
 	}
 	return false;
@@ -997,7 +997,7 @@ void EditorInspectorPluginFontPreview::parse_begin(Object *p_object) {
 	Font *fd = Object::cast_to<Font>(p_object);
 	ERR_FAIL_NULL(fd);
 
-	FontPreview *editor = memnew(FontPreview);
+	FontPreview *editor = memnewOld(FontPreview);
 	editor->set_data(fd);
 	add_custom_control(editor);
 }
@@ -1034,7 +1034,7 @@ void EditorPropertyFontNamesArray::_add_font(int p_option) {
 }
 
 EditorPropertyFontNamesArray::EditorPropertyFontNamesArray() {
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	menu->add_item("Sans-Serif", 0);
 	menu->add_item("Serif", 1);
 	menu->add_item("Monospace", 2);
@@ -1064,7 +1064,7 @@ bool EditorInspectorPluginSystemFont::can_handle(Object *p_object) {
 
 bool EditorInspectorPluginSystemFont::parse_property(Object *p_object, const Variant::Type p_type, const String &p_path, const PropertyHint p_hint, const String &p_hint_text, const BitField<PropertyUsageFlags> p_usage, const bool p_wide) {
 	if (p_path == "font_names") {
-		EditorPropertyFontNamesArray *editor = memnew(EditorPropertyFontNamesArray);
+		EditorPropertyFontNamesArray *editor = memnewOld(EditorPropertyFontNamesArray);
 		editor->setup(p_type, p_hint_text);
 		add_property_editor(p_path, editor);
 		return true;

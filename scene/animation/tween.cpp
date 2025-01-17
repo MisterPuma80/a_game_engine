@@ -116,7 +116,7 @@ Ref<PropertyTweener> Tween::tween_property(const Object *p_target, const NodePat
 		return nullptr;
 	}
 
-	Ref<PropertyTweener> tweener = memnew(PropertyTweener(p_target, property_subnames, p_to, p_duration));
+	Ref<PropertyTweener> tweener = memnewOld(PropertyTweener(p_target, property_subnames, p_to, p_duration));
 	append(tweener);
 	return tweener;
 }
@@ -124,7 +124,7 @@ Ref<PropertyTweener> Tween::tween_property(const Object *p_target, const NodePat
 Ref<IntervalTweener> Tween::tween_interval(double p_time) {
 	CHECK_VALID();
 
-	Ref<IntervalTweener> tweener = memnew(IntervalTweener(p_time));
+	Ref<IntervalTweener> tweener = memnewOld(IntervalTweener(p_time));
 	append(tweener);
 	return tweener;
 }
@@ -132,7 +132,7 @@ Ref<IntervalTweener> Tween::tween_interval(double p_time) {
 Ref<CallbackTweener> Tween::tween_callback(const Callable &p_callback) {
 	CHECK_VALID();
 
-	Ref<CallbackTweener> tweener = memnew(CallbackTweener(p_callback));
+	Ref<CallbackTweener> tweener = memnewOld(CallbackTweener(p_callback));
 	append(tweener);
 	return tweener;
 }
@@ -144,7 +144,7 @@ Ref<MethodTweener> Tween::tween_method(const Callable &p_callback, const Variant
 		return nullptr;
 	}
 
-	Ref<MethodTweener> tweener = memnew(MethodTweener(p_callback, p_from, p_to, p_duration));
+	Ref<MethodTweener> tweener = memnewOld(MethodTweener(p_callback, p_from, p_to, p_duration));
 	append(tweener);
 	return tweener;
 }

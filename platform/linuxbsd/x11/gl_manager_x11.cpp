@@ -82,7 +82,7 @@ int GLManager_X11::_find_or_create_display(Display *p_x11_display) {
 	// create context
 	GLDisplay &d = _displays[new_display_id];
 
-	d.context = memnew(GLManager_X11_Private);
+	d.context = memnewOld(GLManager_X11_Private);
 	d.context->glx_context = nullptr;
 
 	Error err = _create_context(d);

@@ -286,6 +286,6 @@ void PopupPanel::_bind_methods() {
 }
 
 PopupPanel::PopupPanel() {
-	panel = memnew(Panel);
+	panel = memnewOld(Panel);
 	add_child(panel, false, INTERNAL_MODE_FRONT);
 }

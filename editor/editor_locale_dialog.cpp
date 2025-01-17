@@ -392,11 +392,11 @@ void EditorLocaleDialog::popup_locale_dialog() {
 EditorLocaleDialog::EditorLocaleDialog() {
 	set_title(TTR("Select a Locale"));
 
-	VBoxContainer *vb = memnew(VBoxContainer);
+	VBoxContainer *vb = memnewOld(VBoxContainer);
 	{
-		HBoxContainer *hb_filter = memnew(HBoxContainer);
+		HBoxContainer *hb_filter = memnewOld(HBoxContainer);
 		{
-			filter_mode = memnew(OptionButton);
+			filter_mode = memnewOld(OptionButton);
 			filter_mode->add_item(TTR("Show All Locales"), SHOW_ALL_LOCALES);
 			filter_mode->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			filter_mode->add_item(TTR("Show Selected Locales Only"), SHOW_ONLY_SELECTED_LOCALES);
@@ -405,7 +405,7 @@ EditorLocaleDialog::EditorLocaleDialog() {
 			hb_filter->add_child(filter_mode);
 		}
 		{
-			edit_filters = memnew(CheckButton);
+			edit_filters = memnewOld(CheckButton);
 			edit_filters->set_text(TTR("Edit Filters"));
 			edit_filters->set_toggle_mode(true);
 			edit_filters->set_pressed(false);
@@ -413,7 +413,7 @@ EditorLocaleDialog::EditorLocaleDialog() {
 			hb_filter->add_child(edit_filters);
 		}
 		{
-			advanced = memnew(CheckButton);
+			advanced = memnewOld(CheckButton);
 			advanced->set_text(TTR("Advanced"));
 			advanced->set_toggle_mode(true);
 			advanced->set_pressed(false);
@@ -423,18 +423,18 @@ EditorLocaleDialog::EditorLocaleDialog() {
 		vb->add_child(hb_filter);
 	}
 	{
-		HBoxContainer *hb_lists = memnew(HBoxContainer);
+		HBoxContainer *hb_lists = memnewOld(HBoxContainer);
 		hb_lists->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		{
-			VBoxContainer *vb_lang_list = memnew(VBoxContainer);
+			VBoxContainer *vb_lang_list = memnewOld(VBoxContainer);
 			vb_lang_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			{
-				Label *lang_lbl = memnew(Label);
+				Label *lang_lbl = memnewOld(Label);
 				lang_lbl->set_text(TTR("Language:"));
 				vb_lang_list->add_child(lang_lbl);
 			}
 			{
-				lang_list = memnew(Tree);
+				lang_list = memnewOld(Tree);
 				lang_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 				lang_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 				lang_list->connect("cell_selected", callable_mp(this, &EditorLocaleDialog::_item_selected));
@@ -445,16 +445,16 @@ EditorLocaleDialog::EditorLocaleDialog() {
 			hb_lists->add_child(vb_lang_list);
 		}
 		{
-			vb_script_list = memnew(VBoxContainer);
+			vb_script_list = memnewOld(VBoxContainer);
 			vb_script_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			{
-				Label *script_lbl = memnew(Label);
+				Label *script_lbl = memnewOld(Label);
 				// TRANSLATORS: This is the label for a list of writing systems.
 				script_lbl->set_text(TTR("Script:", "Locale"));
 				vb_script_list->add_child(script_lbl);
 			}
 			{
-				script_list = memnew(Tree);
+				script_list = memnewOld(Tree);
 				script_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 				script_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 				script_list->connect("cell_selected", callable_mp(this, &EditorLocaleDialog::_item_selected));
@@ -465,15 +465,15 @@ EditorLocaleDialog::EditorLocaleDialog() {
 			hb_lists->add_child(vb_script_list);
 		}
 		{
-			VBoxContainer *vb_cnt_list = memnew(VBoxContainer);
+			VBoxContainer *vb_cnt_list = memnewOld(VBoxContainer);
 			vb_cnt_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 			{
-				Label *cnt_lbl = memnew(Label);
+				Label *cnt_lbl = memnewOld(Label);
 				cnt_lbl->set_text(TTR("Country:"));
 				vb_cnt_list->add_child(cnt_lbl);
 			}
 			{
-				cnt_list = memnew(Tree);
+				cnt_list = memnewOld(Tree);
 				cnt_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 				cnt_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 				cnt_list->connect("cell_selected", callable_mp(this, &EditorLocaleDialog::_item_selected));
@@ -486,19 +486,19 @@ EditorLocaleDialog::EditorLocaleDialog() {
 		vb->add_child(hb_lists);
 	}
 	{
-		hb_locale = memnew(HBoxContainer);
+		hb_locale = memnewOld(HBoxContainer);
 		hb_locale->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		{
 			{
-				VBoxContainer *vb_language = memnew(VBoxContainer);
+				VBoxContainer *vb_language = memnewOld(VBoxContainer);
 				vb_language->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				{
-					Label *language_lbl = memnew(Label);
+					Label *language_lbl = memnewOld(Label);
 					language_lbl->set_text(TTR("Language"));
 					vb_language->add_child(language_lbl);
 				}
 				{
-					lang_code = memnew(LineEdit);
+					lang_code = memnewOld(LineEdit);
 					lang_code->set_max_length(3);
 					lang_code->set_tooltip_text("Language");
 					vb_language->add_child(lang_code);
@@ -506,16 +506,16 @@ EditorLocaleDialog::EditorLocaleDialog() {
 				hb_locale->add_child(vb_language);
 			}
 			{
-				VBoxContainer *vb_script = memnew(VBoxContainer);
+				VBoxContainer *vb_script = memnewOld(VBoxContainer);
 				vb_script->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				{
-					Label *script_lbl = memnew(Label);
+					Label *script_lbl = memnewOld(Label);
 					// TRANSLATORS: This refers to a writing system.
 					script_lbl->set_text(TTR("Script", "Locale"));
 					vb_script->add_child(script_lbl);
 				}
 				{
-					script_code = memnew(LineEdit);
+					script_code = memnewOld(LineEdit);
 					script_code->set_max_length(4);
 					script_code->set_tooltip_text("Script");
 					vb_script->add_child(script_code);
@@ -523,15 +523,15 @@ EditorLocaleDialog::EditorLocaleDialog() {
 				hb_locale->add_child(vb_script);
 			}
 			{
-				VBoxContainer *vb_country = memnew(VBoxContainer);
+				VBoxContainer *vb_country = memnewOld(VBoxContainer);
 				vb_country->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				{
-					Label *country_lbl = memnew(Label);
+					Label *country_lbl = memnewOld(Label);
 					country_lbl->set_text(TTR("Country"));
 					vb_country->add_child(country_lbl);
 				}
 				{
-					country_code = memnew(LineEdit);
+					country_code = memnewOld(LineEdit);
 					country_code->set_max_length(2);
 					country_code->set_tooltip_text("Country");
 					vb_country->add_child(country_code);
@@ -539,15 +539,15 @@ EditorLocaleDialog::EditorLocaleDialog() {
 				hb_locale->add_child(vb_country);
 			}
 			{
-				VBoxContainer *vb_variant = memnew(VBoxContainer);
+				VBoxContainer *vb_variant = memnewOld(VBoxContainer);
 				vb_variant->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 				{
-					Label *variant_lbl = memnew(Label);
+					Label *variant_lbl = memnewOld(Label);
 					variant_lbl->set_text(TTR("Variant"));
 					vb_variant->add_child(variant_lbl);
 				}
 				{
-					variant_code = memnew(LineEdit);
+					variant_code = memnewOld(LineEdit);
 					variant_code->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 					variant_code->set_placeholder("Variant");
 					variant_code->set_tooltip_text("Variant");

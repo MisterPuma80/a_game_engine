@@ -83,19 +83,19 @@ void EditorNativeShaderSourceVisualizer::_inspect_shader(RID p_shader) {
 
 	_load_theme_settings();
 
-	versions = memnew(TabContainer);
+	versions = memnewOld(TabContainer);
 	versions->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	versions->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	versions->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	for (int i = 0; i < nsc.versions.size(); i++) {
-		TabContainer *vtab = memnew(TabContainer);
+		TabContainer *vtab = memnewOld(TabContainer);
 		vtab->set_name("Version " + itos(i));
 		vtab->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 		vtab->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		vtab->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		versions->add_child(vtab);
 		for (int j = 0; j < nsc.versions[i].stages.size(); j++) {
-			CodeEdit *code_edit = memnew(CodeEdit);
+			CodeEdit *code_edit = memnewOld(CodeEdit);
 			code_edit->set_editable(false);
 			code_edit->set_syntax_highlighter(syntax_highlighter);
 			code_edit->add_theme_font_override(SceneStringName(font), get_theme_font("source", EditorStringName(EditorFonts)));

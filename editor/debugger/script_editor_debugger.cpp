@@ -1798,21 +1798,21 @@ void ScriptEditorDebugger::toggle_profiler(const String &p_profiler, bool p_enab
 }
 
 ScriptEditorDebugger::ScriptEditorDebugger() {
-	tabs = memnew(TabContainer);
+	tabs = memnewOld(TabContainer);
 	add_child(tabs);
 	tabs->connect("tab_changed", callable_mp(this, &ScriptEditorDebugger::_tab_changed));
 
 	InspectorDock::get_inspector_singleton()->connect("object_id_selected", callable_mp(this, &ScriptEditorDebugger::_remote_object_selected));
 
 	{ //debugger
-		VBoxContainer *vbc = memnew(VBoxContainer);
+		VBoxContainer *vbc = memnewOld(VBoxContainer);
 		vbc->set_name(TTR("Stack Trace"));
 		Control *dbg = vbc;
 
-		HBoxContainer *hbc = memnew(HBoxContainer);
+		HBoxContainer *hbc = memnewOld(HBoxContainer);
 		vbc->add_child(hbc);
 
-		reason = memnew(Label);
+		reason = memnewOld(Label);
 		reason->set_text("");
 		hbc->add_child(reason);
 		reason->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -1820,76 +1820,76 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		reason->set_max_lines_visible(3);
 		reason->set_mouse_filter(Control::MOUSE_FILTER_PASS);
 
-		hbc->add_child(memnew(VSeparator));
+		hbc->add_child(memnewOld(VSeparator));
 
-		skip_breakpoints = memnew(Button);
+		skip_breakpoints = memnewOld(Button);
 		skip_breakpoints->set_theme_type_variation("FlatButton");
 		hbc->add_child(skip_breakpoints);
 		skip_breakpoints->set_tooltip_text(TTR("Skip Breakpoints"));
 		skip_breakpoints->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_skip_breakpoints));
 
-		hbc->add_child(memnew(VSeparator));
+		hbc->add_child(memnewOld(VSeparator));
 
-		copy = memnew(Button);
+		copy = memnewOld(Button);
 		copy->set_theme_type_variation("FlatButton");
 		hbc->add_child(copy);
 		copy->set_tooltip_text(TTR("Copy Error"));
 		copy->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_copy));
 
-		hbc->add_child(memnew(VSeparator));
+		hbc->add_child(memnewOld(VSeparator));
 
-		step = memnew(Button);
+		step = memnewOld(Button);
 		step->set_theme_type_variation("FlatButton");
 		hbc->add_child(step);
 		step->set_tooltip_text(TTR("Step Into"));
 		step->set_shortcut(ED_GET_SHORTCUT("debugger/step_into"));
 		step->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_step));
 
-		next = memnew(Button);
+		next = memnewOld(Button);
 		next->set_theme_type_variation("FlatButton");
 		hbc->add_child(next);
 		next->set_tooltip_text(TTR("Step Over"));
 		next->set_shortcut(ED_GET_SHORTCUT("debugger/step_over"));
 		next->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_next));
 
-		hbc->add_child(memnew(VSeparator));
+		hbc->add_child(memnewOld(VSeparator));
 
-		dobreak = memnew(Button);
+		dobreak = memnewOld(Button);
 		dobreak->set_theme_type_variation("FlatButton");
 		hbc->add_child(dobreak);
 		dobreak->set_tooltip_text(TTR("Break"));
 		dobreak->set_shortcut(ED_GET_SHORTCUT("debugger/break"));
 		dobreak->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_break));
 
-		docontinue = memnew(Button);
+		docontinue = memnewOld(Button);
 		docontinue->set_theme_type_variation("FlatButton");
 		hbc->add_child(docontinue);
 		docontinue->set_tooltip_text(TTR("Continue"));
 		docontinue->set_shortcut(ED_GET_SHORTCUT("debugger/continue"));
 		docontinue->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::debug_continue));
 
-		HSplitContainer *parent_sc = memnew(HSplitContainer);
+		HSplitContainer *parent_sc = memnewOld(HSplitContainer);
 		vbc->add_child(parent_sc);
 		parent_sc->set_v_size_flags(SIZE_EXPAND_FILL);
 		parent_sc->set_split_offset(500 * EDSCALE);
 
-		HSplitContainer *sc = memnew(HSplitContainer);
+		HSplitContainer *sc = memnewOld(HSplitContainer);
 		sc->set_v_size_flags(SIZE_EXPAND_FILL);
 		sc->set_h_size_flags(SIZE_EXPAND_FILL);
 		parent_sc->add_child(sc);
 
-		VBoxContainer *stack_vb = memnew(VBoxContainer);
+		VBoxContainer *stack_vb = memnewOld(VBoxContainer);
 		stack_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 		sc->add_child(stack_vb);
-		HBoxContainer *thread_hb = memnew(HBoxContainer);
+		HBoxContainer *thread_hb = memnewOld(HBoxContainer);
 		stack_vb->add_child(thread_hb);
-		thread_hb->add_child(memnew(Label(TTR("Thread:"))));
-		threads = memnew(OptionButton);
+		thread_hb->add_child(memnewOld(Label(TTR("Thread:"))));
+		threads = memnewOld(OptionButton);
 		thread_hb->add_child(threads);
 		threads->set_h_size_flags(SIZE_EXPAND_FILL);
 		threads->connect(SceneStringName(item_selected), callable_mp(this, &ScriptEditorDebugger::_select_thread));
 
-		stack_dump = memnew(Tree);
+		stack_dump = memnewOld(Tree);
 		stack_dump->set_allow_reselect(true);
 		stack_dump->set_columns(1);
 		stack_dump->set_column_titles_visible(true);
@@ -1899,20 +1899,20 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		stack_dump->connect("cell_selected", callable_mp(this, &ScriptEditorDebugger::_stack_dump_frame_selected));
 		stack_vb->add_child(stack_dump);
 
-		VBoxContainer *inspector_vbox = memnew(VBoxContainer);
+		VBoxContainer *inspector_vbox = memnewOld(VBoxContainer);
 		inspector_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 		sc->add_child(inspector_vbox);
 
-		HBoxContainer *tools_hb = memnew(HBoxContainer);
+		HBoxContainer *tools_hb = memnewOld(HBoxContainer);
 		inspector_vbox->add_child(tools_hb);
 
-		search = memnew(LineEdit);
+		search = memnewOld(LineEdit);
 		search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		search->set_placeholder(TTR("Filter Stack Variables"));
 		search->set_clear_button_enabled(true);
 		tools_hb->add_child(search);
 
-		inspector = memnew(EditorDebuggerInspector);
+		inspector = memnewOld(EditorDebuggerInspector);
 		inspector->set_h_size_flags(SIZE_EXPAND_FILL);
 		inspector->set_v_size_flags(SIZE_EXPAND_FILL);
 		inspector->set_property_name_style(EditorPropertyNameProcessor::STYLE_RAW);
@@ -1924,7 +1924,7 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		inspector->set_use_filter(true);
 		inspector_vbox->add_child(inspector);
 
-		breakpoints_tree = memnew(Tree);
+		breakpoints_tree = memnewOld(Tree);
 		breakpoints_tree->set_h_size_flags(SIZE_EXPAND_FILL);
 		breakpoints_tree->set_column_titles_visible(true);
 		breakpoints_tree->set_column_title(0, TTR("Breakpoints"));
@@ -1937,42 +1937,42 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		parent_sc->add_child(breakpoints_tree);
 		tabs->add_child(dbg);
 
-		breakpoints_menu = memnew(PopupMenu);
+		breakpoints_menu = memnewOld(PopupMenu);
 		breakpoints_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptEditorDebugger::_item_menu_id_pressed));
 		breakpoints_tree->add_child(breakpoints_menu);
 	}
 
 	{ //errors
-		errors_tab = memnew(VBoxContainer);
+		errors_tab = memnewOld(VBoxContainer);
 		errors_tab->set_name(TTR("Errors"));
 
-		HBoxContainer *error_hbox = memnew(HBoxContainer);
+		HBoxContainer *error_hbox = memnewOld(HBoxContainer);
 		errors_tab->add_child(error_hbox);
 
-		expand_all_button = memnew(Button);
+		expand_all_button = memnewOld(Button);
 		expand_all_button->set_text(TTR("Expand All"));
 		expand_all_button->set_disabled(true);
 		expand_all_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_expand_errors_list));
 		error_hbox->add_child(expand_all_button);
 
-		collapse_all_button = memnew(Button);
+		collapse_all_button = memnewOld(Button);
 		collapse_all_button->set_text(TTR("Collapse All"));
 		collapse_all_button->set_disabled(true);
 		collapse_all_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_collapse_errors_list));
 		error_hbox->add_child(collapse_all_button);
 
-		Control *space = memnew(Control);
+		Control *space = memnewOld(Control);
 		space->set_h_size_flags(SIZE_EXPAND_FILL);
 		error_hbox->add_child(space);
 
-		clear_button = memnew(Button);
+		clear_button = memnewOld(Button);
 		clear_button->set_text(TTR("Clear"));
 		clear_button->set_h_size_flags(0);
 		clear_button->set_disabled(true);
 		clear_button->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_clear_errors_list));
 		error_hbox->add_child(clear_button);
 
-		error_tree = memnew(Tree);
+		error_tree = memnewOld(Tree);
 		error_tree->set_columns(2);
 
 		error_tree->set_column_expand(0, false);
@@ -1990,7 +1990,7 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		error_tree->connect("item_mouse_selected", callable_mp(this, &ScriptEditorDebugger::_error_tree_item_rmb_selected));
 		errors_tab->add_child(error_tree);
 
-		item_menu = memnew(PopupMenu);
+		item_menu = memnewOld(PopupMenu);
 		item_menu->connect(SceneStringName(id_pressed), callable_mp(this, &ScriptEditorDebugger::_item_menu_id_pressed));
 		error_tree->add_child(item_menu);
 
@@ -1998,13 +1998,13 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 	}
 
 	{ // File dialog
-		file_dialog = memnew(EditorFileDialog);
+		file_dialog = memnewOld(EditorFileDialog);
 		file_dialog->connect("file_selected", callable_mp(this, &ScriptEditorDebugger::_file_selected));
 		add_child(file_dialog);
 	}
 
 	{ //profiler
-		profiler = memnew(EditorProfiler);
+		profiler = memnewOld(EditorProfiler);
 		profiler->set_name(TTR("Profiler"));
 		tabs->add_child(profiler);
 		profiler->connect("enable_profiling", callable_mp(this, &ScriptEditorDebugger::_profiler_activate).bind(PROFILER_SCRIPTS_SERVERS));
@@ -2012,34 +2012,34 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 	}
 
 	{ //frame profiler
-		visual_profiler = memnew(EditorVisualProfiler);
+		visual_profiler = memnewOld(EditorVisualProfiler);
 		visual_profiler->set_name(TTR("Visual Profiler"));
 		tabs->add_child(visual_profiler);
 		visual_profiler->connect("enable_profiling", callable_mp(this, &ScriptEditorDebugger::_profiler_activate).bind(PROFILER_VISUAL));
 	}
 
 	{ //monitors
-		performance_profiler = memnew(EditorPerformanceProfiler);
+		performance_profiler = memnewOld(EditorPerformanceProfiler);
 		tabs->add_child(performance_profiler);
 	}
 
 	{ //vmem inspect
-		VBoxContainer *vmem_vb = memnew(VBoxContainer);
-		HBoxContainer *vmem_hb = memnew(HBoxContainer);
-		Label *vmlb = memnew(Label(TTR("List of Video Memory Usage by Resource:") + " "));
+		VBoxContainer *vmem_vb = memnewOld(VBoxContainer);
+		HBoxContainer *vmem_hb = memnewOld(HBoxContainer);
+		Label *vmlb = memnewOld(Label(TTR("List of Video Memory Usage by Resource:") + " "));
 		vmlb->set_theme_type_variation("HeaderSmall");
 
 		vmlb->set_h_size_flags(SIZE_EXPAND_FILL);
 		vmem_hb->add_child(vmlb);
-		vmem_hb->add_child(memnew(Label(TTR("Total:") + " ")));
-		vmem_total = memnew(LineEdit);
+		vmem_hb->add_child(memnewOld(Label(TTR("Total:") + " ")));
+		vmem_total = memnewOld(LineEdit);
 		vmem_total->set_editable(false);
 		vmem_total->set_custom_minimum_size(Size2(100, 0) * EDSCALE);
 		vmem_hb->add_child(vmem_total);
-		vmem_refresh = memnew(Button);
+		vmem_refresh = memnewOld(Button);
 		vmem_refresh->set_theme_type_variation("FlatButton");
 		vmem_hb->add_child(vmem_refresh);
-		vmem_export = memnew(Button);
+		vmem_export = memnewOld(Button);
 		vmem_export->set_theme_type_variation("FlatButton");
 		vmem_export->set_tooltip_text(TTR("Export list to a CSV file"));
 		vmem_hb->add_child(vmem_export);
@@ -2047,8 +2047,8 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 		vmem_refresh->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_video_mem_request));
 		vmem_export->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_video_mem_export));
 
-		VBoxContainer *vmmc = memnew(VBoxContainer);
-		vmem_tree = memnew(Tree);
+		VBoxContainer *vmmc = memnewOld(VBoxContainer);
+		vmem_tree = memnewOld(Tree);
 		vmem_tree->set_v_size_flags(SIZE_EXPAND_FILL);
 		vmem_tree->set_h_size_flags(SIZE_EXPAND_FILL);
 		vmmc->add_child(vmem_tree);
@@ -2075,52 +2075,52 @@ ScriptEditorDebugger::ScriptEditorDebugger() {
 	}
 
 	{ // misc
-		VBoxContainer *misc = memnew(VBoxContainer);
+		VBoxContainer *misc = memnewOld(VBoxContainer);
 		misc->set_name(TTR("Misc"));
 		tabs->add_child(misc);
 
-		GridContainer *info_left = memnew(GridContainer);
+		GridContainer *info_left = memnewOld(GridContainer);
 		info_left->set_columns(2);
 		misc->add_child(info_left);
-		clicked_ctrl = memnew(LineEdit);
+		clicked_ctrl = memnewOld(LineEdit);
 		clicked_ctrl->set_editable(false);
 		clicked_ctrl->set_h_size_flags(SIZE_EXPAND_FILL);
-		info_left->add_child(memnew(Label(TTR("Clicked Control:"))));
+		info_left->add_child(memnewOld(Label(TTR("Clicked Control:"))));
 		info_left->add_child(clicked_ctrl);
-		clicked_ctrl_type = memnew(LineEdit);
+		clicked_ctrl_type = memnewOld(LineEdit);
 		clicked_ctrl_type->set_editable(false);
-		info_left->add_child(memnew(Label(TTR("Clicked Control Type:"))));
+		info_left->add_child(memnewOld(Label(TTR("Clicked Control Type:"))));
 		info_left->add_child(clicked_ctrl_type);
 
-		scene_tree = memnew(SceneDebuggerTree);
-		live_edit_root = memnew(LineEdit);
+		scene_tree = memnewOld(SceneDebuggerTree);
+		live_edit_root = memnewOld(LineEdit);
 		live_edit_root->set_editable(false);
 		live_edit_root->set_h_size_flags(SIZE_EXPAND_FILL);
 
 		{
-			HBoxContainer *lehb = memnew(HBoxContainer);
-			Label *l = memnew(Label(TTR("Live Edit Root:")));
+			HBoxContainer *lehb = memnewOld(HBoxContainer);
+			Label *l = memnewOld(Label(TTR("Live Edit Root:")));
 			info_left->add_child(l);
 			lehb->add_child(live_edit_root);
-			le_set = memnew(Button(TTR("Set From Tree")));
+			le_set = memnewOld(Button(TTR("Set From Tree")));
 			lehb->add_child(le_set);
-			le_clear = memnew(Button(TTR("Clear")));
+			le_clear = memnewOld(Button(TTR("Clear")));
 			lehb->add_child(le_clear);
 			info_left->add_child(lehb);
 		}
 
-		misc->add_child(memnew(VSeparator));
+		misc->add_child(memnewOld(VSeparator));
 
-		HBoxContainer *buttons = memnew(HBoxContainer);
+		HBoxContainer *buttons = memnewOld(HBoxContainer);
 
-		export_csv = memnew(Button(TTR("Export measures as CSV")));
+		export_csv = memnewOld(Button(TTR("Export measures as CSV")));
 		export_csv->connect(SceneStringName(pressed), callable_mp(this, &ScriptEditorDebugger::_export_csv));
 		buttons->add_child(export_csv);
 
 		misc->add_child(buttons);
 	}
 
-	msgdialog = memnew(AcceptDialog);
+	msgdialog = memnewOld(AcceptDialog);
 	add_child(msgdialog);
 
 	live_debug = true;

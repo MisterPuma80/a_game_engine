@@ -50,7 +50,7 @@ static void *godot_open(voidpf opaque, const char *p_fname, int mode) {
 	Ref<FileAccess> f = FileAccess::open(String::utf8(p_fname), FileAccess::READ);
 	ERR_FAIL_COND_V(f.is_null(), nullptr);
 
-	ZipData *zd = memnew(ZipData);
+	ZipData *zd = memnewOld(ZipData);
 	zd->f = f;
 	return zd;
 }
@@ -211,12 +211,12 @@ bool ZipArchive::file_exists(const String &p_name) const {
 }
 
 Ref<FileAccess> ZipArchive::get_file(const String &p_path, PackedData::PackedFile *p_file) {
-	return memnew(FileAccessZip(p_path, *p_file));
+	return memnewOld(FileAccessZip(p_path, *p_file));
 }
 
 ZipArchive *ZipArchive::get_singleton() {
 	if (instance == nullptr) {
-		instance = memnew(ZipArchive);
+		instance = memnewOld(ZipArchive);
 	}
 
 	return instance;

@@ -325,7 +325,7 @@ void EditorResourcePicker::_edit_menu_cbk(int p_which) {
 			}
 
 			if (!file_dialog) {
-				file_dialog = memnew(EditorFileDialog);
+				file_dialog = memnewOld(EditorFileDialog);
 				file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 				add_child(file_dialog);
 				file_dialog->connect("file_selected", callable_mp(this, &EditorResourcePicker::_file_selected));
@@ -341,7 +341,7 @@ void EditorResourcePicker::_edit_menu_cbk(int p_which) {
 
 		case OBJ_MENU_QUICKLOAD: {
 			if (!quick_open) {
-				quick_open = memnew(EditorQuickOpen);
+				quick_open = memnewOld(EditorQuickOpen);
 				add_child(quick_open);
 				quick_open->connect("quick_open", callable_mp(this, &EditorResourcePicker::_file_quick_selected));
 			}
@@ -381,18 +381,18 @@ void EditorResourcePicker::_edit_menu_cbk(int p_which) {
 			}
 
 			if (!duplicate_resources_dialog) {
-				duplicate_resources_dialog = memnew(ConfirmationDialog);
+				duplicate_resources_dialog = memnewOld(ConfirmationDialog);
 				add_child(duplicate_resources_dialog);
 				duplicate_resources_dialog->set_title(TTR("Make Unique (Recursive)"));
 				duplicate_resources_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorResourcePicker::_duplicate_selected_resources));
 
-				VBoxContainer *vb = memnew(VBoxContainer);
+				VBoxContainer *vb = memnewOld(VBoxContainer);
 				duplicate_resources_dialog->add_child(vb);
 
-				Label *label = memnew(Label(TTR("Select resources to make unique:")));
+				Label *label = memnewOld(Label(TTR("Select resources to make unique:")));
 				vb->add_child(label);
 
-				duplicate_resources_tree = memnew(Tree);
+				duplicate_resources_tree = memnewOld(Tree);
 				duplicate_resources_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 				vb->add_child(duplicate_resources_tree);
 				duplicate_resources_tree->set_columns(2);
@@ -971,7 +971,7 @@ void EditorResourcePicker::_ensure_resource_menu() {
 	if (edit_menu) {
 		return;
 	}
-	edit_menu = memnew(PopupMenu);
+	edit_menu = memnewOld(PopupMenu);
 	edit_menu->add_theme_constant_override("icon_max_width", get_theme_constant(SNAME("class_icon_size"), EditorStringName(Editor)));
 	add_child(edit_menu);
 	edit_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorResourcePicker::_edit_menu_cbk));
@@ -1062,7 +1062,7 @@ void EditorResourcePicker::_duplicate_selected_resources() {
 }
 
 EditorResourcePicker::EditorResourcePicker(bool p_hide_assign_button_controls) {
-	assign_button = memnew(Button);
+	assign_button = memnewOld(Button);
 	assign_button->set_flat(true);
 	assign_button->set_h_size_flags(SIZE_EXPAND_FILL);
 	assign_button->set_expand_icon(true);
@@ -1075,7 +1075,7 @@ EditorResourcePicker::EditorResourcePicker(bool p_hide_assign_button_controls) {
 	assign_button->connect(SceneStringName(gui_input), callable_mp(this, &EditorResourcePicker::_button_input));
 
 	if (!p_hide_assign_button_controls) {
-		preview_rect = memnew(TextureRect);
+		preview_rect = memnewOld(TextureRect);
 		preview_rect->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 		preview_rect->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 		preview_rect->set_offset(SIDE_TOP, 1);
@@ -1085,7 +1085,7 @@ EditorResourcePicker::EditorResourcePicker(bool p_hide_assign_button_controls) {
 		assign_button->add_child(preview_rect);
 	}
 
-	edit_button = memnew(Button);
+	edit_button = memnewOld(Button);
 	edit_button->set_flat(false);
 	edit_button->set_toggle_mode(true);
 	edit_button->connect(SceneStringName(pressed), callable_mp(this, &EditorResourcePicker::_update_menu));
@@ -1350,7 +1350,7 @@ void EditorAudioStreamPicker::_preview_draw() {
 
 EditorAudioStreamPicker::EditorAudioStreamPicker() :
 		EditorResourcePicker(true) {
-	stream_preview_rect = memnew(Control);
+	stream_preview_rect = memnewOld(Control);
 
 	stream_preview_rect->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	stream_preview_rect->set_offset(SIDE_TOP, 1);

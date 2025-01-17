@@ -38,7 +38,7 @@ HashMap<CanvasItemMaterial::MaterialKey, CanvasItemMaterial::ShaderData, CanvasI
 CanvasItemMaterial::ShaderNames *CanvasItemMaterial::shader_names = nullptr;
 
 void CanvasItemMaterial::init_shaders() {
-	shader_names = memnew(ShaderNames);
+	shader_names = memnewOld(ShaderNames);
 
 	shader_names->particles_anim_h_frames = "particles_anim_h_frames";
 	shader_names->particles_anim_v_frames = "particles_anim_v_frames";

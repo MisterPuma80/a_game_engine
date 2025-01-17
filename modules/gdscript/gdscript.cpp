@@ -146,7 +146,7 @@ void GDScript::_super_implicit_constructor(GDScript *p_script, GDScriptInstance 
 GDScriptInstance *GDScript::_create_instance(const Variant **p_args, int p_argcount, Object *p_owner, bool p_is_ref_counted, Callable::CallError &r_error) {
 	/* STEP 1, CREATE */
 
-	GDScriptInstance *instance = memnew(GDScriptInstance);
+	GDScriptInstance *instance = memnewOld(GDScriptInstance);
 	instance->base_ref_counted = p_is_ref_counted;
 	instance->members.resize(member_indices.size());
 	instance->script = Ref<GDScript>(this);
@@ -221,7 +221,7 @@ Variant GDScript::_new(const Variant **p_args, int p_argcount, Callable::CallErr
 	if (_baseptr->native.ptr()) {
 		owner = _baseptr->native->instantiate();
 	} else {
-		owner = memnew(RefCounted); //by default, no base means use reference
+		owner = memnewOld(RefCounted); //by default, no base means use reference
 	}
 	ERR_FAIL_NULL_V_MSG(owner, Variant(), "Can't inherit from a virtual class.");
 
@@ -422,7 +422,7 @@ ScriptInstance *GDScript::instance_create(Object *p_this) {
 
 PlaceHolderScriptInstance *GDScript::placeholder_instance_create(Object *p_this) {
 #ifdef TOOLS_ENABLED
-	PlaceHolderScriptInstance *si = memnew(PlaceHolderScriptInstance(GDScriptLanguage::get_singleton(), Ref<Script>(this), p_this));
+	PlaceHolderScriptInstance *si = memnewOld(PlaceHolderScriptInstance(GDScriptLanguage::get_singleton(), Ref<Script>(this), p_this));
 	placeholders.insert(si);
 	_update_exports(nullptr, false, si);
 	return si;
@@ -964,7 +964,7 @@ bool GDScript::_get(const StringName &p_name, Variant &r_ret) const {
 			HashMap<StringName, GDScriptFunction *>::ConstIterator E = top->member_functions.find(p_name);
 			if (E && E->value->is_static()) {
 				if (top->rpc_config.has(p_name)) {
-					r_ret = Callable(memnew(GDScriptRPCCallable(const_cast<GDScript *>(top), E->key)));
+					r_ret = Callable(memnewOld(GDScriptRPCCallable(const_cast<GDScript *>(top), E->key)));
 				} else {
 					r_ret = Callable(const_cast<GDScript *>(top), E->key);
 				}
@@ -1770,7 +1770,7 @@ bool GDScriptInstance::get(const StringName &p_name, Variant &r_ret) const {
 			HashMap<StringName, GDScriptFunction *>::ConstIterator E = sptr->member_functions.find(p_name);
 			if (E) {
 				if (sptr->rpc_config.has(p_name)) {
-					r_ret = Callable(memnew(GDScriptRPCCallable(owner, E->key)));
+					r_ret = Callable(memnewOld(GDScriptRPCCallable(owner, E->key)));
 				} else {
 					r_ret = Callable(owner, E->key);
 				}
@@ -2224,7 +2224,7 @@ void GDScriptLanguage::init() {
 		if (globals.has(n)) {
 			continue;
 		}
-		Ref<GDScriptNativeClass> nc = memnew(GDScriptNativeClass(n));
+		Ref<GDScriptNativeClass> nc = memnewOld(GDScriptNativeClass(n));
 		_add_global(n, nc);
 	}
 

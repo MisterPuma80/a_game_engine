@@ -728,25 +728,25 @@ AbstractPolygon2DEditor::AbstractPolygon2DEditor(bool p_wip_destructive) {
 	selected_point = Vertex();
 	edge_point = PosVertex();
 
-	button_create = memnew(Button);
+	button_create = memnewOld(Button);
 	button_create->set_theme_type_variation("FlatButton");
 	add_child(button_create);
 	button_create->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_CREATE));
 	button_create->set_toggle_mode(true);
 
-	button_edit = memnew(Button);
+	button_edit = memnewOld(Button);
 	button_edit->set_theme_type_variation("FlatButton");
 	add_child(button_edit);
 	button_edit->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_EDIT));
 	button_edit->set_toggle_mode(true);
 
-	button_delete = memnew(Button);
+	button_delete = memnewOld(Button);
 	button_delete->set_theme_type_variation("FlatButton");
 	add_child(button_delete);
 	button_delete->connect(SceneStringName(pressed), callable_mp(this, &AbstractPolygon2DEditor::_menu_option).bind(MODE_DELETE));
 	button_delete->set_toggle_mode(true);
 
-	create_resource = memnew(ConfirmationDialog);
+	create_resource = memnewOld(ConfirmationDialog);
 	add_child(create_resource);
 	create_resource->set_ok_button_text(TTR("Create"));
 }

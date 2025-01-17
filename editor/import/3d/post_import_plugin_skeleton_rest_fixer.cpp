@@ -91,7 +91,7 @@ void PostImportPluginSkeletonRestFixer::internal_process(InternalImportCategory 
 		bool is_rest_changed = false;
 
 		// Build profile skeleton.
-		Skeleton3D *prof_skeleton = memnew(Skeleton3D);
+		Skeleton3D *prof_skeleton = memnewOld(Skeleton3D);
 		{
 			int prof_bone_len = profile->get_bone_size();
 			// Add single bones.

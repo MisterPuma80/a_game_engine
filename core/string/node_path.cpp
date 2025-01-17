@@ -364,7 +364,7 @@ NodePath::NodePath(const Vector<StringName> &p_path, bool p_absolute) {
 		return;
 	}
 
-	data = memnew(Data);
+	data = memnewOld(Data);
 	data->refcount.init();
 	data->absolute = p_absolute;
 	data->path = p_path;
@@ -376,7 +376,7 @@ NodePath::NodePath(const Vector<StringName> &p_path, const Vector<StringName> &p
 		return;
 	}
 
-	data = memnew(Data);
+	data = memnewOld(Data);
 	data->refcount.init();
 	data->absolute = p_absolute;
 	data->path = p_path;
@@ -441,7 +441,7 @@ NodePath::NodePath(const String &p_path) {
 		return;
 	}
 
-	data = memnew(Data);
+	data = memnewOld(Data);
 	data->refcount.init();
 	data->absolute = absolute;
 	data->subpath = subpath;

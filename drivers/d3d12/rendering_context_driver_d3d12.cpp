@@ -244,7 +244,7 @@ bool RenderingContextDriverD3D12::device_supports_present(uint32_t p_device_inde
 }
 
 RenderingDeviceDriver *RenderingContextDriverD3D12::driver_create() {
-	return memnew(RenderingDeviceDriverD3D12(this));
+	return memnewOld(RenderingDeviceDriverD3D12(this));
 }
 
 void RenderingContextDriverD3D12::driver_free(RenderingDeviceDriver *p_driver) {
@@ -253,7 +253,7 @@ void RenderingContextDriverD3D12::driver_free(RenderingDeviceDriver *p_driver) {
 
 RenderingContextDriver::SurfaceID RenderingContextDriverD3D12::surface_create(const void *p_platform_data) {
 	const WindowPlatformData *wpd = (const WindowPlatformData *)(p_platform_data);
-	Surface *surface = memnew(Surface);
+	Surface *surface = memnewOld(Surface);
 	surface->hwnd = wpd->window;
 	return SurfaceID(surface);
 }

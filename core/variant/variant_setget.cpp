@@ -304,7 +304,7 @@ Variant Variant::get_named(const StringName &p_member, bool &r_valid) const {
 		default: {
 			if (Variant::has_builtin_method(type, p_member)) {
 				r_valid = true;
-				return Callable(memnew(VariantCallable(*this, p_member)));
+				return Callable(memnewOld(VariantCallable(*this, p_member)));
 			}
 		} break;
 	}

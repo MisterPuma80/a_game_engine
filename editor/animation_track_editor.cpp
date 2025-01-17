@@ -1922,27 +1922,27 @@ void AnimationTimelineEdit::_bind_methods() {
 AnimationTimelineEdit::AnimationTimelineEdit() {
 	name_limit = 150 * EDSCALE;
 
-	play_position = memnew(Control);
+	play_position = memnewOld(Control);
 	play_position->set_mouse_filter(MOUSE_FILTER_PASS);
 	add_child(play_position);
 	play_position->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	play_position->connect(SceneStringName(draw), callable_mp(this, &AnimationTimelineEdit::_play_position_draw));
 
-	add_track = memnew(MenuButton);
+	add_track = memnewOld(MenuButton);
 	add_track->set_position(Vector2(0, 0));
 	add_child(add_track);
 	add_track->set_text(TTR("Add Track"));
 
-	len_hb = memnew(HBoxContainer);
+	len_hb = memnewOld(HBoxContainer);
 
-	Control *expander = memnew(Control);
+	Control *expander = memnewOld(Control);
 	expander->set_h_size_flags(SIZE_EXPAND_FILL);
 	len_hb->add_child(expander);
-	time_icon = memnew(TextureRect);
+	time_icon = memnewOld(TextureRect);
 	time_icon->set_v_size_flags(SIZE_SHRINK_CENTER);
 	time_icon->set_tooltip_text(TTR("Animation length (seconds)"));
 	len_hb->add_child(time_icon);
-	length = memnew(EditorSpinSlider);
+	length = memnewOld(EditorSpinSlider);
 	length->set_min(SECOND_DECIMAL);
 	length->set_max(36000);
 	length->set_step(SECOND_DECIMAL);
@@ -1952,7 +1952,7 @@ AnimationTimelineEdit::AnimationTimelineEdit() {
 	length->set_tooltip_text(TTR("Animation length (seconds)"));
 	length->connect(SceneStringName(value_changed), callable_mp(this, &AnimationTimelineEdit::_anim_length_changed));
 	len_hb->add_child(length);
-	loop = memnew(Button);
+	loop = memnewOld(Button);
 	loop->set_flat(true);
 	loop->set_tooltip_text(TTR("Animation Looping"));
 	loop->connect(SceneStringName(pressed), callable_mp(this, &AnimationTimelineEdit::_anim_loop_pressed));
@@ -2839,7 +2839,7 @@ void AnimationTrackEdit::gui_input(const Ref<InputEvent> &p_event) {
 
 			if (update_mode_rect.has_point(pos)) {
 				if (!menu) {
-					menu = memnew(PopupMenu);
+					menu = memnewOld(PopupMenu);
 					add_child(menu);
 					menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationTrackEdit::_menu_selected));
 				}
@@ -2865,7 +2865,7 @@ void AnimationTrackEdit::gui_input(const Ref<InputEvent> &p_event) {
 
 			if (interp_mode_rect.has_point(pos)) {
 				if (!menu) {
-					menu = memnew(PopupMenu);
+					menu = memnewOld(PopupMenu);
 					add_child(menu);
 					menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationTrackEdit::_menu_selected));
 				}
@@ -2914,7 +2914,7 @@ void AnimationTrackEdit::gui_input(const Ref<InputEvent> &p_event) {
 
 			if (loop_wrap_rect.has_point(pos)) {
 				if (!menu) {
-					menu = memnew(PopupMenu);
+					menu = memnewOld(PopupMenu);
 					add_child(menu);
 					menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationTrackEdit::_menu_selected));
 				}
@@ -2951,7 +2951,7 @@ void AnimationTrackEdit::gui_input(const Ref<InputEvent> &p_event) {
 			float offset = (pos.x - timeline->get_name_limit()) / timeline->get_zoom_scale();
 			if (!read_only) {
 				if (!menu) {
-					menu = memnew(PopupMenu);
+					menu = memnewOld(PopupMenu);
 					add_child(menu);
 					menu->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationTrackEdit::_menu_selected));
 				}
@@ -2994,10 +2994,10 @@ void AnimationTrackEdit::gui_input(const Ref<InputEvent> &p_event) {
 
 	if (mb.is_valid() && !mb->is_pressed() && mb->get_button_index() == MouseButton::LEFT && clicking_on_name) {
 		if (!path) {
-			path_popup = memnew(Popup);
+			path_popup = memnewOld(Popup);
 			path_popup->set_wrap_controls(true);
 			add_child(path_popup);
-			path = memnew(LineEdit);
+			path = memnewOld(LineEdit);
 			path_popup->add_child(path);
 			path->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 			path->connect("text_submitted", callable_mp(this, &AnimationTrackEdit::_path_submitted));
@@ -3199,7 +3199,7 @@ Variant AnimationTrackEdit::get_drag_data(const Point2 &p_point) {
 	drag_data["group"] = base_path;
 	drag_data["index"] = track;
 
-	Button *tb = memnew(Button);
+	Button *tb = memnewOld(Button);
 	tb->set_flat(true);
 	tb->set_text(path_cache);
 	tb->set_icon(icon_cache);
@@ -3405,7 +3405,7 @@ void AnimationTrackEdit::_bind_methods() {
 }
 
 AnimationTrackEdit::AnimationTrackEdit() {
-	play_position = memnew(Control);
+	play_position = memnewOld(Control);
 	play_position->set_mouse_filter(MOUSE_FILTER_PASS);
 	add_child(play_position);
 	play_position->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
@@ -4704,7 +4704,7 @@ void AnimationTrackEditor::_update_tracks() {
 
 		if (track_edit == nullptr) {
 			// No valid plugin_found.
-			track_edit = memnew(AnimationTrackEdit);
+			track_edit = memnewOld(AnimationTrackEdit);
 		}
 
 		track_edits.push_back(track_edit);
@@ -4714,7 +4714,7 @@ void AnimationTrackEditor::_update_tracks() {
 			base_path = base_path.get_slice(":", 0); // Remove sub-path.
 
 			if (!group_sort.has(base_path)) {
-				AnimationTrackEditGroup *g = memnew(AnimationTrackEditGroup);
+				AnimationTrackEditGroup *g = memnewOld(AnimationTrackEditGroup);
 				Ref<Texture2D> icon = get_editor_theme_icon(SNAME("Node"));
 				String name = base_path;
 				String tooltip;
@@ -4732,7 +4732,7 @@ void AnimationTrackEditor::_update_tracks() {
 				g->set_tooltip_text(tooltip);
 				g->set_timeline(timeline);
 				groups.push_back(g);
-				VBoxContainer *vb = memnew(VBoxContainer);
+				VBoxContainer *vb = memnewOld(VBoxContainer);
 				vb->add_theme_constant_override("separation", 0);
 				vb->add_child(g);
 				track_vbox->add_child(vb);
@@ -5473,7 +5473,7 @@ void AnimationTrackEditor::_update_key_edit() {
 	}
 
 	if (selection.size() == 1) {
-		key_edit = memnew(AnimationTrackKeyEdit);
+		key_edit = memnewOld(AnimationTrackKeyEdit);
 		key_edit->animation = animation;
 		key_edit->animation_read_only = read_only;
 		key_edit->track = selection.front()->key().track;
@@ -5495,7 +5495,7 @@ void AnimationTrackEditor::_update_key_edit() {
 
 		EditorNode::get_singleton()->push_item(key_edit);
 	} else if (selection.size() > 1) {
-		multi_key_edit = memnew(AnimationMultiTrackKeyEdit);
+		multi_key_edit = memnewOld(AnimationMultiTrackKeyEdit);
 		multi_key_edit->animation = animation;
 		multi_key_edit->animation_read_only = read_only;
 		multi_key_edit->editor = this;
@@ -7202,21 +7202,21 @@ void AnimationTrackEditor::_pick_track_filter_input(const Ref<InputEvent> &p_ie)
 }
 
 AnimationTrackEditor::AnimationTrackEditor() {
-	main_panel = memnew(PanelContainer);
+	main_panel = memnewOld(PanelContainer);
 	main_panel->set_focus_mode(FOCUS_ALL); // Allow panel to have focus so that shortcuts work as expected.
 	add_child(main_panel);
 	main_panel->set_v_size_flags(SIZE_EXPAND_FILL);
-	HBoxContainer *timeline_scroll = memnew(HBoxContainer);
+	HBoxContainer *timeline_scroll = memnewOld(HBoxContainer);
 	main_panel->add_child(timeline_scroll);
 	timeline_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	VBoxContainer *timeline_vbox = memnew(VBoxContainer);
+	VBoxContainer *timeline_vbox = memnewOld(VBoxContainer);
 	timeline_scroll->add_child(timeline_vbox);
 	timeline_vbox->set_v_size_flags(SIZE_EXPAND_FILL);
 	timeline_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 	timeline_vbox->add_theme_constant_override("separation", 0);
 
-	info_message = memnew(Label);
+	info_message = memnewOld(Label);
 	info_message->set_text(TTR("Select an AnimationPlayer node to create and edit animations."));
 	info_message->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	info_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -7225,7 +7225,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	info_message->set_anchors_and_offsets_preset(PRESET_FULL_RECT, PRESET_MODE_KEEP_SIZE, 8 * EDSCALE);
 	main_panel->add_child(info_message);
 
-	timeline = memnew(AnimationTimelineEdit);
+	timeline = memnewOld(AnimationTimelineEdit);
 	timeline_vbox->add_child(timeline);
 	timeline->connect("timeline_changed", callable_mp(this, &AnimationTrackEditor::_timeline_changed));
 	timeline->connect("name_limit_changed", callable_mp(this, &AnimationTrackEditor::_name_limit_changed));
@@ -7237,7 +7237,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	panner->set_scroll_zoom_factor(AnimationTimelineEdit::SCROLL_ZOOM_FACTOR_IN);
 	panner->set_callbacks(callable_mp(this, &AnimationTrackEditor::_pan_callback), callable_mp(this, &AnimationTrackEditor::_zoom_callback));
 
-	scroll = memnew(ScrollContainer);
+	scroll = memnewOld(ScrollContainer);
 	timeline_vbox->add_child(scroll);
 	scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	VScrollBar *sb = scroll->get_v_scroll_bar();
@@ -7247,7 +7247,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	scroll->connect(SceneStringName(gui_input), callable_mp(this, &AnimationTrackEditor::_scroll_input));
 	scroll->connect(SceneStringName(focus_exited), callable_mp(panner.ptr(), &ViewPanner::release_pan_key));
 
-	bezier_edit = memnew(AnimationBezierTrackEdit);
+	bezier_edit = memnewOld(AnimationBezierTrackEdit);
 	timeline_vbox->add_child(bezier_edit);
 	bezier_edit->set_editor(this);
 	bezier_edit->set_timeline(timeline);
@@ -7256,37 +7256,37 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	timeline_vbox->set_custom_minimum_size(Size2(0, 150) * EDSCALE);
 
-	hscroll = memnew(HScrollBar);
+	hscroll = memnewOld(HScrollBar);
 	hscroll->share(timeline);
 	hscroll->hide();
 	hscroll->connect(SceneStringName(value_changed), callable_mp(this, &AnimationTrackEditor::_update_scroll));
 	timeline_vbox->add_child(hscroll);
 	timeline->set_hscroll(hscroll);
 
-	track_vbox = memnew(VBoxContainer);
+	track_vbox = memnewOld(VBoxContainer);
 	scroll->add_child(track_vbox);
 	track_vbox->set_h_size_flags(SIZE_EXPAND_FILL);
 	scroll->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	track_vbox->add_theme_constant_override("separation", 0);
 
-	HBoxContainer *bottom_hb = memnew(HBoxContainer);
+	HBoxContainer *bottom_hb = memnewOld(HBoxContainer);
 	add_child(bottom_hb);
 
-	imported_anim_warning = memnew(Button);
+	imported_anim_warning = memnewOld(Button);
 	imported_anim_warning->hide();
 	imported_anim_warning->set_text(TTR("Imported Scene"));
 	imported_anim_warning->set_tooltip_text(TTR("Warning: Editing imported animation"));
 	imported_anim_warning->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_show_imported_anim_warning));
 	bottom_hb->add_child(imported_anim_warning);
 
-	dummy_player_warning = memnew(Button);
+	dummy_player_warning = memnewOld(Button);
 	dummy_player_warning->hide();
 	dummy_player_warning->set_text(TTR("Dummy Player"));
 	dummy_player_warning->set_tooltip_text(TTR("Warning: Editing dummy AnimationPlayer"));
 	dummy_player_warning->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_show_dummy_player_warning));
 	bottom_hb->add_child(dummy_player_warning);
 
-	inactive_player_warning = memnew(Button);
+	inactive_player_warning = memnewOld(Button);
 	inactive_player_warning->hide();
 	inactive_player_warning->set_text(TTR("Inactive Player"));
 	inactive_player_warning->set_tooltip_text(TTR("Warning: AnimationPlayer is inactive"));
@@ -7295,7 +7295,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	bottom_hb->add_spacer();
 
-	bezier_edit_icon = memnew(Button);
+	bezier_edit_icon = memnewOld(Button);
 	bezier_edit_icon->set_flat(true);
 	bezier_edit_icon->set_disabled(true);
 	bezier_edit_icon->set_toggle_mode(true);
@@ -7304,7 +7304,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	bottom_hb->add_child(bezier_edit_icon);
 
-	selected_filter = memnew(Button);
+	selected_filter = memnewOld(Button);
 	selected_filter->set_flat(true);
 	selected_filter->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_view_group_toggle)); // Same function works the same.
 	selected_filter->set_toggle_mode(true);
@@ -7312,16 +7312,16 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	bottom_hb->add_child(selected_filter);
 
-	view_group = memnew(Button);
+	view_group = memnewOld(Button);
 	view_group->set_flat(true);
 	view_group->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_view_group_toggle));
 	view_group->set_toggle_mode(true);
 	view_group->set_tooltip_text(TTR("Group tracks by node or display them as plain list."));
 
 	bottom_hb->add_child(view_group);
-	bottom_hb->add_child(memnew(VSeparator));
+	bottom_hb->add_child(memnewOld(VSeparator));
 
-	snap = memnew(Button);
+	snap = memnewOld(Button);
 	snap->set_flat(true);
 	snap->set_text(TTR("Snap:") + " ");
 	bottom_hb->add_child(snap);
@@ -7329,7 +7329,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	snap->set_toggle_mode(true);
 	snap->set_pressed(true);
 
-	step = memnew(EditorSpinSlider);
+	step = memnewOld(EditorSpinSlider);
 	step->set_min(0);
 	step->set_max(1000000);
 	step->set_step(SECOND_DECIMAL);
@@ -7340,19 +7340,19 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	step->connect(SceneStringName(value_changed), callable_mp(this, &AnimationTrackEditor::_update_step));
 	step->set_read_only(true);
 
-	snap_mode = memnew(OptionButton);
+	snap_mode = memnewOld(OptionButton);
 	snap_mode->add_item(TTR("Seconds"));
 	snap_mode->add_item(TTR("FPS"));
 	bottom_hb->add_child(snap_mode);
 	snap_mode->connect(SceneStringName(item_selected), callable_mp(this, &AnimationTrackEditor::_snap_mode_changed));
 	snap_mode->set_disabled(true);
 
-	bottom_hb->add_child(memnew(VSeparator));
+	bottom_hb->add_child(memnewOld(VSeparator));
 
-	zoom_icon = memnew(TextureRect);
+	zoom_icon = memnewOld(TextureRect);
 	zoom_icon->set_v_size_flags(SIZE_SHRINK_CENTER);
 	bottom_hb->add_child(zoom_icon);
-	zoom = memnew(HSlider);
+	zoom = memnewOld(HSlider);
 	zoom->set_step(0.01);
 	zoom->set_min(0.0);
 	zoom->set_max(2.0);
@@ -7364,20 +7364,20 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	ED_SHORTCUT("animation_editor/auto_fit", TTR("Fit to panel"), KeyModifierMask::ALT | Key::F);
 
-	auto_fit = memnew(Button);
+	auto_fit = memnewOld(Button);
 	auto_fit->set_flat(true);
 	auto_fit->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_auto_fit));
 	auto_fit->set_shortcut(ED_GET_SHORTCUT("animation_editor/auto_fit"));
 	bottom_hb->add_child(auto_fit);
 
-	auto_fit_bezier = memnew(Button);
+	auto_fit_bezier = memnewOld(Button);
 	auto_fit_bezier->set_flat(true);
 	auto_fit_bezier->set_visible(false);
 	auto_fit_bezier->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_auto_fit_bezier));
 	auto_fit_bezier->set_shortcut(ED_GET_SHORTCUT("animation_editor/auto_fit"));
 	bottom_hb->add_child(auto_fit_bezier);
 
-	edit = memnew(MenuButton);
+	edit = memnewOld(MenuButton);
 	edit->set_shortcut_context(this);
 	edit->set_text(TTR("Edit"));
 	edit->set_flat(false);
@@ -7418,7 +7418,7 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	edit->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &AnimationTrackEditor::_edit_menu_pressed));
 	edit->get_popup()->connect("about_to_popup", callable_mp(this, &AnimationTrackEditor::_edit_menu_about_to_popup));
 
-	pick_track = memnew(SceneTreeDialog);
+	pick_track = memnewOld(SceneTreeDialog);
 	add_child(pick_track);
 	pick_track->register_text_enter(pick_track->get_filter_line_edit());
 	pick_track->set_title(TTR("Pick a node to animate:"));
@@ -7426,33 +7426,33 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	pick_track->get_filter_line_edit()->connect(SceneStringName(text_changed), callable_mp(this, &AnimationTrackEditor::_pick_track_filter_text_changed));
 	pick_track->get_filter_line_edit()->connect(SceneStringName(gui_input), callable_mp(this, &AnimationTrackEditor::_pick_track_filter_input));
 
-	prop_selector = memnew(PropertySelector);
+	prop_selector = memnewOld(PropertySelector);
 	add_child(prop_selector);
 	prop_selector->connect("selected", callable_mp(this, &AnimationTrackEditor::_new_track_property_selected));
 
-	method_selector = memnew(PropertySelector);
+	method_selector = memnewOld(PropertySelector);
 	add_child(method_selector);
 	method_selector->connect("selected", callable_mp(this, &AnimationTrackEditor::_add_method_key));
 
-	insert_confirm = memnew(ConfirmationDialog);
+	insert_confirm = memnewOld(ConfirmationDialog);
 	add_child(insert_confirm);
 	insert_confirm->connect(SceneStringName(confirmed), callable_mp(this, &AnimationTrackEditor::_confirm_insert_list));
-	VBoxContainer *icvb = memnew(VBoxContainer);
+	VBoxContainer *icvb = memnewOld(VBoxContainer);
 	insert_confirm->add_child(icvb);
-	insert_confirm_text = memnew(Label);
+	insert_confirm_text = memnewOld(Label);
 	icvb->add_child(insert_confirm_text);
-	HBoxContainer *ichb = memnew(HBoxContainer);
+	HBoxContainer *ichb = memnewOld(HBoxContainer);
 	icvb->add_child(ichb);
-	insert_confirm_bezier = memnew(CheckBox);
+	insert_confirm_bezier = memnewOld(CheckBox);
 	insert_confirm_bezier->set_text(TTR("Use Bezier Curves"));
 	insert_confirm_bezier->set_pressed(EDITOR_GET("editors/animation/default_create_bezier_tracks"));
 	ichb->add_child(insert_confirm_bezier);
-	insert_confirm_reset = memnew(CheckBox);
+	insert_confirm_reset = memnewOld(CheckBox);
 	insert_confirm_reset->set_text(TTR("Create RESET Track(s)", ""));
 	insert_confirm_reset->set_pressed(EDITOR_GET("editors/animation/default_create_reset_tracks"));
 	ichb->add_child(insert_confirm_reset);
 
-	box_selection = memnew(Control);
+	box_selection = memnewOld(Control);
 	add_child(box_selection);
 	box_selection->set_as_top_level(true);
 	box_selection->set_mouse_filter(MOUSE_FILTER_IGNORE);
@@ -7467,25 +7467,25 @@ AnimationTrackEditor::AnimationTrackEditor() {
 
 	// Dialogs.
 
-	optimize_dialog = memnew(ConfirmationDialog);
+	optimize_dialog = memnewOld(ConfirmationDialog);
 	add_child(optimize_dialog);
 	optimize_dialog->set_title(TTR("Animation Optimizer"));
-	VBoxContainer *optimize_vb = memnew(VBoxContainer);
+	VBoxContainer *optimize_vb = memnewOld(VBoxContainer);
 	optimize_dialog->add_child(optimize_vb);
 
-	optimize_velocity_error = memnew(SpinBox);
+	optimize_velocity_error = memnewOld(SpinBox);
 	optimize_velocity_error->set_max(1.0);
 	optimize_velocity_error->set_min(0.001);
 	optimize_velocity_error->set_step(0.001);
 	optimize_velocity_error->set_value(0.01);
 	optimize_vb->add_margin_child(TTR("Max Velocity Error:"), optimize_velocity_error);
-	optimize_angular_error = memnew(SpinBox);
+	optimize_angular_error = memnewOld(SpinBox);
 	optimize_angular_error->set_max(1.0);
 	optimize_angular_error->set_min(0.001);
 	optimize_angular_error->set_step(0.001);
 	optimize_angular_error->set_value(0.01);
 	optimize_vb->add_margin_child(TTR("Max Angular Error:"), optimize_angular_error);
-	optimize_precision_error = memnew(SpinBox);
+	optimize_precision_error = memnewOld(SpinBox);
 	optimize_precision_error->set_max(6);
 	optimize_precision_error->set_min(1);
 	optimize_precision_error->set_step(1);
@@ -7496,32 +7496,32 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	optimize_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationTrackEditor::_edit_menu_pressed).bind(EDIT_OPTIMIZE_ANIMATION_CONFIRM));
 
 	//
-	cleanup_dialog = memnew(ConfirmationDialog);
+	cleanup_dialog = memnewOld(ConfirmationDialog);
 	add_child(cleanup_dialog);
-	VBoxContainer *cleanup_vb = memnew(VBoxContainer);
+	VBoxContainer *cleanup_vb = memnewOld(VBoxContainer);
 	cleanup_dialog->add_child(cleanup_vb);
 
-	cleanup_keys_with_trimming_head = memnew(CheckBox);
+	cleanup_keys_with_trimming_head = memnewOld(CheckBox);
 	cleanup_keys_with_trimming_head->set_text(TTR("Trim keys placed in negative time"));
 	cleanup_keys_with_trimming_head->set_pressed(true);
 	cleanup_vb->add_child(cleanup_keys_with_trimming_head);
 
-	cleanup_keys_with_trimming_end = memnew(CheckBox);
+	cleanup_keys_with_trimming_end = memnewOld(CheckBox);
 	cleanup_keys_with_trimming_end->set_text(TTR("Trim keys placed exceed the animation length"));
 	cleanup_keys_with_trimming_end->set_pressed(true);
 	cleanup_vb->add_child(cleanup_keys_with_trimming_end);
 
-	cleanup_keys = memnew(CheckBox);
+	cleanup_keys = memnewOld(CheckBox);
 	cleanup_keys->set_text(TTR("Remove invalid keys"));
 	cleanup_keys->set_pressed(true);
 	cleanup_vb->add_child(cleanup_keys);
 
-	cleanup_tracks = memnew(CheckBox);
+	cleanup_tracks = memnewOld(CheckBox);
 	cleanup_tracks->set_text(TTR("Remove unresolved and empty tracks"));
 	cleanup_tracks->set_pressed(true);
 	cleanup_vb->add_child(cleanup_tracks);
 
-	cleanup_all = memnew(CheckBox);
+	cleanup_all = memnewOld(CheckBox);
 	cleanup_all->set_text(TTR("Clean-up all animations"));
 	cleanup_vb->add_child(cleanup_all);
 
@@ -7531,11 +7531,11 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	cleanup_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationTrackEditor::_edit_menu_pressed).bind(EDIT_CLEAN_UP_ANIMATION_CONFIRM));
 
 	//
-	scale_dialog = memnew(ConfirmationDialog);
-	VBoxContainer *vbc = memnew(VBoxContainer);
+	scale_dialog = memnewOld(ConfirmationDialog);
+	VBoxContainer *vbc = memnewOld(VBoxContainer);
 	scale_dialog->add_child(vbc);
 
-	scale = memnew(SpinBox);
+	scale = memnewOld(SpinBox);
 	scale->set_min(-99999);
 	scale->set_max(99999);
 	scale->set_step(0.001);
@@ -7544,14 +7544,14 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	add_child(scale_dialog);
 
 	//
-	ease_dialog = memnew(ConfirmationDialog);
+	ease_dialog = memnewOld(ConfirmationDialog);
 	ease_dialog->set_title(TTR("Select Transition and Easing"));
 	ease_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationTrackEditor::_edit_menu_pressed).bind(EDIT_EASE_CONFIRM));
 	add_child(ease_dialog);
-	GridContainer *ease_grid = memnew(GridContainer);
+	GridContainer *ease_grid = memnewOld(GridContainer);
 	ease_grid->set_columns(2);
 	ease_dialog->add_child(ease_grid);
-	transition_selection = memnew(OptionButton);
+	transition_selection = memnewOld(OptionButton);
 	transition_selection->add_item(TTR("Linear", "Transition Type"), Tween::TRANS_LINEAR);
 	transition_selection->add_item(TTR("Sine", "Transition Type"), Tween::TRANS_SINE);
 	transition_selection->add_item(TTR("Quint", "Transition Type"), Tween::TRANS_QUINT);
@@ -7566,68 +7566,68 @@ AnimationTrackEditor::AnimationTrackEditor() {
 	transition_selection->add_item(TTR("Spring", "Transition Type"), Tween::TRANS_SPRING);
 	transition_selection->select(Tween::TRANS_LINEAR); // Default
 	transition_selection->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED); // Translation context is needed.
-	ease_selection = memnew(OptionButton);
+	ease_selection = memnewOld(OptionButton);
 	ease_selection->add_item(TTR("In", "Ease Type"), Tween::EASE_IN);
 	ease_selection->add_item(TTR("Out", "Ease Type"), Tween::EASE_OUT);
 	ease_selection->add_item(TTR("InOut", "Ease Type"), Tween::EASE_IN_OUT);
 	ease_selection->add_item(TTR("OutIn", "Ease Type"), Tween::EASE_OUT_IN);
 	ease_selection->select(Tween::EASE_IN_OUT); // Default
 	ease_selection->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED); // Translation context is needed.
-	ease_fps = memnew(SpinBox);
+	ease_fps = memnewOld(SpinBox);
 	ease_fps->set_min(FPS_DECIMAL);
 	ease_fps->set_max(999);
 	ease_fps->set_step(FPS_DECIMAL);
 	ease_fps->set_value(30); // Default
-	ease_grid->add_child(memnew(Label(TTR("Transition Type:"))));
+	ease_grid->add_child(memnewOld(Label(TTR("Transition Type:"))));
 	ease_grid->add_child(transition_selection);
-	ease_grid->add_child(memnew(Label(TTR("Ease Type:"))));
+	ease_grid->add_child(memnewOld(Label(TTR("Ease Type:"))));
 	ease_grid->add_child(ease_selection);
-	ease_grid->add_child(memnew(Label(TTR("FPS:"))));
+	ease_grid->add_child(memnewOld(Label(TTR("FPS:"))));
 	ease_grid->add_child(ease_fps);
 
 	//
-	bake_dialog = memnew(ConfirmationDialog);
+	bake_dialog = memnewOld(ConfirmationDialog);
 	bake_dialog->set_title(TTR("Animation Baker"));
 	bake_dialog->connect(SceneStringName(confirmed), callable_mp(this, &AnimationTrackEditor::_edit_menu_pressed).bind(EDIT_BAKE_ANIMATION_CONFIRM));
 	add_child(bake_dialog);
-	GridContainer *bake_grid = memnew(GridContainer);
+	GridContainer *bake_grid = memnewOld(GridContainer);
 	bake_grid->set_columns(2);
 	bake_dialog->add_child(bake_grid);
-	bake_trs = memnew(CheckBox);
+	bake_trs = memnewOld(CheckBox);
 	bake_trs->set_pressed(true);
-	bake_blendshape = memnew(CheckBox);
+	bake_blendshape = memnewOld(CheckBox);
 	bake_blendshape->set_pressed(true);
-	bake_value = memnew(CheckBox);
+	bake_value = memnewOld(CheckBox);
 	bake_value->set_pressed(true);
-	bake_fps = memnew(SpinBox);
+	bake_fps = memnewOld(SpinBox);
 	bake_fps->set_min(FPS_DECIMAL);
 	bake_fps->set_max(999);
 	bake_fps->set_step(FPS_DECIMAL);
 	bake_fps->set_value(30); // Default
-	bake_grid->add_child(memnew(Label(TTR("3D Pos/Rot/Scl Track:"))));
+	bake_grid->add_child(memnewOld(Label(TTR("3D Pos/Rot/Scl Track:"))));
 	bake_grid->add_child(bake_trs);
-	bake_grid->add_child(memnew(Label(TTR("Blendshape Track:"))));
+	bake_grid->add_child(memnewOld(Label(TTR("Blendshape Track:"))));
 	bake_grid->add_child(bake_blendshape);
-	bake_grid->add_child(memnew(Label(TTR("Value Track:"))));
+	bake_grid->add_child(memnewOld(Label(TTR("Value Track:"))));
 	bake_grid->add_child(bake_value);
-	bake_grid->add_child(memnew(Label(TTR("FPS:"))));
+	bake_grid->add_child(memnewOld(Label(TTR("FPS:"))));
 	bake_grid->add_child(bake_fps);
 
 	//
-	track_copy_dialog = memnew(ConfirmationDialog);
+	track_copy_dialog = memnewOld(ConfirmationDialog);
 	add_child(track_copy_dialog);
 	track_copy_dialog->set_title(TTR("Select Tracks to Copy"));
 	track_copy_dialog->set_ok_button_text(TTR("Copy"));
 
-	VBoxContainer *track_copy_vbox = memnew(VBoxContainer);
+	VBoxContainer *track_copy_vbox = memnewOld(VBoxContainer);
 	track_copy_dialog->add_child(track_copy_vbox);
 
-	Button *select_all_button = memnew(Button);
+	Button *select_all_button = memnewOld(Button);
 	select_all_button->set_text(TTR("Select All/None"));
 	select_all_button->connect(SceneStringName(pressed), callable_mp(this, &AnimationTrackEditor::_select_all_tracks_for_copy));
 	track_copy_vbox->add_child(select_all_button);
 
-	track_copy_select = memnew(Tree);
+	track_copy_select = memnewOld(Tree);
 	track_copy_select->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	track_copy_select->set_h_size_flags(SIZE_EXPAND_FILL);
 	track_copy_select->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -7714,7 +7714,7 @@ AnimationTrackKeyEditEditor::AnimationTrackKeyEditEditor(Ref<Animation> p_animat
 
 	set_label("Time");
 
-	spinner = memnew(EditorSpinSlider);
+	spinner = memnewOld(EditorSpinSlider);
 	spinner->set_focus_mode(Control::FOCUS_CLICK);
 	spinner->set_min(0);
 	spinner->set_allow_greater(true);

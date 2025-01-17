@@ -206,19 +206,19 @@ void GPUParticles3DEditorBase::_bind_methods() {
 }
 
 GPUParticles3DEditorBase::GPUParticles3DEditorBase() {
-	emission_dialog = memnew(ConfirmationDialog);
+	emission_dialog = memnewOld(ConfirmationDialog);
 	emission_dialog->set_title(TTR("Create Emitter"));
 	add_child(emission_dialog);
-	VBoxContainer *emd_vb = memnew(VBoxContainer);
+	VBoxContainer *emd_vb = memnewOld(VBoxContainer);
 	emission_dialog->add_child(emd_vb);
 
-	emission_amount = memnew(SpinBox);
+	emission_amount = memnewOld(SpinBox);
 	emission_amount->set_min(1);
 	emission_amount->set_max(100000);
 	emission_amount->set_value(512);
 	emd_vb->add_margin_child(TTR("Emission Points:"), emission_amount);
 
-	emission_fill = memnew(OptionButton);
+	emission_fill = memnewOld(OptionButton);
 	emission_fill->add_item(TTR("Surface Points"));
 	emission_fill->add_item(TTR("Surface Points+Normal (Directed)"));
 	emission_fill->add_item(TTR("Volume"));
@@ -227,7 +227,7 @@ GPUParticles3DEditorBase::GPUParticles3DEditorBase() {
 	emission_dialog->set_ok_button_text(TTR("Create"));
 	emission_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GPUParticles3DEditorBase::_generate_emission_points));
 
-	emission_tree_dialog = memnew(SceneTreeDialog);
+	emission_tree_dialog = memnewOld(SceneTreeDialog);
 	Vector<StringName> valid_types;
 	valid_types.push_back("MeshInstance3D");
 	emission_tree_dialog->set_valid_types(valid_types);
@@ -276,7 +276,7 @@ void GPUParticles3DEditor::_menu_option(int p_option) {
 
 		} break;
 		case MENU_OPTION_CONVERT_TO_CPU_PARTICLES: {
-			CPUParticles3D *cpu_particles = memnew(CPUParticles3D);
+			CPUParticles3D *cpu_particles = memnewOld(CPUParticles3D);
 			cpu_particles->convert_from_particles(node);
 			cpu_particles->set_name(node->get_name());
 			cpu_particles->set_transform(node->get_transform());
@@ -371,7 +371,7 @@ void GPUParticles3DEditor::_generate_emission_points() {
 		}
 	}
 
-	Ref<Image> image = memnew(Image(w, h, false, Image::FORMAT_RGBF, point_img));
+	Ref<Image> image = memnewOld(Image(w, h, false, Image::FORMAT_RGBF, point_img));
 	Ref<ImageTexture> tex = ImageTexture::create_from_image(image);
 
 	Ref<ParticleProcessMaterial> mat = node->get_process_material();
@@ -397,7 +397,7 @@ void GPUParticles3DEditor::_generate_emission_points() {
 			}
 		}
 
-		Ref<Image> image2 = memnew(Image(w, h, false, Image::FORMAT_RGBF, point_img2));
+		Ref<Image> image2 = memnewOld(Image(w, h, false, Image::FORMAT_RGBF, point_img2));
 		mat->set_emission_normal_texture(ImageTexture::create_from_image(image2));
 	} else {
 		mat->set_emission_shape(ParticleProcessMaterial::EMISSION_SHAPE_POINTS);
@@ -411,9 +411,9 @@ void GPUParticles3DEditor::_bind_methods() {
 
 GPUParticles3DEditor::GPUParticles3DEditor() {
 	node = nullptr;
-	particles_editor_hb = memnew(HBoxContainer);
+	particles_editor_hb = memnewOld(HBoxContainer);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(particles_editor_hb);
-	options = memnew(MenuButton);
+	options = memnewOld(MenuButton);
 	options->set_switch_on_hover(true);
 	particles_editor_hb->add_child(options);
 	particles_editor_hb->hide();
@@ -426,11 +426,11 @@ GPUParticles3DEditor::GPUParticles3DEditor() {
 
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &GPUParticles3DEditor::_menu_option));
 
-	generate_aabb = memnew(ConfirmationDialog);
+	generate_aabb = memnewOld(ConfirmationDialog);
 	generate_aabb->set_title(TTR("Generate Visibility AABB"));
-	VBoxContainer *genvb = memnew(VBoxContainer);
+	VBoxContainer *genvb = memnewOld(VBoxContainer);
 	generate_aabb->add_child(genvb);
-	generate_seconds = memnew(SpinBox);
+	generate_seconds = memnewOld(SpinBox);
 	genvb->add_margin_child(TTR("Generation Time (sec):"), generate_seconds);
 	generate_seconds->set_min(0.1);
 	generate_seconds->set_max(25);
@@ -461,7 +461,7 @@ void GPUParticles3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 GPUParticles3DEditorPlugin::GPUParticles3DEditorPlugin() {
-	particles_editor = memnew(GPUParticles3DEditor);
+	particles_editor = memnewOld(GPUParticles3DEditor);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(particles_editor);
 
 	particles_editor->hide();

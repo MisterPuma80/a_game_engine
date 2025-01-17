@@ -1587,7 +1587,7 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 
 	if (p_rendering_driver == "vulkan") {
 #ifdef VULKAN_ENABLED
-		graphics_extension = memnew(OpenXRVulkanExtension);
+		graphics_extension = memnewOld(OpenXRVulkanExtension);
 		register_extension_wrapper(graphics_extension);
 #else
 		// shouldn't be possible...
@@ -1595,7 +1595,7 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 #endif
 	} else if (p_rendering_driver == "opengl3") {
 #if defined(GLES3_ENABLED) && !defined(MACOS_ENABLED)
-		graphics_extension = memnew(OpenXROpenGLExtension);
+		graphics_extension = memnewOld(OpenXROpenGLExtension);
 		register_extension_wrapper(graphics_extension);
 #else
 		// shouldn't be possible...
@@ -1606,8 +1606,8 @@ bool OpenXRAPI::initialize(const String &p_rendering_driver) {
 	}
 
 	// Also register our rendering extensions
-	register_extension_wrapper(memnew(OpenXRFBUpdateSwapchainExtension(p_rendering_driver)));
-	register_extension_wrapper(memnew(OpenXRFBFoveationExtension(p_rendering_driver)));
+	register_extension_wrapper(memnewOld(OpenXRFBUpdateSwapchainExtension(p_rendering_driver)));
+	register_extension_wrapper(memnewOld(OpenXRFBFoveationExtension(p_rendering_driver)));
 
 	// initialize
 	for (OpenXRExtensionWrapper *wrapper : registered_extension_wrappers) {

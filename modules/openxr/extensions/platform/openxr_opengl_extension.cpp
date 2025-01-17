@@ -226,7 +226,7 @@ bool OpenXROpenGLExtension::get_swapchain_image_data(XrSwapchain p_swapchain, in
 		return false;
 	}
 
-	SwapchainGraphicsData *data = memnew(SwapchainGraphicsData);
+	SwapchainGraphicsData *data = memnewOld(SwapchainGraphicsData);
 	if (data == nullptr) {
 		print_line("OpenXR: Failed to allocate memory for swapchain data");
 		memfree(images);

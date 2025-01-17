@@ -119,7 +119,7 @@ bool OpenXRCompositionLayer::_should_use_fallback_node() {
 
 void OpenXRCompositionLayer::_create_fallback_node() {
 	ERR_FAIL_COND(fallback);
-	fallback = memnew(MeshInstance3D);
+	fallback = memnewOld(MeshInstance3D);
 	fallback->set_cast_shadows_setting(GeometryInstance3D::SHADOW_CASTING_SETTING_OFF);
 	add_child(fallback, false, INTERNAL_MODE_FRONT);
 	should_update_fallback_mesh = true;

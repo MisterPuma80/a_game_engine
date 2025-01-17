@@ -211,7 +211,7 @@ void NavMeshGenerator2D::bake_from_source_geometry_data_async(Ref<NavigationPoly
 	baking_navmesh_mutex.unlock();
 
 	MutexLock generator_task_lock(generator_task_mutex);
-	NavMeshGeneratorTask2D *generator_task = memnew(NavMeshGeneratorTask2D);
+	NavMeshGeneratorTask2D *generator_task = memnewOld(NavMeshGeneratorTask2D);
 	generator_task->navigation_mesh = p_navigation_mesh;
 	generator_task->source_geometry_data = p_source_geometry_data;
 	generator_task->callback = p_callback;

@@ -37,7 +37,7 @@
 #endif
 
 LightmapRaycaster *LightmapRaycasterEmbree::create_embree_raycaster() {
-	return memnew(LightmapRaycasterEmbree);
+	return memnewOld(LightmapRaycasterEmbree);
 }
 
 void LightmapRaycasterEmbree::make_default_raycaster() {

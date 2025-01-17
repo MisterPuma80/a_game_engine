@@ -98,7 +98,7 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 	return p_obj;
 }
 
-#define memnew(m_class) _post_initialize(new ("") m_class)
+#define memnewOld(m_class) _post_initialize(new ("") m_class)
 
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
@@ -217,7 +217,7 @@ template <typename T>
 class DefaultTypedAllocator {
 public:
 	template <typename... Args>
-	_FORCE_INLINE_ T *new_allocation(const Args &&...p_args) { return memnew(T(p_args...)); }
+	_FORCE_INLINE_ T *new_allocation(const Args &&...p_args) { return memnewOld(T(p_args...)); }
 	_FORCE_INLINE_ void delete_allocation(T *p_allocation) { memdelete(p_allocation); }
 };
 

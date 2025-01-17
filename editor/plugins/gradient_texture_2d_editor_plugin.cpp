@@ -222,7 +222,7 @@ void GradientTexture2DEdit::_draw() {
 }
 
 GradientTexture2DEdit::GradientTexture2DEdit() {
-	checkerboard = memnew(TextureRect);
+	checkerboard = memnewOld(TextureRect);
 	checkerboard->set_stretch_mode(TextureRect::STRETCH_TILE);
 	checkerboard->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	checkerboard->set_draw_behind_parent(true);
@@ -277,23 +277,23 @@ void GradientTexture2DEditor::_notification(int p_what) {
 }
 
 GradientTexture2DEditor::GradientTexture2DEditor() {
-	HFlowContainer *toolbar = memnew(HFlowContainer);
+	HFlowContainer *toolbar = memnewOld(HFlowContainer);
 	add_child(toolbar);
 
-	reverse_button = memnew(Button);
+	reverse_button = memnewOld(Button);
 	reverse_button->set_tooltip_text(TTR("Swap Gradient Fill Points"));
 	toolbar->add_child(reverse_button);
 	reverse_button->connect(SceneStringName(pressed), callable_mp(this, &GradientTexture2DEditor::_reverse_button_pressed));
 
-	toolbar->add_child(memnew(VSeparator));
+	toolbar->add_child(memnewOld(VSeparator));
 
-	snap_button = memnew(Button);
+	snap_button = memnewOld(Button);
 	snap_button->set_tooltip_text(TTR("Toggle Grid Snap"));
 	snap_button->set_toggle_mode(true);
 	toolbar->add_child(snap_button);
 	snap_button->connect("toggled", callable_mp(this, &GradientTexture2DEditor::_set_snap_enabled));
 
-	snap_count_edit = memnew(EditorSpinSlider);
+	snap_count_edit = memnewOld(EditorSpinSlider);
 	snap_count_edit->set_min(2);
 	snap_count_edit->set_max(100);
 	snap_count_edit->set_value(DEFAULT_SNAP);
@@ -301,7 +301,7 @@ GradientTexture2DEditor::GradientTexture2DEditor() {
 	toolbar->add_child(snap_count_edit);
 	snap_count_edit->connect(SceneStringName(value_changed), callable_mp(this, &GradientTexture2DEditor::_set_snap_count));
 
-	texture_editor_rect = memnew(GradientTexture2DEdit);
+	texture_editor_rect = memnewOld(GradientTexture2DEdit);
 	add_child(texture_editor_rect);
 
 	set_mouse_filter(MOUSE_FILTER_STOP);
@@ -322,7 +322,7 @@ void EditorInspectorPluginGradientTexture2D::parse_begin(Object *p_object) {
 	}
 	Ref<GradientTexture2D> t(texture);
 
-	GradientTexture2DEditor *editor = memnew(GradientTexture2DEditor);
+	GradientTexture2DEditor *editor = memnewOld(GradientTexture2DEditor);
 	editor->set_texture(t);
 	add_custom_control(editor);
 }

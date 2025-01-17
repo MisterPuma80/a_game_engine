@@ -429,6 +429,6 @@ void TouchScreenButton::_bind_methods() {
 }
 
 TouchScreenButton::TouchScreenButton() {
-	unit_rect = Ref<RectangleShape2D>(memnew(RectangleShape2D));
+	unit_rect = Ref<RectangleShape2D>(memnewOld(RectangleShape2D));
 	unit_rect->set_size(Vector2(1, 1));
 }

@@ -465,7 +465,7 @@ CallQueue::CallQueue(Allocator *p_custom_allocator, uint32_t p_max_pages, const 
 		allocator = p_custom_allocator;
 		allocator_is_custom = true;
 	} else {
-		allocator = memnew(Allocator(16)); // 16 elements per allocator page, 64kb per allocator page. Anything small will do, though.
+		allocator = memnewOld(Allocator(16)); // 16 elements per allocator page, 64kb per allocator page. Anything small will do, though.
 		allocator_is_custom = false;
 	}
 	max_pages = p_max_pages;

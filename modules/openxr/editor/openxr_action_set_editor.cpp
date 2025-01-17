@@ -69,7 +69,7 @@ void OpenXRActionSetEditor::_notification(int p_what) {
 }
 
 OpenXRActionEditor *OpenXRActionSetEditor::_add_action_editor(Ref<OpenXRAction> p_action) {
-	OpenXRActionEditor *action_editor = memnew(OpenXRActionEditor(p_action));
+	OpenXRActionEditor *action_editor = memnewOld(OpenXRActionEditor(p_action));
 	action_editor->connect("remove", callable_mp(this, &OpenXRActionSetEditor::_on_remove_action));
 	actions_vb->add_child(action_editor);
 
@@ -219,60 +219,60 @@ OpenXRActionSetEditor::OpenXRActionSetEditor(Ref<OpenXRActionMap> p_action_map, 
 
 	set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	panel = memnew(PanelContainer);
+	panel = memnewOld(PanelContainer);
 	panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(panel);
 
-	HBoxContainer *panel_hb = memnew(HBoxContainer);
+	HBoxContainer *panel_hb = memnewOld(HBoxContainer);
 	panel_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	panel->add_child(panel_hb);
 
-	fold_btn = memnew(Button);
+	fold_btn = memnewOld(Button);
 	fold_btn->set_v_size_flags(Control::SIZE_SHRINK_BEGIN);
 	fold_btn->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionSetEditor::_on_toggle_expand));
 	fold_btn->set_flat(true);
 	panel_hb->add_child(fold_btn);
 
-	main_vb = memnew(VBoxContainer);
+	main_vb = memnewOld(VBoxContainer);
 	main_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	panel_hb->add_child(main_vb);
 
-	action_set_hb = memnew(HBoxContainer);
+	action_set_hb = memnewOld(HBoxContainer);
 	action_set_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_vb->add_child(action_set_hb);
 
-	action_set_name = memnew(LineEdit);
+	action_set_name = memnewOld(LineEdit);
 	action_set_name->set_text(action_set->get_name());
 	action_set_name->set_custom_minimum_size(Size2(150.0, 0.0));
 	action_set_name->connect(SceneStringName(text_changed), callable_mp(this, &OpenXRActionSetEditor::_on_action_set_name_changed));
 	action_set_hb->add_child(action_set_name);
 
-	action_set_localized_name = memnew(LineEdit);
+	action_set_localized_name = memnewOld(LineEdit);
 	action_set_localized_name->set_text(action_set->get_localized_name());
 	action_set_localized_name->set_custom_minimum_size(Size2(150.0, 0.0));
 	action_set_localized_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	action_set_localized_name->connect(SceneStringName(text_changed), callable_mp(this, &OpenXRActionSetEditor::_on_action_set_localized_name_changed));
 	action_set_hb->add_child(action_set_localized_name);
 
-	action_set_priority = memnew(TextEdit);
+	action_set_priority = memnewOld(TextEdit);
 	action_set_priority->set_text(itos(action_set->get_priority()));
 	action_set_priority->set_custom_minimum_size(Size2(50.0, 0.0));
 	action_set_priority->connect(SceneStringName(text_changed), callable_mp(this, &OpenXRActionSetEditor::_on_action_set_priority_changed));
 	action_set_hb->add_child(action_set_priority);
 
-	add_action = memnew(Button);
+	add_action = memnewOld(Button);
 	add_action->set_tooltip_text(TTR("Add action."));
 	add_action->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionSetEditor::_on_add_action));
 	add_action->set_flat(true);
 	action_set_hb->add_child(add_action);
 
-	rem_action_set = memnew(Button);
+	rem_action_set = memnewOld(Button);
 	rem_action_set->set_tooltip_text(TTR("Remove action set."));
 	rem_action_set->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionSetEditor::_on_remove_action_set));
 	rem_action_set->set_flat(true);
 	action_set_hb->add_child(rem_action_set);
 
-	actions_vb = memnew(VBoxContainer);
+	actions_vb = memnewOld(VBoxContainer);
 	actions_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_vb->add_child(actions_vb);
 

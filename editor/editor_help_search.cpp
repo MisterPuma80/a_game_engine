@@ -147,7 +147,7 @@ void EditorHelpSearch::_update_results() {
 		search_flags |= SEARCH_SHOW_HIERARCHY;
 	}
 
-	search = Ref<Runner>(memnew(Runner(results_tree, results_tree, &tree_cache, term, search_flags)));
+	search = Ref<Runner>(memnewOld(Runner(results_tree, results_tree, &tree_cache, term, search_flags)));
 	set_process(true);
 }
 
@@ -307,14 +307,14 @@ EditorHelpSearch::EditorHelpSearch() {
 	set_ok_button_text(TTR("Open"));
 
 	// Split search and results area.
-	VBoxContainer *vbox = memnew(VBoxContainer);
+	VBoxContainer *vbox = memnewOld(VBoxContainer);
 	add_child(vbox);
 
 	// Create the search box and filter controls (at the top).
-	HBoxContainer *hbox = memnew(HBoxContainer);
+	HBoxContainer *hbox = memnewOld(HBoxContainer);
 	vbox->add_child(hbox);
 
-	search_box = memnew(LineEdit);
+	search_box = memnewOld(LineEdit);
 	search_box->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	search_box->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search_box->set_clear_button_enabled(true);
@@ -323,7 +323,7 @@ EditorHelpSearch::EditorHelpSearch() {
 	register_text_enter(search_box);
 	hbox->add_child(search_box);
 
-	case_sensitive_button = memnew(Button);
+	case_sensitive_button = memnewOld(Button);
 	case_sensitive_button->set_theme_type_variation("FlatButton");
 	case_sensitive_button->set_tooltip_text(TTR("Case Sensitive"));
 	case_sensitive_button->connect(SceneStringName(pressed), callable_mp(this, &EditorHelpSearch::_update_results));
@@ -331,7 +331,7 @@ EditorHelpSearch::EditorHelpSearch() {
 	case_sensitive_button->set_focus_mode(Control::FOCUS_NONE);
 	hbox->add_child(case_sensitive_button);
 
-	hierarchy_button = memnew(Button);
+	hierarchy_button = memnewOld(Button);
 	hierarchy_button->set_theme_type_variation("FlatButton");
 	hierarchy_button->set_tooltip_text(TTR("Show Hierarchy"));
 	hierarchy_button->connect(SceneStringName(pressed), callable_mp(this, &EditorHelpSearch::_update_results));
@@ -340,7 +340,7 @@ EditorHelpSearch::EditorHelpSearch() {
 	hierarchy_button->set_focus_mode(Control::FOCUS_NONE);
 	hbox->add_child(hierarchy_button);
 
-	filter_combo = memnew(OptionButton);
+	filter_combo = memnewOld(OptionButton);
 	filter_combo->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
 	filter_combo->set_stretch_ratio(0); // Fixed width.
 	filter_combo->add_item(TTR("Display All"), SEARCH_ALL);
@@ -358,7 +358,7 @@ EditorHelpSearch::EditorHelpSearch() {
 	hbox->add_child(filter_combo);
 
 	// Create the results tree.
-	results_tree = memnew(Tree);
+	results_tree = memnewOld(Tree);
 	results_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	results_tree->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	results_tree->set_columns(2);

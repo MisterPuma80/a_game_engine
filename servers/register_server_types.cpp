@@ -107,12 +107,12 @@ ShaderTypes *shader_types = nullptr;
 
 #ifndef _3D_DISABLED
 static PhysicsServer3D *_create_dummy_physics_server_3d() {
-	return memnew(PhysicsServer3DDummy);
+	return memnewOld(PhysicsServer3DDummy);
 }
 #endif // _3D_DISABLED
 
 static PhysicsServer2D *_create_dummy_physics_server_2d() {
-	return memnew(PhysicsServer2DDummy);
+	return memnewOld(PhysicsServer2DDummy);
 }
 
 static bool has_server_feature_callback(const String &p_feature) {
@@ -131,7 +131,7 @@ static MovieWriterPNGWAV *writer_pngwav = nullptr;
 void register_server_types() {
 	OS::get_singleton()->benchmark_begin_measure("Servers", "Register Extensions");
 
-	shader_types = memnew(ShaderTypes);
+	shader_types = memnewOld(ShaderTypes);
 
 	GDREGISTER_CLASS(TextServerManager);
 	GDREGISTER_ABSTRACT_CLASS(TextServer);
@@ -325,10 +325,10 @@ void register_server_types() {
 	GDREGISTER_CLASS(NavigationPathQueryParameters3D);
 	GDREGISTER_CLASS(NavigationPathQueryResult3D);
 
-	writer_mjpeg = memnew(MovieWriterMJPEG);
+	writer_mjpeg = memnewOld(MovieWriterMJPEG);
 	MovieWriter::add_writer(writer_mjpeg);
 
-	writer_pngwav = memnew(MovieWriterPNGWAV);
+	writer_pngwav = memnewOld(MovieWriterPNGWAV);
 	MovieWriter::add_writer(writer_pngwav);
 
 	OS::get_singleton()->benchmark_end_measure("Servers", "Register Extensions");

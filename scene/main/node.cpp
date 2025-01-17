@@ -2302,7 +2302,7 @@ NodePath Node::get_path() const {
 
 	path.reverse();
 
-	data.path_cache = memnew(NodePath(path, true));
+	data.path_cache = memnewOld(NodePath(path, true));
 
 	return *data.path_cache;
 }
@@ -2672,7 +2672,7 @@ Node *Node::_duplicate(int p_flags, HashMap<const Node *, Node *> *r_duplimap) c
 
 	if (Object::cast_to<InstancePlaceholder>(this)) {
 		const InstancePlaceholder *ip = Object::cast_to<const InstancePlaceholder>(this);
-		InstancePlaceholder *nip = memnew(InstancePlaceholder);
+		InstancePlaceholder *nip = memnewOld(InstancePlaceholder);
 		nip->set_instance_path(ip->get_instance_path());
 		node = nip;
 

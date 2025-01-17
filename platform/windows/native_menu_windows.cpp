@@ -120,7 +120,7 @@ RID NativeMenuWindows::get_system_menu(SystemMenus p_menu_id) const {
 }
 
 RID NativeMenuWindows::create_menu() {
-	MenuData *md = memnew(MenuData);
+	MenuData *md = memnewOld(MenuData);
 	md->menu = CreatePopupMenu();
 
 	MENUINFO menu_info;
@@ -235,7 +235,7 @@ int NativeMenuWindows::add_submenu_item(const RID &p_rid, const String &p_label,
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_NONE;
 	item_data->max_states = 0;
@@ -268,7 +268,7 @@ int NativeMenuWindows::add_item(const RID &p_rid, const String &p_label, const C
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_NONE;
@@ -301,7 +301,7 @@ int NativeMenuWindows::add_check_item(const RID &p_rid, const String &p_label, c
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_CHECK_BOX;
@@ -334,7 +334,7 @@ int NativeMenuWindows::add_icon_item(const RID &p_rid, const Ref<Texture2D> &p_i
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_NONE;
@@ -376,7 +376,7 @@ int NativeMenuWindows::add_icon_check_item(const RID &p_rid, const Ref<Texture2D
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_CHECK_BOX;
@@ -418,7 +418,7 @@ int NativeMenuWindows::add_radio_check_item(const RID &p_rid, const String &p_la
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_RADIO_BUTTON;
@@ -451,7 +451,7 @@ int NativeMenuWindows::add_icon_radio_check_item(const RID &p_rid, const Ref<Tex
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_RADIO_BUTTON;
@@ -493,7 +493,7 @@ int NativeMenuWindows::add_multistate_item(const RID &p_rid, const String &p_lab
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->callback = p_callback;
 	item_data->meta = p_tag;
 	item_data->checkable_type = CHECKABLE_TYPE_NONE;
@@ -526,7 +526,7 @@ int NativeMenuWindows::add_separator(const RID &p_rid, int p_index) {
 		p_index = CLAMP(p_index, 0, GetMenuItemCount(md->menu));
 	}
 
-	MenuItemData *item_data = memnew(MenuItemData);
+	MenuItemData *item_data = memnewOld(MenuItemData);
 	item_data->checkable_type = CHECKABLE_TYPE_NONE;
 	item_data->max_states = 0;
 	item_data->state = 0;

@@ -40,7 +40,7 @@ Ref<Resource> TranslationLoaderPO::load_translation(Ref<FileAccess> f, Error *r_
 	}
 
 	const String path = f->get_path();
-	Ref<TranslationPO> translation = Ref<TranslationPO>(memnew(TranslationPO));
+	Ref<TranslationPO> translation = Ref<TranslationPO>(memnewOld(TranslationPO));
 	String config;
 
 	uint32_t magic = f->get_32();

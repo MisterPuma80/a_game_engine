@@ -1195,7 +1195,7 @@ void GodotSoftBody3D::update_face_tree(real_t p_delta) {
 
 void GodotSoftBody3D::initialize_shape(bool p_force_move) {
 	if (get_shape_count() == 0) {
-		GodotSoftBodyShape3D *soft_body_shape = memnew(GodotSoftBodyShape3D(this));
+		GodotSoftBodyShape3D *soft_body_shape = memnewOld(GodotSoftBodyShape3D(this));
 		add_shape(soft_body_shape);
 	} else if (p_force_move) {
 		GodotSoftBodyShape3D *soft_body_shape = static_cast<GodotSoftBodyShape3D *>(get_shape(0));

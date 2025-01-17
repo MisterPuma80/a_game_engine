@@ -612,92 +612,92 @@ void LocalizationEditor::_bind_methods() {
 LocalizationEditor::LocalizationEditor() {
 	localization_changed = "localization_changed";
 
-	TabContainer *translations = memnew(TabContainer);
+	TabContainer *translations = memnewOld(TabContainer);
 	translations->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(translations);
 
 	{
-		VBoxContainer *tvb = memnew(VBoxContainer);
+		VBoxContainer *tvb = memnewOld(VBoxContainer);
 		tvb->set_name(TTR("Translations"));
 		translations->add_child(tvb);
 
-		HBoxContainer *thb = memnew(HBoxContainer);
-		Label *l = memnew(Label(TTR("Translations:")));
+		HBoxContainer *thb = memnewOld(HBoxContainer);
+		Label *l = memnewOld(Label(TTR("Translations:")));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnew(Button(TTR("Add...")));
+		Button *addtr = memnewOld(Button(TTR("Add...")));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_file_open));
 		thb->add_child(addtr);
 
-		VBoxContainer *tmc = memnew(VBoxContainer);
+		VBoxContainer *tmc = memnewOld(VBoxContainer);
 		tmc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tvb->add_child(tmc);
 
-		translation_list = memnew(Tree);
+		translation_list = memnewOld(Tree);
 		translation_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tmc->add_child(translation_list);
 
-		locale_select = memnew(EditorLocaleDialog);
+		locale_select = memnewOld(EditorLocaleDialog);
 		locale_select->connect("locale_selected", callable_mp(this, &LocalizationEditor::_translation_res_option_selected));
 		add_child(locale_select);
 
-		translation_file_open = memnew(EditorFileDialog);
+		translation_file_open = memnewOld(EditorFileDialog);
 		translation_file_open->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 		translation_file_open->connect("files_selected", callable_mp(this, &LocalizationEditor::_translation_add));
 		add_child(translation_file_open);
 	}
 
 	{
-		VBoxContainer *tvb = memnew(VBoxContainer);
+		VBoxContainer *tvb = memnewOld(VBoxContainer);
 		tvb->set_name(TTR("Remaps"));
 		translations->add_child(tvb);
 
-		HBoxContainer *thb = memnew(HBoxContainer);
-		Label *l = memnew(Label(TTR("Resources:")));
+		HBoxContainer *thb = memnewOld(HBoxContainer);
+		Label *l = memnewOld(Label(TTR("Resources:")));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnew(Button(TTR("Add...")));
+		Button *addtr = memnewOld(Button(TTR("Add...")));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_res_file_open));
 		thb->add_child(addtr);
 
-		VBoxContainer *tmc = memnew(VBoxContainer);
+		VBoxContainer *tmc = memnewOld(VBoxContainer);
 		tmc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tvb->add_child(tmc);
 
-		translation_remap = memnew(Tree);
+		translation_remap = memnewOld(Tree);
 		translation_remap->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		translation_remap->connect("cell_selected", callable_mp(this, &LocalizationEditor::_translation_res_select));
 		translation_remap->connect("button_clicked", callable_mp(this, &LocalizationEditor::_translation_res_delete));
 		tmc->add_child(translation_remap);
 
-		translation_res_file_open_dialog = memnew(EditorFileDialog);
+		translation_res_file_open_dialog = memnewOld(EditorFileDialog);
 		translation_res_file_open_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 		translation_res_file_open_dialog->connect("files_selected", callable_mp(this, &LocalizationEditor::_translation_res_add));
 		add_child(translation_res_file_open_dialog);
 
-		thb = memnew(HBoxContainer);
-		l = memnew(Label(TTR("Remaps by Locale:")));
+		thb = memnewOld(HBoxContainer);
+		l = memnewOld(Label(TTR("Remaps by Locale:")));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		addtr = memnew(Button(TTR("Add...")));
+		addtr = memnewOld(Button(TTR("Add...")));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_translation_res_option_file_open));
 		translation_res_option_add_button = addtr;
 		thb->add_child(addtr);
 
-		tmc = memnew(VBoxContainer);
+		tmc = memnewOld(VBoxContainer);
 		tmc->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tvb->add_child(tmc);
 
-		translation_remap_options = memnew(Tree);
+		translation_remap_options = memnewOld(Tree);
 		translation_remap_options->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		translation_remap_options->set_columns(2);
 		translation_remap_options->set_column_title(0, TTR("Path"));
@@ -713,47 +713,47 @@ LocalizationEditor::LocalizationEditor() {
 		translation_remap_options->connect("custom_popup_edited", callable_mp(this, &LocalizationEditor::_translation_res_option_popup));
 		tmc->add_child(translation_remap_options);
 
-		translation_res_option_file_open_dialog = memnew(EditorFileDialog);
+		translation_res_option_file_open_dialog = memnewOld(EditorFileDialog);
 		translation_res_option_file_open_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 		translation_res_option_file_open_dialog->connect("files_selected", callable_mp(this, &LocalizationEditor::_translation_res_option_add));
 		add_child(translation_res_option_file_open_dialog);
 	}
 
 	{
-		VBoxContainer *tvb = memnew(VBoxContainer);
+		VBoxContainer *tvb = memnewOld(VBoxContainer);
 		tvb->set_name(TTR("POT Generation"));
 		translations->add_child(tvb);
 
-		HBoxContainer *thb = memnew(HBoxContainer);
-		Label *l = memnew(Label(TTR("Files with translation strings:")));
+		HBoxContainer *thb = memnewOld(HBoxContainer);
+		Label *l = memnewOld(Label(TTR("Files with translation strings:")));
 		l->set_theme_type_variation("HeaderSmall");
 		thb->add_child(l);
 		thb->add_spacer();
 		tvb->add_child(thb);
 
-		Button *addtr = memnew(Button(TTR("Add...")));
+		Button *addtr = memnewOld(Button(TTR("Add...")));
 		addtr->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_file_open));
 		thb->add_child(addtr);
 
-		pot_generate_button = memnew(Button(TTR("Generate POT")));
+		pot_generate_button = memnewOld(Button(TTR("Generate POT")));
 		pot_generate_button->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_generate_open));
 		thb->add_child(pot_generate_button);
 
-		translation_pot_list = memnew(Tree);
+		translation_pot_list = memnewOld(Tree);
 		translation_pot_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 		tvb->add_child(translation_pot_list);
 
-		translation_pot_add_builtin = memnew(CheckBox(TTR("Add Built-in Strings to POT")));
+		translation_pot_add_builtin = memnewOld(CheckBox(TTR("Add Built-in Strings to POT")));
 		translation_pot_add_builtin->set_tooltip_text(TTR("Add strings from built-in components such as certain Control nodes."));
 		translation_pot_add_builtin->connect(SceneStringName(pressed), callable_mp(this, &LocalizationEditor::_pot_add_builtin_toggled));
 		tvb->add_child(translation_pot_add_builtin);
 
-		pot_generate_dialog = memnew(EditorFileDialog);
+		pot_generate_dialog = memnewOld(EditorFileDialog);
 		pot_generate_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 		pot_generate_dialog->connect("file_selected", callable_mp(this, &LocalizationEditor::_pot_generate));
 		add_child(pot_generate_dialog);
 
-		pot_file_open_dialog = memnew(EditorFileDialog);
+		pot_file_open_dialog = memnewOld(EditorFileDialog);
 		pot_file_open_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 		pot_file_open_dialog->connect("files_selected", callable_mp(this, &LocalizationEditor::_pot_add));
 		add_child(pot_file_open_dialog);

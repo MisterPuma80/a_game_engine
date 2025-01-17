@@ -53,7 +53,7 @@ RenderingContextDriver::SurfaceID RenderingContextDriverVulkanIOS::surface_creat
 	VkResult err = vkCreateMetalSurfaceEXT(instance_get(), &create_info, nullptr, &vk_surface);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SurfaceID());
 
-	Surface *surface = memnew(Surface);
+	Surface *surface = memnewOld(Surface);
 	surface->vk_surface = vk_surface;
 	return SurfaceID(surface);
 }

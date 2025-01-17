@@ -133,8 +133,8 @@ void EngineDebugger::initialize(const String &p_uri, bool p_skip_breakpoints, co
 		return;
 	}
 	if (p_uri == "local://") {
-		singleton = memnew(LocalDebugger);
-		script_debugger = memnew(ScriptDebugger);
+		singleton = memnewOld(LocalDebugger);
+		script_debugger = memnewOld(ScriptDebugger);
 		// Tell the OS that we want to handle termination signals.
 		OS::get_singleton()->initialize_debugging();
 	} else if (p_uri.contains("://")) {
@@ -146,8 +146,8 @@ void EngineDebugger::initialize(const String &p_uri, bool p_skip_breakpoints, co
 		if (!peer) {
 			return;
 		}
-		singleton = memnew(RemoteDebugger(Ref<RemoteDebuggerPeer>(peer)));
-		script_debugger = memnew(ScriptDebugger);
+		singleton = memnewOld(RemoteDebugger(Ref<RemoteDebuggerPeer>(peer)));
+		script_debugger = memnewOld(ScriptDebugger);
 		// Notify editor of our pid (to allow focus stealing).
 		Array msg;
 		msg.push_back(OS::get_singleton()->get_process_id());

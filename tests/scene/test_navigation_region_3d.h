@@ -42,21 +42,21 @@ namespace TestNavigationRegion3D {
 
 TEST_SUITE("[Navigation]") {
 	TEST_CASE("[SceneTree][NavigationRegion3D] New region should have valid RID") {
-		NavigationRegion3D *region_node = memnew(NavigationRegion3D);
+		NavigationRegion3D *region_node = memnewOld(NavigationRegion3D);
 		CHECK(region_node->get_rid().is_valid());
 		memdelete(region_node);
 	}
 
 	TEST_CASE("[SceneTree][NavigationRegion3D] Region should bake successfully from valid geometry") {
-		Node3D *node_3d = memnew(Node3D);
+		Node3D *node_3d = memnewOld(Node3D);
 		SceneTree::get_singleton()->get_root()->add_child(node_3d);
-		Ref<NavigationMesh> navigation_mesh = memnew(NavigationMesh);
-		NavigationRegion3D *navigation_region = memnew(NavigationRegion3D);
+		Ref<NavigationMesh> navigation_mesh = memnewOld(NavigationMesh);
+		NavigationRegion3D *navigation_region = memnewOld(NavigationRegion3D);
 		navigation_region->set_navigation_mesh(navigation_mesh);
 		node_3d->add_child(navigation_region);
-		Ref<PlaneMesh> plane_mesh = memnew(PlaneMesh);
+		Ref<PlaneMesh> plane_mesh = memnewOld(PlaneMesh);
 		plane_mesh->set_size(Size2(10.0, 10.0));
-		MeshInstance3D *mesh_instance = memnew(MeshInstance3D);
+		MeshInstance3D *mesh_instance = memnewOld(MeshInstance3D);
 		mesh_instance->set_mesh(plane_mesh);
 		navigation_region->add_child(mesh_instance);
 

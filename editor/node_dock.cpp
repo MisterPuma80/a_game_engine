@@ -94,11 +94,11 @@ NodeDock::NodeDock() {
 	singleton = this;
 
 	set_name("Node");
-	mode_hb = memnew(HBoxContainer);
+	mode_hb = memnewOld(HBoxContainer);
 	add_child(mode_hb);
 	mode_hb->hide();
 
-	connections_button = memnew(Button);
+	connections_button = memnewOld(Button);
 	connections_button->set_theme_type_variation("FlatButton");
 	connections_button->set_text(TTR("Signals"));
 	connections_button->set_toggle_mode(true);
@@ -108,7 +108,7 @@ NodeDock::NodeDock() {
 	mode_hb->add_child(connections_button);
 	connections_button->connect(SceneStringName(pressed), callable_mp(this, &NodeDock::show_connections));
 
-	groups_button = memnew(Button);
+	groups_button = memnewOld(Button);
 	groups_button->set_theme_type_variation("FlatButton");
 	groups_button->set_text(TTR("Groups"));
 	groups_button->set_toggle_mode(true);
@@ -118,17 +118,17 @@ NodeDock::NodeDock() {
 	mode_hb->add_child(groups_button);
 	groups_button->connect(SceneStringName(pressed), callable_mp(this, &NodeDock::show_groups));
 
-	connections = memnew(ConnectionsDock);
+	connections = memnewOld(ConnectionsDock);
 	add_child(connections);
 	connections->set_v_size_flags(SIZE_EXPAND_FILL);
 	connections->hide();
 
-	groups = memnew(GroupsEditor);
+	groups = memnewOld(GroupsEditor);
 	add_child(groups);
 	groups->set_v_size_flags(SIZE_EXPAND_FILL);
 	groups->hide();
 
-	select_a_node = memnew(Label);
+	select_a_node = memnewOld(Label);
 	select_a_node->set_text(TTR("Select a single node to edit its signals and groups."));
 	select_a_node->set_custom_minimum_size(Size2(100 * EDSCALE, 0));
 	select_a_node->set_v_size_flags(SIZE_EXPAND_FILL);

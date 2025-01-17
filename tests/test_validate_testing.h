@@ -109,7 +109,7 @@ TEST_SUITE("Validate tests") {
 
 		INFO(RID());
 
-		Object *obj = memnew(Object);
+		Object *obj = memnewOld(Object);
 		INFO(obj);
 
 		Callable callable(obj, "has_method");

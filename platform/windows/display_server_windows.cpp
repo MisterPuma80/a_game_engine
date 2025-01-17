@@ -696,7 +696,7 @@ Error DisplayServerWindows::_file_dialog_with_options_show(const String &p_title
 		appname = "Blazium." + clean_app_name + "." + version;
 	}
 
-	FileDialogData *fd = memnew(FileDialogData);
+	FileDialogData *fd = memnewOld(FileDialogData);
 	if (window_id != INVALID_WINDOW_ID) {
 		fd->hwnd_owner = windows[window_id].hWnd;
 		RECT crect;
@@ -5971,9 +5971,9 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 	// Init TTS
 	bool tts_enabled = GLOBAL_GET("audio/general/text_to_speech");
 	if (tts_enabled) {
-		tts = memnew(TTS_Windows);
+		tts = memnewOld(TTS_Windows);
 	}
-	native_menu = memnew(NativeMenuWindows);
+	native_menu = memnewOld(NativeMenuWindows);
 
 	// Enforce default keep screen on value.
 	screen_set_keep_on(GLOBAL_GET("display/window/energy_saving/keep_screen_on"));
@@ -6134,13 +6134,13 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnew(RenderingContextDriverVulkanWindows);
+		rendering_context = memnewOld(RenderingContextDriverVulkanWindows);
 		tested_drivers.set_flag(DRIVER_ID_RD_VULKAN);
 	}
 #endif
 #if defined(D3D12_ENABLED)
 	if (rendering_driver == "d3d12") {
-		rendering_context = memnew(RenderingContextDriverD3D12);
+		rendering_context = memnewOld(RenderingContextDriverD3D12);
 		tested_drivers.set_flag(DRIVER_ID_RD_D3D12);
 	}
 #endif
@@ -6152,7 +6152,7 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 			bool fallback_to_vulkan = GLOBAL_GET("rendering/rendering_device/fallback_to_vulkan");
 			if (failed && fallback_to_vulkan && rendering_driver != "vulkan") {
 				memdelete(rendering_context);
-				rendering_context = memnew(RenderingContextDriverVulkanWindows);
+				rendering_context = memnewOld(RenderingContextDriverVulkanWindows);
 				tested_drivers.set_flag(DRIVER_ID_RD_VULKAN);
 				if (rendering_context->initialize() == OK) {
 					WARN_PRINT("Your video card drivers seem not to support Direct3D 12, switching to Vulkan.");
@@ -6166,7 +6166,7 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 			bool fallback_to_d3d12 = GLOBAL_GET("rendering/rendering_device/fallback_to_d3d12");
 			if (failed && fallback_to_d3d12 && rendering_driver != "d3d12") {
 				memdelete(rendering_context);
-				rendering_context = memnew(RenderingContextDriverD3D12);
+				rendering_context = memnewOld(RenderingContextDriverD3D12);
 				tested_drivers.set_flag(DRIVER_ID_RD_D3D12);
 				if (rendering_context->initialize() == OK) {
 					WARN_PRINT("Your video card drivers seem not to support Vulkan, switching to Direct3D 12.");
@@ -6268,7 +6268,7 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 	}
 
 	if (rendering_driver == "opengl3_angle") {
-		gl_manager_angle = memnew(GLManagerANGLE_Windows);
+		gl_manager_angle = memnewOld(GLManagerANGLE_Windows);
 		tested_drivers.set_flag(DRIVER_ID_COMPAT_ANGLE_D3D11);
 
 		if (gl_manager_angle->initialize() != OK) {
@@ -6289,7 +6289,7 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 		}
 	}
 	if (rendering_driver == "opengl3") {
-		gl_manager_native = memnew(GLManagerNative_Windows);
+		gl_manager_native = memnewOld(GLManagerNative_Windows);
 		tested_drivers.set_flag(DRIVER_ID_COMPAT_OPENGL3);
 
 		if (gl_manager_native->initialize() != OK) {
@@ -6370,7 +6370,7 @@ DisplayServerWindows::DisplayServerWindows(const String &p_rendering_driver, Win
 
 #if defined(RD_ENABLED)
 	if (rendering_context) {
-		rendering_device = memnew(RenderingDevice);
+		rendering_device = memnewOld(RenderingDevice);
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			memdelete(rendering_device);
 			rendering_device = nullptr;
@@ -6430,7 +6430,7 @@ Vector<String> DisplayServerWindows::get_rendering_drivers_func() {
 }
 
 DisplayServer *DisplayServerWindows::create_func(const String &p_rendering_driver, WindowMode p_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnew(DisplayServerWindows(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	DisplayServer *ds = memnewOld(DisplayServerWindows(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 	if (r_error != OK) {
 		if (tested_drivers == 0) {
 			OS::get_singleton()->alert("Failed to register the window class.", "Unable to initialize DisplayServer");

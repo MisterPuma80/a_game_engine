@@ -1306,7 +1306,7 @@ Vector<String> DisplayServerWayland::get_rendering_drivers_func() {
 }
 
 DisplayServer *DisplayServerWayland::create_func(const String &p_rendering_driver, WindowMode p_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Point2i *p_position, const Size2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnew(DisplayServerWayland(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_resolution, p_context, r_error));
+	DisplayServer *ds = memnewOld(DisplayServerWayland(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_resolution, p_context, r_error));
 	if (r_error != OK) {
 		ERR_PRINT("Can't create the Wayland display server.");
 		memdelete(ds);
@@ -1340,11 +1340,11 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 	// Input.
 	Input::get_singleton()->set_event_dispatch_function(dispatch_input_events);
 
-	native_menu = memnew(NativeMenu);
+	native_menu = memnewOld(NativeMenu);
 
 #ifdef SPEECHD_ENABLED
 	// Init TTS
-	tts = memnew(TTS_Linux);
+	tts = memnewOld(TTS_Linux);
 #endif
 
 	rendering_driver = p_rendering_driver;
@@ -1355,7 +1355,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 #ifdef RD_ENABLED
 #ifdef VULKAN_ENABLED
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnew(RenderingContextDriverVulkanWayland);
+		rendering_context = memnewOld(RenderingContextDriverVulkanWayland);
 	}
 #endif // VULKAN_ENABLED
 
@@ -1446,7 +1446,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 		}
 
 		if (rendering_driver == "opengl3") {
-			egl_manager = memnew(EGLManagerWayland);
+			egl_manager = memnewOld(EGLManagerWayland);
 
 			if (egl_manager->initialize(wayland_thread.get_wl_display()) != OK || egl_manager->open_display(wayland_thread.get_wl_display()) != OK) {
 				memdelete(egl_manager);
@@ -1478,7 +1478,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 		}
 
 		if (rendering_driver == "opengl3_es") {
-			egl_manager = memnew(EGLManagerWaylandGLES);
+			egl_manager = memnewOld(EGLManagerWaylandGLES);
 
 			if (egl_manager->initialize(wayland_thread.get_wl_display()) != OK || egl_manager->open_display(wayland_thread.get_wl_display()) != OK) {
 				memdelete(egl_manager);
@@ -1523,7 +1523,7 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 
 #ifdef RD_ENABLED
 	if (rendering_context) {
-		rendering_device = memnew(RenderingDevice);
+		rendering_device = memnewOld(RenderingDevice);
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			memdelete(rendering_device);
 			rendering_device = nullptr;
@@ -1539,8 +1539,8 @@ DisplayServerWayland::DisplayServerWayland(const String &p_rendering_driver, Win
 #endif // RD_ENABLED
 
 #ifdef DBUS_ENABLED
-	portal_desktop = memnew(FreeDesktopPortalDesktop);
-	screensaver = memnew(FreeDesktopScreenSaver);
+	portal_desktop = memnewOld(FreeDesktopPortalDesktop);
+	screensaver = memnewOld(FreeDesktopScreenSaver);
 #endif // DBUS_ENABLED
 
 	screen_set_keep_on(GLOBAL_GET("display/window/energy_saving/keep_screen_on"));

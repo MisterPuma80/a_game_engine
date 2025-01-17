@@ -83,7 +83,7 @@ public:
 };
 
 TEST_CASE("[Callable] Argument count") {
-	TestClass *my_test = memnew(TestClass);
+	TestClass *my_test = memnewOld(TestClass);
 
 	// Bound methods tests.
 

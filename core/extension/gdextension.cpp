@@ -591,14 +591,14 @@ void GDExtension::_register_extension_class_method(GDExtensionClassLibraryPtr p_
 	}
 
 	if (method == nullptr) {
-		method = memnew(GDExtensionMethodBind(p_method_info));
+		method = memnewOld(GDExtensionMethodBind(p_method_info));
 		method->set_instance_class(class_name);
 		extension->methods[method_name] = method;
 	} else {
 		method->is_reloading = false;
 	}
 #else
-	GDExtensionMethodBind *method = memnew(GDExtensionMethodBind(p_method_info));
+	GDExtensionMethodBind *method = memnewOld(GDExtensionMethodBind(p_method_info));
 	method->set_instance_class(class_name);
 #endif
 

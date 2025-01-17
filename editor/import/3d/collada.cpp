@@ -1318,7 +1318,7 @@ void Collada::_parse_controller(XMLParser &p_parser) {
 
 Collada::Node *Collada::_parse_visual_instance_geometry(XMLParser &p_parser) {
 	String type = p_parser.get_node_name();
-	NodeGeometry *geom = memnew(NodeGeometry);
+	NodeGeometry *geom = memnewOld(NodeGeometry);
 	geom->controller = type == "instance_controller";
 	geom->source = _uri_to_id(p_parser.get_named_attribute_value_safe("url"));
 
@@ -1369,7 +1369,7 @@ Collada::Node *Collada::_parse_visual_instance_geometry(XMLParser &p_parser) {
 }
 
 Collada::Node *Collada::_parse_visual_instance_camera(XMLParser &p_parser) {
-	NodeCamera *cam = memnew(NodeCamera);
+	NodeCamera *cam = memnewOld(NodeCamera);
 	cam->camera = _uri_to_id(p_parser.get_named_attribute_value_safe("url"));
 
 	if (state.up_axis == Vector3::AXIS_Z) { //collada weirdness
@@ -1390,7 +1390,7 @@ Collada::Node *Collada::_parse_visual_instance_camera(XMLParser &p_parser) {
 }
 
 Collada::Node *Collada::_parse_visual_instance_light(XMLParser &p_parser) {
-	NodeLight *cam = memnew(NodeLight);
+	NodeLight *cam = memnewOld(NodeLight);
 	cam->light = _uri_to_id(p_parser.get_named_attribute_value_safe("url"));
 
 	if (state.up_axis == Vector3::AXIS_Z) { //collada weirdness
@@ -1465,7 +1465,7 @@ Collada::Node *Collada::_parse_visual_scene_node(XMLParser &p_parser) {
 	if ((p_parser.has_attribute("type") && p_parser.get_named_attribute_value("type") == "JOINT") || state.idref_joints.has(name)) {
 		// handle a bone
 
-		NodeJoint *joint = memnew(NodeJoint);
+		NodeJoint *joint = memnewOld(NodeJoint);
 
 		if (p_parser.has_attribute("sid")) { //bones may not have sid
 			joint->sid = p_parser.get_named_attribute_value("sid");
@@ -1581,7 +1581,7 @@ Collada::Node *Collada::_parse_visual_scene_node(XMLParser &p_parser) {
 	}
 
 	if (!node) {
-		node = memnew(Node); //generic node, nothing of relevance found
+		node = memnewOld(Node); //generic node, nothing of relevance found
 	}
 
 	node->noname = !found_name;
@@ -1979,7 +1979,7 @@ void Collada::_create_skeletons(Collada::Node **p_node, NodeSkeleton *p_skeleton
 	if (node->type == Node::TYPE_JOINT) {
 		if (!p_skeleton) {
 			// ohohohoohoo it's a joint node, time to work!
-			NodeSkeleton *sk = memnew(NodeSkeleton);
+			NodeSkeleton *sk = memnewOld(NodeSkeleton);
 			*p_node = sk;
 			sk->children.push_back(node);
 			sk->parent = node->parent;
@@ -2322,7 +2322,7 @@ int Collada::get_uv_channel(const String &p_name) {
 }
 
 Error Collada::load(const String &p_path, int p_flags) {
-	Ref<XMLParser> parserr = memnew(XMLParser);
+	Ref<XMLParser> parserr = memnewOld(XMLParser);
 	XMLParser &parser = *parserr.ptr();
 	Error err = parser.open(p_path);
 	ERR_FAIL_COND_V_MSG(err, err, "Cannot open Collada file '" + p_path + "'.");

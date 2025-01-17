@@ -2240,7 +2240,7 @@ Error GDScriptCompiler::_parse_block(CodeGen &codegen, const GDScriptParser::Sui
 GDScriptFunction *GDScriptCompiler::_parse_function(Error &r_error, GDScript *p_script, const GDScriptParser::ClassNode *p_class, const GDScriptParser::FunctionNode *p_func, bool p_for_ready, bool p_for_lambda) {
 	r_error = OK;
 	CodeGen codegen;
-	codegen.generator = memnew(GDScriptByteCodeGenerator);
+	codegen.generator = memnewOld(GDScriptByteCodeGenerator);
 
 	codegen.class_node = p_class;
 	codegen.script = p_script;
@@ -2477,7 +2477,7 @@ GDScriptFunction *GDScriptCompiler::_parse_function(Error &r_error, GDScript *p_
 GDScriptFunction *GDScriptCompiler::_make_static_initializer(Error &r_error, GDScript *p_script, const GDScriptParser::ClassNode *p_class) {
 	r_error = OK;
 	CodeGen codegen;
-	codegen.generator = memnew(GDScriptByteCodeGenerator);
+	codegen.generator = memnewOld(GDScriptByteCodeGenerator);
 
 	codegen.class_node = p_class;
 	codegen.script = p_script;
@@ -2985,7 +2985,7 @@ Error GDScriptCompiler::_compile_class(GDScript *p_script, const GDScriptParser:
 					//re-create as an instance
 					p_script->placeholders.erase(psi); //remove placeholder
 
-					GDScriptInstance *instance = memnew(GDScriptInstance);
+					GDScriptInstance *instance = memnewOld(GDScriptInstance);
 					instance->base_ref_counted = Object::cast_to<RefCounted>(E->get());
 					instance->members.resize(p_script->member_indices.size());
 					instance->script = Ref<GDScript>(p_script);

@@ -135,7 +135,7 @@ public:
 	}
 
 	static RendererCompositor *_create_current() {
-		return memnew(RendererCompositorRD);
+		return memnewOld(RendererCompositorRD);
 	}
 
 	static void make_current() {

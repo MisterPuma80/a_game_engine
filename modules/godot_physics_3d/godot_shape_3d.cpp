@@ -1535,7 +1535,7 @@ struct _Volume_BVH {
 };
 
 _Volume_BVH *_volume_build_bvh(_Volume_BVH_Element *p_elements, int p_size, int &count) {
-	_Volume_BVH *bvh = memnew(_Volume_BVH);
+	_Volume_BVH *bvh = memnewOld(_Volume_BVH);
 
 	if (p_size == 1) {
 		//leaf

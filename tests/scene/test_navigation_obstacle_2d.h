@@ -40,16 +40,16 @@ namespace TestNavigationObstacle2D {
 
 TEST_SUITE("[Navigation]") {
 	TEST_CASE("[SceneTree][NavigationObstacle2D] New obstacle should have valid RID") {
-		NavigationObstacle2D *obstacle_node = memnew(NavigationObstacle2D);
+		NavigationObstacle2D *obstacle_node = memnewOld(NavigationObstacle2D);
 		CHECK(obstacle_node->get_rid().is_valid());
 		memdelete(obstacle_node);
 	}
 
 	TEST_CASE("[SceneTree][NavigationObstacle2D] New obstacle should attach to default map") {
-		Node2D *node_2d = memnew(Node2D);
+		Node2D *node_2d = memnewOld(Node2D);
 		SceneTree::get_singleton()->get_root()->add_child(node_2d);
 
-		NavigationObstacle2D *obstacle_node = memnew(NavigationObstacle2D);
+		NavigationObstacle2D *obstacle_node = memnewOld(NavigationObstacle2D);
 		// obstacle should not be attached to any map when outside of tree
 		CHECK_FALSE(obstacle_node->get_navigation_map().is_valid());
 

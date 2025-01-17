@@ -355,24 +355,24 @@ void ResourcePreloaderEditor::_bind_methods() {
 ResourcePreloaderEditor::ResourcePreloaderEditor() {
 	//add_style_override("panel", EditorNode::get_singleton()->get_gui_base()->get_stylebox("panel","Panel"));
 
-	VBoxContainer *vbc = memnew(VBoxContainer);
+	VBoxContainer *vbc = memnewOld(VBoxContainer);
 	add_child(vbc);
 
-	HBoxContainer *hbc = memnew(HBoxContainer);
+	HBoxContainer *hbc = memnewOld(HBoxContainer);
 	vbc->add_child(hbc);
 
-	load = memnew(Button);
+	load = memnewOld(Button);
 	load->set_tooltip_text(TTR("Load Resource"));
 	hbc->add_child(load);
 
-	paste = memnew(Button);
+	paste = memnewOld(Button);
 	paste->set_text(TTR("Paste"));
 	hbc->add_child(paste);
 
-	file = memnew(EditorFileDialog);
+	file = memnewOld(EditorFileDialog);
 	add_child(file);
 
-	tree = memnew(Tree);
+	tree = memnewOld(Tree);
 	tree->connect("button_clicked", callable_mp(this, &ResourcePreloaderEditor::_cell_button_pressed));
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_columns(2);
@@ -387,7 +387,7 @@ ResourcePreloaderEditor::ResourcePreloaderEditor() {
 	SET_DRAG_FORWARDING_GCD(tree, ResourcePreloaderEditor);
 	vbc->add_child(tree);
 
-	dialog = memnew(AcceptDialog);
+	dialog = memnewOld(AcceptDialog);
 	add_child(dialog);
 
 	load->connect(SceneStringName(pressed), callable_mp(this, &ResourcePreloaderEditor::_load_pressed));
@@ -427,7 +427,7 @@ void ResourcePreloaderEditorPlugin::make_visible(bool p_visible) {
 }
 
 ResourcePreloaderEditorPlugin::ResourcePreloaderEditorPlugin() {
-	preloader_editor = memnew(ResourcePreloaderEditor);
+	preloader_editor = memnewOld(ResourcePreloaderEditor);
 	preloader_editor->set_custom_minimum_size(Size2(0, 250) * EDSCALE);
 
 	button = EditorNode::get_bottom_panel()->add_item("ResourcePreloader", preloader_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_resource_preloader_bottom_panel", TTR("Toggle ResourcePreloader Bottom Panel")));

@@ -245,7 +245,7 @@ public:
 		List<Simplex *> simplex_list;
 		{
 			//create root simplex
-			Simplex *root = memnew(Simplex(point_count + 0, point_count + 1, point_count + 2, point_count + 3));
+			Simplex *root = memnewOld(Simplex(point_count + 0, point_count + 1, point_count + 2, point_count + 3));
 			root->SE = simplex_list.push_back(root);
 
 			for (uint32_t i = 0; i < ACCEL_GRID_SIZE; i++) {
@@ -322,7 +322,7 @@ public:
 				if (triangle.bad) {
 					continue;
 				}
-				Simplex *new_simplex = memnew(Simplex(triangle.triangle[0], triangle.triangle[1], triangle.triangle[2], i));
+				Simplex *new_simplex = memnewOld(Simplex(triangle.triangle[0], triangle.triangle[1], triangle.triangle[2], i));
 				circum_sphere_compute(points, new_simplex);
 				new_simplex->SE = simplex_list.push_back(new_simplex);
 				{

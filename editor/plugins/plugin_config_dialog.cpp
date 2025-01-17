@@ -65,7 +65,7 @@ void PluginConfigDialog::_on_confirmed() {
 		}
 	}
 	// Create the plugin.cfg file.
-	Ref<ConfigFile> cf = memnew(ConfigFile);
+	Ref<ConfigFile> cf = memnewOld(ConfigFile);
 	cf->load(path.path_join("plugin.cfg"));
 	cf->set_value("plugin", "name", name_edit->get_text());
 	cf->set_value("plugin", "description", desc_edit->get_text());
@@ -173,7 +173,7 @@ void PluginConfigDialog::_notification(int p_what) {
 
 void PluginConfigDialog::config(const String &p_config_path) {
 	if (!p_config_path.is_empty()) {
-		Ref<ConfigFile> cf = memnew(ConfigFile);
+		Ref<ConfigFile> cf = memnewOld(ConfigFile);
 		Error err = cf->load(p_config_path);
 		ERR_FAIL_COND_MSG(err != OK, "Cannot load config file from path '" + p_config_path + "'.");
 
@@ -210,36 +210,36 @@ PluginConfigDialog::PluginConfigDialog() {
 	get_ok_button()->set_disabled(true);
 	set_hide_on_ok(true);
 
-	VBoxContainer *vbox = memnew(VBoxContainer);
+	VBoxContainer *vbox = memnewOld(VBoxContainer);
 	vbox->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbox->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(vbox);
 
-	GridContainer *grid = memnew(GridContainer);
+	GridContainer *grid = memnewOld(GridContainer);
 	grid->set_columns(2);
 	grid->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vbox->add_child(grid);
 
 	// Plugin Name
-	Label *name_lb = memnew(Label);
+	Label *name_lb = memnewOld(Label);
 	name_lb->set_text(TTR("Plugin Name:"));
 	name_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(name_lb);
 
-	name_edit = memnew(LineEdit);
+	name_edit = memnewOld(LineEdit);
 	name_edit->set_placeholder("MyPlugin");
 	name_edit->set_tooltip_text(TTR("Required. This name will be displayed in the list of plugins."));
 	name_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	grid->add_child(name_edit);
 
 	// Subfolder
-	Label *subfolder_lb = memnew(Label);
+	Label *subfolder_lb = memnewOld(Label);
 	subfolder_lb->set_text(TTR("Subfolder:"));
 	subfolder_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(subfolder_lb);
 	plugin_edit_hidden_controls.push_back(subfolder_lb);
 
-	subfolder_edit = memnew(LineEdit);
+	subfolder_edit = memnewOld(LineEdit);
 	subfolder_edit->set_placeholder("\"my_plugin\" -> res://addons/my_plugin");
 	subfolder_edit->set_tooltip_text(TTR("Optional. The folder name should generally use `snake_case` naming (avoid spaces and special characters).\nIf left empty, the folder will be named after the plugin name converted to `snake_case`."));
 	subfolder_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -247,12 +247,12 @@ PluginConfigDialog::PluginConfigDialog() {
 	plugin_edit_hidden_controls.push_back(subfolder_edit);
 
 	// Description
-	Label *desc_lb = memnew(Label);
+	Label *desc_lb = memnewOld(Label);
 	desc_lb->set_text(TTR("Description:"));
 	desc_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(desc_lb);
 
-	desc_edit = memnew(TextEdit);
+	desc_edit = memnewOld(TextEdit);
 	desc_edit->set_tooltip_text(TTR("Optional. This description should be kept relatively short (up to 5 lines).\nIt will display when hovering the plugin in the list of plugins."));
 	desc_edit->set_custom_minimum_size(Size2(400, 80) * EDSCALE);
 	desc_edit->set_line_wrapping_mode(TextEdit::LineWrappingMode::LINE_WRAPPING_BOUNDARY);
@@ -261,36 +261,36 @@ PluginConfigDialog::PluginConfigDialog() {
 	grid->add_child(desc_edit);
 
 	// Author
-	Label *author_lb = memnew(Label);
+	Label *author_lb = memnewOld(Label);
 	author_lb->set_text(TTR("Author:"));
 	author_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(author_lb);
 
-	author_edit = memnew(LineEdit);
+	author_edit = memnewOld(LineEdit);
 	author_edit->set_placeholder("Blazia");
 	author_edit->set_tooltip_text(TTR("Optional. The author's username, full name, or organization name."));
 	author_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	grid->add_child(author_edit);
 
 	// Version
-	Label *version_lb = memnew(Label);
+	Label *version_lb = memnewOld(Label);
 	version_lb->set_text(TTR("Version:"));
 	version_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(version_lb);
 
-	version_edit = memnew(LineEdit);
+	version_edit = memnewOld(LineEdit);
 	version_edit->set_tooltip_text(TTR("Optional. A human-readable version identifier used for informational purposes only."));
 	version_edit->set_placeholder("1.0");
 	version_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	grid->add_child(version_edit);
 
 	// Language dropdown
-	Label *script_option_lb = memnew(Label);
+	Label *script_option_lb = memnewOld(Label);
 	script_option_lb->set_text(TTR("Language:"));
 	script_option_lb->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(script_option_lb);
 
-	script_option_edit = memnew(OptionButton);
+	script_option_edit = memnewOld(OptionButton);
 	script_option_edit->set_tooltip_text(TTR("Required. The scripting language to use for the script.\nNote that a plugin may use several languages at once by adding more scripts to the plugin."));
 	int default_lang = 0;
 	for (int i = 0; i < ScriptServer::get_language_count(); i++) {
@@ -304,34 +304,34 @@ PluginConfigDialog::PluginConfigDialog() {
 	grid->add_child(script_option_edit);
 
 	// Plugin Script Name
-	Label *script_name_label = memnew(Label);
+	Label *script_name_label = memnewOld(Label);
 	script_name_label->set_text(TTR("Script Name:"));
 	script_name_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(script_name_label);
 
-	script_edit = memnew(LineEdit);
+	script_edit = memnewOld(LineEdit);
 	script_edit->set_tooltip_text(TTR("Optional. The path to the script (relative to the add-on folder). If left empty, will default to \"plugin.gd\"."));
 	script_edit->set_placeholder("\"plugin.gd\" -> res://addons/my_plugin/plugin.gd");
 	script_edit->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	grid->add_child(script_edit);
 
 	// Activate now checkbox
-	Label *active_label = memnew(Label);
+	Label *active_label = memnewOld(Label);
 	active_label->set_text(TTR("Activate now?"));
 	active_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	grid->add_child(active_label);
 	plugin_edit_hidden_controls.push_back(active_label);
 
-	active_edit = memnew(CheckBox);
+	active_edit = memnewOld(CheckBox);
 	active_edit->set_pressed(true);
 	grid->add_child(active_edit);
 	plugin_edit_hidden_controls.push_back(active_edit);
 
-	Control *spacing = memnew(Control);
+	Control *spacing = memnewOld(Control);
 	vbox->add_child(spacing);
 	spacing->set_custom_minimum_size(Size2(0, 10 * EDSCALE));
 
-	validation_panel = memnew(EditorValidationPanel);
+	validation_panel = memnewOld(EditorValidationPanel);
 	vbox->add_child(validation_panel);
 	validation_panel->add_line(MSG_ID_PLUGIN, TTR("Plugin name is valid."));
 	validation_panel->add_line(MSG_ID_SCRIPT, TTR("Script extension is valid."));

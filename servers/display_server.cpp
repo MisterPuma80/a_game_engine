@@ -1236,18 +1236,18 @@ bool DisplayServer::can_create_rendering_device() {
 	RenderingContextDriver *rcd = nullptr;
 
 #if defined(VULKAN_ENABLED)
-	rcd = memnew(RenderingContextDriverVulkan);
+	rcd = memnewOld(RenderingContextDriverVulkan);
 #endif
 #ifdef D3D12_ENABLED
 	if (rcd == nullptr) {
-		rcd = memnew(RenderingContextDriverD3D12);
+		rcd = memnewOld(RenderingContextDriverD3D12);
 	}
 #endif
 
 	if (rcd != nullptr) {
 		err = rcd->initialize();
 		if (err == OK) {
-			RenderingDevice *rd = memnew(RenderingDevice);
+			RenderingDevice *rd = memnewOld(RenderingDevice);
 			err = rd->initialize(rcd);
 			memdelete(rd);
 			rd = nullptr;

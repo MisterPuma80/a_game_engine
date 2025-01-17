@@ -151,7 +151,7 @@ Fog::FogMaterialData::~FogMaterialData() {
 }
 
 RendererRD::MaterialStorage::ShaderData *Fog::_create_fog_shader_func() {
-	FogShaderData *shader_data = memnew(FogShaderData);
+	FogShaderData *shader_data = memnewOld(FogShaderData);
 	return shader_data;
 }
 
@@ -160,7 +160,7 @@ RendererRD::MaterialStorage::ShaderData *Fog::_create_fog_shader_funcs() {
 };
 
 RendererRD::MaterialStorage::MaterialData *Fog::_create_fog_material_func(FogShaderData *p_shader) {
-	FogMaterialData *material_data = memnew(FogMaterialData);
+	FogMaterialData *material_data = memnewOld(FogMaterialData);
 	material_data->shader_data = p_shader;
 	//update will happen later anyway so do nothing.
 	return material_data;

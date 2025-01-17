@@ -70,7 +70,7 @@ public:
 	bool owns_texture(RID p_rid) { return texture_owner.owns(p_rid); };
 
 	virtual RID texture_allocate() override {
-		DummyTexture *texture = memnew(DummyTexture);
+		DummyTexture *texture = memnewOld(DummyTexture);
 		ERR_FAIL_NULL_V(texture, RID());
 		return texture_owner.make_rid(texture);
 	};

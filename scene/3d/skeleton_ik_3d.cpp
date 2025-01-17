@@ -210,7 +210,7 @@ FabrikInverseKinematic::Task *FabrikInverseKinematic::create_simple_task(Skeleto
 	FabrikInverseKinematic::EndEffector ee;
 	ee.tip_bone = tip_bone;
 
-	Task *task(memnew(Task));
+	Task *task(memnewOld(Task));
 	task->skeleton = p_sk;
 	task->root_bone = root_bone;
 	task->end_effectors.push_back(ee);

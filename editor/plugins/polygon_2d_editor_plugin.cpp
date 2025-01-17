@@ -221,7 +221,7 @@ void Polygon2DEditor::_update_bone_list() {
 	Ref<ButtonGroup> bg;
 	bg.instantiate();
 	for (int i = 0; i < node->get_bone_count(); i++) {
-		CheckBox *cb = memnew(CheckBox);
+		CheckBox *cb = memnewOld(CheckBox);
 		NodePath np = node->get_bone_path(i);
 		String name;
 		if (np.get_name_count()) {
@@ -1322,36 +1322,36 @@ Polygon2DEditor::Polygon2DEditor() {
 	use_snap = EditorSettings::get_singleton()->get_project_metadata("polygon_2d_uv_editor", "snap_enabled", false);
 	snap_show_grid = EditorSettings::get_singleton()->get_project_metadata("polygon_2d_uv_editor", "show_grid", false);
 
-	button_uv = memnew(Button);
+	button_uv = memnewOld(Button);
 	button_uv->set_theme_type_variation("FlatButton");
 	add_child(button_uv);
 	button_uv->set_tooltip_text(TTR("Open Polygon 2D UV editor."));
 	button_uv->connect(SceneStringName(pressed), callable_mp(this, &Polygon2DEditor::_menu_option).bind(MODE_EDIT_UV));
 
 	uv_mode = UV_MODE_EDIT_POINT;
-	uv_edit = memnew(UVEditDialog);
+	uv_edit = memnewOld(UVEditDialog);
 	uv_edit->set_title(TTR("Polygon 2D UV Editor"));
 	uv_edit->set_process_shortcut_input(true);
 	add_child(uv_edit);
 	uv_edit->connect(SceneStringName(confirmed), callable_mp(this, &Polygon2DEditor::_uv_edit_popup_hide));
 	uv_edit->connect("canceled", callable_mp(this, &Polygon2DEditor::_uv_edit_popup_hide));
 
-	VBoxContainer *uv_main_vb = memnew(VBoxContainer);
+	VBoxContainer *uv_main_vb = memnewOld(VBoxContainer);
 	uv_edit->add_child(uv_main_vb);
-	HBoxContainer *uv_mode_hb = memnew(HBoxContainer);
+	HBoxContainer *uv_mode_hb = memnewOld(HBoxContainer);
 
 	uv_edit_group.instantiate();
 
-	uv_edit_mode[0] = memnew(Button);
+	uv_edit_mode[0] = memnewOld(Button);
 	uv_mode_hb->add_child(uv_edit_mode[0]);
 	uv_edit_mode[0]->set_toggle_mode(true);
-	uv_edit_mode[1] = memnew(Button);
+	uv_edit_mode[1] = memnewOld(Button);
 	uv_mode_hb->add_child(uv_edit_mode[1]);
 	uv_edit_mode[1]->set_toggle_mode(true);
-	uv_edit_mode[2] = memnew(Button);
+	uv_edit_mode[2] = memnewOld(Button);
 	uv_mode_hb->add_child(uv_edit_mode[2]);
 	uv_edit_mode[2]->set_toggle_mode(true);
-	uv_edit_mode[3] = memnew(Button);
+	uv_edit_mode[3] = memnewOld(Button);
 	uv_mode_hb->add_child(uv_edit_mode[3]);
 	uv_edit_mode[3]->set_toggle_mode(true);
 
@@ -1371,11 +1371,11 @@ Polygon2DEditor::Polygon2DEditor() {
 	uv_edit_mode[2]->connect(SceneStringName(pressed), callable_mp(this, &Polygon2DEditor::_uv_edit_mode_select).bind(2));
 	uv_edit_mode[3]->connect(SceneStringName(pressed), callable_mp(this, &Polygon2DEditor::_uv_edit_mode_select).bind(3));
 
-	uv_mode_hb->add_child(memnew(VSeparator));
+	uv_mode_hb->add_child(memnewOld(VSeparator));
 
 	uv_main_vb->add_child(uv_mode_hb);
 	for (int i = 0; i < UV_MODE_MAX; i++) {
-		uv_button[i] = memnew(Button);
+		uv_button[i] = memnewOld(Button);
 		uv_button[i]->set_theme_type_variation("FlatButton");
 		uv_button[i]->set_toggle_mode(true);
 		uv_mode_hb->add_child(uv_button[i]);
@@ -1405,7 +1405,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	uv_button[UV_MODE_CLEAR_WEIGHT]->hide();
 	uv_button[UV_MODE_EDIT_POINT]->set_pressed(true);
 
-	bone_paint_strength = memnew(HSlider);
+	bone_paint_strength = memnewOld(HSlider);
 	uv_mode_hb->add_child(bone_paint_strength);
 	bone_paint_strength->set_custom_minimum_size(Size2(75 * EDSCALE, 0));
 	bone_paint_strength->set_v_size_flags(SIZE_SHRINK_CENTER);
@@ -1414,9 +1414,9 @@ Polygon2DEditor::Polygon2DEditor() {
 	bone_paint_strength->set_step(0.01);
 	bone_paint_strength->set_value(0.5);
 
-	bone_paint_radius_label = memnew(Label(TTR("Radius:")));
+	bone_paint_radius_label = memnewOld(Label(TTR("Radius:")));
 	uv_mode_hb->add_child(bone_paint_radius_label);
-	bone_paint_radius = memnew(SpinBox);
+	bone_paint_radius = memnewOld(SpinBox);
 	uv_mode_hb->add_child(bone_paint_radius);
 
 	bone_paint_strength->hide();
@@ -1427,28 +1427,28 @@ Polygon2DEditor::Polygon2DEditor() {
 	bone_paint_radius->set_step(1);
 	bone_paint_radius->set_value(32);
 
-	HSplitContainer *uv_main_hsc = memnew(HSplitContainer);
+	HSplitContainer *uv_main_hsc = memnewOld(HSplitContainer);
 	uv_main_vb->add_child(uv_main_hsc);
 	uv_main_hsc->set_v_size_flags(SIZE_EXPAND_FILL);
 
-	uv_edit_background = memnew(Panel);
+	uv_edit_background = memnewOld(Panel);
 	uv_main_hsc->add_child(uv_edit_background);
 	uv_edit_background->set_h_size_flags(SIZE_EXPAND_FILL);
 	uv_edit_background->set_custom_minimum_size(Size2(200, 200) * EDSCALE);
 	uv_edit_background->set_clip_contents(true);
 
-	preview_polygon = memnew(Polygon2D);
+	preview_polygon = memnewOld(Polygon2D);
 	uv_edit_background->add_child(preview_polygon);
 
-	uv_edit_draw = memnew(Control);
+	uv_edit_draw = memnewOld(Control);
 	uv_edit_background->add_child(uv_edit_draw);
 	uv_edit_draw->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 
-	Control *space = memnew(Control);
+	Control *space = memnewOld(Control);
 	uv_mode_hb->add_child(space);
 	space->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	uv_menu = memnew(MenuButton);
+	uv_menu = memnewOld(MenuButton);
 	uv_mode_hb->add_child(uv_menu);
 	uv_menu->set_flat(false);
 	uv_menu->set_theme_type_variation("FlatMenuButton");
@@ -1461,9 +1461,9 @@ Polygon2DEditor::Polygon2DEditor() {
 	uv_menu->get_popup()->add_item(TTR("Grid Settings"), UVEDIT_GRID_SETTINGS);
 	uv_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &Polygon2DEditor::_menu_option));
 
-	uv_mode_hb->add_child(memnew(VSeparator));
+	uv_mode_hb->add_child(memnewOld(VSeparator));
 
-	b_snap_enable = memnew(Button);
+	b_snap_enable = memnewOld(Button);
 	b_snap_enable->set_theme_type_variation("FlatButton");
 	uv_mode_hb->add_child(b_snap_enable);
 	b_snap_enable->set_text(TTR("Snap"));
@@ -1473,7 +1473,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	b_snap_enable->set_tooltip_text(TTR("Enable Snap"));
 	b_snap_enable->connect("toggled", callable_mp(this, &Polygon2DEditor::_set_use_snap));
 
-	b_snap_grid = memnew(Button);
+	b_snap_grid = memnewOld(Button);
 	b_snap_grid->set_theme_type_variation("FlatButton");
 	uv_mode_hb->add_child(b_snap_grid);
 	b_snap_grid->set_text(TTR("Grid"));
@@ -1483,13 +1483,13 @@ Polygon2DEditor::Polygon2DEditor() {
 	b_snap_grid->set_tooltip_text(TTR("Show Grid"));
 	b_snap_grid->connect("toggled", callable_mp(this, &Polygon2DEditor::_set_show_grid));
 
-	grid_settings = memnew(AcceptDialog);
+	grid_settings = memnewOld(AcceptDialog);
 	grid_settings->set_title(TTR("Configure Grid:"));
 	uv_edit->add_child(grid_settings);
-	VBoxContainer *grid_settings_vb = memnew(VBoxContainer);
+	VBoxContainer *grid_settings_vb = memnewOld(VBoxContainer);
 	grid_settings->add_child(grid_settings_vb);
 
-	SpinBox *sb_off_x = memnew(SpinBox);
+	SpinBox *sb_off_x = memnewOld(SpinBox);
 	sb_off_x->set_min(-256);
 	sb_off_x->set_max(256);
 	sb_off_x->set_step(1);
@@ -1498,7 +1498,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	sb_off_x->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_set_snap_off_x));
 	grid_settings_vb->add_margin_child(TTR("Grid Offset X:"), sb_off_x);
 
-	SpinBox *sb_off_y = memnew(SpinBox);
+	SpinBox *sb_off_y = memnewOld(SpinBox);
 	sb_off_y->set_min(-256);
 	sb_off_y->set_max(256);
 	sb_off_y->set_step(1);
@@ -1507,7 +1507,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	sb_off_y->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_set_snap_off_y));
 	grid_settings_vb->add_margin_child(TTR("Grid Offset Y:"), sb_off_y);
 
-	SpinBox *sb_step_x = memnew(SpinBox);
+	SpinBox *sb_step_x = memnewOld(SpinBox);
 	sb_step_x->set_min(-256);
 	sb_step_x->set_max(256);
 	sb_step_x->set_step(1);
@@ -1516,7 +1516,7 @@ Polygon2DEditor::Polygon2DEditor() {
 	sb_step_x->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_set_snap_step_x));
 	grid_settings_vb->add_margin_child(TTR("Grid Step X:"), sb_step_x);
 
-	SpinBox *sb_step_y = memnew(SpinBox);
+	SpinBox *sb_step_y = memnewOld(SpinBox);
 	sb_step_y->set_min(-256);
 	sb_step_y->set_max(256);
 	sb_step_y->set_step(1);
@@ -1525,35 +1525,35 @@ Polygon2DEditor::Polygon2DEditor() {
 	sb_step_y->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_set_snap_step_y));
 	grid_settings_vb->add_margin_child(TTR("Grid Step Y:"), sb_step_y);
 
-	zoom_widget = memnew(EditorZoomWidget);
+	zoom_widget = memnewOld(EditorZoomWidget);
 	uv_edit_draw->add_child(zoom_widget);
 	zoom_widget->set_anchors_and_offsets_preset(Control::PRESET_TOP_LEFT, Control::PRESET_MODE_MINSIZE, 2 * EDSCALE);
 	zoom_widget->connect("zoom_changed", callable_mp(this, &Polygon2DEditor::_update_zoom_and_pan).unbind(1).bind(true));
 	zoom_widget->set_shortcut_context(nullptr);
 
-	uv_vscroll = memnew(VScrollBar);
+	uv_vscroll = memnewOld(VScrollBar);
 	uv_vscroll->set_step(0.001);
 	uv_edit_draw->add_child(uv_vscroll);
 	uv_vscroll->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_update_zoom_and_pan).unbind(1).bind(false));
-	uv_hscroll = memnew(HScrollBar);
+	uv_hscroll = memnewOld(HScrollBar);
 	uv_hscroll->set_step(0.001);
 	uv_edit_draw->add_child(uv_hscroll);
 	uv_hscroll->connect(SceneStringName(value_changed), callable_mp(this, &Polygon2DEditor::_update_zoom_and_pan).unbind(1).bind(false));
 
-	bone_scroll_main_vb = memnew(VBoxContainer);
+	bone_scroll_main_vb = memnewOld(VBoxContainer);
 	bone_scroll_main_vb->hide();
 	bone_scroll_main_vb->set_custom_minimum_size(Size2(150 * EDSCALE, 0));
-	sync_bones = memnew(Button(TTR("Sync Bones to Polygon")));
+	sync_bones = memnewOld(Button(TTR("Sync Bones to Polygon")));
 	bone_scroll_main_vb->add_child(sync_bones);
 	sync_bones->set_h_size_flags(0);
 	sync_bones->connect(SceneStringName(pressed), callable_mp(this, &Polygon2DEditor::_sync_bones));
 	uv_main_hsc->add_child(bone_scroll_main_vb);
-	bone_scroll = memnew(ScrollContainer);
+	bone_scroll = memnewOld(ScrollContainer);
 	bone_scroll->set_v_scroll(true);
 	bone_scroll->set_h_scroll(false);
 	bone_scroll_main_vb->add_child(bone_scroll);
 	bone_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
-	bone_scroll_vb = memnew(VBoxContainer);
+	bone_scroll_vb = memnewOld(VBoxContainer);
 	bone_scroll->add_child(bone_scroll_vb);
 
 	uv_panner.instantiate();
@@ -1569,10 +1569,10 @@ Polygon2DEditor::Polygon2DEditor() {
 	uv_create = false;
 	bone_painting = false;
 
-	error = memnew(AcceptDialog);
+	error = memnewOld(AcceptDialog);
 	add_child(error);
 }
 
 Polygon2DEditorPlugin::Polygon2DEditorPlugin() :
-		AbstractPolygon2DEditorPlugin(memnew(Polygon2DEditor), "Polygon2D") {
+		AbstractPolygon2DEditorPlugin(memnewOld(Polygon2DEditor), "Polygon2D") {
 }

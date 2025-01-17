@@ -141,16 +141,16 @@ public:
 };
 
 TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
-	DragStart *node_a = memnew(DragStart);
-	NotificationControlViewport *node_b = memnew(NotificationControlViewport);
-	Node2D *node_c = memnew(Node2D);
-	DragTarget *node_d = memnew(DragTarget);
-	NotificationControlViewport *node_e = memnew(NotificationControlViewport);
-	Node *node_f = memnew(Node);
-	NotificationControlViewport *node_g = memnew(NotificationControlViewport);
-	NotificationControlViewport *node_h = memnew(NotificationControlViewport);
-	NotificationControlViewport *node_i = memnew(NotificationControlViewport);
-	NotificationControlViewport *node_j = memnew(NotificationControlViewport);
+	DragStart *node_a = memnewOld(DragStart);
+	NotificationControlViewport *node_b = memnewOld(NotificationControlViewport);
+	Node2D *node_c = memnewOld(Node2D);
+	DragTarget *node_d = memnewOld(DragTarget);
+	NotificationControlViewport *node_e = memnewOld(NotificationControlViewport);
+	Node *node_f = memnewOld(Node);
+	NotificationControlViewport *node_g = memnewOld(NotificationControlViewport);
+	NotificationControlViewport *node_h = memnewOld(NotificationControlViewport);
+	NotificationControlViewport *node_i = memnewOld(NotificationControlViewport);
+	NotificationControlViewport *node_j = memnewOld(NotificationControlViewport);
 
 	node_a->set_name(SNAME("NodeA"));
 	node_b->set_name(SNAME("NodeB"));
@@ -1211,10 +1211,10 @@ TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
 			}
 
 			SUBCASE("[Viewport][GuiInputEvent] Drag and Drop parent propagation.") {
-				Node2D *node_aa = memnew(Node2D);
-				Control *node_aaa = memnew(Control);
-				Node2D *node_dd = memnew(Node2D);
-				Control *node_ddd = memnew(Control);
+				Node2D *node_aa = memnewOld(Node2D);
+				Control *node_aaa = memnewOld(Control);
+				Node2D *node_dd = memnewOld(Node2D);
+				Control *node_ddd = memnewOld(Control);
 				node_aaa->set_size(Size2i(10, 10));
 				node_aaa->set_position(Point2i(0, 5));
 				node_ddd->set_size(Size2i(10, 10));
@@ -1356,9 +1356,9 @@ TEST_CASE("[SceneTree][Viewport] Controls and InputEvent handling") {
 
 TEST_CASE("[SceneTree][Viewport] Control mouse cursor shape") {
 	SUBCASE("[Viewport][CursorShape] Mouse cursor is not overridden by SubViewportContainer") {
-		SubViewportContainer *node_a = memnew(SubViewportContainer);
-		SubViewport *node_b = memnew(SubViewport);
-		Control *node_c = memnew(Control);
+		SubViewportContainer *node_a = memnewOld(SubViewportContainer);
+		SubViewport *node_b = memnewOld(SubViewport);
+		Control *node_c = memnewOld(Control);
 
 		node_a->set_name("SubViewportContainer");
 		node_b->set_name("SubViewport");
@@ -1457,9 +1457,9 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 	Vector<PickingCollider> v;
 	for (int i = 0; i < 4; i++) {
 		PickingCollider pc;
-		pc.a = memnew(TestArea2D);
-		pc.c = memnew(CollisionShape2D);
-		pc.r = Ref<RectangleShape2D>(memnew(RectangleShape2D));
+		pc.a = memnewOld(TestArea2D);
+		pc.c = memnewOld(CollisionShape2D);
+		pc.r = Ref<RectangleShape2D>(memnewOld(RectangleShape2D));
 		pc.r->set_size(Size2(150, 150));
 		pc.c->set_shape(pc.r);
 		pc.a->add_child(pc.c);
@@ -1470,13 +1470,13 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 		SIGNAL_WATCH(pc.a, SceneStringName(mouse_exited));
 	}
 
-	Node2D *node_a = memnew(Node2D);
+	Node2D *node_a = memnewOld(Node2D);
 	node_a->set_position(Point2i(0, 0));
 	v[0].a->set_position(Point2i(0, 0));
 	v[1].a->set_position(Point2i(0, 100));
 	node_a->add_child(v[0].a);
 	node_a->add_child(v[1].a);
-	Node2D *node_b = memnew(Node2D);
+	Node2D *node_b = memnewOld(Node2D);
 	node_b->set_position(Point2i(100, 0));
 	v[2].a->set_position(Point2i(0, 0));
 	v[3].a->set_position(Point2i(0, 100));
@@ -1659,7 +1659,7 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 	}
 
 	SUBCASE("[Viewport][Picking2D] CollisionObject in CanvasLayer") {
-		CanvasLayer *node_c = memnew(CanvasLayer);
+		CanvasLayer *node_c = memnewOld(CanvasLayer);
 		node_c->set_rotation(Math_PI);
 		node_c->set_offset(Point2i(100, 100));
 		root->add_child(node_c);
@@ -1804,7 +1804,7 @@ TEST_CASE("[SceneTree][Viewport] Physics Picking 2D") {
 
 TEST_CASE("[SceneTree][Viewport] Embedded Windows") {
 	Window *root = SceneTree::get_singleton()->get_root();
-	Window *w = memnew(Window);
+	Window *w = memnewOld(Window);
 
 	SUBCASE("[Viewport] Safe-rect of embedded Window") {
 		root->add_child(w);

@@ -694,7 +694,7 @@ Ref<Image> SkyRD::Sky::bake_panorama(float p_energy, int p_roughness_layers, con
 // SkyRD
 
 RendererRD::MaterialStorage::ShaderData *SkyRD::_create_sky_shader_func() {
-	SkyShaderData *shader_data = memnew(SkyShaderData);
+	SkyShaderData *shader_data = memnewOld(SkyShaderData);
 	return shader_data;
 }
 
@@ -704,7 +704,7 @@ RendererRD::MaterialStorage::ShaderData *SkyRD::_create_sky_shader_funcs() {
 };
 
 RendererRD::MaterialStorage::MaterialData *SkyRD::_create_sky_material_func(SkyShaderData *p_shader) {
-	SkyMaterialData *material_data = memnew(SkyMaterialData);
+	SkyMaterialData *material_data = memnewOld(SkyMaterialData);
 	material_data->shader_data = p_shader;
 	//update will happen later anyway so do nothing.
 	return material_data;

@@ -267,7 +267,7 @@ Error HTTPClientWeb::poll() {
 }
 
 HTTPClient *HTTPClientWeb::_create_func() {
-	return memnew(HTTPClientWeb);
+	return memnewOld(HTTPClientWeb);
 }
 
 HTTPClient *(*HTTPClient::_create)() = HTTPClientWeb::_create_func;

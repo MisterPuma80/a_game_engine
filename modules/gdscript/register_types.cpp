@@ -133,7 +133,7 @@ static void _editor_init() {
 
 #ifndef GDSCRIPT_NO_LSP
 	register_lsp_types();
-	GDScriptLanguageServer *lsp_plugin = memnew(GDScriptLanguageServer);
+	GDScriptLanguageServer *lsp_plugin = memnewOld(GDScriptLanguageServer);
 	EditorNode::get_singleton()->add_editor_plugin(lsp_plugin);
 	Engine::get_singleton()->add_singleton(Engine::Singleton("GDScriptLanguageProtocol", GDScriptLanguageProtocol::get_singleton()));
 #endif // !GDSCRIPT_NO_LSP
@@ -145,7 +145,7 @@ void initialize_gdscript_module(ModuleInitializationLevel p_level) {
 	if (p_level == MODULE_INITIALIZATION_LEVEL_SERVERS) {
 		GDREGISTER_CLASS(GDScript);
 
-		script_language_gd = memnew(GDScriptLanguage);
+		script_language_gd = memnewOld(GDScriptLanguage);
 		ScriptServer::register_language(script_language_gd);
 
 		resource_loader_gd.instantiate();
@@ -154,7 +154,7 @@ void initialize_gdscript_module(ModuleInitializationLevel p_level) {
 		resource_saver_gd.instantiate();
 		ResourceSaver::add_resource_format_saver(resource_saver_gd);
 
-		gdscript_cache = memnew(GDScriptCache);
+		gdscript_cache = memnewOld(GDScriptCache);
 
 		GDScriptUtilityFunctions::register_functions();
 	}

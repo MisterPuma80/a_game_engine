@@ -90,7 +90,7 @@ void EditorDebuggerRemoteObject::_bind_methods() {
 }
 
 EditorDebuggerInspector::EditorDebuggerInspector() {
-	variables = memnew(EditorDebuggerRemoteObject);
+	variables = memnewOld(EditorDebuggerRemoteObject);
 }
 
 EditorDebuggerInspector::~EditorDebuggerInspector() {
@@ -134,7 +134,7 @@ ObjectID EditorDebuggerInspector::add_object(const Array &p_arr) {
 	if (remote_objects.has(obj.id)) {
 		debug_obj = remote_objects[obj.id];
 	} else {
-		debug_obj = memnew(EditorDebuggerRemoteObject);
+		debug_obj = memnewOld(EditorDebuggerRemoteObject);
 		debug_obj->remote_object_id = obj.id;
 		debug_obj->type_name = obj.class_name;
 		remote_objects[obj.id] = debug_obj;

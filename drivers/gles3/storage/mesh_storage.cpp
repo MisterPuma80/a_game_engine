@@ -211,7 +211,7 @@ void MeshStorage::mesh_add_surface(RID p_mesh, const RS::SurfaceData &p_surface)
 	}
 #endif
 
-	Mesh::Surface *s = memnew(Mesh::Surface);
+	Mesh::Surface *s = memnewOld(Mesh::Surface);
 
 	s->format = new_surface.format;
 	s->primitive = new_surface.primitive;
@@ -289,7 +289,7 @@ void MeshStorage::mesh_add_surface(RID p_mesh, const RS::SurfaceData &p_surface)
 
 	if (GLES3::Config::get_singleton()->generate_wireframes && s->primitive == RS::PRIMITIVE_TRIANGLES) {
 		// Generate wireframes. This is mostly used by the editor.
-		s->wireframe = memnew(Mesh::Surface::Wireframe);
+		s->wireframe = memnewOld(Mesh::Surface::Wireframe);
 		Vector<uint32_t> wf_indices;
 		uint32_t &wf_index_count = s->wireframe->index_count;
 		uint32_t *wr = nullptr;

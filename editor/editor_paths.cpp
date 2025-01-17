@@ -99,7 +99,7 @@ String EditorPaths::get_feature_profiles_dir() const {
 }
 
 void EditorPaths::create() {
-	memnew(EditorPaths);
+	memnewOld(EditorPaths);
 }
 
 void EditorPaths::free() {

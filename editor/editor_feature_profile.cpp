@@ -920,71 +920,71 @@ void EditorFeatureProfileManager::_bind_methods() {
 }
 
 EditorFeatureProfileManager::EditorFeatureProfileManager() {
-	VBoxContainer *main_vbc = memnew(VBoxContainer);
+	VBoxContainer *main_vbc = memnewOld(VBoxContainer);
 	add_child(main_vbc);
 
-	HBoxContainer *name_hbc = memnew(HBoxContainer);
-	current_profile_name = memnew(LineEdit);
+	HBoxContainer *name_hbc = memnewOld(HBoxContainer);
+	current_profile_name = memnewOld(LineEdit);
 	name_hbc->add_child(current_profile_name);
 	current_profile_name->set_text(TTR("(none)"));
 	current_profile_name->set_editable(false);
 	current_profile_name->set_h_size_flags(Control::SIZE_EXPAND_FILL);
-	profile_actions[PROFILE_CLEAR] = memnew(Button(TTR("Reset to Default")));
+	profile_actions[PROFILE_CLEAR] = memnewOld(Button(TTR("Reset to Default")));
 	name_hbc->add_child(profile_actions[PROFILE_CLEAR]);
 	profile_actions[PROFILE_CLEAR]->set_disabled(true);
 	profile_actions[PROFILE_CLEAR]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_CLEAR));
 
 	main_vbc->add_margin_child(TTR("Current Profile:"), name_hbc);
 
-	main_vbc->add_child(memnew(HSeparator));
+	main_vbc->add_child(memnewOld(HSeparator));
 
-	HBoxContainer *profiles_hbc = memnew(HBoxContainer);
-	profile_list = memnew(OptionButton);
+	HBoxContainer *profiles_hbc = memnewOld(HBoxContainer);
+	profile_list = memnewOld(OptionButton);
 	profile_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	profile_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	profiles_hbc->add_child(profile_list);
 	profile_list->connect(SceneStringName(item_selected), callable_mp(this, &EditorFeatureProfileManager::_profile_selected));
 
-	profile_actions[PROFILE_NEW] = memnew(Button(TTR("Create Profile")));
+	profile_actions[PROFILE_NEW] = memnewOld(Button(TTR("Create Profile")));
 	profiles_hbc->add_child(profile_actions[PROFILE_NEW]);
 	profile_actions[PROFILE_NEW]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_NEW));
 
-	profile_actions[PROFILE_ERASE] = memnew(Button(TTR("Remove Profile")));
+	profile_actions[PROFILE_ERASE] = memnewOld(Button(TTR("Remove Profile")));
 	profiles_hbc->add_child(profile_actions[PROFILE_ERASE]);
 	profile_actions[PROFILE_ERASE]->set_disabled(true);
 	profile_actions[PROFILE_ERASE]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_ERASE));
 
 	main_vbc->add_margin_child(TTR("Available Profiles:"), profiles_hbc);
 
-	HBoxContainer *current_profile_hbc = memnew(HBoxContainer);
+	HBoxContainer *current_profile_hbc = memnewOld(HBoxContainer);
 
-	profile_actions[PROFILE_SET] = memnew(Button(TTR("Make Current")));
+	profile_actions[PROFILE_SET] = memnewOld(Button(TTR("Make Current")));
 	current_profile_hbc->add_child(profile_actions[PROFILE_SET]);
 	profile_actions[PROFILE_SET]->set_disabled(true);
 	profile_actions[PROFILE_SET]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_SET));
 
-	current_profile_hbc->add_child(memnew(VSeparator));
+	current_profile_hbc->add_child(memnewOld(VSeparator));
 
-	profile_actions[PROFILE_IMPORT] = memnew(Button(TTR("Import")));
+	profile_actions[PROFILE_IMPORT] = memnewOld(Button(TTR("Import")));
 	current_profile_hbc->add_child(profile_actions[PROFILE_IMPORT]);
 	profile_actions[PROFILE_IMPORT]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_IMPORT));
 
-	profile_actions[PROFILE_EXPORT] = memnew(Button(TTR("Export")));
+	profile_actions[PROFILE_EXPORT] = memnewOld(Button(TTR("Export")));
 	current_profile_hbc->add_child(profile_actions[PROFILE_EXPORT]);
 	profile_actions[PROFILE_EXPORT]->set_disabled(true);
 	profile_actions[PROFILE_EXPORT]->connect(SceneStringName(pressed), callable_mp(this, &EditorFeatureProfileManager::_profile_action).bind(PROFILE_EXPORT));
 
 	main_vbc->add_child(current_profile_hbc);
 
-	h_split = memnew(HSplitContainer);
+	h_split = memnewOld(HSplitContainer);
 	h_split->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	main_vbc->add_child(h_split);
 
-	class_list_vbc = memnew(VBoxContainer);
+	class_list_vbc = memnewOld(VBoxContainer);
 	h_split->add_child(class_list_vbc);
 	class_list_vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	class_list = memnew(Tree);
+	class_list = memnewOld(Tree);
 	class_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	class_list_vbc->add_margin_child(TTR("Configure Selected Profile:"), class_list, true);
 	class_list->set_hide_root(true);
@@ -995,16 +995,16 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	// It will be displayed once the user creates or chooses a profile.
 	class_list_vbc->hide();
 
-	property_list_vbc = memnew(VBoxContainer);
+	property_list_vbc = memnewOld(VBoxContainer);
 	h_split->add_child(property_list_vbc);
 	property_list_vbc->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	description_bit = memnew(EditorHelpBit);
+	description_bit = memnewOld(EditorHelpBit);
 	description_bit->set_content_height_limits(80 * EDSCALE, 80 * EDSCALE);
 	description_bit->connect("request_hide", callable_mp(this, &EditorFeatureProfileManager::_hide_requested));
 	property_list_vbc->add_margin_child(TTR("Description:"), description_bit, false);
 
-	property_list = memnew(Tree);
+	property_list = memnewOld(Tree);
 	property_list_vbc->add_margin_child(TTR("Extra Options:"), property_list, true);
 	property_list->set_hide_root(true);
 	property_list->set_hide_folding(true);
@@ -1013,23 +1013,23 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	// It will be displayed once the user creates or chooses a profile.
 	property_list_vbc->hide();
 
-	no_profile_selected_help = memnew(Label(TTR("Create or import a profile to edit available classes and properties.")));
+	no_profile_selected_help = memnewOld(Label(TTR("Create or import a profile to edit available classes and properties.")));
 	// Add some spacing above the help label.
-	Ref<StyleBoxEmpty> sb = memnew(StyleBoxEmpty);
+	Ref<StyleBoxEmpty> sb = memnewOld(StyleBoxEmpty);
 	sb->set_content_margin(SIDE_TOP, 20 * EDSCALE);
 	no_profile_selected_help->add_theme_style_override(CoreStringName(normal), sb);
 	no_profile_selected_help->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	no_profile_selected_help->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	h_split->add_child(no_profile_selected_help);
 
-	new_profile_dialog = memnew(ConfirmationDialog);
+	new_profile_dialog = memnewOld(ConfirmationDialog);
 	new_profile_dialog->set_title(TTR("Create Profile"));
-	VBoxContainer *new_profile_vb = memnew(VBoxContainer);
+	VBoxContainer *new_profile_vb = memnewOld(VBoxContainer);
 	new_profile_dialog->add_child(new_profile_vb);
-	Label *new_profile_label = memnew(Label);
+	Label *new_profile_label = memnewOld(Label);
 	new_profile_label->set_text(TTR("New profile name:"));
 	new_profile_vb->add_child(new_profile_label);
-	new_profile_name = memnew(LineEdit);
+	new_profile_name = memnewOld(LineEdit);
 	new_profile_vb->add_child(new_profile_name);
 	new_profile_name->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 	add_child(new_profile_dialog);
@@ -1037,12 +1037,12 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	new_profile_dialog->register_text_enter(new_profile_name);
 	new_profile_dialog->set_ok_button_text(TTR("Create"));
 
-	erase_profile_dialog = memnew(ConfirmationDialog);
+	erase_profile_dialog = memnewOld(ConfirmationDialog);
 	add_child(erase_profile_dialog);
 	erase_profile_dialog->set_title(TTR("Remove Profile"));
 	erase_profile_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorFeatureProfileManager::_erase_selected_profile));
 
-	import_profiles = memnew(EditorFileDialog);
+	import_profiles = memnewOld(EditorFileDialog);
 	add_child(import_profiles);
 	import_profiles->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 	import_profiles->add_filter("*.profile", TTR("Godot Feature Profile"));
@@ -1050,7 +1050,7 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	import_profiles->set_title(TTR("Import Profile(s)"));
 	import_profiles->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 
-	export_profile = memnew(EditorFileDialog);
+	export_profile = memnewOld(EditorFileDialog);
 	add_child(export_profile);
 	export_profile->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	export_profile->add_filter("*.profile", TTR("Godot Feature Profile"));
@@ -1061,7 +1061,7 @@ EditorFeatureProfileManager::EditorFeatureProfileManager() {
 	set_title(TTR("Manage Editor Feature Profiles"));
 	EDITOR_DEF("_default_feature_profile", "");
 
-	update_timer = memnew(Timer);
+	update_timer = memnewOld(Timer);
 	update_timer->set_wait_time(1); //wait a second before updating editor
 	add_child(update_timer);
 	update_timer->connect("timeout", callable_mp(this, &EditorFeatureProfileManager::_emit_current_profile_changed));

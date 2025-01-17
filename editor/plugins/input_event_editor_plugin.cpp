@@ -83,7 +83,7 @@ void InputEventConfigContainer::set_event(const Ref<InputEvent> &p_event) {
 }
 
 InputEventConfigContainer::InputEventConfigContainer() {
-	input_event_text = memnew(Label);
+	input_event_text = memnewOld(Label);
 	input_event_text->set_h_size_flags(SIZE_EXPAND_FILL);
 	input_event_text->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD_SMART);
 	input_event_text->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -93,9 +93,9 @@ InputEventConfigContainer::InputEventConfigContainer() {
 	open_config_button->connect(SceneStringName(pressed), callable_mp(this, &InputEventConfigContainer::_configure_pressed));
 	add_child(open_config_button);
 
-	add_child(memnew(Control));
+	add_child(memnewOld(Control));
 
-	config_dialog = memnew(InputEventConfigurationDialog);
+	config_dialog = memnewOld(InputEventConfigurationDialog);
 	config_dialog->connect(SceneStringName(confirmed), callable_mp(this, &InputEventConfigContainer::_config_dialog_confirmed));
 	add_child(config_dialog);
 }
@@ -114,7 +114,7 @@ bool EditorInspectorPluginInputEvent::can_handle(Object *p_object) {
 void EditorInspectorPluginInputEvent::parse_begin(Object *p_object) {
 	Ref<InputEvent> ie = Ref<InputEvent>(p_object);
 
-	InputEventConfigContainer *picker_controls = memnew(InputEventConfigContainer);
+	InputEventConfigContainer *picker_controls = memnewOld(InputEventConfigContainer);
 	picker_controls->set_event(ie);
 	add_custom_control(picker_controls);
 }

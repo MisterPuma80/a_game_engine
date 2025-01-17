@@ -353,21 +353,21 @@ RasterizerGLES3::RasterizerGLES3() {
 	glDisable(GL_FRAMEBUFFER_SRGB);
 
 	// OpenGL needs to be initialized before initializing the Rasterizers
-	config = memnew(GLES3::Config);
-	utilities = memnew(GLES3::Utilities);
-	texture_storage = memnew(GLES3::TextureStorage);
-	material_storage = memnew(GLES3::MaterialStorage);
-	mesh_storage = memnew(GLES3::MeshStorage);
-	particles_storage = memnew(GLES3::ParticlesStorage);
-	light_storage = memnew(GLES3::LightStorage);
-	copy_effects = memnew(GLES3::CopyEffects);
-	cubemap_filter = memnew(GLES3::CubemapFilter);
-	glow = memnew(GLES3::Glow);
-	post_effects = memnew(GLES3::PostEffects);
-	gi = memnew(GLES3::GI);
-	fog = memnew(GLES3::Fog);
-	canvas = memnew(RasterizerCanvasGLES3());
-	scene = memnew(RasterizerSceneGLES3());
+	config = memnewOld(GLES3::Config);
+	utilities = memnewOld(GLES3::Utilities);
+	texture_storage = memnewOld(GLES3::TextureStorage);
+	material_storage = memnewOld(GLES3::MaterialStorage);
+	mesh_storage = memnewOld(GLES3::MeshStorage);
+	particles_storage = memnewOld(GLES3::ParticlesStorage);
+	light_storage = memnewOld(GLES3::LightStorage);
+	copy_effects = memnewOld(GLES3::CopyEffects);
+	cubemap_filter = memnewOld(GLES3::CubemapFilter);
+	glow = memnewOld(GLES3::Glow);
+	post_effects = memnewOld(GLES3::PostEffects);
+	gi = memnewOld(GLES3::GI);
+	fog = memnewOld(GLES3::Fog);
+	canvas = memnewOld(RasterizerCanvasGLES3());
+	scene = memnewOld(RasterizerSceneGLES3());
 }
 
 RasterizerGLES3::~RasterizerGLES3() {

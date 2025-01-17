@@ -236,7 +236,7 @@ static Error _parse_obj(const String &p_path, List<Ref<ImporterMesh>> &r_meshes,
 
 	HashMap<String, HashMap<String, Ref<StandardMaterial3D>>> material_map;
 
-	Ref<SurfaceTool> surf_tool = memnew(SurfaceTool);
+	Ref<SurfaceTool> surf_tool = memnewOld(SurfaceTool);
 	surf_tool->begin(Mesh::PRIMITIVE_TRIANGLES);
 
 	String current_material_library;
@@ -521,10 +521,10 @@ Node *EditorOBJImporter::import_scene(const String &p_path, uint32_t p_flags, co
 		return nullptr;
 	}
 
-	Node3D *scene = memnew(Node3D);
+	Node3D *scene = memnewOld(Node3D);
 
 	for (Ref<ImporterMesh> m : meshes) {
-		ImporterMeshInstance3D *mi = memnew(ImporterMeshInstance3D);
+		ImporterMeshInstance3D *mi = memnewOld(ImporterMeshInstance3D);
 		mi->set_mesh(m);
 		mi->set_name(m->get_name());
 		scene->add_child(mi, true);

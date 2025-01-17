@@ -3007,7 +3007,7 @@ Variant TextEdit::get_drag_data(const Point2 &p_point) {
 
 	if (has_selection() && selection_drag_attempt) {
 		String t = get_selected_text();
-		Label *l = memnew(Label);
+		Label *l = memnewOld(Label);
 		l->set_text(t);
 		set_drag_preview(l);
 		return t;
@@ -7337,16 +7337,16 @@ Key TextEdit::_get_menu_action_accelerator(const String &p_action) {
 }
 
 void TextEdit::_generate_context_menu() {
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	add_child(menu, false, INTERNAL_MODE_FRONT);
 
-	menu_dir = memnew(PopupMenu);
+	menu_dir = memnewOld(PopupMenu);
 	menu_dir->add_radio_check_item(ETR("Same as Layout Direction"), MENU_DIR_INHERITED);
 	menu_dir->add_radio_check_item(ETR("Auto-Detect Direction"), MENU_DIR_AUTO);
 	menu_dir->add_radio_check_item(ETR("Left-to-Right"), MENU_DIR_LTR);
 	menu_dir->add_radio_check_item(ETR("Right-to-Left"), MENU_DIR_RTL);
 
-	menu_ctl = memnew(PopupMenu);
+	menu_ctl = memnewOld(PopupMenu);
 	menu_ctl->add_item(ETR("Left-to-Right Mark (LRM)"), MENU_INSERT_LRM);
 	menu_ctl->add_item(ETR("Right-to-Left Mark (RLM)"), MENU_INSERT_RLM);
 	menu_ctl->add_item(ETR("Start of Left-to-Right Embedding (LRE)"), MENU_INSERT_LRE);
@@ -8457,8 +8457,8 @@ TextEdit::TextEdit(const String &p_placeholder) {
 
 	text.set_tab_size(text.get_tab_size());
 
-	h_scroll = memnew(HScrollBar);
-	v_scroll = memnew(VScrollBar);
+	h_scroll = memnewOld(HScrollBar);
+	v_scroll = memnewOld(VScrollBar);
 
 	add_child(h_scroll, false, INTERNAL_MODE_FRONT);
 	add_child(v_scroll, false, INTERNAL_MODE_FRONT);
@@ -8469,19 +8469,19 @@ TextEdit::TextEdit(const String &p_placeholder) {
 	v_scroll->connect("scrolling", callable_mp(this, &TextEdit::_v_scroll_input));
 
 	/* Caret. */
-	caret_blink_timer = memnew(Timer);
+	caret_blink_timer = memnewOld(Timer);
 	add_child(caret_blink_timer, false, INTERNAL_MODE_FRONT);
 	caret_blink_timer->set_wait_time(0.65);
 	caret_blink_timer->connect("timeout", callable_mp(this, &TextEdit::_toggle_draw_caret));
 	set_caret_blink_enabled(false);
 
 	/* Selection. */
-	click_select_held = memnew(Timer);
+	click_select_held = memnewOld(Timer);
 	add_child(click_select_held, false, INTERNAL_MODE_FRONT);
 	click_select_held->set_wait_time(0.05);
 	click_select_held->connect("timeout", callable_mp(this, &TextEdit::_click_selection_held));
 
-	idle_detect = memnew(Timer);
+	idle_detect = memnewOld(Timer);
 	add_child(idle_detect, false, INTERNAL_MODE_FRONT);
 	idle_detect->set_one_shot(true);
 	idle_detect->set_wait_time(GLOBAL_GET("gui/timers/text_edit_idle_detect_sec"));

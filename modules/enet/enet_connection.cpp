@@ -113,7 +113,7 @@ Ref<ENetPacketPeer> ENetConnection::connect_to_host(const String &p_address, int
 	if (peer == nullptr) {
 		return nullptr;
 	}
-	out = Ref<ENetPacketPeer>(memnew(ENetPacketPeer(peer)));
+	out = Ref<ENetPacketPeer>(memnewOld(ENetPacketPeer(peer)));
 	peers.push_back(out);
 	return out;
 }
@@ -122,7 +122,7 @@ ENetConnection::EventType ENetConnection::_parse_event(const ENetEvent &p_event,
 	switch (p_event.type) {
 		case ENET_EVENT_TYPE_CONNECT: {
 			if (p_event.peer->data == nullptr) {
-				Ref<ENetPacketPeer> pp = memnew(ENetPacketPeer(p_event.peer));
+				Ref<ENetPacketPeer> pp = memnewOld(ENetPacketPeer(p_event.peer));
 				peers.push_back(pp);
 			}
 			r_event.peer = Ref<ENetPacketPeer>((ENetPacketPeer *)p_event.peer->data);
@@ -508,7 +508,7 @@ void ENetConnection::Compressor::setup(ENetHost *p_host, CompressionMode p_mode)
 		case COMPRESS_FASTLZ:
 		case COMPRESS_ZLIB:
 		case COMPRESS_ZSTD: {
-			Compressor *compressor = memnew(Compressor(p_mode));
+			Compressor *compressor = memnewOld(Compressor(p_mode));
 			enet_host_compress(p_host, &(compressor->enet_compressor));
 		} break;
 	}

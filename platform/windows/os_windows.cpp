@@ -217,7 +217,7 @@ void OS_Windows::initialize() {
 		timeBeginPeriod(1);
 	}
 
-	process_map = memnew((HashMap<ProcessID, ProcessInfo>));
+	process_map = memnewOld((HashMap<ProcessID, ProcessInfo>));
 
 	// Add current Godot PID to the list of known PIDs
 	ProcessInfo current_pi = {};
@@ -2018,8 +2018,8 @@ OS_Windows::OS_Windows(HINSTANCE _hInstance) {
 	}
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnew(WindowsTerminalLogger));
-	_set_logger(memnew(CompositeLogger(loggers)));
+	loggers.push_back(memnewOld(WindowsTerminalLogger));
+	_set_logger(memnewOld(CompositeLogger(loggers)));
 }
 
 OS_Windows::~OS_Windows() {

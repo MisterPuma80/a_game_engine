@@ -1111,7 +1111,7 @@ void TabContainer::_bind_methods() {
 }
 
 TabContainer::TabContainer() {
-	tab_bar = memnew(TabBar);
+	tab_bar = memnewOld(TabBar);
 	SET_DRAG_FORWARDING_GCDU(tab_bar, TabContainer);
 	add_child(tab_bar, false, INTERNAL_MODE_FRONT);
 	tab_bar->set_anchors_and_offsets_preset(Control::PRESET_TOP_WIDE);

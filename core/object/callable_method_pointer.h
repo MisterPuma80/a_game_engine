@@ -126,7 +126,7 @@ Callable create_custom_callable_function_pointer(T *p_instance,
 #endif
 		void (T::*p_method)(P...)) {
 	typedef CallableCustomMethodPointer<T, void, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_instance, p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_instance, p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif
@@ -140,7 +140,7 @@ Callable create_custom_callable_function_pointer(T *p_instance,
 #endif
 		R (T::*p_method)(P...)) {
 	typedef CallableCustomMethodPointer<T, R, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_instance, p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_instance, p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif
@@ -196,7 +196,7 @@ Callable create_custom_callable_function_pointer(T *p_instance,
 #endif
 		void (T::*p_method)(P...) const) {
 	typedef CallableCustomMethodPointerC<T, void, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_instance, p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_instance, p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif
@@ -210,7 +210,7 @@ Callable create_custom_callable_function_pointer(T *p_instance,
 #endif
 		R (T::*p_method)(P...) const) {
 	typedef CallableCustomMethodPointerC<T, R, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_instance, p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_instance, p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif
@@ -268,7 +268,7 @@ Callable create_custom_callable_static_function_pointer(
 #endif
 		void (*p_method)(P...)) {
 	typedef CallableCustomStaticMethodPointer<void, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif
@@ -282,7 +282,7 @@ Callable create_custom_callable_static_function_pointer(
 #endif
 		R (*p_method)(P...)) {
 	typedef CallableCustomStaticMethodPointer<R, P...> CCMP; // Messes with memnew otherwise.
-	CCMP *ccmp = memnew(CCMP(p_method));
+	CCMP *ccmp = memnewOld(CCMP(p_method));
 #ifdef DEBUG_METHODS_ENABLED
 	ccmp->set_text(p_func_text + 1); // Try to get rid of the ampersand.
 #endif

@@ -46,12 +46,12 @@ EditorDebuggerTree::EditorDebuggerTree() {
 	set_allow_rmb_select(true);
 
 	// Popup
-	item_menu = memnew(PopupMenu);
+	item_menu = memnewOld(PopupMenu);
 	item_menu->connect(SceneStringName(id_pressed), callable_mp(this, &EditorDebuggerTree::_item_menu_id_pressed));
 	add_child(item_menu);
 
 	// File Dialog
-	file_dialog = memnew(EditorFileDialog);
+	file_dialog = memnewOld(EditorFileDialog);
 	file_dialog->connect("file_selected", callable_mp(this, &EditorDebuggerTree::_file_selected));
 	add_child(file_dialog);
 }
@@ -279,12 +279,12 @@ Variant EditorDebuggerTree::get_drag_data(const Point2 &p_point) {
 
 	String path = selected->get_text(0);
 
-	HBoxContainer *hb = memnew(HBoxContainer);
-	TextureRect *tf = memnew(TextureRect);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
+	TextureRect *tf = memnewOld(TextureRect);
 	tf->set_texture(selected->get_icon(0));
 	tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	hb->add_child(tf);
-	Label *label = memnew(Label(path));
+	Label *label = memnewOld(Label(path));
 	hb->add_child(label);
 	set_drag_preview(hb);
 
@@ -333,7 +333,7 @@ void EditorDebuggerTree::_item_menu_id_pressed(int p_option) {
 			file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 
 			List<String> extensions;
-			Ref<PackedScene> sd = memnew(PackedScene);
+			Ref<PackedScene> sd = memnewOld(PackedScene);
 			ResourceSaver::get_recognized_extensions(sd, &extensions);
 			file_dialog->clear_filters();
 			for (const String &extension : extensions) {

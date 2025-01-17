@@ -308,7 +308,7 @@ void EngineUpdateLabel::pressed() {
 EngineUpdateLabel::EngineUpdateLabel() {
 	set_underline_mode(UNDERLINE_MODE_ON_HOVER);
 
-	http = memnew(HTTPRequest);
+	http = memnewOld(HTTPRequest);
 	http->set_https_proxy(EDITOR_GET("network/http_proxy/host"), EDITOR_GET("network/http_proxy/port"));
 	http->set_timeout(10.0);
 	add_child(http);

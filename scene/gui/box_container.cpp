@@ -320,7 +320,7 @@ bool BoxContainer::is_vertical() const {
 }
 
 Control *BoxContainer::add_spacer(bool p_begin) {
-	Control *c = memnew(Control);
+	Control *c = memnewOld(Control);
 	c->set_mouse_filter(MOUSE_FILTER_PASS); //allow spacer to pass mouse events
 
 	if (vertical) {
@@ -383,11 +383,11 @@ void BoxContainer::_bind_methods() {
 }
 
 MarginContainer *VBoxContainer::add_margin_child(const String &p_label, Control *p_control, bool p_expand) {
-	Label *l = memnew(Label);
+	Label *l = memnewOld(Label);
 	l->set_theme_type_variation("HeaderSmall");
 	l->set_text(p_label);
 	add_child(l);
-	MarginContainer *mc = memnew(MarginContainer);
+	MarginContainer *mc = memnewOld(MarginContainer);
 	mc->add_theme_constant_override("margin_left", 0);
 	mc->add_child(p_control, true);
 	add_child(mc);

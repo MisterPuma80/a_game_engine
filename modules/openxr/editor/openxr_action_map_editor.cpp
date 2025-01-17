@@ -74,7 +74,7 @@ void OpenXRActionMapEditor::_notification(int p_what) {
 OpenXRActionSetEditor *OpenXRActionMapEditor::_add_action_set_editor(Ref<OpenXRActionSet> p_action_set) {
 	ERR_FAIL_COND_V(p_action_set.is_null(), nullptr);
 
-	OpenXRActionSetEditor *action_set_editor = memnew(OpenXRActionSetEditor(action_map, p_action_set));
+	OpenXRActionSetEditor *action_set_editor = memnewOld(OpenXRActionSetEditor(action_map, p_action_set));
 	action_set_editor->connect("remove", callable_mp(this, &OpenXRActionMapEditor::_on_remove_action_set));
 	action_set_editor->connect("action_removed", callable_mp(this, &OpenXRActionMapEditor::_on_action_removed));
 
@@ -104,7 +104,7 @@ OpenXRInteractionProfileEditorBase *OpenXRActionMapEditor::_add_interaction_prof
 		// instance specific editor for this type
 	} else {
 		// instance generic editor
-		new_profile_editor = memnew(OpenXRInteractionProfileEditor(action_map, p_interaction_profile));
+		new_profile_editor = memnewOld(OpenXRInteractionProfileEditor(action_map, p_interaction_profile));
 	}
 
 	// now add it in..
@@ -391,43 +391,43 @@ OpenXRActionMapEditor::OpenXRActionMapEditor() {
 	undo_redo = EditorUndoRedoManager::get_singleton();
 	set_custom_minimum_size(Size2(0.0, 300.0));
 
-	top_hb = memnew(HBoxContainer);
+	top_hb = memnewOld(HBoxContainer);
 	add_child(top_hb);
 
-	header_label = memnew(Label);
+	header_label = memnewOld(Label);
 	header_label->set_text(String(TTR("Action Map")));
 	header_label->set_clip_text(true);
 	header_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	top_hb->add_child(header_label);
 
-	add_action_set = memnew(Button);
+	add_action_set = memnewOld(Button);
 	add_action_set->set_text(TTR("Add Action Set"));
 	add_action_set->set_tooltip_text(TTR("Add an action set."));
 	add_action_set->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionMapEditor::_on_add_action_set));
 	top_hb->add_child(add_action_set);
 
-	add_interaction_profile = memnew(Button);
+	add_interaction_profile = memnewOld(Button);
 	add_interaction_profile->set_text(TTR("Add profile"));
 	add_interaction_profile->set_tooltip_text(TTR("Add an interaction profile."));
 	add_interaction_profile->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionMapEditor::_on_add_interaction_profile));
 	top_hb->add_child(add_interaction_profile);
 
-	VSeparator *vseparator = memnew(VSeparator);
+	VSeparator *vseparator = memnewOld(VSeparator);
 	top_hb->add_child(vseparator);
 
-	save_as = memnew(Button);
+	save_as = memnewOld(Button);
 	save_as->set_text(TTR("Save"));
 	save_as->set_tooltip_text(TTR("Save this OpenXR action map."));
 	save_as->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionMapEditor::_on_save_action_map));
 	top_hb->add_child(save_as);
 
-	_default = memnew(Button);
+	_default = memnewOld(Button);
 	_default->set_text(TTR("Reset to Default"));
 	_default->set_tooltip_text(TTR("Reset to default OpenXR action map."));
 	_default->connect(SceneStringName(pressed), callable_mp(this, &OpenXRActionMapEditor::_on_reset_to_default_layout));
 	top_hb->add_child(_default);
 
-	tabs = memnew(TabContainer);
+	tabs = memnewOld(TabContainer);
 	tabs->set_h_size_flags(SIZE_EXPAND_FILL);
 	tabs->set_v_size_flags(SIZE_EXPAND_FILL);
 	tabs->set_theme_type_variation("TabContainerOdd");
@@ -435,18 +435,18 @@ OpenXRActionMapEditor::OpenXRActionMapEditor() {
 	tabs->connect("tab_button_pressed", callable_mp(this, &OpenXRActionMapEditor::_on_tab_button_pressed));
 	add_child(tabs);
 
-	actionsets_scroll = memnew(ScrollContainer);
+	actionsets_scroll = memnewOld(ScrollContainer);
 	actionsets_scroll->set_h_size_flags(SIZE_EXPAND_FILL);
 	actionsets_scroll->set_v_size_flags(SIZE_EXPAND_FILL);
 	actionsets_scroll->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 	tabs->add_child(actionsets_scroll);
 	actionsets_scroll->set_name(TTR("Action Sets"));
 
-	actionsets_vb = memnew(VBoxContainer);
+	actionsets_vb = memnewOld(VBoxContainer);
 	actionsets_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	actionsets_scroll->add_child(actionsets_vb);
 
-	select_interaction_profile_dialog = memnew(OpenXRSelectInteractionProfileDialog);
+	select_interaction_profile_dialog = memnewOld(OpenXRSelectInteractionProfileDialog);
 	select_interaction_profile_dialog->connect("interaction_profile_selected", callable_mp(this, &OpenXRActionMapEditor::_on_interaction_profile_selected));
 	add_child(select_interaction_profile_dialog);
 

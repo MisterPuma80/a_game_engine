@@ -307,13 +307,13 @@ AtlasMergingDialog::AtlasMergingDialog() {
 	merge_button = add_button(TTR("Merge"), true, "merge");
 	merge_button->set_disabled(true);
 
-	HSplitContainer *atlas_merging_h_split_container = memnew(HSplitContainer);
+	HSplitContainer *atlas_merging_h_split_container = memnewOld(HSplitContainer);
 	atlas_merging_h_split_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	atlas_merging_h_split_container->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(atlas_merging_h_split_container);
 
 	// Atlas sources item list.
-	atlas_merging_atlases_list = memnew(ItemList);
+	atlas_merging_atlases_list = memnewOld(ItemList);
 	atlas_merging_atlases_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	atlas_merging_atlases_list->set_fixed_icon_size(Size2(60, 60) * EDSCALE);
 	atlas_merging_atlases_list->set_h_size_flags(Control::SIZE_EXPAND_FILL);
@@ -324,17 +324,17 @@ AtlasMergingDialog::AtlasMergingDialog() {
 	atlas_merging_atlases_list->connect("multi_selected", callable_mp(this, &AtlasMergingDialog::_update_texture).unbind(2));
 	atlas_merging_h_split_container->add_child(atlas_merging_atlases_list);
 
-	VBoxContainer *atlas_merging_right_panel = memnew(VBoxContainer);
+	VBoxContainer *atlas_merging_right_panel = memnewOld(VBoxContainer);
 	atlas_merging_right_panel->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	atlas_merging_right_panel->set_texture_filter(CanvasItem::TEXTURE_FILTER_NEAREST_WITH_MIPMAPS);
 	atlas_merging_h_split_container->add_child(atlas_merging_right_panel);
 
 	// Settings.
-	Label *settings_label = memnew(Label);
+	Label *settings_label = memnewOld(Label);
 	settings_label->set_text(TTR("Settings:"));
 	atlas_merging_right_panel->add_child(settings_label);
 
-	columns_editor_property = memnew(EditorPropertyInteger);
+	columns_editor_property = memnewOld(EditorPropertyInteger);
 	columns_editor_property->set_label(TTR("Next Line After Column"));
 	columns_editor_property->set_object_and_property(this, "next_line_after_column");
 	columns_editor_property->update_property();
@@ -342,11 +342,11 @@ AtlasMergingDialog::AtlasMergingDialog() {
 	atlas_merging_right_panel->add_child(columns_editor_property);
 
 	// Preview.
-	Label *preview_label = memnew(Label);
+	Label *preview_label = memnewOld(Label);
 	preview_label->set_text(TTR("Preview:"));
 	atlas_merging_right_panel->add_child(preview_label);
 
-	preview = memnew(TextureRect);
+	preview = memnewOld(TextureRect);
 	preview->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	preview->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	preview->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
@@ -354,7 +354,7 @@ AtlasMergingDialog::AtlasMergingDialog() {
 	preview->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	atlas_merging_right_panel->add_child(preview);
 
-	select_2_atlases_label = memnew(Label);
+	select_2_atlases_label = memnewOld(Label);
 	select_2_atlases_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	select_2_atlases_label->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	select_2_atlases_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
@@ -363,7 +363,7 @@ AtlasMergingDialog::AtlasMergingDialog() {
 	atlas_merging_right_panel->add_child(select_2_atlases_label);
 
 	// The file dialog to choose the texture path.
-	editor_file_dialog = memnew(EditorFileDialog);
+	editor_file_dialog = memnewOld(EditorFileDialog);
 	editor_file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	editor_file_dialog->add_filter("*.png");
 	editor_file_dialog->connect("file_selected", callable_mp(this, &AtlasMergingDialog::_merge_confirmed));

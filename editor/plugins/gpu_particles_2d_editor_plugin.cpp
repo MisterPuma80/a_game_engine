@@ -113,7 +113,7 @@ void GPUParticles2DEditorPlugin::_menu_callback(int p_idx) {
 			emission_mask->popup_centered();
 		} break;
 		case MENU_OPTION_CONVERT_TO_CPU_PARTICLES: {
-			CPUParticles2D *cpu_particles = memnew(CPUParticles2D);
+			CPUParticles2D *cpu_particles = memnewOld(CPUParticles2D);
 			cpu_particles->convert_from_particles(particles);
 			cpu_particles->set_name(particles->get_name());
 			cpu_particles->set_transform(particles->get_transform());
@@ -372,11 +372,11 @@ void GPUParticles2DEditorPlugin::_bind_methods() {
 GPUParticles2DEditorPlugin::GPUParticles2DEditorPlugin() {
 	particles = nullptr;
 
-	toolbar = memnew(HBoxContainer);
+	toolbar = memnewOld(HBoxContainer);
 	add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar);
 	toolbar->hide();
 
-	menu = memnew(MenuButton);
+	menu = memnewOld(MenuButton);
 	menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("particles/restart_emission"), MENU_RESTART);
 	menu->get_popup()->add_item(TTR("Generate Visibility Rect"), MENU_GENERATE_VISIBILITY_RECT);
 	menu->get_popup()->add_item(TTR("Load Emission Mask"), MENU_LOAD_EMISSION_MASK);
@@ -386,7 +386,7 @@ GPUParticles2DEditorPlugin::GPUParticles2DEditorPlugin() {
 	menu->set_switch_on_hover(true);
 	toolbar->add_child(menu);
 
-	file = memnew(EditorFileDialog);
+	file = memnewOld(EditorFileDialog);
 	List<String> ext;
 	ImageLoader::get_recognized_extensions(&ext);
 	for (const String &E : ext) {
@@ -395,11 +395,11 @@ GPUParticles2DEditorPlugin::GPUParticles2DEditorPlugin() {
 	file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	toolbar->add_child(file);
 
-	generate_visibility_rect = memnew(ConfirmationDialog);
+	generate_visibility_rect = memnewOld(ConfirmationDialog);
 	generate_visibility_rect->set_title(TTR("Generate Visibility Rect"));
-	VBoxContainer *genvb = memnew(VBoxContainer);
+	VBoxContainer *genvb = memnewOld(VBoxContainer);
 	generate_visibility_rect->add_child(genvb);
-	generate_seconds = memnew(SpinBox);
+	generate_seconds = memnewOld(SpinBox);
 	genvb->add_margin_child(TTR("Generation Time (sec):"), generate_seconds);
 	generate_seconds->set_min(0.1);
 	generate_seconds->set_max(25);
@@ -409,21 +409,21 @@ GPUParticles2DEditorPlugin::GPUParticles2DEditorPlugin() {
 
 	generate_visibility_rect->connect(SceneStringName(confirmed), callable_mp(this, &GPUParticles2DEditorPlugin::_generate_visibility_rect));
 
-	emission_mask = memnew(ConfirmationDialog);
+	emission_mask = memnewOld(ConfirmationDialog);
 	emission_mask->set_title(TTR("Load Emission Mask"));
-	VBoxContainer *emvb = memnew(VBoxContainer);
+	VBoxContainer *emvb = memnewOld(VBoxContainer);
 	emission_mask->add_child(emvb);
-	emission_mask_mode = memnew(OptionButton);
+	emission_mask_mode = memnewOld(OptionButton);
 	emvb->add_margin_child(TTR("Emission Mask"), emission_mask_mode);
 	emission_mask_mode->add_item(TTR("Solid Pixels"), EMISSION_MODE_SOLID);
 	emission_mask_mode->add_item(TTR("Border Pixels"), EMISSION_MODE_BORDER);
 	emission_mask_mode->add_item(TTR("Directed Border Pixels"), EMISSION_MODE_BORDER_DIRECTED);
-	VBoxContainer *optionsvb = memnew(VBoxContainer);
+	VBoxContainer *optionsvb = memnewOld(VBoxContainer);
 	emvb->add_margin_child(TTR("Options"), optionsvb);
-	emission_mask_centered = memnew(CheckBox);
+	emission_mask_centered = memnewOld(CheckBox);
 	emission_mask_centered->set_text(TTR("Centered"));
 	optionsvb->add_child(emission_mask_centered);
-	emission_colors = memnew(CheckBox);
+	emission_colors = memnewOld(CheckBox);
 	emission_colors->set_text(TTR("Capture Colors from Pixel"));
 	optionsvb->add_child(emission_colors);
 

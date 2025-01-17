@@ -385,7 +385,7 @@ public:
 
 	template <typename T>
 	T *alloc_node() {
-		T *node = memnew(T);
+		T *node = memnewOld(T);
 		node->next = nodes;
 		nodes = node;
 		return node;

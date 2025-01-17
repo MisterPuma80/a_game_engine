@@ -260,9 +260,9 @@ struct GodotTestCaseListener : public doctest::IReporter {
 		String suite_name = String(p_in.m_test_suite);
 
 		if (name.contains("[SceneTree]") || name.contains("[Editor]")) {
-			memnew(MessageQueue);
+			memnewOld(MessageQueue);
 
-			memnew(Input);
+			memnewOld(Input);
 			Input::get_singleton()->set_use_accumulated_input(false);
 
 			Error err = OK;
@@ -273,7 +273,7 @@ struct GodotTestCaseListener : public doctest::IReporter {
 					break;
 				}
 			}
-			memnew(RenderingServerDefault());
+			memnewOld(RenderingServerDefault());
 			RenderingServerDefault::get_singleton()->init();
 			RenderingServerDefault::get_singleton()->set_render_loop_enabled(false);
 
@@ -286,14 +286,14 @@ struct GodotTestCaseListener : public doctest::IReporter {
 #ifndef _3D_DISABLED
 			physics_server_3d = PhysicsServer3DManager::get_singleton()->new_default_server();
 			if (!physics_server_3d) {
-				physics_server_3d = memnew(PhysicsServer3DDummy);
+				physics_server_3d = memnewOld(PhysicsServer3DDummy);
 			}
 			physics_server_3d->init();
 #endif // _3D_DISABLED
 
 			physics_server_2d = PhysicsServer2DManager::get_singleton()->new_default_server();
 			if (!physics_server_2d) {
-				physics_server_2d = memnew(PhysicsServer2DDummy);
+				physics_server_2d = memnewOld(PhysicsServer2DDummy);
 			}
 			physics_server_2d->init();
 
@@ -304,10 +304,10 @@ struct GodotTestCaseListener : public doctest::IReporter {
 			ERR_PRINT_ON;
 #endif // _3D_DISABLED
 
-			memnew(InputMap);
+			memnewOld(InputMap);
 			InputMap::get_singleton()->load_default();
 
-			memnew(SceneTree);
+			memnewOld(SceneTree);
 			SceneTree::get_singleton()->initialize();
 			if (!DisplayServer::get_singleton()->has_feature(DisplayServer::Feature::FEATURE_SUBWINDOWS)) {
 				SceneTree::get_singleton()->get_root()->set_embedding_subwindows(true);
@@ -328,7 +328,7 @@ struct GodotTestCaseListener : public doctest::IReporter {
 			// The last driver index should always be the dummy driver.
 			int dummy_idx = AudioDriverManager::get_driver_count() - 1;
 			AudioDriverManager::initialize(dummy_idx);
-			AudioServer *audio_server = memnew(AudioServer);
+			AudioServer *audio_server = memnewOld(AudioServer);
 			audio_server->init();
 			return;
 		}
@@ -426,7 +426,7 @@ struct GodotTestCaseListener : public doctest::IReporter {
 	}
 
 	void test_run_start() override {
-		signal_watcher = memnew(SignalWatcher);
+		signal_watcher = memnewOld(SignalWatcher);
 	}
 
 	void test_run_end(const doctest::TestRunStats &) override {

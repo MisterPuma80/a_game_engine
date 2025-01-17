@@ -337,16 +337,16 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	to.set_atlas_coords(Vector2i());
 	to.alternative_tile = 0;
 
-	VBoxContainer *vbox_container = memnew(VBoxContainer);
+	VBoxContainer *vbox_container = memnewOld(VBoxContainer);
 	vbox_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	vbox_container->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	add_child(vbox_container);
 
-	Label *source_level_label = memnew(Label);
+	Label *source_level_label = memnewOld(Label);
 	source_level_label->set_text(TTR("Source-level proxies"));
 	vbox_container->add_child(source_level_label);
 
-	source_level_list = memnew(ItemList);
+	source_level_list = memnewOld(ItemList);
 	source_level_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	source_level_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	source_level_list->set_select_mode(ItemList::SELECT_MULTI);
@@ -354,11 +354,11 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	source_level_list->connect("item_clicked", callable_mp(this, &TileProxiesManagerDialog::_right_clicked).bind(source_level_list));
 	vbox_container->add_child(source_level_list);
 
-	Label *coords_level_label = memnew(Label);
+	Label *coords_level_label = memnewOld(Label);
 	coords_level_label->set_text(TTR("Coords-level proxies"));
 	vbox_container->add_child(coords_level_label);
 
-	coords_level_list = memnew(ItemList);
+	coords_level_list = memnewOld(ItemList);
 	coords_level_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	coords_level_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	coords_level_list->set_select_mode(ItemList::SELECT_MULTI);
@@ -366,11 +366,11 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	coords_level_list->connect("item_clicked", callable_mp(this, &TileProxiesManagerDialog::_right_clicked).bind(coords_level_list));
 	vbox_container->add_child(coords_level_list);
 
-	Label *alternative_level_label = memnew(Label);
+	Label *alternative_level_label = memnewOld(Label);
 	alternative_level_label->set_text(TTR("Alternative-level proxies"));
 	vbox_container->add_child(alternative_level_label);
 
-	alternative_level_list = memnew(ItemList);
+	alternative_level_list = memnewOld(ItemList);
 	alternative_level_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	alternative_level_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	alternative_level_list->set_select_mode(ItemList::SELECT_MULTI);
@@ -378,28 +378,28 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	alternative_level_list->connect("item_clicked", callable_mp(this, &TileProxiesManagerDialog::_right_clicked).bind(alternative_level_list));
 	vbox_container->add_child(alternative_level_list);
 
-	popup_menu = memnew(PopupMenu);
+	popup_menu = memnewOld(PopupMenu);
 	popup_menu->add_shortcut(ED_GET_SHORTCUT("ui_text_delete"));
 	popup_menu->connect(SceneStringName(id_pressed), callable_mp(this, &TileProxiesManagerDialog::_menu_id_pressed));
 	add_child(popup_menu);
 
 	// Add proxy panel.
-	HSeparator *h_separator = memnew(HSeparator);
+	HSeparator *h_separator = memnewOld(HSeparator);
 	vbox_container->add_child(h_separator);
 
-	Label *add_label = memnew(Label);
+	Label *add_label = memnewOld(Label);
 	add_label->set_text(TTR("Add a new tile proxy:"));
 	vbox_container->add_child(add_label);
 
-	HBoxContainer *hboxcontainer = memnew(HBoxContainer);
+	HBoxContainer *hboxcontainer = memnewOld(HBoxContainer);
 	vbox_container->add_child(hboxcontainer);
 
 	// From
-	VBoxContainer *vboxcontainer_from = memnew(VBoxContainer);
+	VBoxContainer *vboxcontainer_from = memnewOld(VBoxContainer);
 	vboxcontainer_from->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hboxcontainer->add_child(vboxcontainer_from);
 
-	source_from_property_editor = memnew(EditorPropertyInteger);
+	source_from_property_editor = memnewOld(EditorPropertyInteger);
 	source_from_property_editor->set_label(TTR("From Source"));
 	source_from_property_editor->set_object_and_property(this, "from_source");
 	source_from_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -408,7 +408,7 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	source_from_property_editor->setup(-1, 99999, 1, false, true, false);
 	vboxcontainer_from->add_child(source_from_property_editor);
 
-	coords_from_property_editor = memnew(EditorPropertyVector2i);
+	coords_from_property_editor = memnewOld(EditorPropertyVector2i);
 	coords_from_property_editor->set_label(TTR("From Coords"));
 	coords_from_property_editor->set_object_and_property(this, "from_coords");
 	coords_from_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -418,7 +418,7 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	coords_from_property_editor->hide();
 	vboxcontainer_from->add_child(coords_from_property_editor);
 
-	alternative_from_property_editor = memnew(EditorPropertyInteger);
+	alternative_from_property_editor = memnewOld(EditorPropertyInteger);
 	alternative_from_property_editor->set_label(TTR("From Alternative"));
 	alternative_from_property_editor->set_object_and_property(this, "from_alternative");
 	alternative_from_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -429,11 +429,11 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	vboxcontainer_from->add_child(alternative_from_property_editor);
 
 	// To
-	VBoxContainer *vboxcontainer_to = memnew(VBoxContainer);
+	VBoxContainer *vboxcontainer_to = memnewOld(VBoxContainer);
 	vboxcontainer_to->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	hboxcontainer->add_child(vboxcontainer_to);
 
-	source_to_property_editor = memnew(EditorPropertyInteger);
+	source_to_property_editor = memnewOld(EditorPropertyInteger);
 	source_to_property_editor->set_label(TTR("To Source"));
 	source_to_property_editor->set_object_and_property(this, "to_source");
 	source_to_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -442,7 +442,7 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	source_to_property_editor->setup(-1, 99999, 1, false, true, false);
 	vboxcontainer_to->add_child(source_to_property_editor);
 
-	coords_to_property_editor = memnew(EditorPropertyVector2i);
+	coords_to_property_editor = memnewOld(EditorPropertyVector2i);
 	coords_to_property_editor->set_label(TTR("To Coords"));
 	coords_to_property_editor->set_object_and_property(this, "to_coords");
 	coords_to_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -452,7 +452,7 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	coords_to_property_editor->hide();
 	vboxcontainer_to->add_child(coords_to_property_editor);
 
-	alternative_to_property_editor = memnew(EditorPropertyInteger);
+	alternative_to_property_editor = memnewOld(EditorPropertyInteger);
 	alternative_to_property_editor->set_label(TTR("To Alternative"));
 	alternative_to_property_editor->set_object_and_property(this, "to_alternative");
 	alternative_to_property_editor->connect("property_changed", callable_mp(this, &TileProxiesManagerDialog::_property_changed));
@@ -462,35 +462,35 @@ TileProxiesManagerDialog::TileProxiesManagerDialog() {
 	alternative_to_property_editor->hide();
 	vboxcontainer_to->add_child(alternative_to_property_editor);
 
-	Button *add_button = memnew(Button);
+	Button *add_button = memnewOld(Button);
 	add_button->set_text(TTR("Add"));
 	add_button->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 	add_button->connect(SceneStringName(pressed), callable_mp(this, &TileProxiesManagerDialog::_add_button_pressed));
 	vbox_container->add_child(add_button);
 
-	h_separator = memnew(HSeparator);
+	h_separator = memnewOld(HSeparator);
 	vbox_container->add_child(h_separator);
 
 	// Generic actions.
-	Label *generic_actions_label = memnew(Label);
+	Label *generic_actions_label = memnewOld(Label);
 	generic_actions_label->set_text(TTR("Global actions:"));
 	vbox_container->add_child(generic_actions_label);
 
-	hboxcontainer = memnew(HBoxContainer);
+	hboxcontainer = memnewOld(HBoxContainer);
 	vbox_container->add_child(hboxcontainer);
 
-	Button *clear_invalid_button = memnew(Button);
+	Button *clear_invalid_button = memnewOld(Button);
 	clear_invalid_button->set_text(TTR("Clear Invalid"));
 	clear_invalid_button->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 	clear_invalid_button->connect(SceneStringName(pressed), callable_mp(this, &TileProxiesManagerDialog::_clear_invalid_button_pressed));
 	hboxcontainer->add_child(clear_invalid_button);
 
-	Button *clear_all_button = memnew(Button);
+	Button *clear_all_button = memnewOld(Button);
 	clear_all_button->set_text(TTR("Clear All"));
 	clear_all_button->set_h_size_flags(Control::SIZE_SHRINK_CENTER);
 	clear_all_button->connect(SceneStringName(pressed), callable_mp(this, &TileProxiesManagerDialog::_clear_all_button_pressed));
 	hboxcontainer->add_child(clear_all_button);
 
-	h_separator = memnew(HSeparator);
+	h_separator = memnewOld(HSeparator);
 	vbox_container->add_child(h_separator);
 }

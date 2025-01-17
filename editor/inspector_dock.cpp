@@ -647,24 +647,24 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 
 	property_name_style = EditorPropertyNameProcessor::get_default_inspector_style();
 
-	HBoxContainer *general_options_hb = memnew(HBoxContainer);
+	HBoxContainer *general_options_hb = memnewOld(HBoxContainer);
 	add_child(general_options_hb);
 
-	resource_new_button = memnew(Button);
+	resource_new_button = memnewOld(Button);
 	resource_new_button->set_theme_type_variation("FlatMenuButton");
 	resource_new_button->set_tooltip_text(TTR("Create a new resource in memory and edit it."));
 	general_options_hb->add_child(resource_new_button);
 	resource_new_button->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_new_resource));
 	resource_new_button->set_focus_mode(Control::FOCUS_NONE);
 
-	resource_load_button = memnew(Button);
+	resource_load_button = memnewOld(Button);
 	resource_load_button->set_theme_type_variation("FlatMenuButton");
 	resource_load_button->set_tooltip_text(TTR("Load an existing resource from disk and edit it."));
 	general_options_hb->add_child(resource_load_button);
 	resource_load_button->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_open_resource_selector));
 	resource_load_button->set_focus_mode(Control::FOCUS_NONE);
 
-	resource_save_button = memnew(MenuButton);
+	resource_save_button = memnewOld(MenuButton);
 	resource_save_button->set_flat(false);
 	resource_save_button->set_theme_type_variation("FlatMenuButton");
 	resource_save_button->set_tooltip_text(TTR("Save the currently edited resource."));
@@ -675,7 +675,7 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	resource_save_button->set_focus_mode(Control::FOCUS_NONE);
 	resource_save_button->set_disabled(true);
 
-	resource_extra_button = memnew(MenuButton);
+	resource_extra_button = memnewOld(MenuButton);
 	resource_extra_button->set_flat(false);
 	resource_extra_button->set_theme_type_variation("FlatMenuButton");
 	resource_extra_button->set_tooltip_text(TTR("Extra resource options."));
@@ -692,21 +692,21 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 
 	general_options_hb->add_spacer();
 
-	backward_button = memnew(Button);
+	backward_button = memnewOld(Button);
 	backward_button->set_flat(true);
 	general_options_hb->add_child(backward_button);
 	backward_button->set_tooltip_text(TTR("Go to previous edited object in history."));
 	backward_button->set_disabled(true);
 	backward_button->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_edit_back));
 
-	forward_button = memnew(Button);
+	forward_button = memnewOld(Button);
 	forward_button->set_flat(true);
 	general_options_hb->add_child(forward_button);
 	forward_button->set_tooltip_text(TTR("Go to next edited object in history."));
 	forward_button->set_disabled(true);
 	forward_button->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_edit_forward));
 
-	history_menu = memnew(MenuButton);
+	history_menu = memnewOld(MenuButton);
 	history_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	history_menu->set_flat(false);
 	history_menu->set_theme_type_variation("FlatMenuButton");
@@ -715,13 +715,13 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	history_menu->connect("about_to_popup", callable_mp(this, &InspectorDock::_prepare_history));
 	history_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &InspectorDock::_select_history));
 
-	HBoxContainer *subresource_hb = memnew(HBoxContainer);
+	HBoxContainer *subresource_hb = memnewOld(HBoxContainer);
 	add_child(subresource_hb);
-	object_selector = memnew(EditorObjectSelector(EditorNode::get_singleton()->get_editor_selection_history()));
+	object_selector = memnewOld(EditorObjectSelector(EditorNode::get_singleton()->get_editor_selection_history()));
 	object_selector->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	subresource_hb->add_child(object_selector);
 
-	open_docs_button = memnew(Button);
+	open_docs_button = memnewOld(Button);
 	open_docs_button->set_theme_type_variation("FlatMenuButton");
 	open_docs_button->set_disabled(true);
 	open_docs_button->set_tooltip_text(TTR("Open documentation for this object."));
@@ -729,21 +729,21 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	subresource_hb->add_child(open_docs_button);
 	open_docs_button->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_menu_option).bind(OBJECT_REQUEST_HELP));
 
-	new_resource_dialog = memnew(CreateDialog);
+	new_resource_dialog = memnewOld(CreateDialog);
 	EditorNode::get_singleton()->get_gui_base()->add_child(new_resource_dialog);
 	new_resource_dialog->set_base_type("Resource");
 	new_resource_dialog->connect("create", callable_mp(this, &InspectorDock::_resource_created));
 
-	HBoxContainer *property_tools_hb = memnew(HBoxContainer);
+	HBoxContainer *property_tools_hb = memnewOld(HBoxContainer);
 	add_child(property_tools_hb);
 
-	search = memnew(LineEdit);
+	search = memnewOld(LineEdit);
 	search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	search->set_placeholder(TTR("Filter Properties"));
 	search->set_clear_button_enabled(true);
 	property_tools_hb->add_child(search);
 
-	object_menu = memnew(MenuButton);
+	object_menu = memnewOld(MenuButton);
 	object_menu->set_flat(false);
 	object_menu->set_theme_type_variation("FlatMenuButton");
 	object_menu->set_shortcut_context(this);
@@ -752,22 +752,22 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	object_menu->get_popup()->connect("about_to_popup", callable_mp(this, &InspectorDock::_prepare_menu));
 	object_menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &InspectorDock::_menu_option));
 
-	info = memnew(Button);
+	info = memnewOld(Button);
 	add_child(info);
 	info->set_clip_text(true);
 	info->hide();
 	info->connect(SceneStringName(pressed), callable_mp(this, &InspectorDock::_info_pressed));
 
-	unique_resources_confirmation = memnew(ConfirmationDialog);
+	unique_resources_confirmation = memnewOld(ConfirmationDialog);
 	add_child(unique_resources_confirmation);
 
-	VBoxContainer *container = memnew(VBoxContainer);
+	VBoxContainer *container = memnewOld(VBoxContainer);
 	unique_resources_confirmation->add_child(container);
 
-	unique_resources_label = memnew(Label);
+	unique_resources_label = memnewOld(Label);
 	container->add_child(unique_resources_label);
 
-	unique_resources_list_tree = memnew(Tree);
+	unique_resources_list_tree = memnewOld(Tree);
 	unique_resources_list_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	unique_resources_list_tree->set_hide_root(true);
 	unique_resources_list_tree->set_columns(1);
@@ -775,21 +775,21 @@ InspectorDock::InspectorDock(EditorData &p_editor_data) {
 	unique_resources_list_tree->set_custom_minimum_size(Size2(0, 200 * EDSCALE));
 	container->add_child(unique_resources_list_tree);
 
-	Label *bottom_label = memnew(Label);
+	Label *bottom_label = memnewOld(Label);
 	bottom_label->set_text(TTR("This cannot be undone. Are you sure?"));
 	container->add_child(bottom_label);
 
 	unique_resources_confirmation->connect(SceneStringName(confirmed), callable_mp(this, &InspectorDock::_menu_confirm_current));
 
-	info_dialog = memnew(AcceptDialog);
+	info_dialog = memnewOld(AcceptDialog);
 	EditorNode::get_singleton()->get_gui_base()->add_child(info_dialog);
 
-	load_resource_dialog = memnew(EditorFileDialog);
+	load_resource_dialog = memnewOld(EditorFileDialog);
 	add_child(load_resource_dialog);
 	load_resource_dialog->set_current_dir("res://");
 	load_resource_dialog->connect("file_selected", callable_mp(this, &InspectorDock::_resource_file_selected));
 
-	inspector = memnew(EditorInspector);
+	inspector = memnewOld(EditorInspector);
 	add_child(inspector);
 	inspector->set_autoclear(true);
 	inspector->set_show_categories(true, true);

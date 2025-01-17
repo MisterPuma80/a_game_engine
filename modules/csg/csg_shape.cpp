@@ -190,13 +190,13 @@ CSGBrush *CSGShape3D::_get_brush() {
 				continue;
 			}
 			if (!n) {
-				n = memnew(CSGBrush);
+				n = memnewOld(CSGBrush);
 
 				n->copy_from(*n2, child->get_transform());
 
 			} else {
-				CSGBrush *nn = memnew(CSGBrush);
-				CSGBrush *nn2 = memnew(CSGBrush);
+				CSGBrush *nn = memnewOld(CSGBrush);
+				CSGBrush *nn2 = memnewOld(CSGBrush);
 				nn2->copy_from(*n2, child->get_transform());
 
 				CSGBrushOperation bop;
@@ -733,7 +733,7 @@ CSGShape3D::~CSGShape3D() {
 //////////////////////////////////
 
 CSGBrush *CSGCombiner3D::_build_brush() {
-	return memnew(CSGBrush); //does not build anything
+	return memnewOld(CSGBrush); //does not build anything
 }
 
 CSGCombiner3D::CSGCombiner3D() {
@@ -742,7 +742,7 @@ CSGCombiner3D::CSGCombiner3D() {
 /////////////////////
 
 CSGBrush *CSGPrimitive3D::_create_brush_from_arrays(const Vector<Vector3> &p_vertices, const Vector<Vector2> &p_uv, const Vector<bool> &p_smooth, const Vector<Ref<Material>> &p_materials) {
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	Vector<bool> invert;
 	invert.resize(p_vertices.size() / 3);
@@ -787,7 +787,7 @@ CSGPrimitive3D::CSGPrimitive3D() {
 
 CSGBrush *CSGMesh3D::_build_brush() {
 	if (!mesh.is_valid()) {
-		return memnew(CSGBrush);
+		return memnewOld(CSGBrush);
 	}
 
 	Vector<Vector3> vertices;
@@ -805,7 +805,7 @@ CSGBrush *CSGMesh3D::_build_brush() {
 
 		if (arrays.size() == 0) {
 			_make_dirty();
-			ERR_FAIL_COND_V(arrays.is_empty(), memnew(CSGBrush));
+			ERR_FAIL_COND_V(arrays.is_empty(), memnewOld(CSGBrush));
 		}
 
 		Vector<Vector3> avertices = arrays[Mesh::ARRAY_VERTEX];
@@ -926,7 +926,7 @@ CSGBrush *CSGMesh3D::_build_brush() {
 	}
 
 	if (vertices.size() == 0) {
-		return memnew(CSGBrush);
+		return memnewOld(CSGBrush);
 	}
 
 	return _create_brush_from_arrays(vertices, uvs, smooth, materials);
@@ -985,7 +985,7 @@ Ref<Mesh> CSGMesh3D::get_mesh() {
 CSGBrush *CSGSphere3D::_build_brush() {
 	// set our bounding box
 
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	int face_count = rings * radial_segments * 2 - radial_segments * 2;
 
@@ -1189,7 +1189,7 @@ CSGSphere3D::CSGSphere3D() {
 CSGBrush *CSGBox3D::_build_brush() {
 	// set our bounding box
 
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	int face_count = 12; //it's a cube..
 
@@ -1346,7 +1346,7 @@ Ref<Material> CSGBox3D::get_material() const {
 CSGBrush *CSGCylinder3D::_build_brush() {
 	// set our bounding box
 
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	int face_count = sides * (cone ? 1 : 2) + sides + (cone ? 0 : sides);
 
@@ -1582,7 +1582,7 @@ CSGBrush *CSGTorus3D::_build_brush() {
 	float max_radius = outer_radius;
 
 	if (min_radius == max_radius) {
-		return memnew(CSGBrush); //sorry, can't
+		return memnewOld(CSGBrush); //sorry, can't
 	}
 
 	if (min_radius > max_radius) {
@@ -1591,7 +1591,7 @@ CSGBrush *CSGTorus3D::_build_brush() {
 
 	float radius = (max_radius - min_radius) * 0.5;
 
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	int face_count = ring_sides * sides * 2;
 
@@ -1802,7 +1802,7 @@ CSGTorus3D::CSGTorus3D() {
 ///////////////
 
 CSGBrush *CSGPolygon3D::_build_brush() {
-	CSGBrush *new_brush = memnew(CSGBrush);
+	CSGBrush *new_brush = memnewOld(CSGBrush);
 
 	if (polygon.size() < 3) {
 		return new_brush;

@@ -146,7 +146,7 @@ void ShaderEditorPlugin::edit(Object *p_object) {
 			}
 		}
 		es.shader_inc = Ref<ShaderInclude>(si);
-		es.shader_editor = memnew(TextShaderEditor);
+		es.shader_editor = memnewOld(TextShaderEditor);
 		es.shader_editor->edit(si);
 		shader_tabs->add_child(es.shader_editor);
 	} else {
@@ -161,11 +161,11 @@ void ShaderEditorPlugin::edit(Object *p_object) {
 		es.shader = Ref<Shader>(s);
 		Ref<VisualShader> vs = es.shader;
 		if (vs.is_valid()) {
-			es.visual_shader_editor = memnew(VisualShaderEditor);
+			es.visual_shader_editor = memnewOld(VisualShaderEditor);
 			shader_tabs->add_child(es.visual_shader_editor);
 			es.visual_shader_editor->edit(vs.ptr());
 		} else {
-			es.shader_editor = memnew(TextShaderEditor);
+			es.shader_editor = memnewOld(TextShaderEditor);
 			shader_tabs->add_child(es.shader_editor);
 			es.shader_editor->edit(s);
 		}
@@ -528,17 +528,17 @@ Variant ShaderEditorPlugin::get_drag_data_fw(const Point2 &p_point, Control *p_f
 		return Variant();
 	}
 
-	HBoxContainer *drag_preview = memnew(HBoxContainer);
+	HBoxContainer *drag_preview = memnewOld(HBoxContainer);
 	String preview_name = shader_list->get_item_text(idx);
 	Ref<Texture2D> preview_icon = shader_list->get_item_icon(idx);
 
 	if (!preview_icon.is_null()) {
-		TextureRect *tf = memnew(TextureRect);
+		TextureRect *tf = memnewOld(TextureRect);
 		tf->set_texture(preview_icon);
 		tf->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 		drag_preview->add_child(tf);
 	}
-	Label *label = memnew(Label(preview_name));
+	Label *label = memnewOld(Label(preview_name));
 	drag_preview->add_child(label);
 	main_split->set_drag_preview(drag_preview);
 
@@ -683,19 +683,19 @@ void ShaderEditorPlugin::_notification(int p_what) {
 }
 
 ShaderEditorPlugin::ShaderEditorPlugin() {
-	window_wrapper = memnew(WindowWrapper);
+	window_wrapper = memnewOld(WindowWrapper);
 	window_wrapper->set_window_title(vformat(TTR("%s - Blazium Engine"), TTR("Shader Editor")));
 	window_wrapper->set_margins_enabled(true);
 
-	main_split = memnew(HSplitContainer);
+	main_split = memnewOld(HSplitContainer);
 	Ref<Shortcut> make_floating_shortcut = ED_SHORTCUT_AND_COMMAND("shader_editor/make_floating", TTR("Make Floating"));
 	window_wrapper->set_wrapped_control(main_split, make_floating_shortcut);
 
-	VBoxContainer *vb = memnew(VBoxContainer);
+	VBoxContainer *vb = memnewOld(VBoxContainer);
 
-	HBoxContainer *menu_hb = memnew(HBoxContainer);
+	HBoxContainer *menu_hb = memnewOld(HBoxContainer);
 	vb->add_child(menu_hb);
-	file_menu = memnew(MenuButton);
+	file_menu = memnewOld(MenuButton);
 	file_menu->set_text(TTR("File"));
 	file_menu->set_shortcut_context(main_split);
 	file_menu->get_popup()->add_item(TTR("New Shader..."), FILE_NEW);
@@ -716,11 +716,11 @@ ShaderEditorPlugin::ShaderEditorPlugin() {
 		file_menu->get_popup()->set_item_disabled(file_menu->get_popup()->get_item_index(i), true);
 	}
 
-	Control *padding = memnew(Control);
+	Control *padding = memnewOld(Control);
 	padding->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	menu_hb->add_child(padding);
 
-	make_floating = memnew(ScreenSelect);
+	make_floating = memnewOld(ScreenSelect);
 	make_floating->set_flat(true);
 	make_floating->connect("request_open_in_screen", callable_mp(window_wrapper, &WindowWrapper::enable_window_on_screen).bind(true));
 	if (!make_floating->is_disabled()) {
@@ -731,7 +731,7 @@ ShaderEditorPlugin::ShaderEditorPlugin() {
 	menu_hb->add_child(make_floating);
 	window_wrapper->connect("window_visibility_changed", callable_mp(this, &ShaderEditorPlugin::_window_changed));
 
-	shader_list = memnew(ItemList);
+	shader_list = memnewOld(ItemList);
 	shader_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	shader_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	vb->add_child(shader_list);
@@ -742,7 +742,7 @@ ShaderEditorPlugin::ShaderEditorPlugin() {
 	main_split->add_child(vb);
 	vb->set_custom_minimum_size(Size2(200, 300) * EDSCALE);
 
-	shader_tabs = memnew(TabContainer);
+	shader_tabs = memnewOld(TabContainer);
 	shader_tabs->set_tabs_visible(false);
 	shader_tabs->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	main_split->add_child(shader_tabs);
@@ -752,7 +752,7 @@ ShaderEditorPlugin::ShaderEditorPlugin() {
 
 	button = EditorNode::get_bottom_panel()->add_item(TTR("Shader Editor"), window_wrapper, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_shader_editor_bottom_panel", TTR("Toggle Shader Editor Bottom Panel"), KeyModifierMask::ALT | Key::S));
 
-	shader_create_dialog = memnew(ShaderCreateDialog);
+	shader_create_dialog = memnewOld(ShaderCreateDialog);
 	vb->add_child(shader_create_dialog);
 	shader_create_dialog->connect("shader_created", callable_mp(this, &ShaderEditorPlugin::_shader_created));
 	shader_create_dialog->connect("shader_include_created", callable_mp(this, &ShaderEditorPlugin::_shader_include_created));

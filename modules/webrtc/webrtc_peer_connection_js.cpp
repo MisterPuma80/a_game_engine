@@ -67,7 +67,7 @@ void WebRTCPeerConnectionJS::_on_error(void *p_obj) {
 
 void WebRTCPeerConnectionJS::_on_data_channel(void *p_obj, int p_id) {
 	WebRTCPeerConnectionJS *peer = static_cast<WebRTCPeerConnectionJS *>(p_obj);
-	peer->emit_signal(SNAME("data_channel_received"), Ref<WebRTCDataChannel>(memnew(WebRTCDataChannelJS(p_id))));
+	peer->emit_signal(SNAME("data_channel_received"), Ref<WebRTCDataChannel>(memnewOld(WebRTCDataChannelJS(p_id))));
 }
 
 void WebRTCPeerConnectionJS::close() {
@@ -120,7 +120,7 @@ Ref<WebRTCDataChannel> WebRTCPeerConnectionJS::create_data_channel(String p_chan
 	String config = Variant(p_channel_config).to_json_string();
 	int id = godot_js_rtc_pc_datachannel_create(_js_id, p_channel.utf8().get_data(), config.utf8().get_data());
 	ERR_FAIL_COND_V(id == 0, nullptr);
-	return memnew(WebRTCDataChannelJS(id));
+	return memnewOld(WebRTCDataChannelJS(id));
 }
 
 Error WebRTCPeerConnectionJS::poll() {

@@ -809,48 +809,48 @@ void EditorBuildProfileManager::_bind_methods() {
 }
 
 EditorBuildProfileManager::EditorBuildProfileManager() {
-	VBoxContainer *main_vbc = memnew(VBoxContainer);
+	VBoxContainer *main_vbc = memnewOld(VBoxContainer);
 	add_child(main_vbc);
 
-	HBoxContainer *path_hbc = memnew(HBoxContainer);
-	profile_path = memnew(LineEdit);
+	HBoxContainer *path_hbc = memnewOld(HBoxContainer);
+	profile_path = memnewOld(LineEdit);
 	path_hbc->add_child(profile_path);
 	profile_path->set_editable(true);
 	profile_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	profile_actions[ACTION_NEW] = memnew(Button(TTR("New")));
+	profile_actions[ACTION_NEW] = memnewOld(Button(TTR("New")));
 	path_hbc->add_child(profile_actions[ACTION_NEW]);
 	profile_actions[ACTION_NEW]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_NEW));
 
-	profile_actions[ACTION_LOAD] = memnew(Button(TTR("Load")));
+	profile_actions[ACTION_LOAD] = memnewOld(Button(TTR("Load")));
 	path_hbc->add_child(profile_actions[ACTION_LOAD]);
 	profile_actions[ACTION_LOAD]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_LOAD));
 
-	profile_actions[ACTION_SAVE] = memnew(Button(TTR("Save")));
+	profile_actions[ACTION_SAVE] = memnewOld(Button(TTR("Save")));
 	path_hbc->add_child(profile_actions[ACTION_SAVE]);
 	profile_actions[ACTION_SAVE]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_SAVE));
 
-	profile_actions[ACTION_SAVE_AS] = memnew(Button(TTR("Save As")));
+	profile_actions[ACTION_SAVE_AS] = memnewOld(Button(TTR("Save As")));
 	path_hbc->add_child(profile_actions[ACTION_SAVE_AS]);
 	profile_actions[ACTION_SAVE_AS]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_SAVE_AS));
 
 	main_vbc->add_margin_child(TTR("Profile:"), path_hbc);
 
-	main_vbc->add_child(memnew(HSeparator));
+	main_vbc->add_child(memnewOld(HSeparator));
 
-	HBoxContainer *profiles_hbc = memnew(HBoxContainer);
+	HBoxContainer *profiles_hbc = memnewOld(HBoxContainer);
 
-	profile_actions[ACTION_RESET] = memnew(Button(TTR("Reset to Defaults")));
+	profile_actions[ACTION_RESET] = memnewOld(Button(TTR("Reset to Defaults")));
 	profiles_hbc->add_child(profile_actions[ACTION_RESET]);
 	profile_actions[ACTION_RESET]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_RESET));
 
-	profile_actions[ACTION_DETECT] = memnew(Button(TTR("Detect from Project")));
+	profile_actions[ACTION_DETECT] = memnewOld(Button(TTR("Detect from Project")));
 	profiles_hbc->add_child(profile_actions[ACTION_DETECT]);
 	profile_actions[ACTION_DETECT]->connect(SceneStringName(pressed), callable_mp(this, &EditorBuildProfileManager::_profile_action).bind(ACTION_DETECT));
 
 	main_vbc->add_margin_child(TTR("Actions:"), profiles_hbc);
 
-	class_list = memnew(Tree);
+	class_list = memnewOld(Tree);
 	class_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	class_list->set_hide_root(true);
 	class_list->set_edit_checkbox_cell_only_when_checkbox_is_pressed(true);
@@ -860,17 +860,17 @@ EditorBuildProfileManager::EditorBuildProfileManager() {
 	// It will be displayed once the user creates or chooses a profile.
 	main_vbc->add_margin_child(TTR("Configure Engine Compilation Profile:"), class_list, true);
 
-	description_bit = memnew(EditorHelpBit);
+	description_bit = memnewOld(EditorHelpBit);
 	description_bit->set_content_height_limits(80 * EDSCALE, 80 * EDSCALE);
 	description_bit->connect("request_hide", callable_mp(this, &EditorBuildProfileManager::_hide_requested));
 	main_vbc->add_margin_child(TTR("Description:"), description_bit, false);
 
-	confirm_dialog = memnew(ConfirmationDialog);
+	confirm_dialog = memnewOld(ConfirmationDialog);
 	add_child(confirm_dialog);
 	confirm_dialog->set_title(TTR("Please Confirm:"));
 	confirm_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorBuildProfileManager::_action_confirm));
 
-	import_profile = memnew(EditorFileDialog);
+	import_profile = memnewOld(EditorFileDialog);
 	add_child(import_profile);
 	import_profile->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	import_profile->add_filter("*.build", TTR("Engine Compilation Profile"));
@@ -878,7 +878,7 @@ EditorBuildProfileManager::EditorBuildProfileManager() {
 	import_profile->set_title(TTR("Load Profile"));
 	import_profile->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 
-	export_profile = memnew(EditorFileDialog);
+	export_profile = memnewOld(EditorFileDialog);
 	add_child(export_profile);
 	export_profile->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	export_profile->add_filter("*.build", TTR("Engine Compilation Profile"));
@@ -886,7 +886,7 @@ EditorBuildProfileManager::EditorBuildProfileManager() {
 	export_profile->set_title(TTR("Export Profile"));
 	export_profile->set_access(EditorFileDialog::ACCESS_FILESYSTEM);
 
-	force_detect_classes = memnew(LineEdit);
+	force_detect_classes = memnewOld(LineEdit);
 	main_vbc->add_margin_child(TTR("Forced Classes on Detect:"), force_detect_classes);
 	force_detect_classes->connect(SceneStringName(text_changed), callable_mp(this, &EditorBuildProfileManager::_force_detect_classes_changed));
 

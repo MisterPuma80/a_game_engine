@@ -983,7 +983,7 @@ void EditorSettings::_load_default_visual_shader_editor_theme() {
 
 bool EditorSettings::_save_text_editor_theme(const String &p_file) {
 	String theme_section = "color_theme";
-	Ref<ConfigFile> cf = memnew(ConfigFile); // hex is better?
+	Ref<ConfigFile> cf = memnewOld(ConfigFile); // hex is better?
 
 	List<String> keys;
 
@@ -1059,7 +1059,7 @@ void EditorSettings::create() {
 	}
 
 	String config_file_path;
-	Ref<ConfigFile> extra_config = memnew(ConfigFile);
+	Ref<ConfigFile> extra_config = memnewOld(ConfigFile);
 
 	if (!EditorPaths::get_singleton()) {
 		ERR_PRINT("Bug (please report): EditorPaths haven't been initialized, EditorSettings cannot be created properly.");
@@ -1118,7 +1118,7 @@ fail:
 		extra_config->set_value("init_projects", "list", list);
 	}
 
-	singleton = Ref<EditorSettings>(memnew(EditorSettings));
+	singleton = Ref<EditorSettings>(memnewOld(EditorSettings));
 	singleton->set_path(config_file_path, true);
 	singleton->save_changed_setting = true;
 	singleton->_load_defaults(extra_config);
@@ -1466,7 +1466,7 @@ void EditorSettings::load_text_editor_theme() {
 
 	String theme_path = EditorPaths::get_singleton()->get_text_editor_themes_dir().path_join(p_file + ".tet");
 
-	Ref<ConfigFile> cf = memnew(ConfigFile);
+	Ref<ConfigFile> cf = memnewOld(ConfigFile);
 	Error err = cf->load(theme_path);
 
 	if (err != OK) {

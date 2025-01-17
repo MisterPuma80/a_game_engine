@@ -88,11 +88,11 @@ static void _editor_init() {
 
 		if (openxr_interaction_profile_metadata == nullptr) {
 			// If we didn't initialize our actionmap metadata at startup, we initialize it now.
-			openxr_interaction_profile_metadata = memnew(OpenXRInteractionProfileMetadata);
+			openxr_interaction_profile_metadata = memnewOld(OpenXRInteractionProfileMetadata);
 			ERR_FAIL_NULL(openxr_interaction_profile_metadata);
 		}
 
-		OpenXREditorPlugin *openxr_plugin = memnew(OpenXREditorPlugin());
+		OpenXREditorPlugin *openxr_plugin = memnewOld(OpenXREditorPlugin());
 		EditorNode::get_singleton()->add_editor_plugin(openxr_plugin);
 	}
 }
@@ -109,36 +109,36 @@ void initialize_openxr_module(ModuleInitializationLevel p_level) {
 			// Always register our extension wrappers even if we don't initialize OpenXR.
 			// Some of these wrappers will add functionality to our editor.
 #ifdef ANDROID_ENABLED
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRAndroidExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRAndroidExtension));
 #endif
 
 			// register our other extensions
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRPalmPoseExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRLocalFloorExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRPicoControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRCompositionLayerDepthExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRCompositionLayerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRHTCControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRHTCViveTrackerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRHuaweiControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRDisplayRefreshRateExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRWMRControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRML2ControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRMetaControllerExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXREyeGazeInteractionExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRHandInteractionExtension));
-			OpenXRAPI::register_extension_wrapper(memnew(OpenXRMxInkExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRPalmPoseExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRLocalFloorExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRPicoControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRCompositionLayerDepthExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRCompositionLayerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHTCControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHTCViveTrackerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHuaweiControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRDisplayRefreshRateExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRWMRControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRML2ControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRMetaControllerExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXREyeGazeInteractionExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHandInteractionExtension));
+			OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRMxInkExtension));
 
 			// register gated extensions
 			if (GLOBAL_GET("xr/openxr/extensions/hand_tracking")) {
-				OpenXRAPI::register_extension_wrapper(memnew(OpenXRHandTrackingExtension));
+				OpenXRAPI::register_extension_wrapper(memnewOld(OpenXRHandTrackingExtension));
 			}
 		}
 
 		if (OpenXRAPI::openxr_is_enabled()) {
-			openxr_interaction_profile_metadata = memnew(OpenXRInteractionProfileMetadata);
+			openxr_interaction_profile_metadata = memnewOld(OpenXRInteractionProfileMetadata);
 			ERR_FAIL_NULL(openxr_interaction_profile_metadata);
-			openxr_api = memnew(OpenXRAPI);
+			openxr_api = memnewOld(OpenXRAPI);
 			ERR_FAIL_NULL(openxr_api);
 
 			if (!openxr_api->initialize(Main::get_rendering_driver_name())) {

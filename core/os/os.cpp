@@ -75,7 +75,7 @@ void OS::add_logger(Logger *p_logger) {
 	if (!_logger) {
 		Vector<Logger *> loggers;
 		loggers.push_back(p_logger);
-		_logger = memnew(CompositeLogger(loggers));
+		_logger = memnewOld(CompositeLogger(loggers));
 	} else {
 		_logger->add_logger(p_logger);
 	}
@@ -704,8 +704,8 @@ OS::OS() {
 	singleton = this;
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnew(StdLogger));
-	_set_logger(memnew(CompositeLogger(loggers)));
+	loggers.push_back(memnewOld(StdLogger));
+	_set_logger(memnewOld(CompositeLogger(loggers)));
 }
 
 OS::~OS() {

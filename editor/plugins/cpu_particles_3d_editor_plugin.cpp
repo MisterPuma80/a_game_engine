@@ -68,7 +68,7 @@ void CPUParticles3DEditor::_menu_option(int p_option) {
 		} break;
 
 		case MENU_OPTION_CONVERT_TO_GPU_PARTICLES: {
-			GPUParticles3D *gpu_particles = memnew(GPUParticles3D);
+			GPUParticles3D *gpu_particles = memnewOld(GPUParticles3D);
 			gpu_particles->convert_from_particles(node);
 			gpu_particles->set_name(node->get_name());
 			gpu_particles->set_transform(node->get_transform());
@@ -165,9 +165,9 @@ void CPUParticles3DEditor::_bind_methods() {
 }
 
 CPUParticles3DEditor::CPUParticles3DEditor() {
-	particles_editor_hb = memnew(HBoxContainer);
+	particles_editor_hb = memnewOld(HBoxContainer);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(particles_editor_hb);
-	options = memnew(MenuButton);
+	options = memnewOld(MenuButton);
 	options->set_switch_on_hover(true);
 	particles_editor_hb->add_child(options);
 	particles_editor_hb->hide();
@@ -179,11 +179,11 @@ CPUParticles3DEditor::CPUParticles3DEditor() {
 	options->get_popup()->add_item(TTR("Convert to GPUParticles3D"), MENU_OPTION_CONVERT_TO_GPU_PARTICLES);
 	options->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &CPUParticles3DEditor::_menu_option));
 
-	generate_aabb = memnew(ConfirmationDialog);
+	generate_aabb = memnewOld(ConfirmationDialog);
 	generate_aabb->set_title(TTR("Generate Visibility AABB"));
-	VBoxContainer *genvb = memnew(VBoxContainer);
+	VBoxContainer *genvb = memnewOld(VBoxContainer);
 	generate_aabb->add_child(genvb);
-	generate_seconds = memnew(SpinBox);
+	generate_seconds = memnewOld(SpinBox);
 	genvb->add_margin_child(TTR("Generation Time (sec):"), generate_seconds);
 	generate_seconds->set_min(0.1);
 	generate_seconds->set_max(25);
@@ -214,7 +214,7 @@ void CPUParticles3DEditorPlugin::make_visible(bool p_visible) {
 }
 
 CPUParticles3DEditorPlugin::CPUParticles3DEditorPlugin() {
-	particles_editor = memnew(CPUParticles3DEditor);
+	particles_editor = memnewOld(CPUParticles3DEditor);
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(particles_editor);
 
 	particles_editor->hide();

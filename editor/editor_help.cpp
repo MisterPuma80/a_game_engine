@@ -2867,7 +2867,7 @@ String EditorHelp::get_cache_full_path() {
 
 void EditorHelp::load_xml_buffer(const uint8_t *p_buffer, int p_size) {
 	if (!ext_doc) {
-		ext_doc = memnew(DocTools);
+		ext_doc = memnewOld(DocTools);
 	}
 
 	ext_doc->load_xml(p_buffer, p_size);
@@ -2949,7 +2949,7 @@ void EditorHelp::generate_doc(bool p_use_cache) {
 	_wait_for_thread();
 
 	if (!doc) {
-		doc = memnew(DocTools);
+		doc = memnewOld(DocTools);
 	}
 
 	if (doc_version_hash.is_empty()) {
@@ -3107,7 +3107,7 @@ EditorHelp::EditorHelp() {
 
 	EDITOR_DEF("text_editor/help/sort_functions_alphabetically", true);
 
-	class_desc = memnew(RichTextLabel);
+	class_desc = memnewOld(RichTextLabel);
 	class_desc->set_tab_size(8);
 	add_child(class_desc);
 	class_desc->set_threaded(true);
@@ -3119,17 +3119,17 @@ EditorHelp::EditorHelp() {
 	class_desc->connect(SceneStringName(resized), callable_mp(this, &EditorHelp::_class_desc_resized).bind(false));
 
 	// Added second so it opens at the bottom so it won't offset the entire widget.
-	find_bar = memnew(FindBar);
+	find_bar = memnewOld(FindBar);
 	add_child(find_bar);
 	find_bar->hide();
 	find_bar->set_rich_text_label(class_desc);
 
-	status_bar = memnew(HBoxContainer);
+	status_bar = memnewOld(HBoxContainer);
 	add_child(status_bar);
 	status_bar->set_h_size_flags(SIZE_EXPAND_FILL);
 	status_bar->set_custom_minimum_size(Size2(0, 24 * EDSCALE));
 
-	toggle_scripts_button = memnew(Button);
+	toggle_scripts_button = memnewOld(Button);
 	toggle_scripts_button->set_flat(true);
 	toggle_scripts_button->connect(SceneStringName(pressed), callable_mp(this, &EditorHelp::_toggle_scripts_pressed));
 	status_bar->add_child(toggle_scripts_button);
@@ -3744,7 +3744,7 @@ void EditorHelpBit::update_content_height() {
 EditorHelpBit::EditorHelpBit(const String &p_symbol) {
 	add_theme_constant_override("separation", 0);
 
-	title = memnew(RichTextLabel);
+	title = memnewOld(RichTextLabel);
 	title->set_theme_type_variation("EditorHelpBitTitle");
 	title->set_custom_minimum_size(Size2(512 * EDSCALE, 0)); // GH-93031. Set the minimum width even if `fit_content` is true.
 	title->set_fit_content(true);
@@ -3757,7 +3757,7 @@ EditorHelpBit::EditorHelpBit(const String &p_symbol) {
 	content_min_height = 48 * EDSCALE;
 	content_max_height = 360 * EDSCALE;
 
-	content = memnew(RichTextLabel);
+	content = memnewOld(RichTextLabel);
 	content->set_theme_type_variation("EditorHelpBitContent");
 	content->set_custom_minimum_size(Size2(512 * EDSCALE, content_min_height));
 	content->set_selection_enabled(true);
@@ -3824,7 +3824,7 @@ void EditorHelpBitTooltip::_input_from_window(const Ref<InputEvent> &p_event) {
 
 void EditorHelpBitTooltip::show_tooltip(EditorHelpBit *p_help_bit, Control *p_target) {
 	ERR_FAIL_NULL(p_help_bit);
-	EditorHelpBitTooltip *tooltip = memnew(EditorHelpBitTooltip(p_target));
+	EditorHelpBitTooltip *tooltip = memnewOld(EditorHelpBitTooltip(p_target));
 	p_help_bit->connect("request_hide", callable_mp(tooltip, &EditorHelpBitTooltip::_safe_queue_free));
 	tooltip->add_child(p_help_bit);
 	p_target->get_viewport()->add_child(tooltip);
@@ -3876,7 +3876,7 @@ void EditorHelpBitTooltip::popup_under_cursor() {
 EditorHelpBitTooltip::EditorHelpBitTooltip(Control *p_target) {
 	set_theme_type_variation("TooltipPanel");
 
-	timer = memnew(Timer);
+	timer = memnewOld(Timer);
 	timer->set_wait_time(0.2);
 	timer->connect("timeout", callable_mp(this, &EditorHelpBitTooltip::_safe_queue_free));
 	add_child(timer);
@@ -3893,7 +3893,7 @@ EditorHelpHighlighter *EditorHelpHighlighter::singleton = nullptr;
 
 void EditorHelpHighlighter::create_singleton() {
 	ERR_FAIL_COND(singleton != nullptr);
-	singleton = memnew(EditorHelpHighlighter);
+	singleton = memnewOld(EditorHelpHighlighter);
 }
 
 void EditorHelpHighlighter::free_singleton() {
@@ -4006,7 +4006,7 @@ EditorHelpHighlighter::EditorHelpHighlighter() {
 	const Color text_color = EDITOR_GET("text_editor/theme/highlighting/text_color");
 
 #ifdef MODULE_GDSCRIPT_ENABLED
-	TextEdit *gdscript_text_edit = memnew(TextEdit);
+	TextEdit *gdscript_text_edit = memnewOld(TextEdit);
 	gdscript_text_edit->add_theme_color_override(SceneStringName(font_color), text_color);
 
 	Ref<GDScript> gdscript;
@@ -4023,7 +4023,7 @@ EditorHelpHighlighter::EditorHelpHighlighter() {
 #endif
 
 #ifdef MODULE_MONO_ENABLED
-	TextEdit *csharp_text_edit = memnew(TextEdit);
+	TextEdit *csharp_text_edit = memnewOld(TextEdit);
 	csharp_text_edit->add_theme_color_override(SceneStringName(font_color), text_color);
 
 	// See GH-89610.
@@ -4057,34 +4057,34 @@ EditorHelpHighlighter::~EditorHelpHighlighter() {
 /// FindBar ///
 
 FindBar::FindBar() {
-	search_text = memnew(LineEdit);
+	search_text = memnewOld(LineEdit);
 	add_child(search_text);
 	search_text->set_custom_minimum_size(Size2(100 * EDSCALE, 0));
 	search_text->set_h_size_flags(SIZE_EXPAND_FILL);
 	search_text->connect(SceneStringName(text_changed), callable_mp(this, &FindBar::_search_text_changed));
 	search_text->connect("text_submitted", callable_mp(this, &FindBar::_search_text_submitted));
 
-	matches_label = memnew(Label);
+	matches_label = memnewOld(Label);
 	add_child(matches_label);
 	matches_label->hide();
 
-	find_prev = memnew(Button);
+	find_prev = memnewOld(Button);
 	find_prev->set_flat(true);
 	add_child(find_prev);
 	find_prev->set_focus_mode(FOCUS_NONE);
 	find_prev->connect(SceneStringName(pressed), callable_mp(this, &FindBar::search_prev));
 
-	find_next = memnew(Button);
+	find_next = memnewOld(Button);
 	find_next->set_flat(true);
 	add_child(find_next);
 	find_next->set_focus_mode(FOCUS_NONE);
 	find_next->connect(SceneStringName(pressed), callable_mp(this, &FindBar::search_next));
 
-	Control *space = memnew(Control);
+	Control *space = memnewOld(Control);
 	add_child(space);
 	space->set_custom_minimum_size(Size2(4, 0) * EDSCALE);
 
-	hide_button = memnew(TextureButton);
+	hide_button = memnewOld(TextureButton);
 	add_child(hide_button);
 	hide_button->set_focus_mode(FOCUS_NONE);
 	hide_button->set_ignore_texture_size(true);

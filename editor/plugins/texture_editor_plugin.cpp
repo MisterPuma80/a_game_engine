@@ -124,13 +124,13 @@ void TexturePreview::_update_metadata_label_text() {
 }
 
 TexturePreview::TexturePreview(Ref<Texture2D> p_texture, bool p_show_metadata) {
-	checkerboard = memnew(TextureRect);
+	checkerboard = memnewOld(TextureRect);
 	checkerboard->set_stretch_mode(TextureRect::STRETCH_TILE);
 	checkerboard->set_texture_repeat(CanvasItem::TEXTURE_REPEAT_ENABLED);
 	checkerboard->set_custom_minimum_size(Size2(0.0, 256.0) * EDSCALE);
 	add_child(checkerboard);
 
-	texture_display = memnew(TextureRect);
+	texture_display = memnewOld(TextureRect);
 	texture_display->set_texture_filter(TEXTURE_FILTER_NEAREST_WITH_MIPMAPS);
 	texture_display->set_texture(p_texture);
 	texture_display->set_anchors_preset(TextureRect::PRESET_FULL_RECT);
@@ -139,7 +139,7 @@ TexturePreview::TexturePreview(Ref<Texture2D> p_texture, bool p_show_metadata) {
 	add_child(texture_display);
 
 	if (p_show_metadata) {
-		metadata_label = memnew(Label);
+		metadata_label = memnewOld(Label);
 
 		_update_metadata_label_text();
 		p_texture->connect_changed(callable_mp(this, &TexturePreview::_update_metadata_label_text));
@@ -171,7 +171,7 @@ void EditorInspectorPluginTexture::parse_begin(Object *p_object) {
 		ERR_FAIL_NULL_MSG(texture, "Failed to create the texture from an invalid image.");
 	}
 
-	add_custom_control(memnew(TexturePreview(texture, true)));
+	add_custom_control(memnewOld(TexturePreview(texture, true)));
 }
 
 TextureEditorPlugin::TextureEditorPlugin() {

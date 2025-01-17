@@ -109,7 +109,7 @@ StyleBoxPreview::StyleBoxPreview() {
 	set_texture_repeat(CanvasItem::TEXTURE_REPEAT_ENABLED);
 	set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 
-	grid_preview = memnew(Button);
+	grid_preview = memnewOld(Button);
 	// This theme variation works better than the normal theme because there's no focus highlight.
 	grid_preview->set_theme_type_variation("PreviewLightButton");
 	grid_preview->set_toggle_mode(true);
@@ -125,7 +125,7 @@ bool EditorInspectorPluginStyleBox::can_handle(Object *p_object) {
 void EditorInspectorPluginStyleBox::parse_begin(Object *p_object) {
 	Ref<StyleBox> sb = Ref<StyleBox>(Object::cast_to<StyleBox>(p_object));
 
-	StyleBoxPreview *preview = memnew(StyleBoxPreview);
+	StyleBoxPreview *preview = memnewOld(StyleBoxPreview);
 	preview->edit(sb);
 	add_custom_control(preview);
 }

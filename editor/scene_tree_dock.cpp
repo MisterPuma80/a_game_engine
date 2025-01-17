@@ -1024,7 +1024,7 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			if (!root) {
 				break;
 			}
-			Ref<MultiNodeEdit> mne = memnew(MultiNodeEdit);
+			Ref<MultiNodeEdit> mne = memnewOld(MultiNodeEdit);
 			for (const KeyValue<Node *, Object *> &E : editor_selection->get_selection()) {
 				mne->add_node(root->get_path_to(E.key));
 			}
@@ -1145,7 +1145,7 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			new_scene_from_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 
 			List<String> extensions;
-			Ref<PackedScene> sd = memnew(PackedScene);
+			Ref<PackedScene> sd = memnewOld(PackedScene);
 			ResourceSaver::get_recognized_extensions(sd, &extensions);
 			new_scene_from_dialog->clear_filters();
 			for (const String &extension : extensions) {
@@ -1457,19 +1457,19 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 				}
 
 				if (!new_node) {
-					new_node = memnew(Node);
+					new_node = memnewOld(Node);
 					ERR_PRINT("Creating root from favorite '" + selected_favorite_root + "' failed. Creating 'Node' instead.");
 				}
 			} else {
 				switch (p_tool) {
 					case TOOL_CREATE_2D_SCENE:
-						new_node = memnew(Node2D);
+						new_node = memnewOld(Node2D);
 						break;
 					case TOOL_CREATE_3D_SCENE:
-						new_node = memnew(Node3D);
+						new_node = memnewOld(Node3D);
 						break;
 					case TOOL_CREATE_USER_INTERFACE: {
-						Control *node = memnew(Control);
+						Control *node = memnewOld(Control);
 						// Making the root control full rect by default is more useful for resizable UIs.
 						node->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 						node->set_grow_direction_preset(PRESET_FULL_RECT);
@@ -1553,14 +1553,14 @@ void SceneTreeDock::_notification(int p_what) {
 			filter->set_clear_button_enabled(true);
 
 			// create_root_dialog
-			HBoxContainer *top_row = memnew(HBoxContainer);
+			HBoxContainer *top_row = memnewOld(HBoxContainer);
 			top_row->set_h_size_flags(SIZE_EXPAND_FILL);
-			Label *l = memnew(Label(TTR("Create Root Node:")));
+			Label *l = memnewOld(Label(TTR("Create Root Node:")));
 			l->set_theme_type_variation("HeaderSmall");
 			top_row->add_child(l);
 			top_row->add_spacer();
 
-			node_shortcuts_toggle = memnew(Button);
+			node_shortcuts_toggle = memnewOld(Button);
 			node_shortcuts_toggle->set_flat(true);
 			node_shortcuts_toggle->set_icon(get_editor_theme_icon(SNAME("Favorites")));
 			node_shortcuts_toggle->set_toggle_mode(true);
@@ -1572,46 +1572,46 @@ void SceneTreeDock::_notification(int p_what) {
 
 			create_root_dialog->add_child(top_row);
 
-			ScrollContainer *scroll_container = memnew(ScrollContainer);
+			ScrollContainer *scroll_container = memnewOld(ScrollContainer);
 			create_root_dialog->add_child(scroll_container);
 			scroll_container->set_v_size_flags(SIZE_EXPAND_FILL);
 			scroll_container->set_horizontal_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 
-			VBoxContainer *node_shortcuts = memnew(VBoxContainer);
+			VBoxContainer *node_shortcuts = memnewOld(VBoxContainer);
 			scroll_container->add_child(node_shortcuts);
 			node_shortcuts->set_h_size_flags(SIZE_EXPAND_FILL);
 
-			beginner_node_shortcuts = memnew(VBoxContainer);
+			beginner_node_shortcuts = memnewOld(VBoxContainer);
 			node_shortcuts->add_child(beginner_node_shortcuts);
 
-			button_2d = memnew(Button);
+			button_2d = memnewOld(Button);
 			beginner_node_shortcuts->add_child(button_2d);
 			button_2d->set_text(TTR("2D Scene"));
 			button_2d->set_icon(get_editor_theme_icon(SNAME("Node2D")));
 			button_2d->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_CREATE_2D_SCENE, false));
 
-			button_3d = memnew(Button);
+			button_3d = memnewOld(Button);
 			beginner_node_shortcuts->add_child(button_3d);
 			button_3d->set_text(TTR("3D Scene"));
 			button_3d->set_icon(get_editor_theme_icon(SNAME("Node3D")));
 			button_3d->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_CREATE_3D_SCENE, false));
 
-			button_ui = memnew(Button);
+			button_ui = memnewOld(Button);
 			beginner_node_shortcuts->add_child(button_ui);
 			button_ui->set_text(TTR("User Interface"));
 			button_ui->set_icon(get_editor_theme_icon(SNAME("Control")));
 			button_ui->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_CREATE_USER_INTERFACE, false));
 
-			favorite_node_shortcuts = memnew(VBoxContainer);
+			favorite_node_shortcuts = memnewOld(VBoxContainer);
 			node_shortcuts->add_child(favorite_node_shortcuts);
 
-			button_custom = memnew(Button);
+			button_custom = memnewOld(Button);
 			node_shortcuts->add_child(button_custom);
 			button_custom->set_text(TTR("Other Node"));
 			button_custom->set_icon(get_editor_theme_icon(SNAME("Add")));
 			button_custom->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_NEW, false));
 
-			button_clipboard = memnew(Button);
+			button_clipboard = memnewOld(Button);
 			node_shortcuts->add_child(button_clipboard);
 			button_clipboard->set_text(TTR("Paste From Clipboard"));
 			button_clipboard->set_icon(get_editor_theme_icon(SNAME("ActionPaste")));
@@ -3146,7 +3146,7 @@ bool SceneTreeDock::_check_node_recursive(Variant &r_variant, Node *p_node, Node
 				if (p_by_node->is_class(type_hint) || EditorNode::get_singleton()->is_object_of_custom_type(p_by_node, type_hint)) {
 					r_variant = p_by_node;
 				} else {
-					r_variant = memnew(Object);
+					r_variant = memnewOld(Object);
 					r_warn_message = vformat("The node's new type is incompatible with an exported variable (expected %s, but type is %s).", type_hint, p_by_node->get_class());
 				}
 				return true;
@@ -3242,7 +3242,7 @@ void SceneTreeDock::_new_scene_from(const String &p_file) {
 		// Root node cannot ever be unique name in its own Scene!
 		copy->set_unique_name_in_owner(false);
 
-		Ref<PackedScene> sdata = memnew(PackedScene);
+		Ref<PackedScene> sdata = memnewOld(PackedScene);
 		Error err = sdata->pack(copy);
 		memdelete(copy);
 
@@ -3769,7 +3769,7 @@ void SceneTreeDock::_update_tree_menu() {
 	tree_menu->set_item_checked(tree_menu->get_item_index(TOOL_CENTER_PARENT), EDITOR_GET("docks/scene_tree/center_node_on_reparent"));
 	tree_menu->set_item_tooltip(tree_menu->get_item_index(TOOL_CENTER_PARENT), TTR("If enabled, Reparent to New Node will create the new node in the center of the selected nodes, if possible."));
 
-	PopupMenu *resource_list = memnew(PopupMenu);
+	PopupMenu *resource_list = memnewOld(PopupMenu);
 	resource_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	resource_list->connect("about_to_popup", callable_mp(this, &SceneTreeDock::_list_all_subresources).bind(resource_list));
 	resource_list->connect("index_pressed", callable_mp(this, &SceneTreeDock::_edit_subresource).bind(resource_list));
@@ -4163,7 +4163,7 @@ void SceneTreeDock::_update_create_root_dialog() {
 				String l = f->get_line().strip_edges();
 
 				if (!l.is_empty()) {
-					Button *button = memnew(Button);
+					Button *button = memnewOld(Button);
 					favorite_node_shortcuts->add_child(button);
 					button->set_text(l);
 					button->set_clip_text(true);
@@ -4421,7 +4421,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 
 	VBoxContainer *vbc = this;
 
-	HBoxContainer *filter_hbc = memnew(HBoxContainer);
+	HBoxContainer *filter_hbc = memnewOld(HBoxContainer);
 	filter_hbc->add_theme_constant_override("separate", 0);
 
 	ED_SHORTCUT("scene_tree/rename", TTR("Rename"), Key::F2);
@@ -4455,14 +4455,14 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	ED_SHORTCUT("scene_tree/delete_no_confirm", TTR("Delete (No Confirm)"), KeyModifierMask::SHIFT | Key::KEY_DELETE);
 	ED_SHORTCUT("scene_tree/delete", TTR("Delete"), Key::KEY_DELETE);
 
-	button_add = memnew(Button);
+	button_add = memnewOld(Button);
 	button_add->set_theme_type_variation("FlatMenuButton");
 	button_add->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_NEW, false));
 	button_add->set_tooltip_text(TTR("Add/Create a New Node."));
 	button_add->set_shortcut(ED_GET_SHORTCUT("scene_tree/add_child_node"));
 	filter_hbc->add_child(button_add);
 
-	button_instance = memnew(Button);
+	button_instance = memnewOld(Button);
 	button_instance->set_theme_type_variation("FlatMenuButton");
 	button_instance->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_INSTANTIATE, false));
 	button_instance->set_tooltip_text(TTR("Instantiate a scene file as a Node. Creates an inherited scene if no root node exists."));
@@ -4471,7 +4471,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	vbc->add_child(filter_hbc);
 
 	// The "Filter Nodes" text input above the Scene Tree Editor.
-	filter = memnew(LineEdit);
+	filter = memnewOld(LineEdit);
 	filter->set_h_size_flags(SIZE_EXPAND_FILL);
 	filter->set_placeholder(TTR("Filter: name, t:type, g:group"));
 	filter->set_tooltip_text(TTR("Filter nodes by entering a part of their name, type (if prefixed with \"type:\" or \"t:\")\nor group (if prefixed with \"group:\" or \"g:\"). Filtering is case-insensitive."));
@@ -4482,12 +4482,12 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	filter->get_menu()->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_filter_option_selected));
 	_append_filter_options_to(filter->get_menu());
 
-	filter_quick_menu = memnew(PopupMenu);
+	filter_quick_menu = memnewOld(PopupMenu);
 	filter_quick_menu->set_theme_type_variation("FlatMenuButton");
 	filter_quick_menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_filter_option_selected));
 	filter->add_child(filter_quick_menu);
 
-	button_create_script = memnew(Button);
+	button_create_script = memnewOld(Button);
 	button_create_script->set_theme_type_variation("FlatMenuButton");
 	button_create_script->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_ATTACH_SCRIPT, false));
 	button_create_script->set_tooltip_text(TTR("Attach a new or existing script to the selected node."));
@@ -4495,7 +4495,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	filter_hbc->add_child(button_create_script);
 	button_create_script->hide();
 
-	button_detach_script = memnew(Button);
+	button_detach_script = memnewOld(Button);
 	button_detach_script->set_theme_type_variation("FlatMenuButton");
 	button_detach_script->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(TOOL_DETACH_SCRIPT, false));
 	button_detach_script->set_tooltip_text(TTR("Detach the script from the selected node."));
@@ -4503,7 +4503,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	filter_hbc->add_child(button_detach_script);
 	button_detach_script->hide();
 
-	button_tree_menu = memnew(MenuButton);
+	button_tree_menu = memnewOld(MenuButton);
 	button_tree_menu->set_flat(false);
 	button_tree_menu->set_theme_type_variation("FlatMenuButton");
 	button_tree_menu->set_tooltip_text(TTR("Extra scene options."));
@@ -4513,10 +4513,10 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	PopupMenu *tree_menu = button_tree_menu->get_popup();
 	tree_menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 
-	button_hb = memnew(HBoxContainer);
+	button_hb = memnewOld(HBoxContainer);
 	vbc->add_child(button_hb);
 
-	edit_remote = memnew(Button);
+	edit_remote = memnewOld(Button);
 	edit_remote->set_theme_type_variation("FlatButton");
 	edit_remote->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit_remote->set_text(TTR("Remote"));
@@ -4525,7 +4525,7 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	button_hb->add_child(edit_remote);
 	edit_remote->connect(SceneStringName(pressed), callable_mp(this, &SceneTreeDock::_remote_tree_selected));
 
-	edit_local = memnew(Button);
+	edit_local = memnewOld(Button);
 	edit_local->set_theme_type_variation("FlatButton");
 	edit_local->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit_local->set_text(TTR("Local"));
@@ -4537,12 +4537,12 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	remote_tree = nullptr;
 	button_hb->hide();
 
-	create_root_dialog = memnew(VBoxContainer);
+	create_root_dialog = memnewOld(VBoxContainer);
 	vbc->add_child(create_root_dialog);
 	create_root_dialog->set_v_size_flags(SIZE_EXPAND_FILL);
 	create_root_dialog->hide();
 
-	scene_tree = memnew(SceneTreeEditor(false, true, true));
+	scene_tree = memnewOld(SceneTreeEditor(false, true, true));
 
 	vbc->add_child(scene_tree);
 	scene_tree->set_v_size_flags(SIZE_EXPAND | SIZE_FILL);
@@ -4567,82 +4567,82 @@ SceneTreeDock::SceneTreeDock(Node *p_scene_root, EditorSelection *p_editor_selec
 	scene_tree->set_as_scene_tree_dock();
 	scene_tree->set_editor_selection(editor_selection);
 
-	inspect_hovered_node_delay = memnew(Timer);
+	inspect_hovered_node_delay = memnewOld(Timer);
 	inspect_hovered_node_delay->connect("timeout", callable_mp(this, &SceneTreeDock::_inspect_hovered_node));
 	inspect_hovered_node_delay->set_one_shot(true);
 	add_child(inspect_hovered_node_delay);
 
-	create_dialog = memnew(CreateDialog);
+	create_dialog = memnewOld(CreateDialog);
 	create_dialog->set_base_type("Node");
 	add_child(create_dialog);
 	create_dialog->connect("create", callable_mp(this, &SceneTreeDock::_create));
 	create_dialog->connect("favorites_updated", callable_mp(this, &SceneTreeDock::_update_create_root_dialog));
 
 #ifdef MODULE_REGEX_ENABLED
-	rename_dialog = memnew(RenameDialog(scene_tree));
+	rename_dialog = memnewOld(RenameDialog(scene_tree));
 	add_child(rename_dialog);
 #endif // MODULE_REGEX_ENABLED
 
-	script_create_dialog = memnew(ScriptCreateDialog);
+	script_create_dialog = memnewOld(ScriptCreateDialog);
 	script_create_dialog->set_inheritance_base_type("Node");
 	add_child(script_create_dialog);
 
-	shader_create_dialog = memnew(ShaderCreateDialog);
+	shader_create_dialog = memnewOld(ShaderCreateDialog);
 	add_child(shader_create_dialog);
 
-	reparent_dialog = memnew(ReparentDialog);
+	reparent_dialog = memnewOld(ReparentDialog);
 	add_child(reparent_dialog);
 	reparent_dialog->connect("reparent", callable_mp(this, &SceneTreeDock::_node_reparent));
 
-	accept = memnew(AcceptDialog);
+	accept = memnewOld(AcceptDialog);
 	add_child(accept);
 
-	quick_open = memnew(EditorQuickOpen);
+	quick_open = memnewOld(EditorQuickOpen);
 	add_child(quick_open);
 	quick_open->connect("quick_open", callable_mp(this, &SceneTreeDock::_quick_open));
 
 	set_process_shortcut_input(true);
 
-	delete_dialog = memnew(ConfirmationDialog);
+	delete_dialog = memnewOld(ConfirmationDialog);
 	add_child(delete_dialog);
 	delete_dialog->connect(SceneStringName(confirmed), callable_mp(this, &SceneTreeDock::_delete_confirm).bind(false));
 
-	VBoxContainer *vb = memnew(VBoxContainer);
+	VBoxContainer *vb = memnewOld(VBoxContainer);
 	delete_dialog->add_child(vb);
 
-	delete_dialog_label = memnew(Label);
+	delete_dialog_label = memnewOld(Label);
 	vb->add_child(delete_dialog_label);
 
-	delete_tracks_checkbox = memnew(CheckBox(TTR("Delete Related Animation Tracks")));
+	delete_tracks_checkbox = memnewOld(CheckBox(TTR("Delete Related Animation Tracks")));
 	delete_tracks_checkbox->set_pressed(true);
 	vb->add_child(delete_tracks_checkbox);
 
-	editable_instance_remove_dialog = memnew(ConfirmationDialog);
+	editable_instance_remove_dialog = memnewOld(ConfirmationDialog);
 	add_child(editable_instance_remove_dialog);
 	editable_instance_remove_dialog->connect(SceneStringName(confirmed), callable_mp(this, &SceneTreeDock::_toggle_editable_children_from_selection));
 
-	placeholder_editable_instance_remove_dialog = memnew(ConfirmationDialog);
+	placeholder_editable_instance_remove_dialog = memnewOld(ConfirmationDialog);
 	add_child(placeholder_editable_instance_remove_dialog);
 	placeholder_editable_instance_remove_dialog->connect(SceneStringName(confirmed), callable_mp(this, &SceneTreeDock::_toggle_placeholder_from_selection));
 
-	new_scene_from_dialog = memnew(EditorFileDialog);
+	new_scene_from_dialog = memnewOld(EditorFileDialog);
 	new_scene_from_dialog->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	add_child(new_scene_from_dialog);
 	new_scene_from_dialog->connect("file_selected", callable_mp(this, &SceneTreeDock::_new_scene_from));
 
-	menu = memnew(PopupMenu);
+	menu = memnewOld(PopupMenu);
 	add_child(menu);
 	menu->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 
-	menu_subresources = memnew(PopupMenu);
+	menu_subresources = memnewOld(PopupMenu);
 	menu_subresources->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_tool_selected).bind(false));
 	menu->add_child(menu_subresources);
 
-	menu_properties = memnew(PopupMenu);
+	menu_properties = memnewOld(PopupMenu);
 	add_child(menu_properties);
 	menu_properties->connect(SceneStringName(id_pressed), callable_mp(this, &SceneTreeDock::_property_selected));
 
-	clear_inherit_confirm = memnew(ConfirmationDialog);
+	clear_inherit_confirm = memnewOld(ConfirmationDialog);
 	clear_inherit_confirm->set_text(TTR("Clear Inheritance? (No Undo!)"));
 	clear_inherit_confirm->set_ok_button_text(TTR("Clear"));
 	add_child(clear_inherit_confirm);

@@ -212,15 +212,15 @@ Ref<GLTFPhysicsBody> GLTFPhysicsBody::from_node(const CollisionObject3D *p_body_
 CollisionObject3D *GLTFPhysicsBody::to_node() const {
 	switch (body_type) {
 		case PhysicsBodyType::CHARACTER: {
-			CharacterBody3D *body = memnew(CharacterBody3D);
+			CharacterBody3D *body = memnewOld(CharacterBody3D);
 			return body;
 		}
 		case PhysicsBodyType::ANIMATABLE: {
-			AnimatableBody3D *body = memnew(AnimatableBody3D);
+			AnimatableBody3D *body = memnewOld(AnimatableBody3D);
 			return body;
 		}
 		case PhysicsBodyType::VEHICLE: {
-			VehicleBody3D *body = memnew(VehicleBody3D);
+			VehicleBody3D *body = memnewOld(VehicleBody3D);
 			body->set_mass(mass);
 			body->set_linear_velocity(linear_velocity);
 			body->set_angular_velocity(angular_velocity);
@@ -230,7 +230,7 @@ CollisionObject3D *GLTFPhysicsBody::to_node() const {
 			return body;
 		}
 		case PhysicsBodyType::RIGID: {
-			RigidBody3D *body = memnew(RigidBody3D);
+			RigidBody3D *body = memnewOld(RigidBody3D);
 			body->set_mass(mass);
 			body->set_linear_velocity(linear_velocity);
 			body->set_angular_velocity(angular_velocity);
@@ -240,11 +240,11 @@ CollisionObject3D *GLTFPhysicsBody::to_node() const {
 			return body;
 		}
 		case PhysicsBodyType::STATIC: {
-			StaticBody3D *body = memnew(StaticBody3D);
+			StaticBody3D *body = memnewOld(StaticBody3D);
 			return body;
 		}
 		case PhysicsBodyType::TRIGGER: {
-			Area3D *body = memnew(Area3D);
+			Area3D *body = memnewOld(Area3D);
 			return body;
 		}
 	}

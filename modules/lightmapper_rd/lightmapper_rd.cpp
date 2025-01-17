@@ -1044,8 +1044,8 @@ LightmapperRD::BakeError LightmapperRD::bake(BakeQuality p_quality, bool p_use_d
 	if (rd == nullptr) {
 #if defined(RD_ENABLED)
 #if defined(VULKAN_ENABLED)
-		rcd = memnew(RenderingContextDriverVulkan);
-		rd = memnew(RenderingDevice);
+		rcd = memnewOld(RenderingContextDriverVulkan);
+		rd = memnewOld(RenderingDevice);
 #endif
 #endif
 		if (rcd != nullptr && rd != nullptr) {

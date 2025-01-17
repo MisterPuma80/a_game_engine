@@ -39,7 +39,7 @@
 namespace TestCamera2D {
 
 TEST_CASE("[SceneTree][Camera2D] Getters and setters") {
-	Camera2D *test_camera = memnew(Camera2D);
+	Camera2D *test_camera = memnewOld(Camera2D);
 
 	SUBCASE("AnchorMode") {
 		test_camera->set_anchor_mode(Camera2D::AnchorMode::ANCHOR_MODE_FIXED_TOP_LEFT);
@@ -167,8 +167,8 @@ TEST_CASE("[SceneTree][Camera2D] Getters and setters") {
 }
 
 TEST_CASE("[SceneTree][Camera2D] Camera positioning") {
-	SubViewport *mock_viewport = memnew(SubViewport);
-	Camera2D *test_camera = memnew(Camera2D);
+	SubViewport *mock_viewport = memnewOld(SubViewport);
+	Camera2D *test_camera = memnewOld(Camera2D);
 
 	mock_viewport->set_size(Vector2(400, 200));
 	SceneTree::get_singleton()->get_root()->add_child(mock_viewport);
@@ -254,8 +254,8 @@ TEST_CASE("[SceneTree][Camera2D] Camera positioning") {
 }
 
 TEST_CASE("[SceneTree][Camera2D] Transforms") {
-	SubViewport *mock_viewport = memnew(SubViewport);
-	Camera2D *test_camera = memnew(Camera2D);
+	SubViewport *mock_viewport = memnewOld(SubViewport);
+	Camera2D *test_camera = memnewOld(Camera2D);
 
 	mock_viewport->set_size(Vector2(400, 200));
 	SceneTree::get_singleton()->get_root()->add_child(mock_viewport);

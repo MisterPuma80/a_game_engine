@@ -428,6 +428,6 @@ void SplitContainer::_bind_methods() {
 SplitContainer::SplitContainer(bool p_vertical) {
 	vertical = p_vertical;
 
-	dragging_area_control = memnew(SplitContainerDragger);
+	dragging_area_control = memnewOld(SplitContainerDragger);
 	add_child(dragging_area_control, false, Node::INTERNAL_MODE_BACK);
 }

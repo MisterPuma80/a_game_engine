@@ -39,7 +39,7 @@ namespace TestPath3D {
 
 TEST_CASE("[Path3D] Initialization") {
 	SUBCASE("Path should be empty right after initialization") {
-		Path3D *test_path = memnew(Path3D);
+		Path3D *test_path = memnewOld(Path3D);
 		CHECK(test_path->get_curve() == nullptr);
 		memdelete(test_path);
 	}
@@ -47,16 +47,16 @@ TEST_CASE("[Path3D] Initialization") {
 
 TEST_CASE("[Path3D] Curve setter and getter") {
 	SUBCASE("Curve passed to the class should remain the same") {
-		Path3D *test_path = memnew(Path3D);
-		const Ref<Curve3D> &curve = memnew(Curve3D);
+		Path3D *test_path = memnewOld(Path3D);
+		const Ref<Curve3D> &curve = memnewOld(Curve3D);
 
 		test_path->set_curve(curve);
 		CHECK(test_path->get_curve() == curve);
 		memdelete(test_path);
 	}
 	SUBCASE("Curve passed many times to the class should remain the same") {
-		Path3D *test_path = memnew(Path3D);
-		const Ref<Curve3D> &curve = memnew(Curve3D);
+		Path3D *test_path = memnewOld(Path3D);
+		const Ref<Curve3D> &curve = memnewOld(Curve3D);
 
 		test_path->set_curve(curve);
 		test_path->set_curve(curve);
@@ -65,9 +65,9 @@ TEST_CASE("[Path3D] Curve setter and getter") {
 		memdelete(test_path);
 	}
 	SUBCASE("Curve rewrite testing") {
-		Path3D *test_path = memnew(Path3D);
-		const Ref<Curve3D> &curve1 = memnew(Curve3D);
-		const Ref<Curve3D> &curve2 = memnew(Curve3D);
+		Path3D *test_path = memnewOld(Path3D);
+		const Ref<Curve3D> &curve1 = memnewOld(Curve3D);
+		const Ref<Curve3D> &curve2 = memnewOld(Curve3D);
 
 		test_path->set_curve(curve1);
 		test_path->set_curve(curve2);

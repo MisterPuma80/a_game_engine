@@ -569,12 +569,12 @@ GradientEdit::GradientEdit() {
 	set_focus_mode(FOCUS_ALL);
 	set_custom_minimum_size(Size2(0, 60) * EDSCALE);
 
-	picker = memnew(ColorPicker);
+	picker = memnewOld(ColorPicker);
 	int picker_shape = EDITOR_GET("interface/inspector/default_color_picker_shape");
 	picker->set_picker_shape((ColorPicker::PickerShapeType)picker_shape);
 	picker->connect("color_changed", callable_mp(this, &GradientEdit::_color_changed));
 
-	popup = memnew(PopupPanel);
+	popup = memnewOld(PopupPanel);
 	popup->connect("about_to_popup", callable_mp(EditorNode::get_singleton(), &EditorNode::setup_color_picker).bind(picker));
 
 	add_child(popup, false, INTERNAL_MODE_FRONT);
@@ -619,22 +619,22 @@ void GradientEditor::_notification(int p_what) {
 }
 
 GradientEditor::GradientEditor() {
-	HFlowContainer *toolbar = memnew(HFlowContainer);
+	HFlowContainer *toolbar = memnewOld(HFlowContainer);
 	add_child(toolbar);
 
-	reverse_button = memnew(Button);
+	reverse_button = memnewOld(Button);
 	reverse_button->set_tooltip_text(TTR("Reverse/Mirror Gradient"));
 	toolbar->add_child(reverse_button);
 
-	toolbar->add_child(memnew(VSeparator));
+	toolbar->add_child(memnewOld(VSeparator));
 
-	snap_button = memnew(Button);
+	snap_button = memnewOld(Button);
 	snap_button->set_tooltip_text(TTR("Toggle Grid Snap"));
 	snap_button->set_toggle_mode(true);
 	toolbar->add_child(snap_button);
 	snap_button->connect("toggled", callable_mp(this, &GradientEditor::_set_snap_enabled));
 
-	snap_count_edit = memnew(EditorSpinSlider);
+	snap_count_edit = memnewOld(EditorSpinSlider);
 	snap_count_edit->set_min(2);
 	snap_count_edit->set_max(100);
 	snap_count_edit->set_value(DEFAULT_SNAP);
@@ -642,7 +642,7 @@ GradientEditor::GradientEditor() {
 	toolbar->add_child(snap_count_edit);
 	snap_count_edit->connect(SceneStringName(value_changed), callable_mp(this, &GradientEditor::_set_snap_count));
 
-	gradient_editor_rect = memnew(GradientEdit);
+	gradient_editor_rect = memnewOld(GradientEdit);
 	add_child(gradient_editor_rect);
 	reverse_button->connect(SceneStringName(pressed), callable_mp(gradient_editor_rect, &GradientEdit::reverse_gradient));
 
@@ -662,7 +662,7 @@ void EditorInspectorPluginGradient::parse_begin(Object *p_object) {
 	ERR_FAIL_NULL(gradient);
 	Ref<Gradient> g(gradient);
 
-	GradientEditor *editor = memnew(GradientEditor);
+	GradientEditor *editor = memnewOld(GradientEditor);
 	editor->set_gradient(g);
 	add_custom_control(editor);
 }

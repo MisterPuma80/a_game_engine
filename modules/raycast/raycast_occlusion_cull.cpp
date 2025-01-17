@@ -197,7 +197,7 @@ RID RaycastOcclusionCull::occluder_allocate() {
 }
 
 void RaycastOcclusionCull::occluder_initialize(RID p_occluder) {
-	Occluder *occluder = memnew(Occluder);
+	Occluder *occluder = memnewOld(Occluder);
 	occluder_owner.initialize_rid(p_occluder, occluder);
 }
 
@@ -403,7 +403,7 @@ void RaycastOcclusionCull::Scenario::update() {
 	ERR_FAIL_NULL(singleton);
 
 	if (commit_thread == nullptr) {
-		commit_thread = memnew(Thread);
+		commit_thread = memnewOld(Thread);
 	}
 
 	if (commit_thread->is_started()) {

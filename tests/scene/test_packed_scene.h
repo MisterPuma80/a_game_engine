@@ -39,7 +39,7 @@ namespace TestPackedScene {
 
 TEST_CASE("[PackedScene] Pack Scene and Retrieve State") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -58,7 +58,7 @@ TEST_CASE("[PackedScene] Pack Scene and Retrieve State") {
 
 TEST_CASE("[PackedScene] Clear Packed Scene") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -77,7 +77,7 @@ TEST_CASE("[PackedScene] Clear Packed Scene") {
 
 TEST_CASE("[PackedScene] Can Instantiate Packed Scene") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -93,7 +93,7 @@ TEST_CASE("[PackedScene] Can Instantiate Packed Scene") {
 
 TEST_CASE("[PackedScene] Instantiate Packed Scene") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -111,22 +111,22 @@ TEST_CASE("[PackedScene] Instantiate Packed Scene") {
 
 TEST_CASE("[PackedScene] Instantiate Packed Scene With Children") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Add persisting child nodes to the scene.
-	Node *child1 = memnew(Node);
+	Node *child1 = memnewOld(Node);
 	child1->set_name("Child1");
 	scene->add_child(child1);
 	child1->set_owner(scene);
 
-	Node *child2 = memnew(Node);
+	Node *child2 = memnewOld(Node);
 	child2->set_name("Child2");
 	scene->add_child(child2);
 	child2->set_owner(scene);
 
 	// Add non persisting child node to the scene.
-	Node *child3 = memnew(Node);
+	Node *child3 = memnewOld(Node);
 	child3->set_name("Child3");
 	scene->add_child(child3);
 
@@ -152,7 +152,7 @@ TEST_CASE("[PackedScene] Instantiate Packed Scene With Children") {
 
 TEST_CASE("[PackedScene] Set Path") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -173,7 +173,7 @@ TEST_CASE("[PackedScene] Set Path") {
 
 TEST_CASE("[PackedScene] Replace State") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.
@@ -181,7 +181,7 @@ TEST_CASE("[PackedScene] Replace State") {
 	packed_scene.pack(scene);
 
 	// Create another scene state to replace with.
-	Ref<SceneState> new_state = memnew(SceneState);
+	Ref<SceneState> new_state = memnewOld(SceneState);
 	new_state->set_path("NewPath");
 
 	// Replace the state.
@@ -197,7 +197,7 @@ TEST_CASE("[PackedScene] Replace State") {
 
 TEST_CASE("[PackedScene] Recreate State") {
 	// Create a scene to pack.
-	Node *scene = memnew(Node);
+	Node *scene = memnewOld(Node);
 	scene->set_name("TestScene");
 
 	// Pack the scene.

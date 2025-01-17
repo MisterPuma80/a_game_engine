@@ -1025,16 +1025,16 @@ void *GodotSpace2D::_broadphase_pair(GodotCollisionObject2D *A, int p_subindex_A
 		GodotArea2D *area = static_cast<GodotArea2D *>(A);
 		if (type_B == GodotCollisionObject2D::TYPE_AREA) {
 			GodotArea2D *area_b = static_cast<GodotArea2D *>(B);
-			GodotArea2Pair2D *area2_pair = memnew(GodotArea2Pair2D(area_b, p_subindex_B, area, p_subindex_A));
+			GodotArea2Pair2D *area2_pair = memnewOld(GodotArea2Pair2D(area_b, p_subindex_B, area, p_subindex_A));
 			return area2_pair;
 		} else {
 			GodotBody2D *body = static_cast<GodotBody2D *>(B);
-			GodotAreaPair2D *area_pair = memnew(GodotAreaPair2D(body, p_subindex_B, area, p_subindex_A));
+			GodotAreaPair2D *area_pair = memnewOld(GodotAreaPair2D(body, p_subindex_B, area, p_subindex_A));
 			return area_pair;
 		}
 
 	} else {
-		GodotBodyPair2D *b = memnew(GodotBodyPair2D(static_cast<GodotBody2D *>(A), p_subindex_A, static_cast<GodotBody2D *>(B), p_subindex_B));
+		GodotBodyPair2D *b = memnewOld(GodotBodyPair2D(static_cast<GodotBody2D *>(A), p_subindex_A, static_cast<GodotBody2D *>(B), p_subindex_B));
 		return b;
 	}
 }
@@ -1230,7 +1230,7 @@ GodotSpace2D::GodotSpace2D() {
 	broadphase->set_pair_callback(_broadphase_pair, this);
 	broadphase->set_unpair_callback(_broadphase_unpair, this);
 
-	direct_access = memnew(GodotPhysicsDirectSpaceState2D);
+	direct_access = memnewOld(GodotPhysicsDirectSpaceState2D);
 	direct_access->space = this;
 }
 

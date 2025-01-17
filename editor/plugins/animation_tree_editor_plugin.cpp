@@ -96,7 +96,7 @@ void AnimationTreeEditor::_update_path() {
 	Ref<ButtonGroup> group;
 	group.instantiate();
 
-	Button *b = memnew(Button);
+	Button *b = memnewOld(Button);
 	b->set_text(TTR("Root"));
 	b->set_toggle_mode(true);
 	b->set_button_group(group);
@@ -105,7 +105,7 @@ void AnimationTreeEditor::_update_path() {
 	b->connect(SceneStringName(pressed), callable_mp(this, &AnimationTreeEditor::_path_button_pressed).bind(-1));
 	path_hb->add_child(b);
 	for (int i = 0; i < button_path.size(); i++) {
-		b = memnew(Button);
+		b = memnewOld(Button);
 		b->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 		b->set_text(button_path[i]);
 		b->set_toggle_mode(true);
@@ -261,24 +261,24 @@ Vector<String> AnimationTreeEditor::get_animation_list() {
 
 AnimationTreeEditor::AnimationTreeEditor() {
 	AnimationNodeAnimation::get_editable_animation_list = get_animation_list;
-	path_edit = memnew(ScrollContainer);
+	path_edit = memnewOld(ScrollContainer);
 	add_child(path_edit);
 	path_edit->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
-	path_hb = memnew(HBoxContainer);
+	path_hb = memnewOld(HBoxContainer);
 	path_edit->add_child(path_hb);
-	path_hb->add_child(memnew(Label(TTR("Path:"))));
+	path_hb->add_child(memnewOld(Label(TTR("Path:"))));
 
-	add_child(memnew(HSeparator));
+	add_child(memnewOld(HSeparator));
 
 	singleton = this;
-	editor_base = memnew(MarginContainer);
+	editor_base = memnewOld(MarginContainer);
 	editor_base->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(editor_base);
 
-	add_plugin(memnew(AnimationNodeBlendTreeEditor));
-	add_plugin(memnew(AnimationNodeBlendSpace1DEditor));
-	add_plugin(memnew(AnimationNodeBlendSpace2DEditor));
-	add_plugin(memnew(AnimationNodeStateMachineEditor));
+	add_plugin(memnewOld(AnimationNodeBlendTreeEditor));
+	add_plugin(memnewOld(AnimationNodeBlendSpace1DEditor));
+	add_plugin(memnewOld(AnimationNodeBlendSpace2DEditor));
+	add_plugin(memnewOld(AnimationNodeStateMachineEditor));
 }
 
 void AnimationTreeEditorPlugin::edit(Object *p_object) {
@@ -306,7 +306,7 @@ void AnimationTreeEditorPlugin::make_visible(bool p_visible) {
 }
 
 AnimationTreeEditorPlugin::AnimationTreeEditorPlugin() {
-	anim_tree_editor = memnew(AnimationTreeEditor);
+	anim_tree_editor = memnewOld(AnimationTreeEditor);
 	anim_tree_editor->set_custom_minimum_size(Size2(0, 300) * EDSCALE);
 
 	button = EditorNode::get_bottom_panel()->add_item(TTR("AnimationTree"), anim_tree_editor, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_animation_tree_bottom_panel", TTR("Toggle AnimationTree Bottom Panel")));

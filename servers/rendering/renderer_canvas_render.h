@@ -385,7 +385,7 @@ public:
 				// As the most common use case of canvas items is to
 				// use only one command, the first is done with it's
 				// own allocation. The rest of them use blocks.
-				command = memnew(T);
+				command = memnewOld(T);
 				command->next = nullptr;
 				commands = command;
 				last_command = command;

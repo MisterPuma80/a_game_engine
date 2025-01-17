@@ -46,15 +46,15 @@ bool is_equal_approx(const Vector3 &p_a, const Vector3 &p_b) {
 }
 
 TEST_CASE("[SceneTree][PathFollow3D] Sampling with progress ratio") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
 	curve->add_point(Vector3(100, 100, 0));
 	curve->add_point(Vector3(100, 100, 100));
 	curve->add_point(Vector3(100, 0, 100));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path_follow_3d->set_loop(false);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
@@ -90,15 +90,15 @@ TEST_CASE("[SceneTree][PathFollow3D] Sampling with progress ratio") {
 }
 
 TEST_CASE("[SceneTree][PathFollow3D] Sampling with progress") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
 	curve->add_point(Vector3(100, 100, 0));
 	curve->add_point(Vector3(100, 100, 100));
 	curve->add_point(Vector3(100, 0, 100));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path_follow_3d->set_loop(false);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
@@ -134,13 +134,13 @@ TEST_CASE("[SceneTree][PathFollow3D] Sampling with progress") {
 }
 
 TEST_CASE("[SceneTree][PathFollow3D] Removal of a point in curve") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
 	curve->add_point(Vector3(100, 100, 0));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -158,12 +158,12 @@ TEST_CASE("[SceneTree][PathFollow3D] Removal of a point in curve") {
 }
 
 TEST_CASE("[SceneTree][PathFollow3D] Progress ratio out of range") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -195,12 +195,12 @@ TEST_CASE("[SceneTree][PathFollow3D] Progress ratio out of range") {
 }
 
 TEST_CASE("[SceneTree][PathFollow3D] Progress out of range") {
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 
@@ -233,16 +233,16 @@ TEST_CASE("[SceneTree][PathFollow3D] Progress out of range") {
 
 TEST_CASE("[SceneTree][PathFollow3D] Calculate forward vector") {
 	const real_t dist_cube_100 = 100 * Math::sqrt(3.0);
-	Ref<Curve3D> curve = memnew(Curve3D);
+	Ref<Curve3D> curve = memnewOld(Curve3D);
 	curve->add_point(Vector3(0, 0, 0));
 	curve->add_point(Vector3(100, 0, 0));
 	curve->add_point(Vector3(200, 100, -100));
 	curve->add_point(Vector3(200, 100, 200));
 	curve->add_point(Vector3(100, 0, 100));
 	curve->add_point(Vector3(0, 0, 100));
-	Path3D *path = memnew(Path3D);
+	Path3D *path = memnewOld(Path3D);
 	path->set_curve(curve);
-	PathFollow3D *path_follow_3d = memnew(PathFollow3D);
+	PathFollow3D *path_follow_3d = memnewOld(PathFollow3D);
 	path->add_child(path_follow_3d);
 	SceneTree::get_singleton()->get_root()->add_child(path);
 

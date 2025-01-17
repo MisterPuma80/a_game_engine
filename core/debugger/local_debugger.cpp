@@ -369,7 +369,7 @@ LocalDebugger::LocalDebugger() {
 	options["variable_prefix"] = "";
 
 	// Bind scripts profiler.
-	scripts_profiler = memnew(ScriptsProfiler);
+	scripts_profiler = memnewOld(ScriptsProfiler);
 	Profiler scr_prof(
 			scripts_profiler,
 			[](void *p_user, bool p_enable, const Array &p_opts) {

@@ -45,55 +45,55 @@
 	ERR_FAIL_COND_MSG(m_object->get_space() && flushing_queries, "Can't change this state while flushing queries. Use call_deferred() or set_deferred() to change monitoring state instead.");
 
 RID GodotPhysicsServer3D::world_boundary_shape_create() {
-	GodotShape3D *shape = memnew(GodotWorldBoundaryShape3D);
+	GodotShape3D *shape = memnewOld(GodotWorldBoundaryShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::separation_ray_shape_create() {
-	GodotShape3D *shape = memnew(GodotSeparationRayShape3D);
+	GodotShape3D *shape = memnewOld(GodotSeparationRayShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::sphere_shape_create() {
-	GodotShape3D *shape = memnew(GodotSphereShape3D);
+	GodotShape3D *shape = memnewOld(GodotSphereShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::box_shape_create() {
-	GodotShape3D *shape = memnew(GodotBoxShape3D);
+	GodotShape3D *shape = memnewOld(GodotBoxShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::capsule_shape_create() {
-	GodotShape3D *shape = memnew(GodotCapsuleShape3D);
+	GodotShape3D *shape = memnewOld(GodotCapsuleShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::cylinder_shape_create() {
-	GodotShape3D *shape = memnew(GodotCylinderShape3D);
+	GodotShape3D *shape = memnewOld(GodotCylinderShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::convex_polygon_shape_create() {
-	GodotShape3D *shape = memnew(GodotConvexPolygonShape3D);
+	GodotShape3D *shape = memnewOld(GodotConvexPolygonShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::concave_polygon_shape_create() {
-	GodotShape3D *shape = memnew(GodotConcavePolygonShape3D);
+	GodotShape3D *shape = memnewOld(GodotConcavePolygonShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
 }
 RID GodotPhysicsServer3D::heightmap_shape_create() {
-	GodotShape3D *shape = memnew(GodotHeightMapShape3D);
+	GodotShape3D *shape = memnewOld(GodotHeightMapShape3D);
 	RID rid = shape_owner.make_rid(shape);
 	shape->set_self(rid);
 	return rid;
@@ -141,7 +141,7 @@ real_t GodotPhysicsServer3D::shape_get_custom_solver_bias(RID p_shape) const {
 }
 
 RID GodotPhysicsServer3D::space_create() {
-	GodotSpace3D *space = memnew(GodotSpace3D);
+	GodotSpace3D *space = memnewOld(GodotSpace3D);
 	RID id = space_owner.make_rid(space);
 	space->set_self(id);
 	RID area_id = area_create();
@@ -253,7 +253,7 @@ int GodotPhysicsServer3D::space_get_contact_count(RID p_space) const {
 }
 
 RID GodotPhysicsServer3D::area_create() {
-	GodotArea3D *area = memnew(GodotArea3D);
+	GodotArea3D *area = memnewOld(GodotArea3D);
 	RID rid = area_owner.make_rid(area);
 	area->set_self(rid);
 	return rid;
@@ -478,7 +478,7 @@ void GodotPhysicsServer3D::area_set_area_monitor_callback(RID p_area, const Call
 /* BODY API */
 
 RID GodotPhysicsServer3D::body_create() {
-	GodotBody3D *body = memnew(GodotBody3D);
+	GodotBody3D *body = memnewOld(GodotBody3D);
 	RID rid = body_owner.make_rid(body);
 	body->set_self(rid);
 	return rid;
@@ -980,7 +980,7 @@ PhysicsDirectBodyState3D *GodotPhysicsServer3D::body_get_direct_state(RID p_body
 /* SOFT BODY */
 
 RID GodotPhysicsServer3D::soft_body_create() {
-	GodotSoftBody3D *soft_body = memnew(GodotSoftBody3D);
+	GodotSoftBody3D *soft_body = memnewOld(GodotSoftBody3D);
 	RID rid = soft_body_owner.make_rid(soft_body);
 	soft_body->set_self(rid);
 	return rid;
@@ -1240,7 +1240,7 @@ bool GodotPhysicsServer3D::soft_body_is_point_pinned(RID p_body, int p_point_ind
 /* JOINT API */
 
 RID GodotPhysicsServer3D::joint_create() {
-	GodotJoint3D *joint = memnew(GodotJoint3D);
+	GodotJoint3D *joint = memnewOld(GodotJoint3D);
 	RID rid = joint_owner.make_rid(joint);
 	joint->set_self(rid);
 	return rid;
@@ -1250,7 +1250,7 @@ void GodotPhysicsServer3D::joint_clear(RID p_joint) {
 	GodotJoint3D *joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(joint);
 	if (joint->get_type() != JOINT_TYPE_MAX) {
-		GodotJoint3D *empty_joint = memnew(GodotJoint3D);
+		GodotJoint3D *empty_joint = memnewOld(GodotJoint3D);
 		empty_joint->copy_settings_from(joint);
 
 		joint_owner.replace(p_joint, empty_joint);
@@ -1275,7 +1275,7 @@ void GodotPhysicsServer3D::joint_make_pin(RID p_joint, RID p_body_A, const Vecto
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotPinJoint3D(body_A, p_local_A, body_B, p_local_B));
+	GodotJoint3D *joint = memnewOld(GodotPinJoint3D(body_A, p_local_A, body_B, p_local_B));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1347,7 +1347,7 @@ void GodotPhysicsServer3D::joint_make_hinge(RID p_joint, RID p_body_A, const Tra
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotHingeJoint3D(body_A, body_B, p_frame_A, p_frame_B));
+	GodotJoint3D *joint = memnewOld(GodotHingeJoint3D(body_A, body_B, p_frame_A, p_frame_B));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1371,7 +1371,7 @@ void GodotPhysicsServer3D::joint_make_hinge_simple(RID p_joint, RID p_body_A, co
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotHingeJoint3D(body_A, body_B, p_pivot_A, p_pivot_B, p_axis_A, p_axis_B));
+	GodotJoint3D *joint = memnewOld(GodotHingeJoint3D(body_A, body_B, p_pivot_A, p_pivot_B, p_axis_A, p_axis_B));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1472,7 +1472,7 @@ void GodotPhysicsServer3D::joint_make_slider(RID p_joint, RID p_body_A, const Tr
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotSliderJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
+	GodotJoint3D *joint = memnewOld(GodotSliderJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1512,7 +1512,7 @@ void GodotPhysicsServer3D::joint_make_cone_twist(RID p_joint, RID p_body_A, cons
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotConeTwistJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
+	GodotJoint3D *joint = memnewOld(GodotConeTwistJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1552,7 +1552,7 @@ void GodotPhysicsServer3D::joint_make_generic_6dof(RID p_joint, RID p_body_A, co
 	GodotJoint3D *prev_joint = joint_owner.get_or_null(p_joint);
 	ERR_FAIL_NULL(prev_joint);
 
-	GodotJoint3D *joint = memnew(GodotGeneric6DOFJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B, true));
+	GodotJoint3D *joint = memnewOld(GodotGeneric6DOFJoint3D(body_A, body_B, p_local_frame_A, p_local_frame_B, true));
 
 	joint->copy_settings_from(prev_joint);
 	joint_owner.replace(p_joint, joint);
@@ -1663,7 +1663,7 @@ void GodotPhysicsServer3D::set_active(bool p_active) {
 }
 
 void GodotPhysicsServer3D::init() {
-	stepper = memnew(GodotStep3D);
+	stepper = memnewOld(GodotStep3D);
 }
 
 void GodotPhysicsServer3D::step(real_t p_step) {

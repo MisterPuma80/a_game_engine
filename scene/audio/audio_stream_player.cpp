@@ -283,7 +283,7 @@ void AudioStreamPlayer::_bind_methods() {
 }
 
 AudioStreamPlayer::AudioStreamPlayer() {
-	internal = memnew(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer::play), callable_mp(this, &AudioStreamPlayer::stop), false));
+	internal = memnewOld(AudioStreamPlayerInternal(this, callable_mp(this, &AudioStreamPlayer::play), callable_mp(this, &AudioStreamPlayer::stop), false));
 }
 
 AudioStreamPlayer::~AudioStreamPlayer() {

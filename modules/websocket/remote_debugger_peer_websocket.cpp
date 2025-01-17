@@ -131,7 +131,7 @@ RemoteDebuggerPeerWebSocket::RemoteDebuggerPeerWebSocket(Ref<WebSocketPeer> p_pe
 
 RemoteDebuggerPeer *RemoteDebuggerPeerWebSocket::create(const String &p_uri) {
 	ERR_FAIL_COND_V(!p_uri.begins_with("ws://") && !p_uri.begins_with("wss://"), nullptr);
-	RemoteDebuggerPeerWebSocket *peer = memnew(RemoteDebuggerPeerWebSocket);
+	RemoteDebuggerPeerWebSocket *peer = memnewOld(RemoteDebuggerPeerWebSocket);
 	Error err = peer->connect_to_host(p_uri);
 	if (err != OK) {
 		memdelete(peer);

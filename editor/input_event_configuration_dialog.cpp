@@ -641,17 +641,17 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 
 	set_min_size(Size2i(550, 0) * EDSCALE);
 
-	VBoxContainer *main_vbox = memnew(VBoxContainer);
+	VBoxContainer *main_vbox = memnewOld(VBoxContainer);
 	add_child(main_vbox);
 
-	event_as_text = memnew(Label);
+	event_as_text = memnewOld(Label);
 	event_as_text->set_custom_minimum_size(Size2(500, 0) * EDSCALE);
 	event_as_text->set_autowrap_mode(TextServer::AUTOWRAP_WORD_SMART);
 	event_as_text->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	event_as_text->add_theme_font_size_override(SceneStringName(font_size), 18 * EDSCALE);
 	main_vbox->add_child(event_as_text);
 
-	event_listener = memnew(EventListenerLineEdit);
+	event_listener = memnewOld(EventListenerLineEdit);
 	event_listener->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	event_listener->set_stretch_ratio(0.75);
 	event_listener->connect("event_changed", callable_mp(this, &InputEventConfigurationDialog::_on_listen_input_changed));
@@ -659,22 +659,22 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 	event_listener->connect(SceneStringName(focus_exited), callable_mp((AcceptDialog *)this, &AcceptDialog::set_close_on_escape).bind(true));
 	main_vbox->add_child(event_listener);
 
-	main_vbox->add_child(memnew(HSeparator));
+	main_vbox->add_child(memnewOld(HSeparator));
 
 	// List of all input options to manually select from.
-	VBoxContainer *manual_vbox = memnew(VBoxContainer);
+	VBoxContainer *manual_vbox = memnewOld(VBoxContainer);
 	manual_vbox->set_name(TTR("Manual Selection"));
 	manual_vbox->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	main_vbox->add_child(manual_vbox);
 
-	input_list_search = memnew(LineEdit);
+	input_list_search = memnewOld(LineEdit);
 	input_list_search->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	input_list_search->set_placeholder(TTR("Filter Inputs"));
 	input_list_search->set_clear_button_enabled(true);
 	input_list_search->connect(SceneStringName(text_changed), callable_mp(this, &InputEventConfigurationDialog::_search_term_updated));
 	manual_vbox->add_child(input_list_search);
 
-	input_list_tree = memnew(Tree);
+	input_list_tree = memnewOld(Tree);
 	input_list_tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	input_list_tree->set_custom_minimum_size(Size2(0, 100 * EDSCALE)); // Min height for tree
 	input_list_tree->connect("item_activated", callable_mp(this, &InputEventConfigurationDialog::_input_list_item_activated));
@@ -688,24 +688,24 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 	_update_input_list();
 
 	// Additional Options
-	additional_options_container = memnew(VBoxContainer);
+	additional_options_container = memnewOld(VBoxContainer);
 	additional_options_container->hide();
 
-	Label *opts_label = memnew(Label);
+	Label *opts_label = memnewOld(Label);
 	opts_label->set_theme_type_variation("HeaderSmall");
 	opts_label->set_text(TTR("Additional Options"));
 	additional_options_container->add_child(opts_label);
 
 	// Device Selection
-	device_container = memnew(HBoxContainer);
+	device_container = memnewOld(HBoxContainer);
 	device_container->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 
-	Label *device_label = memnew(Label);
+	Label *device_label = memnewOld(Label);
 	device_label->set_theme_type_variation("HeaderSmall");
 	device_label->set_text(TTR("Device:"));
 	device_container->add_child(device_label);
 
-	device_id_option = memnew(OptionButton);
+	device_id_option = memnewOld(OptionButton);
 	device_id_option->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	for (int i = -1; i < 8; i++) {
 		device_id_option->add_item(EventListenerLineEdit::get_device_string(i));
@@ -718,19 +718,19 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 	additional_options_container->add_child(device_container);
 
 	// Modifier Selection
-	mod_container = memnew(HBoxContainer);
+	mod_container = memnewOld(HBoxContainer);
 	for (int i = 0; i < MOD_MAX; i++) {
 		String name = mods[i];
-		mod_checkboxes[i] = memnew(CheckBox);
+		mod_checkboxes[i] = memnewOld(CheckBox);
 		mod_checkboxes[i]->connect("toggled", callable_mp(this, &InputEventConfigurationDialog::_mod_toggled).bind(i));
 		mod_checkboxes[i]->set_text(name);
 		mod_checkboxes[i]->set_tooltip_text(TTR(mods_tip[i]));
 		mod_container->add_child(mod_checkboxes[i]);
 	}
 
-	mod_container->add_child(memnew(VSeparator));
+	mod_container->add_child(memnewOld(VSeparator));
 
-	autoremap_command_or_control_checkbox = memnew(CheckBox);
+	autoremap_command_or_control_checkbox = memnewOld(CheckBox);
 	autoremap_command_or_control_checkbox->connect("toggled", callable_mp(this, &InputEventConfigurationDialog::_autoremap_command_or_control_toggled));
 	autoremap_command_or_control_checkbox->set_pressed(false);
 	autoremap_command_or_control_checkbox->set_text(TTR("Command / Control (auto)"));
@@ -742,7 +742,7 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 
 	// Key Mode Selection
 
-	key_mode = memnew(OptionButton);
+	key_mode = memnewOld(OptionButton);
 	key_mode->add_item(TTR("Keycode (Latin Equivalent)"), KEYMODE_KEYCODE);
 	key_mode->add_item(TTR("Physical Keycode (Position on US QWERTY Keyboard)"), KEYMODE_PHY_KEYCODE);
 	key_mode->add_item(TTR("Key Label (Unicode, Case-Insensitive)"), KEYMODE_UNICODE);
@@ -752,14 +752,14 @@ InputEventConfigurationDialog::InputEventConfigurationDialog() {
 
 	// Key Location Selection
 
-	location_container = memnew(HBoxContainer);
+	location_container = memnewOld(HBoxContainer);
 	location_container->hide();
 
-	Label *location_label = memnew(Label);
+	Label *location_label = memnewOld(Label);
 	location_label->set_text(TTR("Physical location"));
 	location_container->add_child(location_label);
 
-	key_location = memnew(OptionButton);
+	key_location = memnewOld(OptionButton);
 	key_location->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	key_location->add_item(TTR("Any"), (int)KeyLocation::UNSPECIFIED);
 	key_location->add_item(TTR("Left"), (int)KeyLocation::LEFT);

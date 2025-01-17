@@ -274,7 +274,7 @@ OS_Web::OS_Web() {
 	godot_js_pwa_cb(&OS_Web::update_pwa_state_callback);
 
 	if (AudioDriverWeb::is_available()) {
-		audio_drivers.push_back(memnew(AudioDriverWorklet));
+		audio_drivers.push_back(memnewOld(AudioDriverWorklet));
 	}
 	for (AudioDriverWeb *audio_driver : audio_drivers) {
 		AudioDriverManager::add_driver(audio_driver);
@@ -283,8 +283,8 @@ OS_Web::OS_Web() {
 	idb_available = godot_js_os_fs_is_persistent();
 
 	Vector<Logger *> loggers;
-	loggers.push_back(memnew(StdLogger));
-	_set_logger(memnew(CompositeLogger(loggers)));
+	loggers.push_back(memnewOld(StdLogger));
+	_set_logger(memnewOld(CompositeLogger(loggers)));
 
 	FileAccessUnix::close_notification_func = file_access_close_callback;
 }

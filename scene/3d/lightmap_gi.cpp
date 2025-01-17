@@ -675,7 +675,7 @@ void LightmapGI::_plot_triangle_into_octree(GenProbesOctree *p_cell, float p_cel
 		}
 
 		if (p_cell->children[i] == nullptr) {
-			GenProbesOctree *child = memnew(GenProbesOctree);
+			GenProbesOctree *child = memnewOld(GenProbesOctree);
 			child->offset = pos;
 			child->size = half_size;
 			p_cell->children[i] = child;

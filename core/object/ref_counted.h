@@ -214,7 +214,7 @@ public:
 
 	template <typename... VarArgs>
 	void instantiate(VarArgs... p_params) {
-		ref(memnew(T(p_params...)));
+		ref(memnewOld(T(p_params...)));
 	}
 
 	Ref() {}

@@ -150,7 +150,7 @@ Error DebugAdapterProtocol::on_client_connected() {
 
 	Ref<StreamPeerTCP> tcp_peer = server->take_connection();
 	tcp_peer->set_no_delay(true);
-	Ref<DAPeer> peer = memnew(DAPeer);
+	Ref<DAPeer> peer = memnewOld(DAPeer);
 	peer->connection = tcp_peer;
 	clients.push_back(peer);
 
@@ -1039,7 +1039,7 @@ void DebugAdapterProtocol::stop() {
 DebugAdapterProtocol::DebugAdapterProtocol() {
 	server.instantiate();
 	singleton = this;
-	parser = memnew(DebugAdapterParser);
+	parser = memnewOld(DebugAdapterParser);
 
 	reset_ids();
 

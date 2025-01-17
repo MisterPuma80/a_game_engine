@@ -57,7 +57,7 @@ Error GLTFDocumentExtensionConvertImporterMesh::import_post(Ref<GLTFState> p_sta
 		Node *node = E->get();
 		ImporterMeshInstance3D *importer_mesh_3d = Object::cast_to<ImporterMeshInstance3D>(node);
 		if (importer_mesh_3d) {
-			MeshInstance3D *mesh_instance_node_3d = memnew(MeshInstance3D);
+			MeshInstance3D *mesh_instance_node_3d = memnewOld(MeshInstance3D);
 			Ref<ImporterMesh> mesh = importer_mesh_3d->get_mesh();
 			if (mesh.is_valid()) {
 				Ref<ArrayMesh> array_mesh = mesh->get_mesh();

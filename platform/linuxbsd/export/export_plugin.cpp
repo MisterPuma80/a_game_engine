@@ -526,7 +526,7 @@ Error EditorExportPlatformLinuxBSD::run(const Ref<EditorExportPreset> &p_preset,
 EditorExportPlatformLinuxBSD::EditorExportPlatformLinuxBSD() {
 	if (EditorNode::get_singleton()) {
 #ifdef MODULE_SVG_ENABLED
-		Ref<Image> img = memnew(Image);
+		Ref<Image> img = memnewOld(Image);
 		const bool upsample = !Math::is_equal_approx(Math::round(EDSCALE), EDSCALE);
 
 		ImageLoaderSVG::create_image_from_string(img, _linuxbsd_logo_svg, EDSCALE, upsample, false);

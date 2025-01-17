@@ -59,12 +59,12 @@ ProjectTag::ProjectTag(const String &p_text, bool p_display_close) {
 	tag_color.set_ok_hsl_h(float(p_text.hash() * 10001 % UINT32_MAX) / float(UINT32_MAX));
 	set_self_modulate(tag_color);
 
-	ColorRect *cr = memnew(ColorRect);
+	ColorRect *cr = memnewOld(ColorRect);
 	add_child(cr);
 	cr->set_custom_minimum_size(Vector2(4, 0) * EDSCALE);
 	cr->set_color(tag_color);
 
-	button = memnew(Button);
+	button = memnewOld(Button);
 	add_child(button);
 	button->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	button->set_text(p_text.capitalize());

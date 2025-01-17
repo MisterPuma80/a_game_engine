@@ -47,7 +47,7 @@ static inline Array build_array(Variant item, Targs... Fargs) {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] line gutters") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -844,7 +844,7 @@ TEST_CASE("[SceneTree][CodeEdit] line gutters") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] delimiters") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -1749,7 +1749,7 @@ TEST_CASE("[SceneTree][CodeEdit] delimiters") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] indent") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -2895,7 +2895,7 @@ TEST_CASE("[SceneTree][CodeEdit] indent") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] folding") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 	code_edit->set_line_folding_enabled(true);
@@ -3412,7 +3412,7 @@ TEST_CASE("[SceneTree][CodeEdit] folding") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] region folding") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -3684,7 +3684,7 @@ TEST_CASE("[SceneTree][CodeEdit] region folding") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] completion") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -4477,7 +4477,7 @@ TEST_CASE("[SceneTree][CodeEdit] completion") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] symbol lookup") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -4513,7 +4513,7 @@ TEST_CASE("[SceneTree][CodeEdit] symbol lookup") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] line length guidelines") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 
@@ -4534,7 +4534,7 @@ TEST_CASE("[SceneTree][CodeEdit] line length guidelines") {
 }
 
 TEST_CASE("[SceneTree][CodeEdit] text manipulation") {
-	CodeEdit *code_edit = memnew(CodeEdit);
+	CodeEdit *code_edit = memnewOld(CodeEdit);
 	SceneTree::get_singleton()->get_root()->add_child(code_edit);
 	code_edit->grab_focus();
 

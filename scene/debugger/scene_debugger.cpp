@@ -44,7 +44,7 @@ SceneDebugger *SceneDebugger::singleton = nullptr;
 SceneDebugger::SceneDebugger() {
 	singleton = this;
 #ifdef DEBUG_ENABLED
-	LiveEditor::singleton = memnew(LiveEditor);
+	LiveEditor::singleton = memnewOld(LiveEditor);
 	EngineDebugger::register_message_capture("scene", EngineDebugger::Capture(nullptr, SceneDebugger::parse_message));
 #endif
 }
@@ -62,7 +62,7 @@ SceneDebugger::~SceneDebugger() {
 
 void SceneDebugger::initialize() {
 	if (EngineDebugger::is_active()) {
-		memnew(SceneDebugger);
+		memnewOld(SceneDebugger);
 	}
 }
 
@@ -237,7 +237,7 @@ void SceneDebugger::_save_node(ObjectID id, const String &p_path) {
 	// Root node cannot ever be unique name in its own Scene!
 	copy->set_unique_name_in_owner(false);
 
-	Ref<PackedScene> ps = memnew(PackedScene);
+	Ref<PackedScene> ps = memnewOld(PackedScene);
 	ps->pack(copy);
 	ResourceSaver::save(ps, p_path);
 

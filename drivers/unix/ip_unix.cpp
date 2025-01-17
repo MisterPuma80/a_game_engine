@@ -226,7 +226,7 @@ void IPUnix::make_default() {
 }
 
 IP *IPUnix::_create_unix() {
-	return memnew(IPUnix);
+	return memnewOld(IPUnix);
 }
 
 IPUnix::IPUnix() {

@@ -226,33 +226,33 @@ void EditorObjectSelector::_bind_methods() {
 EditorObjectSelector::EditorObjectSelector(EditorSelectionHistory *p_history) {
 	history = p_history;
 
-	MarginContainer *main_mc = memnew(MarginContainer);
+	MarginContainer *main_mc = memnewOld(MarginContainer);
 	main_mc->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	main_mc->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	main_mc->add_theme_constant_override("margin_right", 6 * EDSCALE);
 	add_child(main_mc);
 
-	HBoxContainer *main_hb = memnew(HBoxContainer);
+	HBoxContainer *main_hb = memnewOld(HBoxContainer);
 	main_mc->add_child(main_hb);
 
-	current_object_icon = memnew(TextureRect);
+	current_object_icon = memnewOld(TextureRect);
 	current_object_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_ASPECT_CENTERED);
 	current_object_icon->set_expand_mode(TextureRect::EXPAND_IGNORE_SIZE);
 	main_hb->add_child(current_object_icon);
 
-	current_object_label = memnew(Label);
+	current_object_label = memnewOld(Label);
 	current_object_label->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_ELLIPSIS);
 	current_object_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	current_object_label->set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER);
 	current_object_label->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	main_hb->add_child(current_object_label);
 
-	sub_objects_icon = memnew(TextureRect);
+	sub_objects_icon = memnewOld(TextureRect);
 	sub_objects_icon->hide();
 	sub_objects_icon->set_stretch_mode(TextureRect::STRETCH_KEEP_CENTERED);
 	main_hb->add_child(sub_objects_icon);
 
-	sub_objects_menu = memnew(PopupMenu);
+	sub_objects_menu = memnewOld(PopupMenu);
 	sub_objects_menu->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	add_child(sub_objects_menu);
 	sub_objects_menu->connect("about_to_popup", callable_mp(this, &EditorObjectSelector::_about_to_show));

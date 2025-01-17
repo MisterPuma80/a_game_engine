@@ -205,34 +205,34 @@ void ImportDefaultsEditor::clear() {
 ImportDefaultsEditor::ImportDefaultsEditor() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("importer_defaults/");
 
-	HBoxContainer *hb = memnew(HBoxContainer);
-	hb->add_child(memnew(Label(TTR("Importer:"))));
-	importers = memnew(OptionButton);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
+	hb->add_child(memnewOld(Label(TTR("Importer:"))));
+	importers = memnewOld(OptionButton);
 	hb->add_child(importers);
 	hb->add_spacer();
 	importers->connect(SceneStringName(item_selected), callable_mp(this, &ImportDefaultsEditor::_importer_selected));
-	reset_defaults = memnew(Button);
+	reset_defaults = memnewOld(Button);
 	reset_defaults->set_text(TTR("Reset to Defaults"));
 	reset_defaults->set_disabled(true);
 	reset_defaults->connect(SceneStringName(pressed), callable_mp(this, &ImportDefaultsEditor::_reset));
 	hb->add_child(reset_defaults);
 	add_child(hb);
 
-	inspector = memnew(EditorInspector);
+	inspector = memnewOld(EditorInspector);
 	add_child(inspector);
 	inspector->set_v_size_flags(SIZE_EXPAND_FILL);
 	// Make it possible to display tooltips stored in the XML class reference.
 	// The object name is set when the importer changes in `_update_importer()`.
 	inspector->set_use_doc_hints(true);
 
-	CenterContainer *cc = memnew(CenterContainer);
-	save_defaults = memnew(Button);
+	CenterContainer *cc = memnewOld(CenterContainer);
+	save_defaults = memnewOld(Button);
 	save_defaults->set_text(TTR("Save"));
 	save_defaults->connect(SceneStringName(pressed), callable_mp(this, &ImportDefaultsEditor::_save));
 	cc->add_child(save_defaults);
 	add_child(cc);
 
-	settings = memnew(ImportDefaultsEditorSettings);
+	settings = memnewOld(ImportDefaultsEditorSettings);
 }
 
 ImportDefaultsEditor::~ImportDefaultsEditor() {

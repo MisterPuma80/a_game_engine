@@ -193,20 +193,20 @@ EditorPropertyVectorN::EditorPropertyVectorN(Variant::Type p_type, bool p_force_
 	}
 	bool horizontal = p_force_wide || p_horizontal;
 
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	hb->set_h_size_flags(SIZE_EXPAND_FILL);
 
 	BoxContainer *bc;
 
 	if (p_force_wide) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		hb->add_child(bc);
 	} else if (horizontal) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		hb->add_child(bc);
 		set_bottom_editor(hb);
 	} else {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		hb->add_child(bc);
 	}
 	bc->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -215,7 +215,7 @@ EditorPropertyVectorN::EditorPropertyVectorN(Variant::Type p_type, bool p_force_
 	EditorSpinSlider **spin = spin_sliders.ptrw();
 
 	for (int i = 0; i < component_count; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		bc->add_child(spin[i]);
 		spin[i]->set_flat(true);
 		spin[i]->set_label(String(COMPONENT_LABELS[i]));
@@ -231,7 +231,7 @@ EditorPropertyVectorN::EditorPropertyVectorN(Variant::Type p_type, bool p_force_
 	ratio.resize(component_count * (component_count - 1));
 	ratio.fill(1.0);
 
-	linked = memnew(TextureButton);
+	linked = memnewOld(TextureButton);
 	linked->set_toggle_mode(true);
 	linked->set_stretch_mode(TextureButton::STRETCH_KEEP_CENTERED);
 	linked->set_tooltip_text(TTR("Lock/Unlock Component Ratio"));

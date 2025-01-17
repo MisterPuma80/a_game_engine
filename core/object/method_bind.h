@@ -248,7 +248,7 @@ private:
 
 template <typename T>
 MethodBind *create_vararg_method_bind(void (T::*p_method)(const Variant **, int, Callable::CallError &), const MethodInfo &p_info, bool p_return_nil_is_variant) {
-	MethodBind *a = memnew((MethodBindVarArgT<T>)(p_method, p_info, p_return_nil_is_variant));
+	MethodBind *a = memnewOld((MethodBindVarArgT<T>)(p_method, p_info, p_return_nil_is_variant));
 	a->set_instance_class(T::get_class_static());
 	return a;
 }
@@ -290,7 +290,7 @@ private:
 
 template <typename T, typename R>
 MethodBind *create_vararg_method_bind(R (T::*p_method)(const Variant **, int, Callable::CallError &), const MethodInfo &p_info, bool p_return_nil_is_variant) {
-	MethodBind *a = memnew((MethodBindVarArgTR<T, R>)(p_method, p_info, p_return_nil_is_variant));
+	MethodBind *a = memnewOld((MethodBindVarArgTR<T, R>)(p_method, p_info, p_return_nil_is_variant));
 	a->set_instance_class(T::get_class_static());
 	return a;
 }
@@ -379,9 +379,9 @@ public:
 template <typename T, typename... P>
 MethodBind *create_method_bind(void (T::*p_method)(P...)) {
 #ifdef TYPED_METHOD_BIND
-	MethodBind *a = memnew((MethodBindT<T, P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindT<T, P...>)(p_method));
 #else
-	MethodBind *a = memnew((MethodBindT<P...>)(reinterpret_cast<void (MB_T::*)(P...)>(p_method)));
+	MethodBind *a = memnewOld((MethodBindT<P...>)(reinterpret_cast<void (MB_T::*)(P...)>(p_method)));
 #endif
 	a->set_instance_class(T::get_class_static());
 	return a;
@@ -464,9 +464,9 @@ public:
 template <typename T, typename... P>
 MethodBind *create_method_bind(void (T::*p_method)(P...) const) {
 #ifdef TYPED_METHOD_BIND
-	MethodBind *a = memnew((MethodBindTC<T, P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindTC<T, P...>)(p_method));
 #else
-	MethodBind *a = memnew((MethodBindTC<P...>)(reinterpret_cast<void (MB_T::*)(P...) const>(p_method)));
+	MethodBind *a = memnewOld((MethodBindTC<P...>)(reinterpret_cast<void (MB_T::*)(P...) const>(p_method)));
 #endif
 	a->set_instance_class(T::get_class_static());
 	return a;
@@ -559,9 +559,9 @@ public:
 template <typename T, typename R, typename... P>
 MethodBind *create_method_bind(R (T::*p_method)(P...)) {
 #ifdef TYPED_METHOD_BIND
-	MethodBind *a = memnew((MethodBindTR<T, R, P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindTR<T, R, P...>)(p_method));
 #else
-	MethodBind *a = memnew((MethodBindTR<R, P...>)(reinterpret_cast<R (MB_T::*)(P...)>(p_method)));
+	MethodBind *a = memnewOld((MethodBindTR<R, P...>)(reinterpret_cast<R (MB_T::*)(P...)>(p_method)));
 #endif
 
 	a->set_instance_class(T::get_class_static());
@@ -656,9 +656,9 @@ public:
 template <typename T, typename R, typename... P>
 MethodBind *create_method_bind(R (T::*p_method)(P...) const) {
 #ifdef TYPED_METHOD_BIND
-	MethodBind *a = memnew((MethodBindTRC<T, R, P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindTRC<T, R, P...>)(p_method));
 #else
-	MethodBind *a = memnew((MethodBindTRC<R, P...>)(reinterpret_cast<R (MB_T::*)(P...) const>(p_method)));
+	MethodBind *a = memnewOld((MethodBindTRC<R, P...>)(reinterpret_cast<R (MB_T::*)(P...) const>(p_method)));
 #endif
 	a->set_instance_class(T::get_class_static());
 	return a;
@@ -720,7 +720,7 @@ public:
 
 template <typename... P>
 MethodBind *create_static_method_bind(void (*p_method)(P...)) {
-	MethodBind *a = memnew((MethodBindTS<P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindTS<P...>)(p_method));
 	return a;
 }
 
@@ -787,7 +787,7 @@ public:
 
 template <typename R, typename... P>
 MethodBind *create_static_method_bind(R (*p_method)(P...)) {
-	MethodBind *a = memnew((MethodBindTRS<R, P...>)(p_method));
+	MethodBind *a = memnewOld((MethodBindTRS<R, P...>)(p_method));
 	return a;
 }
 

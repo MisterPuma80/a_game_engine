@@ -77,7 +77,7 @@ void ParallaxBackgroundEditorPlugin::convert_to_parallax2d() {
 			continue;
 		}
 
-		Parallax2D *parallax2d = memnew(Parallax2D);
+		Parallax2D *parallax2d = memnewOld(Parallax2D);
 
 		Point2 offset = parallax_bg->get_scroll_base_offset() * parallax_layer->get_motion_scale();
 		offset += parallax_layer->get_motion_offset() + parallax_layer->get_position();
@@ -106,10 +106,10 @@ void ParallaxBackgroundEditorPlugin::convert_to_parallax2d() {
 	}
 
 	if (parallax_bg->is_ignore_camera_zoom()) {
-		CanvasLayer *canvas_layer = memnew(CanvasLayer);
+		CanvasLayer *canvas_layer = memnewOld(CanvasLayer);
 		SceneTreeDock::get_singleton()->replace_node(parallax_bg, canvas_layer);
 	} else {
-		Node2D *node2d = memnew(Node2D);
+		Node2D *node2d = memnewOld(Node2D);
 		SceneTreeDock::get_singleton()->replace_node(parallax_bg, node2d);
 	}
 
@@ -126,11 +126,11 @@ void ParallaxBackgroundEditorPlugin::_notification(int p_what) {
 }
 
 ParallaxBackgroundEditorPlugin::ParallaxBackgroundEditorPlugin() {
-	toolbar = memnew(HBoxContainer);
+	toolbar = memnewOld(HBoxContainer);
 	toolbar->hide();
 	add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar);
 
-	menu = memnew(MenuButton);
+	menu = memnewOld(MenuButton);
 	menu->get_popup()->add_item(TTR("Convert to Parallax2D"), MENU_CONVERT_TO_PARALLAX_2D);
 	menu->set_text(TTR("ParallaxBackground"));
 	menu->set_switch_on_hover(true);

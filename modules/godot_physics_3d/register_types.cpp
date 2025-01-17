@@ -41,9 +41,9 @@ static PhysicsServer3D *_createGodotPhysics3DCallback() {
 	bool using_threads = false;
 #endif
 
-	PhysicsServer3D *physics_server_3d = memnew(GodotPhysicsServer3D(using_threads));
+	PhysicsServer3D *physics_server_3d = memnewOld(GodotPhysicsServer3D(using_threads));
 
-	return memnew(PhysicsServer3DWrapMT(physics_server_3d, using_threads));
+	return memnewOld(PhysicsServer3DWrapMT(physics_server_3d, using_threads));
 }
 
 void initialize_godot_physics_3d_module(ModuleInitializationLevel p_level) {

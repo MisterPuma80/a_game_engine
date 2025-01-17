@@ -54,7 +54,7 @@ using namespace NavigationUtilities;
 		}                                                             \
 	};                                                                \
 	void GodotNavigationServer3D::F_NAME(T_0 D_0) {                   \
-		auto cmd = memnew(MERGE(F_NAME, _command)(                    \
+		auto cmd = memnewOld(MERGE(F_NAME, _command)(                    \
 				D_0));                                                \
 		add_command(cmd);                                             \
 	}                                                                 \
@@ -75,7 +75,7 @@ using namespace NavigationUtilities;
 		}                                                             \
 	};                                                                \
 	void GodotNavigationServer3D::F_NAME(T_0 D_0, T_1 D_1) {          \
-		auto cmd = memnew(MERGE(F_NAME, _command)(                    \
+		auto cmd = memnewOld(MERGE(F_NAME, _command)(                    \
 				D_0,                                                  \
 				D_1));                                                \
 		add_command(cmd);                                             \
@@ -1336,7 +1336,7 @@ void GodotNavigationServer3D::process(real_t p_delta_time) {
 
 void GodotNavigationServer3D::init() {
 #ifndef _3D_DISABLED
-	navmesh_generator_3d = memnew(NavMeshGenerator3D);
+	navmesh_generator_3d = memnewOld(NavMeshGenerator3D);
 #endif // _3D_DISABLED
 }
 

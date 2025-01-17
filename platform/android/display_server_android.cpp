@@ -515,7 +515,7 @@ Vector<String> DisplayServerAndroid::get_rendering_drivers_func() {
 }
 
 DisplayServer *DisplayServerAndroid::create_func(const String &p_rendering_driver, DisplayServer::WindowMode p_mode, DisplayServer::VSyncMode p_vsync_mode, uint32_t p_flags, const Vector2i *p_position, const Vector2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	DisplayServer *ds = memnew(DisplayServerAndroid(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	DisplayServer *ds = memnewOld(DisplayServerAndroid(p_rendering_driver, p_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 	if (r_error != OK) {
 		if (p_rendering_driver == "vulkan") {
 			OS::get_singleton()->alert(
@@ -587,7 +587,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 
 	keep_screen_on = GLOBAL_GET("display/window/energy_saving/keep_screen_on");
 
-	native_menu = memnew(NativeMenu);
+	native_menu = memnewOld(NativeMenu);
 
 #if defined(RD_ENABLED)
 	rendering_context = nullptr;
@@ -595,7 +595,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
-		rendering_context = memnew(RenderingContextDriverVulkanAndroid);
+		rendering_context = memnewOld(RenderingContextDriverVulkanAndroid);
 	}
 #endif
 
@@ -646,7 +646,7 @@ DisplayServerAndroid::DisplayServerAndroid(const String &p_rendering_driver, Dis
 		rendering_context->window_set_size(MAIN_WINDOW_ID, display_size.width, display_size.height);
 		rendering_context->window_set_vsync_mode(MAIN_WINDOW_ID, p_vsync_mode);
 
-		rendering_device = memnew(RenderingDevice);
+		rendering_device = memnewOld(RenderingDevice);
 		if (rendering_device->initialize(rendering_context, MAIN_WINDOW_ID) != OK) {
 			rendering_device = nullptr;
 			memdelete(rendering_context);

@@ -640,12 +640,12 @@ Variant EditorAutoloadSettings::get_drag_data_fw(const Point2 &p_point, Control 
 		return Variant();
 	}
 
-	VBoxContainer *preview = memnew(VBoxContainer);
+	VBoxContainer *preview = memnewOld(VBoxContainer);
 
 	int max_size = MIN(PREVIEW_LIST_MAX_SIZE, autoloads.size());
 
 	for (int i = 0; i < max_size; i++) {
-		Label *label = memnew(Label(autoloads[i]));
+		Label *label = memnewOld(Label(autoloads[i]));
 		label->set_self_modulate(Color(1, 1, 1, Math::lerp(1, 0, float(i) / PREVIEW_LIST_MAX_SIZE)));
 
 		preview->add_child(label);
@@ -888,31 +888,31 @@ EditorAutoloadSettings::EditorAutoloadSettings() {
 		autoload_cache.push_back(info);
 	}
 
-	HBoxContainer *hbc = memnew(HBoxContainer);
+	HBoxContainer *hbc = memnewOld(HBoxContainer);
 	add_child(hbc);
 
-	error_message = memnew(Label);
+	error_message = memnewOld(Label);
 	error_message->hide();
 	error_message->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
 	error_message->add_theme_color_override(SceneStringName(font_color), EditorNode::get_singleton()->get_editor_theme()->get_color(SNAME("error_color"), EditorStringName(Editor)));
 	add_child(error_message);
 
-	Label *l = memnew(Label);
+	Label *l = memnewOld(Label);
 	l->set_text(TTR("Path:"));
 	hbc->add_child(l);
 
-	autoload_add_path = memnew(LineEdit);
+	autoload_add_path = memnewOld(LineEdit);
 	hbc->add_child(autoload_add_path);
 	autoload_add_path->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	autoload_add_path->set_clear_button_enabled(true);
 	autoload_add_path->set_placeholder(vformat(TTR("Set path or press \"%s\" to create a script."), TTR("Add")));
 	autoload_add_path->connect(SceneStringName(text_changed), callable_mp(this, &EditorAutoloadSettings::_autoload_path_text_changed));
 
-	browse_button = memnew(Button);
+	browse_button = memnewOld(Button);
 	hbc->add_child(browse_button);
 	browse_button->connect(SceneStringName(pressed), callable_mp(this, &EditorAutoloadSettings::_browse_autoload_add_path));
 
-	file_dialog = memnew(EditorFileDialog);
+	file_dialog = memnewOld(EditorFileDialog);
 	hbc->add_child(file_dialog);
 	file_dialog->connect("file_selected", callable_mp(this, &EditorAutoloadSettings::_set_autoload_add_path));
 	file_dialog->connect("dir_selected", callable_mp(this, &EditorAutoloadSettings::_set_autoload_add_path));
@@ -922,24 +922,24 @@ EditorAutoloadSettings::EditorAutoloadSettings() {
 	file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	file_dialog->connect("file_selected", callable_mp(this, &EditorAutoloadSettings::_autoload_file_callback));
 
-	l = memnew(Label);
+	l = memnewOld(Label);
 	l->set_text(TTR("Node Name:"));
 	hbc->add_child(l);
 
-	autoload_add_name = memnew(LineEdit);
+	autoload_add_name = memnewOld(LineEdit);
 	autoload_add_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	autoload_add_name->connect("text_submitted", callable_mp(this, &EditorAutoloadSettings::_autoload_text_submitted));
 	autoload_add_name->connect(SceneStringName(text_changed), callable_mp(this, &EditorAutoloadSettings::_autoload_text_changed));
 	hbc->add_child(autoload_add_name);
 
-	add_autoload = memnew(Button);
+	add_autoload = memnewOld(Button);
 	add_autoload->set_text(TTR("Add"));
 	add_autoload->connect(SceneStringName(pressed), callable_mp(this, &EditorAutoloadSettings::_autoload_add));
 	// The button will be enabled once a valid name is entered (either automatically or manually).
 	add_autoload->set_disabled(true);
 	hbc->add_child(add_autoload);
 
-	tree = memnew(Tree);
+	tree = memnewOld(Tree);
 	tree->set_hide_root(true);
 	tree->set_select_mode(Tree::SELECT_MULTI);
 	tree->set_allow_reselect(true);

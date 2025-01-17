@@ -225,7 +225,7 @@ void NavMeshGenerator3D::bake_from_source_geometry_data_async(Ref<NavigationMesh
 	baking_navmesh_mutex.unlock();
 
 	MutexLock generator_task_lock(generator_task_mutex);
-	NavMeshGeneratorTask3D *generator_task = memnew(NavMeshGeneratorTask3D);
+	NavMeshGeneratorTask3D *generator_task = memnewOld(NavMeshGeneratorTask3D);
 	generator_task->navigation_mesh = p_navigation_mesh;
 	generator_task->source_geometry_data = p_source_geometry_data;
 	generator_task->callback = p_callback;

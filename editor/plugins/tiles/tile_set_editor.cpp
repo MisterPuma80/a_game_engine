@@ -120,7 +120,7 @@ void TileSetEditor::_load_texture_files(const Vector<String> &p_paths) {
 		source_id = tile_set->get_next_source_id();
 
 		// Actually create the new source.
-		Ref<TileSetAtlasSource> atlas_source = memnew(TileSetAtlasSource);
+		Ref<TileSetAtlasSource> atlas_source = memnewOld(TileSetAtlasSource);
 		atlas_source->set_texture(texture);
 		atlas_source->set_texture_region_size(tile_set->get_tile_size());
 
@@ -301,7 +301,7 @@ void TileSetEditor::_source_add_id_pressed(int p_id_pressed) {
 	switch (p_id_pressed) {
 		case 0: {
 			if (!texture_file_dialog) {
-				texture_file_dialog = memnew(EditorFileDialog);
+				texture_file_dialog = memnewOld(EditorFileDialog);
 				add_child(texture_file_dialog);
 				texture_file_dialog->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILES);
 				texture_file_dialog->connect("files_selected", callable_mp(this, &TileSetEditor::_load_texture_files));
@@ -317,7 +317,7 @@ void TileSetEditor::_source_add_id_pressed(int p_id_pressed) {
 		case 1: {
 			int source_id = tile_set->get_next_source_id();
 
-			Ref<TileSetScenesCollectionSource> scene_collection_source = memnew(TileSetScenesCollectionSource);
+			Ref<TileSetScenesCollectionSource> scene_collection_source = memnewOld(TileSetScenesCollectionSource);
 
 			// Add a new source.
 			EditorUndoRedoManager *undo_redo = EditorUndoRedoManager::get_singleton();
@@ -815,40 +815,40 @@ TileSetEditor::TileSetEditor() {
 
 	set_process_internal(true);
 
-	VBoxContainer *main_vb = memnew(VBoxContainer);
+	VBoxContainer *main_vb = memnewOld(VBoxContainer);
 	add_child(main_vb);
 	main_vb->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 
 	// TabBar.
-	tabs_bar = memnew(TabBar);
+	tabs_bar = memnewOld(TabBar);
 	tabs_bar->set_tab_alignment(TabBar::ALIGNMENT_CENTER);
 	tabs_bar->set_clip_tabs(false);
 	tabs_bar->add_tab(TTR("Tiles"));
 	tabs_bar->add_tab(TTR("Patterns"));
 	tabs_bar->connect("tab_changed", callable_mp(this, &TileSetEditor::_tab_changed));
 
-	tile_set_toolbar = memnew(HBoxContainer);
+	tile_set_toolbar = memnewOld(HBoxContainer);
 	tile_set_toolbar->set_h_size_flags(SIZE_EXPAND_FILL);
 	tile_set_toolbar->add_child(tabs_bar);
 	main_vb->add_child(tile_set_toolbar);
 
 	//// Tiles ////
 	// Split container.
-	split_container = memnew(HSplitContainer);
+	split_container = memnewOld(HSplitContainer);
 	split_container->set_name(TTR("Tiles"));
 	split_container->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_container->set_v_size_flags(SIZE_EXPAND_FILL);
 	main_vb->add_child(split_container);
 
 	// Sources list.
-	VBoxContainer *split_container_left_side = memnew(VBoxContainer);
+	VBoxContainer *split_container_left_side = memnewOld(VBoxContainer);
 	split_container_left_side->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_container_left_side->set_v_size_flags(SIZE_EXPAND_FILL);
 	split_container_left_side->set_stretch_ratio(0.25);
 	split_container_left_side->set_custom_minimum_size(Size2(70, 0) * EDSCALE);
 	split_container->add_child(split_container_left_side);
 
-	source_sort_button = memnew(MenuButton);
+	source_sort_button = memnewOld(MenuButton);
 	source_sort_button->set_flat(false);
 	source_sort_button->set_theme_type_variation("FlatButton");
 	source_sort_button->set_tooltip_text(TTR("Sort Sources"));
@@ -861,7 +861,7 @@ TileSetEditor::TileSetEditor() {
 	p->add_radio_check_item(TTR("Sort by Name (Descending)"), TilesEditorUtils::SOURCE_SORT_NAME_REVERSE);
 	p->set_item_checked(TilesEditorUtils::SOURCE_SORT_ID, true);
 
-	sources_list = memnew(ItemList);
+	sources_list = memnewOld(ItemList);
 	sources_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	sources_list->set_fixed_icon_size(Size2(60, 60) * EDSCALE);
 	sources_list->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -875,17 +875,17 @@ TileSetEditor::TileSetEditor() {
 	SET_DRAG_FORWARDING_CDU(sources_list, TileSetEditor);
 	split_container_left_side->add_child(sources_list);
 
-	HBoxContainer *sources_bottom_actions = memnew(HBoxContainer);
+	HBoxContainer *sources_bottom_actions = memnewOld(HBoxContainer);
 	sources_bottom_actions->set_alignment(BoxContainer::ALIGNMENT_END);
 	split_container_left_side->add_child(sources_bottom_actions);
 
-	sources_delete_button = memnew(Button);
+	sources_delete_button = memnewOld(Button);
 	sources_delete_button->set_theme_type_variation("FlatButton");
 	sources_delete_button->set_disabled(true);
 	sources_delete_button->connect(SceneStringName(pressed), callable_mp(this, &TileSetEditor::_source_delete_pressed));
 	sources_bottom_actions->add_child(sources_delete_button);
 
-	sources_add_button = memnew(MenuButton);
+	sources_add_button = memnewOld(MenuButton);
 	sources_add_button->set_flat(false);
 	sources_add_button->set_theme_type_variation("FlatButton");
 	sources_add_button->get_popup()->add_item(TTR("Atlas"));
@@ -895,7 +895,7 @@ TileSetEditor::TileSetEditor() {
 	sources_add_button->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &TileSetEditor::_source_add_id_pressed));
 	sources_bottom_actions->add_child(sources_add_button);
 
-	sources_advanced_menu_button = memnew(MenuButton);
+	sources_advanced_menu_button = memnewOld(MenuButton);
 	sources_advanced_menu_button->set_flat(false);
 	sources_advanced_menu_button->set_theme_type_variation("FlatButton");
 	sources_advanced_menu_button->get_popup()->add_item(TTR("Open Atlas Merging Tool"));
@@ -904,20 +904,20 @@ TileSetEditor::TileSetEditor() {
 	sources_bottom_actions->add_child(sources_advanced_menu_button);
 	sources_bottom_actions->add_child(source_sort_button);
 
-	atlas_merging_dialog = memnew(AtlasMergingDialog);
+	atlas_merging_dialog = memnewOld(AtlasMergingDialog);
 	add_child(atlas_merging_dialog);
 
-	tile_proxies_manager_dialog = memnew(TileProxiesManagerDialog);
+	tile_proxies_manager_dialog = memnewOld(TileProxiesManagerDialog);
 	add_child(tile_proxies_manager_dialog);
 
 	// Right side container.
-	VBoxContainer *split_container_right_side = memnew(VBoxContainer);
+	VBoxContainer *split_container_right_side = memnewOld(VBoxContainer);
 	split_container_right_side->set_h_size_flags(SIZE_EXPAND_FILL);
 	split_container_right_side->set_v_size_flags(SIZE_EXPAND_FILL);
 	split_container->add_child(split_container_right_side);
 
 	// No source selected.
-	no_source_selected_label = memnew(Label);
+	no_source_selected_label = memnewOld(Label);
 	no_source_selected_label->set_text(TTR("No TileSet source selected. Select or create a TileSet source.\nYou can create a new source by using the Add button on the left or by dropping a tileset texture onto the source list."));
 	no_source_selected_label->set_h_size_flags(SIZE_EXPAND_FILL);
 	no_source_selected_label->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -926,7 +926,7 @@ TileSetEditor::TileSetEditor() {
 	split_container_right_side->add_child(no_source_selected_label);
 
 	// Atlases editor.
-	tile_set_atlas_source_editor = memnew(TileSetAtlasSourceEditor);
+	tile_set_atlas_source_editor = memnewOld(TileSetAtlasSourceEditor);
 	tile_set_atlas_source_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 	tile_set_atlas_source_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	tile_set_atlas_source_editor->connect("source_id_changed", callable_mp(this, &TileSetEditor::_update_sources_list));
@@ -934,7 +934,7 @@ TileSetEditor::TileSetEditor() {
 	tile_set_atlas_source_editor->hide();
 
 	// Scenes collection editor.
-	tile_set_scenes_collection_source_editor = memnew(TileSetScenesCollectionSourceEditor);
+	tile_set_scenes_collection_source_editor = memnewOld(TileSetScenesCollectionSourceEditor);
 	tile_set_scenes_collection_source_editor->set_h_size_flags(SIZE_EXPAND_FILL);
 	tile_set_scenes_collection_source_editor->set_v_size_flags(SIZE_EXPAND_FILL);
 	tile_set_scenes_collection_source_editor->connect("source_id_changed", callable_mp(this, &TileSetEditor::_update_sources_list));
@@ -943,7 +943,7 @@ TileSetEditor::TileSetEditor() {
 
 	//// Patterns ////
 	int thumbnail_size = 64;
-	patterns_item_list = memnew(ItemList);
+	patterns_item_list = memnewOld(ItemList);
 	patterns_item_list->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	patterns_item_list->set_max_columns(0);
 	patterns_item_list->set_icon_mode(ItemList::ICON_MODE_TOP);
@@ -955,14 +955,14 @@ TileSetEditor::TileSetEditor() {
 	main_vb->add_child(patterns_item_list);
 	patterns_item_list->hide();
 
-	patterns_help_label = memnew(Label);
+	patterns_help_label = memnewOld(Label);
 	patterns_help_label->set_text(TTR("Add new patterns in the TileMap editing mode."));
 	patterns_help_label->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER);
 	patterns_help_label->set_anchors_and_offsets_preset(Control::PRESET_CENTER);
 	patterns_item_list->add_child(patterns_help_label);
 
 	// Expanded editor
-	expanded_area = memnew(PanelContainer);
+	expanded_area = memnewOld(PanelContainer);
 	add_child(expanded_area);
 	expanded_area->set_anchors_and_offsets_preset(PRESET_LEFT_WIDE);
 	expanded_area->hide();
@@ -974,17 +974,17 @@ TileSetEditor::TileSetEditor() {
 
 void TileSourceInspectorPlugin::_show_id_edit_dialog(Object *p_for_source) {
 	if (!id_edit_dialog) {
-		id_edit_dialog = memnew(ConfirmationDialog);
+		id_edit_dialog = memnewOld(ConfirmationDialog);
 		TileSetEditor::get_singleton()->add_child(id_edit_dialog);
 
-		VBoxContainer *vbox = memnew(VBoxContainer);
+		VBoxContainer *vbox = memnewOld(VBoxContainer);
 		id_edit_dialog->add_child(vbox);
 
-		Label *label = memnew(Label(TTR("Warning: Modifying a source ID will result in all TileMaps using that source to reference an invalid source instead. This may result in unexpected data loss. Change this ID carefully.")));
+		Label *label = memnewOld(Label(TTR("Warning: Modifying a source ID will result in all TileMaps using that source to reference an invalid source instead. This may result in unexpected data loss. Change this ID carefully.")));
 		label->set_autowrap_mode(TextServer::AUTOWRAP_WORD);
 		vbox->add_child(label);
 
-		id_input = memnew(SpinBox);
+		id_input = memnewOld(SpinBox);
 		vbox->add_child(id_input);
 		id_input->set_max(INT_MAX);
 
@@ -1012,16 +1012,16 @@ bool TileSourceInspectorPlugin::parse_property(Object *p_object, const Variant::
 			return true;
 		}
 
-		EditorProperty *ep = memnew(EditorProperty);
+		EditorProperty *ep = memnewOld(EditorProperty);
 
-		HBoxContainer *hbox = memnew(HBoxContainer);
+		HBoxContainer *hbox = memnewOld(HBoxContainer);
 		hbox->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 
-		id_label = memnew(Label(itos(value)));
+		id_label = memnewOld(Label(itos(value)));
 		id_label->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hbox->add_child(id_label);
 
-		Button *button = memnew(Button(TTR("Edit")));
+		Button *button = memnewOld(Button(TTR("Edit")));
 		button->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 		hbox->add_child(button);
 		button->connect(SceneStringName(pressed), callable_mp(this, &TileSourceInspectorPlugin::_show_id_edit_dialog).bind(p_object));

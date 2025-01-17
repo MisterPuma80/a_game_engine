@@ -402,14 +402,14 @@ void GroupSettingsEditor::show_message(const String &p_message) {
 
 void GroupSettingsEditor::_show_remove_dialog() {
 	if (!remove_dialog) {
-		remove_dialog = memnew(ConfirmationDialog);
+		remove_dialog = memnewOld(ConfirmationDialog);
 		remove_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GroupSettingsEditor::_confirm_delete));
 
-		VBoxContainer *vbox = memnew(VBoxContainer);
-		remove_label = memnew(Label);
+		VBoxContainer *vbox = memnewOld(VBoxContainer);
+		remove_label = memnewOld(Label);
 		vbox->add_child(remove_label);
 
-		remove_check_box = memnew(CheckBox);
+		remove_check_box = memnewOld(CheckBox);
 		remove_check_box->set_text(TTR("Delete references from all scenes"));
 		vbox->add_child(remove_check_box);
 
@@ -432,24 +432,24 @@ void GroupSettingsEditor::_show_remove_dialog() {
 
 void GroupSettingsEditor::_show_rename_dialog() {
 	if (!rename_group_dialog) {
-		rename_group_dialog = memnew(ConfirmationDialog);
+		rename_group_dialog = memnewOld(ConfirmationDialog);
 		rename_group_dialog->set_title(TTR("Rename Group"));
 		rename_group_dialog->connect(SceneStringName(confirmed), callable_mp(this, &GroupSettingsEditor::_confirm_rename));
 
-		VBoxContainer *vbc = memnew(VBoxContainer);
+		VBoxContainer *vbc = memnewOld(VBoxContainer);
 		rename_group_dialog->add_child(vbc);
 
-		HBoxContainer *hbc = memnew(HBoxContainer);
-		hbc->add_child(memnew(Label(TTR("Name:"))));
+		HBoxContainer *hbc = memnewOld(HBoxContainer);
+		hbc->add_child(memnewOld(Label(TTR("Name:"))));
 
-		rename_group = memnew(LineEdit);
+		rename_group = memnewOld(LineEdit);
 		rename_group->set_custom_minimum_size(Size2(300 * EDSCALE, 1));
 		hbc->add_child(rename_group);
 		vbc->add_child(hbc);
 
 		rename_group_dialog->register_text_enter(rename_group);
 
-		rename_validation_panel = memnew(EditorValidationPanel);
+		rename_validation_panel = memnewOld(EditorValidationPanel);
 		rename_validation_panel->add_line(EditorValidationPanel::MSG_ID_DEFAULT, TTR("Group name is valid."));
 		rename_validation_panel->set_update_callback(callable_mp(this, &GroupSettingsEditor::_check_rename));
 		rename_validation_panel->set_accept_button(rename_group_dialog->get_ok_button());
@@ -458,7 +458,7 @@ void GroupSettingsEditor::_show_rename_dialog() {
 
 		vbc->add_child(rename_validation_panel);
 
-		rename_check_box = memnew(CheckBox);
+		rename_check_box = memnewOld(CheckBox);
 		rename_check_box->set_text(TTR("Rename references in all scenes"));
 		vbc->add_child(rename_check_box);
 
@@ -492,37 +492,37 @@ LineEdit *GroupSettingsEditor::get_name_box() const {
 GroupSettingsEditor::GroupSettingsEditor() {
 	ProjectSettings::get_singleton()->add_hidden_prefix("global_group/");
 
-	HBoxContainer *hbc = memnew(HBoxContainer);
+	HBoxContainer *hbc = memnewOld(HBoxContainer);
 	add_child(hbc);
 
-	Label *l = memnew(Label);
+	Label *l = memnewOld(Label);
 	l->set_text(TTR("Name:"));
 	hbc->add_child(l);
 
-	group_name = memnew(LineEdit);
+	group_name = memnewOld(LineEdit);
 	group_name->set_h_size_flags(SIZE_EXPAND_FILL);
 	group_name->set_clear_button_enabled(true);
 	group_name->connect(SceneStringName(text_changed), callable_mp(this, &GroupSettingsEditor::_group_name_text_changed));
 	group_name->connect("text_submitted", callable_mp(this, &GroupSettingsEditor::_text_submitted));
 	hbc->add_child(group_name);
 
-	l = memnew(Label);
+	l = memnewOld(Label);
 	l->set_text(TTR("Description:"));
 	hbc->add_child(l);
 
-	group_description = memnew(LineEdit);
+	group_description = memnewOld(LineEdit);
 	group_description->set_clear_button_enabled(true);
 	group_description->set_h_size_flags(SIZE_EXPAND_FILL);
 	group_description->connect("text_submitted", callable_mp(this, &GroupSettingsEditor::_text_submitted));
 	hbc->add_child(group_description);
 
-	add_button = memnew(Button);
+	add_button = memnewOld(Button);
 	add_button->set_text(TTR("Add"));
 	add_button->set_disabled(true);
 	add_button->connect(SceneStringName(pressed), callable_mp(this, &GroupSettingsEditor::_add_group));
 	hbc->add_child(add_button);
 
-	tree = memnew(Tree);
+	tree = memnewOld(Tree);
 	tree->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
 	tree->set_hide_root(true);
 	tree->set_select_mode(Tree::SELECT_SINGLE);
@@ -542,6 +542,6 @@ GroupSettingsEditor::GroupSettingsEditor() {
 
 	add_child(tree, true);
 
-	message = memnew(AcceptDialog);
+	message = memnewOld(AcceptDialog);
 	add_child(message);
 }

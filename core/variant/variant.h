@@ -213,10 +213,10 @@ private:
 	struct PackedArrayRef : public PackedArrayRefBase {
 		Vector<T> array;
 		static _FORCE_INLINE_ PackedArrayRef<T> *create() {
-			return memnew(PackedArrayRef<T>);
+			return memnewOld(PackedArrayRef<T>);
 		}
 		static _FORCE_INLINE_ PackedArrayRef<T> *create(const Vector<T> &p_from) {
-			return memnew(PackedArrayRef<T>(p_from));
+			return memnewOld(PackedArrayRef<T>(p_from));
 		}
 
 		static _FORCE_INLINE_ const Vector<T> &get_array(PackedArrayRefBase *p_base) {

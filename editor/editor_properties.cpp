@@ -73,7 +73,7 @@ void EditorPropertyNil::update_property() {
 }
 
 EditorPropertyNil::EditorPropertyNil() {
-	Label *prop_label = memnew(Label);
+	Label *prop_label = memnewOld(Label);
 	prop_label->set_text("<null>");
 	add_child(prop_label);
 }
@@ -121,7 +121,7 @@ void EditorPropertyText::update_property() {
 void EditorPropertyText::set_string_name(bool p_enabled) {
 	string_name = p_enabled;
 	if (p_enabled) {
-		Label *prefix = memnew(Label("&"));
+		Label *prefix = memnewOld(Label("&"));
 		prefix->set_tooltip_text("StringName");
 		prefix->set_mouse_filter(MOUSE_FILTER_STOP);
 		text->get_parent()->add_child(prefix);
@@ -141,10 +141,10 @@ void EditorPropertyText::_bind_methods() {
 }
 
 EditorPropertyText::EditorPropertyText() {
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	add_child(hb);
 
-	text = memnew(LineEdit);
+	text = memnewOld(LineEdit);
 	hb->add_child(text);
 	add_focusable(text);
 	text->set_h_size_flags(SIZE_EXPAND_FILL);
@@ -170,7 +170,7 @@ void EditorPropertyMultilineText::_text_changed() {
 
 void EditorPropertyMultilineText::_open_big_text() {
 	if (!big_text_dialog) {
-		big_text = memnew(TextEdit);
+		big_text = memnewOld(TextEdit);
 		if (expression) {
 			big_text->set_syntax_highlighter(text->get_syntax_highlighter());
 			big_text->add_theme_font_override(SceneStringName(font), get_theme_font(SNAME("expression"), EditorStringName(EditorFonts)));
@@ -178,7 +178,7 @@ void EditorPropertyMultilineText::_open_big_text() {
 		}
 		big_text->connect(SceneStringName(text_changed), callable_mp(this, &EditorPropertyMultilineText::_big_text_changed));
 		big_text->set_line_wrapping_mode(TextEdit::LineWrappingMode::LINE_WRAPPING_BOUNDARY);
-		big_text_dialog = memnew(AcceptDialog);
+		big_text_dialog = memnewOld(AcceptDialog);
 		big_text_dialog->add_child(big_text);
 		big_text_dialog->set_title(TTR("Edit Text:"));
 		add_child(big_text_dialog);
@@ -231,17 +231,17 @@ void EditorPropertyMultilineText::_bind_methods() {
 }
 
 EditorPropertyMultilineText::EditorPropertyMultilineText(bool p_expression) {
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	hb->add_theme_constant_override("separation", 0);
 	add_child(hb);
 	set_bottom_editor(hb);
-	text = memnew(TextEdit);
+	text = memnewOld(TextEdit);
 	text->connect(SceneStringName(text_changed), callable_mp(this, &EditorPropertyMultilineText::_text_changed));
 	text->set_line_wrapping_mode(TextEdit::LineWrappingMode::LINE_WRAPPING_BOUNDARY);
 	add_focusable(text);
 	hb->add_child(text);
 	text->set_h_size_flags(SIZE_EXPAND_FILL);
-	open_big_text = memnew(Button);
+	open_big_text = memnewOld(Button);
 	open_big_text->set_flat(true);
 	open_big_text->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyMultilineText::_open_big_text));
 	hb->add_child(open_big_text);
@@ -366,19 +366,19 @@ void EditorPropertyTextEnum::_notification(int p_what) {
 }
 
 EditorPropertyTextEnum::EditorPropertyTextEnum() {
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	add_child(hb);
 
-	default_layout = memnew(HBoxContainer);
+	default_layout = memnewOld(HBoxContainer);
 	default_layout->set_h_size_flags(SIZE_EXPAND_FILL);
 	hb->add_child(default_layout);
 
-	edit_custom_layout = memnew(HBoxContainer);
+	edit_custom_layout = memnewOld(HBoxContainer);
 	edit_custom_layout->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit_custom_layout->hide();
 	hb->add_child(edit_custom_layout);
 
-	option_button = memnew(OptionButton);
+	option_button = memnewOld(OptionButton);
 	option_button->set_h_size_flags(SIZE_EXPAND_FILL);
 	option_button->set_clip_text(true);
 	option_button->set_flat(true);
@@ -386,23 +386,23 @@ EditorPropertyTextEnum::EditorPropertyTextEnum() {
 	default_layout->add_child(option_button);
 	option_button->connect(SceneStringName(item_selected), callable_mp(this, &EditorPropertyTextEnum::_option_selected));
 
-	edit_button = memnew(Button);
+	edit_button = memnewOld(Button);
 	edit_button->set_flat(true);
 	edit_button->hide();
 	default_layout->add_child(edit_button);
 	edit_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyTextEnum::_edit_custom_value));
 
-	custom_value_edit = memnew(LineEdit);
+	custom_value_edit = memnewOld(LineEdit);
 	custom_value_edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit_custom_layout->add_child(custom_value_edit);
 	custom_value_edit->connect("text_submitted", callable_mp(this, &EditorPropertyTextEnum::_custom_value_submitted));
 
-	accept_button = memnew(Button);
+	accept_button = memnewOld(Button);
 	accept_button->set_flat(true);
 	edit_custom_layout->add_child(accept_button);
 	accept_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyTextEnum::_custom_value_accepted));
 
-	cancel_button = memnew(Button);
+	cancel_button = memnewOld(Button);
 	cancel_button->set_flat(true);
 	edit_custom_layout->add_child(cancel_button);
 	cancel_button->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyTextEnum::_custom_value_canceled));
@@ -423,7 +423,7 @@ void EditorPropertyLocale::_locale_selected(const String &p_locale) {
 
 void EditorPropertyLocale::_locale_pressed() {
 	if (!dialog) {
-		dialog = memnew(EditorLocaleDialog);
+		dialog = memnewOld(EditorLocaleDialog);
 		dialog->connect("locale_selected", callable_mp(this, &EditorPropertyLocale::_locale_selected));
 		add_child(dialog);
 	}
@@ -459,15 +459,15 @@ void EditorPropertyLocale::_bind_methods() {
 }
 
 EditorPropertyLocale::EditorPropertyLocale() {
-	HBoxContainer *locale_hb = memnew(HBoxContainer);
+	HBoxContainer *locale_hb = memnewOld(HBoxContainer);
 	add_child(locale_hb);
-	locale = memnew(LineEdit);
+	locale = memnewOld(LineEdit);
 	locale_hb->add_child(locale);
 	locale->connect("text_submitted", callable_mp(this, &EditorPropertyLocale::_locale_selected));
 	locale->connect(SceneStringName(focus_exited), callable_mp(this, &EditorPropertyLocale::_locale_focus_exited));
 	locale->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	locale_edit = memnew(Button);
+	locale_edit = memnewOld(Button);
 	locale_edit->set_clip_text(true);
 	locale_hb->add_child(locale_edit);
 	add_focusable(locale);
@@ -489,7 +489,7 @@ void EditorPropertyPath::_path_selected(const String &p_path) {
 
 void EditorPropertyPath::_path_pressed() {
 	if (!dialog) {
-		dialog = memnew(EditorFileDialog);
+		dialog = memnewOld(EditorFileDialog);
 		dialog->connect("file_selected", callable_mp(this, &EditorPropertyPath::_path_selected));
 		dialog->connect("dir_selected", callable_mp(this, &EditorPropertyPath::_path_selected));
 		add_child(dialog);
@@ -598,9 +598,9 @@ void EditorPropertyPath::_bind_methods() {
 }
 
 EditorPropertyPath::EditorPropertyPath() {
-	HBoxContainer *path_hb = memnew(HBoxContainer);
+	HBoxContainer *path_hb = memnewOld(HBoxContainer);
 	add_child(path_hb);
-	path = memnew(LineEdit);
+	path = memnewOld(LineEdit);
 	SET_DRAG_FORWARDING_CDU(path, EditorPropertyPath);
 	path->set_structured_text_bidi_override(TextServer::STRUCTURED_TEXT_FILE);
 	path_hb->add_child(path);
@@ -608,7 +608,7 @@ EditorPropertyPath::EditorPropertyPath() {
 	path->connect(SceneStringName(focus_exited), callable_mp(this, &EditorPropertyPath::_path_focus_exited));
 	path->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	path_edit = memnew(Button);
+	path_edit = memnewOld(Button);
 	path_edit->set_clip_text(true);
 	path_hb->add_child(path_edit);
 	add_focusable(path);
@@ -649,13 +649,13 @@ void EditorPropertyClassName::_bind_methods() {
 }
 
 EditorPropertyClassName::EditorPropertyClassName() {
-	property = memnew(Button);
+	property = memnewOld(Button);
 	property->set_clip_text(true);
 	add_child(property);
 	add_focusable(property);
 	property->set_text(selected_type);
 	property->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyClassName::_property_selected));
-	dialog = memnew(CreateDialog);
+	dialog = memnewOld(CreateDialog);
 	dialog->set_base_type(base_type);
 	dialog->connect("create", callable_mp(this, &EditorPropertyClassName::_dialog_created));
 	add_child(dialog);
@@ -681,7 +681,7 @@ void EditorPropertyCheck::_bind_methods() {
 }
 
 EditorPropertyCheck::EditorPropertyCheck() {
-	checkbox = memnew(CheckBox);
+	checkbox = memnewOld(CheckBox);
 	checkbox->set_text(TTR("On"));
 	add_child(checkbox);
 	add_focusable(checkbox);
@@ -737,7 +737,7 @@ void EditorPropertyEnum::_bind_methods() {
 }
 
 EditorPropertyEnum::EditorPropertyEnum() {
-	options = memnew(OptionButton);
+	options = memnewOld(OptionButton);
 	options->set_clip_text(true);
 	options->set_flat(true);
 	options->set_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
@@ -796,7 +796,7 @@ void EditorPropertyFlags::setup(const Vector<String> &p_options) {
 		flag_values.push_back(current_val);
 
 		// Create a CheckBox for the current flag.
-		CheckBox *cb = memnew(CheckBox);
+		CheckBox *cb = memnewOld(CheckBox);
 		cb->set_text(text_split[0]);
 		cb->set_clip_text(true);
 		cb->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyFlags::_flag_toggled).bind(flag_index));
@@ -816,7 +816,7 @@ void EditorPropertyFlags::_bind_methods() {
 }
 
 EditorPropertyFlags::EditorPropertyFlags() {
-	vbox = memnew(VBoxContainer);
+	vbox = memnewOld(VBoxContainer);
 	add_child(vbox);
 }
 
@@ -850,16 +850,16 @@ void EditorPropertyLayersGrid::_rename_operation_confirm() {
 }
 
 EditorPropertyLayersGrid::EditorPropertyLayersGrid() {
-	rename_dialog = memnew(ConfirmationDialog);
-	VBoxContainer *rename_dialog_vb = memnew(VBoxContainer);
+	rename_dialog = memnewOld(ConfirmationDialog);
+	VBoxContainer *rename_dialog_vb = memnewOld(VBoxContainer);
 	rename_dialog->add_child(rename_dialog_vb);
-	rename_dialog_text = memnew(LineEdit);
+	rename_dialog_text = memnewOld(LineEdit);
 	rename_dialog_vb->add_margin_child(TTR("Name:"), rename_dialog_text);
 	rename_dialog->set_ok_button_text(TTR("Rename"));
 	add_child(rename_dialog);
 	rename_dialog->register_text_enter(rename_dialog_text);
 	rename_dialog->connect(SceneStringName(confirmed), callable_mp(this, &EditorPropertyLayersGrid::_rename_operation_confirm));
-	layer_rename = memnew(PopupMenu);
+	layer_rename = memnewOld(PopupMenu);
 	layer_rename->add_item(TTR("Rename layer"), 0);
 	add_child(layer_rename);
 	layer_rename->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyLayersGrid::_rename_pressed));
@@ -1292,16 +1292,16 @@ void EditorPropertyLayers::_bind_methods() {
 }
 
 EditorPropertyLayers::EditorPropertyLayers() {
-	HBoxContainer *hb = memnew(HBoxContainer);
+	HBoxContainer *hb = memnewOld(HBoxContainer);
 	hb->set_clip_contents(true);
 	add_child(hb);
-	grid = memnew(EditorPropertyLayersGrid);
+	grid = memnewOld(EditorPropertyLayersGrid);
 	grid->connect("flag_changed", callable_mp(this, &EditorPropertyLayers::_grid_changed));
 	grid->connect("rename_confirmed", callable_mp(this, &EditorPropertyLayers::set_layer_name));
 	grid->set_h_size_flags(SIZE_EXPAND_FILL);
 	hb->add_child(grid);
 
-	button = memnew(TextureButton);
+	button = memnewOld(TextureButton);
 	button->set_stretch_mode(TextureButton::STRETCH_KEEP_CENTERED);
 	button->set_toggle_mode(true);
 	button->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyLayers::_button_pressed));
@@ -1309,7 +1309,7 @@ EditorPropertyLayers::EditorPropertyLayers() {
 
 	set_bottom_editor(hb);
 
-	layers = memnew(PopupMenu);
+	layers = memnewOld(PopupMenu);
 	add_child(layers);
 	layers->set_hide_on_checkable_item_selection(false);
 	layers->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyLayers::_menu_pressed));
@@ -1352,7 +1352,7 @@ void EditorPropertyInteger::setup(int64_t p_min, int64_t p_max, int64_t p_step, 
 }
 
 EditorPropertyInteger::EditorPropertyInteger() {
-	spin = memnew(EditorSpinSlider);
+	spin = memnewOld(EditorSpinSlider);
 	spin->set_flat(true);
 	add_child(spin);
 	add_focusable(spin);
@@ -1397,7 +1397,7 @@ void EditorPropertyObjectID::_bind_methods() {
 }
 
 EditorPropertyObjectID::EditorPropertyObjectID() {
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	add_child(edit);
 	add_focusable(edit);
 	edit->set_text_overrun_behavior(TextServer::OVERRUN_TRIM_ELLIPSIS);
@@ -1425,7 +1425,7 @@ void EditorPropertySignal::_bind_methods() {
 }
 
 EditorPropertySignal::EditorPropertySignal() {
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	add_child(edit);
 	add_focusable(edit);
 	edit->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertySignal::_edit_pressed));
@@ -1447,7 +1447,7 @@ void EditorPropertyCallable::_bind_methods() {
 }
 
 EditorPropertyCallable::EditorPropertyCallable() {
-	edit = memnew(Button);
+	edit = memnewOld(Button);
 	add_child(edit);
 	add_focusable(edit);
 }
@@ -1489,7 +1489,7 @@ void EditorPropertyFloat::setup(double p_min, double p_max, double p_step, bool 
 }
 
 EditorPropertyFloat::EditorPropertyFloat() {
-	spin = memnew(EditorSpinSlider);
+	spin = memnewOld(EditorSpinSlider);
 	spin->set_flat(true);
 	add_child(spin);
 	add_focusable(spin);
@@ -1687,17 +1687,17 @@ void EditorPropertyEasing::_bind_methods() {
 }
 
 EditorPropertyEasing::EditorPropertyEasing() {
-	easing_draw = memnew(Control);
+	easing_draw = memnewOld(Control);
 	easing_draw->connect(SceneStringName(draw), callable_mp(this, &EditorPropertyEasing::_draw_easing));
 	easing_draw->connect(SceneStringName(gui_input), callable_mp(this, &EditorPropertyEasing::_drag_easing));
 	easing_draw->set_default_cursor_shape(Control::CURSOR_MOVE);
 	add_child(easing_draw);
 
-	preset = memnew(PopupMenu);
+	preset = memnewOld(PopupMenu);
 	add_child(preset);
 	preset->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyEasing::_set_preset));
 
-	spin = memnew(EditorSpinSlider);
+	spin = memnewOld(EditorSpinSlider);
 	spin->set_flat(true);
 	spin->set_min(-100);
 	spin->set_max(100);
@@ -1769,24 +1769,24 @@ EditorPropertyRect2::EditorPropertyRect2(bool p_force_wide) {
 	BoxContainer *bc;
 
 	if (p_force_wide) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		add_child(bc);
 	} else if (horizontal) {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		add_child(bc);
 		set_bottom_editor(bc);
 
-		bc->add_child(memnew(HBoxContainer));
-		bc->add_child(memnew(HBoxContainer));
+		bc->add_child(memnewOld(HBoxContainer));
+		bc->add_child(memnewOld(HBoxContainer));
 		grid = true;
 	} else {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		add_child(bc);
 	}
 
 	static const char *desc[4] = { "x", "y", "w", "h" };
 	for (int i = 0; i < 4; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 
@@ -1865,24 +1865,24 @@ EditorPropertyRect2i::EditorPropertyRect2i(bool p_force_wide) {
 	BoxContainer *bc;
 
 	if (p_force_wide) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		add_child(bc);
 	} else if (horizontal) {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		add_child(bc);
 		set_bottom_editor(bc);
 
-		bc->add_child(memnew(HBoxContainer));
-		bc->add_child(memnew(HBoxContainer));
+		bc->add_child(memnewOld(HBoxContainer));
+		bc->add_child(memnewOld(HBoxContainer));
 		grid = true;
 	} else {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		add_child(bc);
 	}
 
 	static const char *desc[4] = { "x", "y", "w", "h" };
 	for (int i = 0; i < 4; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 
@@ -1962,20 +1962,20 @@ EditorPropertyPlane::EditorPropertyPlane(bool p_force_wide) {
 	BoxContainer *bc;
 
 	if (p_force_wide) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		add_child(bc);
 	} else if (horizontal) {
-		bc = memnew(HBoxContainer);
+		bc = memnewOld(HBoxContainer);
 		add_child(bc);
 		set_bottom_editor(bc);
 	} else {
-		bc = memnew(VBoxContainer);
+		bc = memnewOld(VBoxContainer);
 		add_child(bc);
 	}
 
 	static const char *desc[4] = { "x", "y", "z", "d" };
 	for (int i = 0; i < 4; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 		bc->add_child(spin[i]);
@@ -2127,16 +2127,16 @@ void EditorPropertyQuaternion::setup(double p_min, double p_max, double p_step, 
 EditorPropertyQuaternion::EditorPropertyQuaternion() {
 	bool horizontal = EDITOR_GET("interface/inspector/horizontal_vector_types_editing");
 
-	VBoxContainer *bc = memnew(VBoxContainer);
-	edit_custom_bc = memnew(VBoxContainer);
+	VBoxContainer *bc = memnewOld(VBoxContainer);
+	edit_custom_bc = memnewOld(VBoxContainer);
 	BoxContainer *edit_custom_layout;
 	if (horizontal) {
-		default_layout = memnew(HBoxContainer);
-		edit_custom_layout = memnew(HBoxContainer);
+		default_layout = memnewOld(HBoxContainer);
+		edit_custom_layout = memnewOld(HBoxContainer);
 		set_bottom_editor(bc);
 	} else {
-		default_layout = memnew(VBoxContainer);
-		edit_custom_layout = memnew(VBoxContainer);
+		default_layout = memnewOld(VBoxContainer);
+		edit_custom_layout = memnewOld(VBoxContainer);
 	}
 	edit_custom_bc->hide();
 	add_child(bc);
@@ -2148,7 +2148,7 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 
 	static const char *desc[4] = { "x", "y", "z", "w" };
 	for (int i = 0; i < 4; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_flat(true);
 		spin[i]->set_label(desc[i]);
 		default_layout->add_child(spin[i]);
@@ -2159,15 +2159,15 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 		}
 	}
 
-	warning = memnew(Button);
+	warning = memnewOld(Button);
 	warning->set_text(TTR("Temporary Euler may be changed implicitly!"));
 	warning->set_clip_text(true);
 	warning->connect(SceneStringName(pressed), callable_mp(this, &EditorPropertyQuaternion::_warning_pressed));
-	warning_dialog = memnew(AcceptDialog);
+	warning_dialog = memnewOld(AcceptDialog);
 	add_child(warning_dialog);
 	warning_dialog->set_text(TTR("Temporary Euler will not be stored in the object with the original value. Instead, it will be stored as Quaternion with irreversible conversion.\nThis is due to the fact that the result of Euler->Quaternion can be determined uniquely, but the result of Quaternion->Euler can be multi-existent."));
 
-	euler_label = memnew(Label);
+	euler_label = memnewOld(Label);
 	euler_label->set_text(TTR("Temporary Euler"));
 
 	edit_custom_bc->add_child(warning);
@@ -2175,7 +2175,7 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 	edit_custom_layout->add_child(euler_label);
 
 	for (int i = 0; i < 3; i++) {
-		euler[i] = memnew(EditorSpinSlider);
+		euler[i] = memnewOld(EditorSpinSlider);
 		euler[i]->set_flat(true);
 		euler[i]->set_label(desc[i]);
 		edit_custom_layout->add_child(euler[i]);
@@ -2186,7 +2186,7 @@ EditorPropertyQuaternion::EditorPropertyQuaternion() {
 		}
 	}
 
-	edit_button = memnew(Button);
+	edit_button = memnewOld(Button);
 	edit_button->set_flat(true);
 	edit_button->set_toggle_mode(true);
 	default_layout->add_child(edit_button);
@@ -2256,13 +2256,13 @@ void EditorPropertyAABB::setup(double p_min, double p_max, double p_step, bool p
 }
 
 EditorPropertyAABB::EditorPropertyAABB() {
-	GridContainer *g = memnew(GridContainer);
+	GridContainer *g = memnewOld(GridContainer);
 	g->set_columns(3);
 	add_child(g);
 
 	static const char *desc[6] = { "x", "y", "z", "w", "h", "d" };
 	for (int i = 0; i < 6; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 
@@ -2339,13 +2339,13 @@ void EditorPropertyTransform2D::setup(double p_min, double p_max, double p_step,
 }
 
 EditorPropertyTransform2D::EditorPropertyTransform2D(bool p_include_origin) {
-	GridContainer *g = memnew(GridContainer);
+	GridContainer *g = memnewOld(GridContainer);
 	g->set_columns(p_include_origin ? 3 : 2);
 	add_child(g);
 
 	static const char *desc[6] = { "xx", "xy", "xo", "yx", "yy", "yo" };
 	for (int i = 0; i < 6; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 		if (p_include_origin || i % 3 != 2) {
@@ -2424,13 +2424,13 @@ void EditorPropertyBasis::setup(double p_min, double p_max, double p_step, bool 
 }
 
 EditorPropertyBasis::EditorPropertyBasis() {
-	GridContainer *g = memnew(GridContainer);
+	GridContainer *g = memnewOld(GridContainer);
 	g->set_columns(3);
 	add_child(g);
 
 	static const char *desc[9] = { "xx", "xy", "xz", "yx", "yy", "yz", "zx", "zy", "zz" };
 	for (int i = 0; i < 9; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 		g->add_child(spin[i]);
@@ -2516,13 +2516,13 @@ void EditorPropertyTransform3D::setup(double p_min, double p_max, double p_step,
 }
 
 EditorPropertyTransform3D::EditorPropertyTransform3D() {
-	GridContainer *g = memnew(GridContainer);
+	GridContainer *g = memnewOld(GridContainer);
 	g->set_columns(4);
 	add_child(g);
 
 	static const char *desc[12] = { "xx", "xy", "xz", "xo", "yx", "yy", "yz", "yo", "zx", "zy", "zz", "zo" };
 	for (int i = 0; i < 12; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 		g->add_child(spin[i]);
@@ -2616,13 +2616,13 @@ void EditorPropertyProjection::setup(double p_min, double p_max, double p_step, 
 }
 
 EditorPropertyProjection::EditorPropertyProjection() {
-	GridContainer *g = memnew(GridContainer);
+	GridContainer *g = memnewOld(GridContainer);
 	g->set_columns(4);
 	add_child(g);
 
 	static const char *desc[16] = { "xx", "xy", "xz", "xw", "yx", "yy", "yz", "yw", "zx", "zy", "zz", "zw", "wx", "wy", "wz", "ww" };
 	for (int i = 0; i < 16; i++) {
-		spin[i] = memnew(EditorSpinSlider);
+		spin[i] = memnewOld(EditorSpinSlider);
 		spin[i]->set_label(desc[i]);
 		spin[i]->set_flat(true);
 		g->add_child(spin[i]);
@@ -2703,7 +2703,7 @@ void EditorPropertyColor::set_live_changes_enabled(bool p_enabled) {
 }
 
 EditorPropertyColor::EditorPropertyColor() {
-	picker = memnew(ColorPickerButton);
+	picker = memnewOld(ColorPickerButton);
 	add_child(picker);
 	picker->set_flat(true);
 	picker->connect("color_changed", callable_mp(this, &EditorPropertyColor::_color_changed));
@@ -2755,7 +2755,7 @@ void EditorPropertyNodePath::_node_selected(const NodePath &p_path) {
 
 void EditorPropertyNodePath::_node_assign() {
 	if (!scene_tree) {
-		scene_tree = memnew(SceneTreeDialog);
+		scene_tree = memnewOld(SceneTreeDialog);
 		scene_tree->get_scene_tree()->set_show_enabled_subscene(true);
 		scene_tree->set_valid_types(valid_types);
 		add_child(scene_tree);
@@ -2980,10 +2980,10 @@ Node *EditorPropertyNodePath::get_base_node() {
 }
 
 EditorPropertyNodePath::EditorPropertyNodePath() {
-	HBoxContainer *hbc = memnew(HBoxContainer);
+	HBoxContainer *hbc = memnewOld(HBoxContainer);
 	hbc->add_theme_constant_override("separation", 0);
 	add_child(hbc);
-	assign = memnew(Button);
+	assign = memnewOld(Button);
 	assign->set_flat(true);
 	assign->set_h_size_flags(SIZE_EXPAND_FILL);
 	assign->set_clip_text(true);
@@ -2993,7 +2993,7 @@ EditorPropertyNodePath::EditorPropertyNodePath() {
 	SET_DRAG_FORWARDING_CD(assign, EditorPropertyNodePath);
 	hbc->add_child(assign);
 
-	menu = memnew(MenuButton);
+	menu = memnewOld(MenuButton);
 	menu->set_flat(true);
 	menu->connect(SNAME("about_to_popup"), callable_mp(this, &EditorPropertyNodePath::_update_menu));
 	hbc->add_child(menu);
@@ -3004,7 +3004,7 @@ EditorPropertyNodePath::EditorPropertyNodePath() {
 	menu->get_popup()->add_item(TTR("Show Node in Tree"), ACTION_SELECT);
 	menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &EditorPropertyNodePath::_menu_option));
 
-	edit = memnew(LineEdit);
+	edit = memnewOld(LineEdit);
 	edit->set_h_size_flags(SIZE_EXPAND_FILL);
 	edit->hide();
 	edit->connect(SceneStringName(focus_exited), callable_mp(this, &EditorPropertyNodePath::_accept_text));
@@ -3025,7 +3025,7 @@ void EditorPropertyRID::update_property() {
 }
 
 EditorPropertyRID::EditorPropertyRID() {
-	label = memnew(Label);
+	label = memnewOld(Label);
 	add_child(label);
 }
 
@@ -3191,7 +3191,7 @@ void EditorPropertyResource::_resource_changed(const Ref<Resource> &p_resource) 
 	// Automatically suggest setting up the path for a ViewportTexture.
 	if (vpt.is_valid() && vpt->get_viewport_path_in_scene().is_empty()) {
 		if (!scene_tree) {
-			scene_tree = memnew(SceneTreeDialog);
+			scene_tree = memnewOld(SceneTreeDialog);
 			scene_tree->set_title(TTR("Pick a Viewport"));
 
 			Vector<StringName> valid_types;
@@ -3280,19 +3280,19 @@ void EditorPropertyResource::setup(Object *p_object, const String &p_path, const
 	}
 
 	if (p_path == "script" && p_base_type == "Script" && Object::cast_to<Node>(p_object)) {
-		EditorScriptPicker *script_picker = memnew(EditorScriptPicker);
+		EditorScriptPicker *script_picker = memnewOld(EditorScriptPicker);
 		script_picker->set_script_owner(Object::cast_to<Node>(p_object));
 		resource_picker = script_picker;
 	} else if (p_path == "shader" && p_base_type == "Shader" && Object::cast_to<ShaderMaterial>(p_object)) {
-		EditorShaderPicker *shader_picker = memnew(EditorShaderPicker);
+		EditorShaderPicker *shader_picker = memnewOld(EditorShaderPicker);
 		shader_picker->set_edited_material(Object::cast_to<ShaderMaterial>(p_object));
 		resource_picker = shader_picker;
 		connect(SceneStringName(ready), callable_mp(this, &EditorPropertyResource::_update_preferred_shader));
 	} else if (p_base_type == "AudioStream") {
-		EditorAudioStreamPicker *astream_picker = memnew(EditorAudioStreamPicker);
+		EditorAudioStreamPicker *astream_picker = memnewOld(EditorAudioStreamPicker);
 		resource_picker = astream_picker;
 	} else {
-		resource_picker = memnew(EditorResourcePicker);
+		resource_picker = memnewOld(EditorResourcePicker);
 	}
 
 	resource_picker->set_base_type(p_base_type);
@@ -3321,7 +3321,7 @@ void EditorPropertyResource::update_property() {
 
 		if (res.is_valid() && get_edited_object()->editor_is_section_unfolded(get_edited_property())) {
 			if (!sub_inspector) {
-				sub_inspector = memnew(EditorInspector);
+				sub_inspector = memnewOld(EditorInspector);
 				sub_inspector->set_vertical_scroll_mode(ScrollContainer::SCROLL_MODE_DISABLED);
 				sub_inspector->set_use_doc_hints(true);
 
@@ -3534,22 +3534,22 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 	switch (p_type) {
 		// atomic types
 		case Variant::NIL: {
-			EditorPropertyNil *editor = memnew(EditorPropertyNil);
+			EditorPropertyNil *editor = memnewOld(EditorPropertyNil);
 			return editor;
 		} break;
 		case Variant::BOOL: {
-			EditorPropertyCheck *editor = memnew(EditorPropertyCheck);
+			EditorPropertyCheck *editor = memnewOld(EditorPropertyCheck);
 			return editor;
 		} break;
 		case Variant::INT: {
 			if (p_hint == PROPERTY_HINT_ENUM) {
-				EditorPropertyEnum *editor = memnew(EditorPropertyEnum);
+				EditorPropertyEnum *editor = memnewOld(EditorPropertyEnum);
 				Vector<String> options = p_hint_text.split(",");
 				editor->setup(options);
 				return editor;
 
 			} else if (p_hint == PROPERTY_HINT_FLAGS) {
-				EditorPropertyFlags *editor = memnew(EditorPropertyFlags);
+				EditorPropertyFlags *editor = memnewOld(EditorPropertyFlags);
 				Vector<String> options = p_hint_text.split(",");
 				editor->setup(options);
 				return editor;
@@ -3587,16 +3587,16 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 					default: {
 					} //compiler could be smarter here and realize this can't happen
 				}
-				EditorPropertyLayers *editor = memnew(EditorPropertyLayers);
+				EditorPropertyLayers *editor = memnewOld(EditorPropertyLayers);
 				editor->setup(lt);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_OBJECT_ID) {
-				EditorPropertyObjectID *editor = memnew(EditorPropertyObjectID);
+				EditorPropertyObjectID *editor = memnewOld(EditorPropertyObjectID);
 				editor->setup(p_hint_text);
 				return editor;
 
 			} else {
-				EditorPropertyInteger *editor = memnew(EditorPropertyInteger);
+				EditorPropertyInteger *editor = memnewOld(EditorPropertyInteger);
 
 				EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 				editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.or_greater, hint.or_less, hint.suffix);
@@ -3606,7 +3606,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 		} break;
 		case Variant::FLOAT: {
 			if (p_hint == PROPERTY_HINT_EXP_EASING) {
-				EditorPropertyEasing *editor = memnew(EditorPropertyEasing);
+				EditorPropertyEasing *editor = memnewOld(EditorPropertyEasing);
 				bool positive_only = false;
 				bool flip = false;
 				const Vector<String> hints = p_hint_text.split(",");
@@ -3624,7 +3624,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 				return editor;
 
 			} else {
-				EditorPropertyFloat *editor = memnew(EditorPropertyFloat);
+				EditorPropertyFloat *editor = memnewOld(EditorPropertyFloat);
 
 				EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 				editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.exp_range, hint.or_greater, hint.or_less, hint.suffix, hint.radians_as_degrees);
@@ -3634,22 +3634,22 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 		} break;
 		case Variant::STRING: {
 			if (p_hint == PROPERTY_HINT_ENUM || p_hint == PROPERTY_HINT_ENUM_SUGGESTION) {
-				EditorPropertyTextEnum *editor = memnew(EditorPropertyTextEnum);
+				EditorPropertyTextEnum *editor = memnewOld(EditorPropertyTextEnum);
 				Vector<String> options = p_hint_text.split(",", false);
 				editor->setup(options, false, (p_hint == PROPERTY_HINT_ENUM_SUGGESTION));
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_MULTILINE_TEXT) {
-				EditorPropertyMultilineText *editor = memnew(EditorPropertyMultilineText);
+				EditorPropertyMultilineText *editor = memnewOld(EditorPropertyMultilineText);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_EXPRESSION) {
-				EditorPropertyMultilineText *editor = memnew(EditorPropertyMultilineText(true));
+				EditorPropertyMultilineText *editor = memnewOld(EditorPropertyMultilineText(true));
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_TYPE_STRING) {
-				EditorPropertyClassName *editor = memnew(EditorPropertyClassName);
+				EditorPropertyClassName *editor = memnewOld(EditorPropertyClassName);
 				editor->setup(p_hint_text, p_hint_text);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_LOCALE_ID) {
-				EditorPropertyLocale *editor = memnew(EditorPropertyLocale);
+				EditorPropertyLocale *editor = memnewOld(EditorPropertyLocale);
 				editor->setup(p_hint_text);
 				return editor;
 			} else if (p_hint == PROPERTY_HINT_DIR || p_hint == PROPERTY_HINT_FILE || p_hint == PROPERTY_HINT_SAVE_FILE || p_hint == PROPERTY_HINT_GLOBAL_SAVE_FILE || p_hint == PROPERTY_HINT_GLOBAL_DIR || p_hint == PROPERTY_HINT_GLOBAL_FILE) {
@@ -3657,14 +3657,14 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 				bool global = p_hint == PROPERTY_HINT_GLOBAL_DIR || p_hint == PROPERTY_HINT_GLOBAL_FILE || p_hint == PROPERTY_HINT_GLOBAL_SAVE_FILE;
 				bool folder = p_hint == PROPERTY_HINT_DIR || p_hint == PROPERTY_HINT_GLOBAL_DIR;
 				bool save = p_hint == PROPERTY_HINT_SAVE_FILE || p_hint == PROPERTY_HINT_GLOBAL_SAVE_FILE;
-				EditorPropertyPath *editor = memnew(EditorPropertyPath);
+				EditorPropertyPath *editor = memnewOld(EditorPropertyPath);
 				editor->setup(extensions, folder, global);
 				if (save) {
 					editor->set_save_mode();
 				}
 				return editor;
 			} else {
-				EditorPropertyText *editor = memnew(EditorPropertyText);
+				EditorPropertyText *editor = memnewOld(EditorPropertyText);
 				if (p_hint == PROPERTY_HINT_PLACEHOLDER_TEXT) {
 					editor->set_placeholder(p_hint_text);
 				} else if (p_hint == PROPERTY_HINT_PASSWORD) {
@@ -3678,7 +3678,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 			// math types
 
 		case Variant::VECTOR2: {
-			EditorPropertyVector2 *editor = memnew(EditorPropertyVector2(p_wide));
+			EditorPropertyVector2 *editor = memnewOld(EditorPropertyVector2(p_wide));
 
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, p_hint == PROPERTY_HINT_LINK, hint.suffix);
@@ -3686,92 +3686,92 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 
 		} break;
 		case Variant::VECTOR2I: {
-			EditorPropertyVector2i *editor = memnew(EditorPropertyVector2i(p_wide));
+			EditorPropertyVector2i *editor = memnewOld(EditorPropertyVector2i(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, 1, false, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::RECT2: {
-			EditorPropertyRect2 *editor = memnew(EditorPropertyRect2(p_wide));
+			EditorPropertyRect2 *editor = memnewOld(EditorPropertyRect2(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::RECT2I: {
-			EditorPropertyRect2i *editor = memnew(EditorPropertyRect2i(p_wide));
+			EditorPropertyRect2i *editor = memnewOld(EditorPropertyRect2i(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, hint.suffix);
 
 			return editor;
 		} break;
 		case Variant::VECTOR3: {
-			EditorPropertyVector3 *editor = memnew(EditorPropertyVector3(p_wide));
+			EditorPropertyVector3 *editor = memnewOld(EditorPropertyVector3(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, p_hint == PROPERTY_HINT_LINK, hint.suffix, hint.radians_as_degrees);
 			return editor;
 
 		} break;
 		case Variant::VECTOR3I: {
-			EditorPropertyVector3i *editor = memnew(EditorPropertyVector3i(p_wide));
+			EditorPropertyVector3i *editor = memnewOld(EditorPropertyVector3i(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, 1, false, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::VECTOR4: {
-			EditorPropertyVector4 *editor = memnew(EditorPropertyVector4);
+			EditorPropertyVector4 *editor = memnewOld(EditorPropertyVector4);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::VECTOR4I: {
-			EditorPropertyVector4i *editor = memnew(EditorPropertyVector4i);
+			EditorPropertyVector4i *editor = memnewOld(EditorPropertyVector4i);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, 1, true);
 			editor->setup(hint.min, hint.max, 1, false, p_hint == PROPERTY_HINT_LINK, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::TRANSFORM2D: {
-			EditorPropertyTransform2D *editor = memnew(EditorPropertyTransform2D);
+			EditorPropertyTransform2D *editor = memnewOld(EditorPropertyTransform2D);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::PLANE: {
-			EditorPropertyPlane *editor = memnew(EditorPropertyPlane(p_wide));
+			EditorPropertyPlane *editor = memnewOld(EditorPropertyPlane(p_wide));
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::QUATERNION: {
-			EditorPropertyQuaternion *editor = memnew(EditorPropertyQuaternion);
+			EditorPropertyQuaternion *editor = memnewOld(EditorPropertyQuaternion);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix, p_hint == PROPERTY_HINT_HIDE_QUATERNION_EDIT);
 			return editor;
 		} break;
 		case Variant::AABB: {
-			EditorPropertyAABB *editor = memnew(EditorPropertyAABB);
+			EditorPropertyAABB *editor = memnewOld(EditorPropertyAABB);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::BASIS: {
-			EditorPropertyBasis *editor = memnew(EditorPropertyBasis);
+			EditorPropertyBasis *editor = memnewOld(EditorPropertyBasis);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 		} break;
 		case Variant::TRANSFORM3D: {
-			EditorPropertyTransform3D *editor = memnew(EditorPropertyTransform3D);
+			EditorPropertyTransform3D *editor = memnewOld(EditorPropertyTransform3D);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
 
 		} break;
 		case Variant::PROJECTION: {
-			EditorPropertyProjection *editor = memnew(EditorPropertyProjection);
+			EditorPropertyProjection *editor = memnewOld(EditorPropertyProjection);
 			EditorPropertyRangeHint hint = _parse_range_hint(p_hint, p_hint_text, default_float_step);
 			editor->setup(hint.min, hint.max, hint.step, hint.hide_slider, hint.suffix);
 			return editor;
@@ -3780,18 +3780,18 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 
 		// misc types
 		case Variant::COLOR: {
-			EditorPropertyColor *editor = memnew(EditorPropertyColor);
+			EditorPropertyColor *editor = memnewOld(EditorPropertyColor);
 			editor->setup(p_hint != PROPERTY_HINT_COLOR_NO_ALPHA);
 			return editor;
 		} break;
 		case Variant::STRING_NAME: {
 			if (p_hint == PROPERTY_HINT_ENUM || p_hint == PROPERTY_HINT_ENUM_SUGGESTION) {
-				EditorPropertyTextEnum *editor = memnew(EditorPropertyTextEnum);
+				EditorPropertyTextEnum *editor = memnewOld(EditorPropertyTextEnum);
 				Vector<String> options = p_hint_text.split(",", false);
 				editor->setup(options, true, (p_hint == PROPERTY_HINT_ENUM_SUGGESTION));
 				return editor;
 			} else {
-				EditorPropertyText *editor = memnew(EditorPropertyText);
+				EditorPropertyText *editor = memnewOld(EditorPropertyText);
 				if (p_hint == PROPERTY_HINT_PLACEHOLDER_TEXT) {
 					editor->set_placeholder(p_hint_text);
 				} else if (p_hint == PROPERTY_HINT_PASSWORD) {
@@ -3803,7 +3803,7 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 			}
 		} break;
 		case Variant::NODE_PATH: {
-			EditorPropertyNodePath *editor = memnew(EditorPropertyNodePath);
+			EditorPropertyNodePath *editor = memnewOld(EditorPropertyNodePath);
 			if (p_hint == PROPERTY_HINT_NODE_PATH_VALID_TYPES && !p_hint_text.is_empty()) {
 				Vector<String> types = p_hint_text.split(",", false);
 				Vector<StringName> sn = Variant(types); //convert via variant
@@ -3813,18 +3813,18 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 
 		} break;
 		case Variant::RID: {
-			EditorPropertyRID *editor = memnew(EditorPropertyRID);
+			EditorPropertyRID *editor = memnewOld(EditorPropertyRID);
 			return editor;
 		} break;
 		case Variant::OBJECT: {
 			if (p_hint == PROPERTY_HINT_NODE_TYPE) {
-				EditorPropertyNodePath *editor = memnew(EditorPropertyNodePath);
+				EditorPropertyNodePath *editor = memnewOld(EditorPropertyNodePath);
 				Vector<String> types = p_hint_text.split(",", false);
 				Vector<StringName> sn = Variant(types); //convert via variant
 				editor->setup(sn, false, true);
 				return editor;
 			} else {
-				EditorPropertyResource *editor = memnew(EditorPropertyResource);
+				EditorPropertyResource *editor = memnewOld(EditorPropertyResource);
 				editor->setup(p_object, p_path, p_hint == PROPERTY_HINT_RESOURCE_TYPE ? p_hint_text : "Resource");
 
 				if (p_hint == PROPERTY_HINT_RESOURCE_TYPE) {
@@ -3845,75 +3845,75 @@ EditorProperty *EditorInspectorDefaultPlugin::get_editor_for_property(Object *p_
 
 		} break;
 		case Variant::CALLABLE: {
-			EditorPropertyCallable *editor = memnew(EditorPropertyCallable);
+			EditorPropertyCallable *editor = memnewOld(EditorPropertyCallable);
 			return editor;
 		} break;
 		case Variant::SIGNAL: {
-			EditorPropertySignal *editor = memnew(EditorPropertySignal);
+			EditorPropertySignal *editor = memnewOld(EditorPropertySignal);
 			return editor;
 		} break;
 		case Variant::DICTIONARY: {
 			if (p_hint == PROPERTY_HINT_LOCALIZABLE_STRING) {
-				EditorPropertyLocalizableString *editor = memnew(EditorPropertyLocalizableString);
+				EditorPropertyLocalizableString *editor = memnewOld(EditorPropertyLocalizableString);
 				return editor;
 			} else {
-				EditorPropertyDictionary *editor = memnew(EditorPropertyDictionary);
+				EditorPropertyDictionary *editor = memnewOld(EditorPropertyDictionary);
 				editor->setup(p_hint);
 				return editor;
 			}
 		} break;
 		case Variant::ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_BYTE_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_BYTE_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_INT32_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_INT32_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_INT64_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_INT64_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_FLOAT32_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_FLOAT32_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_FLOAT64_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_FLOAT64_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_STRING_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_STRING_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_VECTOR2_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_VECTOR2_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_VECTOR3_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_VECTOR3_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_COLOR_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_COLOR_ARRAY, p_hint_text);
 			return editor;
 		} break;
 		case Variant::PACKED_VECTOR4_ARRAY: {
-			EditorPropertyArray *editor = memnew(EditorPropertyArray);
+			EditorPropertyArray *editor = memnewOld(EditorPropertyArray);
 			editor->setup(Variant::PACKED_VECTOR4_ARRAY, p_hint_text);
 			return editor;
 		} break;

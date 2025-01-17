@@ -100,7 +100,7 @@ public:
 };
 
 TEST_CASE("[SceneTree][Node] Testing node operations with a very simple scene tree") {
-	Node *node = memnew(Node);
+	Node *node = memnewOld(Node);
 
 	// Check initial scene tree setup.
 	CHECK_EQ(SceneTree::get_singleton()->get_root()->get_child_count(), 0);
@@ -221,9 +221,9 @@ TEST_CASE("[SceneTree][Node] Testing node operations with a very simple scene tr
 }
 
 TEST_CASE("[SceneTree][Node] Testing node operations with a more complex simple scene tree") {
-	Node *node1 = memnew(Node);
-	Node *node2 = memnew(Node);
-	Node *node1_1 = memnew(Node);
+	Node *node1 = memnewOld(Node);
+	Node *node2 = memnewOld(Node);
+	Node *node1_1 = memnewOld(Node);
 
 	SceneTree::get_singleton()->get_root()->add_child(node1);
 	SceneTree::get_singleton()->get_root()->add_child(node2);
@@ -500,15 +500,15 @@ TEST_CASE("[SceneTree][Node] Testing node operations with a more complex simple 
 }
 
 TEST_CASE("[SceneTree][Node]Exported node checks") {
-	TestNode *node = memnew(TestNode);
+	TestNode *node = memnewOld(TestNode);
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
-	Node *child = memnew(Node);
+	Node *child = memnewOld(Node);
 	child->set_name("Child");
 	node->add_child(child);
 	child->set_owner(node);
 
-	Node *child2 = memnew(Node);
+	Node *child2 = memnewOld(Node);
 	child2->set_name("Child2");
 	node->add_child(child2);
 	child2->set_owner(node);
@@ -538,7 +538,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 		String scene_path = TestUtils::get_temp_path("test_scene.tscn");
 		ps->set_path(scene_path);
 
-		Node *root = memnew(Node);
+		Node *root = memnewOld(Node);
 
 		Node *sub_child = ps->instantiate(PackedScene::GEN_EDIT_STATE_MAIN);
 		root->add_child(sub_child);
@@ -573,7 +573,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 		String scene_path = TestUtils::get_temp_path("test_scene.tscn");
 		ps->set_path(scene_path);
 
-		Node *root = memnew(Node);
+		Node *root = memnewOld(Node);
 
 		Node *sub_child = ps->instantiate(PackedScene::GEN_EDIT_STATE_MAIN);
 		root->add_child(sub_child);
@@ -609,7 +609,7 @@ TEST_CASE("[SceneTree][Node]Exported node checks") {
 }
 
 TEST_CASE("[Node] Processing checks") {
-	Node *node = memnew(Node);
+	Node *node = memnewOld(Node);
 
 	SUBCASE("Processing") {
 		CHECK_FALSE(node->is_processing());
@@ -715,7 +715,7 @@ TEST_CASE("[Node] Processing checks") {
 }
 
 TEST_CASE("[SceneTree][Node] Test the processing") {
-	TestNode *node = memnew(TestNode);
+	TestNode *node = memnewOld(TestNode);
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
 	SUBCASE("No process") {
@@ -824,19 +824,19 @@ TEST_CASE("[SceneTree][Node] Test the processing") {
 TEST_CASE("[SceneTree][Node] Test the process priority") {
 	List<Node *> process_order;
 
-	TestNode *node = memnew(TestNode);
+	TestNode *node = memnewOld(TestNode);
 	node->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node);
 
-	TestNode *node2 = memnew(TestNode);
+	TestNode *node2 = memnewOld(TestNode);
 	node2->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node2);
 
-	TestNode *node3 = memnew(TestNode);
+	TestNode *node3 = memnewOld(TestNode);
 	node3->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node3);
 
-	TestNode *node4 = memnew(TestNode);
+	TestNode *node4 = memnewOld(TestNode);
 	node4->callback_list = &process_order;
 	SceneTree::get_singleton()->get_root()->add_child(node4);
 

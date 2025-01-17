@@ -54,7 +54,7 @@ Ref<MultiplayerAPI> MultiplayerAPI::create_default_interface() {
 	if (default_interface != StringName()) {
 		return Ref<MultiplayerAPI>(Object::cast_to<MultiplayerAPI>(ClassDB::instantiate(default_interface)));
 	}
-	return Ref<MultiplayerAPI>(memnew(MultiplayerAPIExtension));
+	return Ref<MultiplayerAPI>(memnewOld(MultiplayerAPIExtension));
 }
 
 // The variant is compressed and encoded; The first byte contains all the meta

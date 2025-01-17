@@ -39,8 +39,8 @@ namespace TestControl {
 
 TEST_CASE("[SceneTree][Control]") {
 	SUBCASE("[Control][Global Transform] Global Transform should be accessible while not in SceneTree.") { // GH-79453
-		Control *test_node = memnew(Control);
-		Control *test_child = memnew(Control);
+		Control *test_node = memnewOld(Control);
+		Control *test_child = memnewOld(Control);
 		test_node->add_child(test_child);
 
 		test_node->set_global_position(Point2(1, 1));

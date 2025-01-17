@@ -238,8 +238,8 @@ Node *MeshInstance3D::create_trimesh_collision_node() {
 		return nullptr;
 	}
 
-	StaticBody3D *static_body = memnew(StaticBody3D);
-	CollisionShape3D *cshape = memnew(CollisionShape3D);
+	StaticBody3D *static_body = memnewOld(StaticBody3D);
+	CollisionShape3D *cshape = memnewOld(CollisionShape3D);
 	cshape->set_shape(shape);
 	static_body->add_child(cshape, true);
 	return static_body;
@@ -268,8 +268,8 @@ Node *MeshInstance3D::create_convex_collision_node(bool p_clean, bool p_simplify
 		return nullptr;
 	}
 
-	StaticBody3D *static_body = memnew(StaticBody3D);
-	CollisionShape3D *cshape = memnew(CollisionShape3D);
+	StaticBody3D *static_body = memnewOld(StaticBody3D);
+	CollisionShape3D *cshape = memnewOld(CollisionShape3D);
 	cshape->set_shape(shape);
 	static_body->add_child(cshape, true);
 	return static_body;
@@ -305,9 +305,9 @@ Node *MeshInstance3D::create_multiple_convex_collisions_node(const Ref<MeshConve
 		return nullptr;
 	}
 
-	StaticBody3D *static_body = memnew(StaticBody3D);
+	StaticBody3D *static_body = memnewOld(StaticBody3D);
 	for (int i = 0; i < shapes.size(); i++) {
-		CollisionShape3D *cshape = memnew(CollisionShape3D);
+		CollisionShape3D *cshape = memnewOld(CollisionShape3D);
 		cshape->set_shape(shapes[i]);
 		static_body->add_child(cshape, true);
 	}
@@ -475,7 +475,7 @@ MeshInstance3D *MeshInstance3D::create_debug_tangents_node() {
 		am->add_surface_from_arrays(Mesh::PRIMITIVE_LINES, a);
 		am->surface_set_material(0, sm);
 
-		MeshInstance3D *mi = memnew(MeshInstance3D);
+		MeshInstance3D *mi = memnewOld(MeshInstance3D);
 		mi->set_mesh(am);
 		mi->set_name("DebugTangents");
 		return mi;

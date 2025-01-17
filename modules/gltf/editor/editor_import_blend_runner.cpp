@@ -319,7 +319,7 @@ Error EditorImportBlendRunner::do_import_rpc(const Dictionary &p_options) {
 
 bool EditorImportBlendRunner::_extract_error_message_xml(const Vector<uint8_t> &p_response_data, String &r_error_message) {
 	// Based on RPC Xml spec from: https://xmlrpc.com/spec.md
-	Ref<XMLParser> parser = memnew(XMLParser);
+	Ref<XMLParser> parser = memnewOld(XMLParser);
 	Error err = parser->open_buffer(p_response_data);
 	if (err) {
 		return false;
@@ -384,7 +384,7 @@ EditorImportBlendRunner::EditorImportBlendRunner() {
 
 	rpc_port = EDITOR_GET("filesystem/import/blender/rpc_port");
 
-	kill_timer = memnew(Timer);
+	kill_timer = memnewOld(Timer);
 	add_child(kill_timer);
 	kill_timer->set_one_shot(true);
 	kill_timer->set_wait_time(EDITOR_GET("filesystem/import/blender/rpc_server_uptime"));

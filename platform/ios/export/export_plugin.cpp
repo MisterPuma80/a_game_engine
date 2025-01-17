@@ -908,7 +908,7 @@ Error EditorExportPlatformIOS::_export_icons(const Ref<EditorExportPreset> &p_pr
 		if (icon_path.length() == 0) {
 			// Resize main app icon
 			icon_path = GLOBAL_GET("application/config/icon");
-			Ref<Image> img = memnew(Image);
+			Ref<Image> img = memnewOld(Image);
 			Error err = ImageLoader::load_image(icon_path, img);
 			if (err != OK) {
 				add_message(EXPORT_MESSAGE_ERROR, TTR("Export Icons"), vformat("Invalid icon (%s): '%s'.", info.preset_key, icon_path));
@@ -930,7 +930,7 @@ Error EditorExportPlatformIOS::_export_icons(const Ref<EditorExportPreset> &p_pr
 			}
 		} else {
 			// Load custom icon and resize if required
-			Ref<Image> img = memnew(Image);
+			Ref<Image> img = memnewOld(Image);
 			Error err = ImageLoader::load_image(icon_path, img);
 			if (err != OK) {
 				add_message(EXPORT_MESSAGE_ERROR, TTR("Export Icons"), vformat("Invalid icon (%s): '%s'.", info.preset_key, icon_path));
@@ -1035,7 +1035,7 @@ Error EditorExportPlatformIOS::_export_loading_screen_file(const Ref<EditorExpor
 		}
 
 		if (splash.is_null()) {
-			splash = Ref<Image>(memnew(Image(boot_splash_png)));
+			splash = Ref<Image>(memnewOld(Image(boot_splash_png)));
 		}
 
 		// Using same image for both @2x and @3x
@@ -3243,7 +3243,7 @@ Error EditorExportPlatformIOS::run(const Ref<EditorExportPreset> &p_preset, int 
 EditorExportPlatformIOS::EditorExportPlatformIOS() {
 	if (EditorNode::get_singleton()) {
 #ifdef MODULE_SVG_ENABLED
-		Ref<Image> img = memnew(Image);
+		Ref<Image> img = memnewOld(Image);
 		const bool upsample = !Math::is_equal_approx(Math::round(EDSCALE), EDSCALE);
 
 		ImageLoaderSVG::create_image_from_string(img, _ios_logo_svg, EDSCALE, upsample, false);

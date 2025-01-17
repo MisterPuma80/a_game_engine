@@ -180,9 +180,9 @@ CollisionObject3D *_generate_shape_with_body(Ref<GLTFState> p_state, Ref<GLTFNod
 			return body;
 		}
 	} else if (is_trigger) {
-		body = memnew(Area3D);
+		body = memnewOld(Area3D);
 	} else {
-		body = memnew(StaticBody3D);
+		body = memnewOld(StaticBody3D);
 	}
 	CollisionShape3D *shape = p_physics_shape->to_node();
 	shape->set_name(p_gltf_node->get_name() + "Shape");
@@ -210,11 +210,11 @@ Node3D *_generate_shape_node_and_body_if_needed(Ref<GLTFState> p_state, Ref<GLTF
 		// If the shape wants to be a trigger but it doesn't
 		// have an Area3D parent, we need to make one.
 		if (!Object::cast_to<Area3D>(p_col_object)) {
-			body_node = memnew(Area3D);
+			body_node = memnewOld(Area3D);
 		}
 	} else {
 		if (!Object::cast_to<PhysicsBody3D>(p_col_object)) {
-			body_node = memnew(StaticBody3D);
+			body_node = memnewOld(StaticBody3D);
 		}
 	}
 	// Generate the shape node.
@@ -304,14 +304,14 @@ Node3D *GLTFDocumentExtensionPhysics::generate_scene_node(Ref<GLTFState> p_state
 			if (compound_trigger_nodes.size() > 0 && !compound_trigger_nodes.has(double(self_index))) {
 				// If the compound trigger we found is not the intended user of
 				// this shape node, then we need to create a new Area3D node.
-				ancestor_col_obj = memnew(Area3D);
+				ancestor_col_obj = memnewOld(Area3D);
 				ret = ancestor_col_obj;
 			}
 		} else if (!Object::cast_to<PhysicsBody3D>(ancestor_col_obj)) {
 			if (p_gltf_node->get_additional_data(StringName("GLTFPhysicsCompoundCollider"))) {
 				// If the GLTF file wants this node to group solid shapes together,
 				// and there is no parent body, we need to create a static body.
-				ancestor_col_obj = memnew(StaticBody3D);
+				ancestor_col_obj = memnewOld(StaticBody3D);
 				ret = ancestor_col_obj;
 			}
 		}

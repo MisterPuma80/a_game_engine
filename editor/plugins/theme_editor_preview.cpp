@@ -245,49 +245,49 @@ void ThemeEditorPreview::_bind_methods() {
 }
 
 ThemeEditorPreview::ThemeEditorPreview() {
-	preview_toolbar = memnew(HBoxContainer);
+	preview_toolbar = memnewOld(HBoxContainer);
 	add_child(preview_toolbar);
 
-	picker_button = memnew(Button);
+	picker_button = memnewOld(Button);
 	preview_toolbar->add_child(picker_button);
 	picker_button->set_theme_type_variation("FlatButton");
 	picker_button->set_toggle_mode(true);
 	picker_button->set_tooltip_text(TTR("Toggle the control picker, allowing to visually select control types for edit."));
 	picker_button->connect(SceneStringName(pressed), callable_mp(this, &ThemeEditorPreview::_picker_button_cbk));
 
-	MarginContainer *preview_body = memnew(MarginContainer);
+	MarginContainer *preview_body = memnewOld(MarginContainer);
 	preview_body->set_custom_minimum_size(Size2(480, 0) * EDSCALE);
 	preview_body->set_v_size_flags(SIZE_EXPAND_FILL);
 	add_child(preview_body);
 
-	preview_container = memnew(ScrollContainer);
+	preview_container = memnewOld(ScrollContainer);
 	preview_body->add_child(preview_container);
 
-	preview_root = memnew(MarginContainer);
+	preview_root = memnewOld(MarginContainer);
 	preview_container->add_child(preview_root);
 	preview_root->set_clip_contents(true);
 	preview_root->set_custom_minimum_size(Size2(450, 0) * EDSCALE);
 	preview_root->set_v_size_flags(SIZE_EXPAND_FILL);
 	preview_root->set_h_size_flags(SIZE_EXPAND_FILL);
 
-	preview_bg = memnew(ColorRect);
+	preview_bg = memnewOld(ColorRect);
 	preview_bg->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	preview_bg->set_color(GLOBAL_GET("rendering/environment/defaults/default_clear_color"));
 	preview_root->add_child(preview_bg);
 
-	preview_content = memnew(MarginContainer);
+	preview_content = memnewOld(MarginContainer);
 	preview_content->add_theme_constant_override("margin_right", 4 * EDSCALE);
 	preview_content->add_theme_constant_override("margin_top", 4 * EDSCALE);
 	preview_content->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	preview_content->add_theme_constant_override("margin_bottom", 4 * EDSCALE);
 	preview_root->add_child(preview_content);
 
-	preview_overlay = memnew(MarginContainer);
+	preview_overlay = memnewOld(MarginContainer);
 	preview_overlay->set_mouse_filter(MOUSE_FILTER_IGNORE);
 	preview_overlay->set_clip_contents(true);
 	preview_body->add_child(preview_overlay);
 
-	picker_overlay = memnew(Control);
+	picker_overlay = memnewOld(Control);
 	add_preview_overlay(picker_overlay);
 	picker_overlay->connect(SceneStringName(draw), callable_mp(this, &ThemeEditorPreview::_draw_picker_overlay));
 	picker_overlay->connect(SceneStringName(gui_input), callable_mp(this, &ThemeEditorPreview::_gui_input_picker_overlay));
@@ -304,50 +304,50 @@ void DefaultThemeEditorPreview::_notification(int p_what) {
 }
 
 DefaultThemeEditorPreview::DefaultThemeEditorPreview() {
-	Panel *main_panel = memnew(Panel);
+	Panel *main_panel = memnewOld(Panel);
 	preview_content->add_child(main_panel);
 
-	MarginContainer *main_mc = memnew(MarginContainer);
+	MarginContainer *main_mc = memnewOld(MarginContainer);
 	main_mc->add_theme_constant_override("margin_right", 4 * EDSCALE);
 	main_mc->add_theme_constant_override("margin_top", 4 * EDSCALE);
 	main_mc->add_theme_constant_override("margin_left", 4 * EDSCALE);
 	main_mc->add_theme_constant_override("margin_bottom", 4 * EDSCALE);
 	preview_content->add_child(main_mc);
 
-	HBoxContainer *main_hb = memnew(HBoxContainer);
+	HBoxContainer *main_hb = memnewOld(HBoxContainer);
 	main_mc->add_child(main_hb);
 	main_hb->add_theme_constant_override("separation", 20 * EDSCALE);
 
-	VBoxContainer *first_vb = memnew(VBoxContainer);
+	VBoxContainer *first_vb = memnewOld(VBoxContainer);
 	main_hb->add_child(first_vb);
 	first_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	first_vb->add_theme_constant_override("separation", 10 * EDSCALE);
 
-	first_vb->add_child(memnew(Label("Label")));
+	first_vb->add_child(memnewOld(Label("Label")));
 
-	first_vb->add_child(memnew(Button("Button")));
-	Button *bt = memnew(Button);
+	first_vb->add_child(memnewOld(Button("Button")));
+	Button *bt = memnewOld(Button);
 	bt->set_text(TTR("Toggle Button"));
 	bt->set_toggle_mode(true);
 	bt->set_pressed(true);
 	first_vb->add_child(bt);
-	bt = memnew(Button);
+	bt = memnewOld(Button);
 	bt->set_text(TTR("Disabled Button"));
 	bt->set_disabled(true);
 	first_vb->add_child(bt);
-	Button *tb = memnew(Button);
+	Button *tb = memnewOld(Button);
 	tb->set_flat(true);
 	tb->set_text("Flat Button");
 	first_vb->add_child(tb);
 
-	CheckButton *cb = memnew(CheckButton);
+	CheckButton *cb = memnewOld(CheckButton);
 	cb->set_text("CheckButton");
 	first_vb->add_child(cb);
-	CheckBox *cbx = memnew(CheckBox);
+	CheckBox *cbx = memnewOld(CheckBox);
 	cbx->set_text("CheckBox");
 	first_vb->add_child(cbx);
 
-	MenuButton *test_menu_button = memnew(MenuButton);
+	MenuButton *test_menu_button = memnewOld(MenuButton);
 	test_menu_button->set_text("MenuButton");
 	test_menu_button->get_popup()->add_item(TTR("Item"));
 	test_menu_button->get_popup()->add_item(TTR("Disabled Item"));
@@ -362,83 +362,83 @@ DefaultThemeEditorPreview::DefaultThemeEditorPreview() {
 	test_menu_button->get_popup()->set_item_checked(7, true);
 	test_menu_button->get_popup()->add_separator(TTR("Named Separator"));
 
-	PopupMenu *test_submenu = memnew(PopupMenu);
+	PopupMenu *test_submenu = memnewOld(PopupMenu);
 	test_menu_button->get_popup()->add_submenu_node_item(TTR("Submenu"), test_submenu);
 	test_submenu->add_item(TTR("Subitem 1"));
 	test_submenu->add_item(TTR("Subitem 2"));
 	first_vb->add_child(test_menu_button);
 
-	OptionButton *test_option_button = memnew(OptionButton);
+	OptionButton *test_option_button = memnewOld(OptionButton);
 	test_option_button->add_item("OptionButton");
 	test_option_button->add_separator();
 	test_option_button->add_item(TTR("Has"));
 	test_option_button->add_item(TTR("Many"));
 	test_option_button->add_item(TTR("Options"));
 	first_vb->add_child(test_option_button);
-	test_color_picker_button = memnew(ColorPickerButton);
+	test_color_picker_button = memnewOld(ColorPickerButton);
 	first_vb->add_child(test_color_picker_button);
 
-	VBoxContainer *second_vb = memnew(VBoxContainer);
+	VBoxContainer *second_vb = memnewOld(VBoxContainer);
 	second_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	main_hb->add_child(second_vb);
 	second_vb->add_theme_constant_override("separation", 10 * EDSCALE);
-	LineEdit *le = memnew(LineEdit);
+	LineEdit *le = memnewOld(LineEdit);
 	le->set_text("LineEdit");
 	second_vb->add_child(le);
-	le = memnew(LineEdit);
+	le = memnewOld(LineEdit);
 	le->set_text(TTR("Disabled LineEdit"));
 	le->set_editable(false);
 	second_vb->add_child(le);
-	TextEdit *te = memnew(TextEdit);
+	TextEdit *te = memnewOld(TextEdit);
 	te->set_text("TextEdit");
 	te->set_custom_minimum_size(Size2(0, 100) * EDSCALE);
 	second_vb->add_child(te);
-	second_vb->add_child(memnew(SpinBox));
+	second_vb->add_child(memnewOld(SpinBox));
 
-	HBoxContainer *vhb = memnew(HBoxContainer);
+	HBoxContainer *vhb = memnewOld(HBoxContainer);
 	second_vb->add_child(vhb);
 	vhb->set_custom_minimum_size(Size2(0, 100) * EDSCALE);
-	vhb->add_child(memnew(VSlider));
-	VScrollBar *vsb = memnew(VScrollBar);
+	vhb->add_child(memnewOld(VSlider));
+	VScrollBar *vsb = memnewOld(VScrollBar);
 	vsb->set_page(25);
 	vhb->add_child(vsb);
-	vhb->add_child(memnew(VSeparator));
-	VBoxContainer *hvb = memnew(VBoxContainer);
+	vhb->add_child(memnewOld(VSeparator));
+	VBoxContainer *hvb = memnewOld(VBoxContainer);
 	vhb->add_child(hvb);
 	hvb->set_alignment(BoxContainer::ALIGNMENT_CENTER);
 	hvb->set_h_size_flags(SIZE_EXPAND_FILL);
-	hvb->add_child(memnew(HSlider));
-	HScrollBar *hsb = memnew(HScrollBar);
+	hvb->add_child(memnewOld(HSlider));
+	HScrollBar *hsb = memnewOld(HScrollBar);
 	hsb->set_page(25);
 	hvb->add_child(hsb);
-	HSlider *hs = memnew(HSlider);
+	HSlider *hs = memnewOld(HSlider);
 	hs->set_editable(false);
 	hvb->add_child(hs);
-	hvb->add_child(memnew(HSeparator));
-	ProgressBar *pb = memnew(ProgressBar);
+	hvb->add_child(memnewOld(HSeparator));
+	ProgressBar *pb = memnewOld(ProgressBar);
 	pb->set_value(50);
 	hvb->add_child(pb);
 
-	VBoxContainer *third_vb = memnew(VBoxContainer);
+	VBoxContainer *third_vb = memnewOld(VBoxContainer);
 	third_vb->set_h_size_flags(SIZE_EXPAND_FILL);
 	third_vb->add_theme_constant_override("separation", 10 * EDSCALE);
 	main_hb->add_child(third_vb);
 
-	TabContainer *tc = memnew(TabContainer);
+	TabContainer *tc = memnewOld(TabContainer);
 	third_vb->add_child(tc);
 	tc->set_custom_minimum_size(Size2(0, 135) * EDSCALE);
-	Control *tcc = memnew(Control);
+	Control *tcc = memnewOld(Control);
 	tcc->set_name(TTR("Tab 1"));
 	tc->add_child(tcc);
-	tcc = memnew(Control);
+	tcc = memnewOld(Control);
 	tcc->set_name(TTR("Tab 2"));
 	tc->add_child(tcc);
-	tcc = memnew(Control);
+	tcc = memnewOld(Control);
 	tcc->set_name(TTR("Tab 3"));
 	tc->add_child(tcc);
 	tc->set_tab_disabled(2, true);
 
-	Tree *test_tree = memnew(Tree);
+	Tree *test_tree = memnewOld(Tree);
 	third_vb->add_child(test_tree);
 	test_tree->set_custom_minimum_size(Size2(0, 175) * EDSCALE);
 
@@ -535,9 +535,9 @@ String SceneThemeEditorPreview::get_preview_scene_path() const {
 }
 
 SceneThemeEditorPreview::SceneThemeEditorPreview() {
-	preview_toolbar->add_child(memnew(VSeparator));
+	preview_toolbar->add_child(memnewOld(VSeparator));
 
-	reload_scene_button = memnew(Button);
+	reload_scene_button = memnewOld(Button);
 	reload_scene_button->set_flat(true);
 	reload_scene_button->set_tooltip_text(TTR("Reload the scene to reflect its most actual state."));
 	preview_toolbar->add_child(reload_scene_button);

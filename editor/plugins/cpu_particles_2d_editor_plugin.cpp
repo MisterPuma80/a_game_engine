@@ -81,7 +81,7 @@ void CPUParticles2DEditorPlugin::_menu_callback(int p_idx) {
 			particles->restart();
 		} break;
 		case MENU_CONVERT_TO_GPU_PARTICLES: {
-			GPUParticles2D *gpu_particles = memnew(GPUParticles2D);
+			GPUParticles2D *gpu_particles = memnewOld(GPUParticles2D);
 			gpu_particles->convert_from_particles(particles);
 			gpu_particles->set_name(particles->get_name());
 			gpu_particles->set_transform(particles->get_transform());
@@ -266,11 +266,11 @@ void CPUParticles2DEditorPlugin::_bind_methods() {
 CPUParticles2DEditorPlugin::CPUParticles2DEditorPlugin() {
 	particles = nullptr;
 
-	toolbar = memnew(HBoxContainer);
+	toolbar = memnewOld(HBoxContainer);
 	add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar);
 	toolbar->hide();
 
-	menu = memnew(MenuButton);
+	menu = memnewOld(MenuButton);
 	menu->get_popup()->add_shortcut(ED_GET_SHORTCUT("particles/restart_emission"), MENU_RESTART);
 	menu->get_popup()->add_item(TTR("Load Emission Mask"), MENU_LOAD_EMISSION_MASK);
 	menu->get_popup()->add_item(TTR("Convert to GPUParticles2D"), MENU_CONVERT_TO_GPU_PARTICLES);
@@ -278,7 +278,7 @@ CPUParticles2DEditorPlugin::CPUParticles2DEditorPlugin() {
 	menu->set_switch_on_hover(true);
 	toolbar->add_child(menu);
 
-	file = memnew(EditorFileDialog);
+	file = memnewOld(EditorFileDialog);
 	List<String> ext;
 	ImageLoader::get_recognized_extensions(&ext);
 	for (const String &E : ext) {
@@ -287,21 +287,21 @@ CPUParticles2DEditorPlugin::CPUParticles2DEditorPlugin() {
 	file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	toolbar->add_child(file);
 
-	emission_mask = memnew(ConfirmationDialog);
+	emission_mask = memnewOld(ConfirmationDialog);
 	emission_mask->set_title(TTR("Load Emission Mask"));
-	VBoxContainer *emvb = memnew(VBoxContainer);
+	VBoxContainer *emvb = memnewOld(VBoxContainer);
 	emission_mask->add_child(emvb);
-	emission_mask_mode = memnew(OptionButton);
+	emission_mask_mode = memnewOld(OptionButton);
 	emvb->add_margin_child(TTR("Emission Mask"), emission_mask_mode);
 	emission_mask_mode->add_item(TTR("Solid Pixels"), EMISSION_MODE_SOLID);
 	emission_mask_mode->add_item(TTR("Border Pixels"), EMISSION_MODE_BORDER);
 	emission_mask_mode->add_item(TTR("Directed Border Pixels"), EMISSION_MODE_BORDER_DIRECTED);
-	VBoxContainer *optionsvb = memnew(VBoxContainer);
+	VBoxContainer *optionsvb = memnewOld(VBoxContainer);
 	emvb->add_margin_child(TTR("Options"), optionsvb);
-	emission_mask_centered = memnew(CheckBox);
+	emission_mask_centered = memnewOld(CheckBox);
 	emission_mask_centered->set_text(TTR("Centered"));
 	optionsvb->add_child(emission_mask_centered);
-	emission_colors = memnew(CheckBox);
+	emission_colors = memnewOld(CheckBox);
 	emission_colors->set_text(TTR("Capture Colors from Pixel"));
 	optionsvb->add_child(emission_colors);
 

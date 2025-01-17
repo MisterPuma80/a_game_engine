@@ -79,7 +79,7 @@ void OpenXRSelectInteractionProfileDialog::open(PackedStringArray p_do_not_inclu
 	for (int i = 0; i < interaction_profiles.size(); i++) {
 		const String &path = interaction_profiles[i];
 		if (!p_do_not_include.has(path)) {
-			Button *ip_button = memnew(Button);
+			Button *ip_button = memnewOld(Button);
 			ip_button->set_flat(true);
 			ip_button->set_text(OpenXRInteractionProfileMetadata::get_singleton()->get_profile(path)->display_name);
 			ip_button->connect(SceneStringName(pressed), callable_mp(this, &OpenXRSelectInteractionProfileDialog::_on_select_interaction_profile).bind(path));
@@ -113,11 +113,11 @@ void OpenXRSelectInteractionProfileDialog::ok_pressed() {
 OpenXRSelectInteractionProfileDialog::OpenXRSelectInteractionProfileDialog() {
 	set_title(TTR("Select an interaction profile"));
 
-	scroll = memnew(ScrollContainer);
+	scroll = memnewOld(ScrollContainer);
 	scroll->set_custom_minimum_size(Size2(600.0, 400.0));
 	add_child(scroll);
 
-	main_vb = memnew(VBoxContainer);
+	main_vb = memnewOld(VBoxContainer);
 	// main_vb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	scroll->add_child(main_vb);
 }

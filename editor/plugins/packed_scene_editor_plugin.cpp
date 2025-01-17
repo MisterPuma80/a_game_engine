@@ -56,7 +56,7 @@ PackedSceneEditor::PackedSceneEditor(Ref<PackedScene> &p_packed_scene) {
 	open_scene_button->set_disabled(!packed_scene->get_path().get_file().is_valid_filename());
 	add_child(open_scene_button);
 
-	add_child(memnew(Control)); // Add padding before the regular properties.
+	add_child(memnewOld(Control)); // Add padding before the regular properties.
 }
 
 ///////////////////////
@@ -67,7 +67,7 @@ bool EditorInspectorPluginPackedScene::can_handle(Object *p_object) {
 
 void EditorInspectorPluginPackedScene::parse_begin(Object *p_object) {
 	Ref<PackedScene> packed_scene(p_object);
-	PackedSceneEditor *editor = memnew(PackedSceneEditor(packed_scene));
+	PackedSceneEditor *editor = memnewOld(PackedSceneEditor(packed_scene));
 	add_custom_control(editor);
 }
 

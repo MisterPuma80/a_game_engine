@@ -2388,7 +2388,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 				}
 
 				if (is_signal) {
-					Ref<GDScriptFunctionState> gdfs = memnew(GDScriptFunctionState);
+					Ref<GDScriptFunctionState> gdfs = memnewOld(GDScriptFunctionState);
 					gdfs->function = this;
 
 					gdfs->state.stack.resize(alloca_size);
@@ -2470,7 +2470,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 					captures.write[i] = *arg;
 				}
 
-				GDScriptLambdaCallable *callable = memnew(GDScriptLambdaCallable(Ref<GDScript>(script), lambda, captures));
+				GDScriptLambdaCallable *callable = memnewOld(GDScriptLambdaCallable(Ref<GDScript>(script), lambda, captures));
 
 				GET_INSTRUCTION_ARG(result, captures_count);
 				*result = Callable(callable);
@@ -2503,9 +2503,9 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 
 				GDScriptLambdaSelfCallable *callable;
 				if (Object::cast_to<RefCounted>(p_instance->owner)) {
-					callable = memnew(GDScriptLambdaSelfCallable(Ref<RefCounted>(Object::cast_to<RefCounted>(p_instance->owner)), lambda, captures));
+					callable = memnewOld(GDScriptLambdaSelfCallable(Ref<RefCounted>(Object::cast_to<RefCounted>(p_instance->owner)), lambda, captures));
 				} else {
-					callable = memnew(GDScriptLambdaSelfCallable(p_instance->owner, lambda, captures));
+					callable = memnewOld(GDScriptLambdaSelfCallable(p_instance->owner, lambda, captures));
 				}
 
 				GET_INSTRUCTION_ARG(result, captures_count);

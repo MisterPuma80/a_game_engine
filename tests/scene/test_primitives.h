@@ -38,7 +38,7 @@
 namespace TestPrimitives {
 
 TEST_CASE("[SceneTree][Primitive][Capsule] Capsule Primitive") {
-	Ref<CapsuleMesh> capsule = memnew(CapsuleMesh);
+	Ref<CapsuleMesh> capsule = memnewOld(CapsuleMesh);
 
 	SUBCASE("[SceneTree][Primitive][Capsule] Default values should be valid") {
 		CHECK_MESSAGE(capsule->get_radius() > 0,
@@ -142,7 +142,7 @@ TEST_CASE("[SceneTree][Primitive][Capsule] Capsule Primitive") {
 } // End capsule tests
 
 TEST_CASE("[SceneTree][Primitive][Box] Box Primitive") {
-	Ref<BoxMesh> box = memnew(BoxMesh);
+	Ref<BoxMesh> box = memnewOld(BoxMesh);
 
 	SUBCASE("[SceneTree][Primitive][Box] Default values should be valid") {
 		CHECK(box->get_size().x > 0);
@@ -229,7 +229,7 @@ TEST_CASE("[SceneTree][Primitive][Box] Box Primitive") {
 } // End box tests
 
 TEST_CASE("[SceneTree][Primitive][Cylinder] Cylinder Primitive") {
-	Ref<CylinderMesh> cylinder = memnew(CylinderMesh);
+	Ref<CylinderMesh> cylinder = memnewOld(CylinderMesh);
 
 	SUBCASE("[SceneTree][Primitive][Cylinder] Default values should be valid") {
 		CHECK(cylinder->get_top_radius() > 0);
@@ -420,7 +420,7 @@ TEST_CASE("[SceneTree][Primitive][Cylinder] Cylinder Primitive") {
 } // End cylinder tests
 
 TEST_CASE("[SceneTree][Primitive][Plane] Plane Primitive") {
-	Ref<PlaneMesh> plane = memnew(PlaneMesh);
+	Ref<PlaneMesh> plane = memnewOld(PlaneMesh);
 
 	SUBCASE("[SceneTree][Primitive][Plane] Default values should be valid") {
 		CHECK(plane->get_size().x > 0);
@@ -458,7 +458,7 @@ TEST_CASE("[SceneTree][Primitive][Plane] Plane Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][Quad] QuadMesh Primitive") {
-	Ref<QuadMesh> quad = memnew(QuadMesh);
+	Ref<QuadMesh> quad = memnewOld(QuadMesh);
 
 	SUBCASE("[Primitive][Quad] Orientation on initialization is in z direction") {
 		CHECK(quad->get_orientation() == PlaneMesh::FACE_Z);
@@ -466,7 +466,7 @@ TEST_CASE("[SceneTree][Primitive][Quad] QuadMesh Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][Prism] Prism Primitive") {
-	Ref<PrismMesh> prism = memnew(PrismMesh);
+	Ref<PrismMesh> prism = memnewOld(PrismMesh);
 
 	SUBCASE("[Primitive][Prism] There are valid values of properties on initialization.") {
 		CHECK(prism->get_left_to_right() >= 0);
@@ -507,7 +507,7 @@ TEST_CASE("[SceneTree][Primitive][Prism] Prism Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][Sphere] Sphere Primitive") {
-	Ref<SphereMesh> sphere = memnew(SphereMesh);
+	Ref<SphereMesh> sphere = memnewOld(SphereMesh);
 
 	SUBCASE("[Primitive][Sphere] There are valid values of properties on initialization.") {
 		CHECK(sphere->get_radius() >= 0);
@@ -577,8 +577,8 @@ TEST_CASE("[SceneTree][Primitive][Sphere] Sphere Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][Torus] Torus Primitive") {
-	Ref<TorusMesh> torus = memnew(TorusMesh);
-	Ref<PrimitiveMesh> prim = memnew(PrimitiveMesh);
+	Ref<TorusMesh> torus = memnewOld(TorusMesh);
+	Ref<PrimitiveMesh> prim = memnewOld(PrimitiveMesh);
 
 	SUBCASE("[Primitive][Torus] There are valid values of properties on initialization.") {
 		CHECK(torus->get_inner_radius() > 0);
@@ -601,7 +601,7 @@ TEST_CASE("[SceneTree][Primitive][Torus] Torus Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
-	Ref<TubeTrailMesh> tube = memnew(TubeTrailMesh);
+	Ref<TubeTrailMesh> tube = memnewOld(TubeTrailMesh);
 
 	SUBCASE("[Primitive][TubeTrail] There are valid values of properties on initialization.") {
 		CHECK(tube->get_radius() > 0);
@@ -619,7 +619,7 @@ TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
 		tube->set_sections(33);
 		tube->set_section_length(5.5f);
 		tube->set_section_rings(12);
-		Ref<Curve> curve = memnew(Curve);
+		Ref<Curve> curve = memnewOld(Curve);
 		tube->set_curve(curve);
 
 		CHECK(tube->get_radius() == doctest::Approx(7.2f));
@@ -631,7 +631,7 @@ TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][TubeTrail] Setting same curve more than once, it remains the same.") {
-		Ref<Curve> curve = memnew(Curve);
+		Ref<Curve> curve = memnewOld(Curve);
 		tube->set_curve(curve);
 		tube->set_curve(curve);
 		tube->set_curve(curve);
@@ -640,8 +640,8 @@ TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][TubeTrail] Setting curve, then changing to different curve.") {
-		Ref<Curve> curve1 = memnew(Curve);
-		Ref<Curve> curve2 = memnew(Curve);
+		Ref<Curve> curve1 = memnewOld(Curve);
+		Ref<Curve> curve2 = memnewOld(Curve);
 		tube->set_curve(curve1);
 		CHECK(tube->get_curve() == curve1);
 
@@ -650,8 +650,8 @@ TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][TubeTrail] Assign same curve to two different tube trails") {
-		Ref<TubeTrailMesh> tube2 = memnew(TubeTrailMesh);
-		Ref<Curve> curve = memnew(Curve);
+		Ref<TubeTrailMesh> tube2 = memnewOld(TubeTrailMesh);
+		Ref<Curve> curve = memnewOld(Curve);
 		tube->set_curve(curve);
 		tube2->set_curve(curve);
 
@@ -661,7 +661,7 @@ TEST_CASE("[SceneTree][Primitive][TubeTrail] TubeTrail Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
-	Ref<RibbonTrailMesh> ribbon = memnew(RibbonTrailMesh);
+	Ref<RibbonTrailMesh> ribbon = memnewOld(RibbonTrailMesh);
 
 	SUBCASE("[Primitive][RibbonTrail] There are valid values of properties on initialization.") {
 		CHECK(ribbon->get_size() > 0);
@@ -675,7 +675,7 @@ TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][RibbonTrail] Able to change properties.") {
-		Ref<Curve> curve = memnew(Curve);
+		Ref<Curve> curve = memnewOld(Curve);
 		ribbon->set_size(4.3f);
 		ribbon->set_sections(16);
 		ribbon->set_section_length(1.3f);
@@ -690,7 +690,7 @@ TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][RibbonTrail] Setting same curve more than once, it remains the same.") {
-		Ref<Curve> curve = memnew(Curve);
+		Ref<Curve> curve = memnewOld(Curve);
 		ribbon->set_curve(curve);
 		ribbon->set_curve(curve);
 		ribbon->set_curve(curve);
@@ -699,8 +699,8 @@ TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][RibbonTrail] Setting curve, then changing to different curve.") {
-		Ref<Curve> curve1 = memnew(Curve);
-		Ref<Curve> curve2 = memnew(Curve);
+		Ref<Curve> curve1 = memnewOld(Curve);
+		Ref<Curve> curve2 = memnewOld(Curve);
 		ribbon->set_curve(curve1);
 		CHECK(ribbon->get_curve() == curve1);
 
@@ -709,8 +709,8 @@ TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
 	}
 
 	SUBCASE("[Primitive][RibbonTrail] Assign same curve to two different ribbon trails") {
-		Ref<RibbonTrailMesh> ribbon2 = memnew(RibbonTrailMesh);
-		Ref<Curve> curve = memnew(Curve);
+		Ref<RibbonTrailMesh> ribbon2 = memnewOld(RibbonTrailMesh);
+		Ref<Curve> curve = memnewOld(Curve);
 		ribbon->set_curve(curve);
 		ribbon2->set_curve(curve);
 
@@ -720,7 +720,7 @@ TEST_CASE("[SceneTree][Primitive][RibbonTrail] RibbonTrail Primitive") {
 }
 
 TEST_CASE("[SceneTree][Primitive][Text] Text Primitive") {
-	Ref<TextMesh> text = memnew(TextMesh);
+	Ref<TextMesh> text = memnewOld(TextMesh);
 
 	SUBCASE("[Primitive][Text] There are valid values of properties on initialization.") {
 		CHECK((text->get_horizontal_alignment() == HORIZONTAL_ALIGNMENT_CENTER ||
@@ -756,7 +756,7 @@ TEST_CASE("[SceneTree][Primitive][Text] Text Primitive") {
 	}
 
 	SUBCASE("[Primitive][Text] Change the properties of the mesh.") {
-		Ref<Font> font = memnew(Font);
+		Ref<Font> font = memnewOld(Font);
 		Array options{};
 		Point2 offset{ 30.8, 104.23 };
 		text->set_horizontal_alignment(HORIZONTAL_ALIGNMENT_RIGHT);
@@ -801,7 +801,7 @@ TEST_CASE("[SceneTree][Primitive][Text] Text Primitive") {
 	}
 
 	SUBCASE("[Primitive][Text] Set objects multiple times.") {
-		Ref<Font> font = memnew(Font);
+		Ref<Font> font = memnewOld(Font);
 		Array options{};
 		Point2 offset{ 30.8, 104.23 };
 
@@ -821,8 +821,8 @@ TEST_CASE("[SceneTree][Primitive][Text] Text Primitive") {
 	}
 
 	SUBCASE("[Primitive][Text] Set then change objects.") {
-		Ref<Font> font1 = memnew(Font);
-		Ref<Font> font2 = memnew(Font);
+		Ref<Font> font1 = memnewOld(Font);
+		Ref<Font> font2 = memnewOld(Font);
 		Array options1{};
 		Array options2{};
 		Point2 offset1{ 30.8, 104.23 };
@@ -846,8 +846,8 @@ TEST_CASE("[SceneTree][Primitive][Text] Text Primitive") {
 	}
 
 	SUBCASE("[Primitive][Text] Assign same font to two Textmeshes.") {
-		Ref<TextMesh> text2 = memnew(TextMesh);
-		Ref<Font> font = memnew(Font);
+		Ref<TextMesh> text2 = memnewOld(TextMesh);
+		Ref<Font> font = memnewOld(Font);
 
 		text->set_font(font);
 		text2->set_font(font);

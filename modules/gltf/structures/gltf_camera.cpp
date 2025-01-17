@@ -72,7 +72,7 @@ Ref<GLTFCamera> GLTFCamera::from_node(const Camera3D *p_camera) {
 }
 
 Camera3D *GLTFCamera::to_node() const {
-	Camera3D *camera = memnew(Camera3D);
+	Camera3D *camera = memnewOld(Camera3D);
 	camera->set_projection(perspective ? Camera3D::PROJECTION_PERSPECTIVE : Camera3D::PROJECTION_ORTHOGONAL);
 	// GLTF spec (yfov) is in radians, Godot's camera (fov) is in degrees.
 	camera->set_fov(Math::rad_to_deg(fov));

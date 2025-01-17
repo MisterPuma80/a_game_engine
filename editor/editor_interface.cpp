@@ -280,7 +280,7 @@ void EditorInterface::popup_node_selector(const Callable &p_callback, const Type
 		get_base_control()->remove_child(node_selector);
 		node_selector->queue_free();
 	}
-	node_selector = memnew(SceneTreeDialog);
+	node_selector = memnewOld(SceneTreeDialog);
 
 	Vector<StringName> valid_types;
 	int length = p_valid_types.size();
@@ -309,7 +309,7 @@ void EditorInterface::popup_property_selector(Object *p_object, const Callable &
 		get_base_control()->remove_child(property_selector);
 		property_selector->queue_free();
 	}
-	property_selector = memnew(PropertySelector);
+	property_selector = memnewOld(PropertySelector);
 
 	Vector<Variant::Type> type_filter;
 	int length = p_type_filter.size();
@@ -622,7 +622,7 @@ void EditorInterface::_bind_methods() {
 }
 
 void EditorInterface::create() {
-	memnew(EditorInterface);
+	memnewOld(EditorInterface);
 }
 
 void EditorInterface::free() {

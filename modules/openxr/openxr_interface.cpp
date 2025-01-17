@@ -329,7 +329,7 @@ OpenXRInterface::ActionSet *OpenXRInterface::create_action_set(const String &p_a
 		}
 	}
 
-	ActionSet *action_set = memnew(ActionSet);
+	ActionSet *action_set = memnewOld(ActionSet);
 	action_set->action_set_name = p_action_set_name;
 	action_set->is_active = true;
 	action_set->action_set_rid = openxr_api->action_set_create(p_action_set_name, p_localized_name, p_priority);
@@ -368,7 +368,7 @@ OpenXRInterface::Action *OpenXRInterface::create_action(ActionSet *p_action_set,
 		tracker_rids.push_back(p_trackers[i]->tracker_rid);
 	}
 
-	Action *action = memnew(Action);
+	Action *action = memnewOld(Action);
 	if (p_action_type == OpenXRAction::OPENXR_ACTION_POSE) {
 		// We can't have dual action names in OpenXR hence we added _pose,
 		// but default, aim and grip and default pose action names in Godot so rename them on the tracker.
@@ -472,7 +472,7 @@ OpenXRInterface::Tracker *OpenXRInterface::find_tracker(const String &p_tracker_
 	xr_server->add_tracker(controller_tracker);
 
 	// create a new entry
-	tracker = memnew(Tracker);
+	tracker = memnewOld(Tracker);
 	tracker->tracker_name = p_tracker_name;
 	tracker->tracker_rid = tracker_rid;
 	tracker->controller_tracker = controller_tracker;

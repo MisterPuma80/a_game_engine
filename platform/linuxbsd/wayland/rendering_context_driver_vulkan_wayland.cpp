@@ -54,7 +54,7 @@ RenderingContextDriver::SurfaceID RenderingContextDriverVulkanWayland::surface_c
 	VkResult err = vkCreateWaylandSurfaceKHR(instance_get(), &create_info, nullptr, &vk_surface);
 	ERR_FAIL_COND_V(err != VK_SUCCESS, SurfaceID());
 
-	Surface *surface = memnew(Surface);
+	Surface *surface = memnewOld(Surface);
 	surface->vk_surface = vk_surface;
 	return SurfaceID(surface);
 }

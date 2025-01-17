@@ -787,7 +787,7 @@ void AudioServer::set_bus_count(int p_count) {
 			}
 		}
 
-		buses.write[i] = memnew(Bus);
+		buses.write[i] = memnewOld(Bus);
 		buses.write[i]->channels.resize(channel_count);
 		for (int j = 0; j < channel_count; j++) {
 			buses.write[i]->channels.write[j].buffer.resize(buffer_size);
@@ -860,7 +860,7 @@ void AudioServer::add_bus(int p_at_pos) {
 		}
 	}
 
-	Bus *bus = memnew(Bus);
+	Bus *bus = memnewOld(Bus);
 	bus->channels.resize(channel_count);
 	for (int j = 0; j < channel_count; j++) {
 		bus->channels.write[j].buffer.resize(buffer_size);
@@ -1692,7 +1692,7 @@ void AudioServer::set_bus_layout(const Ref<AudioBusLayout> &p_bus_layout) {
 	AudioDriver::get_singleton()->set_sample_bus_count(buses.size());
 
 	for (int i = 0; i < p_bus_layout->buses.size(); i++) {
-		Bus *bus = memnew(Bus);
+		Bus *bus = memnewOld(Bus);
 		if (i == 0) {
 			bus->name = SceneStringName(Master);
 		} else {

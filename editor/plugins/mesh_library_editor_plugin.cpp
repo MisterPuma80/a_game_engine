@@ -247,7 +247,7 @@ void MeshLibraryEditor::_bind_methods() {
 }
 
 MeshLibraryEditor::MeshLibraryEditor() {
-	file = memnew(EditorFileDialog);
+	file = memnewOld(EditorFileDialog);
 	file->set_file_mode(EditorFileDialog::FILE_MODE_OPEN_FILE);
 	//not for now?
 	List<String> extensions;
@@ -260,7 +260,7 @@ MeshLibraryEditor::MeshLibraryEditor() {
 	add_child(file);
 	file->connect("file_selected", callable_mp(this, &MeshLibraryEditor::_import_scene_cbk));
 
-	menu = memnew(MenuButton);
+	menu = memnewOld(MenuButton);
 	Node3DEditor::get_singleton()->add_control_to_menu_panel(menu);
 	menu->set_position(Point2(1, 1));
 	menu->set_text(TTR("MeshLibrary"));
@@ -275,10 +275,10 @@ MeshLibraryEditor::MeshLibraryEditor() {
 	menu->get_popup()->connect(SceneStringName(id_pressed), callable_mp(this, &MeshLibraryEditor::_menu_cbk));
 	menu->hide();
 
-	cd_remove = memnew(ConfirmationDialog);
+	cd_remove = memnewOld(ConfirmationDialog);
 	add_child(cd_remove);
 	cd_remove->get_ok_button()->connect(SceneStringName(pressed), callable_mp(this, &MeshLibraryEditor::_menu_remove_confirm));
-	cd_update = memnew(ConfirmationDialog);
+	cd_update = memnewOld(ConfirmationDialog);
 	add_child(cd_update);
 	cd_update->set_ok_button_text(TTR("Apply without Transforms"));
 	cd_update->get_ok_button()->connect(SceneStringName(pressed), callable_mp(this, &MeshLibraryEditor::_menu_update_confirm).bind(false));
@@ -310,7 +310,7 @@ void MeshLibraryEditorPlugin::make_visible(bool p_visible) {
 }
 
 MeshLibraryEditorPlugin::MeshLibraryEditorPlugin() {
-	mesh_library_editor = memnew(MeshLibraryEditor);
+	mesh_library_editor = memnewOld(MeshLibraryEditor);
 
 	EditorNode::get_singleton()->get_main_screen_control()->add_child(mesh_library_editor);
 	mesh_library_editor->set_anchors_and_offsets_preset(Control::PRESET_TOP_WIDE);

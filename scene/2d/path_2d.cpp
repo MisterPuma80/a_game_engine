@@ -247,7 +247,7 @@ void PathFollow2D::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_READY: {
 			if (Engine::get_singleton()->is_editor_hint()) {
-				update_timer = memnew(Timer);
+				update_timer = memnewOld(Timer);
 				update_timer->set_wait_time(0.2);
 				update_timer->set_one_shot(true);
 				update_timer->connect("timeout", callable_mp(this, &PathFollow2D::_update_transform));

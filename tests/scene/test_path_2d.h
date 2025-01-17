@@ -39,15 +39,15 @@ namespace TestPath2D {
 
 TEST_CASE("[SceneTree][Path2D] Initialization") {
 	SUBCASE("Path should be empty right after initialization") {
-		Path2D *test_path = memnew(Path2D);
+		Path2D *test_path = memnewOld(Path2D);
 		CHECK(test_path->get_curve() == nullptr);
 		memdelete(test_path);
 	}
 }
 
 TEST_CASE("[SceneTree][Path2D] Curve setter and getter") {
-	Path2D *test_path = memnew(Path2D);
-	const Ref<Curve2D> &curve = memnew(Curve2D);
+	Path2D *test_path = memnewOld(Path2D);
+	const Ref<Curve2D> &curve = memnewOld(Curve2D);
 
 	SUBCASE("Curve passed to the class should remain the same") {
 		test_path->set_curve(curve);
@@ -60,8 +60,8 @@ TEST_CASE("[SceneTree][Path2D] Curve setter and getter") {
 		CHECK(test_path->get_curve() == curve);
 	}
 	SUBCASE("Curve rewrite testing") {
-		const Ref<Curve2D> &curve1 = memnew(Curve2D);
-		const Ref<Curve2D> &curve2 = memnew(Curve2D);
+		const Ref<Curve2D> &curve1 = memnewOld(Curve2D);
+		const Ref<Curve2D> &curve2 = memnewOld(Curve2D);
 
 		test_path->set_curve(curve1);
 		test_path->set_curve(curve2);
@@ -72,7 +72,7 @@ TEST_CASE("[SceneTree][Path2D] Curve setter and getter") {
 	}
 
 	SUBCASE("Assign same curve to two paths") {
-		Path2D *path2 = memnew(Path2D);
+		Path2D *path2 = memnewOld(Path2D);
 
 		test_path->set_curve(curve);
 		path2->set_curve(curve);
@@ -82,9 +82,9 @@ TEST_CASE("[SceneTree][Path2D] Curve setter and getter") {
 	}
 
 	SUBCASE("Swapping curves between two paths") {
-		Path2D *path2 = memnew(Path2D);
-		const Ref<Curve2D> &curve1 = memnew(Curve2D);
-		const Ref<Curve2D> &curve2 = memnew(Curve2D);
+		Path2D *path2 = memnewOld(Path2D);
+		const Ref<Curve2D> &curve1 = memnewOld(Curve2D);
+		const Ref<Curve2D> &curve2 = memnewOld(Curve2D);
 
 		test_path->set_curve(curve1);
 		path2->set_curve(curve2);

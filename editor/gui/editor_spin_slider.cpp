@@ -718,11 +718,11 @@ void EditorSpinSlider::_ensure_input_popup() {
 		return;
 	}
 
-	value_input_popup = memnew(Control);
+	value_input_popup = memnewOld(Control);
 	value_input_popup->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
 	add_child(value_input_popup);
 
-	value_input = memnew(LineEdit);
+	value_input = memnewOld(LineEdit);
 	value_input->set_focus_mode(FOCUS_CLICK);
 	value_input_popup->add_child(value_input);
 	value_input->set_anchors_and_offsets_preset(PRESET_FULL_RECT);
@@ -738,7 +738,7 @@ void EditorSpinSlider::_ensure_input_popup() {
 
 EditorSpinSlider::EditorSpinSlider() {
 	set_focus_mode(FOCUS_ALL);
-	grabber = memnew(TextureRect);
+	grabber = memnewOld(TextureRect);
 	add_child(grabber);
 	grabber->hide();
 	grabber->set_z_index(1);

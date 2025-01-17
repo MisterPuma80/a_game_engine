@@ -1026,14 +1026,14 @@ void DisplayServerWeb::_dispatch_input_event(const Ref<InputEvent> &p_event) {
 }
 
 DisplayServer *DisplayServerWeb::create_func(const String &p_rendering_driver, WindowMode p_window_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Point2i *p_position, const Size2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
-	return memnew(DisplayServerWeb(p_rendering_driver, p_window_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
+	return memnewOld(DisplayServerWeb(p_rendering_driver, p_window_mode, p_vsync_mode, p_flags, p_position, p_resolution, p_screen, p_context, r_error));
 }
 
 DisplayServerWeb::DisplayServerWeb(const String &p_rendering_driver, WindowMode p_window_mode, VSyncMode p_vsync_mode, uint32_t p_flags, const Point2i *p_position, const Size2i &p_resolution, int p_screen, Context p_context, Error &r_error) {
 	r_error = OK; // Always succeeds for now.
 
 	tts = GLOBAL_GET("audio/general/text_to_speech");
-	native_menu = memnew(NativeMenu); // Dummy native menu.
+	native_menu = memnewOld(NativeMenu); // Dummy native menu.
 
 	// Ensure the canvas ID.
 	godot_js_config_canvas_id_get(canvas_id, 256);

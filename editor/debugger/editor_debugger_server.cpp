@@ -59,7 +59,7 @@ public:
 
 EditorDebuggerServer *EditorDebuggerServerTCP::create(const String &p_protocol) {
 	ERR_FAIL_COND_V(p_protocol != "tcp://", nullptr);
-	return memnew(EditorDebuggerServerTCP);
+	return memnewOld(EditorDebuggerServerTCP);
 }
 
 EditorDebuggerServerTCP::EditorDebuggerServerTCP() {
@@ -118,7 +118,7 @@ bool EditorDebuggerServerTCP::is_connection_available() const {
 
 Ref<RemoteDebuggerPeer> EditorDebuggerServerTCP::take_connection() {
 	ERR_FAIL_COND_V(!is_connection_available(), Ref<RemoteDebuggerPeer>());
-	return memnew(RemoteDebuggerPeerTCP(server->take_connection()));
+	return memnewOld(RemoteDebuggerPeerTCP(server->take_connection()));
 }
 
 /// EditorDebuggerServer

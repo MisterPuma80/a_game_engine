@@ -151,7 +151,7 @@ EditorProgress *VoxelGIEditorPlugin::tmp_progress = nullptr;
 void VoxelGIEditorPlugin::bake_func_begin(int p_steps) {
 	ERR_FAIL_COND(tmp_progress != nullptr);
 
-	tmp_progress = memnew(EditorProgress("bake_gi", TTR("Bake VoxelGI"), p_steps));
+	tmp_progress = memnewOld(EditorProgress("bake_gi", TTR("Bake VoxelGI"), p_steps));
 }
 
 void VoxelGIEditorPlugin::bake_func_step(int p_step, const String &p_description) {
@@ -183,10 +183,10 @@ void VoxelGIEditorPlugin::_bind_methods() {
 }
 
 VoxelGIEditorPlugin::VoxelGIEditorPlugin() {
-	bake_hb = memnew(HBoxContainer);
+	bake_hb = memnewOld(HBoxContainer);
 	bake_hb->set_h_size_flags(Control::SIZE_EXPAND_FILL);
 	bake_hb->hide();
-	bake = memnew(Button);
+	bake = memnewOld(Button);
 	bake->set_theme_type_variation("FlatButton");
 	// TODO: Rework this as a dedicated toolbar control so we can hook into theme changes and update it
 	// when the editor theme updates.
@@ -197,7 +197,7 @@ VoxelGIEditorPlugin::VoxelGIEditorPlugin() {
 
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, bake_hb);
 	voxel_gi = nullptr;
-	probe_file = memnew(EditorFileDialog);
+	probe_file = memnewOld(EditorFileDialog);
 	probe_file->set_file_mode(EditorFileDialog::FILE_MODE_SAVE_FILE);
 	probe_file->add_filter("*.res");
 	probe_file->connect("file_selected", callable_mp(this, &VoxelGIEditorPlugin::_voxel_gi_save_path_and_bake));
