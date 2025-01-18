@@ -52,6 +52,11 @@ Arena g_memeory_arena_code(ARENA_SIZE);
 Arena g_memeory_arena_collections(ARENA_SIZE);
 Arena g_memeory_arena_physics(ARENA_SIZE);
 
+std::atomic<int> counter{0};
+std::unordered_map<std::size_t, int> hash_to_id;
+std::unordered_map<std::string, int> name_to_id;
+std::unordered_map<int, std::string> id_to_name;
+
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {
 		return false;
@@ -59,7 +64,14 @@ bool starts_with(const std::string& str, const std::string& prefix) {
 	return str.compare(0, prefix.length(), prefix) == 0;
 }
 
-bool is_type_gdscript(const std::string& type_name) {
+bool is_type_gdscript(const int type_id) {
+	auto it = id_to_name.find(type_id);
+	bool is_in_map = it != id_to_name.end();
+	if (!is_in_map) {
+		return false;
+	}
+	const std::string type_name = it->second;
+
 	const std::string fucks[] = {
 		"GDScript",
 	};
@@ -78,7 +90,14 @@ bool is_type_gdscript(const std::string& type_name) {
 	return false;
 }
 
-bool is_type_collection(const std::string& type_name) {
+bool is_type_collection(const int type_id) {
+	auto it = id_to_name.find(type_id);
+	bool is_in_map = it != id_to_name.end();
+	if (!is_in_map) {
+		return false;
+	}
+	const std::string type_name = it->second;
+
 	if (starts_with(type_name, "Variant::") ||
 		starts_with(type_name, "StringName::")
 		) {
@@ -88,11 +107,40 @@ bool is_type_collection(const std::string& type_name) {
 	return false;
 }
 
-bool is_type_physics(const std::string& type_name) {
+bool is_type_physics(const int type_id) {
+	auto it = id_to_name.find(type_id);
+	bool is_in_map = it != id_to_name.end();
+	if (!is_in_map) {
+		return false;
+	}
+	const std::string type_name = it->second;
+
 	const std::string fucks[] = {
 		"RigidBody3D",
 		"StaticBody3D",
 		"CharacterBody3D"
+	};
+
+	size_t length = sizeof(fucks) / sizeof(fucks[0]);
+	for (size_t i=0; i<length; ++i) {
+		if (fucks[i] == type_name) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool is_type_image(const int type_id) {
+	auto it = id_to_name.find(type_id);
+	bool is_in_map = it != id_to_name.end();
+	if (!is_in_map) {
+		return false;
+	}
+	const std::string type_name = it->second;
+
+	const std::string fucks[] = {
+		"Image"
 	};
 
 	size_t length = sizeof(fucks) / sizeof(fucks[0]);

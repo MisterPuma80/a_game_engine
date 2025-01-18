@@ -43,6 +43,11 @@
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <typeinfo>
+#include <unordered_map>
+#include <atomic>
+#include <vector>
+#include <algorithm>
 
 class Memory {
 #ifdef DEBUG_ENABLED
@@ -158,12 +163,13 @@ extern Arena g_memeory_arena_collections;
 extern Arena g_memeory_arena_physics;
 
 bool starts_with(const std::string& str, const std::string& prefix);
-bool is_type_gdscript(const std::string& type_name);
-bool is_type_collection(const std::string& type_name);
-bool is_type_physics(const std::string& type_name);
+bool is_type_gdscript(const int type_id);
+bool is_type_collection(const int type_id);
+bool is_type_physics(const int type_id);
+bool is_type_image(const int type_id);
 
 template <typename T>
-std::string get_type_name() {
+std::string _get_type_name() {
 	const char* name = typeid(T).name();
     int status = -4;
     std::unique_ptr<char, void(*)(void*)> res {
@@ -174,9 +180,51 @@ std::string get_type_name() {
 }
 
 template <typename T>
+int _get_type_hash_code() {
+	return typeid(T).hash_code();
+}
+
+extern std::atomic<int> counter;
+extern std::unordered_map<std::size_t, int> hash_to_id;
+extern std::unordered_map<std::string, int> name_to_id;
+extern std::unordered_map<int, std::string> id_to_name;
+
+template <typename T>
+int hash_code_to_type_id() {
+	const int hash = _get_type_hash_code<T>();
+	auto it = hash_to_id.find(hash);
+	if (it != hash_to_id.end()) {
+		return it->second;
+	} else {
+		int id = ++counter;
+		std::string type_name = _get_type_name<T>();
+		hash_to_id[hash] = id;
+		name_to_id[type_name] = id;
+		id_to_name[id] = type_name;
+		return id;
+	}
+}
+
+template <typename T>
+int t_to_type_id() {
+	const std::string type_name = _get_type_name<T>();
+	auto it = name_to_id.find(type_name);
+	if (it != name_to_id.end()) {
+		return it->second;
+	} else {
+		int id = ++counter;
+		int hash = _get_type_hash_code<T>();
+		hash_to_id[hash] = id;
+		name_to_id[type_name] = id;
+		id_to_name[id] = type_name;
+		return id;
+	}
+}
+
+template <typename T>
 void print_type_info(const char* message) {
 	if (g_is_logging) {
-		std::string type_name = get_type_name<T>();
+		std::string type_name = _get_type_name<T>();
 		std::cout << "???? " << message << ": " << type_name << std::endl;
 		std::cout.flush();
 	}
@@ -207,19 +255,20 @@ void print_type_info(const char* message) {
 
 template <typename T, typename... Args>
 /*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	const std::string type_name = get_type_name<T>();
+	//const std::string type_name = _get_type_name<T>();
+	const int type_id = t_to_type_id<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_name)) {
+	if (is_type_gdscript(type_id)) {
 		result = g_memeory_arena_code.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_collection(type_name)) {
+	} else if (is_type_collection(type_id)) {
 		result = g_memeory_arena_collections.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_name)) {
+	} else if (is_type_physics(type_id)) {
 		result = g_memeory_arena_physics.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (type_name == "Image") {
+	} else if (is_type_image(type_id)) {
 		result = g_memeory_arena_images.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
 	} else {
@@ -233,19 +282,20 @@ template <typename T, typename... Args>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	const std::string type_name = get_type_name<T>();
+	//const std::string type_name = _get_type_name<T>();
+	const int type_id = t_to_type_id<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_name)) {
+	if (is_type_gdscript(type_id)) {
 		result = g_memeory_arena_code.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
-	} else if (is_type_collection(type_name)) {
+	} else if (is_type_collection(type_id)) {
 		result = g_memeory_arena_collections.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_name)) {
+	} else if (is_type_physics(type_id)) {
 		result = g_memeory_arena_physics.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (type_name == "Image") {
+	} else if (is_type_image(type_id)) {
 		result = g_memeory_arena_images.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
 	} else {
@@ -259,19 +309,20 @@ template <typename T>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	const std::string type_name = get_type_name<T>();
+	//const std::string type_name = _get_type_name<T>();
+	const int type_id = t_to_type_id<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_name)) {
+	if (is_type_gdscript(type_id)) {
 		result = g_memeory_arena_code.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoArgs");
-	} else if (is_type_collection(type_name)) {
+	} else if (is_type_collection(type_id)) {
 		result = g_memeory_arena_collections.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_name)) {
+	} else if (is_type_physics(type_id)) {
 		result = g_memeory_arena_physics.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (type_name == "Image") {
+	} else if (is_type_image(type_id)) {
 		result = g_memeory_arena_images.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoArgs");
 	} else {
@@ -292,7 +343,8 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	const std::string type_name = get_type_name<T>();
+	//const std::string type_name = _get_type_name<T>();
+	const int type_id = t_to_type_id<T>();
 
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
@@ -302,13 +354,13 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	if (is_type_gdscript(type_name)) {
+	if (is_type_gdscript(type_id)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_collection(type_name)) {
+	} else if (is_type_collection(type_id)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_physics(type_name)) {
+	} else if (is_type_physics(type_id)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (type_name == "Image") {
+	} else if (is_type_image(type_id)) {
 		// FIXME: Have the Arena free the memory here
 	} else {
 		Memory::free_static(p_class, false);
