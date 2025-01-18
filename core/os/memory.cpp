@@ -44,18 +44,65 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 	return p_allocfunc(p_size);
 }
 
-bool g_is_logging = true;
+bool g_is_logging = false;
 
 const size_t ARENA_SIZE = 1024 * 1024 * 512;
 Arena g_memeory_arena_images(ARENA_SIZE);
 Arena g_memeory_arena_code(ARENA_SIZE);
-
+Arena g_memeory_arena_collections(ARENA_SIZE);
+Arena g_memeory_arena_physics(ARENA_SIZE);
 
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {
 		return false;
 	}
 	return str.compare(0, prefix.length(), prefix) == 0;
+}
+
+bool is_type_gdscript(const std::string& type_name) {
+	const std::string fucks[] = {
+		"GDScript",
+	};
+
+	if (starts_with(type_name, "GDScriptParser::")) {
+		return true;
+	}
+
+	size_t length = sizeof(fucks) / sizeof(fucks[0]);
+	for (size_t i=0; i<length; ++i) {
+		if (fucks[i] == type_name) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool is_type_collection(const std::string& type_name) {
+	if (starts_with(type_name, "Variant::") ||
+		starts_with(type_name, "StringName::")
+		) {
+		return true;
+	}
+
+	return false;
+}
+
+bool is_type_physics(const std::string& type_name) {
+	const std::string fucks[] = {
+		"RigidBody3D",
+		"StaticBody3D",
+		"CharacterBody3D"
+	};
+
+	size_t length = sizeof(fucks) / sizeof(fucks[0]);
+	for (size_t i=0; i<length; ++i) {
+		if (fucks[i] == type_name) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 #ifdef _MSC_VER

@@ -154,8 +154,13 @@ struct Arena {
 
 extern Arena g_memeory_arena_images;
 extern Arena g_memeory_arena_code;
+extern Arena g_memeory_arena_collections;
+extern Arena g_memeory_arena_physics;
 
 bool starts_with(const std::string& str, const std::string& prefix);
+bool is_type_gdscript(const std::string& type_name);
+bool is_type_collection(const std::string& type_name);
+bool is_type_physics(const std::string& type_name);
 
 template <typename T>
 std::string get_type_name() {
@@ -202,18 +207,24 @@ void print_type_info(const char* message) {
 
 template <typename T, typename... Args>
 /*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	std::string type_name = get_type_name<T>();
+	const std::string type_name = get_type_name<T>();
 	T* result = nullptr;
 
-	if (starts_with(type_name, "GDScriptParser::")) {
+	if (is_type_gdscript(type_name)) {
 		result = g_memeory_arena_code.allocate<T>(std::forward<Args>(args)...);
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else if (is_type_collection(type_name)) {
+		result = g_memeory_arena_collections.allocate<T>(std::forward<Args>(args)...);
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else if (is_type_physics(type_name)) {
+		result = g_memeory_arena_physics.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
 	} else if (type_name == "Image") {
 		result = g_memeory_arena_images.allocate<T>(std::forward<Args>(args)...);
 		//print_type_info<T>("!!!!!!!!memnewWithArgs");
 	} else {
 		result = new ("") T(std::forward<Args>(args)...);
-		print_type_info<T>("memnewWithArgs");
+		//print_type_info<T>("memnewWithArgs");
 	}
 
 	postinitialize_handler(result);
@@ -222,18 +233,24 @@ template <typename T, typename... Args>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	std::string type_name = get_type_name<T>();
+	const std::string type_name = get_type_name<T>();
 	T* result = nullptr;
 
-	if (starts_with(type_name, "GDScriptParser::")) {
+	if (is_type_gdscript(type_name)) {
 		result = g_memeory_arena_code.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
+	} else if (is_type_collection(type_name)) {
+		result = g_memeory_arena_collections.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else if (is_type_physics(type_name)) {
+		result = g_memeory_arena_physics.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
 	} else if (type_name == "Image") {
 		result = g_memeory_arena_images.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
 	} else {
 		result = new ("") T;
-		print_type_info<T>("memnewNoConstructor");
+		//print_type_info<T>("memnewNoConstructor");
 	}
 
 	postinitialize_handler(result);
@@ -242,18 +259,24 @@ template <typename T>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	std::string type_name = get_type_name<T>();
+	const std::string type_name = get_type_name<T>();
 	T* result = nullptr;
 
-	if (starts_with(type_name, "GDScriptParser::")) {
+	if (is_type_gdscript(type_name)) {
 		result = g_memeory_arena_code.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoArgs");
+	} else if (is_type_collection(type_name)) {
+		result = g_memeory_arena_collections.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else if (is_type_physics(type_name)) {
+		result = g_memeory_arena_physics.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
 	} else if (type_name == "Image") {
 		result = g_memeory_arena_images.allocate<T>();
 		//print_type_info<T>("!!!!!!!!memnewNoArgs");
 	} else {
 		result = new ("") T;
-		print_type_info<T>("memnewNoArgs");
+		//print_type_info<T>("memnewNoArgs");
 	}
 
 	postinitialize_handler(result);
@@ -269,7 +292,7 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	std::string type_name = get_type_name<T>();
+	const std::string type_name = get_type_name<T>();
 
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
@@ -279,7 +302,11 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	if (starts_with(type_name, "GDScriptParser::")) {
+	if (is_type_gdscript(type_name)) {
+		// FIXME: Have the Arena free the memory here
+	} else if (is_type_collection(type_name)) {
+		// FIXME: Have the Arena free the memory here
+	} else if (is_type_physics(type_name)) {
 		// FIXME: Have the Arena free the memory here
 	} else if (type_name == "Image") {
 		// FIXME: Have the Arena free the memory here
