@@ -44,6 +44,20 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 	return p_allocfunc(p_size);
 }
 
+bool g_is_logging = true;
+
+const size_t ARENA_SIZE = 1024 * 1024 * 512;
+Arena g_memeory_arena_images(ARENA_SIZE);
+Arena g_memeory_arena_code(ARENA_SIZE);
+
+
+bool starts_with(const std::string& str, const std::string& prefix) {
+	if (str.length() < prefix.length()) {
+		return false;
+	}
+	return str.compare(0, prefix.length(), prefix) == 0;
+}
+
 #ifdef _MSC_VER
 void operator delete(void *p_mem, const char *p_description) {
 	CRASH_NOW_MSG("Call to placement delete should not happen.");

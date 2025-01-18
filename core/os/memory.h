@@ -107,6 +107,55 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
 
+extern bool g_is_logging;
+
+struct Arena {
+	size_t m_size;
+	size_t m_used;
+	uint8_t* m_buffer;
+
+	explicit Arena(size_t size) :
+		m_size(size),
+		m_used(0) {
+		m_buffer = new uint8_t[size];
+	}
+
+	~Arena() {
+		delete[] m_buffer;
+	}
+
+	template <typename T, typename... Args>
+	T* allocate(Args&&... args) {
+		// Get the memory location
+		size_t alignment = alignof(T);
+		uintptr_t current = reinterpret_cast<uintptr_t>(m_buffer + m_used);
+		uintptr_t aligned = (current + alignment - 1) & ~(alignment - 1);
+		size_t padding = aligned - current;
+
+		// Make sure there is enough space
+		size_t total_size = sizeof(T);
+		if (m_used + total_size + padding > m_size) {
+			std::cerr << "Out of memory" << std::endl;
+			std::cerr.flush();
+			return nullptr;
+		}
+		m_used += total_size + padding;
+
+		// Call the constructor and use the memory location
+		T* result = new (reinterpret_cast<void*>(aligned)) T(std::forward<Args>(args)...);
+		return result;
+	}
+
+	void reset() {
+		m_used = 0;
+	}
+};
+
+
+extern Arena g_memeory_arena_images;
+extern Arena g_memeory_arena_code;
+
+bool starts_with(const std::string& str, const std::string& prefix);
 
 template <typename T>
 std::string get_type_name() {
@@ -121,9 +170,11 @@ std::string get_type_name() {
 
 template <typename T>
 void print_type_info(const char* message) {
-	std::string type_name = get_type_name<T>();
-	std::cout << "!!!!! " << message << ": " << type_name << std::endl;
-	std::cout.flush();
+	if (g_is_logging) {
+		std::string type_name = get_type_name<T>();
+		std::cout << "???? " << message << ": " << type_name << std::endl;
+		std::cout.flush();
+	}
 }
 
 #define memnewOldWithArgs2(T, m_class) \
@@ -134,8 +185,10 @@ void print_type_info(const char* message) {
 
 #define memnewOldWithArgs3(name, m_class) \
 ({ \
-	std::cout << "!!!!! memnewOldWithArgs3: " << name << std::endl; \
-	std::cout.flush(); \
+	if (g_is_logging) { \
+		std::cout << "???? memnewOldWithArgs3: " << name << std::endl; \
+		std::cout.flush(); \
+	}\
 	_post_initialize(new ("") m_class); \
 })
 
@@ -149,24 +202,60 @@ void print_type_info(const char* message) {
 
 template <typename T, typename... Args>
 /*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	T* result = new ("") T(std::forward<Args>(args)...);
-	print_type_info<T>("memnewWithArgs");
+	std::string type_name = get_type_name<T>();
+	T* result = nullptr;
+
+	if (starts_with(type_name, "GDScriptParser::")) {
+		result = g_memeory_arena_code.allocate<T>(std::forward<Args>(args)...);
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else if (type_name == "Image") {
+		result = g_memeory_arena_images.allocate<T>(std::forward<Args>(args)...);
+		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+	} else {
+		result = new ("") T(std::forward<Args>(args)...);
+		print_type_info<T>("memnewWithArgs");
+	}
+
 	postinitialize_handler(result);
 	return result;
 }
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	T* result = new ("") T;
-	print_type_info<T>("memnewNoConstructor");
+	std::string type_name = get_type_name<T>();
+	T* result = nullptr;
+
+	if (starts_with(type_name, "GDScriptParser::")) {
+		result = g_memeory_arena_code.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
+	} else if (type_name == "Image") {
+		result = g_memeory_arena_images.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
+	} else {
+		result = new ("") T;
+		print_type_info<T>("memnewNoConstructor");
+	}
+
 	postinitialize_handler(result);
 	return result;
 }
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	T* result = new ("") T;
-	print_type_info<T>("memnewNoArgs");
+	std::string type_name = get_type_name<T>();
+	T* result = nullptr;
+
+	if (starts_with(type_name, "GDScriptParser::")) {
+		result = g_memeory_arena_code.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewNoArgs");
+	} else if (type_name == "Image") {
+		result = g_memeory_arena_images.allocate<T>();
+		//print_type_info<T>("!!!!!!!!memnewNoArgs");
+	} else {
+		result = new ("") T;
+		print_type_info<T>("memnewNoArgs");
+	}
+
 	postinitialize_handler(result);
 	return result;
 }
@@ -180,14 +269,23 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
+	std::string type_name = get_type_name<T>();
+
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
 	}
+
 	if constexpr (!std::is_trivially_destructible_v<T>) {
 		p_class->~T();
 	}
 
-	Memory::free_static(p_class, false);
+	if (starts_with(type_name, "GDScriptParser::")) {
+		// FIXME: Have the Arena free the memory here
+	} else if (type_name == "Image") {
+		// FIXME: Have the Arena free the memory here
+	} else {
+		Memory::free_static(p_class, false);
+	}
 }
 
 template <typename T, typename A>
@@ -289,7 +387,7 @@ class DefaultTypedAllocator {
 public:
 	template <typename... Args>
 	_FORCE_INLINE_ T *new_allocation(const Args &&...p_args) { return memnewWithArgs<T>(p_args...); }
-	_FORCE_INLINE_ void delete_allocation(T *p_allocation) { memdelete(p_allocation); }
+	_FORCE_INLINE_ void delete_allocation(T *p_allocation) { memdelete<T>(p_allocation); }
 };
 
 #endif // MEMORY_H
