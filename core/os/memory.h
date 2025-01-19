@@ -114,6 +114,13 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 
 extern bool g_is_logging;
 
+bool starts_with(const std::string& str, const std::string& prefix);
+uint32_t hash_string(const std::string& str);
+bool is_type_gdscript(const uint32_t type_sig);
+bool is_type_collection(const uint32_t type_sig);
+bool is_type_physics(const uint32_t type_sig);
+bool is_type_image(const uint32_t type_sig);
+
 struct Arena {
 	size_t m_size;
 	size_t m_used;
@@ -162,78 +169,62 @@ extern Arena g_memeory_arena_code;
 extern Arena g_memeory_arena_collections;
 extern Arena g_memeory_arena_physics;
 
-bool starts_with(const std::string& str, const std::string& prefix);
-bool is_type_gdscript(const int type_id);
-bool is_type_collection(const int type_id);
-bool is_type_physics(const int type_id);
-bool is_type_image(const int type_id);
 
 template <typename T>
 std::string _get_type_name() {
 	const char* name = typeid(T).name();
     int status = -4;
     std::unique_ptr<char, void(*)(void*)> res {
-        abi::__cxa_demangle(name, NULL, NULL, &status),
+        abi::__cxa_demangle(name, nullptr, nullptr, &status),
         std::free
     };
-    return (status == 0) ? res.get() : name;
-}
 
-template <typename T>
-int _get_type_hash_code() {
-	return typeid(T).hash_code();
-}
-
-extern std::atomic<int> counter;
-extern std::unordered_map<std::size_t, int> hash_to_id;
-extern std::unordered_map<std::string, int> name_to_id;
-extern std::unordered_map<int, std::string> id_to_name;
-
-template <typename T>
-int hash_code_to_type_id() {
-	const int hash = _get_type_hash_code<T>();
-	auto it = hash_to_id.find(hash);
-	if (it != hash_to_id.end()) {
-		return it->second;
-	} else {
-		int id = ++counter;
-		std::string type_name = _get_type_name<T>();
-		hash_to_id[hash] = id;
-		name_to_id[type_name] = id;
-		id_to_name[id] = type_name;
-		return id;
+	if (status != 0) {
+		std::cerr << "?!?! demangle failed: name:" << name << " status:" << status << std::endl;
+		std::cerr.flush();
 	}
+
+	const std::string type_name = (status == 0) ? res.get() : name;
+	return type_name;
 }
 
 template <typename T>
-int t_to_type_id() {
-	const std::string type_name = _get_type_name<T>();
-	auto it = name_to_id.find(type_name);
-	if (it != name_to_id.end()) {
-		return it->second;
-	} else {
-		int id = ++counter;
-		int hash = _get_type_hash_code<T>();
-		hash_to_id[hash] = id;
-		name_to_id[type_name] = id;
-		id_to_name[id] = type_name;
-		return id;
-	}
+uint32_t _get_type_sig() {
+	return hash_string(_get_type_name<T>());
 }
 
 template <typename T>
 void print_type_info(const char* message) {
 	if (g_is_logging) {
 		std::string type_name = _get_type_name<T>();
-		std::cout << "???? " << message << ": " << type_name << std::endl;
+		std::cout << "???? " << message << ": type:" << type_name << std::endl;
 		std::cout.flush();
 	}
 }
 
 #define memnewOldWithArgs2(T, m_class) \
 ({ \
-	print_type_info<T>("memnewOldWithArgs2"); \
-	_post_initialize(new ("") m_class); \
+	uint32_t type_sig = _get_type_sig<T>(); \
+	T* result = nullptr; \
+	 \
+	if (is_type_gdscript(type_sig)) { \
+		result = new ("") m_class; \
+		print_type_info<T>("!!!!!!!! gdscript memnewOldWithArgs2"); \
+	} else if (is_type_collection(type_sig)) { \
+		result = new ("") m_class; \
+		print_type_info<T>("!!!!!!!! collection memnewOldWithArgs2"); \
+	} else if (is_type_physics(type_sig)) { \
+		result = new ("") m_class; \
+		print_type_info<T>("!!!!!!!! physics memnewOldWithArgs2"); \
+	} else if (is_type_image(type_sig)) { \
+		result = new ("") m_class; \
+		print_type_info<T>("!!!!!!!! images memnewOldWithArgs2"); \
+	} else { \
+		result = new ("") m_class; \
+		print_type_info<T>("!!!!!!!! none memnewOldWithArgs2"); \
+	} \
+	 \
+	_post_initialize(result); \
 })
 
 #define memnewOldWithArgs3(name, m_class) \
@@ -247,33 +238,50 @@ void print_type_info(const char* message) {
 
 #define memnewOldNoConstructor(T) \
 ({ \
-	T* result = new ("") T; \
-	print_type_info<T>("memnewOldNoConstructor"); \
+	uint32_t type_sig = _get_type_sig<T>(); \
+	T* result = nullptr; \
+	 \
+	if (is_type_gdscript(type_sig)) { \
+		result = new ("") T; \
+		print_type_info<T>("!!!!!!!! gdscript memnewOldNoConstructor"); \
+	} else if (is_type_collection(type_sig)) { \
+		result = new ("") T; \
+		print_type_info<T>("!!!!!!!! collection memnewOldNoConstructor"); \
+	} else if (is_type_physics(type_sig)) { \
+		result = new ("") T; \
+		print_type_info<T>("!!!!!!!! physics memnewOldNoConstructor"); \
+	} else if (is_type_image(type_sig)) { \
+		result = new ("") T; \
+		print_type_info<T>("!!!!!!!! images memnewOldNoConstructor"); \
+	} else { \
+		result = new ("") T; \
+		print_type_info<T>("!!!!!!!! none memnewOldNoConstructor"); \
+	} \
+	 \
 	_post_initialize(result); \
 	result; \
 })
 
 template <typename T, typename... Args>
 /*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	//const std::string type_name = _get_type_name<T>();
-	const int type_id = t_to_type_id<T>();
+	uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_id)) {
+	if (is_type_gdscript(type_sig)) {
 		result = g_memeory_arena_code.allocate<T>(std::forward<Args>(args)...);
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_collection(type_id)) {
+		print_type_info<T>("!!!!!!!! gdscript memnewWithArgs");
+	} else if (is_type_collection(type_sig)) {
 		result = g_memeory_arena_collections.allocate<T>(std::forward<Args>(args)...);
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_id)) {
+		print_type_info<T>("!!!!!!!! collection memnewWithArgs");
+	} else if (is_type_physics(type_sig)) {
 		result = g_memeory_arena_physics.allocate<T>(std::forward<Args>(args)...);
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_image(type_id)) {
+		print_type_info<T>("!!!!!!!! physics memnewWithArgs");
+	} else if (is_type_image(type_sig)) {
 		result = g_memeory_arena_images.allocate<T>(std::forward<Args>(args)...);
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
+		print_type_info<T>("!!!!!!!! images memnewWithArgs");
 	} else {
 		result = new ("") T(std::forward<Args>(args)...);
-		//print_type_info<T>("memnewWithArgs");
+		print_type_info<T>("!!!!!!!! none memnewWithArgs");
 	}
 
 	postinitialize_handler(result);
@@ -282,25 +290,24 @@ template <typename T, typename... Args>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	//const std::string type_name = _get_type_name<T>();
-	const int type_id = t_to_type_id<T>();
+	uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_id)) {
+	if (is_type_gdscript(type_sig)) {
 		result = g_memeory_arena_code.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
-	} else if (is_type_collection(type_id)) {
+		print_type_info<T>("!!!!!!!! gdscript memnewNoConstructor");
+	} else if (is_type_collection(type_sig)) {
 		result = g_memeory_arena_collections.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_id)) {
+		print_type_info<T>("!!!!!!!! collection memnewNoConstructor");
+	} else if (is_type_physics(type_sig)) {
 		result = g_memeory_arena_physics.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_image(type_id)) {
+		print_type_info<T>("!!!!!!!! physics memnewNoConstructor");
+	} else if (is_type_image(type_sig)) {
 		result = g_memeory_arena_images.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewNoConstructor");
+		print_type_info<T>("!!!!!!!! images memnewNoConstructor");
 	} else {
 		result = new ("") T;
-		//print_type_info<T>("memnewNoConstructor");
+		print_type_info<T>("!!!!!!!! none memnewNoConstructor");
 	}
 
 	postinitialize_handler(result);
@@ -309,25 +316,24 @@ template <typename T>
 
 template <typename T>
 /*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	//const std::string type_name = _get_type_name<T>();
-	const int type_id = t_to_type_id<T>();
+	uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_id)) {
+	if (is_type_gdscript(type_sig)) {
 		result = g_memeory_arena_code.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewNoArgs");
-	} else if (is_type_collection(type_id)) {
+		print_type_info<T>("!!!!!!!! gdscript memnewNoArgs");
+	} else if (is_type_collection(type_sig)) {
 		result = g_memeory_arena_collections.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_physics(type_id)) {
+		print_type_info<T>("!!!!!!!! collection memnewNoArgs");
+	} else if (is_type_physics(type_sig)) {
 		result = g_memeory_arena_physics.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewWithArgs");
-	} else if (is_type_image(type_id)) {
+		print_type_info<T>("!!!!!!!! physics memnewNoArgs");
+	} else if (is_type_image(type_sig)) {
 		result = g_memeory_arena_images.allocate<T>();
-		//print_type_info<T>("!!!!!!!!memnewNoArgs");
+		print_type_info<T>("!!!!!!!! images memnewNoArgs");
 	} else {
 		result = new ("") T;
-		//print_type_info<T>("memnewNoArgs");
+		print_type_info<T>("!!!!!!!! none memnewNoArgs");
 	}
 
 	postinitialize_handler(result);
@@ -343,8 +349,7 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	//const std::string type_name = _get_type_name<T>();
-	const int type_id = t_to_type_id<T>();
+	uint32_t type_sig = _get_type_sig<T>();
 
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
@@ -354,13 +359,13 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	if (is_type_gdscript(type_id)) {
+	if (is_type_gdscript(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_collection(type_id)) {
+	} else if (is_type_collection(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_physics(type_id)) {
+	} else if (is_type_physics(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_image(type_id)) {
+	} else if (is_type_image(type_sig)) {
 		// FIXME: Have the Arena free the memory here
 	} else {
 		Memory::free_static(p_class, false);

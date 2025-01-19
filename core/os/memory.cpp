@@ -44,7 +44,7 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 	return p_allocfunc(p_size);
 }
 
-bool g_is_logging = false;
+bool g_is_logging = true;
 
 const size_t ARENA_SIZE = 1024 * 1024 * 512;
 Arena g_memeory_arena_images(ARENA_SIZE);
@@ -52,10 +52,18 @@ Arena g_memeory_arena_code(ARENA_SIZE);
 Arena g_memeory_arena_collections(ARENA_SIZE);
 Arena g_memeory_arena_physics(ARENA_SIZE);
 
-std::atomic<int> counter{0};
-std::unordered_map<std::size_t, int> hash_to_id;
-std::unordered_map<std::string, int> name_to_id;
-std::unordered_map<int, std::string> id_to_name;
+
+// Hash string with FNV-1a
+uint32_t hash_string(const std::string& str) {
+    const uint32_t fnv_prime = 0x811C9DC5;
+    uint32_t hash = 0;
+
+    for (char c : str) {
+        hash ^= c;
+        hash *= fnv_prime;
+    }
+    return hash;
+}
 
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {
@@ -64,25 +72,17 @@ bool starts_with(const std::string& str, const std::string& prefix) {
 	return str.compare(0, prefix.length(), prefix) == 0;
 }
 
-bool is_type_gdscript(const int type_id) {
-	auto it = id_to_name.find(type_id);
-	bool is_in_map = it != id_to_name.end();
-	if (!is_in_map) {
-		return false;
-	}
-	const std::string type_name = it->second;
-
-	const std::string fucks[] = {
-		"GDScript",
+bool is_type_gdscript(const uint32_t type_sig) {
+	const std::vector<uint32_t> fucks = {
+		hash_string("GDScript"),
 	};
 
-	if (starts_with(type_name, "GDScriptParser::")) {
-		return true;
-	}
+	//if (starts_with(type_sig, "GDScriptParser::")) {
+	//	return true;
+	//}
 
-	size_t length = sizeof(fucks) / sizeof(fucks[0]);
-	for (size_t i=0; i<length; ++i) {
-		if (fucks[i] == type_name) {
+	for (size_t i=0; i<fucks.size(); i++) {
+		if (fucks[i] == type_sig) {
 			return true;
 		}
 	}
@@ -90,40 +90,20 @@ bool is_type_gdscript(const int type_id) {
 	return false;
 }
 
-bool is_type_collection(const int type_id) {
-	auto it = id_to_name.find(type_id);
-	bool is_in_map = it != id_to_name.end();
-	if (!is_in_map) {
-		return false;
-	}
-	const std::string type_name = it->second;
+bool is_type_collection(const uint32_t type_sig) {
+	//if (starts_with(type_sig, "Variant::") ||
+	//	starts_with(type_sig, "StringName::")
+	//	) {
+	//	return true;
+	//}
 
-	if (starts_with(type_name, "Variant::") ||
-		starts_with(type_name, "StringName::")
-		) {
-		return true;
-	}
-
-	return false;
-}
-
-bool is_type_physics(const int type_id) {
-	auto it = id_to_name.find(type_id);
-	bool is_in_map = it != id_to_name.end();
-	if (!is_in_map) {
-		return false;
-	}
-	const std::string type_name = it->second;
-
-	const std::string fucks[] = {
-		"RigidBody3D",
-		"StaticBody3D",
-		"CharacterBody3D"
+	const std::vector<uint32_t> fucks = {
+		hash_string("ArrayPrivate"),
+		hash_string("DictionaryPrivate"),
 	};
 
-	size_t length = sizeof(fucks) / sizeof(fucks[0]);
-	for (size_t i=0; i<length; ++i) {
-		if (fucks[i] == type_name) {
+	for (size_t i=0; i<fucks.size(); i++) {
+		if (fucks[i] == type_sig) {
 			return true;
 		}
 	}
@@ -131,27 +111,36 @@ bool is_type_physics(const int type_id) {
 	return false;
 }
 
-bool is_type_image(const int type_id) {
-	auto it = id_to_name.find(type_id);
-	bool is_in_map = it != id_to_name.end();
-	if (!is_in_map) {
-		return false;
-	}
-	const std::string type_name = it->second;
-
-	const std::string fucks[] = {
-		"Image"
+bool is_type_physics(const uint32_t type_sig) {
+	const std::vector<uint32_t> fucks = {
+		hash_string("RigidBody3D"),
+		hash_string("StaticBody3D"),
+		hash_string("CharacterBody3D")
 	};
 
-	size_t length = sizeof(fucks) / sizeof(fucks[0]);
-	for (size_t i=0; i<length; ++i) {
-		if (fucks[i] == type_name) {
+	for (size_t i=0; i<fucks.size(); i++) {
+		if (fucks[i] == type_sig) {
 			return true;
 		}
 	}
 
 	return false;
 }
+
+bool is_type_image(const uint32_t type_sig) {
+	const std::vector<uint32_t> fucks = {
+		hash_string("Image")
+	};
+
+	for (size_t i=0; i<fucks.size(); i++) {
+		if (fucks[i] == type_sig) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 
 #ifdef _MSC_VER
 void operator delete(void *p_mem, const char *p_description) {
