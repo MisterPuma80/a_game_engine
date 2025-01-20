@@ -44,101 +44,23 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 	return p_allocfunc(p_size);
 }
 
-bool g_is_logging = true;
+bool g_is_logging = false;
 
-const size_t ARENA_SIZE = 1024 * 1024 * 512;
-Arena g_memeory_arena_images(ARENA_SIZE);
-Arena g_memeory_arena_code(ARENA_SIZE);
-Arena g_memeory_arena_collections(ARENA_SIZE);
-Arena g_memeory_arena_physics(ARENA_SIZE);
+static const size_t MEGA_BYTE = 1024 * 1024;
+Arena g_memeory_arena_images(MEGA_BYTE * 512);
+Arena g_memeory_arena_code(MEGA_BYTE * 512);
+Arena g_memeory_arena_collections(MEGA_BYTE * 512);
+Arena g_memeory_arena_physics(MEGA_BYTE * 512);
+Arena g_memeory_arena_controls(MEGA_BYTE * 512);
+Arena g_memeory_arena_fonts(MEGA_BYTE * 512);
+Arena g_memeory_arena_string(MEGA_BYTE * 512);
 
-
-// Hash string with FNV-1a
-uint32_t hash_string(const std::string& str) {
-    const uint32_t fnv_prime = 0x811C9DC5;
-    uint32_t hash = 0;
-
-    for (char c : str) {
-        hash ^= c;
-        hash *= fnv_prime;
-    }
-    return hash;
-}
 
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {
 		return false;
 	}
 	return str.compare(0, prefix.length(), prefix) == 0;
-}
-
-bool is_type_gdscript(const uint32_t type_sig) {
-	const std::vector<uint32_t> fucks = {
-		hash_string("GDScript"),
-	};
-
-	//if (starts_with(type_sig, "GDScriptParser::")) {
-	//	return true;
-	//}
-
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool is_type_collection(const uint32_t type_sig) {
-	//if (starts_with(type_sig, "Variant::") ||
-	//	starts_with(type_sig, "StringName::")
-	//	) {
-	//	return true;
-	//}
-
-	const std::vector<uint32_t> fucks = {
-		hash_string("ArrayPrivate"),
-		hash_string("DictionaryPrivate"),
-	};
-
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool is_type_physics(const uint32_t type_sig) {
-	const std::vector<uint32_t> fucks = {
-		hash_string("RigidBody3D"),
-		hash_string("StaticBody3D"),
-		hash_string("CharacterBody3D")
-	};
-
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool is_type_image(const uint32_t type_sig) {
-	const std::vector<uint32_t> fucks = {
-		hash_string("Image")
-	};
-
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-
-	return false;
 }
 
 
