@@ -155,135 +155,109 @@ constexpr bool _is_in_types(const uint32_t types[], const size_t length, const u
 }
 
 constexpr bool is_type_gdscript(const uint32_t type_sig) {
-	constexpr uint32_t  _types_gdscript[] = {
-		hash_string("GDScript"),
-		hash_string("GDScriptParser"),
+	constexpr uint32_t  _types[] = {
+		//hash_string("GDScript"),
+		//hash_string("GDScriptParser"),
 	};
-	constexpr size_t length = sizeof(_types_gdscript) / sizeof(_types_gdscript[0]);
-	return _is_in_types(_types_gdscript, length, type_sig);
+	constexpr size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_collection(const uint32_t type_sig) {
-	constexpr uint32_t _types_collection[] = {
-		hash_string("ArrayPrivate"),
-		hash_string("DictionaryPrivate"),
-		hash_string("HashMapElement"),
-		hash_string("HashMap"),
-		hash_string("Variant"),
+	constexpr uint32_t _types[] = {
+		//hash_string("ArrayPrivate"),
+		//hash_string("DictionaryPrivate"),
+		//hash_string("HashMapElement"),
+		//hash_string("HashMap"),
+		//hash_string("Variant"),
 	};
-	const size_t length = sizeof(_types_collection) / sizeof(_types_collection[0]);
-	return _is_in_types(_types_collection, length, type_sig);
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_physics(const uint32_t type_sig) {
-	constexpr uint32_t _types_physics[] = {
+	constexpr uint32_t _types[] = {
 		hash_string("RigidBody3D"),
 		hash_string("StaticBody3D"),
 		hash_string("CharacterBody3D"),
 	};
 
-	const size_t length = sizeof(_types_physics) / sizeof(_types_physics[0]);
-	return _is_in_types(_types_physics, length, type_sig);
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_image(const uint32_t type_sig) {
-	constexpr uint32_t _types_image[] = {
+	constexpr uint32_t _types[] = {
 		hash_string("Image"),
 	};
-	const size_t length = sizeof(_types_image) / sizeof(_types_image[0]);
-	return _is_in_types(_types_image, length, type_sig);
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_control(const uint32_t type_sig) {
-/*
-	const std::vector<uint32_t> fucks = {
-		hash_string("Window"),
-		hash_string("Label"),
-		hash_string("Button"),
-		hash_string("VBoxContainer"),
-		hash_string("HBoxContainer"),
+	constexpr uint32_t _types[] = {
+		//hash_string("Window"),
+		//hash_string("Label"),
+		//hash_string("Button"),
+		//hash_string("VBoxContainer"),
+		//hash_string("HBoxContainer"),
 	};
 
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-*/
-	return false;
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_font(const uint32_t type_sig) {
-/*
-	const std::vector<uint32_t> fucks = {
-		hash_string("FontFile"),
-		hash_string("FontVariation"),
+	constexpr uint32_t _types[] = {
+		//hash_string("FontFile"),
+		//hash_string("FontVariation"),
 	};
 
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-*/
-	return false;
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_string(const uint32_t type_sig) {
-	constexpr uint32_t _types_string[] = {
-		hash_string("StringName"),
+	constexpr uint32_t _types[] = {
+		//hash_string("StringName"),
 	};
 
-	const size_t length = sizeof(_types_string) / sizeof(_types_string[0]);
-	return _is_in_types(_types_string, length, type_sig);
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_texture(const uint32_t type_sig) {
-/*
-	const std::vector<uint32_t> fucks = {
-		hash_string("ImageTexture"),
-		hash_string("ViewportTexture"),
-		hash_string("TextureRect"),
-		hash_string("TextureButton"),
-		hash_string("CompressedTexture2D"),
+	constexpr uint32_t _types[] = {
+		//hash_string("ImageTexture"),
+		//hash_string("ViewportTexture"),
+		//hash_string("TextureRect"),
+		//hash_string("TextureButton"),
+		//hash_string("CompressedTexture2D"),
 	};
 
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-*/
-	return false;
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_rendering(const uint32_t type_sig) {
-/*
-	const std::vector<uint32_t> fucks = {
-		hash_string("RenderingDevice"),
-		hash_string("RenderingServerDefault"),
-		hash_string("RenderingDeviceDriverVulkan"),
-		hash_string("RenderingContextDriverVulkan"),
-		hash_string("RenderingDeviceGraph"),
+	constexpr uint32_t _types[] = {
+		//hash_string("RenderingDevice"),
+		//hash_string("RenderingServerDefault"),
+		//hash_string("RenderingDeviceDriverVulkan"),
+		//hash_string("RenderingContextDriverVulkan"),
+		//hash_string("RenderingDeviceGraph"),
 	};
 
-	for (size_t i=0; i<fucks.size(); i++) {
-		if (fucks[i] == type_sig) {
-			return true;
-		}
-	}
-*/
-	return false;
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
 }
 
 template <size_t Size>
 struct Arena {
 	size_t m_used;
 	uint8_t* m_buffer = nullptr;
-	bool is_initialized;
 
 	explicit Arena() {
-		is_initialized = true;
 	}
 
 	~Arena() {
@@ -382,28 +356,28 @@ void print_type_info(const char* message) {
 
 #define memnewOldWithArgs2(T, m_class) \
 ({ \
-	uint32_t type_sig = _get_type_sig<T>(); \
+	constexpr uint32_t type_sig = _get_type_sig<T>(); \
 	T* result = nullptr; \
 	 \
-	if (is_type_gdscript(type_sig)) { \
+	if constexpr (is_type_gdscript(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! gdscript memnewOldWithArgs2"); \
-	} else if (is_type_collection(type_sig)) { \
+	} else if constexpr (is_type_collection(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! collection memnewOldWithArgs2"); \
-	} else if (is_type_physics(type_sig)) { \
+	} else if constexpr (is_type_physics(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! physics memnewOldWithArgs2"); \
-	} else if (is_type_image(type_sig)) { \
+	} else if constexpr (is_type_image(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! images memnewOldWithArgs2"); \
-	} else if (is_type_control(type_sig)) { \
+	} else if constexpr (is_type_control(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! control memnewOldWithArgs2"); \
-	} else if (is_type_font(type_sig)) { \
+	} else if constexpr (is_type_font(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! fonts memnewOldWithArgs2"); \
-	} else if (is_type_string(type_sig)) { \
+	} else if constexpr (is_type_string(type_sig)) { \
 		result = new ("") m_class; \
 		print_type_info<T>("!!!!!!!! string memnewOldWithArgs2"); \
 	} else { \
@@ -425,28 +399,28 @@ void print_type_info(const char* message) {
 
 #define memnewOldNoConstructor(T) \
 ({ \
-	uint32_t type_sig = _get_type_sig<T>(); \
+	constexpr uint32_t type_sig = _get_type_sig<T>(); \
 	T* result = nullptr; \
 	 \
-	if (is_type_gdscript(type_sig)) { \
+	if constexpr (is_type_gdscript(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! gdscript memnewOldNoConstructor"); \
-	} else if (is_type_collection(type_sig)) { \
+	} else if constexpr (is_type_collection(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! collection memnewOldNoConstructor"); \
-	} else if (is_type_physics(type_sig)) { \
+	} else if constexpr (is_type_physics(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! physics memnewOldNoConstructor"); \
-	} else if (is_type_image(type_sig)) { \
+	} else if constexpr (is_type_image(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! images memnewOldNoConstructor"); \
-	} else if (is_type_control(type_sig)) { \
+	} else if constexpr (is_type_control(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! control memnewOldNoConstructor"); \
-	} else if (is_type_font(type_sig)) { \
+	} else if constexpr (is_type_font(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! fonts memnewOldNoConstructor"); \
-	} else if (is_type_string(type_sig)) { \
+	} else if constexpr (is_type_string(type_sig)) { \
 		result = new ("") T; \
 		print_type_info<T>("!!!!!!!! string memnewOldNoConstructor"); \
 	} else { \
@@ -463,25 +437,25 @@ template <typename T, typename... Args>
 	constexpr uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_gdscript(type_sig)) {
 		result = g_memory_arena_code.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! gdscript memnewWithArgs");
-	} else if (is_type_collection(type_sig)) {
+	} else if constexpr (is_type_collection(type_sig)) {
 		result = g_memory_arena_collections.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! collection memnewWithArgs");
-	} else if (is_type_physics(type_sig)) {
+	} else if constexpr (is_type_physics(type_sig)) {
 		result = g_memory_arena_physics.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! physics memnewWithArgs");
-	} else if (is_type_image(type_sig)) {
+	} else if constexpr (is_type_image(type_sig)) {
 		result = g_memory_arena_images.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! images memnewWithArgs");
-	} else if (is_type_control(type_sig)) {
+	} else if constexpr (is_type_control(type_sig)) {
 		result = g_memory_arena_controls.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! control memnewWithArgs");
-	} else if (is_type_font(type_sig)) {
+	} else if constexpr (is_type_font(type_sig)) {
 		result = g_memory_arena_fonts.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! fonts memnewWithArgs");
-	} else if (is_type_string(type_sig)) {
+	} else if constexpr (is_type_string(type_sig)) {
 		result = g_memory_arena_string.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! string memnewWithArgs");
 	} else {
@@ -498,25 +472,25 @@ template <typename T>
 	constexpr uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_gdscript(type_sig)) {
 		result = g_memory_arena_code.allocate<T>();
 		print_type_info<T>("!!!!!!!! gdscript memnewNoConstructor");
-	} else if (is_type_collection(type_sig)) {
+	} else if constexpr (is_type_collection(type_sig)) {
 		result = g_memory_arena_collections.allocate<T>();
 		print_type_info<T>("!!!!!!!! collection memnewNoConstructor");
-	} else if (is_type_physics(type_sig)) {
+	} else if constexpr (is_type_physics(type_sig)) {
 		result = g_memory_arena_physics.allocate<T>();
 		print_type_info<T>("!!!!!!!! physics memnewNoConstructor");
-	} else if (is_type_image(type_sig)) {
+	} else if constexpr (is_type_image(type_sig)) {
 		result = g_memory_arena_images.allocate<T>();
 		print_type_info<T>("!!!!!!!! images memnewNoConstructor");
-	} else if (is_type_control(type_sig)) {
+	} else if constexpr (is_type_control(type_sig)) {
 		result = g_memory_arena_controls.allocate<T>();
 		print_type_info<T>("!!!!!!!! control memnewNoConstructor");
-	} else if (is_type_font(type_sig)) {
+	} else if constexpr (is_type_font(type_sig)) {
 		result = g_memory_arena_fonts.allocate<T>();
 		print_type_info<T>("!!!!!!!! fonts memnewNoConstructor");
-	} else if (is_type_string(type_sig)) {
+	} else if constexpr (is_type_string(type_sig)) {
 		result = g_memory_arena_string.allocate<T>();
 		print_type_info<T>("!!!!!!!! string memnewNoConstructor");
 	} else {
@@ -533,25 +507,25 @@ template <typename T>
 	constexpr uint32_t type_sig = _get_type_sig<T>();
 	T* result = nullptr;
 
-	if (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_gdscript(type_sig)) {
 		result = g_memory_arena_code.allocate<T>();
 		print_type_info<T>("!!!!!!!! gdscript memnewNoArgs");
-	} else if (is_type_collection(type_sig)) {
+	} else if constexpr (is_type_collection(type_sig)) {
 		result = g_memory_arena_collections.allocate<T>();
 		print_type_info<T>("!!!!!!!! collection memnewNoArgs");
-	} else if (is_type_physics(type_sig)) {
+	} else if constexpr (is_type_physics(type_sig)) {
 		result = g_memory_arena_physics.allocate<T>();
 		print_type_info<T>("!!!!!!!! physics memnewNoArgs");
-	} else if (is_type_image(type_sig)) {
+	} else if constexpr (is_type_image(type_sig)) {
 		result = g_memory_arena_images.allocate<T>();
 		print_type_info<T>("!!!!!!!! images memnewNoArgs");
-	} else if (is_type_control(type_sig)) {
+	} else if constexpr (is_type_control(type_sig)) {
 		result = g_memory_arena_controls.allocate<T>();
 		print_type_info<T>("!!!!!!!! control memnewNoArgs");
-	} else if (is_type_font(type_sig)) {
+	} else if constexpr (is_type_font(type_sig)) {
 		result = g_memory_arena_fonts.allocate<T>();
 		print_type_info<T>("!!!!!!!! fonts memnewNoArgs");
-	} else if (is_type_string(type_sig)) {
+	} else if constexpr (is_type_string(type_sig)) {
 		result = g_memory_arena_string.allocate<T>();
 		print_type_info<T>("!!!!!!!! string memnewNoArgs");
 	} else {
@@ -572,7 +546,7 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	uint32_t type_sig = _get_type_sig<T>();
+	constexpr uint32_t type_sig = _get_type_sig<T>();
 
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
@@ -582,19 +556,19 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	if (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_gdscript(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_collection(type_sig)) {
+	} else if constexpr (is_type_collection(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_physics(type_sig)) {
+	} else if constexpr (is_type_physics(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_image(type_sig)) {
+	} else if constexpr (is_type_image(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_control(type_sig)) {
+	} else if constexpr (is_type_control(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_font(type_sig)) {
+	} else if constexpr (is_type_font(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if (is_type_string(type_sig)) {
+	} else if constexpr (is_type_string(type_sig)) {
 		// FIXME: Have the Arena free the memory here
 	} else {
 		Memory::free_static(p_class, false);
