@@ -46,15 +46,56 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 
 bool g_is_logging = false;
 
-static const size_t MEGA_BYTE = 1024 * 1024;
-Arena g_memeory_arena_images(MEGA_BYTE * 512);
-Arena g_memeory_arena_code(MEGA_BYTE * 512);
-Arena g_memeory_arena_collections(MEGA_BYTE * 512);
-Arena g_memeory_arena_physics(MEGA_BYTE * 512);
-Arena g_memeory_arena_controls(MEGA_BYTE * 512);
-Arena g_memeory_arena_fonts(MEGA_BYTE * 512);
-Arena g_memeory_arena_string(MEGA_BYTE * 512);
+//static const size_t MEGA_BYTE = 1024 * 1024;
+Arena<1024 * 1024 * 512> g_memory_arena_code;
+Arena<1024 * 1024 * 512> g_memory_arena_images;
+Arena<1024 * 1024 * 512> g_memory_arena_collections;
+Arena<1024 * 1024 * 512> g_memory_arena_physics;
+Arena<1024 * 1024 * 512> g_memory_arena_controls;
+Arena<1024 * 1024 * 512> g_memory_arena_fonts;
+Arena<1024 * 1024 * 512> g_memory_arena_string;
 
+
+void print_stack_trace() {
+    void* callstack[128];
+    int frames = backtrace(callstack, 128);
+    char** strs = backtrace_symbols(callstack, frames);
+    
+    for (int i = 0; i < frames; ++i) {
+        // Try to demangle the function name
+        char* demangled = nullptr;
+        int status;
+        char* begin_name = nullptr;
+        char* end_name = nullptr;
+        
+        // Find parts of the string that contain function name
+        for (char* p = strs[i]; *p; ++p) {
+            if (*p == '(') {
+                begin_name = p;
+            } else if (*p == '+' && begin_name) {
+                end_name = p;
+            }
+        }
+
+        if (begin_name && end_name) {
+            *begin_name++ = '\0';
+            *end_name = '\0';
+            
+            // Demangle the function name
+            demangled = abi::__cxa_demangle(begin_name, nullptr, nullptr, &status);
+        }
+
+        // Print the frame information
+        std::cout << "[" << i << "] " << strs[i];
+        if (demangled) {
+            std::cout << " (" << demangled << ")";
+            free(demangled);
+        }
+        std::cout << std::endl;
+    }
+    
+    free(strs);
+}
 
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {

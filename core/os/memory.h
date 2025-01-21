@@ -129,9 +129,17 @@ constexpr uint32_t hash_string(std::string_view str) {
     return hash;
 }
 
+#include <iostream>
+#include <execinfo.h>
+#include <cxxabi.h>
+#include <string>
+#include <cstdlib>
+#include <dlfcn.h>
+#include <unistd.h>
+#include <cstdio>
 
 
-
+void print_stack_trace();
 
 
 bool starts_with(const std::string& str, const std::string& prefix);
@@ -268,15 +276,14 @@ constexpr bool is_type_rendering(const uint32_t type_sig) {
 	return false;
 }
 
+template <size_t Size>
 struct Arena {
-	size_t m_size;
 	size_t m_used;
-	uint8_t* m_buffer;
+	uint8_t* m_buffer = nullptr;
+	bool is_initialized;
 
-	explicit Arena(size_t size) :
-		m_size(size),
-		m_used(0) {
-		m_buffer = new uint8_t[size];
+	explicit Arena() {
+		is_initialized = true;
 	}
 
 	~Arena() {
@@ -285,6 +292,10 @@ struct Arena {
 
 	template <typename T, typename... Args>
 	T* allocate(Args&&... args) {
+		if (m_buffer == nullptr) {
+			m_buffer = new uint8_t[Size];
+		}
+
 		// Get the memory location
 		size_t alignment = alignof(T);
 		uintptr_t current = reinterpret_cast<uintptr_t>(m_buffer + m_used);
@@ -293,9 +304,10 @@ struct Arena {
 
 		// Make sure there is enough space
 		size_t total_size = sizeof(T);
-		if (m_used + total_size + padding > m_size) {
-			std::cerr << "Out of memory" << std::endl;
+		if (m_used + total_size + padding > Size) {
+			std::cerr << "!!! Out of memory!" << std::endl;
 			std::cerr.flush();
+			print_stack_trace();
 			return nullptr;
 		}
 		m_used += total_size + padding;
@@ -311,13 +323,13 @@ struct Arena {
 };
 
 
-extern Arena g_memeory_arena_images;
-extern Arena g_memeory_arena_code;
-extern Arena g_memeory_arena_collections;
-extern Arena g_memeory_arena_physics;
-extern Arena g_memeory_arena_controls;
-extern Arena g_memeory_arena_fonts;
-extern Arena g_memeory_arena_string;
+extern Arena<1024 * 1024 * 512> g_memory_arena_images;
+extern Arena<1024 * 1024 * 512> g_memory_arena_code;
+extern Arena<1024 * 1024 * 512> g_memory_arena_collections;
+extern Arena<1024 * 1024 * 512> g_memory_arena_physics;
+extern Arena<1024 * 1024 * 512> g_memory_arena_controls;
+extern Arena<1024 * 1024 * 512> g_memory_arena_fonts;
+extern Arena<1024 * 1024 * 512> g_memory_arena_string;
 
 
 
@@ -452,25 +464,25 @@ template <typename T, typename... Args>
 	T* result = nullptr;
 
 	if (is_type_gdscript(type_sig)) {
-		result = g_memeory_arena_code.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_code.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! gdscript memnewWithArgs");
 	} else if (is_type_collection(type_sig)) {
-		result = g_memeory_arena_collections.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_collections.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! collection memnewWithArgs");
 	} else if (is_type_physics(type_sig)) {
-		result = g_memeory_arena_physics.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_physics.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! physics memnewWithArgs");
 	} else if (is_type_image(type_sig)) {
-		result = g_memeory_arena_images.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_images.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! images memnewWithArgs");
 	} else if (is_type_control(type_sig)) {
-		result = g_memeory_arena_controls.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_controls.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! control memnewWithArgs");
 	} else if (is_type_font(type_sig)) {
-		result = g_memeory_arena_fonts.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_fonts.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! fonts memnewWithArgs");
 	} else if (is_type_string(type_sig)) {
-		result = g_memeory_arena_string.allocate<T>(std::forward<Args>(args)...);
+		result = g_memory_arena_string.allocate<T>(std::forward<Args>(args)...);
 		print_type_info<T>("!!!!!!!! string memnewWithArgs");
 	} else {
 		result = new ("") T(std::forward<Args>(args)...);
@@ -487,25 +499,25 @@ template <typename T>
 	T* result = nullptr;
 
 	if (is_type_gdscript(type_sig)) {
-		result = g_memeory_arena_code.allocate<T>();
+		result = g_memory_arena_code.allocate<T>();
 		print_type_info<T>("!!!!!!!! gdscript memnewNoConstructor");
 	} else if (is_type_collection(type_sig)) {
-		result = g_memeory_arena_collections.allocate<T>();
+		result = g_memory_arena_collections.allocate<T>();
 		print_type_info<T>("!!!!!!!! collection memnewNoConstructor");
 	} else if (is_type_physics(type_sig)) {
-		result = g_memeory_arena_physics.allocate<T>();
+		result = g_memory_arena_physics.allocate<T>();
 		print_type_info<T>("!!!!!!!! physics memnewNoConstructor");
 	} else if (is_type_image(type_sig)) {
-		result = g_memeory_arena_images.allocate<T>();
+		result = g_memory_arena_images.allocate<T>();
 		print_type_info<T>("!!!!!!!! images memnewNoConstructor");
 	} else if (is_type_control(type_sig)) {
-		result = g_memeory_arena_controls.allocate<T>();
+		result = g_memory_arena_controls.allocate<T>();
 		print_type_info<T>("!!!!!!!! control memnewNoConstructor");
 	} else if (is_type_font(type_sig)) {
-		result = g_memeory_arena_fonts.allocate<T>();
+		result = g_memory_arena_fonts.allocate<T>();
 		print_type_info<T>("!!!!!!!! fonts memnewNoConstructor");
 	} else if (is_type_string(type_sig)) {
-		result = g_memeory_arena_string.allocate<T>();
+		result = g_memory_arena_string.allocate<T>();
 		print_type_info<T>("!!!!!!!! string memnewNoConstructor");
 	} else {
 		result = new ("") T;
@@ -522,25 +534,25 @@ template <typename T>
 	T* result = nullptr;
 
 	if (is_type_gdscript(type_sig)) {
-		result = g_memeory_arena_code.allocate<T>();
+		result = g_memory_arena_code.allocate<T>();
 		print_type_info<T>("!!!!!!!! gdscript memnewNoArgs");
 	} else if (is_type_collection(type_sig)) {
-		result = g_memeory_arena_collections.allocate<T>();
+		result = g_memory_arena_collections.allocate<T>();
 		print_type_info<T>("!!!!!!!! collection memnewNoArgs");
 	} else if (is_type_physics(type_sig)) {
-		result = g_memeory_arena_physics.allocate<T>();
+		result = g_memory_arena_physics.allocate<T>();
 		print_type_info<T>("!!!!!!!! physics memnewNoArgs");
 	} else if (is_type_image(type_sig)) {
-		result = g_memeory_arena_images.allocate<T>();
+		result = g_memory_arena_images.allocate<T>();
 		print_type_info<T>("!!!!!!!! images memnewNoArgs");
 	} else if (is_type_control(type_sig)) {
-		result = g_memeory_arena_controls.allocate<T>();
+		result = g_memory_arena_controls.allocate<T>();
 		print_type_info<T>("!!!!!!!! control memnewNoArgs");
 	} else if (is_type_font(type_sig)) {
-		result = g_memeory_arena_fonts.allocate<T>();
+		result = g_memory_arena_fonts.allocate<T>();
 		print_type_info<T>("!!!!!!!! fonts memnewNoArgs");
 	} else if (is_type_string(type_sig)) {
-		result = g_memeory_arena_string.allocate<T>();
+		result = g_memory_arena_string.allocate<T>();
 		print_type_info<T>("!!!!!!!! string memnewNoArgs");
 	} else {
 		result = new ("") T;
