@@ -139,7 +139,7 @@ constexpr uint32_t hash_string(std::string_view str) {
 #include <cstdio>
 
 
-void print_stack_trace();
+//void print_stack_trace();
 
 
 bool starts_with(const std::string& str, const std::string& prefix);
@@ -177,9 +177,19 @@ constexpr bool is_type_collection(const uint32_t type_sig) {
 
 constexpr bool is_type_physics(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
+/*
 		hash_string("RigidBody3D"),
 		hash_string("StaticBody3D"),
 		hash_string("CharacterBody3D"),
+		hash_string("DirectionalLight3D"),
+		//hash_string("GPUParticles3D"),
+		hash_string("MeshInstance3D"),
+		//hash_string("Node3D"),
+		//hash_string("Area3D"),
+		hash_string("CollisionShape3D"),
+		//hash_string("NavigationRegion3D"),
+		//hash_string("Timer"),
+*/
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -252,22 +262,53 @@ constexpr bool is_type_rendering(const uint32_t type_sig) {
 	return _is_in_types(_types, length, type_sig);
 }
 
-template <size_t Size>
+
 struct Arena {
+	size_t m_size;
 	size_t m_used;
 	uint8_t* m_buffer = nullptr;
+	bool m_is_valid;
 
-	explicit Arena() {
+	explicit Arena(bool is_valid=false) {
+		m_is_valid = is_valid;
+		if (g_is_logging) {
+			std::cout << "!!!! Arena constructor: " << std::endl;
+			std::cout.flush();
+		}
 	}
 
 	~Arena() {
-		delete[] m_buffer;
+		if (g_is_logging) {
+			std::cout << "!!!! Arena destructor: " << std::endl;
+			std::cout.flush();
+		}
+
+		if (m_buffer != nullptr) {
+			delete[] m_buffer;
+			m_buffer = nullptr;
+			if (g_is_logging) {
+				std::cout << "???? freeing buffer memory: " << std::endl;
+				std::cout.flush();
+			}
+		}
 	}
 
 	template <typename T, typename... Args>
-	T* allocate(Args&&... args) {
+	/*_ALWAYS_INLINE_*/ T* allocate(Args&&... args) {
+		if (! m_is_valid) {
+			std::cerr << "!!! Arena not valid!" << std::endl;
+			std::cerr.flush();
+			return nullptr;
+		}
+
+		// Allocate the buffer if needed
 		if (m_buffer == nullptr) {
-			m_buffer = new uint8_t[Size];
+			m_size = 1024 * 1024 * 512;
+			m_buffer = new uint8_t[m_size];
+			if (g_is_logging) {
+				std::cout << "???? allocating buffer memory: " << m_size << std::endl;
+				std::cout.flush();
+			}
 		}
 
 		// Get the memory location
@@ -278,10 +319,10 @@ struct Arena {
 
 		// Make sure there is enough space
 		size_t total_size = sizeof(T);
-		if (m_used + total_size + padding > Size) {
+		if (m_used + total_size + padding > m_size) {
 			std::cerr << "!!! Out of memory!" << std::endl;
 			std::cerr.flush();
-			print_stack_trace();
+			//print_stack_trace();
 			return nullptr;
 		}
 		m_used += total_size + padding;
@@ -296,19 +337,21 @@ struct Arena {
 	}
 };
 
+static Arena init_arena;
 
-extern Arena<1024 * 1024 * 512> g_memory_arena_images;
-extern Arena<1024 * 1024 * 512> g_memory_arena_code;
-extern Arena<1024 * 1024 * 512> g_memory_arena_collections;
-extern Arena<1024 * 1024 * 512> g_memory_arena_physics;
-extern Arena<1024 * 1024 * 512> g_memory_arena_controls;
-extern Arena<1024 * 1024 * 512> g_memory_arena_fonts;
-extern Arena<1024 * 1024 * 512> g_memory_arena_string;
 
+
+extern Arena g_memory_arena_code;
+extern Arena g_memory_arena_images;
+extern Arena g_memory_arena_collections;
+extern Arena g_memory_arena_physics;
+extern Arena g_memory_arena_controls;
+extern Arena g_memory_arena_fonts;
+extern Arena g_memory_arena_string;
 
 
 template <typename T>
-constexpr std::string_view _get_type_name() {
+std::string_view _get_type_name() {
 	std::string_view func_name = __PRETTY_FUNCTION__;
 	size_t pos = std::string::npos;
 
@@ -329,22 +372,28 @@ constexpr std::string_view _get_type_name() {
 	if (pos != std::string::npos) {
 		func_name = func_name.substr(0, pos);
 	}
-
+/*
 	// Get the string before any ::
 	pos = func_name.find("::");
 	if (pos != std::string::npos) {
 		func_name = func_name.substr(0, pos);
 	}
+*/
+	return func_name;
+}
 
+template <typename T>
+std::string_view _get_type_raw_name() {
+	std::string_view func_name = __PRETTY_FUNCTION__;
 	return func_name;
 }
 
 template<typename T>
-constexpr uint32_t _get_type_sig() {
+uint32_t _get_type_sig() {
     std::string_view type_name = _get_type_name<T>();
     return hash_string(type_name);
 }
-
+/*
 template <typename T>
 void print_type_info(const char* message) {
 	if (g_is_logging) {
@@ -353,39 +402,77 @@ void print_type_info(const char* message) {
 		std::cout.flush();
 	}
 }
+*/
+
+enum class ArenaType {
+	invalid,
+	code,
+	collections,
+	physics,
+	images,
+	controls,
+	fonts,
+	strings,
+};
+
+constexpr ArenaType get_arena_type_for_sig(uint32_t type_sig) {
+	if (is_type_gdscript(type_sig)) {
+		return ArenaType::code;
+	} else if (is_type_collection(type_sig)) {
+		return ArenaType::collections;
+	} else if (is_type_physics(type_sig)) {
+		return ArenaType::physics;
+	} else if (is_type_image(type_sig)) {
+		return ArenaType::images;
+	} else if (is_type_control(type_sig)) {
+		return ArenaType::controls;
+	} else if (is_type_font(type_sig)) {
+		return ArenaType::fonts;
+	} else if (is_type_string(type_sig)) {
+		return ArenaType::strings;
+	} else {
+		return ArenaType::invalid;
+	}
+}
+
+template <int ignore = 0>
+Arena& get_arena(ArenaType arena_type) {
+	switch (arena_type) {
+		case ArenaType::invalid:     return init_arena;
+		case ArenaType::code:        return g_memory_arena_code;
+		case ArenaType::collections: return g_memory_arena_collections;
+		case ArenaType::physics:     return g_memory_arena_physics;
+		case ArenaType::images:      return g_memory_arena_images; break;
+		case ArenaType::controls:    return g_memory_arena_controls;
+		case ArenaType::fonts:       return g_memory_arena_fonts;
+		case ArenaType::strings:     return g_memory_arena_string;
+		default:                     return init_arena;
+	}
+}
+
+template <int ignore = 0>
+constexpr const char* get_arena_name(ArenaType arena_type) {
+	switch (arena_type) {
+		case ArenaType::invalid:     return "invalid";
+		case ArenaType::code:        return "code";
+		case ArenaType::collections: return "collections";
+		case ArenaType::physics:     return "physics";
+		case ArenaType::images:      return "images";
+		case ArenaType::controls:    return "controls";
+		case ArenaType::fonts:       return "fonts";
+		case ArenaType::strings:     return "string";
+		default:                     return "invalid";
+	}
+}
 
 #define memnewOldWithArgs2(T, m_class) \
 ({ \
-	constexpr uint32_t type_sig = _get_type_sig<T>(); \
-	T* result = nullptr; \
-	 \
-	if constexpr (is_type_gdscript(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! gdscript memnewOldWithArgs2"); \
-	} else if constexpr (is_type_collection(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! collection memnewOldWithArgs2"); \
-	} else if constexpr (is_type_physics(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! physics memnewOldWithArgs2"); \
-	} else if constexpr (is_type_image(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! images memnewOldWithArgs2"); \
-	} else if constexpr (is_type_control(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! control memnewOldWithArgs2"); \
-	} else if constexpr (is_type_font(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! fonts memnewOldWithArgs2"); \
-	} else if constexpr (is_type_string(type_sig)) { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! string memnewOldWithArgs2"); \
-	} else { \
-		result = new ("") m_class; \
-		print_type_info<T>("!!!!!!!! none memnewOldWithArgs2"); \
-	} \
-	 \
-	_post_initialize(result); \
+	/*print_type_info<T>("!!!!!!!! ????? memnewOldWithArgs2");*/ \
+	if (g_is_logging) { \
+		std::cout << "???? memnewOldWithArgs2: " << std::endl; \
+		std::cout.flush(); \
+	}\
+	_post_initialize(new ("") m_class); \
 })
 
 #define memnewOldWithArgs3(name, m_class) \
@@ -399,142 +486,109 @@ void print_type_info(const char* message) {
 
 #define memnewOldNoConstructor(T) \
 ({ \
-	constexpr uint32_t type_sig = _get_type_sig<T>(); \
-	T* result = nullptr; \
-	 \
-	if constexpr (is_type_gdscript(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! gdscript memnewOldNoConstructor"); \
-	} else if constexpr (is_type_collection(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! collection memnewOldNoConstructor"); \
-	} else if constexpr (is_type_physics(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! physics memnewOldNoConstructor"); \
-	} else if constexpr (is_type_image(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! images memnewOldNoConstructor"); \
-	} else if constexpr (is_type_control(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! control memnewOldNoConstructor"); \
-	} else if constexpr (is_type_font(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! fonts memnewOldNoConstructor"); \
-	} else if constexpr (is_type_string(type_sig)) { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! string memnewOldNoConstructor"); \
-	} else { \
-		result = new ("") T; \
-		print_type_info<T>("!!!!!!!! none memnewOldNoConstructor"); \
-	} \
-	 \
-	_post_initialize(result); \
-	result; \
+	/*print_type_info<T>("!!!!!!!! none memnewOldNoConstructor");*/ \
+	if (g_is_logging) { \
+		std::cout << "???? memnewOldNoConstructor: " << std::endl; \
+		std::cout.flush(); \
+	}\
+	_post_initialize(new ("") T); \
 })
 
 template <typename T, typename... Args>
-/*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	T* result = nullptr;
+_ALWAYS_INLINE_ T* memnewWithArgs(Args&&... args) {
+	const uint32_t type_sig = _get_type_sig<T>();
+	//T* result = nullptr;
+	const ArenaType arena_type = get_arena_type_for_sig(type_sig);
+	Arena& arena = get_arena(arena_type);
+	//constexpr const char* name = get_arena_name<arena_type>();
+	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewWithArgs";
+	//print_type_info<T>(message.c_str());
 
-	if constexpr (is_type_gdscript(type_sig)) {
-		result = g_memory_arena_code.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! gdscript memnewWithArgs");
-	} else if constexpr (is_type_collection(type_sig)) {
-		result = g_memory_arena_collections.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! collection memnewWithArgs");
-	} else if constexpr (is_type_physics(type_sig)) {
-		result = g_memory_arena_physics.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! physics memnewWithArgs");
-	} else if constexpr (is_type_image(type_sig)) {
-		result = g_memory_arena_images.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! images memnewWithArgs");
-	} else if constexpr (is_type_control(type_sig)) {
-		result = g_memory_arena_controls.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! control memnewWithArgs");
-	} else if constexpr (is_type_font(type_sig)) {
-		result = g_memory_arena_fonts.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! fonts memnewWithArgs");
-	} else if constexpr (is_type_string(type_sig)) {
-		result = g_memory_arena_string.allocate<T>(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! string memnewWithArgs");
-	} else {
-		result = new ("") T(std::forward<Args>(args)...);
-		print_type_info<T>("!!!!!!!! none memnewWithArgs");
+	if (g_is_logging) {
+		std::cout << "?!?!?!?! memnewWithArgs name: " << _get_type_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs raw name: " << _get_type_raw_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs type_sig: " << type_sig << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs arena: " << (long) &arena << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs arena.m_is_valid: " << arena.m_is_valid << std::endl;
+		std::cout.flush();
 	}
 
-	postinitialize_handler(result);
-	return result;
+///*
+	if (arena_type != ArenaType::invalid) {
+		return _post_initialize(arena.allocate<T>(std::forward<Args>(args)...));
+	} else {
+		return _post_initialize(new ("") T(std::forward<Args>(args)...));
+	}
+//*/
+	//result = new ("") T(std::forward<Args>(args)...);
+
+	//return _post_initialize(result);
 }
 
 template <typename T>
-/*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	T* result = nullptr;
+_ALWAYS_INLINE_ T* memnewNoConstructor() {
+	const uint32_t type_sig = _get_type_sig<T>();
+	//T* result = nullptr;
+	const ArenaType arena_type = get_arena_type_for_sig(type_sig);
+	Arena& arena = get_arena(arena_type);
+	//constexpr const char* name = get_arena_name<arena_type>();
+	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewNoConstructor";
+	//print_type_info<T>(message.c_str());
 
-	if constexpr (is_type_gdscript(type_sig)) {
-		result = g_memory_arena_code.allocate<T>();
-		print_type_info<T>("!!!!!!!! gdscript memnewNoConstructor");
-	} else if constexpr (is_type_collection(type_sig)) {
-		result = g_memory_arena_collections.allocate<T>();
-		print_type_info<T>("!!!!!!!! collection memnewNoConstructor");
-	} else if constexpr (is_type_physics(type_sig)) {
-		result = g_memory_arena_physics.allocate<T>();
-		print_type_info<T>("!!!!!!!! physics memnewNoConstructor");
-	} else if constexpr (is_type_image(type_sig)) {
-		result = g_memory_arena_images.allocate<T>();
-		print_type_info<T>("!!!!!!!! images memnewNoConstructor");
-	} else if constexpr (is_type_control(type_sig)) {
-		result = g_memory_arena_controls.allocate<T>();
-		print_type_info<T>("!!!!!!!! control memnewNoConstructor");
-	} else if constexpr (is_type_font(type_sig)) {
-		result = g_memory_arena_fonts.allocate<T>();
-		print_type_info<T>("!!!!!!!! fonts memnewNoConstructor");
-	} else if constexpr (is_type_string(type_sig)) {
-		result = g_memory_arena_string.allocate<T>();
-		print_type_info<T>("!!!!!!!! string memnewNoConstructor");
-	} else {
-		result = new ("") T;
-		print_type_info<T>("!!!!!!!! none memnewNoConstructor");
+	if (g_is_logging) {
+		std::cout << "?!?!?!?! memnewNoConstructor name: " << _get_type_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor raw name: " << _get_type_raw_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor type_sig: " << type_sig << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor arena: " << (long) &arena << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor arena.m_is_valid: " << arena.m_is_valid << std::endl;
+		std::cout.flush();
 	}
 
-	postinitialize_handler(result);
-	return result;
+///*
+	if (arena_type != ArenaType::invalid) {
+		return _post_initialize(arena.allocate<T>());
+	} else {
+		return _post_initialize(new ("") T);
+	}
+//*/
+	//result = new ("") T;
+
+	//return _post_initialize(result);
 }
 
-template <typename T>
-/*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	T* result = nullptr;
 
-	if constexpr (is_type_gdscript(type_sig)) {
-		result = g_memory_arena_code.allocate<T>();
-		print_type_info<T>("!!!!!!!! gdscript memnewNoArgs");
-	} else if constexpr (is_type_collection(type_sig)) {
-		result = g_memory_arena_collections.allocate<T>();
-		print_type_info<T>("!!!!!!!! collection memnewNoArgs");
-	} else if constexpr (is_type_physics(type_sig)) {
-		result = g_memory_arena_physics.allocate<T>();
-		print_type_info<T>("!!!!!!!! physics memnewNoArgs");
-	} else if constexpr (is_type_image(type_sig)) {
-		result = g_memory_arena_images.allocate<T>();
-		print_type_info<T>("!!!!!!!! images memnewNoArgs");
-	} else if constexpr (is_type_control(type_sig)) {
-		result = g_memory_arena_controls.allocate<T>();
-		print_type_info<T>("!!!!!!!! control memnewNoArgs");
-	} else if constexpr (is_type_font(type_sig)) {
-		result = g_memory_arena_fonts.allocate<T>();
-		print_type_info<T>("!!!!!!!! fonts memnewNoArgs");
-	} else if constexpr (is_type_string(type_sig)) {
-		result = g_memory_arena_string.allocate<T>();
-		print_type_info<T>("!!!!!!!! string memnewNoArgs");
-	} else {
-		result = new ("") T;
-		print_type_info<T>("!!!!!!!! none memnewNoArgs");
+template <typename T>
+_ALWAYS_INLINE_ T* memnewNoArgs() {
+	const uint32_t type_sig = _get_type_sig<T>();
+	//T* result = nullptr;
+	const ArenaType arena_type = get_arena_type_for_sig(type_sig);
+	Arena& arena = get_arena(arena_type);
+	//constexpr const char* name = get_arena_name<arena_type>();
+	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewNoArgs";
+	//print_type_info<T>(message.c_str());
+
+	if (g_is_logging) {
+		std::cout << "?!?!?!?! memnewNoArgs name: " << _get_type_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs raw name: " << _get_type_raw_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs type_sig: " << type_sig << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs arena: " << (long) &arena << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs arena.m_is_valid: " << arena.m_is_valid << std::endl;
+		std::cout.flush();
 	}
 
-	postinitialize_handler(result);
-	return result;
+///*
+	if (arena_type != ArenaType::invalid) {
+		return _post_initialize(arena.allocate<T>());
+	} else {
+		return _post_initialize(new ("") T);
+	}
+//*/
+	//result = new ("") T;
+
+	//return _post_initialize(result);
 }
 
 
@@ -546,7 +600,7 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
+	uint32_t type_sig = _get_type_sig<T>();
 
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
@@ -556,23 +610,37 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	if constexpr (is_type_gdscript(type_sig)) {
+	const ArenaType arena_type = get_arena_type_for_sig(type_sig);
+	if (g_is_logging) {
+		std::cout << "?!?!?!?! memdelete name: " << _get_type_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memdelete raw name: " << _get_type_raw_name<T>() << std::endl;
+		std::cout << "?!?!?!?! memdelete type_sig: " << type_sig << std::endl;
+		std::cout << "?!?!?!?! memdelete arena_type: " << (int) arena_type << std::endl;
+		std::cout.flush();
+	}
+
+	if (arena_type == ArenaType::invalid) {
+		Memory::free_static(p_class, false);
+	}
+/*
+	if (is_type_gdscript(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_collection(type_sig)) {
+	} else if (is_type_collection(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_physics(type_sig)) {
+	} else if (is_type_physics(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_image(type_sig)) {
+	} else if (is_type_image(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_control(type_sig)) {
+	} else if (is_type_control(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_font(type_sig)) {
+	} else if (is_type_font(type_sig)) {
 		// FIXME: Have the Arena free the memory here
-	} else if constexpr (is_type_string(type_sig)) {
+	} else if (is_type_string(type_sig)) {
 		// FIXME: Have the Arena free the memory here
 	} else {
 		Memory::free_static(p_class, false);
 	}
+*/
 }
 
 template <typename T, typename A>

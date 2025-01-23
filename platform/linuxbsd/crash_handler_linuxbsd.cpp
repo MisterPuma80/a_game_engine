@@ -47,7 +47,7 @@
 #include <link.h>
 #include <signal.h>
 #include <stdlib.h>
-
+/*
 static void handle_crash(int sig) {
 	signal(SIGSEGV, SIG_DFL);
 	signal(SIGFPE, SIG_DFL);
@@ -144,6 +144,7 @@ static void handle_crash(int sig) {
 	// Abort to pass the error to the OS
 	abort();
 }
+*/
 #endif
 
 CrashHandler::CrashHandler() {
@@ -158,20 +159,22 @@ void CrashHandler::disable() {
 	if (disabled) {
 		return;
 	}
-
+/*
 #ifdef CRASH_HANDLER_ENABLED
 	signal(SIGSEGV, SIG_DFL);
 	signal(SIGFPE, SIG_DFL);
 	signal(SIGILL, SIG_DFL);
 #endif
-
+*/
 	disabled = true;
 }
 
 void CrashHandler::initialize() {
+/*
 #ifdef CRASH_HANDLER_ENABLED
 	signal(SIGSEGV, handle_crash);
 	signal(SIGFPE, handle_crash);
 	signal(SIGILL, handle_crash);
 #endif
+*/
 }

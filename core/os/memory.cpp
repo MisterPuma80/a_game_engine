@@ -46,16 +46,18 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 
 bool g_is_logging = false;
 
+
+
 //static const size_t MEGA_BYTE = 1024 * 1024;
-Arena<1024 * 1024 * 512> g_memory_arena_code;
-Arena<1024 * 1024 * 512> g_memory_arena_images;
-Arena<1024 * 1024 * 512> g_memory_arena_collections;
-Arena<1024 * 1024 * 512> g_memory_arena_physics;
-Arena<1024 * 1024 * 512> g_memory_arena_controls;
-Arena<1024 * 1024 * 512> g_memory_arena_fonts;
-Arena<1024 * 1024 * 512> g_memory_arena_string;
+Arena g_memory_arena_code(true);
+Arena g_memory_arena_images(true);
+Arena g_memory_arena_collections(true);
+Arena g_memory_arena_physics(true);
+Arena g_memory_arena_controls(true);
+Arena g_memory_arena_fonts(true);
+Arena g_memory_arena_string(true);
 
-
+/*
 void print_stack_trace() {
     void* callstack[128];
     int frames = backtrace(callstack, 128);
@@ -96,7 +98,7 @@ void print_stack_trace() {
     
     free(strs);
 }
-
+*/
 bool starts_with(const std::string& str, const std::string& prefix) {
 	if (str.length() < prefix.length()) {
 		return false;
