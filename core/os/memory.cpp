@@ -44,7 +44,7 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 	return p_allocfunc(p_size);
 }
 
-bool g_is_logging = false;
+//constexpr bool g_is_logging = false;
 
 
 
