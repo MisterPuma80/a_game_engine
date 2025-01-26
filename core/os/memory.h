@@ -114,7 +114,7 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
 
-constexpr bool g_is_logging = false;
+constexpr bool g_is_logging = true;
 
 
 // Hash string with FNV-1a
@@ -129,20 +129,8 @@ constexpr uint32_t hash_string(std::string_view str) {
     return hash;
 }
 
-#include <iostream>
-#include <execinfo.h>
-#include <cxxabi.h>
-#include <string>
-#include <cstdlib>
-#include <dlfcn.h>
-#include <unistd.h>
-#include <cstdio>
-
-
 //void print_stack_trace();
 
-
-bool starts_with(const std::string& str, const std::string& prefix);
 
 
 constexpr bool _is_in_types(const uint32_t types[], const size_t length, const uint32_t type_sig) {
@@ -393,16 +381,6 @@ constexpr uint32_t _get_type_sig() {
     std::string_view type_name = _get_type_name<T>();
     return hash_string(type_name);
 }
-/*
-template <typename T>
-void print_type_info(const char* message) {
-	if constexpr (g_is_logging) {
-		std::string_view type_name = _get_type_name<T>();
-		std::cout << "???? " << message << ": type:" << type_name << std::endl;
-		std::cout.flush();
-	}
-}
-*/
 
 enum class ArenaType {
 	invalid,
@@ -417,19 +395,19 @@ enum class ArenaType {
 
 template <uint32_t type_sig>
 constexpr ArenaType get_arena_type_for_sig() {
-	if (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_gdscript(type_sig)) {
 		return ArenaType::code;
-	} else if (is_type_collection(type_sig)) {
+	} else if constexpr (is_type_collection(type_sig)) {
 		return ArenaType::collections;
-	} else if (is_type_physics(type_sig)) {
+	} else if constexpr (is_type_physics(type_sig)) {
 		return ArenaType::physics;
-	} else if (is_type_image(type_sig)) {
+	} else if constexpr (is_type_image(type_sig)) {
 		return ArenaType::images;
-	} else if (is_type_control(type_sig)) {
+	} else if constexpr (is_type_control(type_sig)) {
 		return ArenaType::controls;
-	} else if (is_type_font(type_sig)) {
+	} else if constexpr (is_type_font(type_sig)) {
 		return ArenaType::fonts;
-	} else if (is_type_string(type_sig)) {
+	} else if constexpr (is_type_string(type_sig)) {
 		return ArenaType::strings;
 	} else {
 		return ArenaType::invalid;
@@ -451,8 +429,8 @@ constexpr Arena& get_arena() {
 	}
 }
 
-template <int ignore = 0>
-constexpr const char* get_arena_name(ArenaType arena_type) {
+template <ArenaType arena_type>
+constexpr std::string_view get_arena_name() {
 	switch (arena_type) {
 		case ArenaType::invalid:     return "invalid";
 		case ArenaType::code:        return "code";
@@ -466,11 +444,26 @@ constexpr const char* get_arena_name(ArenaType arena_type) {
 	}
 }
 
+template <typename T>
+constexpr Arena& get_arena_for_type() {
+	constexpr uint32_t type_sig = _get_type_sig<T>();
+	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+	constexpr Arena& arena = get_arena<arena_type>();
+	return arena;
+}
+
+template <typename T>
+constexpr bool has_arena_for_type() {
+	constexpr uint32_t type_sig = _get_type_sig<T>();
+	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+	return arena_type != ArenaType::invalid;
+}
+
 #define memnewOldWithArgs2(T, m_class) \
 ({ \
-	/*print_type_info<T>("!!!!!!!! ????? memnewOldWithArgs2");*/ \
 	if constexpr (g_is_logging) { \
 		std::cout << "???? memnewOldWithArgs2: " << std::endl; \
+		std::cout << "???? memnewOldWithArgs2 name: " << _get_type_name<T>() << std::endl; \
 		std::cout.flush(); \
 	}\
 	_post_initialize(new ("") m_class); \
@@ -487,109 +480,88 @@ constexpr const char* get_arena_name(ArenaType arena_type) {
 
 #define memnewOldNoConstructor(T) \
 ({ \
-	/*print_type_info<T>("!!!!!!!! none memnewOldNoConstructor");*/ \
 	if constexpr (g_is_logging) { \
 		std::cout << "???? memnewOldNoConstructor: " << std::endl; \
+		std::cout << "???? memnewOldNoConstructor name: " << _get_type_name<T>() << std::endl; \
 		std::cout.flush(); \
 	}\
 	_post_initialize(new ("") T); \
 })
 
-template <typename T, typename... Args>
-/*_ALWAYS_INLINE_*/ T* memnewWithArgs(Args&&... args) {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	//T* result = nullptr;
-	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
-	constexpr Arena& arena = get_arena<arena_type>();
-	//constexpr const char* name = get_arena_name<arena_type>();
-	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewWithArgs";
-	//print_type_info<T>(message.c_str());
 
-	if constexpr (g_is_logging) {
+template <typename T, typename... Args>
+constexpr T* memnewWithArgs(Args&&... args) {
+	if constexpr (g_is_logging && has_arena_for_type<T>()) {
+		constexpr uint32_t type_sig = _get_type_sig<T>();
+		constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+		constexpr Arena& arena = get_arena<arena_type>();
+
 		std::cout << "?!?!?!?! memnewWithArgs name: " << _get_type_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewWithArgs raw name: " << _get_type_raw_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewWithArgs type_sig: " << type_sig << std::endl;
 		std::cout << "?!?!?!?! memnewWithArgs arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewWithArgs arena name: " << get_arena_name<arena_type>() << std::endl;
 		std::cout << "?!?!?!?! memnewWithArgs arena: " << (long) &arena << std::endl;
 		std::cout << "?!?!?!?! memnewWithArgs arena.m_is_valid: " << arena.m_is_valid << std::endl;
 		std::cout.flush();
 	}
 
-///*
-	if constexpr (arena_type != ArenaType::invalid) {
+	if constexpr (has_arena_for_type<T>()) {
+		Arena& arena = get_arena_for_type<T>();
 		return _post_initialize(arena.allocate<T>(std::forward<Args>(args)...));
 	} else {
 		return _post_initialize(new ("") T(std::forward<Args>(args)...));
 	}
-//*/
-	//result = new ("") T(std::forward<Args>(args)...);
-
-	//return _post_initialize(result);
 }
 
 template <typename T>
-/*_ALWAYS_INLINE_*/ T* memnewNoConstructor() {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	//T* result = nullptr;
-	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
-	constexpr Arena& arena = get_arena<arena_type>();
-	//constexpr const char* name = get_arena_name<arena_type>();
-	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewNoConstructor";
-	//print_type_info<T>(message.c_str());
+constexpr T* memnewNoConstructor() {
+	if constexpr (g_is_logging && has_arena_for_type<T>()) {
+		constexpr uint32_t type_sig = _get_type_sig<T>();
+		constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+		constexpr Arena& arena = get_arena<arena_type>();
 
-	if constexpr (g_is_logging) {
 		std::cout << "?!?!?!?! memnewNoConstructor name: " << _get_type_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoConstructor raw name: " << _get_type_raw_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoConstructor type_sig: " << type_sig << std::endl;
 		std::cout << "?!?!?!?! memnewNoConstructor arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewNoConstructor arena name: " << get_arena_name<arena_type>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoConstructor arena: " << (long) &arena << std::endl;
 		std::cout << "?!?!?!?! memnewNoConstructor arena.m_is_valid: " << arena.m_is_valid << std::endl;
 		std::cout.flush();
 	}
 
-///*
-	if constexpr (arena_type != ArenaType::invalid) {
+	if constexpr (has_arena_for_type<T>()) {
+		Arena& arena = get_arena_for_type<T>();
 		return _post_initialize(arena.allocate<T>());
 	} else {
 		return _post_initialize(new ("") T);
 	}
-//*/
-	//result = new ("") T;
-
-	//return _post_initialize(result);
 }
 
-
 template <typename T>
-/*_ALWAYS_INLINE_*/ T* memnewNoArgs() {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-	//T* result = nullptr;
-	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
-	constexpr Arena& arena = get_arena<arena_type>();
-	//constexpr const char* name = get_arena_name<arena_type>();
-	//const std::string message = "!!!!!!!! " + std::string(name) + " memnewNoArgs";
-	//print_type_info<T>(message.c_str());
+constexpr T* memnewNoArgs() {
+	if constexpr (g_is_logging && has_arena_for_type<T>()) {
+		constexpr uint32_t type_sig = _get_type_sig<T>();
+		constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+		constexpr Arena& arena = get_arena<arena_type>();
 
-	if constexpr (g_is_logging) {
 		std::cout << "?!?!?!?! memnewNoArgs name: " << _get_type_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoArgs raw name: " << _get_type_raw_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoArgs type_sig: " << type_sig << std::endl;
 		std::cout << "?!?!?!?! memnewNoArgs arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memnewNoArgs arena name: " << get_arena_name<arena_type>() << std::endl;
 		std::cout << "?!?!?!?! memnewNoArgs arena: " << (long) &arena << std::endl;
 		std::cout << "?!?!?!?! memnewNoArgs arena.m_is_valid: " << arena.m_is_valid << std::endl;
 		std::cout.flush();
 	}
 
-///*
-	if constexpr (arena_type != ArenaType::invalid) {
+	if constexpr (has_arena_for_type<T>()) {
+		Arena& arena = get_arena_for_type<T>();
 		return _post_initialize(arena.allocate<T>());
 	} else {
 		return _post_initialize(new ("") T);
 	}
-//*/
-	//result = new ("") T;
-
-	//return _post_initialize(result);
 }
 
 
@@ -601,8 +573,6 @@ _ALWAYS_INLINE_ bool predelete_handler(void *) {
 
 template <typename T>
 void memdelete(T *p_class) {
-	constexpr uint32_t type_sig = _get_type_sig<T>();
-
 	if (!predelete_handler(p_class)) {
 		return; // doesn't want to be deleted
 	}
@@ -611,16 +581,24 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+/*
 	if constexpr (g_is_logging) {
+		constexpr uint32_t type_sig = _get_type_sig<T>();
+		constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
+		constexpr Arena& arena = get_arena<arena_type>();
+
 		std::cout << "?!?!?!?! memdelete name: " << _get_type_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memdelete raw name: " << _get_type_raw_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memdelete type_sig: " << type_sig << std::endl;
 		std::cout << "?!?!?!?! memdelete arena_type: " << (int) arena_type << std::endl;
+		std::cout << "?!?!?!?! memdelete arena name: " << get_arena_name<arena_type>() << std::endl;
+		std::cout << "?!?!?!?! memdelete arena: " << (long) &arena << std::endl;
+		std::cout << "?!?!?!?! memdelete arena.m_is_valid: " << arena.m_is_valid << std::endl;
 		std::cout.flush();
 	}
+*/
 
-	if constexpr (arena_type == ArenaType::invalid) {
+	if constexpr (! has_arena_for_type<T>()) {
 		Memory::free_static(p_class, false);
 	}
 /*

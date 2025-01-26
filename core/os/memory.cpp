@@ -99,13 +99,6 @@ void print_stack_trace() {
     free(strs);
 }
 */
-bool starts_with(const std::string& str, const std::string& prefix) {
-	if (str.length() < prefix.length()) {
-		return false;
-	}
-	return str.compare(0, prefix.length(), prefix) == 0;
-}
-
 
 #ifdef _MSC_VER
 void operator delete(void *p_mem, const char *p_description) {
