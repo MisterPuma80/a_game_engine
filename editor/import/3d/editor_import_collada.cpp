@@ -198,7 +198,7 @@ Error ColladaImport::_create_scene(Collada::Node *p_node, Node3D *p_parent) {
 			return OK; // do nothing
 		} break;
 		case Collada::Node::TYPE_LIGHT: {
-			//node = memnewOldNoConstructor( Light)
+			//node = memnewNoConstructor<Light>()
 			Collada::NodeLight *light = static_cast<Collada::NodeLight *>(p_node);
 			if (collada.state.light_data_map.has(light->light)) {
 				Collada::LightData &ld = collada.state.light_data_map[light->light];

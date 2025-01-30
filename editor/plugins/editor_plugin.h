@@ -268,7 +268,11 @@ class EditorPlugins {
 
 	template <typename T>
 	static EditorPlugin *creator() {
-		return memnewOldNoConstructor(T);
+		if constexpr (has_arena_for_type<T>()) {
+			return memnewNoConstructor<T>();
+		} else {
+			return memnewOldNoConstructor(T, __FILE__, __LINE__);
+		}
 	}
 
 public:

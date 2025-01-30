@@ -697,7 +697,7 @@ bool SoftBody3D::is_ray_pickable() const {
 
 SoftBody3D::SoftBody3D() :
 		physics_rid(PhysicsServer3D::get_singleton()->soft_body_create()) {
-	rendering_server_handler = memnewOldNoConstructor(SoftBodyRenderingServerHandler);
+	rendering_server_handler = memnewNoConstructor<SoftBodyRenderingServerHandler>();
 	PhysicsServer3D::get_singleton()->body_attach_object_instance_id(physics_rid, get_instance_id());
 }
 

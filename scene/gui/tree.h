@@ -56,6 +56,8 @@ public:
 		CELL_MODE_CUSTOM, ///< Contains a custom value, show a string, and an edit button
 	};
 
+	TreeItem(Tree *p_tree);
+
 private:
 	friend class Tree;
 
@@ -144,8 +146,6 @@ private:
 	Vector<TreeItem *> children_cache;
 	bool is_root = false; // for tree root
 	Tree *tree = nullptr; // tree (for reference)
-
-	TreeItem(Tree *p_tree);
 
 	void _changed_notify(int p_cell);
 	void _changed_notify();

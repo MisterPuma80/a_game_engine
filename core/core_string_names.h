@@ -37,15 +37,15 @@ class CoreStringNames {
 	friend void register_core_types();
 	friend void unregister_core_types();
 
-	static void create() { singleton = memnewOldNoConstructor(CoreStringNames); }
+	static void create() { singleton = memnewNoConstructor<CoreStringNames>(); }
 	static void free() {
 		memdelete(singleton);
 		singleton = nullptr;
 	}
 
+public:
 	CoreStringNames();
 
-public:
 	_FORCE_INLINE_ static CoreStringNames *get_singleton() { return singleton; }
 
 	static CoreStringNames *singleton;

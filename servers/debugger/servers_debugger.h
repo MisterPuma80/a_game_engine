@@ -121,9 +121,8 @@ private:
 
 	void _send_resource_usage();
 
-	ServersDebugger();
-
 public:
+	ServersDebugger();
 	static void initialize();
 	static void deinitialize();
 

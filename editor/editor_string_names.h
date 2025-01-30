@@ -36,10 +36,10 @@
 class EditorStringNames {
 	static EditorStringNames *singleton;
 
+public:
 	EditorStringNames();
 
-public:
-	static void create() { singleton = memnewOldNoConstructor(EditorStringNames); }
+	static void create() { singleton = memnewNoConstructor<EditorStringNames>(); }
 	static void free() {
 		memdelete(singleton);
 		singleton = nullptr;

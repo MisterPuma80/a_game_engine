@@ -336,7 +336,7 @@ void EditorCommandPalette::_save_history() const {
 
 EditorCommandPalette *EditorCommandPalette::get_singleton() {
 	if (singleton == nullptr) {
-		singleton = memnewOldNoConstructor(EditorCommandPalette);
+		singleton = memnewNoConstructor<EditorCommandPalette>();
 	}
 	return singleton;
 }

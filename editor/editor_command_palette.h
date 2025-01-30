@@ -86,13 +86,12 @@ class EditorCommandPalette : public ConfirmationDialog {
 	void _add_command(String p_command_name, String p_key_name, Callable p_binded_action, String p_shortcut_text = "None");
 	void _save_history() const;
 
-	EditorCommandPalette();
-
 protected:
 	static void _bind_methods();
 	void _notification(int p_what);
 
 public:
+	EditorCommandPalette();
 	void open_popup();
 	void get_actions_list(List<String> *p_list) const;
 	void add_command(String p_command_name, String p_key_name, Callable p_action, Vector<Variant> arguments, const Ref<Shortcut> &p_shortcut);

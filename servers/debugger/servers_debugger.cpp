@@ -391,7 +391,7 @@ ServersDebugger *ServersDebugger::singleton = nullptr;
 
 void ServersDebugger::initialize() {
 	if (EngineDebugger::is_active()) {
-		memnewOldNoConstructor(ServersDebugger);
+		memnewNoConstructor<ServersDebugger>();
 	}
 }
 

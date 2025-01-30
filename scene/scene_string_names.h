@@ -40,15 +40,15 @@ class SceneStringNames {
 
 	static SceneStringNames *singleton;
 
-	static void create() { singleton = memnewOldNoConstructor(SceneStringNames); }
+	static void create() { singleton = memnewNoConstructor<SceneStringNames>(); }
 	static void free() {
 		memdelete(singleton);
 		singleton = nullptr;
 	}
 
+public:
 	SceneStringNames();
 
-public:
 	_FORCE_INLINE_ static SceneStringNames *get_singleton() { return singleton; }
 
 	StringName resized;

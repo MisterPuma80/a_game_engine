@@ -793,7 +793,7 @@ int TreeItem::get_custom_minimum_height() const {
 /* Item manipulation */
 
 TreeItem *TreeItem::create_child(int p_index) {
-	TreeItem *ti = memnewOldWithArgs2(TreeItem, TreeItem(tree));
+	TreeItem *ti = memnewWithArgs<TreeItem>(tree);
 	if (tree) {
 		ti->cells.resize(tree->columns.size());
 		tree->queue_redraw();
@@ -4478,7 +4478,8 @@ TreeItem *Tree::create_item(TreeItem *p_parent, int p_index) {
 	} else {
 		if (!root) {
 			// No root exists, make the given item the new root.
-			ti = memnewOldWithArgs2(TreeItem, TreeItem(this));
+			ti = memnewWithArgs<TreeItem>(this);
+			//ti = memnewOldWithArgs2(TreeItem, TreeItem(this), __FILE__, __LINE__);
 			ERR_FAIL_NULL_V(ti, nullptr);
 			ti->cells.resize(columns.size());
 			ti->is_root = true;

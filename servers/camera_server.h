@@ -73,7 +73,11 @@ protected:
 
 	template <typename T>
 	static CameraServer *_create_builtin() {
-		return memnewOldNoConstructor(T);
+		if constexpr (has_arena_for_type<T>()) {
+			return memnewNoConstructor<T>();
+		} else {
+			return memnewOldNoConstructor(T, __FILE__, __LINE__);
+		}
 	}
 
 public:

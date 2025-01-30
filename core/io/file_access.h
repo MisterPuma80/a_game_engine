@@ -117,7 +117,11 @@ private:
 	static CreateFunc create_func[ACCESS_MAX]; /** default file access creation function for a platform */
 	template <typename T>
 	static Ref<FileAccess> _create_builtin() {
-		return memnewOldNoConstructor(T);
+		if constexpr (has_arena_for_type<T>()) {
+			return memnewNoConstructor<T>();
+		} else {
+			return memnewOldNoConstructor(T, __FILE__, __LINE__);
+		}
 	}
 
 	static Ref<FileAccess> _open(const String &p_path, ModeFlags p_mode_flags);

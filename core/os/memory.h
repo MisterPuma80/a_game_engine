@@ -111,10 +111,12 @@ _ALWAYS_INLINE_ T *_post_initialize(T *p_obj) {
 	return p_obj;
 }
 
+#define memnew(m_class) _post_initialize(new ("") m_class)
+
 #define memnew_allocator(m_class, m_allocator) _post_initialize(new (m_allocator::alloc) m_class)
 #define memnew_placement(m_placement, m_class) _post_initialize(new (m_placement) m_class)
 
-constexpr bool g_is_logging = true;
+constexpr bool g_is_logging = false;
 
 
 // Hash string with FNV-1a
@@ -144,8 +146,8 @@ constexpr bool _is_in_types(const uint32_t types[], const size_t length, const u
 
 constexpr bool is_type_gdscript(const uint32_t type_sig) {
 	constexpr uint32_t  _types[] = {
-		//hash_string("GDScript"),
-		//hash_string("GDScriptParser"),
+		hash_string("GDScript"),
+		hash_string("GDScriptParser"),
 	};
 	constexpr size_t length = sizeof(_types) / sizeof(_types[0]);
 	return _is_in_types(_types, length, type_sig);
@@ -153,31 +155,93 @@ constexpr bool is_type_gdscript(const uint32_t type_sig) {
 
 constexpr bool is_type_collection(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("ArrayPrivate"),
-		//hash_string("DictionaryPrivate"),
-		//hash_string("HashMapElement"),
-		//hash_string("HashMap"),
-		//hash_string("Variant"),
+/*
+		hash_string("ArrayPrivate"),
+		hash_string("DictionaryPrivate"),
+		hash_string("HashMapElement"),
+		hash_string("HashMap"),
+		hash_string("Variant"),
+*/
 	};
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
+}
+
+constexpr bool is_type_resource(const uint32_t type_sig) {
+	constexpr uint32_t _types[] = {
+		hash_string("Resource"),
+	};
+
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
+}
+
+constexpr bool is_type_ref_counted(const uint32_t type_sig) {
+	constexpr uint32_t _types[] = {
+		hash_string("RefCounted"),
+		hash_string("Ref"),
+	};
+
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
 	return _is_in_types(_types, length, type_sig);
 }
 
 constexpr bool is_type_physics(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-/*
+///*
 		hash_string("RigidBody3D"),
 		hash_string("StaticBody3D"),
 		hash_string("CharacterBody3D"),
 		hash_string("DirectionalLight3D"),
-		//hash_string("GPUParticles3D"),
+		hash_string("GPUParticles3D"),
 		hash_string("MeshInstance3D"),
-		//hash_string("Node3D"),
-		//hash_string("Area3D"),
+		hash_string("Node3D"),
+		hash_string("Area3D"),
 		hash_string("CollisionShape3D"),
-		//hash_string("NavigationRegion3D"),
-		//hash_string("Timer"),
-*/
+		hash_string("NavigationRegion3D"),
+		hash_string("Timer"),
+		hash_string("StandardMaterial3D"),
+		hash_string("Camera3D"),
+		hash_string("CameraLinux"),
+		hash_string("RayCast3D"),
+		hash_string("Animation"),
+		hash_string("AnimationPlayer"),
+		hash_string("Skeleton3D"),
+		hash_string("PhysicalBone3D"),
+		hash_string("Marker3D"),
+		hash_string("SoftBody3D"),
+		hash_string("StandardMaterial3D"),
+		hash_string("CylinderMesh"),
+		hash_string("CylinderShape3D"),
+		hash_string("Curve3D"),
+		hash_string("Path3D"),
+		hash_string("PathFollow3D"),
+		hash_string("PackedScene"),
+		hash_string("ArrayMesh"),
+		hash_string("SphereShape3D"),
+		hash_string("CapsuleShape3D"),
+		hash_string("SphereMesh"),
+		hash_string("NavigationMesh"),
+		hash_string("QuadMesh"),
+		hash_string("PhysicalBoneSimulator3D"),
+		hash_string("CSGPolygon3D"),
+		hash_string("BoneAttachment3D"),
+		hash_string("Node"),
+		hash_string("WorldEnvironment"),
+		hash_string("PrismMesh"),
+		hash_string("Environment"),
+		hash_string("Sky"),
+		hash_string("ProceduralSkyMaterial"),
+		hash_string("BoxShape3D"),
+		hash_string("AnimationLibrary"),
+		hash_string("Skin"),
+		hash_string("ConvexPolygonShape3D"),
+		hash_string("ParticleProcessMaterial"),
+		hash_string("SceneMultiplayer"),
+		hash_string("BoxMesh"),
+		hash_string("SceneTree"),
+		hash_string("ShaderMaterial"),
+//*/
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -194,11 +258,123 @@ constexpr bool is_type_image(const uint32_t type_sig) {
 
 constexpr bool is_type_control(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("Window"),
-		//hash_string("Label"),
-		//hash_string("Button"),
-		//hash_string("VBoxContainer"),
-		//hash_string("HBoxContainer"),
+		hash_string("Theme"),
+		hash_string("TreeItem"),
+		hash_string("Window"),
+		hash_string("Label"),
+		hash_string("Button"),
+		hash_string("VBoxContainer"),
+		hash_string("HBoxContainer"),
+		hash_string("StyleBoxFlat"),
+		hash_string("StyleBoxLine"),
+		hash_string("StyleBoxEmpty"),
+		hash_string("Control"),
+		hash_string("ColorRect"),
+		hash_string("RichTextLabel"),
+		hash_string("PopupMenu"),
+		hash_string("Shortcut"),
+
+
+		// FIXME: Move to own collection?
+		hash_string("FileAccessUnix"),
+		hash_string("DirAccessUnix"),
+		hash_string("InputEventKey"),
+		hash_string("InputEventJoypadButton"),
+		hash_string("InputEventJoypadMotion"),
+		hash_string("InputEventMouseButton"),
+
+
+		// FIXME: Move to own collection?
+		hash_string("EditorStringNames"),
+		hash_string("EditorSettings"),
+		hash_string("EditorCommandPalette"),
+		hash_string("EditorDebuggerNode"),
+		hash_string("EditorPluginCSG"),
+		hash_string("EditorNode3DGizmoPlugin"),
+		hash_string("EditorPlugin"),
+
+
+		// FIXME: Move to own collection?
+		hash_string("CPUParticles3DEditorPlugin"),
+		hash_string("NavigationObstacle3DEditorPlugin"),
+		hash_string("MultiMeshEditorPlugin"),
+		hash_string("MeshLibraryEditorPlugin"),
+		hash_string("MaterialEditorPlugin"),
+		hash_string("LightmapGIEditorPlugin"),
+		hash_string("GradientTexture2DEditorPlugin"),
+		hash_string("GradientEditorPlugin"),
+		hash_string("GPUParticlesCollisionSDF3DEditorPlugin"),
+		hash_string("GPUParticles3DEditorPlugin"),
+		hash_string("FontEditorPlugin"),
+		hash_string("CurveEditorPlugin"),
+		hash_string("ControlEditorPlugin"),
+		hash_string("BoneMapEditorPlugin"),
+		hash_string("BitMapEditorPlugin"),
+		hash_string("AudioStreamRandomizerEditorPlugin"),
+		hash_string("AudioStreamEditorPlugin"),
+		hash_string("AnimationTreeEditorPlugin"),
+		hash_string("MaterialEditorPlugin"),
+		hash_string("NavigationObstacle3DEditorPlugin"),
+		hash_string("OccluderInstance3DEditorPlugin"),
+		hash_string("Polygon3DEditorPlugin"),
+		hash_string("ResourcePreloaderEditorPlugin"),
+		hash_string("ShaderEditorPlugin"),
+		hash_string("ShaderFileEditorPlugin"),
+		hash_string("Skeleton3DEditorPlugin"),
+		hash_string("TextureRegionEditorPlugin"),
+		hash_string("NoiseEditorPlugin"),
+		hash_string("NavigationMeshEditorPlugin"),
+		hash_string("MultiplayerEditorPlugin"),
+		hash_string("AudioStreamInteractiveEditorPlugin"),
+		hash_string("GridMapEditorPlugin"),
+		hash_string("SceneExporterGLTFPlugin"),
+		hash_string("TileMapEditorPlugin"),
+		hash_string("TileSetEditorPlugin"),
+		hash_string("Sprite2DEditorPlugin"),
+		hash_string("Cast2DEditorPlugin"),
+		hash_string("Camera3DEditorPlugin"),
+		hash_string("InputEventEditorPlugin"),
+		hash_string("MeshEditorPlugin"),
+		hash_string("MeshInstance3DEditorPlugin"),
+		hash_string("PackedSceneEditorPlugin"),
+		hash_string("Path3DEditorPlugin"),
+		hash_string("PhysicalBone3DEditorPlugin"),
+		hash_string("SkeletonIK3DEditorPlugin"),
+		hash_string("SpriteFramesEditorPlugin"),
+		hash_string("StyleBoxEditorPlugin"),
+		hash_string("SubViewportPreviewEditorPlugin"),
+		hash_string("Texture3DEditorPlugin"),
+		hash_string("TextureEditorPlugin"),
+		hash_string("TextureLayeredEditorPlugin"),
+		hash_string("ThemeEditorPlugin"),
+		hash_string("VoxelGIEditorPlugin"),
+		hash_string("CollisionPolygon2DEditorPlugin"),
+		hash_string("CollisionShape2DEditorPlugin"),
+		hash_string("CPUParticles2DEditorPlugin"),
+		hash_string("GPUParticles2DEditorPlugin"),
+		hash_string("LightOccluder2DEditorPlugin"),
+		hash_string("Line2DEditorPlugin"),
+		hash_string("NavigationLink2DEditorPlugin"),
+		hash_string("NavigationObstacle2DEditorPlugin"),
+		hash_string("NavigationPolygonEditorPlugin"),
+		hash_string("ParallaxBackgroundEditorPlugin"),
+		hash_string("Path2DEditorPlugin"),
+		hash_string("Polygon2DEditorPlugin"),
+		hash_string("Skeleton2DEditorPlugin"),
+
+		// FIXME: Move to own collection?
+		hash_string("SoftBodyRenderingServerHandler"),
+
+		// FIXME: Move to own collection?
+		hash_string("PhysicsDirectBodyState3DExtension"),
+		hash_string("PhysicsDirectSpaceState3DExtension"),
+		hash_string("PhysicsServer3DExtension"),
+
+		// FIXME: Move to own collection?
+		hash_string("ServersDebugger"),
+		hash_string("SceneDebugger"),
+		hash_string("DebugAdapterServer"),
+		hash_string("LiveEditor"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -207,8 +383,9 @@ constexpr bool is_type_control(const uint32_t type_sig) {
 
 constexpr bool is_type_font(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("FontFile"),
-		//hash_string("FontVariation"),
+		hash_string("FontFile"),
+		hash_string("FontVariation"),
+		hash_string("FontVariation"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -217,7 +394,9 @@ constexpr bool is_type_font(const uint32_t type_sig) {
 
 constexpr bool is_type_string(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("StringName"),
+		hash_string("StringName"),
+		hash_string("CoreStringNames"),
+		hash_string("SceneStringNames"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -226,11 +405,11 @@ constexpr bool is_type_string(const uint32_t type_sig) {
 
 constexpr bool is_type_texture(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("ImageTexture"),
-		//hash_string("ViewportTexture"),
-		//hash_string("TextureRect"),
-		//hash_string("TextureButton"),
-		//hash_string("CompressedTexture2D"),
+		hash_string("ImageTexture"),
+		hash_string("ViewportTexture"),
+		hash_string("TextureRect"),
+		hash_string("TextureButton"),
+		hash_string("CompressedTexture2D"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -239,11 +418,11 @@ constexpr bool is_type_texture(const uint32_t type_sig) {
 
 constexpr bool is_type_rendering(const uint32_t type_sig) {
 	constexpr uint32_t _types[] = {
-		//hash_string("RenderingDevice"),
-		//hash_string("RenderingServerDefault"),
-		//hash_string("RenderingDeviceDriverVulkan"),
-		//hash_string("RenderingContextDriverVulkan"),
-		//hash_string("RenderingDeviceGraph"),
+		hash_string("RenderingDevice"),
+		hash_string("RenderingServerDefault"),
+		hash_string("RenderingDeviceDriverVulkan"),
+		hash_string("RenderingContextDriverVulkan"),
+		hash_string("RenderingDeviceGraph"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -328,7 +507,8 @@ struct Arena {
 static Arena init_arena;
 
 
-
+extern Arena g_memory_arena_resource;
+extern Arena g_memory_arena_ref_counted;
 extern Arena g_memory_arena_code;
 extern Arena g_memory_arena_images;
 extern Arena g_memory_arena_collections;
@@ -366,13 +546,13 @@ constexpr std::string_view _get_type_name() {
 	if (pos != std::string::npos) {
 		func_name = func_name.substr(0, pos);
 	}
-/*
+///*
 	// Get the string before any ::
-	pos = func_name.find("::");
+	pos = func_name.find("RefCounted::");
 	if (pos != std::string::npos) {
 		func_name = func_name.substr(0, pos);
 	}
-*/
+//*/
 	return func_name;
 }
 
@@ -384,6 +564,8 @@ constexpr uint32_t _get_type_sig() {
 
 enum class ArenaType {
 	invalid,
+	resource,
+	ref_counted,
 	code,
 	collections,
 	physics,
@@ -395,7 +577,11 @@ enum class ArenaType {
 
 template <uint32_t type_sig>
 constexpr ArenaType get_arena_type_for_sig() {
-	if constexpr (is_type_gdscript(type_sig)) {
+	if constexpr (is_type_resource(type_sig)) {
+		return ArenaType::resource;
+	} else if constexpr (is_type_ref_counted(type_sig)) {
+		return ArenaType::ref_counted;
+	} else if constexpr (is_type_gdscript(type_sig)) {
 		return ArenaType::code;
 	} else if constexpr (is_type_collection(type_sig)) {
 		return ArenaType::collections;
@@ -418,6 +604,8 @@ template <ArenaType arena_type>
 constexpr Arena& get_arena() {
 	switch (arena_type) {
 		case ArenaType::invalid:     return init_arena;
+		case ArenaType::resource:    return g_memory_arena_resource;
+		case ArenaType::ref_counted: return g_memory_arena_ref_counted;
 		case ArenaType::code:        return g_memory_arena_code;
 		case ArenaType::collections: return g_memory_arena_collections;
 		case ArenaType::physics:     return g_memory_arena_physics;
@@ -433,6 +621,8 @@ template <ArenaType arena_type>
 constexpr std::string_view get_arena_name() {
 	switch (arena_type) {
 		case ArenaType::invalid:     return "invalid";
+		case ArenaType::resource:    return "resource";
+		case ArenaType::ref_counted: return "ref_counted";
 		case ArenaType::code:        return "code";
 		case ArenaType::collections: return "collections";
 		case ArenaType::physics:     return "physics";
@@ -459,10 +649,10 @@ constexpr bool has_arena_for_type() {
 	return arena_type != ArenaType::invalid;
 }
 
-#define memnewOldWithArgs2(T, m_class) \
+#define memnewOldWithArgs2(T, m_class, f, l) \
 ({ \
 	if constexpr (g_is_logging) { \
-		std::cout << "???? memnewOldWithArgs2: " << std::endl; \
+		std::cout << "???? memnewOldWithArgs2: " << f << " : " << l << std::endl; \
 		std::cout << "???? memnewOldWithArgs2 name: " << _get_type_name<T>() << std::endl; \
 		std::cout.flush(); \
 	}\
@@ -472,16 +662,16 @@ constexpr bool has_arena_for_type() {
 #define memnewOldWithArgs3(name, m_class) \
 ({ \
 	if constexpr (g_is_logging) { \
-		std::cout << "???? memnewOldWithArgs3: " << name << std::endl; \
-		std::cout.flush(); \
+		/*std::cout << "???? memnewOldWithArgs3: " << name << std::endl;*/ \
+		/*std::cout.flush();*/ \
 	}\
 	_post_initialize(new ("") m_class); \
 })
 
-#define memnewOldNoConstructor(T) \
+#define memnewOldNoConstructor(T, f, l) \
 ({ \
 	if constexpr (g_is_logging) { \
-		std::cout << "???? memnewOldNoConstructor: " << std::endl; \
+		std::cout << "???? memnewOldNoConstructor: " << f << " : " << l << std::endl; \
 		std::cout << "???? memnewOldNoConstructor name: " << _get_type_name<T>() << std::endl; \
 		std::cout.flush(); \
 	}\
@@ -564,7 +754,48 @@ constexpr T* memnewNoArgs() {
 	}
 }
 
+template <typename T>
+bool is_address_in_any_arena(uintptr_t address) {
+	if constexpr (g_is_logging) {
+		std::cout << "?!?!?!?! delete T: " << address << " " << _get_type_name<T>() << std::endl;
+		std::cout.flush();
+	}
 
+	Arena* arenas[] = {
+		&g_memory_arena_resource,
+		&g_memory_arena_ref_counted,
+		&g_memory_arena_code,
+		&g_memory_arena_images,
+		&g_memory_arena_collections,
+		&g_memory_arena_physics,
+		&g_memory_arena_controls,
+		&g_memory_arena_fonts,
+		&g_memory_arena_string,
+	};
+
+	const size_t arenas_length = sizeof(arenas) / sizeof(arenas[0]);
+	bool is_in_any_arena = false;
+	for (size_t i=0; i<arenas_length; ++i) {
+		Arena* arena = arenas[i];
+		uintptr_t size = reinterpret_cast<uintptr_t>(arena->m_size);
+		uintptr_t start = reinterpret_cast<uintptr_t>(&arena->m_buffer);
+		uintptr_t end = reinterpret_cast<uintptr_t>(start + size);
+		bool is_in_arena = address >= start && address <= end;
+		if constexpr (g_is_logging) {
+			std::cout << "?!?!?!?! arena start: " << start << ", end: " << end << ", is_in_arena: " << is_in_arena << " m_is_valid: " << arena->m_is_valid << " size: " << size << std::endl;
+			std::cout.flush();
+		}
+		if (is_in_arena) {
+			is_in_any_arena = true;
+			if constexpr (g_is_logging) {
+				std::cout << "?!?!?!?! is in Arena !!!!!!!!!!!!!!!!!!!!" << std::endl;
+				std::cout.flush();
+			}
+		}
+	}
+
+	return is_in_any_arena;
+}
 
 
 _ALWAYS_INLINE_ bool predelete_handler(void *) {
@@ -581,13 +812,15 @@ void memdelete(T *p_class) {
 		p_class->~T();
 	}
 
-/*
+///*
 	if constexpr (g_is_logging) {
 		constexpr uint32_t type_sig = _get_type_sig<T>();
 		constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
 		constexpr Arena& arena = get_arena<arena_type>();
 
+		//std::cout << "?!?!?!?! memdelete file: " << _file << " line: " << _line << std::endl;
 		std::cout << "?!?!?!?! memdelete name: " << _get_type_name<T>() << std::endl;
+		//print_stack_trace();
 		std::cout << "?!?!?!?! memdelete raw name: " << _get_type_raw_name<T>() << std::endl;
 		std::cout << "?!?!?!?! memdelete type_sig: " << type_sig << std::endl;
 		std::cout << "?!?!?!?! memdelete arena_type: " << (int) arena_type << std::endl;
@@ -596,10 +829,17 @@ void memdelete(T *p_class) {
 		std::cout << "?!?!?!?! memdelete arena.m_is_valid: " << arena.m_is_valid << std::endl;
 		std::cout.flush();
 	}
-*/
+//*/
 
-	if constexpr (! has_arena_for_type<T>()) {
-		Memory::free_static(p_class, false);
+	if constexpr (g_is_logging && has_arena_for_type<T>()) {
+		std::cout << "?!?!?!?! FIXME: delete T from arena here" << std::endl;
+		std::cout.flush();
+	} else {
+		uintptr_t address = reinterpret_cast<uintptr_t>(&p_class);
+		bool is_in_any_arena = is_address_in_any_arena<T>(address);
+		if (!is_in_any_arena) {
+			//Memory::free_static(p_class, false); // FIXME: turn this back on!!!!!!!!!!!!!!!!!!
+		}
 	}
 /*
 	if (is_type_gdscript(type_sig)) {

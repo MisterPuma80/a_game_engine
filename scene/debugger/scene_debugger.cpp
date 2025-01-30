@@ -44,7 +44,7 @@ SceneDebugger *SceneDebugger::singleton = nullptr;
 SceneDebugger::SceneDebugger() {
 	singleton = this;
 #ifdef DEBUG_ENABLED
-	LiveEditor::singleton = memnewOldNoConstructor(LiveEditor);
+	LiveEditor::singleton = memnewNoConstructor<LiveEditor>();
 	EngineDebugger::register_message_capture("scene", EngineDebugger::Capture(nullptr, SceneDebugger::parse_message));
 #endif
 }
@@ -62,7 +62,7 @@ SceneDebugger::~SceneDebugger() {
 
 void SceneDebugger::initialize() {
 	if (EngineDebugger::is_active()) {
-		memnewOldNoConstructor(SceneDebugger);
+		memnewNoConstructor<SceneDebugger>();
 	}
 }
 

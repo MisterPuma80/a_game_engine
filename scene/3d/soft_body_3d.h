@@ -51,7 +51,6 @@ class SoftBodyRenderingServerHandler : public PhysicsServer3DRenderingServerHand
 	uint8_t *write_buffer = nullptr;
 
 private:
-	SoftBodyRenderingServerHandler();
 	bool is_ready(RID p_mesh_rid) const { return mesh.is_valid() && mesh == p_mesh_rid; }
 	void prepare(RID p_mesh_rid, int p_surface);
 	void clear();
@@ -60,6 +59,7 @@ private:
 	void commit_changes();
 
 public:
+	SoftBodyRenderingServerHandler();
 	void set_vertex(int p_vertex_id, const Vector3 &p_vertex) override;
 	void set_normal(int p_vertex_id, const Vector3 &p_normal) override;
 	void set_aabb(const AABB &p_aabb) override;

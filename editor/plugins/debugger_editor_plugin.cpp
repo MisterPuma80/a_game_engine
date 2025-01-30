@@ -56,7 +56,7 @@ DebuggerEditorPlugin::DebuggerEditorPlugin(PopupMenu *p_debug_menu) {
 	// File Server for deploy with remote filesystem.
 	file_server = memnewNoConstructor<EditorFileServer>();
 
-	EditorDebuggerNode *debugger = memnewOldNoConstructor(EditorDebuggerNode);
+	EditorDebuggerNode *debugger = memnewNoConstructor<EditorDebuggerNode>();
 	Button *db = EditorNode::get_bottom_panel()->add_item(TTR("Debugger"), debugger, ED_SHORTCUT_AND_COMMAND("bottom_panels/toggle_debugger_bottom_panel", TTR("Toggle Debugger Bottom Panel"), KeyModifierMask::ALT | Key::D));
 	debugger->set_tool_button(db);
 

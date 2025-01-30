@@ -45,12 +45,11 @@ public:
 private:
 	static SceneDebugger *singleton;
 
-	SceneDebugger();
-
 public:
 	static void initialize();
 	static void deinitialize();
 
+	SceneDebugger();
 	~SceneDebugger();
 
 #ifdef DEBUG_ENABLED
@@ -155,14 +154,14 @@ private:
 	void _duplicate_node_func(const NodePath &p_at, const String &p_new_name);
 	void _reparent_node_func(const NodePath &p_at, const NodePath &p_new_place, const String &p_new_name, int p_at_pos);
 
+	static LiveEditor *singleton;
+
+public:
 	LiveEditor() {
 		singleton = this;
 		live_edit_root = NodePath("/root");
 	};
 
-	static LiveEditor *singleton;
-
-public:
 	static LiveEditor *get_singleton();
 };
 #endif

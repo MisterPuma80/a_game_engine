@@ -58,6 +58,8 @@ public:
 		OVERRIDE_3D_4 // 3D Viewport 4
 	};
 
+	EditorDebuggerNode();
+
 private:
 	enum Options {
 		DEBUG_NEXT,
@@ -126,7 +128,6 @@ private:
 	friend class DebuggerEditorPlugin;
 	friend class DebugAdapterParser;
 	static EditorDebuggerNode *singleton;
-	EditorDebuggerNode();
 
 protected:
 	void _debugger_stopped(int p_id);

@@ -49,6 +49,8 @@ void *operator new(size_t p_size, void *(*p_allocfunc)(size_t p_size)) {
 
 
 //static const size_t MEGA_BYTE = 1024 * 1024;
+Arena g_memory_arena_resource(true);
+Arena g_memory_arena_ref_counted(true);
 Arena g_memory_arena_code(true);
 Arena g_memory_arena_images(true);
 Arena g_memory_arena_collections(true);
