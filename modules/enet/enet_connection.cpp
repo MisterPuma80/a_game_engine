@@ -508,7 +508,7 @@ void ENetConnection::Compressor::setup(ENetHost *p_host, CompressionMode p_mode)
 		case COMPRESS_FASTLZ:
 		case COMPRESS_ZLIB:
 		case COMPRESS_ZSTD: {
-			Compressor *compressor = memnewOldWithArgs2(Compressor, Compressor(p_mode), __FILE__, __LINE__);
+			Compressor *compressor = memnewWithArgs<Compressor>(p_mode);
 			enet_host_compress(p_host, &(compressor->enet_compressor));
 		} break;
 	}

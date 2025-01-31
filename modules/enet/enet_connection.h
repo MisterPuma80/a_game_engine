@@ -95,8 +95,6 @@ private:
 		Vector<uint8_t> dst_mem;
 		ENetCompressor enet_compressor;
 
-		Compressor(CompressionMode mode);
-
 		static size_t enet_compress(void *context, const ENetBuffer *inBuffers, size_t inBufferCount, size_t inLimit, enet_uint8 *outData, size_t outLimit);
 		static size_t enet_decompress(void *context, const enet_uint8 *inData, size_t inLimit, enet_uint8 *outData, size_t outLimit);
 		static void enet_compressor_destroy(void *context) {
@@ -104,6 +102,7 @@ private:
 		}
 
 	public:
+		Compressor(CompressionMode mode);
 		static void setup(ENetHost *p_host, CompressionMode p_mode);
 	};
 

@@ -4479,7 +4479,6 @@ TreeItem *Tree::create_item(TreeItem *p_parent, int p_index) {
 		if (!root) {
 			// No root exists, make the given item the new root.
 			ti = memnewWithArgs<TreeItem>(this);
-			//ti = memnewOldWithArgs2(TreeItem, TreeItem(this), __FILE__, __LINE__);
 			ERR_FAIL_NULL_V(ti, nullptr);
 			ti->cells.resize(columns.size());
 			ti->is_root = true;

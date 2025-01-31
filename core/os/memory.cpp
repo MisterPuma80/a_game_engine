@@ -56,6 +56,7 @@ Arena g_memory_arena_images(true);
 Arena g_memory_arena_collections(true);
 Arena g_memory_arena_physics(true);
 Arena g_memory_arena_controls(true);
+Arena g_memory_arena_plugins(true);
 Arena g_memory_arena_fonts(true);
 Arena g_memory_arena_string(true);
 

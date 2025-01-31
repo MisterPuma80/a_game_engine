@@ -274,27 +274,21 @@ constexpr bool is_type_control(const uint32_t type_sig) {
 		hash_string("PopupMenu"),
 		hash_string("Shortcut"),
 
-
-		// FIXME: Move to own collection?
+		// FIXME: Move to own collection
 		hash_string("FileAccessUnix"),
 		hash_string("DirAccessUnix"),
 		hash_string("InputEventKey"),
 		hash_string("InputEventJoypadButton"),
 		hash_string("InputEventJoypadMotion"),
 		hash_string("InputEventMouseButton"),
+	};
 
+	const size_t length = sizeof(_types) / sizeof(_types[0]);
+	return _is_in_types(_types, length, type_sig);
+}
 
-		// FIXME: Move to own collection?
-		hash_string("EditorStringNames"),
-		hash_string("EditorSettings"),
-		hash_string("EditorCommandPalette"),
-		hash_string("EditorDebuggerNode"),
-		hash_string("EditorPluginCSG"),
-		hash_string("EditorNode3DGizmoPlugin"),
-		hash_string("EditorPlugin"),
-
-
-		// FIXME: Move to own collection?
+constexpr bool is_type_plugin(const uint32_t type_sig) {
+	constexpr uint32_t _types[] = {
 		hash_string("CPUParticles3DEditorPlugin"),
 		hash_string("NavigationObstacle3DEditorPlugin"),
 		hash_string("MultiMeshEditorPlugin"),
@@ -362,15 +356,23 @@ constexpr bool is_type_control(const uint32_t type_sig) {
 		hash_string("Polygon2DEditorPlugin"),
 		hash_string("Skeleton2DEditorPlugin"),
 
-		// FIXME: Move to own collection?
+		// FIXME: Move to own collection
+		hash_string("EditorSettings"),
+		hash_string("EditorCommandPalette"),
+		hash_string("EditorDebuggerNode"),
+		hash_string("EditorPluginCSG"),
+		hash_string("EditorNode3DGizmoPlugin"),
+		hash_string("EditorPlugin"),
+
+		// FIXME: Move to own collection
 		hash_string("SoftBodyRenderingServerHandler"),
 
-		// FIXME: Move to own collection?
+		// FIXME: Move to own collection
 		hash_string("PhysicsDirectBodyState3DExtension"),
 		hash_string("PhysicsDirectSpaceState3DExtension"),
 		hash_string("PhysicsServer3DExtension"),
 
-		// FIXME: Move to own collection?
+		// FIXME: Move to own collection
 		hash_string("ServersDebugger"),
 		hash_string("SceneDebugger"),
 		hash_string("DebugAdapterServer"),
@@ -397,6 +399,7 @@ constexpr bool is_type_string(const uint32_t type_sig) {
 		hash_string("StringName"),
 		hash_string("CoreStringNames"),
 		hash_string("SceneStringNames"),
+		hash_string("EditorStringNames"),
 	};
 
 	const size_t length = sizeof(_types) / sizeof(_types[0]);
@@ -514,12 +517,13 @@ extern Arena g_memory_arena_images;
 extern Arena g_memory_arena_collections;
 extern Arena g_memory_arena_physics;
 extern Arena g_memory_arena_controls;
+extern Arena g_memory_arena_plugins;
 extern Arena g_memory_arena_fonts;
 extern Arena g_memory_arena_string;
 
 
 template <typename T>
-std::string_view _get_type_raw_name() {
+constexpr std::string_view _get_type_raw_name() {
 	std::string_view func_name = __PRETTY_FUNCTION__;
 	return func_name;
 }
@@ -571,6 +575,7 @@ enum class ArenaType {
 	physics,
 	images,
 	controls,
+	plugins,
 	fonts,
 	strings,
 };
@@ -591,6 +596,8 @@ constexpr ArenaType get_arena_type_for_sig() {
 		return ArenaType::images;
 	} else if constexpr (is_type_control(type_sig)) {
 		return ArenaType::controls;
+	} else if constexpr (is_type_plugin(type_sig)) {
+		return ArenaType::plugins;
 	} else if constexpr (is_type_font(type_sig)) {
 		return ArenaType::fonts;
 	} else if constexpr (is_type_string(type_sig)) {
@@ -611,6 +618,7 @@ constexpr Arena& get_arena() {
 		case ArenaType::physics:     return g_memory_arena_physics;
 		case ArenaType::images:      return g_memory_arena_images;
 		case ArenaType::controls:    return g_memory_arena_controls;
+		case ArenaType::plugins:     return g_memory_arena_plugins;
 		case ArenaType::fonts:       return g_memory_arena_fonts;
 		case ArenaType::strings:     return g_memory_arena_string;
 		default:                     return init_arena;
@@ -628,6 +636,7 @@ constexpr std::string_view get_arena_name() {
 		case ArenaType::physics:     return "physics";
 		case ArenaType::images:      return "images";
 		case ArenaType::controls:    return "controls";
+		case ArenaType::plugins:     return "plugins";
 		case ArenaType::fonts:       return "fonts";
 		case ArenaType::strings:     return "string";
 		default:                     return "invalid";
@@ -648,16 +657,6 @@ constexpr bool has_arena_for_type() {
 	constexpr ArenaType arena_type = get_arena_type_for_sig<type_sig>();
 	return arena_type != ArenaType::invalid;
 }
-
-#define memnewOldWithArgs2(T, m_class, f, l) \
-({ \
-	if constexpr (g_is_logging) { \
-		std::cout << "???? memnewOldWithArgs2: " << f << " : " << l << std::endl; \
-		std::cout << "???? memnewOldWithArgs2 name: " << _get_type_name<T>() << std::endl; \
-		std::cout.flush(); \
-	}\
-	_post_initialize(new ("") m_class); \
-})
 
 #define memnewOldWithArgs3(name, m_class) \
 ({ \
@@ -756,11 +755,6 @@ constexpr T* memnewNoArgs() {
 
 template <typename T>
 bool is_address_in_any_arena(uintptr_t address) {
-	if constexpr (g_is_logging) {
-		std::cout << "?!?!?!?! delete T: " << address << " " << _get_type_name<T>() << std::endl;
-		std::cout.flush();
-	}
-
 	Arena* arenas[] = {
 		&g_memory_arena_resource,
 		&g_memory_arena_ref_counted,
@@ -769,6 +763,7 @@ bool is_address_in_any_arena(uintptr_t address) {
 		&g_memory_arena_collections,
 		&g_memory_arena_physics,
 		&g_memory_arena_controls,
+		&g_memory_arena_plugins,
 		&g_memory_arena_fonts,
 		&g_memory_arena_string,
 	};
@@ -781,16 +776,16 @@ bool is_address_in_any_arena(uintptr_t address) {
 		uintptr_t start = reinterpret_cast<uintptr_t>(&arena->m_buffer);
 		uintptr_t end = reinterpret_cast<uintptr_t>(start + size);
 		bool is_in_arena = address >= start && address <= end;
-		if constexpr (g_is_logging) {
-			std::cout << "?!?!?!?! arena start: " << start << ", end: " << end << ", is_in_arena: " << is_in_arena << " m_is_valid: " << arena->m_is_valid << " size: " << size << std::endl;
-			std::cout.flush();
-		}
+		//if constexpr (g_is_logging) {
+		//	std::cout << "?!?!?!?! arena start: " << start << ", end: " << end << ", is_in_arena: " << is_in_arena << " m_is_valid: " << arena->m_is_valid << " size: " << size << std::endl;
+		//	std::cout.flush();
+		//}
 		if (is_in_arena) {
 			is_in_any_arena = true;
-			if constexpr (g_is_logging) {
-				std::cout << "?!?!?!?! is in Arena !!!!!!!!!!!!!!!!!!!!" << std::endl;
-				std::cout.flush();
-			}
+			//if constexpr (g_is_logging) {
+			//	std::cout << "?!?!?!?! is in Arena !!!!!!!!!!!!!!!!!!!!" << std::endl;
+			//	std::cout.flush();
+			//}
 		}
 	}
 
@@ -837,6 +832,12 @@ void memdelete(T *p_class) {
 	} else {
 		uintptr_t address = reinterpret_cast<uintptr_t>(&p_class);
 		bool is_in_any_arena = is_address_in_any_arena<T>(address);
+
+		if constexpr (g_is_logging) {
+			std::cout << "?!?!?!?! delete T: " << address << " " << _get_type_name<T>() << std::endl;
+			std::cout.flush();
+		}
+
 		if (!is_in_any_arena) {
 			//Memory::free_static(p_class, false); // FIXME: turn this back on!!!!!!!!!!!!!!!!!!
 		}
