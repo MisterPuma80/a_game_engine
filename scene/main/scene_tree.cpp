@@ -1284,27 +1284,18 @@ int64_t SceneTree::get_frame() const {
 	return current_frame;
 }
 
-TypedArray<Node> SceneTree::_get_nodes_in_group(const StringName &p_group) {
+TypedArray<Node> SceneTree::_get_nodes_in_group(const StringName &p_nodes) {
 	_THREAD_SAFE_METHOD_
+
+	LocalVector<Node *> nodes;
+	get_nodes_in_group(p_nodes, &nodes);
+
+	int nc = nodes.size();
 	TypedArray<Node> ret;
-	HashMap<StringName, Group>::Iterator E = group_map.find(p_group);
-	if (!E) {
-		return ret;
-	}
-
-	_update_group_order(E->value); //update order just in case
-	int nc = E->value.nodes.size();
-	if (nc == 0) {
-		return ret;
-	}
-
 	ret.resize(nc);
-
-	Node **ptr = E->value.nodes.ptrw();
 	for (int i = 0; i < nc; i++) {
-		ret[i] = ptr[i];
+		ret[i] = nodes[i];
 	}
-
 	return ret;
 }
 
@@ -1339,7 +1330,7 @@ Node *SceneTree::get_first_node_in_group(const StringName &p_group) {
 	return E->value.nodes[0];
 }
 
-void SceneTree::get_nodes_in_group(const StringName &p_group, List<Node *> *p_list) {
+void SceneTree::get_nodes_in_group(const StringName &p_group, LocalVector<Node *> *p_nodes) {
 	_THREAD_SAFE_METHOD_
 	HashMap<StringName, Group>::Iterator E = group_map.find(p_group);
 	if (!E) {
@@ -1352,8 +1343,9 @@ void SceneTree::get_nodes_in_group(const StringName &p_group, List<Node *> *p_li
 		return;
 	}
 	Node **ptr = E->value.nodes.ptrw();
+	p_nodes->resize(nc);
 	for (int i = 0; i < nc; i++) {
-		p_list->push_back(ptr[i]);
+		(*p_nodes)[i] = ptr[i];
 	}
 }
 

@@ -739,7 +739,7 @@ void NavMeshGenerator2D::generator_parse_navigationobstacle_node(const Ref<Navig
 }
 
 void NavMeshGenerator2D::generator_parse_source_geometry_data(Ref<NavigationPolygon> p_navigation_mesh, Ref<NavigationMeshSourceGeometryData2D> p_source_geometry_data, Node *p_root_node) {
-	List<Node *> parse_nodes;
+	LocalVector<Node *> parse_nodes;
 
 	if (p_navigation_mesh->get_source_geometry_mode() == NavigationPolygon::SOURCE_GEOMETRY_ROOT_NODE_CHILDREN) {
 		parse_nodes.push_back(p_root_node);

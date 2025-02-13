@@ -377,7 +377,7 @@ public:
 
 	void queue_delete(Object *p_object);
 
-	void get_nodes_in_group(const StringName &p_group, List<Node *> *p_list);
+	void get_nodes_in_group(const StringName &p_group, LocalVector<Node *> *p_nodes);
 	Node *get_first_node_in_group(const StringName &p_group);
 	bool has_group(const StringName &p_identifier) const;
 	int get_node_count_in_group(const StringName &p_group) const;
