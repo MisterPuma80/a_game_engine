@@ -24,13 +24,13 @@ git clone https://github.com/MisterPuma80/a_game_engine
 # Build
 
 ```sh
-scons platform=linuxbsd target=editor dev_build=no dev_mode=no use_llvm=yes linker=mold tests=yes -j 16
+scons platform=linuxbsd target=editor dev_build=no dev_mode=no use_llvm=yes linker=mold tests=yes execinfo=yes scu_build=yes -j 25
 ```
 
 # Build export templates
 
 ```sh
-scons platform=linuxbsd target=template_release dev_build=no dev_mode=no use_llvm=yes linker=mold -j 16
+scons platform=linuxbsd target=template_release dev_build=no dev_mode=no use_llvm=yes linker=mold scu_build=yes -j 25
 ```
 
 
