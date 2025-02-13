@@ -3164,7 +3164,7 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 			OS::get_singleton()->shell_open(VERSION_DOCS_URL "/");
 		} break;
 		case HELP_REPORT_A_BUG: {
-			OS::get_singleton()->shell_open("https://github.com/MisterPuma80/just_a_game_engine");
+			OS::get_singleton()->shell_open("https://github.com/MisterPuma80/a_game_engine");
 		} break;
 		case HELP_COPY_SYSTEM_INFO: {
 			String info = _get_system_info();

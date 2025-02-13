@@ -1,7 +1,7 @@
 # Just a Game Engine
 
 <p align="center">
-  <a href="https://github.com/MisterPuma80/just_a_game_engine">
+  <a href="https://github.com/MisterPuma80/a_game_engine">
     <img src="logo_outlined.svg" width="400" alt="Just a Game Engine">
   </a>
 </p>
@@ -15,7 +15,7 @@
 # Get code
 
 ```sh
-git clone https://github.com/MisterPuma80/just_a_game_engine
+git clone https://github.com/MisterPuma80/a_game_engine
 ```
 
 
