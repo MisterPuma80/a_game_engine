@@ -1699,11 +1699,14 @@ Node *Node::get_child(int p_index, bool p_include_internal) const {
 
 TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
-	TypedArray<Node> arr;
+
 	int cc = get_child_count(p_include_internal);
+	int offset = p_include_internal ? 0 : data.internal_children_front_count_cache;
+
+	TypedArray<Node> arr;
 	arr.resize(cc);
 	for (int i = 0; i < cc; i++) {
-		arr[i] = get_child(i, p_include_internal);
+		arr[i] = data.children_cache[i + offset];
 	}
 
 	return arr;

@@ -9,7 +9,8 @@
 # Based on Godot 4.3 but with changes
 * [x] Expose Engine.get_frame_ticks to GDScript
 * [x] Change look_at to have default up of Vector3.INF and find appropriate axis itself if Vector3.INF is argument.
-* [x] Change Node.find_children to be faster by using a vector as a stack instead of recursion, and caching values
+* [x] Optimize Node.find_children to be faster by using a vector as a stack instead of recursion, and caching values
+* [X] Optimize Node.get_children by removing redundant cache update checks
 
 # Get code
 
