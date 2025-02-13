@@ -12,6 +12,7 @@
 * [x] Optimize Node.find_children to be faster by using a vector as a stack instead of recursion, and caching values
 * [X] Optimize Node.get_children by removing redundant cache update checks
 * [X] Optimize Node.get_groups by making it return a LocalVector instead of a List
+* [X] Optimize SceneTree.get_nodes_in_group by making it return a LocalVector instead of a List
 
 # Get code
 

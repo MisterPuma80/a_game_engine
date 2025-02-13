@@ -117,7 +117,7 @@ PackedStringArray CanvasModulate::get_configuration_warnings() const {
 	PackedStringArray warnings = Node2D::get_configuration_warnings();
 
 	if (is_in_canvas && is_visible_in_tree()) {
-		List<Node *> nodes;
+		LocalVector<Node *> nodes;
 		get_tree()->get_nodes_in_group("_canvas_modulate_" + itos(get_canvas().get_id()), &nodes);
 
 		if (nodes.size() > 1) {
