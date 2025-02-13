@@ -11,6 +11,7 @@
 * [x] Change look_at to have default up of Vector3.INF and find appropriate axis itself if Vector3.INF is argument.
 * [x] Optimize Node.find_children to be faster by using a vector as a stack instead of recursion, and caching values
 * [X] Optimize Node.get_children by removing redundant cache update checks
+* [X] Optimize Node.get_groups by making it return a LocalVector instead of a List
 
 # Get code
 
