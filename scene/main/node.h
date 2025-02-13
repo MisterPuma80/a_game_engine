@@ -470,7 +470,7 @@ public:
 		bool persistent = false;
 	};
 
-	void get_groups(List<GroupInfo> *p_groups) const;
+	void get_groups(LocalVector<GroupInfo> *p_groups) const;
 	int get_persistent_group_count() const;
 
 	void move_child(Node *p_child, int p_index);

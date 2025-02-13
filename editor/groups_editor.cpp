@@ -117,7 +117,7 @@ void GroupsEditor::_modify_group(Object *p_item, int p_column, int p_id, MouseBu
 }
 
 void GroupsEditor::_load_scene_groups(Node *p_node) {
-	List<Node::GroupInfo> groups;
+	LocalVector<Node::GroupInfo> groups;
 	p_node->get_groups(&groups);
 
 	for (const GroupInfo &gi : groups) {
@@ -189,7 +189,7 @@ void GroupsEditor::_update_tree() {
 
 	tree->clear();
 
-	List<Node::GroupInfo> groups;
+	LocalVector<Node::GroupInfo> groups;
 	node->get_groups(&groups);
 	groups.sort_custom<_GroupInfoComparator>();
 

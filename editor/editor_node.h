@@ -823,7 +823,7 @@ public:
 		HashMap<StringName, Variant> property_table;
 		List<ConnectionWithNodePath> connections_to;
 		List<Connection> connections_from;
-		List<Node::GroupInfo> groups;
+		LocalVector<Node::GroupInfo> groups;
 	};
 
 	struct InstanceModificationsEntry {
