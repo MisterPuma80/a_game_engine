@@ -1760,15 +1760,17 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 
 	TypedArray<Node> matches;
-	TypedArray<Node> to_search;
-	to_search.append(this);
+	LocalVector<Node *> to_search;
+	to_search.push_back((Node *) this);
 	while (!to_search.is_empty()) {
-		Node *entry = Object::cast_to<Node>(to_search.pop_front());
+		Node *entry = to_search[0];
+		to_search.remove_at(0);
 
-		TypedArray<Node> children = entry->get_children();
-		int ccount = children.size();
+		entry->_update_children_cache();
+		Node *const *cptr = entry->data.children_cache.ptr();
+		const int ccount = entry->data.children_cache.size();
 		for (int i = 0; i < ccount; i++) {
-			to_search.append(children[i]);
+			to_search.push_back(cptr[i]);
 		}
 
 		if (entry->is_in_group(p_group_name)) {
@@ -1779,22 +1781,25 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 	return matches;
 }
 
-TypedArray<Node> Node::recursively_get_all_children_in_groups(TypedArray<StringName> p_group_names) const {
+TypedArray<Node> Node::recursively_get_all_children_in_groups(const TypedArray<StringName> &p_group_names) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 
 	TypedArray<Node> matches;
-	TypedArray<Node> to_search;
-	to_search.append(this);
+	LocalVector<Node *> to_search;
+	to_search.push_back((Node *) this);
 	while (!to_search.is_empty()) {
-		Node *entry = Object::cast_to<Node>(to_search.pop_front());
+		Node *entry = to_search[0];
+		to_search.remove_at(0);
 
-		TypedArray<Node> children = entry->get_children();
-		int ccount = children.size();
+		entry->_update_children_cache();
+		Node *const *cptr = entry->data.children_cache.ptr();
+		const int ccount = entry->data.children_cache.size();
 		for (int i = 0; i < ccount; i++) {
-			to_search.append(children[i]);
+			to_search.push_back(cptr[i]);
 		}
 
-		for (int i = 0; i < p_group_names.size(); i++) {
+		const int ncount = p_group_names.size();
+		for (int i = 0; i < ncount; i++) {
 			if (entry->is_in_group(p_group_names[i])) {
 				matches.append(entry);
 			}
@@ -1963,7 +1968,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 	return ret;
 }
 
-TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const String &p_pattern, const String &p_type, bool p_recursive, bool p_owned) const {
+TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 	TypedArray<Node> matches;
 	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), matches);
