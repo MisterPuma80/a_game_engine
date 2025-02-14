@@ -1761,7 +1761,7 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 
 	TypedArray<Node> matches;
 	LocalVector<Node *> to_search;
-	to_search.push_back((Node *) this);
+	to_search.push_back((Node *)this);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
 		to_search.remove_at(0);
@@ -1786,7 +1786,7 @@ TypedArray<Node> Node::recursively_get_all_children_in_groups(const TypedArray<S
 
 	TypedArray<Node> matches;
 	LocalVector<Node *> to_search;
-	to_search.push_back((Node *) this);
+	to_search.push_back((Node *)this);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
 		to_search.remove_at(0);
