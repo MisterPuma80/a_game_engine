@@ -1759,8 +1759,8 @@ TypedArray<Node> Node::recursively_get_all_children_of_type(const StringName &p_
 TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p_group_name) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 
-	TypedArray<Node> matches;
 	LocalVector<Node *> to_search;
+	LocalVector<Node *> matches;
 	to_search.push_back((Node *)this);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
@@ -1774,11 +1774,18 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 		}
 
 		if (entry->is_in_group(p_group_name)) {
-			matches.append(entry);
+			matches.push_back(entry);
 		}
 	}
 
-	return matches;
+	TypedArray<Node> retval;
+	int cc = matches.size();
+	retval.resize(cc);
+	for (int i = 0; i<cc; i++) {
+		retval[i] = matches[i];
+	}
+
+	return retval;
 }
 
 TypedArray<Node> Node::recursively_get_all_children_in_groups(const TypedArray<StringName> &p_group_names) const {
@@ -1934,8 +1941,8 @@ Node *Node::find_child(const String &p_pattern, bool p_recursive, bool p_owned) 
 // Can be recursive or not, and limited to owned nodes.
 TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_type, bool p_recursive, bool p_owned) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
-	TypedArray<Node> matches;
-	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), matches);
+	TypedArray<Node> retval;
+	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), retval);
 
 	// Save basic pattern and type info for faster lookup
 	bool is_pattern_empty = p_pattern.is_empty();
@@ -1944,6 +1951,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	LocalVector<Node *> to_search;
+	LocalVector<Node *> matches;
 	to_search.push_back((Node *)this);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
@@ -1990,17 +1998,23 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 
 		// Save it if it matches the pattern and at least one type
 		if (is_pattern_match && (is_type_match || is_script_type_match)) {
-			matches.append(entry);
+			matches.push_back(entry);
 		}
 	}
 
-	return matches;
+	int cc = matches.size();
+	retval.resize(cc);
+	for (int i = 0; i<cc; i++) {
+		retval[i] = matches[i];
+	}
+
+	return retval;
 }
 
 TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
-	TypedArray<Node> matches;
-	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), matches);
+	TypedArray<Node> retval;
+	ERR_FAIL_COND_V(p_pattern.is_empty() && p_type.is_empty(), retval);
 
 	// Save basic pattern and type info for faster lookup
 	bool is_pattern_empty = p_pattern.is_empty();
@@ -2009,6 +2023,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	LocalVector<Node *> to_search;
+	LocalVector<Node *> matches;
 	to_search.push_back((Node *)this);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
@@ -2055,11 +2070,17 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 
 		// Save it if it matches the pattern and at least one type
 		if (is_pattern_match && (is_type_match || is_script_type_match)) {
-			matches.append(entry);
+			matches.push_back(entry);
 		}
 	}
 
-	return matches;
+	int cc = matches.size();
+	retval.resize(cc);
+	for (int i = 0; i<cc; i++) {
+		retval[i] = matches[i];
+	}
+
+	return retval;
 }
 
 void Node::reparent(Node *p_parent, bool p_keep_global_transform) {
