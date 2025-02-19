@@ -1284,11 +1284,11 @@ int64_t SceneTree::get_frame() const {
 	return current_frame;
 }
 
-TypedArray<Node> SceneTree::_get_nodes_in_group(const StringName &p_nodes) {
+TypedArray<Node> SceneTree::_get_nodes_in_group(const StringName &p_group) {
 	_THREAD_SAFE_METHOD_
 
 	LocalVector<Node *> nodes;
-	get_nodes_in_group(p_nodes, &nodes);
+	get_nodes_in_group(p_group, &nodes);
 
 	int nc = nodes.size();
 	TypedArray<Node> ret;
