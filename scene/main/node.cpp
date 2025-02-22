@@ -1701,12 +1701,13 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 
 	int cc = get_child_count(p_include_internal);
+	Node *const *cptr = data.children_cache.ptr();
 	int offset = p_include_internal ? 0 : data.internal_children_front_count_cache;
 
 	TypedArray<Node> arr;
 	arr.resize(cc);
 	for (int i = 0; i < cc; i++) {
-		arr[i] = data.children_cache[i + offset];
+		arr[i] = cptr[i + offset];
 	}
 
 	return arr;
