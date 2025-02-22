@@ -478,7 +478,7 @@ bool ShapeCast3D::is_collide_with_bodies_enabled() const {
 Array ShapeCast3D::_get_collision_result() const {
 	Array ret;
 	int rc = result.size();
-	ret.resize_zeroed(rc);
+	ret.resize_uninitialized(rc);
 
 	for (int i = 0; i < rc; ++i) {
 		const PhysicsDirectSpaceState3D::ShapeRestInfo &sri = result[i];

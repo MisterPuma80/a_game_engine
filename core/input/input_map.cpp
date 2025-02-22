@@ -133,7 +133,7 @@ TypedArray<StringName> InputMap::_get_actions() {
 	LocalVector<StringName> actions = get_actions();
 	int ac = actions.size();
 	TypedArray<StringName> ret;
-	ret.resize_zeroed(ac);
+	ret.resize_uninitialized(ac);
 	for (int i = 0; i < ac; i++) {
 		ret[i] = actions[i];
 	}

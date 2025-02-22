@@ -1705,7 +1705,7 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	int offset = p_include_internal ? 0 : data.internal_children_front_count_cache;
 
 	TypedArray<Node> arr;
-	arr.resize_zeroed(cc);
+	arr.resize_uninitialized(cc);
 	for (int i = 0; i < cc; i++) {
 		arr[i] = cptr[i + offset];
 	}
@@ -1781,7 +1781,7 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 
 	TypedArray<Node> retval;
 	int cc = matches.size();
-	retval.resize_zeroed(cc);
+	retval.resize_uninitialized(cc);
 	for (int i = 0; i<cc; i++) {
 		retval[i] = matches[i];
 	}
@@ -2004,7 +2004,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 	}
 
 	int cc = matches.size();
-	retval.resize_zeroed(cc);
+	retval.resize_uninitialized(cc);
 	for (int i = 0; i<cc; i++) {
 		retval[i] = matches[i];
 	}
@@ -2076,7 +2076,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 	}
 
 	int cc = matches.size();
-	retval.resize_zeroed(cc);
+	retval.resize_uninitialized(cc);
 	for (int i = 0; i<cc; i++) {
 		retval[i] = matches[i];
 	}
@@ -2538,7 +2538,7 @@ TypedArray<StringName> Node::_get_groups() const {
 	get_groups(&gi);
 	int cc = gi.size();
 	TypedArray<StringName> groups;
-	groups.resize_zeroed(cc);
+	groups.resize_uninitialized(cc);
 	for (int i = 0; i < cc; i++) {
 		groups[i] = gi[i].name;
 	}

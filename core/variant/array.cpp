@@ -310,7 +310,7 @@ Error Array::resize(int p_new_size) {
 	return err;
 }
 
-Error Array::resize_zeroed(int p_new_size) {
+Error Array::resize_uninitialized(int p_new_size) {
 	ERR_FAIL_COND_V_MSG(_p->read_only, ERR_LOCKED, "Array is in read-only state.");
 	Error err = _p->array.resize_zeroed(p_new_size);
 	return err;
@@ -457,7 +457,7 @@ Array Array::recursive_duplicate(bool p_deep, int recursion_count) const {
 	if (p_deep) {
 		recursion_count++;
 		int element_count = size();
-		new_arr.resize_zeroed(element_count);
+		new_arr.resize_uninitialized(element_count);
 		for (int i = 0; i < element_count; i++) {
 			new_arr[i] = get(i).recursive_duplicate(true, recursion_count);
 		}
