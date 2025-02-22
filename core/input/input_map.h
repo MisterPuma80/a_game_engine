@@ -73,7 +73,7 @@ public:
 	static _FORCE_INLINE_ InputMap *get_singleton() { return singleton; }
 
 	bool has_action(const StringName &p_action) const;
-	List<StringName> get_actions() const;
+	LocalVector<StringName> get_actions() const;
 	void add_action(const StringName &p_action, float p_deadzone = 0.5);
 	void erase_action(const StringName &p_action);
 

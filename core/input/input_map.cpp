@@ -62,7 +62,7 @@ void InputMap::_bind_methods() {
  * matching action name (if possible).
  */
 String InputMap::suggest_actions(const StringName &p_action) const {
-	List<StringName> actions = get_actions();
+	LocalVector<StringName> actions = get_actions();
 	StringName closest_action;
 	float closest_similarity = 0.0;
 
@@ -130,27 +130,25 @@ void InputMap::erase_action(const StringName &p_action) {
 }
 
 TypedArray<StringName> InputMap::_get_actions() {
+	LocalVector<StringName> actions = get_actions();
+	int ac = actions.size();
 	TypedArray<StringName> ret;
-	List<StringName> actions = get_actions();
-	if (actions.is_empty()) {
-		return ret;
-	}
-
-	for (const StringName &E : actions) {
-		ret.push_back(E);
+	ret.resize_zeroed(ac);
+	for (int i = 0; i < ac; i++) {
+		ret[i] = actions[i];
 	}
 
 	return ret;
 }
 
-List<StringName> InputMap::get_actions() const {
-	List<StringName> actions = List<StringName>();
-	if (input_map.is_empty()) {
-		return actions;
-	}
-
+LocalVector<StringName> InputMap::get_actions() const {
+	LocalVector<StringName> actions;
+	int ic = input_map.size();
+	actions.resize(ic);
+	int i = 0;
 	for (const KeyValue<StringName, Action> &E : input_map) {
-		actions.push_back(E.key);
+		actions[i] = E.key;
+		i++;
 	}
 
 	return actions;

@@ -13,7 +13,8 @@
 * [X] Optimize Node.get_children by removing redundant cache update checks
 * [X] Optimize Node.get_groups by making it return a LocalVector instead of a List
 * [X] Optimize SceneTree.get_nodes_in_group by making it return a LocalVector instead of a List
-* [X] Added Array::resize_zeroed
+* [X] Add Array::resize_zeroed
+* [X] Optimize InputMap::get_actions
 
 # Get code
 
