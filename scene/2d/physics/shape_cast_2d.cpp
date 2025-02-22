@@ -384,8 +384,10 @@ bool ShapeCast2D::is_collide_with_bodies_enabled() const {
 
 Array ShapeCast2D::_get_collision_result() const {
 	Array ret;
+	int rc = result.size();
+	ret.resize_zeroed(rc);
 
-	for (int i = 0; i < result.size(); ++i) {
+	for (int i = 0; i < rc; ++i) {
 		const PhysicsDirectSpaceState2D::ShapeRestInfo &sri = result[i];
 
 		Dictionary col;
@@ -397,7 +399,7 @@ Array ShapeCast2D::_get_collision_result() const {
 		col["shape"] = sri.shape;
 		col["linear_velocity"] = sri.linear_velocity;
 
-		ret.push_back(col);
+		ret[i] = col;
 	}
 	return ret;
 }

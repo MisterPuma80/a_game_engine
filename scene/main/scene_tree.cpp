@@ -1292,7 +1292,7 @@ TypedArray<Node> SceneTree::_get_nodes_in_group(const StringName &p_group) {
 
 	int nc = nodes.size();
 	TypedArray<Node> ret;
-	ret.resize(nc);
+	ret.resize_zeroed(nc);
 	for (int i = 0; i < nc; i++) {
 		ret[i] = nodes[i];
 	}
@@ -1486,7 +1486,7 @@ Ref<Tween> SceneTree::create_tween() {
 TypedArray<Tween> SceneTree::get_processed_tweens() {
 	_THREAD_SAFE_METHOD_
 	TypedArray<Tween> ret;
-	ret.resize(tweens.size());
+	ret.resize_zeroed(tweens.size());
 
 	int i = 0;
 	for (const Ref<Tween> &tween : tweens) {

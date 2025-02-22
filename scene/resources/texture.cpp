@@ -124,7 +124,7 @@ TypedArray<Image> Texture3D::_get_datai() const {
 	Vector<Ref<Image>> data = get_data();
 
 	TypedArray<Image> ret;
-	ret.resize(data.size());
+	ret.resize_zeroed(data.size());
 	for (int i = 0; i < data.size(); i++) {
 		ret[i] = data[i];
 	}
