@@ -2104,12 +2104,17 @@ void Node::reparent(Node *p_parent, bool p_keep_global_transform) {
 		to_visit.push_back(this);
 		common_parents.push_back(this);
 
-		while (to_visit.size() > 0) {
+		while (!to_visit.is_empty()) {
 			Node *check = to_visit[to_visit.size() - 1];
 			to_visit.resize(to_visit.size() - 1);
 
-			for (int i = 0; i < check->get_child_count(false); i++) {
-				Node *child = check->get_child(i, false);
+			int cc = check->get_child_count(false);
+			Node *const *cptr = check->data.children_cache.ptr();
+			bool include_internal = false;
+			int offset = include_internal ? 0 : check->data.internal_children_front_count_cache;
+
+			for (int i = 0; i < cc; i++) {
+				Node *child = cptr[i + offset];
 				to_visit.push_back(child);
 				if (child->data.owner == owner_temp) {
 					common_parents.push_back(child);

@@ -15,6 +15,7 @@
 * [X] Optimize SceneTree.get_nodes_in_group by making it return a LocalVector instead of a List
 * [X] Add Array::resize_uninitialized
 * [X] Optimize InputMap::get_actions
+* [X] Optimize Node::reparent
 
 # Get code
 
