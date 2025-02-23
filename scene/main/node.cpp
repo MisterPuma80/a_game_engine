@@ -1782,7 +1782,7 @@ TypedArray<Node> Node::recursively_get_all_children_in_group(const StringName &p
 	TypedArray<Node> retval;
 	int cc = matches.size();
 	retval.resize_uninitialized(cc);
-	for (int i = 0; i<cc; i++) {
+	for (int i = 0; i < cc; i++) {
 		retval[i] = matches[i];
 	}
 
@@ -2005,7 +2005,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 
 	int cc = matches.size();
 	retval.resize_uninitialized(cc);
-	for (int i = 0; i<cc; i++) {
+	for (int i = 0; i < cc; i++) {
 		retval[i] = matches[i];
 	}
 
@@ -2077,7 +2077,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 
 	int cc = matches.size();
 	retval.resize_uninitialized(cc);
-	for (int i = 0; i<cc; i++) {
+	for (int i = 0; i < cc; i++) {
 		retval[i] = matches[i];
 	}
 
