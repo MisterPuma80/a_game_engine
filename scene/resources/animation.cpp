@@ -448,14 +448,14 @@ bool Animation::_get(const StringName &p_name, Variant &r_ret) const {
 		Dictionary comp;
 		comp["fps"] = compression.fps;
 		Array bounds;
-		int bc = compression.bounds.size();
+		uint32_t bc = compression.bounds.size();
 		bounds.resize_uninitialized(bc);
 		for (uint32_t i = 0; i < bc; i++) {
 			bounds[i] = compression.bounds[i];
 		}
 		comp["bounds"] = bounds;
 		Array pages;
-		int pc = compression.pages.size();
+		uint32_t pc = compression.pages.size();
 		pages.resize_uninitialized(pc);
 		for (uint32_t i = 0; i < pc; i++) {
 			Dictionary page;
