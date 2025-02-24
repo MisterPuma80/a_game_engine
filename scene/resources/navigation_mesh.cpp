@@ -326,8 +326,9 @@ void NavigationMesh::_set_polygons(const Array &p_array) {
 Array NavigationMesh::_get_polygons() const {
 	RWLockRead read_lock(rwlock);
 	Array ret;
-	ret.resize(polygons.size());
-	for (int i = 0; i < ret.size(); i++) {
+	int pc = polygons.size();
+	ret.resize_uninitialized(pc);
+	for (int i = 0; i < pc; i++) {
 		ret[i] = polygons[i].indices;
 	}
 

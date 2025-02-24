@@ -360,8 +360,9 @@ public:
 		}
 		vnames.sort_custom<StringName::AlphCompare>();
 		TypedArray<StringName> ret;
-		ret.resize(vnames.size());
-		for (int i = 0; i < vnames.size(); i++) {
+		int vc = vnames.size();
+		ret.resize_uninitialized(vc);
+		for (int i = 0; i < vc; i++) {
 			ret[i] = vnames[i];
 		}
 		return ret;

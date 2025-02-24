@@ -620,8 +620,9 @@ TypedArray<PackedVector2Array> BitMap::_opaque_to_polygons_bind(const Rect2i &p_
 	// Convert result to bindable types.
 
 	TypedArray<PackedVector2Array> result_array;
-	result_array.resize(result.size());
-	for (int i = 0; i < result.size(); i++) {
+	int rc = result.size();
+	result_array.resize_uninitialized(rc);
+	for (int i = 0; i < rc; i++) {
 		const Vector<Vector2> &polygon = result[i];
 
 		PackedVector2Array polygon_array;

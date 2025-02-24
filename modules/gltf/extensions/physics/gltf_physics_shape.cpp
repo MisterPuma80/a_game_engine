@@ -317,7 +317,7 @@ Dictionary GLTFPhysicsShape::to_dictionary() const {
 	Dictionary sub;
 	if (shape_type == "box") {
 		Array size_array;
-		size_array.resize(3);
+		size_array.resize_uninitialized(3);
 		size_array[0] = size.x;
 		size_array[1] = size.y;
 		size_array[2] = size.z;

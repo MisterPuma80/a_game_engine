@@ -577,8 +577,9 @@ void GDScriptWorkspace::publish_diagnostics(const String &p_path) {
 	HashMap<String, ExtendGDScriptParser *>::ConstIterator ele = parse_results.find(p_path);
 	if (ele) {
 		const Vector<lsp::Diagnostic> &list = ele->value->get_diagnostics();
-		errors.resize(list.size());
-		for (int i = 0; i < list.size(); ++i) {
+		int lc = list.size();
+		errors.resize_uninitialized(lc);
+		for (int i = 0; i < lc; ++i) {
 			errors[i] = list[i].to_json();
 		}
 	}

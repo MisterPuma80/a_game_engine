@@ -448,14 +448,16 @@ bool Animation::_get(const StringName &p_name, Variant &r_ret) const {
 		Dictionary comp;
 		comp["fps"] = compression.fps;
 		Array bounds;
-		bounds.resize(compression.bounds.size());
-		for (uint32_t i = 0; i < compression.bounds.size(); i++) {
+		int bc = compression.bounds.size();
+		bounds.resize_uninitialized(bc);
+		for (uint32_t i = 0; i < bc; i++) {
 			bounds[i] = compression.bounds[i];
 		}
 		comp["bounds"] = bounds;
 		Array pages;
-		pages.resize(compression.pages.size());
-		for (uint32_t i = 0; i < compression.pages.size(); i++) {
+		int pc = compression.pages.size();
+		pages.resize_uninitialized(pc);
+		for (uint32_t i = 0; i < pc; i++) {
 			Dictionary page;
 			page["data"] = compression.pages[i].data;
 			page["time_offset"] = compression.pages[i].time_offset;
@@ -1891,7 +1893,7 @@ Variant Animation::track_get_key_value(int p_track, int p_key_idx) const {
 			ERR_FAIL_INDEX_V(p_key_idx, bt->values.size(), Variant());
 
 			Array arr;
-			arr.resize(5);
+			arr.resize_uninitialized(5);
 			arr[0] = bt->values[p_key_idx].value.value;
 			arr[1] = bt->values[p_key_idx].value.in_handle.x;
 			arr[2] = bt->values[p_key_idx].value.in_handle.y;
@@ -3188,7 +3190,7 @@ StringName Animation::method_track_get_name(int p_track, int p_key_idx) const {
 Array Animation::make_default_bezier_key(float p_value) {
 	const double max_width = length / 2.0;
 	Array new_point;
-	new_point.resize(5);
+	new_point.resize_uninitialized(5);
 
 	new_point[0] = p_value;
 	new_point[1] = MAX(-0.25, -max_width);

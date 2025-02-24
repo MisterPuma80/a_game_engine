@@ -128,7 +128,7 @@ void GodotWorldBoundaryShape2D::set_data(const Variant &p_data) {
 
 Variant GodotWorldBoundaryShape2D::get_data() const {
 	Array arr;
-	arr.resize(2);
+	arr.resize_uninitialized(2);
 	arr[0] = normal;
 	arr[1] = d;
 	return arr;

@@ -787,7 +787,7 @@ Error FBXDocument::_parse_meshes(Ref<FBXState> p_state) {
 							ufbx_blend_shape *fbx_shape = fbx_channel->keyframes[fbx_channel->keyframes.count - 1].shape;
 
 							Array array_copy;
-							array_copy.resize(Mesh::ARRAY_MAX);
+							array_copy.resize_uninitialized(Mesh::ARRAY_MAX);
 
 							for (int l = 0; l < Mesh::ARRAY_MAX; l++) {
 								array_copy[l] = array[l];

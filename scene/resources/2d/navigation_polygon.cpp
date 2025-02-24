@@ -111,8 +111,9 @@ void NavigationPolygon::_set_polygons(const TypedArray<Vector<int32_t>> &p_array
 TypedArray<Vector<int32_t>> NavigationPolygon::_get_polygons() const {
 	RWLockRead read_lock(rwlock);
 	TypedArray<Vector<int32_t>> ret;
-	ret.resize(polygons.size());
-	for (int i = 0; i < ret.size(); i++) {
+	int pc = polygons.size();
+	ret.resize_uninitialized(pc);
+	for (int i = 0; i < pc; i++) {
 		ret[i] = polygons[i].indices;
 	}
 
@@ -131,8 +132,9 @@ void NavigationPolygon::_set_outlines(const TypedArray<Vector<Vector2>> &p_array
 TypedArray<Vector<Vector2>> NavigationPolygon::_get_outlines() const {
 	RWLockRead read_lock(rwlock);
 	TypedArray<Vector<Vector2>> ret;
-	ret.resize(outlines.size());
-	for (int i = 0; i < ret.size(); i++) {
+	int oc = outlines.size();
+	ret.resize_uninitialized(oc);
+	for (int i = 0; i < oc; i++) {
 		ret[i] = outlines[i];
 	}
 

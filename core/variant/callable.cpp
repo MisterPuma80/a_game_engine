@@ -220,8 +220,9 @@ Array Callable::get_bound_arguments() const {
 	int ac;
 	get_bound_arguments_ref(arr, ac);
 	Array ret;
-	ret.resize(arr.size());
-	for (int i = 0; i < arr.size(); i++) {
+	int arrc = arr.size();
+	ret.resize_uninitialized(arrc);
+	for (int i = 0; i < arrc; i++) {
 		ret[i] = arr[i];
 	}
 	return ret;

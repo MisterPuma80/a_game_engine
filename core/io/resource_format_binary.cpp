@@ -498,7 +498,7 @@ Error ResourceLoaderBinary::parse_variant(Variant &r_v) {
 			uint32_t len = f->get_32();
 			Array a; //last bit means shared
 			len &= 0x7FFFFFFF;
-			a.resize(len);
+			a.resize_uninitialized(len);
 			for (uint32_t i = 0; i < len; i++) {
 				Variant val;
 				Error err = parse_variant(val);

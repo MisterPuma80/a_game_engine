@@ -534,8 +534,9 @@ Node *SceneState::instantiate(GenEditState p_edit_state) const {
 			ERR_CONTINUE_EDMSG(!valid, vformat("Failed to get property '%s' from node '%s'.", dnp.property, dnp.base->get_name()));
 			array = array.duplicate();
 
-			array.resize(paths.size());
-			for (int i = 0; i < array.size(); i++) {
+			int pc = paths.size();
+			array.resize_uninitialized(pc);
+			for (int i = 0; i < pc; i++) {
 				array.set(i, dnp.base->get_node_or_null(paths[i]));
 			}
 			dnp.base->set(dnp.property, array);
@@ -1600,15 +1601,17 @@ Dictionary SceneState::get_bundled_scene() const {
 	d["conns"] = rconns;
 
 	Array rnode_paths;
-	rnode_paths.resize(node_paths.size());
-	for (int i = 0; i < node_paths.size(); i++) {
+	int nc = node_paths.size();
+	rnode_paths.resize_uninitialized(nc);
+	for (int i = 0; i < nc; i++) {
 		rnode_paths[i] = node_paths[i];
 	}
 	d["node_paths"] = rnode_paths;
 
 	Array reditable_instances;
-	reditable_instances.resize(editable_instances.size());
-	for (int i = 0; i < editable_instances.size(); i++) {
+	int ic = editable_instances.size();
+	reditable_instances.resize_uninitialized(ic);
+	for (int i = 0; i < ic; i++) {
 		reditable_instances[i] = editable_instances[i];
 	}
 	d["editable_instances"] = reditable_instances;

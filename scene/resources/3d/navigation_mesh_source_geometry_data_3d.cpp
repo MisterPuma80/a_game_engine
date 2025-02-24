@@ -297,9 +297,10 @@ Array NavigationMeshSourceGeometryData3D::get_projected_obstructions() const {
 	RWLockRead read_lock(geometry_rwlock);
 
 	Array ret;
-	ret.resize(_projected_obstructions.size());
+	int pc = _projected_obstructions.size();
+	ret.resize_uninitialized(pc);
 
-	for (int i = 0; i < _projected_obstructions.size(); i++) {
+	for (int i = 0; i < pc; i++) {
 		const ProjectedObstruction &projected_obstruction = _projected_obstructions[i];
 
 		Dictionary data;

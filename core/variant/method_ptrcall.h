@@ -307,7 +307,7 @@ MAKE_VECARG_ALT(String, StringName);
 		_FORCE_INLINE_ static void encode(const Vector<m_type> &p_vec, void *p_ptr) { \
 			Array *arr = reinterpret_cast<Array *>(p_ptr);                            \
 			int len = p_vec.size();                                                   \
-			arr->resize(len);                                                         \
+			arr->resize_uninitialized(len);                                           \
 			for (int i = 0; i < len; i++) {                                           \
 				(*arr)[i] = p_vec[i];                                                 \
 			}                                                                         \

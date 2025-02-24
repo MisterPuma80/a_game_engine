@@ -785,8 +785,9 @@ LightmapGI::BakeError LightmapGI::bake(Node *p_from_node, String p_image_data_pa
 			ERR_FAIL_COND_V(lightmap_size.x == 0 || lightmap_size.y == 0, BAKE_ERROR_LIGHTMAP_TOO_SMALL);
 
 			TypedArray<RID> overrides;
-			overrides.resize(mf.overrides.size());
-			for (int i = 0; i < mf.overrides.size(); i++) {
+			int oc = mf.overrides.size();
+			overrides.resize_uninitialized(oc);
+			for (int i = 0; i < oc; i++) {
 				if (mf.overrides[i].is_valid()) {
 					overrides[i] = mf.overrides[i]->get_rid();
 				}

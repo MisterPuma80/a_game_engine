@@ -150,7 +150,7 @@ bool SoftBody3D::_get(const StringName &p_name, Variant &r_ret) const {
 		Array arr_ret;
 		const int pinned_points_indices_size = pinned_points.size();
 		const PinnedPoint *r = pinned_points.ptr();
-		arr_ret.resize(pinned_points_indices_size);
+		arr_ret.resize_uninitialized(pinned_points_indices_size);
 
 		for (int i = 0; i < pinned_points_indices_size; ++i) {
 			arr_ret[i] = r[i].point_index;

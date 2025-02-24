@@ -114,8 +114,9 @@ Variant PropertyUtils::get_property_default_value(const Object *p_object, const 
 						ERR_CONTINUE(!valid);
 						array = array.duplicate();
 
-						array.resize(paths.size());
-						for (int j = 0; j < array.size(); j++) {
+						int pc = paths.size();
+						array.resize_uninitialized(pc);
+						for (int j = 0; j < pc; j++) {
 							array.set(j, node->get_node_or_null(paths[j]));
 						}
 						value_in_ancestor = array;

@@ -847,10 +847,11 @@ const Variant::ObjData &Variant::_get_obj() const {
 
 template <typename... VarArgs>
 String vformat(const String &p_text, const VarArgs... p_args) {
-	Variant args[sizeof...(p_args) + 1] = { p_args..., Variant() }; // +1 makes sure zero sized arrays are also supported.
+	const size_t argc = sizeof...(p_args);
+	Variant args[argc + 1] = { p_args..., Variant() }; // +1 makes sure zero sized arrays are also supported.
 	Array args_array;
-	args_array.resize(sizeof...(p_args));
-	for (uint32_t i = 0; i < sizeof...(p_args); i++) {
+	args_array.resize_uninitialized(argc);
+	for (uint32_t i = 0; i < argc; i++) {
 		args_array[i] = args[i];
 	}
 

@@ -312,7 +312,7 @@ Error Array::resize(int p_new_size) {
 
 Error Array::resize_uninitialized(int p_new_size) {
 	ERR_FAIL_COND_V_MSG(_p->read_only, ERR_LOCKED, "Array is in read-only state.");
-	Error err = _p->array.resize_zeroed(p_new_size);
+	Error err = _p->array.resize(p_new_size);
 	return err;
 }
 

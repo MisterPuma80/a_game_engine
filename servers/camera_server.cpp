@@ -141,9 +141,9 @@ int CameraServer::get_feed_count() {
 TypedArray<CameraFeed> CameraServer::get_feeds() {
 	TypedArray<CameraFeed> return_feeds;
 	int cc = get_feed_count();
-	return_feeds.resize(cc);
+	return_feeds.resize_uninitialized(cc);
 
-	for (int i = 0; i < feeds.size(); i++) {
+	for (int i = 0; i < cc; i++) {
 		return_feeds[i] = get_feed(i);
 	};
 

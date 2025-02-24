@@ -206,7 +206,7 @@ Ref<GLTFLight> GLTFLight::from_dictionary(const Dictionary p_dictionary) {
 Dictionary GLTFLight::to_dictionary() const {
 	Dictionary d;
 	Array color_array;
-	color_array.resize(3);
+	color_array.resize_uninitialized(3);
 	color_array[0] = color.r;
 	color_array[1] = color.g;
 	color_array[2] = color.b;

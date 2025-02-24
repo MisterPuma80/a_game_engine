@@ -1707,7 +1707,7 @@ bool AnimationNodeBlendTree::_get(const StringName &p_name, Variant &r_ret) cons
 		List<NodeConnection> nc;
 		get_node_connections(&nc);
 		Array conns;
-		conns.resize(nc.size() * 3);
+		conns.resize_uninitialized(nc.size() * 3);
 
 		int idx = 0;
 		for (const NodeConnection &E : nc) {

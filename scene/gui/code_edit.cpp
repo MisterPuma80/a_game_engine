@@ -2104,8 +2104,9 @@ TypedArray<Dictionary> CodeEdit::get_code_completion_options() const {
 	}
 
 	TypedArray<Dictionary> completion_options;
-	completion_options.resize(code_completion_options.size());
-	for (int i = 0; i < code_completion_options.size(); i++) {
+	int cc = code_completion_options.size();
+	completion_options.resize_uninitialized(cc);
+	for (int i = 0; i < cc; i++) {
 		Dictionary option;
 		option["kind"] = code_completion_options[i].kind;
 		option["display_text"] = code_completion_options[i].display;
@@ -3285,7 +3286,7 @@ void CodeEdit::_filter_code_completion_candidates_impl() {
 
 		/* Build options argument. */
 		TypedArray<Dictionary> completion_options_sources;
-		completion_options_sources.resize(code_completion_option_sources.size());
+		completion_options_sources.resize_uninitialized(code_completion_option_sources.size());
 		int i = 0;
 		for (const ScriptLanguage::CodeCompletionOption &E : code_completion_option_sources) {
 			Dictionary option;

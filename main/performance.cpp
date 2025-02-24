@@ -320,7 +320,7 @@ TypedArray<StringName> Performance::get_custom_monitor_names() {
 		return TypedArray<StringName>();
 	}
 	TypedArray<StringName> return_array;
-	return_array.resize(_monitor_map.size());
+	return_array.resize_uninitialized(_monitor_map.size());
 	int index = 0;
 	for (KeyValue<StringName, MonitorCall> i : _monitor_map) {
 		return_array.set(index, i.key);

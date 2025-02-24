@@ -364,7 +364,7 @@ Dictionary GLTFPhysicsBody::to_dictionary() const {
 	}
 	if (linear_velocity != Vector3()) {
 		Array velocity_array;
-		velocity_array.resize(3);
+		velocity_array.resize_uninitialized(3);
 		velocity_array[0] = linear_velocity.x;
 		velocity_array[1] = linear_velocity.y;
 		velocity_array[2] = linear_velocity.z;
@@ -372,7 +372,7 @@ Dictionary GLTFPhysicsBody::to_dictionary() const {
 	}
 	if (angular_velocity != Vector3()) {
 		Array velocity_array;
-		velocity_array.resize(3);
+		velocity_array.resize_uninitialized(3);
 		velocity_array[0] = angular_velocity.x;
 		velocity_array[1] = angular_velocity.y;
 		velocity_array[2] = angular_velocity.z;
@@ -380,7 +380,7 @@ Dictionary GLTFPhysicsBody::to_dictionary() const {
 	}
 	if (center_of_mass != Vector3()) {
 		Array center_of_mass_array;
-		center_of_mass_array.resize(3);
+		center_of_mass_array.resize_uninitialized(3);
 		center_of_mass_array[0] = center_of_mass.x;
 		center_of_mass_array[1] = center_of_mass.y;
 		center_of_mass_array[2] = center_of_mass.z;
@@ -388,7 +388,7 @@ Dictionary GLTFPhysicsBody::to_dictionary() const {
 	}
 	if (inertia_diagonal != Vector3()) {
 		Array inertia_array;
-		inertia_array.resize(3);
+		inertia_array.resize_uninitialized(3);
 		inertia_array[0] = inertia_diagonal[0];
 		inertia_array[1] = inertia_diagonal[1];
 		inertia_array[2] = inertia_diagonal[2];
@@ -396,7 +396,7 @@ Dictionary GLTFPhysicsBody::to_dictionary() const {
 	}
 	if (inertia_orientation != Quaternion()) {
 		Array inertia_array;
-		inertia_array.resize(4);
+		inertia_array.resize_uninitialized(4);
 		inertia_array[0] = inertia_orientation[0];
 		inertia_array[1] = inertia_orientation[1];
 		inertia_array[2] = inertia_orientation[2];

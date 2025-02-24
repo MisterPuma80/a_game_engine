@@ -94,8 +94,9 @@ void NavigationMeshSourceGeometryData2D::set_traversable_outlines(const TypedArr
 TypedArray<Vector<Vector2>> NavigationMeshSourceGeometryData2D::get_traversable_outlines() const {
 	RWLockRead read_lock(geometry_rwlock);
 	TypedArray<Vector<Vector2>> typed_array_traversable_outlines;
-	typed_array_traversable_outlines.resize(traversable_outlines.size());
-	for (int i = 0; i < typed_array_traversable_outlines.size(); i++) {
+	int tc = traversable_outlines.size();
+	typed_array_traversable_outlines.resize_uninitialized(tc);
+	for (int i = 0; i < tc; i++) {
 		typed_array_traversable_outlines[i] = traversable_outlines[i];
 	}
 
@@ -113,8 +114,9 @@ void NavigationMeshSourceGeometryData2D::set_obstruction_outlines(const TypedArr
 TypedArray<Vector<Vector2>> NavigationMeshSourceGeometryData2D::get_obstruction_outlines() const {
 	RWLockRead read_lock(geometry_rwlock);
 	TypedArray<Vector<Vector2>> typed_array_obstruction_outlines;
-	typed_array_obstruction_outlines.resize(obstruction_outlines.size());
-	for (int i = 0; i < typed_array_obstruction_outlines.size(); i++) {
+	int oc = obstruction_outlines.size();
+	typed_array_obstruction_outlines.resize_uninitialized(oc);
+	for (int i = 0; i < oc; i++) {
 		typed_array_obstruction_outlines[i] = obstruction_outlines[i];
 	}
 
@@ -229,9 +231,10 @@ Array NavigationMeshSourceGeometryData2D::get_projected_obstructions() const {
 	RWLockRead read_lock(geometry_rwlock);
 
 	Array ret;
-	ret.resize(_projected_obstructions.size());
+	int pc = _projected_obstructions.size();
+	ret.resize_uninitialized(pc);
 
-	for (int i = 0; i < _projected_obstructions.size(); i++) {
+	for (int i = 0; i < pc; i++) {
 		const ProjectedObstruction &projected_obstruction = _projected_obstructions[i];
 
 		Dictionary data;

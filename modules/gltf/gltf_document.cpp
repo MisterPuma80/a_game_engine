@@ -328,7 +328,7 @@ Error GLTFDocument::_parse_glb(Ref<FileAccess> p_file, Ref<GLTFState> p_state) {
 
 static Array _vec3_to_arr(const Vector3 &p_vec3) {
 	Array array;
-	array.resize(3);
+	array.resize_uninitialized(3);
 	array[0] = p_vec3.x;
 	array[1] = p_vec3.y;
 	array[2] = p_vec3.z;
@@ -342,7 +342,7 @@ static Vector3 _arr_to_vec3(const Array &p_array) {
 
 static Array _quaternion_to_array(const Quaternion &p_quaternion) {
 	Array array;
-	array.resize(4);
+	array.resize_uninitialized(4);
 	array[0] = p_quaternion.x;
 	array[1] = p_quaternion.y;
 	array[2] = p_quaternion.z;
@@ -2728,8 +2728,9 @@ Error GLTFDocument::_serialize_meshes(Ref<GLTFState> p_state) {
 		Dictionary e;
 		e["targetNames"] = target_names;
 
-		weights.resize(target_names.size());
-		for (int name_i = 0; name_i < target_names.size(); name_i++) {
+		int nc = target_names.size();
+		weights.resize_uninitialized(nc);
+		for (int name_i = 0; name_i < nc; name_i++) {
 			real_t weight = 0.0;
 			if (name_i < p_state->meshes.write[gltf_mesh_i]->get_blend_weights().size()) {
 				weight = p_state->meshes.write[gltf_mesh_i]->get_blend_weights()[name_i];
@@ -3144,7 +3145,7 @@ Error GLTFDocument::_parse_meshes(Ref<GLTFState> p_state) {
 					const Dictionary &t = targets[k];
 
 					Array array_copy;
-					array_copy.resize(Mesh::ARRAY_MAX);
+					array_copy.resize_uninitialized(Mesh::ARRAY_MAX);
 
 					for (int l = 0; l < Mesh::ARRAY_MAX; l++) {
 						array_copy[l] = array[l];
@@ -4672,8 +4673,9 @@ Error GLTFDocument::_serialize_lights(Ref<GLTFState> p_state) {
 
 Error GLTFDocument::_serialize_cameras(Ref<GLTFState> p_state) {
 	Array cameras;
-	cameras.resize(p_state->cameras.size());
-	for (GLTFCameraIndex i = 0; i < p_state->cameras.size(); i++) {
+	int cc = p_state->cameras.size();
+	cameras.resize_uninitialized(cc);
+	for (GLTFCameraIndex i = 0; i < cc; i++) {
 		cameras[i] = p_state->cameras[i]->to_dictionary();
 	}
 
@@ -6912,7 +6914,7 @@ Dictionary _serialize_texture_transform_uv(Vector2 p_offset, Vector2 p_scale) {
 	bool is_offset = p_offset != Vector2(0.0, 0.0);
 	if (is_offset) {
 		Array offset;
-		offset.resize(2);
+		offset.resize_uninitialized(2);
 		offset[0] = p_offset.x;
 		offset[1] = p_offset.y;
 		texture_transform["offset"] = offset;
@@ -6920,7 +6922,7 @@ Dictionary _serialize_texture_transform_uv(Vector2 p_offset, Vector2 p_scale) {
 	bool is_scaled = p_scale != Vector2(1.0, 1.0);
 	if (is_scaled) {
 		Array scale;
-		scale.resize(2);
+		scale.resize_uninitialized(2);
 		scale[0] = p_scale.x;
 		scale[1] = p_scale.y;
 		texture_transform["scale"] = scale;

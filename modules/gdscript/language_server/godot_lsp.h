@@ -785,8 +785,9 @@ struct Diagnostic {
 		dict["source"] = source;
 		if (!relatedInformation.is_empty()) {
 			Array arr;
-			arr.resize(relatedInformation.size());
-			for (int i = 0; i < relatedInformation.size(); i++) {
+			int ic = relatedInformation.size();
+			arr.resize_uninitialized(ic);
+			for (int i = 0; i < ic; i++) {
 				arr[i] = relatedInformation[i].to_json();
 			}
 			dict["relatedInformation"] = arr;

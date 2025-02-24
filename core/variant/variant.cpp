@@ -2184,9 +2184,10 @@ Variant::operator Signal() const {
 template <typename DA, typename SA>
 inline DA _convert_array(const SA &p_array) {
 	DA da;
-	da.resize(p_array.size());
+	int ac = p_array.size();
+	da.resize_uninitialized(ac);
 
-	for (int i = 0; i < p_array.size(); i++) {
+	for (int i = 0; i < ac; i++) {
 		da.set(i, Variant(p_array.get(i)));
 	}
 
@@ -2691,9 +2692,10 @@ Variant::Variant(const Vector<::RID> &p_array) :
 		type(ARRAY) {
 	Array *rid_array = memnew_placement(_data._mem, Array);
 
-	rid_array->resize(p_array.size());
+	int ac = p_array.size();
+	rid_array->resize_uninitialized(ac);
 
-	for (int i = 0; i < p_array.size(); i++) {
+	for (int i = 0; i < ac; i++) {
 		rid_array->set(i, Variant(p_array[i]));
 	}
 }
@@ -2702,9 +2704,10 @@ Variant::Variant(const Vector<Plane> &p_array) :
 		type(ARRAY) {
 	Array *plane_array = memnew_placement(_data._mem, Array);
 
-	plane_array->resize(p_array.size());
+	int ac = p_array.size();
+	plane_array->resize_uninitialized(ac);
 
-	for (int i = 0; i < p_array.size(); i++) {
+	for (int i = 0; i < ac; i++) {
 		plane_array->operator[](i) = Variant(p_array[i]);
 	}
 }
@@ -2732,8 +2735,9 @@ Variant::Variant(const Vector<Face3> &p_face_array) :
 Variant::Variant(const Vector<Variant> &p_array) :
 		type(NIL) {
 	Array arr;
-	arr.resize(p_array.size());
-	for (int i = 0; i < p_array.size(); i++) {
+	int ac = p_array.size();
+	arr.resize_uninitialized(ac);
+	for (int i = 0; i < ac; i++) {
 		arr[i] = p_array[i];
 	}
 	*this = arr;

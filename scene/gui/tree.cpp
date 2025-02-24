@@ -1019,7 +1019,7 @@ TypedArray<TreeItem> TreeItem::get_children() {
 	// Don't need to explicitly create children cache, because get_child_count creates it.
 	int size = get_child_count();
 	TypedArray<TreeItem> arr;
-	arr.resize(size);
+	arr.resize_uninitialized(size);
 	for (int i = 0; i < size; i++) {
 		arr[i] = children_cache[i];
 	}

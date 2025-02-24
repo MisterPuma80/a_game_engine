@@ -169,7 +169,7 @@ void PhysicsRayQueryParameters2D::set_exclude(const TypedArray<RID> &p_exclude) 
 
 TypedArray<RID> PhysicsRayQueryParameters2D::get_exclude() const {
 	TypedArray<RID> ret;
-	ret.resize(parameters.exclude.size());
+	ret.resize_uninitialized(parameters.exclude.size());
 	int idx = 0;
 	for (const RID &E : parameters.exclude) {
 		ret[idx++] = E;
@@ -221,7 +221,7 @@ void PhysicsPointQueryParameters2D::set_exclude(const TypedArray<RID> &p_exclude
 
 TypedArray<RID> PhysicsPointQueryParameters2D::get_exclude() const {
 	TypedArray<RID> ret;
-	ret.resize(parameters.exclude.size());
+	ret.resize_uninitialized(parameters.exclude.size());
 	int idx = 0;
 	for (const RID &E : parameters.exclude) {
 		ret[idx++] = E;
@@ -280,7 +280,7 @@ void PhysicsShapeQueryParameters2D::set_exclude(const TypedArray<RID> &p_exclude
 
 TypedArray<RID> PhysicsShapeQueryParameters2D::get_exclude() const {
 	TypedArray<RID> ret;
-	ret.resize(parameters.exclude.size());
+	ret.resize_uninitialized(parameters.exclude.size());
 	int idx = 0;
 	for (const RID &E : parameters.exclude) {
 		ret[idx++] = E;
@@ -363,7 +363,7 @@ TypedArray<Dictionary> PhysicsDirectSpaceState2D::_intersect_point(const Ref<Phy
 	}
 
 	TypedArray<Dictionary> r;
-	r.resize(rc);
+	r.resize_uninitialized(rc);
 	for (int i = 0; i < rc; i++) {
 		Dictionary d;
 		d["rid"] = ret[i].rid;
@@ -382,7 +382,7 @@ TypedArray<Dictionary> PhysicsDirectSpaceState2D::_intersect_shape(const Ref<Phy
 	sr.resize(p_max_results);
 	int rc = intersect_shape(p_shape_query->get_parameters(), sr.ptrw(), sr.size());
 	TypedArray<Dictionary> ret;
-	ret.resize(rc);
+	ret.resize_uninitialized(rc);
 	for (int i = 0; i < rc; i++) {
 		Dictionary d;
 		d["rid"] = sr[i].rid;
@@ -421,7 +421,7 @@ TypedArray<Vector2> PhysicsDirectSpaceState2D::_collide_shape(const Ref<PhysicsS
 		return TypedArray<Vector2>();
 	}
 	TypedArray<Vector2> r;
-	r.resize(rc * 2);
+	r.resize_uninitialized(rc * 2);
 	for (int i = 0; i < rc * 2; i++) {
 		r[i] = ret[i];
 	}
@@ -465,7 +465,7 @@ void PhysicsDirectSpaceState2D::_bind_methods() {
 
 TypedArray<RID> PhysicsTestMotionParameters2D::get_exclude_bodies() const {
 	TypedArray<RID> exclude;
-	exclude.resize(parameters.exclude_bodies.size());
+	exclude.resize_uninitialized(parameters.exclude_bodies.size());
 
 	int body_index = 0;
 	for (RID body : parameters.exclude_bodies) {
@@ -484,7 +484,7 @@ void PhysicsTestMotionParameters2D::set_exclude_bodies(const TypedArray<RID> &p_
 
 TypedArray<uint64_t> PhysicsTestMotionParameters2D::get_exclude_objects() const {
 	TypedArray<uint64_t> exclude;
-	exclude.resize(parameters.exclude_objects.size());
+	exclude.resize_uninitialized(parameters.exclude_objects.size());
 
 	int object_index = 0;
 	for (ObjectID object_id : parameters.exclude_objects) {

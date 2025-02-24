@@ -157,8 +157,9 @@ int EditorNode3DGizmo::subgizmos_intersect_ray(Camera3D *p_camera, const Vector2
 
 Vector<int> EditorNode3DGizmo::subgizmos_intersect_frustum(const Camera3D *p_camera, const Vector<Plane> &p_frustum) const {
 	TypedArray<Plane> frustum;
-	frustum.resize(p_frustum.size());
-	for (int i = 0; i < p_frustum.size(); i++) {
+	int fc = p_frustum.size();
+	frustum.resize_uninitialized(fc);
+	for (int i = 0; i < fc; i++) {
 		frustum[i] = p_frustum[i];
 	}
 	Vector<int> ret;
@@ -191,8 +192,9 @@ void EditorNode3DGizmo::set_subgizmo_transform(int p_id, Transform3D p_transform
 
 void EditorNode3DGizmo::commit_subgizmos(const Vector<int> &p_ids, const Vector<Transform3D> &p_restore, bool p_cancel) {
 	TypedArray<Transform3D> restore;
-	restore.resize(p_restore.size());
-	for (int i = 0; i < p_restore.size(); i++) {
+	int rc = p_restore.size();
+	restore.resize_uninitialized(rc);
+	for (int i = 0; i < rc; i++) {
 		restore[i] = p_restore[i];
 	}
 
@@ -1170,8 +1172,9 @@ int EditorNode3DGizmoPlugin::subgizmos_intersect_ray(const EditorNode3DGizmo *p_
 
 Vector<int> EditorNode3DGizmoPlugin::subgizmos_intersect_frustum(const EditorNode3DGizmo *p_gizmo, const Camera3D *p_camera, const Vector<Plane> &p_frustum) const {
 	TypedArray<Plane> frustum;
-	frustum.resize(p_frustum.size());
-	for (int i = 0; i < p_frustum.size(); i++) {
+	int fc = p_frustum.size();
+	frustum.resize_uninitialized(fc);
+	for (int i = 0; i < fc; i++) {
 		frustum[i] = p_frustum[i];
 	}
 	Vector<int> ret;
@@ -1191,8 +1194,9 @@ void EditorNode3DGizmoPlugin::set_subgizmo_transform(const EditorNode3DGizmo *p_
 
 void EditorNode3DGizmoPlugin::commit_subgizmos(const EditorNode3DGizmo *p_gizmo, const Vector<int> &p_ids, const Vector<Transform3D> &p_restore, bool p_cancel) {
 	TypedArray<Transform3D> restore;
-	restore.resize(p_restore.size());
-	for (int i = 0; i < p_restore.size(); i++) {
+	int rc = p_restore.size();
+	restore.resize_uninitialized(rc);
+	for (int i = 0; i < rc; i++) {
 		restore[i] = p_restore[i];
 	}
 

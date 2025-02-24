@@ -1645,7 +1645,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 
 				int argc = _code_ptr[ip + 1];
 				Array array;
-				array.resize(argc);
+				array.resize_uninitialized(argc);
 
 				for (int i = 0; i < argc; i++) {
 					array[i] = *(instruction_args[i]);
@@ -1674,7 +1674,7 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 				const StringName native_type = _global_names_ptr[native_type_idx];
 
 				Array array;
-				array.resize(argc);
+				array.resize_uninitialized(argc);
 				for (int i = 0; i < argc; i++) {
 					array[i] = *(instruction_args[i]);
 				}

@@ -386,7 +386,7 @@ Array RemoteDebugger::_get_message() {
 	ERR_FAIL_COND_V(message_list.is_empty(), Array());
 
 	Array msg;
-	msg.resize(2);
+	msg.resize_uninitialized(2);
 	msg[0] = message_list.front()->get().message;
 	msg[1] = message_list.front()->get().data;
 	message_list.pop_front();

@@ -113,8 +113,9 @@ bool GridMap::_get(const StringName &p_name, Variant &r_ret) const {
 		r_ret = d;
 	} else if (name == "baked_meshes") {
 		Array ret;
-		ret.resize(baked_meshes.size());
-		for (int i = 0; i < baked_meshes.size(); i++) {
+		int bc = baked_meshes.size();
+		ret.resize_uninitialized(bc);
+		for (int i = 0; i < bc; i++) {
 			ret[i] = baked_meshes[i].mesh;
 		}
 		r_ret = ret;
@@ -1148,7 +1149,7 @@ float GridMap::get_cell_scale() const {
 
 TypedArray<Vector3i> GridMap::get_used_cells() const {
 	TypedArray<Vector3i> a;
-	a.resize(cell_map.size());
+	a.resize_uninitialized(cell_map.size());
 	int i = 0;
 	for (const KeyValue<IndexKey, Cell> &E : cell_map) {
 		Vector3i p(E.key.x, E.key.y, E.key.z);

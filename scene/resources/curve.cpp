@@ -393,9 +393,10 @@ void Curve::mark_dirty() {
 Array Curve::get_data() const {
 	Array output;
 	const unsigned int ELEMS = 5;
-	output.resize(_points.size() * ELEMS);
+	int pc = _points.size();
+	output.resize_uninitialized(pc * ELEMS);
 
-	for (int j = 0; j < _points.size(); ++j) {
+	for (int j = 0; j < pc; ++j) {
 		const Point p = _points[j];
 		int i = j * ELEMS;
 

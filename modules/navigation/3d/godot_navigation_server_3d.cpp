@@ -98,9 +98,12 @@ TypedArray<RID> GodotNavigationServer3D::get_maps() const {
 	TypedArray<RID> all_map_rids;
 	List<RID> maps_owned;
 	map_owner.get_owned_list(&maps_owned);
-	if (maps_owned.size()) {
+	int mc = maps_owned.size();
+	all_map_rids.resize_uninitialized(mc);
+	int i = 0;
+	if (mc) {
 		for (const RID &E : maps_owned) {
-			all_map_rids.push_back(E);
+			all_map_rids[i++] = E;
 		}
 	}
 	return all_map_rids;
@@ -278,9 +281,10 @@ TypedArray<RID> GodotNavigationServer3D::map_get_links(RID p_map) const {
 	ERR_FAIL_NULL_V(map, link_rids);
 
 	const LocalVector<NavLink *> &links = map->get_links();
-	link_rids.resize(links.size());
+	uint32_t lc = links.size();
+	link_rids.resize_uninitialized(lc);
 
-	for (uint32_t i = 0; i < links.size(); i++) {
+	for (uint32_t i = 0; i < lc; i++) {
 		link_rids[i] = links[i]->get_self();
 	}
 	return link_rids;
@@ -292,9 +296,10 @@ TypedArray<RID> GodotNavigationServer3D::map_get_regions(RID p_map) const {
 	ERR_FAIL_NULL_V(map, regions_rids);
 
 	const LocalVector<NavRegion *> &regions = map->get_regions();
-	regions_rids.resize(regions.size());
+	uint32_t rc = regions.size();
+	regions_rids.resize_uninitialized(rc);
 
-	for (uint32_t i = 0; i < regions.size(); i++) {
+	for (uint32_t i = 0; i < rc; i++) {
 		regions_rids[i] = regions[i]->get_self();
 	}
 	return regions_rids;
@@ -306,9 +311,10 @@ TypedArray<RID> GodotNavigationServer3D::map_get_agents(RID p_map) const {
 	ERR_FAIL_NULL_V(map, agents_rids);
 
 	const LocalVector<NavAgent *> &agents = map->get_agents();
-	agents_rids.resize(agents.size());
+	uint32_t ac = agents.size();
+	agents_rids.resize_uninitialized(ac);
 
-	for (uint32_t i = 0; i < agents.size(); i++) {
+	for (uint32_t i = 0; i < ac; i++) {
 		agents_rids[i] = agents[i]->get_self();
 	}
 	return agents_rids;
@@ -319,8 +325,9 @@ TypedArray<RID> GodotNavigationServer3D::map_get_obstacles(RID p_map) const {
 	const NavMap *map = map_owner.get_or_null(p_map);
 	ERR_FAIL_NULL_V(map, obstacles_rids);
 	const LocalVector<NavObstacle *> obstacles = map->get_obstacles();
-	obstacles_rids.resize(obstacles.size());
-	for (uint32_t i = 0; i < obstacles.size(); i++) {
+	uint32_t oc = obstacles.size();
+	obstacles_rids.resize_uninitialized(oc);
+	for (uint32_t i = 0; i < oc; i++) {
 		obstacles_rids[i] = obstacles[i]->get_self();
 	}
 	return obstacles_rids;
@@ -1411,7 +1418,7 @@ PathQueryResult GodotNavigationServer3D::_query_path(const PathQueryParameters &
 
 		if (p_parameters.metadata_flags.has_flag(PathMetadataFlags::PATH_INCLUDE_RIDS)) {
 			TypedArray<RID> simplified_path_rids;
-			simplified_path_rids.resize(indices_count);
+			simplified_path_rids.resize_uninitialized(indices_count);
 			for (uint32_t i = 0; i < indices_count; i++) {
 				simplified_path_rids[i] = r_query_result.path_rids[i];
 			}

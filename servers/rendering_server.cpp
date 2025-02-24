@@ -1763,7 +1763,7 @@ TypedArray<Array> RenderingServer::mesh_surface_get_blend_shape_arrays(RID p_mes
 		ERR_FAIL_COND_V(blend_shape_count != (uint32_t)mesh_get_blend_shape_count(p_mesh), Array());
 
 		TypedArray<Array> blend_shape_array;
-		blend_shape_array.resize(mesh_get_blend_shape_count(p_mesh));
+		blend_shape_array.resize_uninitialized(mesh_get_blend_shape_count(p_mesh));
 		for (uint32_t i = 0; i < blend_shape_count; i++) {
 			Vector<uint8_t> bs_data = blend_shape_data.slice(i * divisor, (i + 1) * divisor);
 			Vector<uint8_t> unused;
@@ -1908,8 +1908,9 @@ void RenderingServer::_texture_3d_update(RID p_texture, const TypedArray<Image> 
 TypedArray<Image> RenderingServer::_texture_3d_get(RID p_texture) const {
 	Vector<Ref<Image>> images = texture_3d_get(p_texture);
 	TypedArray<Image> ret;
-	ret.resize(images.size());
-	for (int i = 0; i < images.size(); i++) {
+	int ic = images.size();
+	ret.resize_uninitialized(ic);
+	for (int i = 0; i < ic; i++) {
 		ret[i] = images[i];
 	}
 	return ret;
@@ -3503,8 +3504,9 @@ RenderingServer::RenderingServer() {
 TypedArray<StringName> RenderingServer::_global_shader_parameter_get_list() const {
 	TypedArray<StringName> gsp;
 	Vector<StringName> gsp_sn = global_shader_parameter_get_list();
-	gsp.resize(gsp_sn.size());
-	for (int i = 0; i < gsp_sn.size(); i++) {
+	int gc = gsp_sn.size();
+	gsp.resize_uninitialized(gc);
+	for (int i = 0; i < gc; i++) {
 		gsp[i] = gsp_sn[i];
 	}
 	return gsp;

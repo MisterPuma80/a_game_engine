@@ -650,7 +650,7 @@ TypedArray<Vector2i> AStarGrid2D::get_id_path(const Vector2i &p_from_id, const V
 	}
 
 	TypedArray<Vector2i> path;
-	path.resize(pc);
+	path.resize_uninitialized(pc);
 
 	{
 		p = end_point;

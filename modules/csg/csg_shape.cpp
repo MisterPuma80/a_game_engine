@@ -662,7 +662,7 @@ void CSGShape3D::_validate_property(PropertyInfo &p_property) const {
 Array CSGShape3D::get_meshes() const {
 	if (root_mesh.is_valid()) {
 		Array arr;
-		arr.resize(2);
+		arr.resize_uninitialized(2);
 		arr[0] = Transform3D();
 		arr[1] = root_mesh;
 		return arr;

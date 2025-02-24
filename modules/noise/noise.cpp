@@ -64,8 +64,9 @@ TypedArray<Image> Noise::get_seamless_image_3d(int p_width, int p_height, int p_
 	Vector<Ref<Image>> images = _get_seamless_image(p_width, p_height, p_depth, p_invert, true, p_blend_skirt, p_normalize);
 
 	TypedArray<Image> ret;
-	ret.resize(images.size());
-	for (int i = 0; i < images.size(); i++) {
+	int ic = images.size();
+	ret.resize_uninitialized(ic);
+	for (int i = 0; i < ic; i++) {
 		ret[i] = images[i];
 	}
 	return ret;
@@ -176,8 +177,9 @@ TypedArray<Image> Noise::get_image_3d(int p_width, int p_height, int p_depth, bo
 	Vector<Ref<Image>> images = _get_image(p_width, p_height, p_depth, p_invert, true, p_normalize);
 
 	TypedArray<Image> ret;
-	ret.resize(images.size());
-	for (int i = 0; i < images.size(); i++) {
+	int ic = images.size();
+	ret.resize_uninitialized(ic);
+	for (int i = 0; i < ic; i++) {
 		ret[i] = images[i];
 	}
 	return ret;

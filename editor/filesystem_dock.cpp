@@ -1146,7 +1146,7 @@ void FileSystemDock::_update_file_list(bool p_keep_selection) {
 		// Generate the preview.
 		if (!finfo->import_broken) {
 			Array udata;
-			udata.resize(2);
+			udata.resize_uninitialized(2);
 			udata[0] = item_index;
 			udata[1] = fname;
 			EditorResourcePreview::get_singleton()->queue_resource_preview(fpath, this, "_file_list_thumbnail_done", udata);
@@ -1274,7 +1274,7 @@ void FileSystemDock::_preview_invalidated(const String &p_path) {
 			if (files->get_item_metadata(i) == p_path) {
 				// Re-request preview.
 				Array udata;
-				udata.resize(2);
+				udata.resize_uninitialized(2);
 				udata[0] = i;
 				udata[1] = files->get_item_text(i);
 				EditorResourcePreview::get_singleton()->queue_resource_preview(p_path, this, "_file_list_thumbnail_done", udata);

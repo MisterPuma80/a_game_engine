@@ -146,7 +146,7 @@ int TileMapPattern::get_cell_alternative_tile(const Vector2i &p_coords) const {
 TypedArray<Vector2i> TileMapPattern::get_used_cells() const {
 	// Returns the cells used in the tilemap.
 	TypedArray<Vector2i> a;
-	a.resize(pattern.size());
+	a.resize_uninitialized(pattern.size());
 	int i = 0;
 	for (const KeyValue<Vector2i, TileMapCell> &E : pattern) {
 		Vector2i p(E.key.x, E.key.y);

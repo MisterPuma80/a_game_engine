@@ -492,7 +492,7 @@ public:
 		const T &src_arr = *VariantGetInternalPtr<T>::get_ptr(p_args[0]);
 
 		int size = src_arr.size();
-		dst_arr.resize(size);
+		dst_arr.resize_uninitialized(size);
 		for (int i = 0; i < size; i++) {
 			dst_arr[i] = src_arr[i];
 		}
@@ -504,7 +504,7 @@ public:
 		const T &src_arr = *VariantGetInternalPtr<T>::get_ptr(p_args[0]);
 
 		int size = src_arr.size();
-		dst_arr.resize(size);
+		dst_arr.resize_uninitialized(size);
 		for (int i = 0; i < size; i++) {
 			dst_arr[i] = src_arr[i];
 		}
@@ -514,7 +514,7 @@ public:
 		T src_arr = PtrToArg<T>::convert(p_args[0]);
 
 		int size = src_arr.size();
-		dst_arr.resize(size);
+		dst_arr.resize_uninitialized(size);
 		for (int i = 0; i < size; i++) {
 			dst_arr[i] = src_arr[i];
 		}

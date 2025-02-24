@@ -51,8 +51,9 @@ void ResourcePreloader::_set_resources(const Array &p_data) {
 Array ResourcePreloader::_get_resources() const {
 	Vector<String> names;
 	Array arr;
-	arr.resize(resources.size());
-	names.resize(resources.size());
+	int rc = resources.size();
+	arr.resize_uninitialized(rc);
+	names.resize(rc);
 
 	RBSet<String> sorted_names;
 
@@ -68,8 +69,9 @@ Array ResourcePreloader::_get_resources() const {
 	}
 
 	Array res;
-	res.push_back(names);
-	res.push_back(arr);
+	res.resize_uninitialized(2);
+	res[0] = names;
+	res[1] = arr;
 	return res;
 }
 

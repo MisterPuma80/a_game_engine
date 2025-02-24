@@ -159,9 +159,10 @@ TypedArray<Image> NoiseTexture3D::_generate_texture() {
 	}
 
 	TypedArray<Image> new_data;
-	new_data.resize(images.size());
+	int ic = images.size();
+	new_data.resize_uninitialized(ic);
 
-	for (int i = 0; i < new_data.size(); i++) {
+	for (int i = 0; i < ic; i++) {
 		new_data[i] = images[i];
 	}
 

@@ -201,7 +201,7 @@ Vector<Vector3> NavMap::get_path(Vector3 p_origin, Vector3 p_destination, bool p
 		}
 
 		if (r_path_rids) {
-			r_path_rids->resize(2);
+			r_path_rids->resize_uninitialized(2);
 			(*r_path_rids)[0] = begin_poly->owner->get_self();
 			(*r_path_rids)[1] = end_poly->owner->get_self();
 		}
@@ -348,7 +348,7 @@ Vector<Vector3> NavMap::get_path(Vector3 p_origin, Vector3 p_destination, bool p
 				}
 
 				if (r_path_rids) {
-					r_path_rids->resize(2);
+					r_path_rids->resize_uninitialized(2);
 					(*r_path_rids)[0] = begin_poly->owner->get_self();
 					(*r_path_rids)[1] = begin_poly->owner->get_self();
 				}
@@ -433,7 +433,7 @@ Vector<Vector3> NavMap::get_path(Vector3 p_origin, Vector3 p_destination, bool p
 		}
 
 		if (r_path_rids) {
-			r_path_rids->resize(2);
+			r_path_rids->resize_uninitialized(2);
 			(*r_path_rids)[0] = begin_poly->owner->get_self();
 			(*r_path_rids)[1] = begin_poly->owner->get_self();
 		}
