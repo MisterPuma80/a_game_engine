@@ -589,11 +589,13 @@ TypedArray<PhysicsBody3D> SoftBody3D::get_collision_exceptions() {
 	List<RID> exceptions;
 	PhysicsServer3D::get_singleton()->soft_body_get_collision_exceptions(physics_rid, &exceptions);
 	TypedArray<PhysicsBody3D> ret;
+	ret.resize_uninitialized(exceptions.size());
+	int idx = 0;
 	for (const RID &body : exceptions) {
 		ObjectID instance_id = PhysicsServer3D::get_singleton()->body_get_object_instance_id(body);
 		Object *obj = ObjectDB::get_instance(instance_id);
 		PhysicsBody3D *physics_body = Object::cast_to<PhysicsBody3D>(obj);
-		ret.append(physics_body);
+		ret[idx++] = physics_body;
 	}
 	return ret;
 }

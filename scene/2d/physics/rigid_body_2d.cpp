@@ -575,17 +575,16 @@ TypedArray<Node2D> RigidBody2D::get_colliding_bodies() const {
 	ERR_FAIL_NULL_V(contact_monitor, TypedArray<Node2D>());
 
 	TypedArray<Node2D> ret;
-	ret.resize(contact_monitor->body_map.size());
+	ret.resize_uninitialized(contact_monitor->body_map.size());
 	int idx = 0;
 	for (const KeyValue<ObjectID, BodyState> &E : contact_monitor->body_map) {
 		Object *obj = ObjectDB::get_instance(E.key);
-		if (!obj) {
-			ret.resize(ret.size() - 1); //ops
-		} else {
+		if (obj) {
 			ret[idx++] = obj;
 		}
 	}
 
+	ret.resize(idx);
 	return ret;
 }
 

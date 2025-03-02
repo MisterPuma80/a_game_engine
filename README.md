@@ -16,10 +16,10 @@
 * [X] Add Array::resize_uninitialized
 * [X] Optimize InputMap::get_actions
 * [X] Optimize Node::reparent
-* [X] Optimize Area3D::get_overlapping_bodies
-* [X] Optimize Area3D::get_overlapping_areas
-* [X] Optimize RigidBody3D::get_colliding_bodies()
-* [X] Optimize PhysicsBody3D::get_collision_exceptions()
+* [X] Optimize Area2D / Area3D::get_overlapping_bodies
+* [X] Optimize Area2D / Area3D::get_overlapping_areas
+* [X] Optimize RigidBody2D / RigidBody3D::get_colliding_bodies()
+* [X] Optimize SoftBody3D / PhysicsBody2D / PhysicsBody3D::get_collision_exceptions()
 
 # Get code
 
