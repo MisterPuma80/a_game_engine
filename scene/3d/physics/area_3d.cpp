@@ -517,8 +517,7 @@ TypedArray<Node3D> Area3D::get_overlapping_bodies() const {
 	for (const KeyValue<ObjectID, BodyState> &E : body_map) {
 		Object *obj = ObjectDB::get_instance(E.key);
 		if (obj) {
-			ret[idx] = obj;
-			idx++;
+			ret[idx++] = obj;
 		}
 	}
 
@@ -555,10 +554,10 @@ TypedArray<Area3D> Area3D::get_overlapping_areas() const {
 	for (const KeyValue<ObjectID, AreaState> &E : area_map) {
 		Object *obj = ObjectDB::get_instance(E.key);
 		if (obj) {
-			ret[idx] = obj;
-			idx++;
+			ret[idx++] = obj;
 		}
 	}
+
 	ret.resize(idx);
 	return ret;
 }
