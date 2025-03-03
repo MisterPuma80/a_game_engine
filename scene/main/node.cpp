@@ -1964,7 +1964,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
 		// Pop the next entry off the search stack
-		Node *entry = Object::cast_to<Node>(to_search[0]);
+		Node *entry = to_search[0];
 		to_search.remove_at(0);
 
 		// Add all the children to the list to search
@@ -2036,7 +2036,7 @@ TypedArray<Node> Node::find_children_w_data_cache_no_recursion_vector(const Stri
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
 		// Pop the next entry off the search stack
-		Node *entry = Object::cast_to<Node>(to_search[0]);
+		Node *entry = to_search[0];
 		to_search.remove_at_unordered(0);
 
 		// Add all the children to the list to search
