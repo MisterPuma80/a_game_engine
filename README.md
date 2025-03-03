@@ -20,6 +20,7 @@
 * [X] Optimize Area2D / Area3D::get_overlapping_areas
 * [X] Optimize RigidBody2D / RigidBody3D::get_colliding_bodies()
 * [X] Optimize SoftBody3D / PhysicsBody2D / PhysicsBody3D::get_collision_exceptions()
+* [X] Add Node::_get_children_ptr
 
 # Get code
 

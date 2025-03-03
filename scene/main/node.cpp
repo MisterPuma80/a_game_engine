@@ -1700,9 +1700,9 @@ Node *Node::get_child(int p_index, bool p_include_internal) const {
 TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	ERR_THREAD_GUARD_V(TypedArray<Node>());
 
-	int cc = get_child_count(p_include_internal);
-	Node *const *cptr = data.children_cache.ptr();
-	int offset = p_include_internal ? 0 : data.internal_children_front_count_cache;
+	int cc;
+	int offset;
+	Node *const *cptr = _get_children_ptr(&cc, &offset, false);
 
 	TypedArray<Node> arr;
 	arr.resize_uninitialized(cc);
@@ -1711,6 +1711,13 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	}
 
 	return arr;
+}
+
+Node *const * Node::_get_children_ptr(int* p_count, int* p_offset, bool p_include_internal) const {
+	*p_count = this->get_child_count();
+	*p_offset = p_include_internal ? 0 : this->data.internal_children_front_count_cache;
+	Node *const *cptr = this->data.children_cache.ptr();
+	return cptr;
 }
 
 TypedArray<Node> Node::recursively_get_all_children() const {
@@ -2108,10 +2115,9 @@ void Node::reparent(Node *p_parent, bool p_keep_global_transform) {
 			Node *check = to_visit[to_visit.size() - 1];
 			to_visit.resize(to_visit.size() - 1);
 
-			int cc = check->get_child_count(false);
-			Node *const *cptr = check->data.children_cache.ptr();
-			bool include_internal = false;
-			int offset = include_internal ? 0 : check->data.internal_children_front_count_cache;
+			int cc;
+			int offset;
+			Node *const *cptr = check->_get_children_ptr(&cc, &offset, false);
 
 			for (int i = 0; i < cc; i++) {
 				Node *child = cptr[i + offset];

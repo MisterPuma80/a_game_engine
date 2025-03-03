@@ -431,6 +431,7 @@ public:
 	TypedArray<Node> recursively_get_all_children_of_type(const StringName &p_type) const;
 	TypedArray<Node> recursively_get_all_children_in_group(const StringName &p_group_name) const;
 	TypedArray<Node> recursively_get_all_children_in_groups(const TypedArray<StringName> &p_group_names) const;
+	Node *const * _get_children_ptr(int* p_count, int* p_offset, bool p_include_internal = false) const;
 	bool has_node(const NodePath &p_path) const;
 	Node *get_node(const NodePath &p_path) const;
 	Node *get_node_or_null(const NodePath &p_path) const;
