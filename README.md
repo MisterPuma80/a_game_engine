@@ -7,20 +7,27 @@
 </p>
 
 # Based on Godot 4.3 but with changes
-* [x] Expose Engine.get_frame_ticks to GDScript
-* [x] Change look_at to have default up of Vector3.INF and find appropriate axis itself if Vector3.INF is argument.
-* [x] Optimize Node.find_children to be faster by using a vector as a stack instead of recursion, and caching values
-* [X] Optimize Node.get_children by removing redundant cache update checks
-* [X] Optimize Node.get_groups by making it return a LocalVector instead of a List
-* [X] Optimize SceneTree.get_nodes_in_group by making it return a LocalVector instead of a List
-* [X] Add Array::resize_uninitialized
-* [X] Optimize InputMap::get_actions
-* [X] Optimize Node::reparent
-* [X] Optimize Area2D / Area3D::get_overlapping_bodies
-* [X] Optimize Area2D / Area3D::get_overlapping_areas
-* [X] Optimize RigidBody2D / RigidBody3D::get_colliding_bodies()
-* [X] Optimize SoftBody3D / PhysicsBody2D / PhysicsBody3D::get_collision_exceptions()
-* [X] Add Node::_get_children_ptr
+Expose:
+* [x] Engine::get_frame_ticks to GDScript
+
+Change
+* [x] Node3D::look_at to have default up of Vector3.INF and find appropriate axis itself if Vector3.INF is argument.
+
+Add
+* [X] Array::resize_uninitialized
+* [X] Node::_get_children_ptr
+
+Optimize:
+* [x] Node::find_children to be faster by using a vector as a stack instead of recursion, and caching values
+* [X] Node::get_children by removing redundant cache update checks
+* [X] Node::get_groups by making it return a LocalVector instead of a List
+* [X] SceneTree::get_nodes_in_group by making it return a LocalVector instead of a List
+* [X] InputMap::get_actions
+* [X] Node::reparent
+* [X] Area2D / Area3D::get_overlapping_bodies
+* [X] Area2D / Area3D::get_overlapping_areas
+* [X] RigidBody2D / RigidBody3D::get_colliding_bodies
+* [X] SoftBody3D / PhysicsBody2D / PhysicsBody3D::get_collision_exceptions
 
 # Get code
 
