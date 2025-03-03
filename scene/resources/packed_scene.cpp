@@ -843,7 +843,7 @@ Error SceneState::_parse_node(Node *p_owner, Node *p_node, int p_parent_idx, Has
 	// save the groups this node is into
 	// discard groups that come from the original scene
 
-	LocalVector<Node::GroupInfo> groups;
+	Vector<Node::GroupInfo> groups;
 	p_node->get_groups(&groups);
 	for (const Node::GroupInfo &gi : groups) {
 		if (!gi.persistent) {

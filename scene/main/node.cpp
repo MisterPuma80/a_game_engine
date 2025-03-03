@@ -2545,7 +2545,7 @@ void Node::remove_from_group(const StringName &p_identifier) {
 }
 
 TypedArray<StringName> Node::_get_groups() const {
-	LocalVector<GroupInfo> gi;
+	Vector<GroupInfo> gi;
 	get_groups(&gi);
 	int cc = gi.size();
 	TypedArray<StringName> groups;
@@ -2557,16 +2557,15 @@ TypedArray<StringName> Node::_get_groups() const {
 	return groups;
 }
 
-void Node::get_groups(LocalVector<GroupInfo> *p_groups) const {
+void Node::get_groups(Vector<GroupInfo> *p_groups) const {
 	ERR_THREAD_GUARD
 	p_groups->resize(data.grouped.size());
-	int i = 0;
+	int idx = 0;
 	for (const KeyValue<StringName, GroupData> &E : data.grouped) {
 		GroupInfo gi;
 		gi.name = E.key;
 		gi.persistent = E.value.persistent;
-		(*p_groups)[i] = gi;
-		i++;
+		p_groups->set(idx++, gi);
 	}
 }
 
@@ -2955,7 +2954,7 @@ Node *Node::_duplicate(int p_flags, HashMap<const Node *, Node *> *r_duplimap) c
 #endif
 
 	if (p_flags & DUPLICATE_GROUPS) {
-		LocalVector<GroupInfo> gi;
+		Vector<GroupInfo> gi;
 		get_groups(&gi);
 		for (const GroupInfo &E : gi) {
 #ifdef TOOLS_ENABLED
@@ -3244,7 +3243,7 @@ void Node::replace_by(Node *p_node, bool p_keep_groups) {
 	Node *owner = (data.owner == this) ? p_node : data.owner;
 
 	if (p_keep_groups) {
-		LocalVector<GroupInfo> groups;
+		Vector<GroupInfo> groups;
 		get_groups(&groups);
 
 		for (const GroupInfo &E : groups) {

@@ -4437,7 +4437,7 @@ void EditorNode::get_preload_scene_modification_table(
 		}
 
 		// Find all node groups.
-		LocalVector<Node::GroupInfo> groups;
+		Vector<Node::GroupInfo> groups;
 		p_node->get_groups(&groups);
 
 		if (!modified_properties.is_empty() || !valid_connections_to.is_empty() || !valid_connections_from.is_empty() || !groups.is_empty()) {

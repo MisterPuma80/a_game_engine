@@ -336,7 +336,7 @@ void SceneTreeEditor::_add_nodes(Node *p_node, TreeItem *p_parent) {
 		if (num_groups >= 1) {
 			msg_temp += TTRN("Node is in this group:", "Node is in the following groups:", num_groups) + "\n";
 
-			LocalVector<GroupInfo> groups;
+			Vector<GroupInfo> groups;
 			p_node->get_groups(&groups);
 			for (const GroupInfo &E : groups) {
 				if (E.persistent) {
@@ -758,7 +758,7 @@ bool SceneTreeEditor::_item_matches_all_terms(TreeItem *p_item, const PackedStri
 						return false;
 					}
 				} else {
-					LocalVector<Node::GroupInfo> group_info_list;
+					Vector<Node::GroupInfo> group_info_list;
 					node->get_groups(&group_info_list);
 
 					bool term_in_groups = false;
