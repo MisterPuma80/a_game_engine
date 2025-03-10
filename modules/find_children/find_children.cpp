@@ -36,12 +36,12 @@ PackedNodePtrArray *Find::children(const Node* node, bool p_include_internal) {
 	Node *const *cptr = node->_get_children_ptr(&cc, p_include_internal);
 
 	PackedNodePtrArray *nodes = memnew(PackedNodePtrArray);// FIXME
-	Vector<Node*> *ptr = nodes->get_node_ptr();
+	LocalVector<Node*> *ptr = nodes->get_node_ptr();
 	ptr->resize(cc);
 	//for (int i = 0; i < cc; i++) {
-	//	ptr->set(i, cptr[i]);
+	//	(*ptr)[i] = cptr[i];
 	//}
-	memcpy(ptr->ptrw(), cptr, cc * sizeof(Node*));
+	memcpy(ptr->ptr(), cptr, cc * sizeof(Node*));
 
 	return nodes;
 }

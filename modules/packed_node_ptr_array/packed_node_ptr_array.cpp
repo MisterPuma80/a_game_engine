@@ -28,13 +28,13 @@ PackedNodePtrArray* PackedNodePtrArray::create2() {
 	return memnew(PackedNodePtrArray);
 }
 */
-Vector<Node*>* PackedNodePtrArray::get_node_ptr() {
+LocalVector<Node*>* PackedNodePtrArray::get_node_ptr() {
 	return &items;
 }
 
 void PackedNodePtrArray::add_node(Node *item) {
 //	fprintf(stderr, "!!!! called PackedNodePtrArray::add_node\n"); fflush(stderr);
-    items.append(item);
+    items.push_back(item);
 	//current_size = items.size();
 }
 
@@ -47,7 +47,7 @@ Node* PackedNodePtrArray::get_node(int index) const {
     }
 
 void PackedNodePtrArray::set(int index, Node *item) {
-	items.set(index, item);
+	items[index] = item;
 }
 
 int PackedNodePtrArray::size() const {

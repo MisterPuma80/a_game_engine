@@ -14,7 +14,7 @@ class PackedNodePtrArray : public RefCounted {
     GDCLASS(PackedNodePtrArray, RefCounted)
 
 private:
-	Vector<Node*> items;
+    mutable LocalVector<Node*> items;
 	//int current_index;
 
 protected:
@@ -28,7 +28,7 @@ public:
 
     //static PackedNodePtrArray* create2();
     //static void destroy2(PackedNodePtrArray* inst);
-	Vector<Node*>* get_node_ptr();
+	LocalVector<Node*>* get_node_ptr();
     void add_node(Node *item);
     Node* get_node(int index) const;
 	void set(int index, Node *item);
