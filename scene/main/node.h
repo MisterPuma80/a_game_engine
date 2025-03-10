@@ -49,6 +49,8 @@ SAFE_NUMERIC_TYPE_PUN_GUARANTEES(uint32_t)
 class Node : public Object {
 	GDCLASS(Node, Object);
 
+	friend class Find;
+
 protected:
 	// During group processing, these are thread-safe.
 	// Outside group processing, these avoid the cost of sync by working as plain primitive types.
@@ -427,17 +429,12 @@ public:
 	int get_child_count(bool p_include_internal = true) const;
 	Node *get_child(int p_index, bool p_include_internal = true) const;
 	TypedArray<Node> get_children(bool p_include_internal = true) const;
-	TypedArray<Node> recursively_get_all_children() const;
-	TypedArray<Node> recursively_get_all_children_of_type(const StringName &p_type) const;
-	TypedArray<Node> recursively_get_all_children_in_group(const StringName &p_group_name) const;
-	TypedArray<Node> recursively_get_all_children_in_groups(const TypedArray<StringName> &p_group_names) const;
 	Node *const *_get_children_ptr(int *p_count, bool p_include_internal = false) const;
 	bool has_node(const NodePath &p_path) const;
 	Node *get_node(const NodePath &p_path) const;
 	Node *get_node_or_null(const NodePath &p_path) const;
 	Node *find_child(const String &p_pattern, bool p_recursive = true, bool p_owned = true) const;
 	TypedArray<Node> find_children(const String &p_pattern, const String &p_type = "", bool p_recursive = true, bool p_owned = true) const;
-	TypedArray<Node> find_children_w_data_cache_no_recursion_vector(const String &p_pattern, const String &p_type = "", const bool p_recursive = true, const bool p_owned = true) const;
 	bool has_node_and_resource(const NodePath &p_path) const;
 	Node *get_node_and_resource(const NodePath &p_path, Ref<Resource> &r_res, Vector<StringName> &r_leftover_subpath, bool p_last_is_property = true) const;
 
