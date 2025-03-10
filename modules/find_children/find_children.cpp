@@ -29,7 +29,7 @@ Find::~Find() {
     //print_line("Find destroyed");
 }
 
-PackedNodePtrArray *Find::children(const Node* node, bool p_include_internal) {
+Ref<PackedNodePtrArray> Find::children(const Node* node, bool p_include_internal) {
 	//ERR_THREAD_GUARD_V(nullptr);// FIXME
 
 	int cc;
@@ -43,22 +43,22 @@ PackedNodePtrArray *Find::children(const Node* node, bool p_include_internal) {
 	//}
 	memcpy(ptr->ptr(), cptr, cc * sizeof(Node*));
 
-	return nodes;
+	return Ref<PackedNodePtrArray>(node);
 }
 
-PackedNodePtrArray *Find::all(const Node* node) {
+Ref<PackedNodePtrArray> Find::all(const Node* node) {
     return Find::by(node, "*", "", true, false);
 }
 
-PackedNodePtrArray *Find::by_name(const Node* node, const String &p_node_name) {
+Ref<PackedNodePtrArray> Find::by_name(const Node* node, const String &p_node_name) {
 	return Find::by(node, p_node_name, "", true, false);
 }
 
-PackedNodePtrArray *Find::by_type(const Node* node, const String &p_type_name) {
+Ref<PackedNodePtrArray> Find::by_type(const Node* node, const String &p_type_name) {
     return Find::by(node, "*", p_type_name, true, false);
 }
 
-PackedNodePtrArray *Find::by_group(const Node* node, const String &p_group_name) {
+Ref<PackedNodePtrArray> Find::by_group(const Node* node, const String &p_group_name) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>());// FIXME
 
 	LocalVector<Node *> to_search;
@@ -80,10 +80,10 @@ PackedNodePtrArray *Find::by_group(const Node* node, const String &p_group_name)
 		}
 	}
 
-	return matches;
+	return Ref<PackedNodePtrArray>(matches);
 }
 
-PackedNodePtrArray *Find::by_groups(const Node* node, const TypedArray<String> &p_group_names) {
+Ref<PackedNodePtrArray> Find::by_groups(const Node* node, const TypedArray<String> &p_group_names) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>());// FIXME
 
 	PackedNodePtrArray *matches = memnew(PackedNodePtrArray);// FIXME
@@ -108,10 +108,10 @@ PackedNodePtrArray *Find::by_groups(const Node* node, const TypedArray<String> &
 		}
 	}
 
-	return matches;
+	return Ref<PackedNodePtrArray>(matches);
 }
 
-PackedNodePtrArray *Find::by(const Node* node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
+Ref<PackedNodePtrArray> Find::by(const Node* node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
 	//ERR_THREAD_GUARD; // FIXME
 	//ERR_FAIL_COND(p_pattern.is_empty() && p_type.is_empty());
 
@@ -173,7 +173,7 @@ PackedNodePtrArray *Find::by(const Node* node, const String &p_pattern, const St
 		}
 	}
 
-    return matches;
+    return Ref<PackedNodePtrArray>(matches);
 }
 
 void Find::_bind_methods() {
