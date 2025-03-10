@@ -40,7 +40,7 @@ void PackedNodePtrArray::add_node(Node *item) {
 
 Node* PackedNodePtrArray::get_node(int index) const {
     //	fprintf(stderr, "!!!! called PackedNodePtrArray::get\n"); fflush(stderr);
-        if (index >= 0 && index < items.size()) {
+        if (index >= 0 && index < (int)items.size()) {
             return items[index];
         }
         return nullptr;
