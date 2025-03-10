@@ -1712,7 +1712,7 @@ TypedArray<Node> Node::get_children(bool p_include_internal) const {
 	return arr;
 }
 
-Node *const *Node::_get_children_ptr(int* p_count, bool p_include_internal) const {
+Node *const *Node::_get_children_ptr(int *p_count, bool p_include_internal) const {
 	*p_count = this->get_child_count();
 	int offset = p_include_internal ? 0 : this->data.internal_children_front_count_cache;
 	Node *const *cptr = this->data.children_cache.ptr();
