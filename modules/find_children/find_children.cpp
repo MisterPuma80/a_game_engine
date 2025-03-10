@@ -22,11 +22,11 @@
 //#include "modules/stacktrace/stacktrace.h"
 
 Find::Find() {
-    //print_line("Find created");
+	//print_line("Find created");
 }
 
 Find::~Find() {
-    //print_line("Find destroyed");
+	//print_line("Find destroyed");
 }
 
 Ref<PackedNodePtrArray> Find::children(const Node* node, bool p_include_internal) {
@@ -47,7 +47,7 @@ Ref<PackedNodePtrArray> Find::children(const Node* node, bool p_include_internal
 }
 
 Ref<PackedNodePtrArray> Find::all(const Node* node) {
-    return Find::by(node, "*", "", true, false);
+	return Find::by(node, "*", "", true, false);
 }
 
 Ref<PackedNodePtrArray> Find::by_name(const Node* node, const String &p_node_name) {
@@ -55,7 +55,7 @@ Ref<PackedNodePtrArray> Find::by_name(const Node* node, const String &p_node_nam
 }
 
 Ref<PackedNodePtrArray> Find::by_type(const Node* node, const String &p_type_name) {
-    return Find::by(node, "*", p_type_name, true, false);
+	return Find::by(node, "*", p_type_name, true, false);
 }
 
 Ref<PackedNodePtrArray> Find::by_group(const Node* node, const String &p_group_name) {
@@ -122,7 +122,7 @@ Ref<PackedNodePtrArray> Find::by(const Node* node, const String &p_pattern, cons
 	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	LocalVector<Node *> to_search;
-    PackedNodePtrArray *matches = memnew(PackedNodePtrArray);// FIXME
+	PackedNodePtrArray *matches = memnew(PackedNodePtrArray);// FIXME
 	to_search.push_back((Node *)node);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
@@ -173,15 +173,15 @@ Ref<PackedNodePtrArray> Find::by(const Node* node, const String &p_pattern, cons
 		}
 	}
 
-    return Ref<PackedNodePtrArray>(matches);
+	return Ref<PackedNodePtrArray>(matches);
 }
 
 void Find::_bind_methods() {
-    ClassDB::bind_static_method("Find", D_METHOD("children", "node", "p_include_internal"), &Find::children, DEFVAL(true));
-    ClassDB::bind_static_method("Find", D_METHOD("all", "node"), &Find::all);
-    ClassDB::bind_static_method("Find", D_METHOD("by", "node", "pattern", "type", "recursive", "owned"), &Find::by, DEFVAL(""), DEFVAL(true), DEFVAL(true));
-    ClassDB::bind_static_method("Find", D_METHOD("by_name", "node", "node_name"), &Find::by_name);
-    ClassDB::bind_static_method("Find", D_METHOD("by_type", "node", "type_name"), &Find::by_type);
-    ClassDB::bind_static_method("Find", D_METHOD("by_group", "node", "group_name"), &Find::by_group);
-    ClassDB::bind_static_method("Find", D_METHOD("by_groups", "node", "group_names"), &Find::by_groups);
+	ClassDB::bind_static_method("Find", D_METHOD("children", "node", "p_include_internal"), &Find::children, DEFVAL(true));
+	ClassDB::bind_static_method("Find", D_METHOD("all", "node"), &Find::all);
+	ClassDB::bind_static_method("Find", D_METHOD("by", "node", "pattern", "type", "recursive", "owned"), &Find::by, DEFVAL(""), DEFVAL(true), DEFVAL(true));
+	ClassDB::bind_static_method("Find", D_METHOD("by_name", "node", "node_name"), &Find::by_name);
+	ClassDB::bind_static_method("Find", D_METHOD("by_type", "node", "type_name"), &Find::by_type);
+	ClassDB::bind_static_method("Find", D_METHOD("by_group", "node", "group_name"), &Find::by_group);
+	ClassDB::bind_static_method("Find", D_METHOD("by_groups", "node", "group_names"), &Find::by_groups);
 }

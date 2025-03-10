@@ -11,34 +11,34 @@ using namespace godot;
 class Node;
 
 class PackedNodePtrArray : public RefCounted {
-    GDCLASS(PackedNodePtrArray, RefCounted)
+	GDCLASS(PackedNodePtrArray, RefCounted)
 
 private:
-    mutable LocalVector<Node*> items;
+	mutable LocalVector<Node*> items;
 	//int current_index;
 
 protected:
-    static void _bind_methods();
+	static void _bind_methods();
 
 public:
 	//int current_size;
 
-    PackedNodePtrArray();
-    ~PackedNodePtrArray();
+	PackedNodePtrArray();
+	~PackedNodePtrArray();
 
-    //static PackedNodePtrArray* create2();
-    //static void destroy2(PackedNodePtrArray* inst);
+	//static PackedNodePtrArray* create2();
+	//static void destroy2(PackedNodePtrArray* inst);
 	LocalVector<Node*>* get_node_ptr();
-    void add_node(Node *item);
-    Node* get_node(int index) const;
+	void add_node(Node *item);
+	Node* get_node(int index) const;
 	void set(int index, Node *item);
-    int size() const;
+	int size() const;
 	void resize(int new_size);
-    void clear();
+	void clear();
 
-    //bool _iter_init(const Variant &args);
-    //bool _iter_next(const Variant &args);
-    //Node* _iter_get(const Variant &arg);
+	//bool _iter_init(const Variant &args);
+	//bool _iter_next(const Variant &args);
+	//Node* _iter_get(const Variant &arg);
 };
 
 #endif
