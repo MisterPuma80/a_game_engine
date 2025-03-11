@@ -34,7 +34,7 @@ Ref<PackedNodePtrArray> Find::children(const Node *node, bool p_include_internal
 	int cc;
 	Node *const *cptr = node->_get_children_ptr(&cc, p_include_internal);
 
-	PackedNodePtrArray *nodes = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> nodes = memnew(PackedNodePtrArray); // FIXME
 	LocalVector<Node *> *ptr = nodes->get_node_ptr();
 	ptr->resize(cc);
 	//for (int i = 0; i < cc; i++) {
@@ -42,7 +42,7 @@ Ref<PackedNodePtrArray> Find::children(const Node *node, bool p_include_internal
 	//}
 	memcpy(ptr->ptr(), cptr, cc * sizeof(Node *));
 
-	return Ref<PackedNodePtrArray>(node);
+	return nodes;
 }
 
 Ref<PackedNodePtrArray> Find::all(const Node *node) {
@@ -61,7 +61,7 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_n
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	LocalVector<Node *> to_search;
-	PackedNodePtrArray *matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
 	to_search.push_back((Node *)node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
@@ -79,13 +79,13 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_n
 		}
 	}
 
-	return Ref<PackedNodePtrArray>(matches);
+	return matches;
 }
 
 Ref<PackedNodePtrArray> Find::by_groups(const Node *node, const TypedArray<String> &p_group_names) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
-	PackedNodePtrArray *matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
 	LocalVector<Node *> to_search;
 	to_search.push_back((Node *)node);
 	while (!to_search.is_empty()) {
@@ -107,7 +107,7 @@ Ref<PackedNodePtrArray> Find::by_groups(const Node *node, const TypedArray<Strin
 		}
 	}
 
-	return Ref<PackedNodePtrArray>(matches);
+	return matches;
 }
 
 Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
@@ -121,7 +121,7 @@ Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, cons
 	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	LocalVector<Node *> to_search;
-	PackedNodePtrArray *matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
 	to_search.push_back((Node *)node);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
@@ -172,7 +172,7 @@ Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, cons
 		}
 	}
 
-	return Ref<PackedNodePtrArray>(matches);
+	return matches;
 }
 
 void Find::_bind_methods() {

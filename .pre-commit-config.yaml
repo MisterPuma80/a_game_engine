@@ -140,7 +140,7 @@ repos:
             platform/android/java/lib/src/org/godotengine/godot/gl/EGLLogWrapper\.java$|
             platform/android/java/lib/src/org/godotengine/godot/utils/ProcessPhoenix\.java$|
             modules/find_children/.*|
-            modules/packed_node_ptr_array.*
+            modules/packed_node_ptr_array/.*
           )
 
       - id: header-guards
