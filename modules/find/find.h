@@ -1,5 +1,5 @@
-#ifndef FIND_CHILDREN_H
-#define FIND_CHILDREN_H
+#ifndef FIND_H
+#define FIND_H
 
 //#include "scene/main/node.h"
 #include "core/object/ref_counted.h"
@@ -31,4 +31,4 @@ public:
 	static Ref<PackedNodePtrArray> by_groups(const Node *p_node, const TypedArray<String> &p_group_names);
 };
 
-#endif // FIND_CHILDREN_H
+#endif // FIND_H
