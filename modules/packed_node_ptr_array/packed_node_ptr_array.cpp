@@ -49,7 +49,7 @@ void PackedNodePtrArray::set(int index, Node *item) {
 }
 
 int PackedNodePtrArray::size() const {
-	return items.size();
+	return (int)items.size();
 }
 
 void PackedNodePtrArray::resize(int new_size) {
@@ -104,7 +104,7 @@ bool PackedNodePtrArray::_iter_next(const Variant &args) {
 
 
 Node *PackedNodePtrArray::_iter_get(const Variant &arg) {
-	int idx = current_index;
+	uint32_t idx = current_index;
 //	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
 	if (idx >= 0 && idx < items.size()) {
 		return items[idx];
