@@ -17,7 +17,7 @@ Find::~Find() {
 	//print_line("Find destroyed");
 }
 
-Ref<PackedNodePtrArray> Find::children(const Node *p_node, bool p_include_internal) {
+Ref<PackedNodePtrArray> Find::children(const Node *p_node, const bool p_include_internal) {
 	//ERR_THREAD_GUARD_V(nullptr); // FIXME
 
 	int cc;
