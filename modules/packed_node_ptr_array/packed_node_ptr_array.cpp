@@ -28,23 +28,23 @@ PackedNodePtrArray* PackedNodePtrArray::create2() {
 	return memnew(PackedNodePtrArray);
 }
 */
-LocalVector<Node*>* PackedNodePtrArray::get_node_ptr() {
+LocalVector<Node *> *PackedNodePtrArray::get_node_ptr() {
 	return &items;
 }
 
 void PackedNodePtrArray::add_node(Node *item) {
-//	fprintf(stderr, "!!!! called PackedNodePtrArray::add_node\n"); fflush(stderr);
+	//	fprintf(stderr, "!!!! called PackedNodePtrArray::add_node\n"); fflush(stderr);
 	items.push_back(item);
 	//current_size = items.size();
 }
 
-Node* PackedNodePtrArray::get_node(int index) const {
+Node *PackedNodePtrArray::get_node(int index) const {
 	//	fprintf(stderr, "!!!! called PackedNodePtrArray::get\n"); fflush(stderr);
-		if (index >= 0 && index < (int)items.size()) {
-			return items[index];
-		}
-		return nullptr;
+	if (index >= 0 && index < (int)items.size()) {
+		return items[index];
 	}
+	return nullptr;
+}
 
 void PackedNodePtrArray::set(int index, Node *item) {
 	items[index] = item;
@@ -78,7 +78,7 @@ bool PackedNodePtrArray::_iter_next(const Variant &args) {
 }
 
 
-Node* PackedNodePtrArray::_iter_get(const Variant &arg) {
+Node *PackedNodePtrArray::_iter_get(const Variant &arg) {
 	int idx = current_index;
 //	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
 	if (idx >= 0 && idx < current_size) {

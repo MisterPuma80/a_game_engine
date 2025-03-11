@@ -1,5 +1,5 @@
-#ifndef MODULE_PACKED_NODE_PTR_ARRAY_H
-#define MODULE_PACKED_NODE_PTR_ARRAY_H
+#ifndef PACKED_NODE_PTR_ARRAY_H
+#define PACKED_NODE_PTR_ARRAY_H
 
 
 //#include "scene/main/node.h"
@@ -14,7 +14,7 @@ class PackedNodePtrArray : public RefCounted {
 	GDCLASS(PackedNodePtrArray, RefCounted)
 
 private:
-	mutable LocalVector<Node*> items;
+	mutable LocalVector<Node *> items;
 	//int current_index;
 
 protected:
@@ -28,9 +28,9 @@ public:
 
 	//static PackedNodePtrArray* create2();
 	//static void destroy2(PackedNodePtrArray* inst);
-	LocalVector<Node*>* get_node_ptr();
+	LocalVector<Node *> *get_node_ptr();
 	void add_node(Node *item);
-	Node* get_node(int index) const;
+	Node *get_node(int index) const;
 	void set(int index, Node *item);
 	int size() const;
 	void resize(int new_size);
@@ -38,7 +38,7 @@ public:
 
 	//bool _iter_init(const Variant &args);
 	//bool _iter_next(const Variant &args);
-	//Node* _iter_get(const Variant &arg);
+	//Node *_iter_get(const Variant &arg);
 };
 
-#endif
+#endif // PACKED_NODE_PTR_ARRAY_H
