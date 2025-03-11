@@ -1,18 +1,7 @@
 
 #include "find_children.h"
 
-#include "core/config/project_settings.h"
-#include "core/io/resource_loader.h"
-#include "core/object/message_queue.h"
 #include "core/object/script_language.h"
-#include "core/string/print_string.h"
-//#include "instance_placeholder.h"
-#include "scene/animation/tween.h"
-#include "scene/debugger/scene_debugger.h"
-#include "scene/main/multiplayer_api.h"
-#include "scene/main/window.h"
-#include "scene/resources/packed_scene.h"
-//#include "viewport.h"
 
 //#include "godot_cpp/classes/global_constants.hpp"
 #include "scene/main/node.h"
@@ -34,7 +23,7 @@ Ref<PackedNodePtrArray> Find::children(const Node *node, bool p_include_internal
 	int cc;
 	Node *const *cptr = node->_get_children_ptr(&cc, p_include_internal);
 
-	Ref<PackedNodePtrArray> nodes = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> nodes = memnew(PackedNodePtrArray);
 	LocalVector<Node *> *ptr = nodes->get_node_ptr();
 	ptr->resize(cc);
 	//for (int i = 0; i < cc; i++) {
@@ -61,7 +50,7 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_n
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	LocalVector<Node *> to_search;
-	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
 	to_search.push_back((Node *)node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
@@ -85,7 +74,7 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_n
 Ref<PackedNodePtrArray> Find::by_groups(const Node *node, const TypedArray<String> &p_group_names) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
-	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
 	LocalVector<Node *> to_search;
 	to_search.push_back((Node *)node);
 	while (!to_search.is_empty()) {
@@ -121,7 +110,7 @@ Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, cons
 	String type_global_path = is_type_global_class ? ScriptServer::get_global_class_path(p_type) : "";
 
 	LocalVector<Node *> to_search;
-	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray); // FIXME
+	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
 	to_search.push_back((Node *)node);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
