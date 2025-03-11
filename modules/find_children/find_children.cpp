@@ -54,7 +54,7 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *p_node, const String &p_group
 	to_search.push_back((Node *)p_node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
-		to_search.remove_at(0);
+		to_search.remove_at_unordered(0);
 
 		entry->_update_children_cache();
 		Node *const *cptr = entry->data.children_cache.ptr();
@@ -79,7 +79,7 @@ Ref<PackedNodePtrArray> Find::by_groups(const Node *p_node, const TypedArray<Str
 	to_search.push_back((Node *)p_node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
-		to_search.remove_at(0);
+		to_search.remove_at_unordered(0);
 
 		entry->_update_children_cache();
 		Node *const *cptr = entry->data.children_cache.ptr();
