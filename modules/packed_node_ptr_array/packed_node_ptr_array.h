@@ -14,7 +14,7 @@ class PackedNodePtrArray : public RefCounted {
 
 private:
 	mutable LocalVector<Node *> items;
-	int current_index;
+	uint32_t current_index;
 
 protected:
 	static void _bind_methods();
