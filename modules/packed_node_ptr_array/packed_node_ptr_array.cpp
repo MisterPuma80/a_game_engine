@@ -75,7 +75,10 @@ Node *PackedNodePtrArray::back() const {
 }
 
 Node *PackedNodePtrArray::pick_random() const {
-	//ERR_FAIL_COND_V_MSG(_p->array.is_empty(), nullptr, "Can't take value from empty PackedNodePtrArray.");
+	if (items.size() == 0) {
+		return nullptr;
+	}
+
 	int i = Math::rand() % items.size();
 	return items[i];
 }
