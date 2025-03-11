@@ -61,12 +61,16 @@ void PackedNodePtrArray::clear() {
 }
 
 Node *PackedNodePtrArray::front() const {
-	if (items.size() == 0) return nullptr;
+	if (items.size() == 0) {
+		return nullptr;
+	}
 	return items[0];
 }
 
 Node *PackedNodePtrArray::back() const {
-	if (items.size() == 0) return nullptr;
+	if (items.size() == 0) {
+		return nullptr;
+	}
 	return items[items.size() - 1];
 }
 
@@ -91,13 +95,13 @@ bool PackedNodePtrArray::is_empty() const {
 }
 
 bool PackedNodePtrArray::_iter_init(const Variant &args) {
-//	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_init\n"); fflush(stderr);
+	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_init\n"); fflush(stderr);
 	current_index = 0;
 	return items.size() > 0;
 }
 
 bool PackedNodePtrArray::_iter_next(const Variant &args) {
-//	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_next: %d\n", current_index); fflush(stderr);
+	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_next: %d\n", current_index); fflush(stderr);
 	current_index++;
 	return current_index < items.size();
 }
@@ -105,7 +109,7 @@ bool PackedNodePtrArray::_iter_next(const Variant &args) {
 
 Node *PackedNodePtrArray::_iter_get(const Variant &arg) {
 	uint32_t idx = current_index;
-//	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
+	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
 	if (idx >= 0 && idx < items.size()) {
 		return items[idx];
 	}
