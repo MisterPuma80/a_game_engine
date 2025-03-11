@@ -60,6 +60,36 @@ void PackedNodePtrArray::clear() {
 	items.resize(0);
 }
 
+Node *PackedNodePtrArray::front() const {
+	if (items.size() == 0) return nullptr;
+	return items[0];
+}
+
+Node *PackedNodePtrArray::back() const {
+	if (items.size() == 0) return nullptr;
+	return items[items.size() - 1];
+}
+
+Node *PackedNodePtrArray::pick_random() const {
+	//ERR_FAIL_COND_V_MSG(_p->array.is_empty(), nullptr, "Can't take value from empty PackedNodePtrArray.");
+	int i = Math::rand() % items.size();
+	return items[i];
+}
+
+TypedArray<Node> PackedNodePtrArray::to_array() const {
+	TypedArray<Node> retval;
+	int ic = items.size();
+	retval.resize_uninitialized(ic);
+	for (int i = 0; i < ic; i++) {
+		retval.set(i, items[i]);
+	}
+	return retval;
+}
+
+bool PackedNodePtrArray::is_empty() const {
+	return items.size() > 0;
+}
+
 bool PackedNodePtrArray::_iter_init(const Variant &args) {
 //	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_init\n"); fflush(stderr);
 	current_index = 0;
@@ -90,6 +120,12 @@ void PackedNodePtrArray::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_node", "index"), &PackedNodePtrArray::get_node);
 	ClassDB::bind_method(D_METHOD("size"), &PackedNodePtrArray::size);
 	ClassDB::bind_method(D_METHOD("clear"), &PackedNodePtrArray::clear);
+
+	ClassDB::bind_method(D_METHOD("front"), &PackedNodePtrArray::front);
+	ClassDB::bind_method(D_METHOD("back"), &PackedNodePtrArray::back);
+	ClassDB::bind_method(D_METHOD("pick_random"), &PackedNodePtrArray::pick_random);
+	ClassDB::bind_method(D_METHOD("to_array"), &PackedNodePtrArray::to_array);
+	ClassDB::bind_method(D_METHOD("is_empty"), &PackedNodePtrArray::is_empty);
 
 	ClassDB::bind_method(D_METHOD("_iter_init", "args"), &PackedNodePtrArray::_iter_init);
 	ClassDB::bind_method(D_METHOD("_iter_next", "args"), &PackedNodePtrArray::_iter_next);

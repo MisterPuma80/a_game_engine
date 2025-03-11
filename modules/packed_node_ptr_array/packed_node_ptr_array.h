@@ -33,6 +33,12 @@ public:
 	void resize(int new_size);
 	void clear();
 
+	Node *front() const;
+	Node *back() const;
+	Node *pick_random() const;
+	TypedArray<Node> to_array() const;
+	bool is_empty() const;
+
 	bool _iter_init(const Variant &args);
 	bool _iter_next(const Variant &args);
 	Node *_iter_get(const Variant &arg);
