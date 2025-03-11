@@ -14,14 +14,12 @@ class PackedNodePtrArray : public RefCounted {
 
 private:
 	mutable LocalVector<Node *> items;
-	//int current_index;
+	int current_index;
 
 protected:
 	static void _bind_methods();
 
 public:
-	//int current_size;
-
 	PackedNodePtrArray();
 	~PackedNodePtrArray();
 
@@ -35,9 +33,9 @@ public:
 	void resize(int new_size);
 	void clear();
 
-	//bool _iter_init(const Variant &args);
-	//bool _iter_next(const Variant &args);
-	//Node *_iter_get(const Variant &arg);
+	bool _iter_init(const Variant &args);
+	bool _iter_next(const Variant &args);
+	Node *_iter_get(const Variant &arg);
 };
 
 #endif // PACKED_NODE_PTR_ARRAY_H
