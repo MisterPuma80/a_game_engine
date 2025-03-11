@@ -17,11 +17,11 @@ Find::~Find() {
 	//print_line("Find destroyed");
 }
 
-Ref<PackedNodePtrArray> Find::children(const Node *node, bool p_include_internal) {
+Ref<PackedNodePtrArray> Find::children(const Node *p_node, bool p_include_internal) {
 	//ERR_THREAD_GUARD_V(nullptr); // FIXME
 
 	int cc;
-	Node *const *cptr = node->_get_children_ptr(&cc, p_include_internal);
+	Node *const *cptr = p_node->_get_children_ptr(&cc, p_include_internal);
 
 	Ref<PackedNodePtrArray> nodes = memnew(PackedNodePtrArray);
 	LocalVector<Node *> *ptr = nodes->get_node_ptr();
@@ -34,24 +34,24 @@ Ref<PackedNodePtrArray> Find::children(const Node *node, bool p_include_internal
 	return nodes;
 }
 
-Ref<PackedNodePtrArray> Find::all(const Node *node) {
-	return Find::by(node, "*", "", true, false);
+Ref<PackedNodePtrArray> Find::all(const Node *p_node) {
+	return Find::by(p_node, "*", "", true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_name(const Node *node, const String &p_node_name) {
-	return Find::by(node, p_node_name, "", true, false);
+Ref<PackedNodePtrArray> Find::by_name(const Node *p_node, const String &p_node_name) {
+	return Find::by(p_node, p_node_name, "", true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_type(const Node *node, const String &p_type_name) {
-	return Find::by(node, "*", p_type_name, true, false);
+Ref<PackedNodePtrArray> Find::by_type(const Node *p_node, const String &p_type_name) {
+	return Find::by(p_node, "*", p_type_name, true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_name) {
+Ref<PackedNodePtrArray> Find::by_group(const Node *p_node, const String &p_group_name) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	LocalVector<Node *> to_search;
 	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
-	to_search.push_back((Node *)node);
+	to_search.push_back((Node *)p_node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
 		to_search.remove_at(0);
@@ -71,12 +71,12 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *node, const String &p_group_n
 	return matches;
 }
 
-Ref<PackedNodePtrArray> Find::by_groups(const Node *node, const TypedArray<String> &p_group_names) {
+Ref<PackedNodePtrArray> Find::by_groups(const Node *p_node, const TypedArray<String> &p_group_names) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
 	LocalVector<Node *> to_search;
-	to_search.push_back((Node *)node);
+	to_search.push_back((Node *)p_node);
 	while (!to_search.is_empty()) {
 		Node *entry = to_search[0];
 		to_search.remove_at(0);
@@ -99,7 +99,7 @@ Ref<PackedNodePtrArray> Find::by_groups(const Node *node, const TypedArray<Strin
 	return matches;
 }
 
-Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
+Ref<PackedNodePtrArray> Find::by(const Node *p_node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
 	//ERR_THREAD_GUARD; // FIXME
 	//ERR_FAIL_COND(p_pattern.is_empty() && p_type.is_empty());
 
@@ -111,7 +111,7 @@ Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, cons
 
 	LocalVector<Node *> to_search;
 	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
-	to_search.push_back((Node *)node);
+	to_search.push_back((Node *)p_node);
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
 		// Pop the next entry off the search stack
@@ -165,7 +165,7 @@ Ref<PackedNodePtrArray> Find::by(const Node *node, const String &p_pattern, cons
 }
 
 void Find::_bind_methods() {
-	ClassDB::bind_static_method("Find", D_METHOD("children", "node", "p_include_internal"), &Find::children, DEFVAL(true));
+	ClassDB::bind_static_method("Find", D_METHOD("children", "node", "include_internal"), &Find::children, DEFVAL(true));
 	ClassDB::bind_static_method("Find", D_METHOD("all", "node"), &Find::all);
 	ClassDB::bind_static_method("Find", D_METHOD("by", "node", "pattern", "type", "recursive", "owned"), &Find::by, DEFVAL(""), DEFVAL(true), DEFVAL(true));
 	ClassDB::bind_static_method("Find", D_METHOD("by_name", "node", "node_name"), &Find::by_name);
