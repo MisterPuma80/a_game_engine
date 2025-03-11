@@ -106,7 +106,6 @@ bool PackedNodePtrArray::_iter_next(const Variant &args) {
 	return current_index < items.size();
 }
 
-
 Node *PackedNodePtrArray::_iter_get(const Variant &arg) {
 	uint32_t idx = current_index;
 	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
