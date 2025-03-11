@@ -1,7 +1,6 @@
 #ifndef FIND_CHILDREN_H
 #define FIND_CHILDREN_H
 
-
 //#include "scene/main/node.h"
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"

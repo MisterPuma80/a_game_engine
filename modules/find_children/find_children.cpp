@@ -1,7 +1,6 @@
 
 #include "find_children.h"
 
-
 #include "core/config/project_settings.h"
 #include "core/io/resource_loader.h"
 #include "core/object/message_queue.h"

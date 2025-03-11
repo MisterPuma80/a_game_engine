@@ -63,7 +63,6 @@ void PackedNodePtrArray::clear() {
 	items.resize(0);
 }
 
-
 /*
 bool PackedNodePtrArray::_iter_init(const Variant &args) {
 //	fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_init\n"); fflush(stderr);

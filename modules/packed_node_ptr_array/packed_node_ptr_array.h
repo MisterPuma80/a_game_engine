@@ -1,7 +1,6 @@
 #ifndef PACKED_NODE_PTR_ARRAY_H
 #define PACKED_NODE_PTR_ARRAY_H
 
-
 //#include "scene/main/node.h"
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"
