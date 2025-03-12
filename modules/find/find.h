@@ -1,16 +1,12 @@
 #ifndef FIND_H
 #define FIND_H
 
-//#include "scene/main/node.h"
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"
 
 #include "modules/packed_node_ptr_array/packed_node_ptr_array.h"
 
-using namespace godot;
-
 class Node;
-//class PackedNodePtrArray;
 
 class Find : public RefCounted {
 	GDCLASS(Find, RefCounted)

@@ -1,13 +1,7 @@
 
 #include "find.h"
-
 #include "core/object/script_language.h"
-
-//#include "godot_cpp/classes/global_constants.hpp"
 #include "scene/main/node.h"
-//#include "modules/packed_node_ptr_array/packed_node_ptr_array.h"
-
-//#include "modules/stacktrace/stacktrace.h"
 
 Find::Find() {
 	//print_line("Find created");

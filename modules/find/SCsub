@@ -1,7 +1,5 @@
 Import("env")
 
-#module_env = env.Clone()
-
 # Add source files
 env.add_source_files(env.modules_sources, "*.cpp")
 

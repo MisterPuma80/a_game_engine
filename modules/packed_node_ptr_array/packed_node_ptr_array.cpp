@@ -1,10 +1,6 @@
 
 #include "packed_node_ptr_array.h"
-
-//#include "godot_cpp/classes/global_constants.hpp"
 #include "scene/main/node.h"
-
-//#include "modules/stacktrace/stacktrace.h"
 
 PackedNodePtrArray::PackedNodePtrArray() {
 	//print_line("PackedNodePtrArray created");
@@ -12,117 +8,103 @@ PackedNodePtrArray::PackedNodePtrArray() {
 
 PackedNodePtrArray::~PackedNodePtrArray() {
 	//print_line("PackedNodePtrArray destroyed");
-	items.clear();
-}
-/*
-void PackedNodePtrArray::destroy2(PackedNodePtrArray* inst) {
-	if (inst != nullptr) {
-		memfree(inst);
-		inst = nullptr;
-	}
+	nodes.clear();
 }
 
-PackedNodePtrArray* PackedNodePtrArray::create2() {
-	//PackedNodePtrArray* nodes = memnew(PackedNodePtrArray);
-	return memnew(PackedNodePtrArray);
-}
-*/
 LocalVector<Node *> *PackedNodePtrArray::get_node_ptr() {
-	return &items;
+	return &nodes;
 }
 
-void PackedNodePtrArray::add_node(Node *item) {
+void PackedNodePtrArray::add_node(Node *p_node) {
 	//	fprintf(stderr, "!!!! called PackedNodePtrArray::add_node\n"); fflush(stderr);
-	items.push_back(item);
+	nodes.push_back(p_node);
 }
 
-Node *PackedNodePtrArray::get_node(int index) const {
+Node *PackedNodePtrArray::get_node(int p_index) const {
 	//	fprintf(stderr, "!!!! called PackedNodePtrArray::get\n"); fflush(stderr);
-	if (index >= 0 && index < (int)items.size()) {
-		return items[index];
+	if (p_index >= 0 && p_index < (int)nodes.size()) {
+		return nodes[p_index];
 	}
 	return nullptr;
 }
 
-void PackedNodePtrArray::set(int index, Node *item) {
-	items[index] = item;
+void PackedNodePtrArray::set(int p_index, Node *p_node) {
+	nodes[p_index] = p_node;
 }
 
 int PackedNodePtrArray::size() const {
-	return (int)items.size();
+	return (int)nodes.size();
 }
 
-void PackedNodePtrArray::resize(int new_size) {
-	items.resize(new_size);
+void PackedNodePtrArray::resize(int p_new_size) {
+	nodes.resize(p_new_size);
 }
 
 void PackedNodePtrArray::clear() {
-	items.resize(0);
+	nodes.resize(0);
 }
 
 Node *PackedNodePtrArray::front() const {
-	if (items.size() == 0) {
+	if (nodes.size() == 0) {
 		return nullptr;
 	}
-	return items[0];
+	return nodes[0];
 }
 
 Node *PackedNodePtrArray::back() const {
-	if (items.size() == 0) {
+	if (nodes.size() == 0) {
 		return nullptr;
 	}
-	return items[items.size() - 1];
+	int i = nodes.size() - 1;
+	return nodes[i];
 }
 
 Node *PackedNodePtrArray::pick_random() const {
-	if (items.size() == 0) {
+	if (nodes.size() == 0) {
 		return nullptr;
 	}
 
-	int i = Math::rand() % items.size();
-	return items[i];
+	int i = Math::rand() % nodes.size();
+	return nodes[i];
 }
 
 TypedArray<Node> PackedNodePtrArray::to_array() const {
 	TypedArray<Node> retval;
-	int ic = items.size();
+	int ic = nodes.size();
 	retval.resize_uninitialized(ic);
 	for (int i = 0; i < ic; i++) {
-		retval.set(i, items[i]);
+		retval.set(i, nodes[i]);
 	}
 	return retval;
 }
 
 bool PackedNodePtrArray::is_empty() const {
-	return items.size() > 0;
+	return nodes.size() > 0;
 }
 
-bool PackedNodePtrArray::_iter_init(const Variant &args) {
+bool PackedNodePtrArray::_iter_init(const Variant &p_args) {
 	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_init\n"); fflush(stderr);
 	current_index = 0;
-	return items.size() > 0;
+	return nodes.size() > 0;
 }
 
-bool PackedNodePtrArray::_iter_next(const Variant &args) {
+bool PackedNodePtrArray::_iter_next(const Variant &p_args) {
 	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_next: %d\n", current_index); fflush(stderr);
 	current_index++;
-	return current_index < items.size();
+	return current_index < nodes.size();
 }
 
-Node *PackedNodePtrArray::_iter_get(const Variant &arg) {
+Node *PackedNodePtrArray::_iter_get(const Variant &p_args) {
 	uint32_t idx = current_index;
 	//fprintf(stderr, "!!!! called PackedNodePtrArray::_iter_get: %d\n", idx); fflush(stderr);
-	if (idx >= 0 && idx < items.size()) {
-		return items[idx];
+	if (idx >= 0 && idx < nodes.size()) {
+		return nodes[idx];
 	}
 	return nullptr;
 }
 
 void PackedNodePtrArray::_bind_methods() {
-	//ClassDB::bind_static_method("PackedNodePtrArray", D_METHOD("destroy2", "inst"), &PackedNodePtrArray::destroy2);
-	//ClassDB::bind_static_method("PackedNodePtrArray", D_METHOD("create2"), &PackedNodePtrArray::create2);
-
-	ClassDB::bind_method(D_METHOD("add_node", "item"), &PackedNodePtrArray::add_node);
+	ClassDB::bind_method(D_METHOD("add_node", "node"), &PackedNodePtrArray::add_node);
 	ClassDB::bind_method(D_METHOD("get_node", "index"), &PackedNodePtrArray::get_node);
 	ClassDB::bind_method(D_METHOD("size"), &PackedNodePtrArray::size);
 	ClassDB::bind_method(D_METHOD("clear"), &PackedNodePtrArray::clear);
