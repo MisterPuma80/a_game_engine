@@ -1,4 +1,9 @@
+#ifndef PACKED_NODE_PTR_ARRAY_REGISTER_TYPES_H
+#define PACKED_NODE_PTR_ARRAY_REGISTER_TYPES_H
+
 #include "modules/register_module_types.h"
 
 void initialize_packed_node_ptr_array_module(ModuleInitializationLevel p_level);
 void uninitialize_packed_node_ptr_array_module(ModuleInitializationLevel p_level);
+
+#endif // PACKED_NODE_PTR_ARRAY_REGISTER_TYPES_H
