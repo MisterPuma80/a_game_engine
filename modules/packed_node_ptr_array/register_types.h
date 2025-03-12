@@ -1,0 +1,4 @@
+#include "modules/register_module_types.h"
+
+void initialize_packed_node_ptr_array_module(ModuleInitializationLevel p_level);
+void uninitialize_packed_node_ptr_array_module(ModuleInitializationLevel p_level);

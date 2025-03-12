@@ -138,7 +138,9 @@ repos:
             platform/android/java/lib/src/com/.*|
             platform/android/java/lib/src/org/godotengine/godot/gl/GLSurfaceView\.java$|
             platform/android/java/lib/src/org/godotengine/godot/gl/EGLLogWrapper\.java$|
-            platform/android/java/lib/src/org/godotengine/godot/utils/ProcessPhoenix\.java$
+            platform/android/java/lib/src/org/godotengine/godot/utils/ProcessPhoenix\.java$|
+            modules/find/.*|
+            modules/packed_node_ptr_array/.*
           )
 
       - id: header-guards
