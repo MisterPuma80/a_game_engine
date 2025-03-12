@@ -2,10 +2,8 @@
 #define OMAKE_H
 
 #include "core/object/ref_counted.h"
-#include "core/variant/typed_array.h"
 
-#include <chrono>
-#include <cstdint>
+void _print_stacktrace();
 
 class Omake : public RefCounted {
 	GDCLASS(Omake, RefCounted)
@@ -18,6 +16,7 @@ public:
 	~Omake();
 
 	static uint64_t get_cpu_ticks_nsec();
+	static void print_stacktrace();
 };
 
 #endif // OMAKE_H

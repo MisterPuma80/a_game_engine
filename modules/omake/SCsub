@@ -2,3 +2,14 @@ Import("env")
 
 # Add source files
 env.add_source_files(env.modules_sources, "*.cpp")
+
+# Link against libdw for Linux/BSD platforms
+if env["platform"] == "linuxbsd":
+    env.Append(LIBS=["dw"])
+    #env.Append(LIBPATH=["/lib/x86_64-linux-gnu"])
+    env.Append(LINKFLAGS=["-rdynamic"])
+    #print("<<<<")
+    #print(env)
+    #print(">>>>")
+    env.Append(CCFLAGS=["-g"])  # Ensure debug symbols
+    env.Append(LINKFLAGS=["-g"])  # Keep debug info in linker
