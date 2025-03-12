@@ -12,9 +12,7 @@ Omake::~Omake() {
 
 uint64_t Omake::get_cpu_ticks_nsec() {
 	auto now = std::chrono::high_resolution_clock::now();
-	auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
-		now.time_since_epoch()
-	).count();
+	auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
 	return static_cast<uint64_t>(ns);
 }
 
