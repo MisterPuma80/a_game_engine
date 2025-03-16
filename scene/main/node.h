@@ -49,7 +49,7 @@ SAFE_NUMERIC_TYPE_PUN_GUARANTEES(uint32_t)
 class Node : public Object {
 	GDCLASS(Node, Object);
 
-	friend class Find;
+	friend class OmakeFind;
 
 protected:
 	// During group processing, these are thread-safe.
