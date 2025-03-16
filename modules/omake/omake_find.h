@@ -1,23 +1,15 @@
-#ifndef FIND_H
-#define FIND_H
+#ifndef OMAKE_FIND_H
+#define OMAKE_FIND_H
 
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"
 
-#include "modules/packed_node_ptr_array/packed_node_ptr_array.h"
+#include "modules/omake/packed_node_ptr_array.h"
 
 class Node;
 
-class Find : public RefCounted {
-	GDCLASS(Find, RefCounted)
-
-protected:
-	static void _bind_methods();
-
+class OmakeFind {
 public:
-	Find();
-	~Find();
-
 	static Ref<PackedNodePtrArray> children(const Node *p_node, const bool p_include_internal = true);
 	static Ref<PackedNodePtrArray> all(const Node *p_node);
 	static Ref<PackedNodePtrArray> by(const Node *p_node, const String &p_pattern, const String &p_type, const bool p_recursive = true, const bool p_owned = true);
@@ -27,4 +19,4 @@ public:
 	static Ref<PackedNodePtrArray> by_groups(const Node *p_node, const TypedArray<String> &p_group_names);
 };
 
-#endif // FIND_H
+#endif // OMAKE_FIND_H

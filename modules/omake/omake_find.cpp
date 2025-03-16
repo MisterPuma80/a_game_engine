@@ -1,17 +1,9 @@
 
-#include "find.h"
+#include "omake_find.h"
 #include "core/object/script_language.h"
 #include "scene/main/node.h"
 
-Find::Find() {
-	//print_line("Find created");
-}
-
-Find::~Find() {
-	//print_line("Find destroyed");
-}
-
-Ref<PackedNodePtrArray> Find::children(const Node *p_node, const bool p_include_internal) {
+Ref<PackedNodePtrArray> OmakeFind::children(const Node *p_node, const bool p_include_internal) {
 	//ERR_THREAD_GUARD_V(nullptr); // FIXME
 
 	int cc;
@@ -28,19 +20,19 @@ Ref<PackedNodePtrArray> Find::children(const Node *p_node, const bool p_include_
 	return nodes;
 }
 
-Ref<PackedNodePtrArray> Find::all(const Node *p_node) {
-	return Find::by(p_node, "*", "", true, false);
+Ref<PackedNodePtrArray> OmakeFind::all(const Node *p_node) {
+	return OmakeFind::by(p_node, "*", "", true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_name(const Node *p_node, const String &p_node_name) {
-	return Find::by(p_node, p_node_name, "", true, false);
+Ref<PackedNodePtrArray> OmakeFind::by_name(const Node *p_node, const String &p_node_name) {
+	return OmakeFind::by(p_node, p_node_name, "", true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_type(const Node *p_node, const String &p_type_name) {
-	return Find::by(p_node, "*", p_type_name, true, false);
+Ref<PackedNodePtrArray> OmakeFind::by_type(const Node *p_node, const String &p_type_name) {
+	return OmakeFind::by(p_node, "*", p_type_name, true, false);
 }
 
-Ref<PackedNodePtrArray> Find::by_group(const Node *p_node, const String &p_group_name) {
+Ref<PackedNodePtrArray> OmakeFind::by_group(const Node *p_node, const String &p_group_name) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	LocalVector<Node *> to_search;
@@ -65,7 +57,7 @@ Ref<PackedNodePtrArray> Find::by_group(const Node *p_node, const String &p_group
 	return matches;
 }
 
-Ref<PackedNodePtrArray> Find::by_groups(const Node *p_node, const TypedArray<String> &p_group_names) {
+Ref<PackedNodePtrArray> OmakeFind::by_groups(const Node *p_node, const TypedArray<String> &p_group_names) {
 	//ERR_THREAD_GUARD_V(TypedArray<Node>()); // FIXME
 
 	Ref<PackedNodePtrArray> matches = memnew(PackedNodePtrArray);
@@ -93,7 +85,7 @@ Ref<PackedNodePtrArray> Find::by_groups(const Node *p_node, const TypedArray<Str
 	return matches;
 }
 
-Ref<PackedNodePtrArray> Find::by(const Node *p_node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
+Ref<PackedNodePtrArray> OmakeFind::by(const Node *p_node, const String &p_pattern, const String &p_type, const bool p_recursive, const bool p_owned) {
 	//ERR_THREAD_GUARD; // FIXME
 	//ERR_FAIL_COND(p_pattern.is_empty() && p_type.is_empty());
 
@@ -156,14 +148,4 @@ Ref<PackedNodePtrArray> Find::by(const Node *p_node, const String &p_pattern, co
 	}
 
 	return matches;
-}
-
-void Find::_bind_methods() {
-	ClassDB::bind_static_method("Find", D_METHOD("children", "node", "include_internal"), &Find::children, DEFVAL(true));
-	ClassDB::bind_static_method("Find", D_METHOD("all", "node"), &Find::all);
-	ClassDB::bind_static_method("Find", D_METHOD("by", "node", "pattern", "type", "recursive", "owned"), &Find::by, DEFVAL(""), DEFVAL(true), DEFVAL(true));
-	ClassDB::bind_static_method("Find", D_METHOD("by_name", "node", "node_name"), &Find::by_name);
-	ClassDB::bind_static_method("Find", D_METHOD("by_type", "node", "type_name"), &Find::by_type);
-	ClassDB::bind_static_method("Find", D_METHOD("by_group", "node", "group_name"), &Find::by_group);
-	ClassDB::bind_static_method("Find", D_METHOD("by_groups", "node", "group_names"), &Find::by_groups);
 }

@@ -4,9 +4,8 @@
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"
 
-using namespace godot;
-
-class Node;
+//class Node;
+#include "scene/main/node.h"
 
 class PackedNodePtrArray : public RefCounted {
 	GDCLASS(PackedNodePtrArray, RefCounted)

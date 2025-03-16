@@ -1,5 +1,5 @@
 def can_build(env, platform):
-    return platform == "linuxbsd"
+    return True
 
 
 def configure(env):
@@ -7,7 +7,7 @@ def configure(env):
 
 
 def get_doc_classes():
-    return ["Omake"]
+    return ["Omake", "PackedNodePtrArray"]
 
 
 def get_doc_path():
