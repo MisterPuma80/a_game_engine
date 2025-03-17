@@ -129,4 +129,3 @@ String OmakeStringAppender::merge_strings2(const char *p_chr, const String &b) {
 
 	return ret;
 }
-
