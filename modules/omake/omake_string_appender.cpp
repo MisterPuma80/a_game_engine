@@ -115,7 +115,7 @@ String OmakeStringAppender::merge_strings2(const char *p_chr, const String &b) {
 	ret.resize(a_len + b_len + 1);
 	char32_t *ret_ptrw = ret.ptrw();
 
-	const char *src = p_chr;//p_cstr.c_str;
+	const char *src = p_chr; //p_cstr.c_str;
 	const char *end = src + a_len;
 	for (; src < end; ++src, ++ret_ptrw) {
 		// FIXME: Investigate the consistency of this. As it is done 4 different ways inside String
