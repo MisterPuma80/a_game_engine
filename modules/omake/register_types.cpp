@@ -11,7 +11,6 @@ void initialize_omake_module(ModuleInitializationLevel p_level) {
 	}
 	ClassDB::register_class<Omake>();
 	ClassDB::register_class<PackedNodePtrArray>();
-	ClassDB::register_class<OmakeStringAppender>();
 }
 
 void uninitialize_omake_module(ModuleInitializationLevel p_level) {

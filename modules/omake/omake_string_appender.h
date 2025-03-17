@@ -7,9 +7,7 @@
 #include "core/string/ustring.h"
 #include <cstddef>
 
-class OmakeStringAppender : public RefCounted {
-	GDCLASS(OmakeStringAppender, RefCounted)
-
+class OmakeStringAppender {
 private:
 	static constexpr size_t MAX_SEGMENTS = 1024;
 
@@ -22,9 +20,6 @@ private:
 	Segment segments[MAX_SEGMENTS];
 	size_t segment_count;
 	size_t total_length;
-
-protected:
-	static void _bind_methods();
 
 public:
 	OmakeStringAppender();

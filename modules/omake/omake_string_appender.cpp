@@ -130,7 +130,3 @@ String OmakeStringAppender::merge_strings2(const char *p_chr, const String &b) {
 	return ret;
 }
 
-void OmakeStringAppender::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_string"), &OmakeStringAppender::get_string);
-	ClassDB::bind_static_method("OmakeStringAppender", D_METHOD("merge_strings", "a", "b"), &OmakeStringAppender::merge_strings);
-}
