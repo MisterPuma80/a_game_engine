@@ -2,8 +2,8 @@
 #define OMAKE_H
 
 #include "core/object/ref_counted.h"
-#include "packed_node_ptr_array.h"
 #include "modules/omake/omake_string_appender.h"
+#include "packed_node_ptr_array.h"
 
 class Omake : public RefCounted {
 	GDCLASS(Omake, RefCounted)
