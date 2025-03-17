@@ -1,9 +1,9 @@
 #include "register_types.h"
 
 #include "core/object/class_db.h"
+#include "modules/omake/omake_string_appender.h"
 #include "omake.h"
 #include "packed_node_ptr_array.h"
-#include "modules/omake/omake_string_appender.h"
 
 void initialize_omake_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
