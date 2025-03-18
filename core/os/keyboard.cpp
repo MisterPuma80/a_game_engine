@@ -32,6 +32,7 @@
 
 #include "core/os/os.h"
 #include "modules/omake/omake_string_appender.h"
+#include "modules/omake/omake.h"
 
 struct _KeyCodeText {
 	Key code;
@@ -359,9 +360,6 @@ bool keycode_has_unicode(Key p_keycode) {
 
 	return true;
 }
-
-#include "modules/omake/omake.h"
-//#include "modules/omake/omake_string_appender.h"
 
 String keycode_get_string(Key p_code) {
 	/*
