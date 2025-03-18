@@ -1,71 +1,45 @@
 
 #include "omake_string_appender.h"
 
-OmakeStringAppender::OmakeStringAppender() :
-		segment_count(0),
-		total_length(0) {
+OmakeStringAppender::OmakeStringAppender() {
+	this->clear();
 }
 
-void OmakeStringAppender::operator+=(const String &p_str) {
-	int len = p_str.length();
-	if (len == 0) {
-		return;
+void OmakeStringAppender::operator+=(const String& p_str) {
+	size_t len = p_str.length();
+	if (len == 0) return;
+
+	while (buffer.size() <= str_len + len) {
+		buffer.resize(buffer.size() + str_len + len + 1024);
+		ret_ptrw = buffer.ptrw();
 	}
 
-	if (segment_count < MAX_SEGMENTS) {
-		Segment &seg = segments[segment_count++];
-		seg.data = p_str.ptr();
-		seg.len = len;
-		seg.is_char = false;
-		total_length += seg.len;
-	}
+	memcpy(ret_ptrw + str_len, p_str.ptr(), len * sizeof(char32_t));
+	str_len += len;
 }
 
-void OmakeStringAppender::operator+=(const char *p_cstr) {
-	// FIXME: Do something here when we are joining too many strings
-	// Maybe consolidate them?
-	if (!p_cstr || segment_count >= MAX_SEGMENTS) {
-		return;
-	}
-
+void OmakeStringAppender::operator+=(const char* p_cstr) {
+	if (!p_cstr) return;
 	size_t len = strlen(p_cstr);
-	if (len == 0) {
-		return;
+	if (len == 0) return;
+
+	while (buffer.size() <= str_len + len) {
+		buffer.resize(buffer.size() + str_len + len + 1024);
+		ret_ptrw = buffer.ptrw();
 	}
 
-	Segment &seg = segments[segment_count++];
-	seg.data = reinterpret_cast<const char32_t *>(p_cstr);
-	seg.len = len;
-	seg.is_char = true;
-	total_length += len;
+	char32_t* dest = ret_ptrw + str_len;
+	for (size_t j = 0; j < len; ++j) {
+		dest[j] = (char32_t)(unsigned char)p_cstr[j];
+	}
+	str_len += len;
 }
 
 String OmakeStringAppender::get_string() {
-	String result;
-	result.resize(total_length);
-	consolidate(result.ptrw());
-
-	segment_count = 0;
-	total_length = 0;
-	return result;
-}
-
-void OmakeStringAppender::consolidate(char32_t *dest) const {
-	size_t offset = 0;
-	for (size_t i = 0; i < segment_count; ++i) {
-		const Segment &seg = segments[i];
-		if (seg.is_char) {
-			const char *src = reinterpret_cast<const char *>(seg.data);
-			const size_t len = seg.len;
-			for (size_t j = 0; j < len; ++j) {
-				// FIXME: Investigate the consistency of this. As it is done 4 different ways inside String
-				dest[offset + j] = (char32_t)(unsigned char)src[j];
-			}
-		} else {
-			memcpy(dest + offset, seg.data, seg.len * sizeof(char32_t));
-		}
-		offset += seg.len;
-	}
+	buffer.resize(str_len + 1);
+	ret_ptrw = buffer.ptrw();
+	//return buffer.substr(0, str_len);
+	return buffer;
 }
 
 String OmakeStringAppender::merge_strings(const String &a, const String &b) {
