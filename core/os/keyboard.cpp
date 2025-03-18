@@ -364,9 +364,9 @@ bool keycode_has_unicode(Key p_keycode) {
 //#include "modules/omake/omake_string_appender.h"
 
 String keycode_get_string(Key p_code) {
-	uint64_t start=0, end=0, diff=0, total_1=0, total_8=0, total_14=0, total_15=0, total_16=0;
+	uint64_t start = 0, end = 0, diff = 0, total_1 = 0, total_8 = 0, total_14 = 0, total_15 = 0, total_16 = 0;
 	constexpr int TOTAL_LOOPS = 10000;
-///*
+
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
 		start = Omake::get_cpu_ticks_nsec();
 		String appender;
@@ -385,7 +385,8 @@ String keycode_get_string(Key p_code) {
 		//fprintf(stderr, "String %s\n", appender.utf8().get_data());
 		//fprintf(stderr, "String %d\n", appender.length());
 	}
-	fprintf(stderr, "total_old %lu\n", total_1); fflush(stderr);
+	fprintf(stderr, "total_old %lu\n", total_1);
+	fflush(stderr);
 
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
 		start = Omake::get_cpu_ticks_nsec();
@@ -405,8 +406,8 @@ String keycode_get_string(Key p_code) {
 		total_8 += diff;
 		//fprintf(stderr, "OmakeStringAppender %d\n", result.length());
 	}
-	fprintf(stderr, "total_new %lu\n", total_8); fflush(stderr);
-//*/
+	fprintf(stderr, "total_new %lu\n", total_8);
+	fflush(stderr);
 
 	OmakeStringAppender codestr;
 	if ((p_code & KeyModifierMask::SHIFT) != Key::NONE) {

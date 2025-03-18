@@ -11,14 +11,14 @@ class OmakeStringAppender {
 private:
 	String buffer;
 	size_t str_len;
-	char32_t* ret_ptrw;
+	char32_t *ret_ptrw;
 
 public:
 	OmakeStringAppender();
 	~OmakeStringAppender() = default;
 
-	void operator+=(const String& p_str);
-	void operator+=(const char* p_cstr);
+	void operator+=(const String &p_str);
+	void operator+=(const char *p_cstr);
 
 	String get_string();
 

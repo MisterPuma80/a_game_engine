@@ -5,9 +5,11 @@ OmakeStringAppender::OmakeStringAppender() {
 	this->clear();
 }
 
-void OmakeStringAppender::operator+=(const String& p_str) {
+void OmakeStringAppender::operator+=(const String &p_str) {
 	size_t len = p_str.length();
-	if (len == 0) return;
+	if (len == 0) {
+		return;
+	}
 
 	while (buffer.size() <= str_len + len) {
 		buffer.resize(buffer.size() + str_len + len + 1024);
@@ -18,7 +20,7 @@ void OmakeStringAppender::operator+=(const String& p_str) {
 	str_len += len;
 }
 
-void OmakeStringAppender::operator+=(const char* p_cstr) {
+void OmakeStringAppender::operator+=(const char *p_cstr) {
 	if (!p_cstr) return;
 	size_t len = strlen(p_cstr);
 	if (len == 0) return;
@@ -28,7 +30,7 @@ void OmakeStringAppender::operator+=(const char* p_cstr) {
 		ret_ptrw = buffer.ptrw();
 	}
 
-	char32_t* dest = ret_ptrw + str_len;
+	char32_t *dest = ret_ptrw + str_len;
 	for (size_t j = 0; j < len; ++j) {
 		dest[j] = (char32_t)(unsigned char)p_cstr[j];
 	}
