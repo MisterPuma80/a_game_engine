@@ -21,9 +21,13 @@ void OmakeStringAppender::operator+=(const String &p_str) {
 }
 
 void OmakeStringAppender::operator+=(const char *p_cstr) {
-	if (!p_cstr) return;
+	if (!p_cstr) {
+		return;
+	}
 	size_t len = strlen(p_cstr);
-	if (len == 0) return;
+	if (len == 0) {
+		return;
+	}
 
 	while (buffer.size() <= str_len + len) {
 		buffer.resize(buffer.size() + str_len + len + 1024);

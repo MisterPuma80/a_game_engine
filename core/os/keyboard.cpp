@@ -364,6 +364,7 @@ bool keycode_has_unicode(Key p_keycode) {
 //#include "modules/omake/omake_string_appender.h"
 
 String keycode_get_string(Key p_code) {
+	/*
 	uint64_t start = 0, end = 0, diff = 0, total_1 = 0, total_8 = 0, total_14 = 0, total_15 = 0, total_16 = 0;
 	constexpr int TOTAL_LOOPS = 10000;
 
@@ -408,7 +409,7 @@ String keycode_get_string(Key p_code) {
 	}
 	fprintf(stderr, "total_new %lu\n", total_8);
 	fflush(stderr);
-
+	*/
 	OmakeStringAppender codestr;
 	if ((p_code & KeyModifierMask::SHIFT) != Key::NONE) {
 		codestr += find_keycode_name(Key::SHIFT);
