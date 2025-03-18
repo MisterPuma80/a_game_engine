@@ -11,7 +11,7 @@ void OmakeStringAppender::operator+=(const String &p_str) {
 		return;
 	}
 
-	while ((int) buffer.size() <= str_len + len) {
+	while ((size_t) buffer.size() <= str_len + len) {
 		buffer.resize(buffer.size() + str_len + len + 1024);
 		ret_ptrw = buffer.ptrw();
 	}
@@ -29,7 +29,7 @@ void OmakeStringAppender::operator+=(const char *p_cstr) {
 		return;
 	}
 
-	while ((int) buffer.size() <= str_len + len) {
+	while ((size_t) buffer.size() <= str_len + len) {
 		buffer.resize(buffer.size() + str_len + len + 1024);
 		ret_ptrw = buffer.ptrw();
 	}
