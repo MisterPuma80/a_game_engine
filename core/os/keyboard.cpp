@@ -32,7 +32,6 @@
 
 #include "core/os/os.h"
 #include "modules/omake/omake_string_appender.h"
-#include "modules/omake/omake.h"
 
 struct _KeyCodeText {
 	Key code;

@@ -4,8 +4,10 @@
 #include "core/object/ref_counted.h"
 #include "core/variant/typed_array.h"
 
-#include "core/string/ustring.h"
+//#include "core/string/ustring.h"
 #include <cstddef>
+
+class Node;
 
 class OmakeStringAppender {
 private:
