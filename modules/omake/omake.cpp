@@ -15,10 +15,6 @@ Omake::~Omake() {
 	//print_line("Omake destroyed");
 }
 
-OmakeStringAppender get_appender() {
-	return OmakeStringAppender();
-}
-
 uint64_t Omake::get_cpu_ticks_nsec() {
 	return omake_get_cpu_ticks_nsec();
 }

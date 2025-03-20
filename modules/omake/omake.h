@@ -2,7 +2,6 @@
 #define OMAKE_H
 
 #include "core/object/ref_counted.h"
-#include "modules/omake/omake_string_appender.h"
 #include "packed_node_ptr_array.h"
 
 class Omake : public RefCounted {
@@ -14,8 +13,6 @@ protected:
 public:
 	Omake();
 	~Omake();
-
-	OmakeStringAppender get_appender();
 
 	static uint64_t get_cpu_ticks_nsec();
 	static Ref<PackedNodePtrArray> get_children(const Node *p_node, const bool p_include_internal = true);
