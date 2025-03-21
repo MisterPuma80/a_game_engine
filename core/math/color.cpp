@@ -413,6 +413,7 @@ Color Color::named(const String &p_name, const Color &p_default) {
 }
 
 int Color::find_named_color(const String &p_name) {
+	//fprintf(stderr, "!!! Color::find_named_color\n"); fflush(stderr);
 	String name = p_name;
 	// Normalize name.
 	name = name.replace(" ", "");

@@ -1903,6 +1903,7 @@ struct GodotCapabilities {
 
 /** Format BBCode documentation from DocData to markdown */
 static String marked_documentation(const String &p_bbcode) {
+	//fprintf(stderr, "!!! marked_documentation\n"); fflush(stderr);
 	String markdown = p_bbcode.strip_edges();
 
 	Vector<String> lines = markdown.split("\n");

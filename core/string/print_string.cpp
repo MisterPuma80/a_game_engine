@@ -86,6 +86,7 @@ void __print_line(const String &p_string) {
 }
 
 void __print_line_rich(const String &p_string) {
+	//fprintf(stderr, "!!! __print_line_rich\n"); fflush(stderr);
 	if (!CoreGlobals::print_line_enabled) {
 		return;
 	}

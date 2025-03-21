@@ -22,6 +22,8 @@ public:
 	void operator+=(const String &p_str);
 	void operator+=(const char *p_cstr);
 
+	void replace(const String &p_key, const String &p_with);
+	void replace(const char* p_key, const char* p_with);
 	String get_string();
 
 	_FORCE_INLINE_ void clear() {

@@ -148,6 +148,29 @@ TEST_CASE("[Omake] merge_strings2") {
 	CHECK(total_old > total_new);
 }
 
+TEST_CASE("[Omake] replace") {
+	OmakeStringAppender escaped;
+	escaped += "aaaaBBBBccccDDDDeFFFFFBBBBgge";
+	CHECK(escaped.get_string() == "aaaaBBBBccccDDDDeFFFFFBBBBgge");
+	fprintf(stderr, "!!! <<<%s>>>\n", escaped.get_string().utf8().get_data()); fflush(stderr);
+
+	escaped.replace("BBBB", "bb");
+	CHECK(escaped.get_string() == "aaaabbccccDDDDeFFFFFbbgge");
+	fprintf(stderr, "!!! <<<%s>>>\n", escaped.get_string().utf8().get_data()); fflush(stderr);
+
+	escaped.replace("e", "EEEE");
+	CHECK(escaped.get_string() == "aaaabbccccDDDDEEEEFFFFFbbggEEEE");
+	fprintf(stderr, "!!! <<<%s>>>\n", escaped.get_string().utf8().get_data()); fflush(stderr);
+
+	escaped.replace(String("bb"), String("BBBB"));
+	fprintf(stderr, "!!! <<<%s>>>\n", escaped.get_string().utf8().get_data()); fflush(stderr);
+	CHECK(escaped.get_string() == "aaaaBBBBccccDDDDEEEEFFFFFBBBBggEEEE");
+
+	escaped.replace(String("EEEE"), String("e"));
+	CHECK(escaped.get_string() == "aaaaBBBBccccDDDDeFFFFFBBBBgge");
+	fprintf(stderr, "!!! <<<%s>>>\n", escaped.get_string().utf8().get_data()); fflush(stderr);
+}
+
 } // namespace TestOmakeStringAppender
 
 #endif // TEST_OMAKE_H

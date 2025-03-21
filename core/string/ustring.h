@@ -180,7 +180,11 @@ struct StrRange {
 	}
 };
 
+class OmakeStringAppender;
+
 class String {
+	friend class OmakeStringAppender;
+
 	CowData<char32_t> _cowdata;
 	static const char32_t _null;
 	static const char32_t _replacement_char;

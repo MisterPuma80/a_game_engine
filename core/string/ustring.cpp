@@ -4568,6 +4568,7 @@ String String::uri_decode() const {
 }
 
 String String::c_unescape() const {
+	//fprintf(stderr, "!!! String::c_unescape\n"); fflush(stderr);
 	String escaped = *this;
 	escaped = escaped.replace("\\a", "\a");
 	escaped = escaped.replace("\\b", "\b");
@@ -4584,6 +4585,7 @@ String String::c_unescape() const {
 }
 
 String String::c_escape() const {
+//	fprintf(stderr, "!!! String::c_escape\n"); fflush(stderr);
 	String escaped = *this;
 	escaped = escaped.replace("\\", "\\\\");
 	escaped = escaped.replace("\a", "\\a");
@@ -4597,9 +4599,26 @@ String String::c_escape() const {
 	escaped = escaped.replace("\"", "\\\"");
 
 	return escaped;
+/*
+	OmakeStringAppender s;
+	s += *this;
+	s.replace("\\", "\\\\");
+	s.replace("\a", "\\a");
+	s.replace("\b", "\\b");
+	s.replace("\f", "\\f");
+	s.replace("\n", "\\n");
+	s.replace("\r", "\\r");
+	s.replace("\t", "\\t");
+	s.replace("\v", "\\v");
+	s.replace("\'", "\\'");
+	s.replace("\"", "\\\"");
+
+	return s.get_string();
+*/
 }
 
 String String::c_escape_multiline() const {
+	//fprintf(stderr, "!!! String::c_escape_multiline\n"); fflush(stderr);
 	String escaped = *this;
 	escaped = escaped.replace("\\", "\\\\");
 	escaped = escaped.replace("\"", "\\\"");
@@ -4608,6 +4627,7 @@ String String::c_escape_multiline() const {
 }
 
 String String::json_escape() const {
+	//fprintf(stderr, "!!! String::json_escape\n"); fflush(stderr);
 	String escaped = *this;
 	escaped = escaped.replace("\\", "\\\\");
 	escaped = escaped.replace("\b", "\\b");
@@ -4622,6 +4642,7 @@ String String::json_escape() const {
 }
 
 String String::xml_escape(bool p_escape_quotes) const {
+	//fprintf(stderr, "!!! String::xml_escape\n"); fflush(stderr);
 	String str = *this;
 	str = str.replace("&", "&amp;");
 	str = str.replace("<", "&lt;");
@@ -5049,6 +5070,7 @@ bool String::is_valid_filename() const {
 }
 
 String String::validate_filename() const {
+	//fprintf(stderr, "!!! String::validate_filename\n"); fflush(stderr);
 	Vector<String> chars = String(invalid_filename_characters).split(" ");
 	String name = strip_edges();
 	for (int i = 0; i < chars.size(); i++) {

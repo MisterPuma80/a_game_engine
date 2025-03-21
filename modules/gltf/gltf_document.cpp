@@ -472,6 +472,7 @@ String GLTFDocument::_gen_unique_name(Ref<GLTFState> p_state, const String &p_na
 }
 
 String GLTFDocument::_sanitize_animation_name(const String &p_name) {
+	//fprintf(stderr, "!!! GLTFDocument::_sanitize_animation_name\n"); fflush(stderr);
 	// Animations disallow the normal node invalid characters as well as  "," and "["
 	// (See animation/animation_player.cpp::add_animation)
 

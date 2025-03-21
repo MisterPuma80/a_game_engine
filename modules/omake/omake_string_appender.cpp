@@ -41,6 +41,80 @@ void OmakeStringAppender::operator+=(const char *p_cstr) {
 	str_len += len;
 }
 
+void OmakeStringAppender::replace(const String &p_key, const String &p_with) {
+	int search_from = 0;
+	int result_pos = 0;
+
+	int key_len = p_key.length();
+	int with_len = p_with.length();
+	int size_diff = with_len - key_len;
+	fprintf(stderr, "!!! size_diff: %d\n", size_diff); fflush(stderr);
+	CowData<char32_t> &data = buffer._cowdata;
+
+	while ((result_pos = buffer.find(p_key, search_from)) >= 0) {
+		fprintf(stderr, "!!! buffer.length: %d\n", buffer.length()); fflush(stderr);
+		// Grow
+		if (size_diff > 0) {
+			for (int i = 0; i < size_diff; i++) {
+				data.insert(result_pos, 0);
+			}
+			fprintf(stderr, "!!! grow buffer.length: %d\n", buffer.length()); fflush(stderr);
+		// Shrink
+		} else if (size_diff < 0) {
+			for (int i = 0; i < -size_diff; i++) {
+				data.remove_at(result_pos);
+			}
+			fprintf(stderr, "!!! shrink buffer.length: %d\n", buffer.length()); fflush(stderr);
+		}
+
+		// Copy with string into buffer
+		ret_ptrw = buffer.ptrw();
+		memcpy(ret_ptrw + result_pos, p_with.ptr(), with_len * sizeof(char32_t));
+
+		search_from = result_pos + with_len;
+		str_len += size_diff;
+	}
+}
+
+void OmakeStringAppender::replace(const char* p_key, const char* p_with) {
+	int search_from = 0;
+	int result_pos = 0;
+
+	int key_len = strlen(p_key);
+	int with_len = strlen(p_with);
+	int size_diff = with_len - key_len;
+	fprintf(stderr, "!!! size_diff: %d\n", size_diff); fflush(stderr);
+	CowData<char32_t> &data = buffer._cowdata;
+
+	while ((result_pos = buffer.find(p_key, search_from)) >= 0) {
+		fprintf(stderr, "!!! buffer.length: %d\n", buffer.length()); fflush(stderr);
+		// Grow
+		if (size_diff > 0) {
+			for (int i = 0; i < size_diff; i++) {
+				data.insert(result_pos, 0);
+			}
+			fprintf(stderr, "!!! grow buffer.length: %d\n", buffer.length()); fflush(stderr);
+		// Shrink
+		} else if (size_diff < 0) {
+			for (int i = 0; i < -size_diff; i++) {
+				data.remove_at(result_pos);
+			}
+			fprintf(stderr, "!!! shrink buffer.length: %d\n", buffer.length()); fflush(stderr);
+		}
+
+		// Copy with string into buffer
+		ret_ptrw = buffer.ptrw();
+		char32_t *dest = ret_ptrw + result_pos;
+		for (int i = 0; i < with_len; ++i) {
+			fprintf(stderr, "!!! i: %d\n", i); fflush(stderr);
+			dest[i] = (char32_t)(unsigned char)p_with[i];
+		}
+
+		search_from = result_pos + with_len;
+		str_len += size_diff;
+	}
+}
+
 String OmakeStringAppender::get_string() {
 	buffer.resize(str_len + 1);
 	ret_ptrw = buffer.ptrw();
