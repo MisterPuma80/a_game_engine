@@ -56,8 +56,7 @@ TEST_CASE("[Omake] OmakeStringAppender") {
 	fflush(stderr);
 
 	// Make sure old is slower
-	CHECK(total_old < total_new); // FIXME: Make test fail to make sure it runs
-	CHECK(69 < 1); // FIXME: Make test fail to make sure it runs
+	CHECK(total_old > total_new);
 }
 
 } // namespace TestOmakeStringAppender
