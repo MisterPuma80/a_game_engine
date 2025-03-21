@@ -1,6 +1,6 @@
-
 #ifndef TEST_OMAKE_H
 #define TEST_OMAKE_H
+
 
 #include "tests/test_macros.h"
 
@@ -60,7 +60,5 @@ TEST_CASE("[Omake] OmakeStringAppender") {
 }
 
 } // namespace TestOmakeStringAppender
-
-
 
 #endif // TEST_OMAKE_H
