@@ -58,6 +58,96 @@ TEST_CASE("[Omake] OmakeStringAppender") {
 	CHECK(total_old > total_new);
 }
 
+TEST_CASE("[Omake] merge_strings") {
+	uint64_t start = 0, end = 0, diff = 0, total_old = 0, total_new = 0;
+	constexpr int TOTAL_LOOPS = 10000;
+
+	String a = "aa aa";
+	String b = "bb bb";
+	String z;
+	String expected_result = String("aa aabb bb");
+
+	for (int i = 0; i < TOTAL_LOOPS; i++) {
+		start = Omake::get_cpu_ticks_nsec();
+
+		// This is how old String::operator+ works
+		// String::operator+(const String &p_str)
+		String res = a;
+		res += b;
+		z = res;
+		CHECK(z == expected_result);
+
+		end = Omake::get_cpu_ticks_nsec();
+		diff = end - start;
+		total_old += diff;
+	}
+	fprintf(stderr, "total_old %lu\n", total_old);
+	fflush(stderr);
+
+	for (int i = 0; i < TOTAL_LOOPS; i++) {
+		start = Omake::get_cpu_ticks_nsec();
+
+		// This is how our new String::operator+ works
+		// String::operator+(const String &p_str)
+		z = OmakeStringAppender::merge_strings(a, b);
+		CHECK(z == expected_result);
+
+		end = Omake::get_cpu_ticks_nsec();
+		diff = end - start;
+		total_new += diff;
+	}
+	fprintf(stderr, "total_new %lu\n", total_new);
+	fflush(stderr);
+
+	// Make sure old is slower
+	CHECK(total_old > total_new);
+}
+
+TEST_CASE("[Omake] merge_strings2") {
+	uint64_t start = 0, end = 0, diff = 0, total_old = 0, total_new = 0;
+	constexpr int TOTAL_LOOPS = 10000;
+
+	const char* a = "aa aa";
+	String b = "bb bb";
+	String z;
+	String expected_result = String("aa aabb bb");
+
+	for (int i = 0; i < TOTAL_LOOPS; i++) {
+		start = Omake::get_cpu_ticks_nsec();
+
+		// This is how old String::operator+ works
+		// String operator+(const char *p_chr, const String &p_str)
+		String res = a;
+		res += b;
+		z = res;
+		CHECK(z == expected_result);
+
+		end = Omake::get_cpu_ticks_nsec();
+		diff = end - start;
+		total_old += diff;
+	}
+	fprintf(stderr, "total_old %lu\n", total_old);
+	fflush(stderr);
+
+	for (int i = 0; i < TOTAL_LOOPS; i++) {
+		start = Omake::get_cpu_ticks_nsec();
+
+		// This is how our new String::operator+ works
+		// String operator+(const char *p_chr, const String &p_str)
+		z = OmakeStringAppender::merge_strings2(a, b);
+		CHECK(z == expected_result);
+
+		end = Omake::get_cpu_ticks_nsec();
+		diff = end - start;
+		total_new += diff;
+	}
+	fprintf(stderr, "total_new %lu\n", total_new);
+	fflush(stderr);
+
+	// Make sure old is slower
+	CHECK(total_old > total_new);
+}
+
 } // namespace TestOmakeStringAppender
 
 #endif // TEST_OMAKE_H
