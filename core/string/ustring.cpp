@@ -40,6 +40,7 @@
 #include "core/string/ucaps.h"
 #include "core/variant/variant.h"
 #include "core/version_generated.gen.h"
+#include "modules/omake/omake_string_appender.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -485,6 +486,7 @@ String String::operator+(const String &p_str) const {
 	String res = *this;
 	res += p_str;
 	return res;
+	//return OmakeStringAppender::merge_strings(*this, p_str);
 }
 
 String String::operator+(char32_t p_char) const {
@@ -497,6 +499,7 @@ String operator+(const char *p_chr, const String &p_str) {
 	String tmp = p_chr;
 	tmp += p_str;
 	return tmp;
+	//return OmakeStringAppender::merge_strings2(p_chr, p_str);
 }
 
 String operator+(const wchar_t *p_chr, const String &p_str) {

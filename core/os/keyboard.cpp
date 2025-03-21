@@ -31,6 +31,7 @@
 #include "keyboard.h"
 
 #include "core/os/os.h"
+#include "modules/omake/omake_string_appender.h"
 
 struct _KeyCodeText {
 	Key code;
@@ -360,7 +361,7 @@ bool keycode_has_unicode(Key p_keycode) {
 }
 
 String keycode_get_string(Key p_code) {
-	String codestr;
+	OmakeStringAppender codestr;
 	if ((p_code & KeyModifierMask::SHIFT) != Key::NONE) {
 		codestr += find_keycode_name(Key::SHIFT);
 		codestr += "+";
@@ -393,14 +394,14 @@ String keycode_get_string(Key p_code) {
 	while (kct->text) {
 		if (kct->code == p_code) {
 			codestr += kct->text;
-			return codestr;
+			return codestr.get_string();
 		}
 		kct++;
 	}
 
 	codestr += String::chr((char32_t)p_code);
 
-	return codestr;
+	return codestr.get_string();
 }
 
 Key find_keycode(const String &p_codestr) {

@@ -83,7 +83,7 @@ jobs:
           - name: Minimal template (target=template_release, everything disabled)
             cache-name: linux-template-minimal
             target: template_release
-            sconsflags: modules_enabled_by_default=no disable_3d=yes disable_advanced_gui=yes deprecated=no minizip=no tests=yes
+            sconsflags: modules_enabled_by_default=no module_omake_enabled=yes disable_3d=yes disable_advanced_gui=yes deprecated=no minizip=no tests=yes
             bin: "./bin/godot.linuxbsd.template_release.x86_64"
             tests: true
             artifact: true
