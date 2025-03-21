@@ -1,7 +1,6 @@
 #ifndef TEST_OMAKE_H
 #define TEST_OMAKE_H
 
-
 #include "tests/test_macros.h"
 
 #include "modules/omake/omake.h"
