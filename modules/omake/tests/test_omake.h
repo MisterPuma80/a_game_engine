@@ -107,7 +107,7 @@ TEST_CASE("[Omake] merge_strings2") {
 	uint64_t start = 0, end = 0, diff = 0, total_old = 0, total_new = 0;
 	constexpr int TOTAL_LOOPS = 10000;
 
-	const char* a = "aa aa";
+	const char *a = "aa aa";
 	String b = "bb bb";
 	String z;
 	String expected_result = String("aa aabb bb");
