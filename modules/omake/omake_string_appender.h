@@ -14,20 +14,28 @@ private:
 	String buffer;
 	size_t str_len;
 	char32_t *ret_ptrw;
+	int _buffer_size;
+	int _inc_buffer_size;
 
 public:
-	OmakeStringAppender();
-	~OmakeStringAppender() = default;
+	OmakeStringAppender(const int buffer_size, const int inc_buffer_size);
+	//OmakeStringAppender(String arg, const int buffer_size, const int inc_buffer_size);
+	//OmakeStringAppender(const char* arg, const int buffer_size, const int inc_buffer_size);
+	~OmakeStringAppender();
+
+	void _grow_buffer(size_t len);
 
 	void operator+=(const String &p_str);
 	void operator+=(const char *p_cstr);
 
 	void replace(const String &p_key, const String &p_with);
 	void replace(const char* p_key, const char* p_with);
+	void _shift_buffer_left(int pos, int count);
+	void _shift_buffer_right(int pos, int count);
 	String get_string();
 
 	_FORCE_INLINE_ void clear() {
-		buffer.resize(1024);
+		buffer.resize(_buffer_size);
 		ret_ptrw = buffer.ptrw();
 		str_len = 0;
 	}

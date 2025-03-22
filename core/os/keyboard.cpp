@@ -361,7 +361,7 @@ bool keycode_has_unicode(Key p_keycode) {
 }
 
 String keycode_get_string(Key p_code) {
-	OmakeStringAppender codestr;
+	OmakeStringAppender codestr(1024, 10);
 	if ((p_code & KeyModifierMask::SHIFT) != Key::NONE) {
 		codestr += find_keycode_name(Key::SHIFT);
 		codestr += "+";
