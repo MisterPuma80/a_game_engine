@@ -1859,15 +1859,15 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 	bool is_adding_children = true;
 	while (!to_search.is_empty()) {
 		// Pop the next entry off the search stack
-		Node *entry = to_search[0];
-		to_search.remove_at(0);
+		Node *entry = to_search[to_search.size() - 1];
+		to_search.remove_at(to_search.size() - 1);
 
 		// Add all the children to the list to search
 		entry->_update_children_cache();
 		if (is_adding_children) {
 			Node *const *cptr = entry->data.children_cache.ptr();
 			int ccount = entry->data.children_cache.size();
-			for (int i = 0; i < ccount; i++) {
+			for (int i = ccount - 1; i >= 0; i--) {
 				if (p_owned && !cptr[i]->data.owner) {
 					continue;
 				}
@@ -1900,7 +1900,7 @@ TypedArray<Node> Node::find_children(const String &p_pattern, const String &p_ty
 		}
 
 		// Save it if it matches the pattern and at least one type
-		if (is_pattern_match && (is_type_match || is_script_type_match)) {
+		if (this != entry && is_pattern_match && (is_type_match || is_script_type_match)) {
 			matches.push_back(entry);
 		}
 	}
