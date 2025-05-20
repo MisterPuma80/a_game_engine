@@ -11,13 +11,15 @@ class Node;
 
 class OmakeStringAppender {
 private:
-	String buffer;
+	//String buffer;
 	size_t str_len;
 	char32_t *ret_ptrw;
 	int _buffer_size;
 	int _inc_buffer_size;
 
 public:
+	String buffer; // FIXME: This is public for the test suite to access. Can we make it friend?
+
 	OmakeStringAppender(const int buffer_size, const int inc_buffer_size);
 	//OmakeStringAppender(String arg, const int buffer_size, const int inc_buffer_size);
 	//OmakeStringAppender(const char* arg, const int buffer_size, const int inc_buffer_size);
@@ -28,10 +30,9 @@ public:
 	void operator+=(const String &p_str);
 	void operator+=(const char *p_cstr);
 
-	void replace(const String &p_key, const String &p_with);
-	void replace(const char* p_key, const char* p_with);
-	void _shift_buffer_left(int pos, int count);
-	void _shift_buffer_right(int pos, int count);
+	void replace(const String &p_key, const String &p_with, bool is_logging);
+	void _shift_buffer_left(int start_index, int end_index, int shift_count, bool is_logging);
+	void _shift_buffer_right(int start_index, int end_index, int shift_count, bool is_logging);
 	String get_string();
 
 	_FORCE_INLINE_ void clear() {

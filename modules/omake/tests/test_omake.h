@@ -7,7 +7,7 @@
 #include "modules/omake/omake_string_appender.h"
 
 namespace TestOmakeStringAppender {
-/*
+///*
 TEST_CASE("[Omake] OmakeStringAppender") {
 	uint64_t start = 0, end = 0, diff = 0, total_old = 0, total_new = 0;
 	constexpr int TOTAL_LOOPS = 10000;
@@ -30,12 +30,12 @@ TEST_CASE("[Omake] OmakeStringAppender") {
 		//fprintf(stderr, "String %s\n", appender.utf8().get_data());
 		//fprintf(stderr, "String %d\n", appender.length());
 	}
-	fprintf(stderr, "total_old %lu\n", total_old);
+	fprintf(stderr, "[Omake] OmakeStringAppender total_old %lu\n", total_old);
 	fflush(stderr);
 
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
 		start = Omake::get_cpu_ticks_nsec();
-		OmakeStringAppender appender(1024, 10);
+		OmakeStringAppender appender(1024, 4);
 		appender += "aa aa";
 		appender += String("bb bb");
 		appender += "cc cc";
@@ -51,7 +51,7 @@ TEST_CASE("[Omake] OmakeStringAppender") {
 		total_new += diff;
 		//fprintf(stderr, "OmakeStringAppender %d\n", result.length());
 	}
-	fprintf(stderr, "total_new %lu\n", total_new);
+	fprintf(stderr, "[Omake] OmakeStringAppender total_new %lu\n", total_new);
 	fflush(stderr);
 
 	// Make sure old is slower
@@ -81,7 +81,7 @@ TEST_CASE("[Omake] merge_strings") {
 		diff = end - start;
 		total_old += diff;
 	}
-	fprintf(stderr, "total_old %lu\n", total_old);
+	fprintf(stderr, "[Omake] merge_strings total_old %lu\n", total_old);
 	fflush(stderr);
 
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
@@ -96,7 +96,7 @@ TEST_CASE("[Omake] merge_strings") {
 		diff = end - start;
 		total_new += diff;
 	}
-	fprintf(stderr, "total_new %lu\n", total_new);
+	fprintf(stderr, "[Omake] merge_strings total_new %lu\n", total_new);
 	fflush(stderr);
 
 	// Make sure old is slower
@@ -126,7 +126,7 @@ TEST_CASE("[Omake] merge_strings2") {
 		diff = end - start;
 		total_old += diff;
 	}
-	fprintf(stderr, "total_old %lu\n", total_old);
+	fprintf(stderr, "[Omake] merge_strings2 total_old %lu\n", total_old);
 	fflush(stderr);
 
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
@@ -141,49 +141,164 @@ TEST_CASE("[Omake] merge_strings2") {
 		diff = end - start;
 		total_new += diff;
 	}
-	fprintf(stderr, "total_new %lu\n", total_new);
+	fprintf(stderr, "[Omake] merge_strings2 total_new %lu\n", total_new);
 	fflush(stderr);
 
 	// Make sure old is slower
 	CHECK(total_old > total_new);
 }
-*/
+//*/
 TEST_CASE("[Omake] replace") {
 	OmakeStringAppender app(1024, 10);
-	app += "aaaaBBBBccccDDDDeFFFFFBBBBgge";
-	CHECK(app.length() == 29);
-	CHECK(app.get_string().length() == 29);
-	CHECK(app.get_string() == String("aaaaBBBBccccDDDDeFFFFFBBBBgge"));
+	app += "123456";
+	CHECK(app.buffer[0] == '1');
+	CHECK(app.buffer[1] == '2');
+	CHECK(app.buffer[2] == '3');
+	CHECK(app.buffer[3] == '4');
+	CHECK(app.buffer[4] == '5');
+	CHECK(app.buffer[5] == '6');
+	CHECK(app.length() == 6);
+	CHECK(app.get_string().length() == 6);
+	CHECK(app.get_string() == String("123456"));
 	//fprintf(stderr, "!!! <<<%s>>>\n", app.get_string().utf8().get_data()); fflush(stderr);
 
-	app.replace("BBBB", "bb");
-	CHECK(app.length() == 25);
-	CHECK(app.get_string().length() == 25);
-	CHECK(app.get_string() == String("aaaabbccccDDDDeFFFFFbbgge"));
-	//fprintf(stderr, "!!! <<<%s>>>\n", app.get_string().utf8().get_data()); fflush(stderr);
+	app = OmakeStringAppender(1024, 10);
+	app += "123456";
+	CHECK(app.get_string() == String("123456"));
+	app._shift_buffer_right(0, 4, 2, false);
+	CHECK(app.buffer[0] == '1');
+	CHECK(app.buffer[1] == '2');
+	CHECK(app.buffer[2] == '1');
+	CHECK(app.buffer[3] == '2');
+	CHECK(app.buffer[4] == '3');
+	CHECK(app.buffer[5] == '4');
+	CHECK(app.get_string() == String("121234"));
 
-	app.replace("e", "EEEE");
-	CHECK(app.length() == 31);
-	CHECK(app.get_string().length() == 31);
-	CHECK(app.get_string() == String("aaaabbccccDDDDEEEEFFFFFbbggEEEE"));
-	//fprintf(stderr, "!!! <<<%s>>>\n", app.get_string().utf8().get_data()); fflush(stderr);
+	app = OmakeStringAppender(1024, 10);
+	app += "123456";
+	CHECK(app.get_string() == String("123456"));
+	app._shift_buffer_right(2, 4, 2, false);
+	CHECK(app.buffer[0] == '1');
+	CHECK(app.buffer[1] == '2');
+	CHECK(app.buffer[2] == '3');
+	CHECK(app.buffer[3] == '4');
+	CHECK(app.buffer[4] == '3');
+	CHECK(app.buffer[5] == '4');
+	CHECK(app.get_string() == String("123434"));
 
-	app.replace(String("bb"), String("BBBB"));
-	CHECK(app.length() == 35);
-	CHECK(app.get_string().length() == 35);
-	//fprintf(stderr, "!!! <<<%s>>>\n", app.get_string().utf8().get_data()); fflush(stderr);
-	CHECK(app.get_string() == String("aaaaBBBBccccDDDDEEEEFFFFFBBBBggEEEE"));
-
-	app.replace(String("EEEE"), String("e"));
-	CHECK(app.length() == 29);
-	CHECK(app.get_string().length() == 29);
-	CHECK(app.get_string() == String("aaaaBBBBccccDDDDeFFFFFBBBBgge"));
-	//fprintf(stderr, "!!! <<<%s>>>\n", app.get_string().utf8().get_data()); fflush(stderr);
-}
+	app = OmakeStringAppender(1024, 10);
+	app += "12_XYZ_34567";
+	CHECK(app.get_string() == String("12_XYZ_34567"));
+	app._shift_buffer_left(7, 12, 5, true);
 /*
+	fprintf(stderr, "!!!\"");
+	for (int i = 0; i <12; i++) {
+		fprintf(stderr, "%s", (String("") + app.buffer[i]).utf8().get_data());
+	}
+	fprintf(stderr, "\"\n"); fflush(stderr);
+*/
+	CHECK(app.buffer[0] == '1');
+	CHECK(app.buffer[1] == '2');
+	CHECK(app.buffer[2] == '3');
+	CHECK(app.buffer[3] == '4');
+	CHECK(app.buffer[4] == '5');
+	CHECK(app.buffer[5] == '6');
+	CHECK(app.buffer[6] == '7');
+	CHECK(app.buffer[7] == '3');
+	CHECK(app.buffer[8] == '4');
+	CHECK(app.buffer[9] == '5');
+	CHECK(app.buffer[10] == '6');
+	CHECK(app.buffer[11] == '7');
+	CHECK(app.get_string() == String("123456734567"));
+
+	app = OmakeStringAppender(1024, 10);
+	app += "123456";
+	CHECK(app.get_string() == String("123456"));
+	app._shift_buffer_left(2, 6, 2, true);
+/*
+	fprintf(stderr, "!!!\"");
+	for (int i = 0; i <6; i++) {
+		fprintf(stderr, "%s", (String("") + app.buffer[i]).utf8().get_data());
+	}
+	fprintf(stderr, "\"\n"); fflush(stderr);
+*/
+	CHECK(app.buffer[0] == '3');
+	CHECK(app.buffer[1] == '4');
+	CHECK(app.buffer[2] == '5');
+	CHECK(app.buffer[3] == '6');
+	CHECK(app.buffer[4] == '5');
+	CHECK(app.buffer[5] == '6');
+	CHECK(app.get_string() == String("345656"));
+
+
+	app = OmakeStringAppender(1024, 10);
+	app += "aBBBBzzBBBBxx";
+	//"aBBBBzzBBBBxx"
+	//"aBBzzBBBBxxxx"
+	CHECK(app.get_string() == String("aBBBBzzBBBBxx"));
+	app.replace("BBBB", "FU", false);
+/*
+	fprintf(stderr, "!!!\"");
+	for (int i = 0; i <13; i++) {
+		fprintf(stderr, "%s", (String("") + app.buffer[i]).utf8().get_data());
+	}
+	fprintf(stderr, "\"\n"); fflush(stderr);
+*/
+	CHECK(app.buffer[0] == 'a');
+	CHECK(app.buffer[1] == 'F');
+	CHECK(app.buffer[2] == 'U');
+	CHECK(app.buffer[3] == 'z');
+	CHECK(app.buffer[4] == 'z');
+	CHECK(app.buffer[5] == 'F');
+	CHECK(app.buffer[6] == 'U');
+	CHECK(app.buffer[7] == 'x');
+	CHECK(app.buffer[8] == 'x');
+	CHECK(app.length() == 9);
+	CHECK(app.get_string().length() == 9);
+	CHECK(app.get_string() == String("aFUzzFUxx"));
+
+	app.replace("FU", "THING", false);
+/*
+	fprintf(stderr, "!!!\"");
+	for (int i = 0; i <14; i++) {
+		fprintf(stderr, "%s", (String("") + app.buffer[i]).utf8().get_data());
+	}
+	fprintf(stderr, "\"\n"); fflush(stderr);
+*/
+	CHECK(app.length() == 15);
+	CHECK(app.get_string().length() == 15);
+	CHECK(app.get_string() == String("aTHINGzzTHINGxx"));
+
+	app.replace("z", "Z", false);
+
+	CHECK(app.length() == 15);
+	CHECK(app.get_string().length() == 15);
+	CHECK(app.get_string() == String("aTHINGZZTHINGxx"));
+
+	app.replace("a", "", false);
+	app.replace("Z", "", false);
+	app.replace("x", "P", false);
+
+	CHECK(app.length() == 12);
+	CHECK(app.get_string().length() == 12);
+	CHECK(app.get_string() == String("THINGTHINGPP"));
+
+
+	app.replace("PP", "", false);
+	CHECK(app.length() == 10);
+	CHECK(app.get_string().length() == 10);
+	CHECK(app.get_string() == String("THINGTHING"));
+
+
+	app.replace("THING", "", false);
+	CHECK(app.length() == 0);
+	CHECK(app.get_string().length() == 0);
+	CHECK(app.get_string() == String(""));
+}
+///*
 TEST_CASE("[Omake] replace benchmark") {
 	uint64_t start = 0, end = 0, diff = 0, total_old = 0, total_new = 0;
-	constexpr int TOTAL_LOOPS = 2;//10000; // FIXME
+	constexpr int TOTAL_LOOPS = 10000;
 
 	String str = "";
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
@@ -201,42 +316,38 @@ TEST_CASE("[Omake] replace benchmark") {
 		diff = end - start;
 		total_old += diff;
 	}
-	fprintf(stderr, "total_old %lu\n", total_old);
+	fprintf(stderr, "[Omake] replace benchmark total_old %lu\n", total_old);
 	fflush(stderr);
 
-	OmakeStringAppender app(29, 10);
+	OmakeStringAppender app(1024, 10);
 	for (int i = 0; i < TOTAL_LOOPS; i++) {
 		start = Omake::get_cpu_ticks_nsec();
 
-		app = OmakeStringAppender(29, 10);
+		app = OmakeStringAppender(1024, 10);
 		app += "aaaaBBBBccccDDDDeFFFFFBBBBgge";
-		CHECK(app.get_string().length() == 29);
+		//CHECK(app.get_string().length() == 29);
 		CHECK(app.get_string() == String("aaaaBBBBccccDDDDeFFFFFBBBBgge"));
 
-		app.replace("BBBB", "bb");
-		app.replace("e", "EEEE");
-		//fprintf(stderr, "app.get_string():<%s>\n", app.get_string().utf8().get_data());
-		//fflush(stderr);
-		CHECK(app.get_string().length() == 31);
+		app.replace("BBBB", "bb", false);
+		app.replace("e", "EEEE", false);
+		//CHECK(app.get_string().length() == 31);
 		CHECK(app.get_string() == String("aaaabbccccDDDDEEEEFFFFFbbggEEEE"));
 
-		app.replace(String("bb"), String("BBBB"));
-		app.replace(String("EEEE"), String("e"));
-		//fprintf(stderr, "app.get_string():<%s>\n", app.get_string().utf8().get_data());
-		//fflush(stderr);
+		app.replace(String("bb"), String("BBBB"), false);
+		app.replace(String("EEEE"), String("e"), false);
 		CHECK(app.get_string().length() == String("aaaaBBBBccccDDDDeFFFFFBBBBgge").length());
 
 		end = Omake::get_cpu_ticks_nsec();
 		diff = end - start;
 		total_new += diff;
 	}
-	fprintf(stderr, "total_new %lu\n", total_new);
+	fprintf(stderr, "[Omake] replace benchmark total_new %lu\n", total_new);
 	fflush(stderr);
 
 	// Make sure old is slower
 	CHECK(total_old > total_new);
 }
-*/
+//*/
 
 
 
